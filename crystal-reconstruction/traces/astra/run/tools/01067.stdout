@@ -1,0 +1,28 @@
+X7TYPED=63585
+Sun Sep  6 10:51:46 UTC 2026
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1418.31it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 457 seconds 333.8126904964447 best 106.489 q25 170.19907 median 214.90045 total 333.82154536247253
+GALLOP 1 Nref 457 seconds 316.49406456947327 best 106.4878 q25 145.65045 median 206.7586 total 650.5822925567627
+GALLOP 2 Nref 457 seconds 256.99681425094604 best 106.48722 q25 153.9617 median 197.5278 total 907.8090980052948
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X4f6fe58 117.37014770507812
+CONDITIONAL 0 [0] best 115.25947570800781 q25 473.91473 sec 250.45061016082764
+CONDITIONAL 1 [1] best 114.69178009033203 q25 446.67358 sec 447.80043387413025
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X35b7fbc 78.74118041992188
+CONDITIONAL 0 [1] best 77.879150390625 q25 87.54314 sec 228.27397179603577
+CONDITIONAL 1 [0] best 76.96517944335938 q25 509.48166 sec 425.393611907959
+PACKING_STAGE 2 7.249017384247828
+CYCLE 3 0 Rw 0.16158309193393008 chi2 1127.5194458095648 geom 25.132379130120974 LSQ 1259.6192673862638
+CYCLE 3 1 Rw 0.16184382848833204 chi2 1131.161197243562 geom 25.353494458293795 LSQ 1258.4339593761874
+CYCLE 3 2 Rw 0.1615604915277562 chi2 1127.2040586605103 geom 25.501691827524382 LSQ 1254.41301266132
+PACKING_STAGE 3 7.192775482946632
+FINISHED X019b9a4 0.1615604915277562

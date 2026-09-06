@@ -1,0 +1,292 @@
+349:    def quick_fit_profile(
+                    # Check for overlap with previous
+                    bbox = t.get_window_extent(renderer)
+                    # print(s, bbox)
+                    if last_bbox is not None:
+                        if bbox.overlaps(last_bbox):
+                            b = bbox.transformed(tdi)
+                            t.set_y(ihkl + b.height * 1.2)
+                    last_bbox = t.get_window_extent(renderer)
+            iphase += 1
+        self._last_hkl_plot_xlim = ax.get_xlim()
+        if self._plot_phase_labels is not None:
+            for iphase in range(len(self._plot_phase_labels)):
+                s = self._plot_phase_labels[iphase]
+                ax.text(
+                    0.005,
+                    0.995,
+                    "\n" * iphase + s,
+                    horizontalalignment="left",
+                    verticalalignment="top",
+                    transform=ax.transAxes,
+                    fontsize=6,
+                    color=self._colour_phases[iphase],
+                )
+
+    @property
+    def figure(self):
+        """
+        return: the figure used for plotting, or None. Note that
+            if you want to display it in a notebook using ipympl (aka
+            'matplotlib widget'), you should 'figure.canvas' to display
+            also the toolbar (zoom, etc...).
+        """
+        return self._plot_fig
+
+    def quick_fit_profile(
+        self,
+        pdiff=None,
+        auto_background=True,
+        init_profile=True,
+        plot=True,
+        zero=True,
+        constant_width=True,
+        width=True,
+        eta=True,
+        backgd=True,
+        cell=True,
+        anisotropic=False,
+        asym=False,
+        displ_transl=False,
+        verbose=True,
+    ):
+        if plot:
+            self.plot()
+        if auto_background:
+            # Add background if necessary
+            need_background = True
+            for i in range(self.GetNbPowderPatternComponent()):
+                if isinstance(
+                    self.GetPowderPatternComponent(i), PowderPatternBackground
+                ):
+                    need_background = False
+                    break
+            if need_background:
+                if verbose:
+                    print("No background, adding one automatically")
+                x = self.GetPowderPatternX()
+                bx = np.linspace(x.min(), x.max(), 20)
+                by = np.zeros(bx.shape)
+                b = self.AddPowderPatternBackground()
+                b.SetInterpPoints(bx, by)
+                # b.Print()
+                b.UnFixAllPar()
+                b.OptimizeBayesianBackground()
+        if pdiff is None:
+            # Probably just one diffraction phase, select it
+            for i in range(self.GetNbPowderPatternComponent()):
+                if isinstance(
+                    self.GetPowderPatternComponent(i), PowderPatternDiffraction
+                ):
+                    pdiff = self.GetPowderPatternComponent(i)
+                    break
+            if verbose:
+                print(
+                    "Selected PowderPatternDiffraction: ",
+                    pdiff.GetName(),
+                    " with Crystal: ",
+                    pdiff.GetCrystal().GetName(),
+                )
+        if init_profile:
+            pdiff.SetReflectionProfilePar(
+                ReflectionProfileType.PROFILE_PSEUDO_VOIGT, 0.0000001
+            )
+
+        pdiff.SetExtractionMode(True, True)
+        pdiff.ExtractLeBail(10)
+
+        if plot:
+            self.UpdateDisplay()
+        # LSQ
+        lsq = LSQ()
+        lsq.SetRefinedObj(self, 0, True, True)
+        lsq.PrepareRefParList(True)
+        # lsq.GetCompiledRefinedObj().Print()
+        lsqr = lsq.GetCompiledRefinedObj()
+
+        lsqr.FixAllPar()
+        # lsqr.Print()
+        # print(lsq.ChiSquare())
+        if zero:
+            lsq.SetParIsFixed("Zero", False)
+        if displ_transl:
+            lsq.SetParIsFixed("2ThetaDispl", True)
+            lsq.SetParIsFixed("2ThetaTransp", True)
+        if lsqr.GetNbParNotFixed():
+            lsq.SafeRefine(nbCycle=10, useLevenbergMarquardt=True, silent=True)
+            pdiff.ExtractLeBail(10)
+            lsq.SafeRefine(nbCycle=10, useLevenbergMarquardt=True, silent=True)
+            if plot:
+                self.UpdateDisplay()
+        if cell:
+            lsq.SetParIsFixed("a", False)
+            lsq.SetParIsFixed("b", False)
+            lsq.SetParIsFixed("c", False)
+            lsq.SetParIsFixed("alpha", False)
+            lsq.SetParIsFixed("beta", False)
+            lsq.SetParIsFixed("gamma", False)
+        if constant_width:
+            lsq.SetParIsFixed("W", False)
+        if lsqr.GetNbParNotFixed():
+            lsq.SafeRefine(nbCycle=10, useLevenbergMarquardt=True, silent=True)
+            pdiff.ExtractLeBail(10)
+            lsq.SafeRefine(nbCycle=10, useLevenbergMarquardt=True, silent=True)
+            if plot:
+                self.UpdateDisplay()
+
+        if width:
+            lsq.SetParIsFixed("U", False)
+            lsq.SetParIsFixed("V", False)
+        if lsqr.GetNbParNotFixed():
+            lsq.SafeRefine(nbCycle=10, useLevenbergMarquardt=True, silent=True)
+            pdiff.ExtractLeBail(10)
+            lsq.SafeRefine(nbCycle=10, useLevenbergMarquardt=True, silent=True)
+            if plot:
+                self.UpdateDisplay()
+
+        if eta:
+            lsq.SetParIsFixed("Eta0", False)
+        if lsqr.GetNbParNotFixed():
+            lsq.SafeRefine(nbCycle=10, useLevenbergMarquardt=True, silent=True)
+            pdiff.ExtractLeBail(10)
+            lsq.SafeRefine(nbCycle=10, useLevenbergMarquardt=True, silent=True)
+            if plot:
+                self.UpdateDisplay()
+
+        if eta:
+            lsq.SetParIsFixed("Eta1", False)
+        if lsqr.GetNbParNotFixed():
+            lsq.SafeRefine(nbCycle=10, useLevenbergMarquardt=True, silent=True)
+            pdiff.ExtractLeBail(10)
+            lsq.SafeRefine(nbCycle=10, useLevenbergMarquardt=True, silent=True)
+            if plot:
+                self.UpdateDisplay()
+
+        if asym:
+            lsq.SetParIsFixed("Asym0", False)
+            lsq.SetParIsFixed("Asym1", False)
+        if lsqr.GetNbParNotFixed():
+            lsq.SafeRefine(nbCycle=10, useLevenbergMarquardt=True, silent=True)
+            pdiff.ExtractLeBail(10)
+            lsq.SafeRefine(nbCycle=10, useLevenbergMarquardt=True, silent=True)
+            if plot:
+                self.UpdateDisplay()
+        if backgd:
+            for i in range(self.GetNbPowderPatternComponent()):
+                if isinstance(
+                    self.GetPowderPatternComponent(i), PowderPatternBackground
+                ):
+                    b = self.GetPowderPatternComponent(i)
+                    lsq.SetParIsFixed(refpartype_scattdata_background, False)
+                    b.FixParametersBeyondMaxresolution(lsqr)
+                    # lsqr.Print()
+                    lsq.SafeRefine(
+                        nbCycle=10, useLevenbergMarquardt=True, silent=True
+                    )
+                    break
+        if verbose:
+            print(
+                "Profile fitting finished.\n"
+                "Remember to use SetExtractionMode(False) on the PowderPatternDiffraction object\n"
+                "to disable profile fitting and optimise the structure."
+            )
+
+    def get_background(self):
+        """Access the background component.
+
+        :return: the PowderPatternBackground for this powder pattern, or
+            None
+        """
+        for i in range(self.GetNbPowderPatternComponent()):
+            if (
+                self.GetPowderPatternComponent(i).GetClassName()
+                == "PowderPatternBackground"
+            ):
+                return self.GetPowderPatternComponent(i)
+
+    def get_crystalline_components(self):
+        """Get the crystalline phase for this powder pattern :return: a
+        list of the PowderPatternDiffraction components."""
+        vc = []
+        for i in range(self.GetNbPowderPatternComponent()):
+            if (
+                self.GetPowderPatternComponent(i).GetClassName()
+                == "PowderPatternDiffraction"
+            ):
+                vc.append(self.GetPowderPatternComponent(i))
+        return vc
+
+    def _on_mouse_event(self, event):
+        if event.dblclick:
+            # This does not work in a notebook
+            self._plot_xlim = None
+            self._plot_ylim = None
+            self.plot()
+
+    def _on_draw_event(self, event):
+        if (
+            self._plot_hkl
+            and self._last_hkl_plot_xlim is not None
+            and len(self._plot_fig.axes)
+        ):
+            ax = self._plot_fig.axes[0]
+            self._plot_xlim = ax.get_xlim()
+            dx1 = abs(self._last_hkl_plot_xlim[0] - self._plot_xlim[0])
+            dx2 = abs(self._last_hkl_plot_xlim[1] - self._plot_xlim[1])
+            if max(dx1, dx2) > 0.1 * (
+                self._last_hkl_plot_xlim[1] - self._last_hkl_plot_xlim[0]
+            ):
+                # Need to update the hkl list
+                self._do_plot_hkl()
+
+    def qpa(self, verbose=False):
+        """Get the quantitative phase analysis for the current powder
+        pattern, when multiple crystalline phases are present.
+
+        :param verbose: if True, print the Crystal names and their
+            weight percentage.
+        :return: a dictionary with the PowderPatternDiffraction object
+            as key, and the weight percentages as value.
+        """
+        res = {}
+        szmv_sum = 0
+        for pdiff in self.get_crystalline_components():
+            if not isinstance(pdiff, PowderPatternDiffraction):
+                continue
+            c = pdiff.GetCrystal()
+            s = self.GetScaleFactor(pdiff)
+            m = c.GetWeight()
+            z = c.GetSpaceGroup().GetNbSymmetrics()
+            v = c.GetVolume()
+            # print("%25s: %12f, %10f, %3d, %10.2f" % (c.GetName(), s, m, z, v))
+            res[pdiff] = s * z * m * v
+            szmv_sum += s * z * m * v
+
+        if verbose:
+            print("Weight percentages:")
+        for k, v in res.items():
+            res[k] = v / szmv_sum
+            if verbose:
+                print(
+                    "%25s: %6.2f%%" % (k.GetCrystal().GetName(), res[k] * 100)
+                )
+        return res
+
+
+def create_powderpattern_from_cif(file):
+    """
+    Create a crystal object from a CIF file or URL
+    Example from Acta Cryst. (2012). B68, 407-411 (https://doi.org/10.1107/S0108768112019994),
+    data hosted at CCDC:
+        c=create_crystal_from_cif('https://doi.org/10.1107/S0108768112019994/ps5016sup1.cif')
+        p=create_powderpattern_from_cif('https://doi.org/10.1107/S0108768112019994/ps5016Isup3.rtv')
+
+    :param file: the filename/URL or python file object (need to open with mode='rb')
+                 If the string begins by 'http' it is assumed that it is an URL instead,
+                 e.g. from the crystallography open database
+    :return: the imported PowderPattern
+    :raises: ObjCrystException - if no PowderPattern object can be imported
+    """
+    p = PowderPattern()
+    if isinstance(file, str):
+        if len(file) > 4:

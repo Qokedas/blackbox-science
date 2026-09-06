@@ -1,0 +1,8 @@
+12469 cpu=2115s python solve.py Xf8ac963 16.26352 9.32080 11.39244 90 90 90 P 21 21 21 --nsteps 8000000 --
+12471 cpu=2111s python solve.py Xf8ac963 16.26352 9.32080 11.39244 90 90 90 P 21 21 21 --nsteps 8000000 --
+12659 cpu=1590s python solve.py X35b7fbc 5.7074 33.1312 12.7644 90 90 90 P 21 21 21 --nsteps 5000000 --nru
+12843 cpu=11s python solve.py Xd4c1a35 12.0029 11.7622 24.2763 90 90 90 P 21 21 21 --zprime 2 --nsteps 6
+12848 cpu=0s timeout --signal=TERM --kill-after=5s 30 bash -lc cd /app/work; for p in /proc/[0-9]*; do 
+12854 cpu=0s bash -lc cd /app/work; for p in /proc/[0-9]*; do c=$(tr '\0' ' ' < $p/cmdline 2>/dev/null)
+seed 1977890205
+seed 1977890884

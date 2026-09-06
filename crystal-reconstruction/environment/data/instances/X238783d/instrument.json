@@ -1,0 +1,24 @@
+{
+ "radiation": {
+  "type": "Cu K1",
+  "wavelength_A": 1.54056,
+  "wavelengths_A": [
+   1.54056
+  ],
+  "wavelength_weights": null,
+  "monochromator": "\nprimary focussing Ge 111",
+  "source": "sealed x-ray tube"
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 298.0,
+ "two_theta_range_deg": [
+  2.0,
+  69.0
+ ],
+ "n_points": 6701,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}

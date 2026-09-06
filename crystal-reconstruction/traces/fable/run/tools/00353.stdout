@@ -1,0 +1,11 @@
+LeBail Rwp=0.0865 chi2=7467.3 cell= 12.002651065777997 11.762111883798578 24.27584746138996 90.0
+  conformers: 3 distinct; energies [105.0, 106.6, 108.0]; using rank 0 (E=105.0)
+  molecule mol0_0: 24 atoms, 26 bonds, 40 angles, 55 dihedral restraints, 3 free torsions
+  conformers: 3 distinct; energies [105.0, 106.6, 108.0]; using rank 0 (E=105.0)
+  molecule mol0_1: 24 atoms, 26 bonds, 40 angles, 55 dihedral restraints, 3 free torsions
+LeBail Rwp=0.0622 chi2=7372.6 cell= 16.263816200417317 9.321172785603734 11.392715747178476 90.0
+  conformers: 27 distinct; energies [23.1, 23.3, 26.1, 26.3, 26.5, 28.3]; using rank 0 (E=23.1)
+  molecule mol0_0: 21 atoms, 22 bonds, 30 angles, 25 dihedral restraints, 4 free torsions
+run 0: cost=12569.1 Rwp=0.1329 chi2=28716.8 t=6630s
+polish: Rwp 0.1321 -> 0.1260 (accepted) restraint cost=0.00
+RESULTS Xd8634a2 P -1 [(12569.142029740848, 0.1329465934734315, 28716.80136087895)]

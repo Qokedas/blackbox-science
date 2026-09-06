@@ -1,0 +1,59 @@
+18:  <PowderPattern Name="X9af54a2">
+20:    <Par Refined="0" Limited="1" Min="-2.86479" Max="2.86479" Name="2ThetaDisplacement">0</Par>
+21:    <Par Refined="0" Limited="1" Min="-2.86479" Max="2.86479" Name="2ThetaTransparency">0</Par>
+28:      <Par Refined="0" Limited="1" Min="0.05" Max="20" Name="Wavelength">0.46873</Par>
+32:    <PowderPatternCrystal Name="" Crystal="X9af54a2" IgnoreImagScattFact="1">
+44:      <DiffractionDataSingleCrystal Name="" Crystal="X9af54a2">
+50:          <Par Refined="0" Limited="1" Min="0.05" Max="20" Name="Wavelength">1</Par>
+279:      </DiffractionDataSingleCrystal>
+280:    </PowderPatternCrystal>
+282:    <PowderPatternComponent Scale="1.75778e-05" Name=""/>
+284:    <PowderPatternBackground Name="">
+320:    </PowderPatternBackground>
+322:    <PowderPatternComponent Scale="1" Name=""/>
+12307:  </PowderPattern>
+{
+ "chi2": 104.92928314208984,
+ "Rint": 0.3239278980608028,
+ "iteration": 28,
+ "elapsed": 1711.2944612503052
+}{
+ "chi2": 123.1941146850586,
+ "Rint": 0.3509901917220175,
+ "iteration": 9,
+ "elapsed": 2527.305342435837
+}CYCLE 1 2 Rw 0.19933089061013878 chi2 2100.4547477222095 geom 25.453664961709627 LSQ 2216.350417036577
+PACKING_STAGE 1 0.0
+CYCLE 2 0 Rw 0.19770581503016058 chi2 2066.3457986935387 geom 18.57523391937471 LSQ 2183.848187053317
+CYCLE 2 1 Rw 0.1941325320094094 chi2 1992.3276077233631 geom 12.450711485924908 LSQ 2103.0165843144578
+CYCLE 2 2 Rw 0.19283953036114573 chi2 1965.8765644691043 geom 12.682103366067192 LSQ 2076.0759143059395
+PACKING_STAGE 2 0.0
+[
+ {
+  "smiles": "O[C@](CC[NH+]1CCCCC1)(c1ccccc1)C1CCCCC1",
+  "elements": [
+   "O",
+   "C",
+   "C",
+   "C",
+   "N",
+   "C",
+   "C",
+   "C",
+   "C",
+   "C",
+ATTACHED_H_SCATTERING 36 heavy atoms 27 H atoms
+PACKING_ENABLED 36 atoms 1784 pair terms coefficient 70.0 active_only True
+HBOND_PRIOR 2 donors 7 acceptors coefficient 80.0
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+AROMATIC_PLANARITY 0
+LSQ_PACKING 40 atoms 2204 terms sigma 0.01 cost 4691.210914642314
+EXTENDED_BACKGROUND 0.13332375024668677
+CYCLE 0 0 Rw 0.14142562652922377 chi2 5800.886819472749 geom 594.672552257731 LSQ 8586.476425815816
+CYCLE 0 1 Rw 0.14012633527338092 chi2 5694.789785563745 geom 594.672552257731 LSQ 8285.560489305597
+CYCLE 0 2 Rw 0.140506401206802 chi2 5725.723740215315 geom 594.672552257731 LSQ 7892.425933306265
+PACKING_STAGE 0 1348.7666874926686
+CYCLE 1 0 Rw 0.13871381083557074 chi2 5580.557348790531 geom 163.24617878053354 LSQ 6303.60447392688

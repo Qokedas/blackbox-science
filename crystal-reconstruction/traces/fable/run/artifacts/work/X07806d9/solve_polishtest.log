@@ -1,0 +1,14 @@
+step ['Zero'] Rwp=0.3671
+step ['W'] Rwp=0.1871
+step ['a', 'b', 'c', 'alpha', 'beta', 'gamma'] Rwp=0.1558
+step ['U', 'V'] Rwp=0.1504
+step ['Eta0'] Rwp=0.1405
+step ['Eta1'] Rwp=0.1398
+step ['background'] Rwp=0.1246
+step ['Zero', 'W', 'U', 'V', 'Eta0', 'background', 'a', 'b', 'c', 'alpha', 'beta', 'gamma'] Rwp=0.1219
+LeBail Rwp=0.1200 chi2=3069076.8 cell= 16.855737219922705 8.206845327962547 11.219756052688085 90.0
+  molecule mol0_0: 9 atoms, 8 bonds, 9 angles, 0 dihedral restraints, 4 free torsions
+  single atom Cl
+run 0: cost=1366701.3 Rwp=0.1448 chi2=4546828.6 t=43s
+polish error name 'LSQ' is not defined
+RESULTS X07806d9 P b c a [(1366701.3214948913, 0.14477353285638314, 4546828.616406985)]

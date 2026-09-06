@@ -1,0 +1,335 @@
+
+Run( (SpaceGroupExplorer)arg1, (str)spg [, (bool)fitprofile=False [, (bool)verbose=False [, (bool)restore_orig=False [, (bool)update_display=False [, (float)relative_length_tolerance=0.01 [, (float)absolute_angle_tolerance_degree=1]]]]]]) -> SPGScore :
+
+    C++ signature :
+        ObjCryst::SPGScore Run(ObjCryst::SpaceGroupExplorer {lvalue},std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > [,bool=False [,bool=False [,bool=False [,bool=False [,double=0.01 [,double=1]]]]]])
+# coding: utf-8
+# Copyright (c) Mark Spillman.
+# Distributed under the terms of the GPL v3 License.
+"""
+Provides functions for local optimisation
+"""
+
+import time
+import torch
+import numpy as np
+import matplotlib.pyplot as plt
+import torch_optimizer as t_optim
+
+from gallop import chi2
+from gallop import tensor_prep
+from gallop import files
+from gallop import intensities
+from gallop import zm_to_cart
+from gallop.optim import restraints
+
+
+
+
+def get_minimiser_settings(Structure):
+    """
+    Get a dictionary of the settings used for the minimise function
+    so it can be easily modified and passed to the function.
+
+    Args:
+        Structure (class): GALLOP structure
+
+    Returns:
+        dict: Dictionary of the settings for the minimise function
+            Keys = n_reflections, include_dw_factors, chi2_solved, n_iterations,
+            n_cooldown, learning_rate, learning_rate_schedule, verbose,
+            use_progress_bar, print_every, check_min, dtype, device,
+            optimizer, loss, eps, save_CIF, streamlit, torsion_shadowing,
+            Z_prime, use_restraints, include_PO, PO_axis
+    """
+    settings = {}
+    settings["n_reflections"] = len(Structure.hkl)
+    settings["include_dw_factors"] = True
+    settings["chi2_solved"] = None
+    settings["n_iterations"] = 500
+    settings["n_cooldown"]   = 100
+    settings["learning_rate"] = 5e-2
+    settings["learning_rate_schedule"] = "1cycle"
+    settings["verbose"] = False
+    settings["use_progress_bar"] = True
+    settings["print_every"] = 10
+    settings["check_min"] = 100
+    settings["dtype"] = torch.float32
+    settings["device"] = None
+    settings["optimizer"] = "adam"
+    settings["loss"] = "xlogx"
+    settings["eps"] = 1e-8
+    settings["save_CIF"] = True
+    settings["streamlit"] = False
+    settings["torsion_shadowing"] = False
+    settings["Z_prime"] = 1
+    settings["use_restraints"] = False
+    settings["include_PO"] = False
+    settings["PO_axis"] = [0, 0, 1]
+    return settings
+
+
+def adjust_lr_1_over_sqrt(optimizer, iteration, learning_rate):
+    """
+    Decay the learning_rate used in the local optimizer by 1/sqrt(iteration+1)
+    Called by the minimise function
+
+    Args:
+        optimizer (pytorch optimizer): A pytorch compatible optimizer
+        iteration (int): The current iteration
+        learning_rate (float): The initial learning rate used
+
+    Returns:
+        float: the new learning rate
+    """
+    lr = learning_rate * 1/np.sqrt((iteration)+1.)
+    #lr = learning_rate * 1/np.sqrt((iteration/2.)+1.)
+    for param_group in optimizer.param_groups:
+        param_group['lr'] = lr
+    return lr
+
+def adjust_lr_1_cycle(optimizer, iteration, low, high, final, num_iterations,
+                        upperb1=0.95, lowb1=0.85, upperb2=0.9, lowb2=0.9):
+    """
+    See here: https://sgugger.github.io/the-1cycle-policy.html
+
+    Args:
+        optimizer (pytorch optimizer): the optimizer object
+        iteration (int): current learning rate
+        low (float): initial learning rate
+        high (float): maximum learning rate
+        final (float): the cooldown iterations at the end of the run
+        num_iterations (int): the number of iterations that will be performed
+        upperb1 (float, optional): maximum beta1 / momentum. Defaults to 0.95.
+        lowb1 (float, optional): minimum beta1 / momentum. Defaults to 0.85.
+        upperb2 (float, optional): maximum beta2. Defaults to 0.9.
+        lowb2 (float, optional): minimum beta2. Defaults to 0.9.
+
+    Returns:
+        float: the learning rate
+    """
+    increment = (high-low)/(final//2)
+    b1_increment = (upperb1 - lowb1) / (final//2)
+    b2_increment = (upperb2 - lowb2) / (final//2)
+    final_increment = low/(num_iterations-final)
+    lr, b1, b2 = 0, 0, 0
+    if iteration < final//2:
+        lr = increment*(iteration)+low
+        b1 = upperb1 - b1_increment*iteration
+        b2 = lowb2 + b2_increment*iteration
+    elif iteration <= final:
+        lr = ((increment*(final//2))+low) - (increment*((iteration)-(final//2)))
+        b1 = lowb1 + b1_increment*(iteration-(final//2))
+        b2 = upperb2 - b2_increment*(iteration-(final//2))
+    else:
+        lr = low - (final_increment*(iteration-final))
+        b1 = upperb1
+        b2 = lowb2
+    for i, param_group in enumerate(optimizer.param_groups):
+        if i == 0:
+            param_group['lr'] = lr
+        else:
+            # Slower updates for second parameter group, i.e. PO factor
+            param_group['lr'] = lr/10
+        if 'betas' in param_group.keys():
+            if len(param_group['betas']) <= 2:
+                param_group['betas'] = [b1, b2]
+            else:
+                param_group['betas'][0] = b1
+                param_group['betas'][0] = b2
+        param_group["momentum"] = b1
+    return lr
+
+
+def get_loss(chi_2, restraint_penalty, loss, restraint_weight_type):
+    """Calculate the loss function - what is actually optimised by pytorch
+
+    Args:
+        chi_2 (Tensor): The chi2 for the current crystal structures
+        restraint_penalty (Tensor): The penalty for restraints (if used) or 0
+        loss (str): How to combine the chi2s and restraints to get a single
+            scalar
+        restraint_weight_type (str): How to weight the restraint penalties
+
+    Returns:
+        [type]: [description]
+    """
+    # PyTorch expects a single value for backwards pass.
+    # Need a function to convert all of the chi_2 values into a scalar
+    if "chi2" in restraint_weight_type.lower():
+        if "min" in restraint_weight_type.lower():
+            with torch.no_grad():
+                chi2_no_grad = chi_2.min()
+        else:
+            with torch.no_grad():
+                chi2_no_grad = chi_2.clone().detach()
+    if isinstance(loss, str):
+        if loss.lower() == "sse":
+            if restraint_weight_type == "constant":
+                L = ((chi_2 + restraint_penalty)**2).sum()
+            else:
+                L = ((chi_2 + chi2_no_grad*restraint_penalty)**2).sum()
+        elif loss.lower() == "sum":
+            if restraint_weight_type == "constant":
+                L = (chi_2 + restraint_penalty).sum()
+            else:
+                L = (chi_2 + chi2_no_grad*restraint_penalty).sum()
+        elif loss.lower() == "xlogx":
+            if restraint_weight_type == "constant":
+                L = ((torch.log(chi_2)*chi_2) + restraint_penalty).sum()
+            else:
+                L = ((torch.log(chi_2)*chi_2) + chi2_no_grad*restraint_penalty).sum()
+
+    else:
+        if loss is None:
+            # Default to the sum operation if loss is None
+# coding: utf-8
+# Copyright (c) Mark Spillman.
+# Distributed under the terms of the GPL v3 License.
+"""
+Provides functions for working with GSAS files.
+"""
+import pickle
+import numpy as np
+import pymatgen as pmg
+
+
+def get_data_from_GSAS_gpx(filename, percentage_cutoff_inv_cov=20):
+    """
+    Read in a GSAS project file (.gpx) to obtain numpy arrays of:
+        - hkls
+        - peak intensities
+        - inverse covariance matrix
+    As well as:
+        - pymatgen lattice
+        - pymatgen Space group
+
+    Args:
+        filename (str): [description]
+        percentage_cutoff_inv_cov (int, optional):  the minimum percentage
+                        correlation to be included in the inverse
+                        covariance matrix. Defaults to 20 to be
+                        comparable with DASH, however, this doesn't
+                        affect the speed of GALLOP so can be freely
+                        set without impacting performance.
+    Returns:
+        dict: A dictionary with the required information
+    """
+    data, names = IndexGPX(filename)
+
+    instrument_params = data[names[-2][0]][names[-2][4]][0]
+    if "Lam" in instrument_params.keys():
+        wavelength = instrument_params["Lam"][1]
+    elif "Lam1" in instrument_params.keys():
+        wavelength = instrument_params["Lam1"][1]
+
+    space_group = data["Phases"][names[-1][-1]]["General"]["SGData"]["SpGrp"]
+    cell = data["Phases"][names[-1][-1]]["General"]["Cell"][1:-1]
+
+    hkl, dspacing, I, sigma = [], [], [], []
+    for d in data["Phases"][names[-1][-1]]["Pawley ref"]:
+        hkl.append(d[:3])
+        dspacing.append(d[4])
+        I.append(d[-2])
+        sigma.append(d[-1])
+
+    hkl = np.array(hkl).astype(int)
+    dspacing = np.array(dspacing)
+    I = np.array(I)
+    sigma = np.array(sigma)
+
+    names_subset = data["Covariance"]["data"]["varyList"]
+    names_all = data["Covariance"]["data"]["varyListStart"]
+    cov_subset = data["Covariance"]["data"]["covMatrix"]
+
+    intensities, inverse_covariance_matrix = get_GSAS_inv_cov_matrix(cov_subset,
+                            names_all, names_subset, I,
+                            percentage_cutoff_inv_cov=percentage_cutoff_inv_cov)
+    data = {}
+    data["wavelength"] = wavelength
+    data["hkl"] = hkl
+    data["intensities"] = intensities
+    data["dspacing"] = dspacing
+    data["inverse_covariance_matrix"] = inverse_covariance_matrix
+    data["lattice"] = pmg.core.Lattice.from_parameters(cell[0], cell[1], cell[2],
+                                                    cell[3], cell[4], cell[5])
+    data["space_group"] = pmg.symmetry.groups.SpaceGroup(space_group)
+    data["sg_number"] = int(data["space_group"].int_number)
+    data["original_sg_number"] = data["sg_number"]
+    return data
+
+def IndexGPX(GPXfile):
+    '''
+    Pinched from the GSAS-II source code, and modified to allow it to work
+    without needing extra GSAS related imports. See original source here:
+    https://gsas-ii.readthedocs.io/en/latest/_modules/GSASIIstrIO.html#IndexGPX
+
+    Original docstring below:
+    >    Create an index to a GPX file, optionally the file into memory.
+    >    The byte size of the GPX file is saved. If this routine is called
+    >    again, and if this size does not change, indexing is not repeated
+    >    since it is assumed the file has not changed (this can be overriden
+    >    by setting read=True).
+    >
+    >    :param str GPXfile: full .gpx file name
+    >    :returns: Project,nameList if read=, where
+    >
+    >     * Project (dict) is a representation of gpx file following the GSAS-II
+    >       tree structure for each item: key = tree name (e.g. 'Controls',
+    >       'Restraints', etc.), data is dict
+    >     * nameList (list) has names of main tree entries & subentries used to
+    >       reconstruct project file
+    '''
+    gpxIndex = {}
+    gpxNamelist = []
+    fp = open(GPXfile,'rb')
+    Project = {}
+    try:
+        while True:
+            pos = fp.tell()
+            data = pickle.load(fp)
+            datum = data[0]
+            gpxIndex[datum[0]] = pos
+            Project[datum[0]] = {'data':datum[1]}
+            gpxNamelist.append([datum[0],])
+            for datus in data[1:]:
+                Project[datum[0]][datus[0]] = datus[1]
+                gpxNamelist[-1].append(datus[0])
+    except EOFError:
+        pass
+    fp.close()
+    return Project, gpxNamelist
+
+def get_GSAS_inv_cov_matrix(cov_subset, names_all, names_subset, I,
+                                                percentage_cutoff_inv_cov=20):
+    """
+<ObjCryst Date="2026-09-06T03:43:11GMT" Revision="2024001">
+  <Crystal Name="X3f4781b" SpaceGroup="P 1 21 1">
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="a">10.4344</Par>
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="b">15.3366</Par>
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="c">12.6334</Par>
+    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="alpha">90</Par>
+    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="beta">113.312</Par>
+    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="gamma">90</Par>
+    <Option Name="Constrain Lattice to SpaceGroup Symmetry" Choice="0" ChoiceName="Yes (Default)"/>
+
+    <Option Name="Use Dynamical Occupancy Correction" Choice="1" ChoiceName="Yes"/>
+
+    <Option Name="Display Enantiomer" Choice="0" ChoiceName="No"/>
+
+
+
+  </Crystal>
+  <PowderPattern Name="X3f4781b">
+    <Par Refined="0" Limited="1" Min="-2.86479" Max="2.86479" Name="Zero">0.0429704</Par>
+    <Par Refined="0" Limited="1" Min="-2.86479" Max="2.86479" Name="2ThetaDisplacement">0</Par>
+    <Par Refined="0" Limited="1" Min="-2.86479" Max="2.86479" Name="2ThetaTransparency">0</Par>
+    <Option Name="Use Integrated Profiles" Choice="0" ChoiceName="Yes (recommended)"/>
+
+    <Radiation>
+      <Option Name="Radiation" Choice="1" ChoiceName="X-Ray"/>
+      <Option Name="Spectrum" Choice="0" ChoiceName="Monochromatic"/>
+      <LinearPolarRate>0</LinearPolarRate>
+      <Par Refined="0" Limited="1" Min="0.05" Max="20" Name="Wavelength">1.54059</Par>
+    </Radiation>
+    <MaxSinThetaOvLambda>0.25</MaxSinThetaOvLambda>

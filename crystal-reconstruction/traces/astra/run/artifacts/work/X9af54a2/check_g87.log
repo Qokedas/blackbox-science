@@ -1,0 +1,13 @@
+/app/work/submit.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+X9af54a2 Nat 76 molecule sizes [18, 18, 18, 18, 1, 1, 1, 1]
+  component COc1ccc(OC)c([C@H](O)CNC(=O)C[NH3+])c1 matches 4
+  component [Cl-] matches 4
+  bond range 1.224358292705737 1.559244872642821
+  min intermolecular distance 2.5218313935532364
+/app/work/check_stereo.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(fn).parse_structures(primitive=False)[0];s.remove_species(['H']);rad=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<1.2*(rad[:,None]+rad[None,:]));g=nx.from_numpy_array(A)
+X9af54a2 root 0 expected {9: 'S'} actual {9: 'S'} OK True
+X9af54a2 root 1 expected {9: 'S'} actual {9: 'S'} OK True
+X9af54a2 root 24 expected {9: 'S'} actual {9: 'S'} OK True
+X9af54a2 root 25 expected {9: 'S'} actual {9: 'S'} OK True

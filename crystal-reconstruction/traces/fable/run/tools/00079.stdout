@@ -1,0 +1,51 @@
+data_cryst
+
+_computing_structure_solution     'FOX http://objcryst.sourceforge.net'
+
+_symmetry_space_group_name_H-M    'P b c a'
+_symmetry_space_group_name_Hall   '-P 2ac 2ab'
+
+_cell_length_a    16.85574
+_cell_length_b     8.20685
+_cell_length_c    11.21976
+_cell_angle_alpha  90.000
+_cell_angle_beta   90.000
+_cell_angle_gamma  90.000
+_cell_volume      1552.06
+loop_
+    _atom_site_label
+    _atom_site_type_symbol
+    _atom_site_fract_x
+    _atom_site_fract_y
+    _atom_site_fract_z
+    _atom_site_U_iso_or_equiv
+    _atom_site_occupancy
+    _atom_site_adp_type
+    N1         N         0.948585  0.341920  0.331047  0.012665 1.0000 Uiso
+    C1         C         0.871105  0.416964  0.307898  0.012665 1.0000 Uiso
+    C2         C         0.876840  0.519831  0.192923  0.012665 1.0000 Uiso
+    O1         O         0.943952  0.541211  0.147105  0.012665 1.0000 Uiso
+    C3         C         0.799008  0.567103  0.131186  0.012665 1.0000 Uiso
+    C4         C         0.814300  0.675492  0.023232  0.012665 1.0000 Uiso
+    C5         C         0.842503  0.580450 -0.086689  0.012665 1.0000 Uiso
+    O2         O         0.867012  0.641988 -0.180158  0.012665 1.0000 Uiso
+    O3         O         0.831645  0.421555 -0.076685  0.012665 1.0000 Uiso
+    Cl_1_0     Cl        0.911684  0.412883  0.616965  0.012665 1.0000 Uiso
+
+#  Dynamical occupancy corrections found by ObjCryst++:
+#  values below 1. (100%) indicate a correction,
+#  which means either that the atom is on a special position,
+#  or that it is overlapping with another identical atom.
+#   N1               : 1.0000
+#   C1               : 1.0000
+#   C2               : 1.0000
+#   O1               : 1.0000
+#   C3               : 1.0000
+#   C4               : 1.0000
+#   C5               : 1.0000
+#   O2               : 1.0000
+#   O3               : 1.0000
+#   Cl_1_0           : 1.0000
+#
+X07806d9: 80 atoms in cell; fragments=16; matched counts=[8, 8] (expected ratio [1, 1]); unmatched=0; OK=True
+   min interatomic distance in cell: 1.24 A

@@ -1,0 +1,66 @@
+Xeb393f9 Nat 37 molecule sizes [27, 10]
+  component O=C(O)CCC[NH+]1CCC(O[C@@H](c2ccc(Cl)cc2)c2ccccn2)CC1 matches 1
+  component O=S(=O)([O-])c1ccccc1 matches 1
+  bond range 1.2274242990600102 1.845194410166988
+  min intermolecular distance 2.733136761351062
+SUBMITTED Xeb393f9
+X019b9a4 P -1 {'a': 8.445, 'b': 10.922, 'c': 18.442, 'alpha': 90.288, 'beta': 94.006, 'gamma': 106.233} 
+   [(1, 'CC(=O)C(=NNc1ccc(C(=O)Nc2ccc(C(N)=O)cc2)cc1)C(=O)Nc1ccc2[nH]c(=O)[nH]c2c1'), (1, 'CN1CCCC1=O'), (1, 'C[S+](C)[O-]')]
+X07806d9 P b c a {'a': 8.211, 'b': 11.225, 'c': 16.863, 'alpha': 90.0, 'beta': 90.0, 'gamma': 90.0} *
+   [(1, '[NH3+]CC(=O)CCC(=O)O'), (1, '[Cl-]')]
+X13023e3 P 1 21 1 {'a': 6.022, 'b': 5.529, 'c': 27.995, 'alpha': 90.0, 'beta': 93.115, 'gamma': 90.0} *
+   [(1, 'CC(C)Cc1ccc([C@@H](C)C(=O)O)cc1'), (1, 'NC(=O)c1cccnc1')]
+X14a2b08 P -1 {'a': 5.099, 'b': 11.933, 'c': 21.28, 'alpha': 85.24, 'beta': 87.633, 'gamma': 87.024} 
+   [(1, 'COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1'), (1, 'O=C1CCCCCN1')]
+X1a56c78 P 2 2 21 {'a': 5.906, 'b': 11.254, 'c': 30.09, 'alpha': 90.0, 'beta': 90.0, 'gamma': 90.0} 
+   [(1, 'O[C@](CC[NH+]1CCCCC1)(c1ccccc1)C1CCCCC1'), (1, '[Cl-]')]
+X1db5091 P 1 21/c 1 {'a': 4.903, 'b': 40.942, 'c': 12.887, 'alpha': 90.0, 'beta': 100.36, 'gamma': 90.0} 
+   [(1, 'COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1'), (1, 'NC(=O)c1cccnc1')]
+X2327841 P 1 21 1 {'a': 25.048, 'b': 4.934, 'c': 12.393, 'alpha': 90.0, 'beta': 90.786, 'gamma': 90.0} *
+   [(1, 'CCCCCCCCCCCCCCCCCCCCCC[C@@H](C)CCCCCCCC')]
+X238783d P 21 21 21 {'a': 8.847, 'b': 20.133, 'c': 23.942, 'alpha': 90.0, 'beta': 90.0, 'gamma': 90.0} 
+   [(1, 'CC[C@H]1OC(=O)[C@H](C)[C@@H](O[C@H]2C[C@@](C)(OC)[C@@H](O)[C@H](C)O2)[C@H](C)[C@@H](O[C@@H]2O[C@H](C)C[C@H](N(C)C)[C@H]2O)[C@](C)(OC)C[C@@H](C)C(=O)[C@H](C)[C@@H](O)[C@]1(C)O')]
+X263b09a P -1 {'a': 5.168, 'b': 11.774, 'c': 20.578, 'alpha': 83.705, 'beta': 89.487, 'gamma': 86.845} 
+   [(1, 'COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1'), (1, 'O=C1CCCCN1')]
+X35b7fbc P 21 21 21 {'a': 5.71, 'b': 12.767, 'c': 33.141, 'alpha': 90.0, 'beta': 90.0, 'gamma': 90.0} 
+   [(1, 'CC[C@@H](CO)NC(=O)[C@@H]1C=C2c3cccc4[nH]cc(c34)C[C@H]2[NH+](C)C1'), (1, 'O=C([O-])C=CC(=O)O')]
+X3c176e2 P 21 21 21 {'a': 9.332, 'b': 11.038, 'c': 14.015, 'alpha': 90.0, 'beta': 90.0, 'gamma': 90.0} *
+   [(1, 'OC1C(O)C(O)C(O)C(O)C1O')]
+X3f4781b P 1 21 1 {'a': 10.434, 'b': 15.34, 'c': 12.635, 'alpha': 90.0, 'beta': 113.333, 'gamma': 90.0} 
+   [(1, 'COC(=O)[C@H](c1ccccc1Cl)[NH+]1CCc2sccc2C1'), (1, 'O=S(=O)([O-])O')]
+X4f6fe58 P -1 {'a': 7.554, 'b': 13.05, 'c': 15.403, 'alpha': 72.355, 'beta': 83.503, 'gamma': 77.691} 
+   [(1, 'O=C1CN=C(c2ccccc2Cl)c2cc(Br)ccc2N1')]
+X7e382cb P -1 {'a': 6.951, 'b': 6.971, 'c': 15.76, 'alpha': 65.62, 'beta': 82.98, 'gamma': 67.391} 
+   [(1, 'O=C([O-])c1ccc(-c2ccc(C(=O)[O-])cc2)cc1'), (2, '[NH4+]')]
+X8a06d7a P -1 {'a': 5.009, 'b': 11.849, 'c': 21.718, 'alpha': 86.059, 'beta': 89.843, 'gamma': 89.829} 
+   [(1, 'COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1'), (1, 'NC(=O)c1ccccn1')]
+X8a6f5a8 P 1 21 1 {'a': 16.864, 'b': 17.996, 'c': 22.606, 'alpha': 90.0, 'beta': 110.73, 'gamma': 90.0} 
+   [(1, 'COc1ccccc1OCC[NH2+]C[C@@H](O)COc1cccc2[nH]c3ccccc3c12'), (1, 'O=P([O-])(O)O'), (1, 'CC(C)O')]
+X9af54a2 P 1 21 1 {'a': 5.179, 'b': 8.254, 'c': 32.951, 'alpha': 90.0, 'beta': 92.752, 'gamma': 90.0} 
+   [(1, 'COc1ccc(OC)c([C@H](O)CNC(=O)C[NH3+])c1'), (1, '[Cl-]')]
+Xb7088cf P 21 21 21 {'a': 5.052, 'b': 9.356, 'c': 38.067, 'alpha': 90.0, 'beta': 90.0, 'gamma': 90.0} 
+   [(1, 'Nc1ccccc1NC(=O)c1ccc(CNC(=O)OCc2cccnc2)cc1')]
+Xbfc6d2c P 1 21/a 1 {'a': 7.616, 'b': 14.623, 'c': 11.905, 'alpha': 90.0, 'beta': 105.497, 'gamma': 90.0} *
+   [(1, '[C-]#[N+]c1ccc(-c2ccc([N+]#[C-])c(C)c2)cc1C')]
+Xbfeeda9 P 1 21/a 1 {'a': 13.203, 'b': 12.367, 'c': 16.694, 'alpha': 90.0, 'beta': 101.658, 'gamma': 90.0} 
+   [(1, 'CN(C)C(=O)C(CC[NH+]1CCC(O)(c2ccc(Cl)cc2)CC1)(c1ccccc1)c1ccccc1'), (1, '[Cl-]')]
+Xd4c1a35 P 21 21 21 {'a': 11.763, 'b': 12.003, 'c': 24.277, 'alpha': 90.0, 'beta': 90.0, 'gamma': 90.0} *
+   [(1, 'COC1=CC(=O)C[C@@H](C)[C@]12Oc1c(Cl)c(OC)cc(OC)c1C2=O')]
+Xd8634a2 P -1 {'a': 8.91, 'b': 9.478, 'c': 13.245, 'alpha': 83.983, 'beta': 81.776, 'gamma': 66.679} 
+   [(1, 'CNS(=O)(=O)Nc1nccc(Cc2c(C)c3ccc(Oc4ncccn4)cc3oc2=O)c1F')]
+Xdcc971e P 1 21 1 {'a': 11.039, 'b': 7.186, 'c': 18.472, 'alpha': 90.0, 'beta': 101.985, 'gamma': 90.0} *
+   [(1, 'CCCCCCCCCCCCCCCC[C@@H](C)CCCCCCCCCCCC')]
+Xe1fb77b P 1 21 1 {'a': 5.593, 'b': 15.36, 'c': 13.881, 'alpha': 90.0, 'beta': 94.975, 'gamma': 90.0} 
+   [(1, 'O=C(/C=C/c1ccc(O)c(O)c1)O[C@@H]1C[C@@](OC(=O)/C=C/c2ccc(O)c(O)c2)(C(=O)O)C[C@@H](O)[C@@H]1O'), (1, 'O')]
+Xe3a2935 P 21 21 21 {'a': 6.884, 'b': 10.296, 'c': 20.0, 'alpha': 90.0, 'beta': 90.0, 'gamma': 90.0} *
+   [(1, 'C[C@@H]1CC(=O)NN=C1c1ccc(NN=C(C#N)C#N)cc1')]
+Xeb393f9 P 1 {'a': 8.014, 'b': 9.815, 'c': 10.233, 'alpha': 74.869, 'beta': 68.958, 'gamma': 65.932} *
+   [(1, 'O=C(O)CCC[NH+]1CCC(O[C@@H](c2ccc(Cl)cc2)c2ccccn2)CC1'), (1, 'O=S(=O)([O-])c1ccccc1')]
+Xebbd488 C 1 2 1 {'a': 26.654, 'b': 12.392, 'c': 16.59, 'alpha': 90.0, 'beta': 106.573, 'gamma': 90.0} 
+   [(2, 'COc1ccccc1OCC[NH2+]C[C@H](O)COc1cccc2[nH]c3ccccc3c12'), (2, 'O=P([O-])(O)O'), (1, 'O')]
+Xedd9c7b P 1 21/a 1 {'a': 10.378, 'b': 15.458, 'c': 17.162, 'alpha': 90.0, 'beta': 95.654, 'gamma': 90.0} 
+   [(1, 'C[NH+](C)CCc1c[nH]c2cccc(OP(=O)([O-])O)c12')]
+Xf8ac963 P 21 21 21 {'a': 9.322, 'b': 11.393, 'c': 16.265, 'alpha': 90.0, 'beta': 90.0, 'gamma': 90.0} *
+   [(1, 'COc1ccc(NC(=O)[C@@H]2C[C@H](C)CC[C@H]2C(C)C)cc1')]
+Xfca9f3c P 1 21 1 {'a': 12.342, 'b': 4.936, 'c': 21.445, 'alpha': 90.0, 'beta': 105.64, 'gamma': 90.0} *
+   [(1, 'CCCCCCCCCCCCCCCC[C@@H](C)CCCCCCCC')]

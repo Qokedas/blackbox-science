@@ -1,0 +1,15 @@
+Xedd9c7b HEXAGONAL P 0 peaks [11.09651, 11.81626, 12.51208, 14.25936, 14.88268, 15.40458, 17.12157, 17.38763, 19.2921, 20.00393, 20.62841, 21.50922, 22.25651, 23.87096, 24.33687, 25.24578, 26.47015, 28.20457, 28.80072, 29.30941] V 959.4473876953125 3420 Lmax 42.185843128344516
+3->42.1858,1.56744,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+959.447->3420,492.12,4.9999
+Starting: V=959.447->1451.57
+Finished: V=959.447->1451.57 A^3, 85 unit cells tested, 79737.3 tests/s,   Elapsed time=0.001072s
+Starting: V=1451.57->1943.69
+Finished: V=1451.57->1943.69 A^3, 182 unit cells tested, 77413.9 tests/s,   Elapsed time=0.002356s
+Starting: V=1943.69->2435.81
+Finished: V=1943.69->2435.81 A^3, 273 unit cells tested, 72761.2 tests/s,   Elapsed time=0.003758s
+Starting: V=2435.81->2927.93
+Finished: V=2435.81->2927.93 A^3, 389 unit cells tested, 71089.2 tests/s,   Elapsed time=0.005478s
+Starting: V=2927.93->3420
+Finished: V=2927.93->3420 A^3, 520 unit cells tested, 71843 tests/s,   Elapsed time=0.007244s
+DONE Xedd9c7b HEXAGONAL P 0 0.0073735713958740234 []

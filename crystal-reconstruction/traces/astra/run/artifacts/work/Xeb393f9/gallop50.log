@@ -1,0 +1,24 @@
+ATTACHED_H_SCATTERING 37 heavy atoms 31 H atoms
+PACKING_ENABLED 37 atoms 527 pair terms coefficient 50.0
+  0%|          | 0/3 [00:00<?, ?it/s]100%|██████████| 3/3 [00:00<00:00, 1581.96it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 300 seconds 101.07567691802979 best 47.288975 q25 47.528954 median 177.97278 total 101.08324646949768
+GALLOP 1 Nref 300 seconds 88.1316568851471 best 47.27973 q25 49.828983 median 224.57092 total 189.41787219047546
+GALLOP 2 Nref 300 seconds 44.11635184288025 best 47.280018 q25 47.50309 median 199.57535 total 233.61829710006714
+GALLOP 3 Nref 300 seconds 41.196993350982666 best 47.27993 q25 47.349052 median 180.76099 total 274.86758971214294
+GALLOP 4 Nref 300 seconds 43.82866883277893 best 47.27989 q25 47.2951 median 143.26025 total 318.7141990661621
+GALLOP 5 Nref 300 seconds 73.61239433288574 best 47.279995 q25 47.308624 median 178.86444 total 392.37946939468384
+GALLOP 6 Nref 300 seconds 51.69837546348572 best 47.27984 q25 47.285942 median 91.42374 total 444.1148099899292
+GALLOP 7 Nref 300 seconds 64.59047532081604 best 47.279736 q25 47.28619 median 119.53244 total 508.7694170475006
+GALLOP 8 Nref 300 seconds 43.68913412094116 best 47.279785 q25 47.28806 median 139.2551 total 552.4883961677551
+GALLOP 9 Nref 300 seconds 46.868223667144775 best 47.27969 q25 47.2818 median 120.4837 total 599.3730001449585
+GALLOP 10 Nref 300 seconds 49.44868016242981 best 47.279594 q25 47.280716 median 85.71619 total 648.8682832717896
+GALLOP 11 Nref 300 seconds 78.88201689720154 best 47.279804 q25 47.28125 median 85.71754 total 727.884604215622
+  0%|          | 0/3 [00:00<?, ?it/s]100%|██████████| 3/3 [00:00<00:00, 1260.43it/s]
+GALLOP 12 Nref 300 seconds 50.7924861907959 best 47.279945 q25 47.746597 median 224.7923 total 778.7129392623901
+GALLOP 13 Nref 300 seconds 62.698882818222046 best 47.280464 q25 47.425076 median 206.2367 total 841.4651780128479
+GALLOP 14 Nref 300 seconds 46.62912583351135 best 47.280403 q25 47.33375 median 177.9809 total 888.1119713783264
+FINISHED Xeb393f9 47.27959442138672

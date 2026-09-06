@@ -1,0 +1,24 @@
+    MN = (q.max()/ (2*mean_dq*max(Ncalc,1))) if nidx else 0
+    return nidx, len(q), Ncalc, MN
+
+if __name__ == '__main__':
+    iid = sys.argv[1]
+    npk = int(sys.argv[2]) if len(sys.argv) > 2 else 30
+    ins = json.load(open(f'/app/data/instances/{iid}/instrument.json'))
+    wl = ins['radiation']['wavelengths_A'][0]
+    nheavy = {x['id']: x['heavy_atoms_per_formula_unit'] for x in json.load(open('/app/data/instances.json'))['instances']}[iid]
+    import os
+    pfn = f'/app/work/{iid}/peaks_clean.txt'
+    if not os.path.exists(pfn): pfn = f'/app/work/{iid}/peaks.txt'
+    pk = np.loadtxt(pfn)
+    fwhm = float(open(f'/app/work/{iid}/peaks.txt').readline().split()[2])
+    pk = pk[pk[:,4] >= 8.0]
+    tth = pk[:,0]
+    cells = parse(iid)
+    # dedupe by niggli reduced cell
+    seen = []
+    out = []
+    for c in cells:
+X35b7fbc kept 95 of 111
+Xe3a2935 kept 33 of 34
+X7e382cb kept 11 of 12

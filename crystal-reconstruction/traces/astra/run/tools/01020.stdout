@@ -1,0 +1,90 @@
+"""Report short heteroatom contacts and donor-H-acceptor geometry in a CIF.
+Distances use exact nearest lattice images; no assignment of formal protonation.
+"""
+import sys,numpy as np,gemmi,networkx as nx
+from pymatgen.io.cif import CifParser
+s=CifParser(sys.argv[1]).parse_structures(primitive=False)[0]
+E=np.array([a.specie.symbol for a in s]);D=s.distance_matrix
+H=np.flatnonzero(E=='H');het=np.flatnonzero(np.isin(E,['N','O','Cl','Br','F','S']))
+seen=set()
+for i in het:
+ if E[i] not in ['N','O','S']:continue
+ hs=[h for h in H if D[i,h]<1.27]
+ if not hs:continue
+ for h in hs:
+  _,im=s.lattice.get_distance_and_image(s[i].frac_coords,s[h].frac_coords)
+  vH=(s[h].frac_coords+im-s[i].frac_coords)@s.lattice.matrix
+  for j in het:
+   if i==j or D[i,j]<2.1 or D[i,j]>3.9:continue
+   _,im=s.lattice.get_distance_and_image(s[i].frac_coords,s[j].frac_coords)
+   vA=(s[j].frac_coords+im-s[i].frac_coords)@s.lattice.matrix
+   dhA=vA-vH;ang=np.rad2deg(np.arccos(np.clip(dhA@(-vH)/np.linalg.norm(dhA)/np.linalg.norm(vH),-1,1)))
+   if np.linalg.norm(dhA)>3.3:continue
+   key=(s[i].label,s[h].label,s[j].label,round(D[i,j],3),round(ang,1))
+   if key in seen:continue
+   seen.add(key)
+   print(s[i].label,s[h].label,s[j].label,'DA %.4f'%D[i,j],'HA %.4f'%np.linalg.norm(dhA),'DHA %.2f'%ang)
+import sys,numpy as np,networkx as nx
+from pymatgen.io.cif import CifParser
+from rdkit import Chem
+s=CifParser(sys.argv[1]).parse_structures(primitive=False)[0];s.remove_species(['H'])
+D=s.distance_matrix;rad=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);A=(D>.3)&(D<(rad[:,None]+rad[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print('Cell',s.lattice.parameters,'n',len(s),'components',[len(c) for c in cs]);comp={i:k for k,c in enumerate(cs) for i in c}
+pairs=sorted((D[i,j],i,j) for i in range(len(s)) for j in range(i+1,len(s)) if comp[i]!=comp[j]);unique=set()
+for d,i,j in pairs:
+ sig=tuple(sorted([s[i].label,s[j].label]));sig=sig+(round(d,3),)
+ if sig in unique:continue
+ unique.add(sig);print('%.4f'%d,i,s[i].label,s[i].specie.symbol,comp[i],j,s[j].label,s[j].specie.symbol,comp[j]);
+ if len(unique)>=25:break
+import sys,json,numpy as np,networkx as nx
+from pymatgen.io.cif import CifParser
+from rdkit import Chem
+sid=sys.argv[1];fn=sys.argv[2] if len(sys.argv)>2 else '/app/results/submission/'+sid+'.cif'
+s=CifParser(fn).parse_structures(primitive=False)[0];s.remove_species(['H']);rad=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<1.2*(rad[:,None]+rad[None,:]));g=nx.from_numpy_array(A)
+for i in g:g.nodes[i]['el']=s[i].specie.symbol
+comps=list(nx.connected_components(g));cell=s.lattice
+for md in json.load(open('/app/data/instances/'+sid+'/composition.json'))['components']:
+ r=Chem.MolFromSmiles(md['smiles']);Chem.AssignStereochemistry(r,cleanIt=True,force=True);expected={a.GetIdx():a.GetProp('_CIPCode') for a in r.GetAtoms() if a.HasProp('_CIPCode')}
+ if not expected:continue
+ rg=nx.Graph();rg.add_nodes_from((a.GetIdx(),{'el':a.GetSymbol()}) for a in r.GetAtoms());rg.add_edges_from((b.GetBeginAtomIdx(),b.GetEndAtomIdx()) for b in r.GetBonds())
+ for co in comps:
+  mt=nx.isomorphism.GraphMatcher(rg,g.subgraph(co),node_match=lambda x,y:x['el']==y['el'])
+  if not mt.is_isomorphic():continue
+  # Bond-order-blind C6 graphs cannot distinguish phenyl and cyclohexyl.
+  # Select the isomorphism whose observed bond lengths best respect the
+  # supplied aromaticity/multiple bonds before assigning stereochemistry.
+  def map_cost(mp):
+   ans=0.
+   for bo in r.GetBonds():
+    i,j=bo.GetBeginAtomIdx(),bo.GetEndAtomIdx();es={r.GetAtomWithIdx(i).GetSymbol(),r.GetAtomWithIdx(j).GetSymbol()};bd=bo.GetBondTypeAsDouble()
+    target=1.40 if bo.GetIsAromatic() and es=={'C'} else 1.35 if bo.GetIsAromatic() else 1.23 if bd==2 and 'O' in es else 1.29 if bd==2 and 'N' in es else 1.34 if bd==2 else 1.52 if es=={'C'} else 1.43 if 'O' in es else 1.46 if 'N' in es else 1.75 if 'Cl' in es else 1.90 if 'Br' in es else 1.77 if 'S' in es else 1.5
+    ans+=(D[mp[i],mp[j]]-target)**2
+   return ans
+  mp=min(mt.isomorphisms_iter(),key=map_cost);root=mp[0];f={root:s[root].frac_coords.copy()}
+  for a,b in nx.bfs_edges(g.subgraph(co),root):
+   dist,img=cell.get_distance_and_image(s[a].frac_coords,s[b].frac_coords);f[b]=f[a]+s[b].frac_coords+img-s[a].frac_coords
+  rr=Chem.Mol(r);cf=Chem.Conformer(r.GetNumAtoms());rr.RemoveAllConformers()
+  for a in rr.GetAtoms():a.SetChiralTag(Chem.ChiralType.CHI_UNSPECIFIED)
+  for i in range(rr.GetNumAtoms()):cf.SetAtomPosition(i,f[mp[i]]@cell.matrix)
+  rr.AddConformer(cf);Chem.AssignStereochemistryFrom3D(rr,replaceExistingTags=True);Chem.AssignStereochemistry(rr,cleanIt=True,force=True)
+  got={i:rr.GetAtomWithIdx(i).GetProp('_CIPCode') if rr.GetAtomWithIdx(i).HasProp('_CIPCode') else None for i in expected}
+  print(sid,'root',root,'expected',expected,'actual',got,'OK',expected==got)
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 470 seconds 219.7923686504364 best 61.217808 q25 63.3435 median 237.255 total 219.8115692138672
+GALLOP 1 Nref 470 seconds 172.01301407814026 best 61.218513 q25 109.60196 median 236.323 total 392.10888957977295
+GALLOP 2 Nref 470 seconds 171.83985304832458 best 61.218185 q25 126.17807 median 245.55646 total 564.0880587100983
+CYCLE 1 1 Rw 0.26404423384426656 chi2 1880.436449935295 geom 32.80646952572282 LSQ 2031.704858923115
+CYCLE 1 2 Rw 0.2579608937163757 chi2 1794.7874782216907 geom 22.727937498807613 LSQ 1907.9623227865206
+PACKING_STAGE 1 9.840753518967421
+CYCLE 2 0 Rw 0.2538063988298041 chi2 1737.4424144275251 geom 16.620649922318496 LSQ 1830.760130844361
+PACKING_STAGE 2 22.001458703354007
+CYCLE 3 0 Rw 0.08790122568948194 chi2 6137.473057030147 geom 237.0416233376352 LSQ 6817.891323238756
+CYCLE 3 1 Rw 0.08779694471755786 chi2 6122.919403015954 geom 236.5090463646153 LSQ 6800.771299012105
+CYCLE 3 2 Rw 0.08766205258416344 chi2 6104.119223191419 geom 236.66339353579693 LSQ 6783.857699648321
+PACKING_STAGE 3 22.161302851572433
+GALLOP 0 Nref 90 seconds 107.06359839439392 best 167.72588 q25 424.58945 median 635.2606 total 107.07051968574524
+GALLOP 1 Nref 111 seconds 103.60648107528687 best 166.66914 q25 179.45056 median 359.02222 total 210.7929265499115
+GALLOP 2 Nref 132 seconds 103.7869553565979 best 161.03862 q25 166.50514 median 234.17719 total 314.6757068634033
+GALLOP 3 Nref 153 seconds 105.08427023887634 best 160.35634 q25 164.85545 median 231.79909 total 419.8724892139435
+GALLOP 4 Nref 174 seconds 141.2825219631195 best 159.86702 q25 163.61574 median 219.65245 total 561.2701635360718
+Sun Sep  6 10:28:22 UTC 2026

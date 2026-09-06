@@ -1,0 +1,13 @@
+(7, 8, 9)
+(15, 16, 17)
+GALLOP 1 Nref 226 seconds 254.72150015830994 best 83.60841 q25 207.57074 median 264.4898 total 474.70032596588135
+GALLOP 2 Nref 226 seconds 200.89131355285645 best 83.5766 q25 186.54477 median 244.32336 total 675.7708961963654
+GALLOP 3 Nref 226 seconds 223.2173933982849 best 83.53962 q25 180.49092 median 233.15234 total 899.1085605621338
+GALLOP 4 Nref 226 seconds 209.59383344650269 best 83.54174 q25 176.15923 median 249.43236 total 1108.8859839439392
+CYCLE 1 0 Rw 0.1757172726013986 chi2 2386.6005055785254 geom 320.0806469139906 LSQ 2925.9608347100634
+CYCLE 1 1 Rw 0.17327633050333174 chi2 2320.7550563452783 geom 19.770995348885464 LSQ 2470.9646609896045
+CYCLE 1 2 Rw 0.1723066611875324 chi2 2294.853441938822 geom 9.458952530354544 LSQ 2420.1814806350326
+PACKING_STAGE 1 8.260705499451975
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],

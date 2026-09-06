@@ -1,0 +1,103 @@
+<ObjCryst Date="2026-09-06T06:01:05GMT" Revision="2024001">
+  <Crystal Name="Xedd9c7b" SpaceGroup="P 1 21/a 1">
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="a">10.3779</Par>
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="b">15.4581</Par>
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="c">17.1618</Par>
+    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="alpha">90</Par>
+    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="beta">95.6539</Par>
+    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="gamma">90</Par>
+    <Option Name="Constrain Lattice to SpaceGroup Symmetry" Choice="0" ChoiceName="Yes (Default)" />
+
+    <Option Name="Use Dynamical Occupancy Correction" Choice="1" ChoiceName="Yes" />
+
+    <Option Name="Display Enantiomer" Choice="0" ChoiceName="No" />
+
+    <ScatteringPowerAtom Name="ion_C" Symbol="C">
+      <Par Refined="0" Limited="1" Min="0.1" Max="5" Name="Biso">3</Par>
+      <Par Refined="0" Limited="0" Min="0" Max="1" Name="ML Error">0</Par>
+      <Par Refined="0" Limited="1" Min="0" Max="10" Name="ML-NbGhost">0</Par>
+      <Par Refined="0" Limited="1" Min="-10" Max="10" Name="Formal Charge">0</Par>
+      <RGBColour>0.565 0.565 0.565</RGBColour>
+    </ScatteringPowerAtom>
+
+    </Crystal>
+  <PowderPattern Name="Xedd9c7b">
+    <Par Refined="0" Limited="1" Min="-2.86479" Max="2.86479" Name="Zero">-0.0412098</Par>
+12:FREE_MARCH MarchCoeff_0 1.322950005531311
+CYCLE 0 0 Rw 0.08050545778147263 chi2 3267.969819777023 geom 87.86395741798216 LSQ 3615.739067867824
+CYCLE 0 1 Rw 0.0792291693206914 chi2 3165.174035518044 geom 87.86395741798216 LSQ 3476.71287641722
+CYCLE 0 2 Rw 0.07873271720707088 chi2 3125.6321781544825 geom 87.86395741798216 LSQ 3410.9376283358697
+PACKING_STAGE 0 0.6979251717196373
+CYCLE 1 0 Rw 0.058261510943408555 chi2 1711.5550648992132 geom 219.47608347501424 LSQ 2223.8519721799826
+CYCLE 1 1 Rw 0.04980175788180199 chi2 1250.595133799611 geom 156.38860699156456 LSQ 1658.5560502284297
+CYCLE 1 2 Rw 0.049058914308762636 chi2 1213.5655936646583 geom 79.69880284220595 LSQ 1481.759142474285
+PACKING_STAGE 1 0.0
+CYCLE 2 0 Rw 0.04777102711631177 chi2 1150.6852534529028 geom 74.3669653449268 LSQ 1397.1836735186275
+CYCLE 2 1 Rw 0.04690164232779004 chi2 1109.1837290337435 geom 71.0819372144808 LSQ 1348.0570390727205
+<ObjCryst Date="2026-09-06T06:07:42GMT" Revision="2024001">
+  <Crystal Name="X8a06d7a_force_mono" SpaceGroup="P 1 21 1">
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="a">11.8385</Par>
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="b">5.00407</Par>
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="c">21.6943</Par>
+    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="alpha">90</Par>
+    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="beta">86.0682</Par>
+    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="gamma">90</Par>
+    <Option Name="Constrain Lattice to SpaceGroup Symmetry" Choice="0" ChoiceName="Yes (Default)"/>
+
+    <Option Name="Use Dynamical Occupancy Correction" Choice="1" ChoiceName="Yes"/>
+
+    <Option Name="Display Enantiomer" Choice="0" ChoiceName="No"/>
+
+
+
+  </Crystal>
+  <PowderPattern Name="X8a06d7a_force_mono">
+    <Par Refined="0" Limited="1" Min="-2.86479" Max="2.86479" Name="Zero">-0.0170853</Par>
+    <Par Refined="0" Limited="1" Min="-2.86479" Max="2.86479" Name="2ThetaDisplacement">0</Par>
+    <Par Refined="0" Limited="1" Min="-2.86479" Max="2.86479" Name="2ThetaTransparency">0</Par>
+    <Option Name="Use Integrated Profiles" Choice="0" ChoiceName="Yes (recommended)"/>
+
+    <Radiation>
+      <Option Name="Radiation" Choice="1" ChoiceName="X-Ray"/>
+      <Option Name="Spectrum" Choice="0" ChoiceName="Monochromatic"/>
+      <LinearPolarRate>0</LinearPolarRate>
+      <Par Refined="0" Limited="1" Min="0.05" Max="20" Name="Wavelength">1.5418</Par>
+    </Radiation>
+    <MaxSinThetaOvLambda>0.33</MaxSinThetaOvLambda>
+
+    <PowderPatternCrystal Name="" Crystal="X8a06d7a_force_mono" IgnoreImagScattFact="1">
+      <ReflectionProfilePseudoVoigt>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="U">0.344679</Par>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="V">-0.0371963</Par>
+{
+ "cell": {
+  "a": 10.3779432409722,
+  "b": 15.458141140128017,
+  "c": 17.161796396761616,
+  "alpha": 90.0,
+  "beta": 95.65390425106375,
+  "gamma": 90.0
+ },
+ "space_group": "P 1 21/a 1",
+ "space_group_number": 14
+}-rw-r--r-- 1 root root 99310 Sep  6 08:02 /app/work/Xedd9c7b/gallop_51/base.xml
+<ObjCryst Date="2026-09-06T07:15:08GMT" Revision="2024001">
+  <Crystal Name="Xedd9c7b" SpaceGroup="P 1 21/a 1">
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="a">10.3802</Par>
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="b">15.4629</Par>
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="c">17.1705</Par>
+    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="alpha">90</Par>
+    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="beta">95.6021</Par>
+    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="gamma">90</Par>
+    <Option Name="Constrain Lattice to SpaceGroup Symmetry" Choice="0" ChoiceName="Yes (Default)" />
+
+    <Option Name="Use Dynamical Occupancy Correction" Choice="0" ChoiceName="No" />
+
+    <Option Name="Display Enantiomer" Choice="0" ChoiceName="No" />
+
+    <ScatteringPowerAtom Name="ion_C" Symbol="C">
+      <Par Refined="0" Limited="1" Min="0.3" Max="10" Name="Biso">3</Par>
+      <Par Refined="0" Limited="0" Min="0" Max="1" Name="ML Error">0</Par>
+      <Par Refined="0" Limited="1" Min="0" Max="10" Name="ML-NbGhost">0</Par>
+      <Par Refined="0" Limited="1" Min="-10" Max="10" Name="Formal Charge">0</Par>
+      <RGBColour>0.565 0.565 0.565</RGBColour>

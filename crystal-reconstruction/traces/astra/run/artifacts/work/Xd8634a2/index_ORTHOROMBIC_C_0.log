@@ -1,0 +1,21 @@
+Xd8634a2 ORTHOROMBIC C 0 peaks [2.05098, 3.08993, 3.30288, 3.54384, 3.61752, 3.81974, 4.07805, 4.35359, 4.97449, 5.00496, 5.26773, 5.63492, 5.77355, 5.81196, 5.88929, 6.11713, 6.1588, 6.18269, 6.35627, 6.41053, 6.60134, 6.62971] V 2401.065185546875 5940 Lmax 50.709210189100546
+3->50.7092,1.90838,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+2401.07->5940,442.372,7.9999
+Starting: V=2401.07->2843.44
+Finished: V=2401.07->2843.44 A^3, 295 unit cells tested, 193570 tests/s,   Elapsed time=0.00153s
+Starting: V=2843.44->3285.81
+Finished: V=2843.44->3285.81 A^3, 622 unit cells tested, 187462 tests/s,   Elapsed time=0.003325s
+Starting: V=3285.81->3728.18
+Finished: V=3285.81->3728.18 A^3, 982 unit cells tested, 183757 tests/s,   Elapsed time=0.00535s
+Starting: V=3728.18->4170.55
+Finished: V=3728.18->4170.55 A^3, 1371 unit cells tested, 182484 tests/s,   Elapsed time=0.007519s
+Starting: V=4170.55->4612.93
+Finished: V=4170.55->4612.93 A^3, 1813 unit cells tested, 182229 tests/s,   Elapsed time=0.009955s
+Starting: V=4612.93->5055.3
+Finished: V=4612.93->5055.3 A^3, 2280 unit cells tested, 180995 tests/s,   Elapsed time=0.012603s
+Starting: V=5055.3->5497.67
+Finished: V=5055.3->5497.67 A^3, 2798 unit cells tested, 180284 tests/s,   Elapsed time=0.015527s
+Starting: V=5497.67->5940
+Finished: V=5497.67->5940 A^3, 3347 unit cells tested, 180091 tests/s,   Elapsed time=0.018591s
+DONE Xd8634a2 ORTHOROMBIC C 0 0.01872730255126953 []

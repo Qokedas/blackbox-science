@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/app/work/molgeom.py", line 21, in <module>
+    print('  principal axes (cart, columns long->short):', np.round(v[:, ::-1].T, 3), 'eig', np.round(w[::-1], 1))
+BrokenPipeError: [Errno 32] Broken pipe

@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+pyobjcryst.ObjCrystException: ScatteringData::CalcSinThetaLambda()       Cannot compute sin(theta)/lambda : there are no reflections !
+tail: cannot open '/app/work/X13023e3/gallop11.log' for reading: No such file or directory

@@ -1,0 +1,92 @@
+import sys,os,json,numpy as np
+from pyobjcryst.io import xml_cryst_file_load_all_object,xml_cryst_file_save_global
+from pyobjcryst.refinableobj import refpartype_scattpow_temperature,refpartype_scatt_occup
+from obj_model import add_component,export_cif
+sid=sys.argv[1];run=sys.argv[2];W='/app/work/'+sid;G=W+'/gallop_'+run;R=W+'/search_g'+run;os.makedirs(R,exist_ok=True)
+objs=xml_cryst_file_load_all_object(G+'/base.xml' if os.path.exists(G+'/base.xml') else W+'/base.xml');c=[o for o in objs if o.GetClassName()=='Crystal'][0];p=[o for o in objs if o.GetClassName()=='PowderPattern'][0];d=p.GetPowderPatternComponent(0)
+meta=json.load(open(G+'/model.json'));frac=np.load(G+'/best_frac.npy');offset=0;models=[]
+for j,md in enumerate(meta):
+ n=len(md['order']);xyz=np.zeros((n,3));f=frac[offset:offset+n];offset+=n
+ for i,old in enumerate(md['order']):xyz[old]=c.FractionalToOrthonormalCoords(*map(float,f[i]))
+ m,newmd=add_component(c,md['smiles'],'m'+str(j),coords_override=md.get('restraint_coords',md['rdkit_coords']))
+ if m.GetClassName()=='Molecule':
+  center=xyz.mean(axis=0);xyz-=center
+  for i,v in enumerate(xyz):a=m.GetAtom(i);a.X,a.Y,a.Z=v
+  m.Q0,m.Q1,m.Q2,m.Q3=1.,0.,0.,0.;m.X,m.Y,m.Z=c.OrthonormalToFractionalCoords(*center)
+ else:m.X,m.Y,m.Z=map(float,f[0])
+ models.append(newmd)
+c.GetOption(1).SetChoice(0);c.SetParIsFixed(refpartype_scattpow_temperature,True);c.SetParIsFixed(refpartype_scatt_occup,True)
+d.SetExtractionMode(False);p.Prepare();p.FitScaleFactorForRw();print('IMPORTED',sid,run,'Rw',p.GetRw(),'Chi2',p.GetChi2(),flush=True)
+json.dump(models,open(R+'/model.json','w'),indent=1);export_cif(c,R+'/best.cif');xml_cryst_file_save_global(R+'/best.xml');json.dump({'Rw':p.GetRw()},open(R+'/best.json','w'))
+"""Make a chemically restrained GALLOP restart from a Rietveld XML snapshot.
+Existing Cartesian molecular geometry is maintained exactly.  The molecular
+coordinate and quaternion gauge is solved and checked by proper Procrustes.
+"""
+import os,sys,json,numpy as np,torch,xml.etree.ElementTree as ET
+from scipy.spatial.transform import Rotation
+from pyobjcryst.io import xml_cryst_file_load_all_object
+from gallop_prepare import prepare
+from gallop import tensor_prep,zm_to_cart
+from pymatgen.core import Lattice
+from rdkit import Chem
+sid=sys.argv[1];run=int(sys.argv[2]);src=sys.argv[3];model_path=sys.argv[4];W='/app/work/'+sid;G=W+'/gallop_'+str(run);os.makedirs(G,exist_ok=True)
+objs=xml_cryst_file_load_all_object(src);c=next(o for o in objs if o.GetClassName()=='Crystal');mods=json.load(open(model_path));cp=[c.GetPar(n).GetHumanValue() for n in ['a','b','c','alpha','beta','gamma']];lat=Lattice.from_parameters(*cp);newmods=[];target=[]
+for i,md in enumerate(mods):
+ m=c.GetScatterer(i);N=Chem.MolFromSmiles(md['smiles']).GetNumAtoms();sc=list(m.GetScatteringComponentList());f=np.array([[a.X,a.Y,a.Z] for a in sc[:N]]);xyz=f@lat.matrix;target.append(xyz);newmods.append(dict(smiles=md['smiles'],count=1,charge=0,coords=xyz.tolist()))
+biso={}
+for i in range(c.GetNbScatteringPower() if hasattr(c,'GetNbScatteringPower') else len(c.GetScatteringPowerRegistry())):
+ sp=c.GetScatteringPowerRegistry().GetObj(i);biso[sp.GetSymbol()]=float(sp.GetBiso())
+# An independent atomless Le Bail base, retaining the refined lattice/profile.
+tree=ET.parse(src);root=tree.getroot()
+for cr in root.findall('Crystal'):
+ for el in list(cr):
+  if el.tag in ['Molecule','Atom','ZScatterer']:cr.remove(el)
+tree.write(G+'/base.xml',encoding='utf-8')
+json.dump({'components':newmods},open(G+'/restart_model.json','w'),indent=1)
+os.environ['BASE_XML']=G+'/base.xml'
+s,_=prepare(sid,run,1,model_path=G+'/restart_model.json',stolmax=float(os.environ.get('GALLOP_STOL','.30')))
+meta0=json.load(open(G+'/model.json'))
+for mi,mo in zip(meta0,mods):mi['restraint_coords']=mo.get('restraint_coords',mo.get('rdkit_coords',mi['rdkit_coords']))
+json.dump(meta0,open(G+'/model.json','w'),indent=1)
+for zm in s.zmatrices:zm.dw_factors.update({k:v for k,v in biso.items() if k in zm.dw_factors})
+open(G+'/structure.json','w').write(s.to_json())
+s.get_total_degrees_of_freedom(verbose=False);zmt=tensor_prep.get_zm_related_tensors(s,1,torch.float32,torch.device('cpu'))
+e=np.zeros((1,s.total_external_degrees_of_freedom));t=np.zeros((1,s.total_internal_degrees_of_freedom))
+for j,z in enumerate(s.zmatrices):
+ if len(s.rotation_indices[j]):e[0,s.rotation_indices[j]]=[1,0,0,0]
+ if len(s.torsion_indices[j]):t[0,s.torsion_indices[j]]=z.coords_radians_no_H[z.torsion_refinable_indices_no_H,2]
+def frac(e,t):
+ ts=tensor_prep.get_all_required_tensors(s,external=e,internal=t,requires_grad=False,device=torch.device('cpu'),verbose=False)
+ with torch.no_grad():return zm_to_cart.get_asymmetric_coords(**ts['zm']).numpy()[0]
+f=frac(e,t);offset=0;meta=json.load(open(G+'/model.json'));dest=[]
+for j,md in enumerate(meta):
+ N=len(md['order']);X=f[offset:offset+N]@s.lattice.matrix;Y=target[j][md['order']];dest.extend(Y);offset+=N
+ if len(s.rotation_indices[j]):
+  U,sv,Vt=np.linalg.svd((X-X.mean(0)).T@(Y-Y.mean(0)));D=np.eye(3);D[-1,-1]=np.linalg.det(U@Vt);R=U@D@Vt;q=Rotation.from_matrix(R.T).as_quat();e[0,s.rotation_indices[j]]=q[[3,0,1,2]]
+ else:R=np.eye(3)
+ e[0,s.position_indices[j]]=(Y.mean(0)-X.mean(0)@R)@np.linalg.inv(s.lattice.matrix)
+out=frac(e,t)@s.lattice.matrix;err=np.linalg.norm(out-np.array(dest),axis=1);print('RESTART_ERROR max/rms',err.max(),np.sqrt(np.mean(err**2)),flush=True)
+if err.max()>.005:raise Exception('Restart alignment failed')
+np.savez_compressed(G+'/warm.npz',external=e,internal=t,chi2=0.)
+np.save(G+'/warm_frac.npy',frac(e,t))
+print('WARM_READY',G,flush=True)
+/app/work/audit_zm.py:s=Structure();s.from_json(open(G+'/structure.json').read());md=json.load(open(G+'/model.json'));e,i=Swarm(s,n_particles=32,n_swarms=1).get_initial_positions();f=coords(s,e,i)@s.lattice.matrix;off=0
+/app/work/check_zmat.py: s=Structure();s.from_json(open(D+'/structure.json').read());md=json.load(open(D+'/model.json'));t=tensor_prep.get_all_required_tensors(s,n_samples=50,requires_grad=False,device=torch.device('cpu'),verbose=False)
+/app/work/gallop_prepare.py:  s.sg_number=0
+/app/work/gallop_prepare_v2.py:  s.sg_number=0
+/app/work/search_gallop.py:else:s=Structure();s.from_json(open(G+'/structure.json').read())
+/app/work/search_gallop_v1.py:else:s=Structure();s.from_json(open(G+'/structure.json').read())
+/app/work/search_gallop_v2.py:else:s=Structure();s.from_json(open(G+'/structure.json').read())
+/app/work/search_gallop_v3.py:else:s=Structure();s.from_json(open(G+'/structure.json').read())
+/app/work/search_gallop_v4.py:else:s=Structure();s.from_json(open(G+'/structure.json').read())
+/app/work/search_gallop_v5.py:else:s=Structure();s.from_json(open(G+'/structure.json').read())
+/app/work/search_gallop_v6.py:else:s=Structure();s.from_json(open(G+'/structure.json').read())
+/app/work/solve_heavy.py:s=Structure();s.from_json(open(G+'/structure.json').read());md=json.load(open(G+'/model.json'));assert s.original_sg_number==2
+CYCLE 0 2 Rw 0.060149201196639704 chi2 4073.268342254827 geom 0.7226962187485786 LSQ 4113.65677109059
+CYCLE 1 0 Rw 0.05852065546413652 chi2 3855.685988652709 geom 9.619197443076406 LSQ 3969.1294698640904
+CYCLE 1 1 Rw 0.05828557169846694 chi2 3824.770798017759 geom 14.01947785725451 LSQ 3953.202144694246
+CYCLE 1 2 Rw 0.05820738815809704 chi2 3814.516680126842 geom 15.639696474488673 LSQ 3947.11689016826
+TRIAL 71 sec 531.331305027008 cost 0.4479867461309755 score 3.6105905481848093 vol 4575.5517307087775 cell [ 33.1934   6.7918  21.6657  90.     110.4842  90.    ] zero -0.04997568748551879 best 0.42093799734993864 diff [ 0.0194 -0.0264  0.1031  0.0279 -0.003  -0.0215 -0.0561  0.0201 -0.0075
+ -0.0033 -0.0327  0.0265  0.0439 -0.0342 -0.0496 -0.1459  0.0077 -0.0158
+  0.0268  0.0066  0.0106  0.0261 -0.0046 -0.0559  0.0323  0.0365  0.0061
+  0.0009 -0.003  -0.0161]

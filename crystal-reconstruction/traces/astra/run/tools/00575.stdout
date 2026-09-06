@@ -1,0 +1,325 @@
+import os,sys,json,itertools,numpy as np,xml.etree.ElementTree as ET
+from rdkit import Chem
+from rdkit.Chem import Lipinski
+from pymatgen.core import Lattice
+from pymatgen.symmetry.groups import SpaceGroup
+from gallop.structure import Structure
+from gallop.z_matrix import Z_matrix
+from pyobjcryst.io import xml_cryst_file_load_all_object
+from obj_model import make_rdkit
+import gemmi
+
+def make_zmatrix(smiles,path,seed=10,rank=0,rigid=False,coords_override=None):
+ if coords_override is None:r,xyz,e=make_rdkit(smiles,seed=seed,nconf=30,conf_rank=rank,hydrogen=False)
+ else:r=Chem.MolFromSmiles(smiles);xyz=np.asarray(coords_override);e=0.
+ n=len(xyz)
+ adj={i:[a.GetIdx() for a in r.GetAtomWithIdx(i).GetNeighbors()] for i in range(n)}
+ # Start at a terminal atom where possible; DFS preserves a reference for all rigid branches.
+ root=min(range(n),key=lambda i:(len(adj[i]),i));parent={root:None};order=[];children={i:[] for i in range(n)}
+ def dfs(i):
+  order.append(i)
+  for j in sorted(adj[i],key=lambda a:(len(adj[a])==1,a)):
+   if j in parent:continue
+   parent[j]=i;children[i].append(j);dfs(j)
+ dfs(root);idx={j:i for i,j in enumerate(order)}
+ flex={frozenset(x) for x in r.GetSubstructMatches(Lipinski.RotatableBondSmarts)}
+ # Amide C-N bonds are planar. Other single bonds retain their internal degree of freedom.
+ for b in r.GetBonds():
+  i,j=b.GetBeginAtomIdx(),b.GetEndAtomIdx();ai=r.GetAtomWithIdx(i);aj=r.GetAtomWithIdx(j)
+  amide=(ai.GetAtomicNum()==7 and aj.GetAtomicNum()==6 and any(z.GetBondTypeAsDouble()==2 and z.GetOtherAtom(aj).GetAtomicNum() in [8,16] for z in aj.GetBonds())) or (aj.GetAtomicNum()==7 and ai.GetAtomicNum()==6 and any(z.GetBondTypeAsDouble()==2 and z.GetOtherAtom(ai).GetAtomicNum() in [8,16] for z in ai.GetBonds()))
+  if (ai.GetAtomicNum()==7 and ai.GetIsAromatic()) or (aj.GetAtomicNum()==7 and aj.GetIsAromatic()):amide=False
+  if amide:flex.discard(frozenset([i,j]))
+ if rigid:flex=set()
+ lines=['Generated from supplied connectivity and an RDKit conformer','1 1 1 90 90 90',f'{n} 0'];zm=[]
+ xyzord=xyz[order]
+ # Transform first three atoms to the NERF initial convention using a proper rotation.
+ if n>=3:
+  ex=xyzord[1]-xyzord[0];ex/=np.linalg.norm(ex);ey=xyzord[2]-xyzord[0];ey-=ey@ex*ex;ey/=np.linalg.norm(ey);ez=np.cross(ex,ey);xyzcanon=(xyzord-xyzord[0])@np.array([ex,ey,ez]).T
+ elif n==2:xyzcanon=np.array([[0,0,0],[np.linalg.norm(xyzord[1]-xyzord[0]),0,0]])
+ else:xyzcanon=np.zeros((1,3))
+ for ii,old in enumerate(order):
+  ref=0
+  if ii==0:R,ang,phi,b,a,t=0,0,0,0,0,0
+  elif ii in [1,2]:
+   v=xyzcanon[ii];R=np.linalg.norm(v);ang=np.rad2deg(np.arccos(np.clip(-v[0]/R,-1,1)));phi=0.;b,a,t=1,0,0
+  else:
+   pp=parent[old];gp=parent[pp]
+   if gp is None:
+    # At a root branch: use another previously placed neighbour as the angle reference.
+    gp=next(o for o in order[:ii] if o!=pp and np.linalg.norm(np.cross(xyz[old]-xyz[pp],xyz[o]-xyz[pp]))>1e-5)
+   siblings=children[pp];first=siblings[0]
+   if old!=first:tp=first
+   else:tp=parent.get(gp)
+   if tp is None or tp in [old,pp,gp] or idx.get(tp,ii)>=ii:
+    tp=max([o for o in order[:ii] if o not in [pp,gp]],key=lambda o:np.linalg.norm(np.cross(xyz[gp]-xyz[o],xyz[pp]-xyz[gp])))
+   C=xyz[pp];B=xyz[gp];A=xyz[tp];bc=C-B;bc/=np.linalg.norm(bc);nv=np.cross(B-A,bc);nv/=np.linalg.norm(nv);nbc=np.cross(nv,bc);v=xyz[old]-C;R=np.linalg.norm(v);ang=np.rad2deg(np.arccos(np.clip(-v@bc/R,-1,1)));phi=np.rad2deg(np.arctan2(v@nv,v@nbc));b,a,t=idx[pp]+1,idx[gp]+1,idx[tp]+1
+   if old==first and frozenset([pp,gp]) in flex:ref=1
+  el=r.GetAtomWithIdx(old).GetSymbol();lines.append(f'{el} {R:.8f} 0 {ang:.8f} 0 {phi:.8f} {ref} {b} {a} {t} 3.0 1.0 {ii+1} {el}{old+1}')
+ open(path,'w').write('\n'.join(lines)+'\n');z=Z_matrix(path)
+ dist=np.max(np.abs(np.linalg.norm(xyzcanon[:,None]-xyzcanon[None,:],axis=2)-np.linalg.norm(z.initial_cartesian[:,None]-z.initial_cartesian[None,:],axis=2)))
+ print('ZM',smiles,'n',n,'torsions',z.internal_degrees_of_freedom,'max_distance_error',dist,flush=True)
+ if dist>.002:raise RuntimeError('Z-matrix failed to reproduce molecular geometry')
+ return z,dict(smiles=smiles,elements=[a.GetSymbol() for a in r.GetAtoms()],order=order,rdkit_coords=xyz.tolist(),energy=e)
+
+def prepare(sid,run=1,zprime=1,rigid=False,model_path=None,stolmax=.21):
+ W='/app/work/'+sid;G=W+'/gallop_'+str(run);os.makedirs(G,exist_ok=True)
+ objs=xml_cryst_file_load_all_object(os.environ.get('BASE_XML',W+'/base.xml'));c=[o for o in objs if o.GetClassName()=='Crystal'][0];p=[o for o in objs if o.GetClassName()=='PowderPattern'][0];d=p.GetPowderPatternComponent(0)
+ # An atomless loaded Crystal can leave ObjCryst's internal single-crystal scale NaN.
+ # A disposable scatterer stabilizes that cache; it is never included in the GALLOP model.
+ if c.GetNbScatterer()==0:
+  from obj_model import add_component
+  dummy,_=add_component(c,'C','pawley_dummy')
+ d.SetExtractionMode(True,False);p.Prepare();d.ExtractLeBail(20);p.Prepare();p.FitScaleFactorForRw()
+ cp=[c.GetPar(n).GetHumanValue() for n in ['a','b','c','alpha','beta','gamma']];sg=gemmi.find_spacegroup_by_name(c.GetSpaceGroup().GetName());L=Lattice.from_parameters(*cp);ins=json.load(open('/app/data/instances/'+sid+'/instrument.json'));wl=ins['radiation']['wavelength_A']
+ # Read the original Le Bail reflection order before applying a resolution cutoff.
+ hkls=np.array([d.GetH(),d.GetK(),d.GetL()]).T.astype(int);stol=np.array(d.GetSinThetaOverLambda());f2=np.array(d.GetFhklObsSq());xx=np.rad2deg(p.GetPowderPatternX());obs=np.array(p.GetPowderPatternObs());wg=np.array(p.GetLSQWeight(0));tt=np.rad2deg(2*np.arcsin(wl*stol));zero=p.GetPar('Zero').GetHumanValue()
+ sel=(tt+zero>xx[0]-.02)&(tt+zero<xx[-1])&(stol<=stolmax);hkls=hkls[sel];tt=tt[sel];stol=stol[sel];f2=f2[sel]
+ s=Structure(sid,ignore_H_atoms=True);s.lattice=L;s.sg_number=sg.number;s.original_sg_number=sg.number;s.space_group=SpaceGroup(sg.xhm());s.centrosymmetric=sg.is_centrosymmetric();s.affine_matrices=np.array([op.affine_matrix for op in s.space_group.symmetry_ops]);s.wavelength=wl;s.hkl=hkls;s.intensities=f2;s.twotheta=tt;s.dspacing=1/(2*stol);s.data_resolution=float(s.dspacing[-1]);s.source='GSAS';s.PawleyChiSq=1.;s.temperature=ins.get('temperature_K',298.)
+ # Exact fixed-profile Pawley covariance from the ObjCryst reflection profiles.
+ from obj_bridge import exact_pawley
+ pw=exact_pawley(p,d,stolmax=stolmax,rcond=float(os.environ.get('PAWLEY_RCOND','.001')))
+ ii=pw['sel'];hkls=np.array([d.GetH(),d.GetK(),d.GetL()]).T.astype(int)[ii];stol=np.asarray(d.GetSinThetaOverLambda())[ii];tt=np.rad2deg(2*np.arcsin(wl*stol));f2=pw['obs'];A=pw['matrix'];normal=pw['normal']
+ # Only a global normalization is applied: chi2=1000 is the background-subtracted signal variance.
+ normal=normal*((len(hkls)-2)*1000/max(pw['var'],1e-25))
+ s.hkl=hkls;s.intensities=f2;s.twotheta=tt;s.dspacing=1/(2*stol);s.data_resolution=float(s.dspacing[-1]);s.inverse_covariance_matrix=normal
+ comp=json.load(open(model_path or '/app/data/instances/'+sid+'/composition.json'));meta=[]
+ for z in range(zprime):
+  for ic,co in enumerate(comp['components']):
+   for cc in range(co['count']):
+    zm,md=make_zmatrix(co['smiles'],G+f'/m{z}_{ic}_{cc}.zmatrix',seed=1027+run*21+z*11+ic,rank=int(os.environ.get('CONF_RANK',str(run))),rigid=rigid,coords_override=co.get('coords'));s.zmatrices.append(zm);meta.append(md)
+ # GALLOP's analytical structure factors assume its standard setting.
+ # Retain affine operations but request general expansion for non-standard settings.
+ if sg.xhm()!=gemmi.find_spacegroup_by_number(sg.number).xhm():
+  s.sg_number=0
+  print('GENERIC_SYMMETRY',sg.xhm(),flush=True)
+ s.sg_symbol=sg.xhm()
+ s.get_total_degrees_of_freedom(verbose=True)
+ for obj in [s]+s.zmatrices:
+  for key,value in list(obj.__dict__.items()):
+   if isinstance(value,np.generic):setattr(obj,key,value.item())
+ json.dump(meta,open(G+'/model.json','w'),indent=1);open(G+'/structure.json','w').write(s.to_json());np.savez_compressed(G+'/profile_matrix.npz',matrix=A,hkl=hkls,normal=normal,tt=tt,obs=f2)
+ print('PREPARED',sid,'Nref',len(hkls),'PawleyRw',p.GetRw(),'SG',sg.xhm(),flush=True)
+ return s,G
+
+if __name__=='__main__':
+ sid=sys.argv[1];run=int(sys.argv[2]) if len(sys.argv)>2 else 1;zp=int(sys.argv[3]) if len(sys.argv)>3 else 1;mp=next((v.split('=',1)[1] for v in sys.argv if v.startswith('--model=')),None)
+ prepare(sid,run,zp,rigid='--rigid' in sys.argv,model_path=mp,stolmax=float(os.environ.get('GALLOP_STOL','.21')))
+"""Optional soft donor/acceptor proximity prior for ionic and H-bonded solids.
+This does not prescribe a particular intermolecular synthon: each donor may
+choose any chemically possible acceptor, including a distant topological
+intramolecular acceptor. Steric lower bounds are supplied separately.
+"""
+import os,json,itertools,numpy as np,torch
+from rdkit import Chem
+from rdkit.Chem import Lipinski
+from gallop import chi2,zm_to_cart
+
+def enable_hbonds(s,model_path,coefficient=None):
+ mods=json.load(open(model_path));donors=[];acceptors=[];groups=[];ids=[];dm=[];off=0;els=[]
+ for k,m in enumerate(mods):
+  r=Chem.MolFromSmiles(m['smiles']);order=m['order'];inv={j:i for i,j in enumerate(order)};dm.append(Chem.GetDistanceMatrix(r))
+  for a in Lipinski._HDonors(r):donors.append(off+inv[a[0]])
+  for a in Lipinski._HAcceptors(r):acceptors.append(off+inv[a[0]])
+  for a in r.GetAtoms():
+   if a.GetSymbol() in ['Cl','Br'] and a.GetFormalCharge()<0:acceptors.append(off+inv[a.GetIdx()])
+  groups.extend([k]*len(order));ids.extend(order);els.extend([r.GetAtomWithIdx(i).GetSymbol() for i in order]);off+=len(order)
+ if not donors or not acceptors:return
+ LM=torch.tensor(s.lattice.matrix,dtype=torch.float32);shifts=torch.tensor(np.array(list(itertools.product([-1,0,1],repeat=3)))@s.lattice.matrix,dtype=torch.float32);ss=(shifts*shifts).sum(-1)
+ tensors=[]
+ for i in donors:
+  jj=[];rt=[];tr=[];target=[]
+  for op in s.space_group.symmetry_ops:
+   R=op.rotation_matrix;T=op.translation_vector;ident=np.allclose(R,np.eye(3)) and np.allclose(T%1,0)
+   for j in acceptors:
+    if ident and groups[i]==groups[j] and dm[groups[i]][ids[i],ids[j]]<=3:continue
+    jj.append(j);rt.append(R);tr.append(T);target.append(3.25 if els[j] in ['Cl','Br'] else 3.05)
+  tensors.append((i,torch.tensor(jj,dtype=torch.long),torch.tensor(np.array(rt),dtype=torch.float32),torch.tensor(np.array(tr),dtype=torch.float32),torch.tensor(target,dtype=torch.float32)))
+ cf=float(coefficient if coefficient is not None else os.getenv('HBOND_COEFF','20'))
+ def penalty(fr):
+  val=torch.zeros(len(fr),device=fr.device)
+  for i,jj,rr,tt,target in tensors:
+   right=torch.einsum('nki,kji->nkj',fr[:,jj,:],rr)+tt;dd=fr[:,i,None]-right;dd=dd-torch.round(dd).detach();cart=dd@LM
+   with torch.no_grad():corr=shifts[(2*(cart.detach()@shifts.T)+ss).argmin(-1)]
+   dist=torch.sqrt(((cart+corr)**2).sum(-1)+1e-8);val+=torch.clamp((dist-target).min(dim=-1).values,min=0)**2
+  return cf*val
+ old=chi2.get_chi_2
+ def calc(zm,int_tensors,chisqd_tensors,profile=None):
+  fr=zm_to_cart.get_asymmetric_coords(**zm)
+  return old(zm,int_tensors,chisqd_tensors,profile=profile)+penalty(fr)
+ chi2.get_chi_2=calc;s.hbond_penalty=penalty
+ print('HBOND_PRIOR',len(donors),'donors',len(acceptors),'acceptors','coefficient',cf,flush=True)
+ return penalty
+import sys,os,time,json,itertools,numpy as np
+import matplotlib
+matplotlib.use('Agg')
+from rdkit import Chem
+from pyobjcryst.io import xml_cryst_file_load_all_object,xml_cryst_file_save_global
+from pyobjcryst._pyobjcryst import LSQ
+from pyobjcryst.scatteringpower import ScatteringPowerAtom
+from pyobjcryst.refinableobj import *
+from obj_model import export_cif,recenter_molecules,add_aromatic_planarity
+sid=sys.argv[1];run=sys.argv[2] if len(sys.argv)>2 else '1';W='/app/work/'+sid
+src=W+'/search_'+run+'/best.xml' if len(sys.argv)<4 else sys.argv[3]
+objs=xml_cryst_file_load_all_object(src);c=[o for o in objs if o.GetClassName()=='Crystal'][0];p=[o for o in objs if o.GetClassName()=='PowderPattern'][0]
+d=[p.GetPowderPatternComponent(i) for i in range(p.GetNbPowderPatternComponent()) if p.GetPowderPatternComponent(i).GetClassName()=='PowderPatternDiffraction'][0]
+mods=json.load(open(W+'/search_'+run+'/model.json'));mols=[c.GetScatterer(i) for i in range(c.GetNbScatterer())]
+p.Prepare()
+print('START',p.GetRw(),p.GetChi2(),flush=True)
+# Add geometrically generated hydrogens to the molecular model, keeping all heavy-atom positions unchanged.
+if '--noH' not in sys.argv:
+ try:hs=c.GetScatteringPower('H')
+ except:hs=ScatteringPowerAtom('H','H',4.0);c.AddScatteringPower(hs)
+ for m,md in zip(mols,mods):
+  if m.GetClassName()!='Molecule':continue
+  r=Chem.MolFromSmiles(md['smiles']);n=r.GetNumAtoms()
+  ac=m.GetScatteringComponentList()[0];old_xyz=np.array([ac.X,ac.Y,ac.Z])
+  if m.GetNbAtoms()!=n:continue
+  cf=Chem.Conformer(n)
+  for i in range(n):
+   a=m.GetAtom(i);cf.SetAtomPosition(i,(a.X,a.Y,a.Z))
+  r.AddConformer(cf);rh=Chem.AddHs(r,addCoords=True);xyz=rh.GetConformer().GetPositions()
+  for i in range(n,rh.GetNumAtoms()):
+   h=m.AddAtom(*xyz[i],hs,m.GetName()+'_H'+str(i+1),False)
+   j=rh.GetAtomWithIdx(i).GetNeighbors()[0].GetIdx();parent=m.GetAtom(j);bl=float(np.linalg.norm(xyz[i]-xyz[j]));m.AddBond(parent,h,bl,.02,.015,1,False)
+   for nb in rh.GetAtomWithIdx(j).GetNeighbors():
+    k=nb.GetIdx()
+    if k==i or k>=i:continue
+    v1=xyz[i]-xyz[j];v2=xyz[k]-xyz[j];ang=np.arccos(np.clip(v1@v2/np.linalg.norm(v1)/np.linalg.norm(v2),-1,1));m.AddBondAngle(h,parent,m.GetAtom(k),ang,np.deg2rad(2),np.deg2rad(2),False)
+   for rg in range(m.GetNbRigidGroups()):
+    group=m.GetRigidGroupList()[rg]
+    if parent in group:group.add(h)
+   # Aromatic atoms and nitrile terminal atoms require no additional torsions.
+  ac=m.GetScatteringComponentList()[0];new_xyz=np.array([ac.X,ac.Y,ac.Z]);delta=old_xyz-new_xyz
+  m.X+=delta[0];m.Y+=delta[1];m.Z+=delta[2]
+ c.SetParIsFixed(refpartype_scattpow_temperature,True)
+# Optional extension to higher-angle observations for a final coordinate refinement.
+new_stol=next((float(a.split('=',1)[1]) for a in sys.argv if a.startswith('--stol=')),None)
+if new_stol is not None:
+ ins=json.load(open('/app/data/instances/'+sid+'/instrument.json'));wl=ins['radiation']['wavelength_A'];raw=np.loadtxt('/app/data/instances/'+sid+'/pattern.xye')
+ lo=np.rad2deg(p.GetPowderPatternX()[0]);hi=np.rad2deg(2*np.arcsin(new_stol*wl));raw=raw[(raw[:,0]>=lo)&(raw[:,0]<hi)]
+ nbin=max(1,int(np.ceil(len(raw)/12000)))
+ if nbin>1:
+  n=len(raw)//nbin*nbin;raw=np.column_stack([raw[:n,0].reshape(-1,nbin).mean(1),raw[:n,1].reshape(-1,nbin).mean(1),np.sqrt((raw[:n,2]**2).reshape(-1,nbin).sum(1))/nbin])
+ data0=np.load(W+'/processed.npz');b=[p.GetPowderPatternComponent(i) for i in range(p.GetNbPowderPatternComponent()) if p.GetPowderPatternComponent(i).GetClassName()=='PowderPatternBackground'][0]
+ bx0=np.array(b.GetInterpPointsX());by0=np.array(b.GetInterpPointsY());step=np.median(np.diff(bx0));extra=np.arange(bx0[-1]+step,np.deg2rad(raw[-1,0])+step,step)
+ byextra=np.interp(np.rad2deg(extra),data0['x'],data0['background']);b.SetInterpPoints(np.r_[bx0,extra],np.r_[by0,byextra])
+ np.savetxt(W+'/extended_'+run+'.xye',raw);p.ImportPowderPattern2ThetaObsSigma(W+'/extended_'+run+'.xye');p.SetMaxSinThetaOvLambda(new_stol);p.Prepare()
+ print('EXTENDED',new_stol,len(raw),'Rw',p.GetRw(),flush=True)
+p.GetOption(0).SetChoice(1) # use the point-by-point profile for Rietveld refinement
+p.Prepare();p.FitScaleFactorForRw()
+print('WITH_H',p.GetRw(),p.GetChi2(),flush=True)
+if '--scale' in sys.argv:
+ wgt=np.array(p.GetLSQWeight(0));xx=np.rad2deg(p.GetPowderPatternX());yy=np.array(p.GetPowderPatternObs())
+ n=min(len(xx),len(wgt));scale=np.sqrt(max(1.,p.GetChi2()/n))
+ ss=1/np.sqrt(np.maximum(wgt[:n],1e-20))*scale
+ np.savetxt(W+'/scaled_refine.xye',np.column_stack([xx[:n],yy[:n],ss]));p.ImportPowderPattern2ThetaObsSigma(W+'/scaled_refine.xye');p.Prepare()
+ print('SCALED_SIGMA',scale,p.GetChi2(),flush=True)
+
+if '--tight' in sys.argv:
+ for m in mols:
+  if m.GetClassName()!='Molecule':continue
+  for bo in m.GetBondList():
+   if bo.GetAtom1().GetScatteringPower().GetSymbol()!='H' and bo.GetAtom2().GetScatteringPower().GetSymbol()!='H':bo.SetLengthSigma(.006);bo.SetLengthDelta(.008)
+  for an in m.GetBondAngleList():
+   if all(a.GetScatteringPower().GetSymbol()!='H' for a in [an.GetAtom1(),an.GetAtom2(),an.GetAtom3()]):an.SetAngleSigma(np.deg2rad(.8));an.SetAngleDelta(np.deg2rad(1.))
+ print('TIGHT_RESTRAINTS',flush=True)
+if '--keep-rigid' not in sys.argv:
+ for m in mols:
+  if m.GetClassName()=='Molecule':
+   for rg in list(m.GetRigidGroupList()):m.RemoveRigidGroup(rg)
+ print('FLEXIBLE_RINGS',flush=True)
+if '--no-planarity' not in sys.argv:
+ nplan=0
+ for m,md in zip(mols,mods):
+  if m.GetClassName()=='Molecule':nplan+=add_aromatic_planarity(m,md['smiles'],md.get('rdkit_coords'))
+ print('AROMATIC_PLANARITY',nplan,flush=True)
+packing_restraint=None
+if '--packing' in sys.argv:
+ import lsq_packing
+ packing_restraint=lsq_packing.attach_packing(p,c,mods)
+lsq=LSQ();lsq.SetRefinedObj(p,0,True,True);lsq.PrepareRefParList(True);ref=lsq.GetCompiledRefinedObj();ref.FixAllPar()
+if new_stol is not None:
+ lsq.SetParIsFixed(refpartype_scattdata_background,False)
+ for i in range(2):
+  try:lsq.SafeRefine(nbCycle=5,useLevenbergMarquardt=True,silent=True)
+  except:break
+  p.FitScaleFactorForRw()
+ print('EXTENDED_BACKGROUND',p.GetRw(),flush=True)
+lsq.SetParIsFixed(refpartype_scatt_transl,False);lsq.SetParIsFixed(refpartype_scatt_orient,False)
+# Begin with positions and orientations only, then allow restrained intramolecular relaxation.
+for stage in range(4):
+ if stage==1:
+  lsq.SetParIsFixed(refpartype_scatt_conform,False)
+ if stage==2 and '--fixB' not in sys.argv:
+  lsq.SetParIsFixed(refpartype_scattpow_temperature,False)
+  # H displacement parameters have limited information; keep at chemically reasonable bounds.
+  for i in range(len(c.GetScatteringPowerRegistry())):
+   sp=c.GetScatteringPowerRegistry().GetObj(i);sp.SetLimitsAbsolute('Biso',.3,10.)
+ if stage==3:
+  for n in ['a','b','c','alpha','beta','gamma','Zero','U','V','W','Eta0','Eta1']:
+   try:lsq.SetParIsFixed(n,False)
+   except:pass
+ for j in range(3):
+  try:lsq.SafeRefine(nbCycle=10,useLevenbergMarquardt=True,silent=True)
+  except Exception as e:print('REFINE_ERROR',e,flush=True);break
+  recenter_molecules(c);p.FitScaleFactorForRw();print('CYCLE',stage,j,'Rw',p.GetRw(),'chi2',p.GetChi2(),'geom',sum(m.GetLogLikelihood() for m in mols),'LSQ',lsq.ChiSquare(),flush=True)
+ if packing_restraint is not None:print('PACKING_STAGE',stage,lsq_packing.cost(packing_restraint),flush=True)
+ export_cif(c,W+'/refine_'+run+'_stage'+str(stage)+'.cif')
+ xml_cryst_file_save_global(W+'/refine_'+run+'_stage'+str(stage)+'.xml')
+# Final pattern and parameters
+export_cif(c,W+'/refined_'+run+'.cif');xml_cryst_file_save_global(W+'/refined_'+run+'.xml')
+json.dump({'Rw':p.GetRw(),'chi2':p.GetChi2()},open(W+'/refined_'+run+'.json','w'),indent=1)
+import matplotlib.pyplot as plt
+x=np.rad2deg(p.GetPowderPatternX());y=p.GetPowderPatternObs();yc=p.GetPowderPatternCalc();fig,ax=plt.subplots(figsize=(14,6));ax.plot(x,y,'k',lw=.6,label='Observed');ax.plot(x,yc,'r',lw=.6,label='Rietveld');ax.plot(x,y-yc-y.max()*.13,'b',lw=.4,label='Difference');ax.legend();ax.set_title(sid+' Rwp %.4f'%p.GetRw());fig.tight_layout();fig.savefig(W+'/refined_'+run+'.png',dpi=130)
+print('FINISHED',sid,p.GetRw(),flush=True)
+
+if packing_restraint is not None:lsq_packing.detach(p,packing_restraint)
+{
+ "X238783d:25": {
+  "START_REFL": 100,
+  "RAMP_REF_EVERY": 4,
+  "RAMP_REF_STEP": 50
+ },
+ "Xbfeeda9:11": {
+  "START_REFL": 100,
+  "RAMP_REF_EVERY": 5,
+  "RAMP_REF_STEP": 50
+ },
+ "X019b9a4:11": {
+  "START_REFL": 100,
+  "RAMP_REF_EVERY": 5,
+  "RAMP_REF_STEP": 50
+ },
+ "Xeb393f9:51": {
+  "HBOND_COEFF": 25
+ }
+}X019b9a4   P -1 V 1629 NH 48 V/N/mult 17.0 density(1FU/ASU) 1.38 [8.445005750645986, 10.921928016393805, 18.442412835425692, 90.2884626890573, 94.00614168977307, 106.23346558366082]
+X07806d9 * P b c a V 1554 NH 10 V/N/mult 19.4 density(1FU/ASU) 1.43 [8.21076537, 11.22533891, 16.86291466, 90.0, 90.0, 90.0]
+X13023e3 * P 1 21 1 V 931 NH 24 V/N/mult 19.4 density(1FU/ASU) 1.17 [6.02220737, 5.52861212, 27.99499229, 90.0, 93.11545829, 90.0]
+X14a2b08   P -1 V 1288 NH 37 V/N/mult 17.4 density(1FU/ASU) 1.36 [5.0991143450088865, 11.932564902002003, 21.279667880816156, 85.24014158147244, 87.63281167614923, 87.02408411443314]
+X1a56c78   P 2 2 21 V 2000 NH 23 V/N/mult 21.7 density(1FU/ASU) 1.12 [5.90627278679979, 11.253950622962217, 30.08996977329099, 90.0, 90.0, 90.0]
+X1db5091   P 1 21/c 1 V 2545 NH 38 V/N/mult 16.7 density(1FU/ASU) 1.40 [4.903398995031971, 40.94213292006756, 12.886741200587796, 90.0, 100.35998111338532, 90.0]
+X2327841 * P 1 21 1 V 1532 NH 32 V/N/mult 23.9 density(1FU/ASU) 0.98 [25.04761755, 4.9344192, 12.39270057, 90.0, 90.78609451, 90.0]
+X238783d   P 21 21 21 V 4264 NH 52 V/N/mult 20.5 density(1FU/ASU) 1.17 [8.846657044168616, 20.132634723580942, 23.94195584840581, 90.0, 90.0, 90.0]
+X263b09a   P -1 V 1243 NH 36 V/N/mult 17.3 density(1FU/ASU) 1.38 [5.168079853057861, 11.77400016784668, 20.57819938659668, 83.70469665527344, 89.48709869384766, 86.84529876708984]
+X35b7fbc   P 21 21 21 V 2416 NH 33 V/N/mult 18.3 density(1FU/ASU) 1.25 [5.709514177833602, 12.767253130037945, 33.140742692492864, 90.0, 90.0, 90.0]
+X3c176e2 * P 21 21 21 V 1444 NH 12 V/N/mult 30.1 density(1FU/ASU) 0.83 [9.33204794, 11.03813029, 14.01540087, 90.0, 90.0, 90.0]
+X3f4781b   P 1 21 1 V 1857 NH 26 V/N/mult 35.7 density(1FU/ASU) 0.75 [10.434366171859804, 15.339761359799295, 12.634832645405725, 90.0, 113.3330205032856, 90.0]
+X4f6fe58   P -1 V 1412 NH 20 V/N/mult 35.3 density(1FU/ASU) 0.82 [7.553764404302974, 13.050444865569036, 15.402697704645078, 72.3553374936446, 83.50290749144928, 77.69114674074814]
+X7e382cb   P -1 V 642 NH 20 V/N/mult 16.0 density(1FU/ASU) 1.43 [6.950883561252238, 6.9714360090474425, 15.760000618785241, 65.620071071758, 82.98049443060587, 67.39068753201737]
+X8a06d7a   P -1 V 1286 NH 38 V/N/mult 16.9 density(1FU/ASU) 1.39 [5.0091400146484375, 11.848600387573242, 21.717899322509766, 86.05899810791016, 89.84310150146484, 89.82859802246094]
+X8a6f5a8   P 1 21 1 V 6417 NH 39 V/N/mult 82.3 density(1FU/ASU) 0.29 [16.86422000406547, 17.99627235535582, 22.606412956143604, 90.0, 110.72979744121672, 90.0]
+X9af54a2   P 1 21 1 V 1407 NH 19 V/N/mult 37.0 density(1FU/ASU) 0.69 [5.178728935315927, 8.253763769789536, 32.95138585905239, 90.0, 92.75227709009262, 90.0]
+Xb7088cf   P 21 21 21 V 1799 NH 28 V/N/mult 16.1 density(1FU/ASU) 1.39 [5.052457881299544, 9.355738049659784, 38.066725954209964, 90.0, 90.0, 90.0]
+Xbfc6d2c * P 1 21/a 1 V 1278 NH 18 V/N/mult 17.7 density(1FU/ASU) 1.21 [7.61561624, 14.62295518, 11.90474034, 90.0, 105.49653751, 90.0]
+Xbfeeda9   P 1 21/a 1 V 2670 NH 35 V/N/mult 19.1 density(1FU/ASU) 1.28 [13.202926946633223, 12.367019901476281, 16.69423334559393, 90.0, 101.65834198660818, 90.0]
+Xd4c1a35 * P 21 21 21 V 3428 NH 24 V/N/mult 35.7 density(1FU/ASU) 0.68 [11.76264003, 12.00327748, 24.27693809, 90.0, 90.0, 90.0]
+Xd8634a2   P -1 V 1015 NH 33 V/N/mult 15.4 density(1FU/ASU) 1.54 [8.910169100782866, 9.47845325451745, 13.245308707674797, 83.98286911524386, 81.77580180151384, 66.67862762269598]
+Xdcc971e * P 1 21 1 V 1433 NH 30 V/N/mult 23.9 density(1FU/ASU) 0.98 [11.0391956, 7.18617652, 18.47175354, 90.0, 101.98458058, 90.0]
+Xe1fb77b   P 1 21 1 V 1188 NH 38 V/N/mult 15.6 density(1FU/ASU) 1.49 [5.593068355245877, 15.360173538155827, 13.880661577245984, 90.0, 94.97536479377817, 90.0]
+Xe3a2935 * P 21 21 21 V 1418 NH 21 V/N/mult 16.9 density(1FU/ASU) 1.31 [6.88373267, 10.29614914, 20.00004368, 90.0, 90.0, 90.0]
+Xeb393f9 * P 1 V 680 NH 37 V/N/mult 18.4 density(1FU/ASU) 1.34 [8.01391786, 9.8153862, 10.23389852, 74.86735326, 68.95624428, 65.93144925]
+Xebbd488   C 1 2 1 V 5252 NH 71 V/N/mult 18.5 density(1FU/ASU) 1.30 [26.65439158599948, 12.391931489039752, 16.589886637301905, 90.0, 106.57330959124567, 90.0]
+Xedd9c7b   P 1 21/a 1 V 2740 NH 19 V/N/mult 36.0 density(1FU/ASU) 0.69 [10.3779432409722, 15.458141140128017, 17.161796396761616, 90.0, 95.65390425106375, 90.0]
+Xf8ac963 * P 21 21 21 V 1727 NH 21 V/N/mult 20.6 density(1FU/ASU) 1.11 [9.32157736, 11.39348194, 16.26479149, 90.0, 90.0, 90.0]
+Xfca9f3c * P 1 21 1 V 1258 NH 26 V/N/mult 24.2 density(1FU/ASU) 0.97 [12.34232913, 4.93568723, 21.44474158, 90.0, 105.63956645, 90.0]

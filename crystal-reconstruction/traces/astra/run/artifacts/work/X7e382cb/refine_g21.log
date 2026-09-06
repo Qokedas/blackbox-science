@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/app/work/refine_obj.py", line 12, in <module>
+    objs=xml_cryst_file_load_all_object(src);c=[o for o in objs if o.GetClassName()=='Crystal'][0];p=[o for o in objs if o.GetClassName()=='PowderPattern'][0]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.11/site-packages/pyobjcryst/io.py", line 62, in xml_cryst_file_load_all_object
+    XMLCrystFileLoadAllObject_orig(open(file, "rb"), verbose=verbose)
+                                   ^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/app/work/X7e382cb/search_g21/best.xml'

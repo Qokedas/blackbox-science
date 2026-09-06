@@ -1,0 +1,97 @@
+PAIRING [(0, 3), (1, 2)] origin [0.2596365  0.41356963 0.55293336]
+DEBUG 0 maxerr 1.6653345369377348e-16 actual [[-0.35745856  0.99789518  0.32814192]
+ [-0.3633518   0.81153336  0.36930017]
+ [-0.40665471  0.74213937  0.45246344]] desired [[-0.35745856  0.99789518  0.32814192]
+ [-0.3633518   0.81153336  0.36930017]
+ [-0.40665471  0.74213937  0.45246344]] xyzrange [ 3.3011261  11.07060186  5.62183309]
+DEBUG 1 maxerr 1.0 actual [[0.07247513 0.1153272  0.74924294]] desired [[ 0.07247513  0.1153272  -0.25075706]] xyzrange [0. 0. 0.]
+DEBUG 2 maxerr 1.0 actual [[0.25497094 0.0168856  0.51924945]] desired [[ 0.25497094  0.0168856  -0.48075055]] xyzrange [0. 0. 0.]
+SYMMETRISED_HEAVY_RW 0.11592847800089928
+X7e382cb Nat 40 molecule sizes [19, 19, 1, 1]
+  component O=C([O-])c1ccc(-c2ccc(C(=O)[O-])cc2)cc1 matches 0
+  component [NH4+] matches 2
+"""Enumerate unspecified tertiary ammonium nitrogen configurations.
+Reflect N and its one H through the plane of its three heavy neighbours.
+This preserves all N-X distances and angles at N, but changes the configuration
+at N; adjacent bond angles relax in a subsequent restrained refinement.
+Only SMILES-unspecified N centres are moved. These are search hypotheses.
+"""
+import sys,os,json,numpy as np,itertools
+from rdkit import Chem
+from pyobjcryst.io import xml_cryst_file_load_all_object,xml_cryst_file_save_global
+from obj_model import export_cif
+sid,src,modelp,tag=sys.argv[1:5];W='/app/work/'+sid;O=xml_cryst_file_load_all_object(src);c=next(o for o in O if o.GetClassName()=='Crystal');p=next(o for o in O if o.GetClassName()=='PowderPattern');d=p.GetPowderPatternComponent(0);mods=json.load(open(modelp));mols=[c.GetScatterer(i) for i in range(c.GetNbScatterer())];orig=[];pos=[];anchors=[];moves=[]
+for mi,(m,md) in enumerate(zip(mols,mods)):
+ pos.append([m.X,m.Y,m.Z])
+ if m.GetClassName()!='Molecule':orig.append(None);anchors.append(None);continue
+ r=Chem.MolFromSmiles(md['smiles']);N=r.GetNumAtoms();xyz=np.array([[m.GetAtom(i).X,m.GetAtom(i).Y,m.GetAtom(i).Z] for i in range(m.GetNbAtoms())]);orig.append(xyz);a=m.GetScatteringComponentList()[0];anchors.append(np.array([a.X,a.Y,a.Z]));nam={m.GetAtom(i).GetName():i for i in range(m.GetNbAtoms())};bonds=[(nam[b.GetAtom1().GetName()],nam[b.GetAtom2().GetName()]) for b in m.GetBondList()]
+ for a in r.GetAtoms():
+  i=a.GetIdx();nb=[n.GetIdx() for n in a.GetNeighbors() if n.GetAtomicNum()>1]
+  if a.GetSymbol()!='N' or a.GetFormalCharge()<=0 or len(nb)!=3 or a.GetTotalNumHs()!=1 or a.GetChiralTag()!=Chem.ChiralType.CHI_UNSPECIFIED:continue
+  h=[y if x==i else x for x,y in bonds if (x==i and y>=N) or (y==i and x>=N)];moves.append((mi,i,nb,[i]+h))
+print('N_INVERSION_MOVES',moves,flush=True);results=[]
+for bits in itertools.product([0,1],repeat=len(moves)):
+ xyz=[None if a is None else a.copy() for a in orig]
+ for b,(mi,i,nb,moved) in zip(bits,moves):
+  if not b:continue
+  z=xyz[mi];u=z[nb];normal=np.cross(u[1]-u[0],u[2]-u[0]);normal/=np.linalg.norm(normal);dist=(z[moved]-u[0])@normal;z[moved]-=2*dist[:,None]*normal
+ for mi,m in enumerate(mols):
+  if xyz[mi] is None:continue
+  m.X,m.Y,m.Z=pos[mi]
+  for i,v in enumerate(xyz[mi]):a=m.GetAtom(i);a.X,a.Y,a.Z=map(float,v)
+  a=m.GetScatteringComponentList()[0];df=anchors[mi]-np.array([a.X,a.Y,a.Z]);m.X+=df[0];m.Y+=df[1];m.Z+=df[2]
+ d.SetExtractionMode(False);p.Prepare();p.FitScaleFactorForRw();name=tag+'m'+''.join(map(str,bits));R=W+'/search_'+name;os.makedirs(R,exist_ok=True);json.dump(mods,open(R+'/model.json','w'),indent=1);export_cif(c,R+'/best.cif');xml_cryst_file_save_global(R+'/best.xml');rec={'tag':name,'mask':bits,'Rw':p.GetRw()};results.append(rec);print(rec,flush=True)
+json.dump(results,open(W+'/'+tag+'_choices.json','w'),indent=1)
+EXACT_PAWLEY nref 451 rank 371 cond 963.6382557804034 chi2 1171.113104310799 netRwp 0.0835982500639506
+ZM COC(=O)[C@H](c1ccccc1Cl)[NH+]1CCc2sccc2C1 n 21 torsions 4 max_distance_error 1.4660932023957685e-08
+ZM O=S(=O)([O-])O n 5 torsions 0 max_distance_error 6.062095714298721e-09
+ZM COC(=O)[C@H](c1ccccc1Cl)[NH+]1CCc2sccc2C1 n 21 torsions 4 max_distance_error 8.593673328505247e-09
+ZM O=S(=O)([O-])O n 5 torsions 0 max_distance_error 2.9188416128533845e-09
+Total degrees of freedom: 36
+Total external degrees of freedom: 28 (pos: 12 rot: 16 )
+Total internal degrees of freedom: 8
+PREPARED X3f4781b Nref 451 PawleyRw 0.04771345581113378 SG P 1 21 1
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+RESTART_ERROR max/rms 1.6314816378829437e-06 7.445586612915483e-07
+WARM_READY /app/work/X3f4781b/gallop_97
+set -e
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/57998/status ]] && ! grep -q '^State:.*Z' /proc/57998/status;do sleep 5;done
+id=X1a56c78
+best=$(python - <<'PY'
+import json,os
+W='/app/work/X1a56c78';a=[(json.load(open(W+'/refined_'+s+'.json'))['Rw'],s) for s in ['g90','g91','chair84m00','chair84m10'] if os.path.isfile(W+'/refined_'+s+'.json')];print(min(a)[1])
+PY
+)
+python /app/work/x1a_subgroup.py $id /app/work/$id/refined_$best.xml /app/work/$id/search_$best/model.json sub101 > /app/work/$id/sub101.log 2>&1
+python /app/work/submit.py $id /app/work/$id/search_sub101/best.cif --check > /app/work/$id/check_subseed101.log 2>&1
+python /app/work/refine_obj.py $id sub101 /app/work/$id/search_sub101/best.xml --scale --tight --stol=.4 > /app/work/$id/refine_sub101.log 2>&1
+python /app/work/submit.py $id /app/work/$id/refined_sub101.cif --check > /app/work/$id/check_sub101.log 2>&1
+python /app/work/check_stereo.py $id /app/work/$id/refined_sub101.cif >> /app/work/$id/check_sub101.log 2>&1
+"""Diagnostic orthorhombic P 2 21 21 -> P 1 21 1 subgroup expansion.
+Keep heavy coordinates exactly, including both independent molecules, and
+shift origin by -c/4 to put the b-axis screw in its conventional setting.
+"""
+import os,sys,json,numpy as np,gemmi
+from rdkit import Chem
+from pyobjcryst.io import xml_cryst_file_load_all_object,xml_cryst_file_save_global
+from obj_model import add_component,export_cif,recenter_molecules
+sid,src,modelp,tag=sys.argv[1:5];W='/app/work/'+sid;R=W+'/search_'+tag;os.makedirs(R,exist_ok=True)
+O=xml_cryst_file_load_all_object(src);c=next(o for o in O if o.GetClassName()=='Crystal');p=next(o for o in O if o.GetClassName()=='PowderPattern');d=p.GetPowderPatternComponent(0);md=json.load(open(modelp));assert gemmi.find_spacegroup_by_name(c.GetSpaceGroup().GetName()).xhm()=='P 2 21 21'
+mols=[c.GetScatterer(i) for i in range(c.GetNbScatterer())];M=np.array([c.FractionalToOrthonormalCoords(*v) for v in np.eye(3)]);inv=np.linalg.inv(M);images=[]
+for rot in [np.eye(3),np.diag([1.,-1.,-1.])]:
+ for m,mo in zip(mols,md):
+  n=Chem.MolFromSmiles(mo['smiles']).GetNumHeavyAtoms();sc=list(m.GetScatteringComponentList())[:n];fc=np.array([[a.X,a.Y,a.Z] for a in sc]);dest=(fc@rot.T+np.array([0.,0.,-.25]))@M;ideal=np.array(mo.get('restraint_coords',mo.get('rdkit_coords',np.zeros((n,3)))))@(inv@rot.T@M);images.append((mo['smiles'],dest,ideal))
+for m in mols:c.RemoveScatterer(m)
+c.ChangeSpaceGroup('P 1 21 1');new=[]
+for i,(smiles,dest,ideal) in enumerate(images):
+ m,mo=add_component(c,smiles,'sub_m'+str(i),coords_override=ideal.copy());ctr=dest.mean(0)
+ if m.GetClassName()=='Molecule':
+  for j,v in enumerate(dest-ctr):a=m.GetAtom(j);a.X,a.Y,a.Z=map(float,v)
+  m.Q0,m.Q1,m.Q2,m.Q3=1.,0.,0.,0.
+ m.X,m.Y,m.Z=c.OrthonormalToFractionalCoords(*ctr);new.append(mo)
+ actual=np.array([c.FractionalToOrthonormalCoords(a.X,a.Y,a.Z) for a in list(m.GetScatteringComponentList())[:len(dest)]]);assert np.max(np.abs(actual-dest))<1e-6
+c.GetOption(1).SetChoice(0);d.SetExtractionMode(False);p.Prepare();p.FitScaleFactorForRw();recenter_molecules(c);json.dump(new,open(R+'/model.json','w'),indent=1);xml_cryst_file_save_global(R+'/best.xml');export_cif(c,R+'/best.cif');print('SUBGROUP',sid,'heavy-only initial Rw',p.GetRw(),flush=True)

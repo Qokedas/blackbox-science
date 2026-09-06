@@ -1,0 +1,74 @@
+X8a06d7a 23 [{'cell': [21.748, 11.862, 5.061, 92.17, 91.916, 93.96], 'volume': 1300.85, 'score': 47.37, 'system': 'TRICLINIC', 'centering': 'P', 'mode': 3}, {'cell': [21.746, 11.859, 5.061, 92.159, 91.93, 93.94], 'volume': 1300.18, 'score': 44.72, 'system': 'TRICLINIC', 'centering': 'P', 'mode': 3}, {'cell': [21.738, 11.89, 5.043, 94.657, 88.937, 94.097], 'volume': 1295.58, 'score': 40.59, 'system': 'TRICLINIC', 'centering': 'P', 'mode': 3}, {'cell': [21.931, 11.856, 4.906, 92.057, 82.287, 94.221], 'volume': 1260.21, 'score': 37.0, 'system': 'TRICLINIC', 'centering': 'P', 'mode': 3}]
+X8a06d7a 5 47.37 [5.061, 11.862, 21.748, 93.96, 91.916, 92.17] P-1
+[
+ {
+  "cell": [
+   5.061,
+   11.861999999999998,
+   21.748,
+   93.96,
+   91.916,
+   92.17
+  ],
+  "volume": 1300.7078912620793,
+  "score": 47.37,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 3,
+  "source": "index_TRICLINIC_P_3_partial.json",
+  "sg": "P-1"
+ },
+ {
+  "cell": [
+   5.043,
+   11.890000000000002,
+   21.737999999999996,
+   85.903,
+   88.937,
+   85.34300000000002
+  ],
+  "volume": 1295.7084192597426,
+  "score": 40.59,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 3,
+  "source": "index_TRICLINIC_P_3_partial.json",
+  "sg": "P-1"
+ },
+ {
+  "cell": [
+   4.906,
+   11.855999999999996,
+   21.821025000604596,
+   93.7788018305055,
+   95.16024745103357,
+   92.057
+  ],
+  "volume": 1260.2218481328173,
+  "score": 37.0,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 3,
+  "source": "index_TRICLINIC_P_3_partial.json",
+  "sg": "P-1"
+ },
+ {
+  "cell": [
+   4.892,
+   11.872,
+   21.734000000000005,
+   86.008,
+   89.827,
+   86.48800000000001
+  ],
+  "volume": 1256.8351245822369,
+  "score": 34.39,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 3,
+  "source": "index_TRICLINIC_P_3_partial.json",
+  "sg": "P-1"
+ },
+ {
+RUN 0 steps 100000 time 7.425724506378174 total 7.4257776737213135 LLK 485609.5301600699 Rw 0.3083058098896025 Integrated 485004.8326127364
+RUN 1 steps 1000000 time 75.42981362342834 total 82.890296459198 LLK 495118.6553085772 Rw 0.3077597681203257 Integrated 494513.9577612437

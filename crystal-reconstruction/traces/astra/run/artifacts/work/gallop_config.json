@@ -1,0 +1,79 @@
+{
+ "X238783d:25": {
+  "START_REFL": 100,
+  "RAMP_REF_EVERY": 4,
+  "RAMP_REF_STEP": 50,
+  "ENABLE_PACKING": 1,
+  "HBOND_COEFF": 4,
+  "BASE_XML": "/app/work/X238783d/gallop_25/base.xml"
+ },
+ "Xbfeeda9:11": {
+  "START_REFL": 100,
+  "RAMP_REF_EVERY": 5,
+  "RAMP_REF_STEP": 50,
+  "ENABLE_PACKING": 1,
+  "HBOND_COEFF": 10
+ },
+ "X019b9a4:11": {
+  "START_REFL": 100,
+  "RAMP_REF_EVERY": 5,
+  "RAMP_REF_STEP": 50,
+  "ENABLE_PACKING": 1,
+  "HBOND_COEFF": 10,
+  "MODEL_JSON": "/app/work/X019b9a4/isomer0.json"
+ },
+ "Xeb393f9:51": {
+  "HBOND_COEFF": 25
+ },
+ "X8a06d7a:11": {
+  "BASE_XML": "/app/work/X8a06d7a/gallop_11/base.xml",
+  "HBOND_COEFF": 15,
+  "START_REFL": 100,
+  "RAMP_REF_EVERY": 4,
+  "RAMP_REF_STEP": 40,
+  "ENABLE_PACKING": 1
+ },
+ "X14a2b08:11": {
+  "HBOND_COEFF": 12,
+  "ENABLE_PACKING": 1
+ },
+ "X1db5091:11": {
+  "HBOND_COEFF": 12,
+  "ENABLE_PACKING": 1
+ },
+ "X7e382cb:40": {
+  "HBOND_MULTIPLE": 1
+ },
+ "X35b7fbc:11": {
+  "ENABLE_PACKING": 1,
+  "HBOND_COEFF": 10
+ },
+ "Xe1fb77b:11": {
+  "ENABLE_PACKING": 1,
+  "HBOND_COEFF": 10
+ },
+ "X019b9a4:12": {
+  "MODEL_JSON": "/app/work/X019b9a4/isomer1.json",
+  "ENABLE_PACKING": 1,
+  "HBOND_COEFF": 10,
+  "START_REFL": 100,
+  "RAMP_REF_EVERY": 3,
+  "RAMP_REF_STEP": 60
+ },
+ "X1a56c78:18": {
+  "HBOND_COEFF": 15,
+  "START_REFL": 90,
+  "RAMP_REF_EVERY": 4,
+  "RAMP_REF_STEP": 40
+ },
+ "X238783d:20": {
+  "ENABLE_PACKING": 1,
+  "HBOND_COEFF": 4
+ },
+ "Xd8634a2:31": {
+  "HBOND_COEFF": 8
+ },
+ "Xb7088cf:31": {
+  "HBOND_COEFF": 8
+ }
+}

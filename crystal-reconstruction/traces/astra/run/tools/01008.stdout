@@ -1,0 +1,179 @@
+set -e
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/29859/status ]] && ! grep -q '^State:.*Z' /proc/29859/status;do sleep 5;done
+id=X3f4781b
+GALLOP_STOL=.28 python /app/work/warm_gallop.py $id 82 /app/work/$id/refined_g50.xml /app/work/$id/search_g50/model.json > /app/work/$id/warm82.log 2>&1
+BUMP_COEFF=70 HBOND_COEFF=20 PARTICLES=128 ITERATIONS=350 FREE_SCHEDULE='1,3;0;2;1,3;0;2' python /app/work/search_conditional.py $id 82 83 > /app/work/$id/conditional83.log 2>&1
+python /app/work/import_gallop.py $id 83 > /app/work/$id/import_g83.log 2>&1
+python /app/work/refine_obj.py $id g83 /app/work/$id/search_g83/best.xml --scale --tight --stol=.4 > /app/work/$id/refine_g83.log 2>&1
+python /app/work/submit.py $id /app/work/$id/refined_g83.cif --check > /app/work/$id/check_g83.log 2>&1
+import sys,os,time,json,numpy as np,torch,gemmi
+from gallop.structure import Structure
+from gallop.optim import local
+from gallop.optim.swarm import Swarm
+from gallop import tensor_prep,zm_to_cart,chi2
+from gallop_prepare import prepare
+from gallop_io import load_structure
+sid=sys.argv[1];run=int(sys.argv[2]) if len(sys.argv)>2 else 1;zp=int(sys.argv[3]) if len(sys.argv)>3 else 1
+W='/app/work/'+sid;G=W+'/gallop_'+str(run);torch.set_num_threads(int(os.environ.get('TORCH_THREADS',1)));torch.set_num_interop_threads(1)
+if os.path.exists('/app/work/gallop_config.json'):
+ for key,val in json.load(open('/app/work/gallop_config.json')).get(sid+':'+str(run),{}).items():os.environ.setdefault(key,str(val))
+if not os.path.exists(G+'/structure.json') or '--prepare' in sys.argv:
+ mp=next((v.split('=',1)[1] for v in sys.argv if v.startswith('--model=')),os.getenv('MODEL_JSON'));s,G=prepare(sid,run,zp,rigid='--rigid' in sys.argv,model_path=mp,stolmax=float(os.environ.get('GALLOP_STOL','.21')))
+else:s=load_structure(G+'/structure.json')
+from gallop_fast_symmetry import enable_fast_symmetry
+enable_fast_symmetry(s)
+if '--hscatter' in sys.argv:
+ from hydrogen_prefix import enable_hydrogen_prefix
+ enable_hydrogen_prefix(s,G+'/model.json')
+if '--packing' in sys.argv or os.getenv('ENABLE_PACKING','0')=='1':
+ from gallop_packing import enable_packing
+ enable_packing(s,G+'/model.json')
+if float(os.getenv('HBOND_COEFF','0'))>0:
+ from gallop_hbond import enable_hbonds
+ enable_hbonds(s,G+'/model.json')
+if 'HEAVY_ANCHOR' in os.environ:
+ from gallop_heavy_anchor import enable_heavy_anchor
+ enable_heavy_anchor(s,os.environ['HEAVY_ANCHOR'])
+np.random.seed((int(time.time())+run)%1000000);NP=int(os.environ.get('PARTICLES','128'));IT=int(os.environ.get('ITERATIONS','450'));ns=max(1,NP//32);max_time=float(os.environ.get('SEARCH_TIME',1800));best=1e100;elite_e=None;elite_i=None;t0=time.time();i=0
+
+def save_result(result,i):
+ global best,elite_e,elite_i
+ mn=float(result['chi_2'].min());ix=int(result['chi_2'].argmin())
+ if mn>=best:return
+ best=float(mn);elite_e=result['external'][ix].copy();elite_i=result['internal'][ix].copy()
+ np.savez_compressed(G+'/best.npz',external=result['external'][ix:ix+1],internal=result['internal'][ix:ix+1],chi2=mn)
+ t=tensor_prep.get_all_required_tensors(s,external=result['external'][ix:ix+1],internal=result['internal'][ix:ix+1],requires_grad=False,device=torch.device('cpu'),verbose=False)
+ with torch.no_grad():frac=zm_to_cart.get_asymmetric_coords(**t['zm']).detach().numpy()[0]
+ np.save(G+'/best_frac.npy',frac)
+ sg=gemmi.find_spacegroup_by_name(s.space_group.symbol);text='data_solution\n'
+ for name,v in zip(['length_a','length_b','length_c','angle_alpha','angle_beta','angle_gamma'],s.lattice.parameters):text+=f'_cell_{name} {v:.9f}\n'
+ text+=f"_space_group_name_H-M_alt '{sg.xhm()}'\n_space_group_IT_number {sg.number}\nloop_\n_space_group_symop_id\n_space_group_symop_operation_xyz\n"
+ for j,op in enumerate(sg.operations()):text+=f"{j+1} '{op.triplet()}'\n"
+ text+='loop_\n_atom_site_label\n_atom_site_type_symbol\n_atom_site_fract_x\n_atom_site_fract_y\n_atom_site_fract_z\n_atom_site_occupancy\n'
+ els=[el for z in s.zmatrices for el in z.elements_no_H]
+ for j,(el,v) in enumerate(zip(els,frac)):text+=f'{el}{j+1} {el} {v[0]%1:.9f} {v[1]%1:.9f} {v[2]%1:.9f} 1\n'
+ open(G+'/best.cif','w').write(text);json.dump({'chi2':float(mn),'Rint':float(np.sqrt(mn/1000)),'iteration':i,'elapsed':time.time()-t0},open(G+'/best.json','w'),indent=1)
+
+while time.time()-t0<max_time and not os.path.exists(G+'/STOP'):
+ if i%12==0:
+  swarm=Swarm(s,n_particles=NP,n_swarms=ns,global_update=True,global_update_freq=5);ext,intr=swarm.get_initial_positions()
+  if 'HEAVY_POOL' in os.environ:
+   from gallop_moves import heavy_initialise
+   ext,intr=heavy_initialise(s,ext,intr,os.environ['HEAVY_POOL'])
+  # Optional warm-start around a chemically sensible best particle.
+  if 'START_NPZ' in os.environ:
+   warm=np.load(os.environ['START_NPZ']);nn=NP//2;ext[:nn]=warm['external'][0]+np.random.normal(size=ext[:nn].shape)*float(os.environ.get('START_JITTER','.15'));intr[:nn]=warm['internal'][0]+np.random.normal(size=intr[:nn].shape)*float(os.environ.get('START_TOR_JITTER','.4'))
+ # Retain a small elite cloud across PSO and reset boundaries.
+ if elite_e is not None:
+  ne=max(1,int(NP*float(os.environ.get('ELITE_FRAC','.10'))));ext[:ne]=elite_e+np.random.normal(size=ext[:ne].shape)*float(os.environ.get('ELITE_JITTER','.045'));intr[:ne]=elite_i+np.random.normal(size=intr[:ne].shape)*float(os.environ.get('ELITE_TOR_JITTER','.12'));ext[0]=elite_e;intr[0]=elite_i
+  nm=max(0,int(NP*float(os.environ.get('MACRO_ELITE_FRAC','.20'))))
+  if nm:
+   from gallop_moves import macro_mutations
+   me,mi=macro_mutations(s,elite_e,elite_i,nm);ext[ne:ne+nm]=me;intr[ne:ne+nm]=mi
+ ti=time.time()
+ nref=min(len(s.hkl),int(os.environ.get('START_REFL',str(len(s.hkl))))+int(os.environ.get('RAMP_REF_STEP','40'))*(i//int(os.environ.get('RAMP_REF_EVERY','12'))))
+ if 'START_REFL' in os.environ and os.getenv('TIME_RAMP','1')=='1':
+  nr0=int(os.environ['START_REFL']);nref=max(nref,min(len(s.hkl),int(nr0+(len(s.hkl)-nr0)*(time.time()-t0)/max_time/float(os.getenv('FULL_REF_TIME_FRACTION','.55')))))
+ result=local.minimise(s,external=ext,internal=intr,n_reflections=nref,n_iterations=IT,n_cooldown=IT//4,learning_rate=.04,device=torch.device('cpu'),loss='sum',use_progress_bar=False,save_CIF=False,run=i,verbose=False,check_min=25)
+ if nref<len(s.hkl):
+  ft=tensor_prep.get_all_required_tensors(s,external=result['external'],internal=result['internal'],requires_grad=False,device=torch.device('cpu'),verbose=False)
+  with torch.no_grad():full_chi=chi2.get_chi_2(ft['zm'],ft['int_tensors'],ft['chisqd_tensors']).numpy()
+  result['low_chi_2']=result['chi_2'].copy();result['chi_2']=full_chi
+ print('GALLOP',i,'Nref',nref,'seconds',time.time()-ti,'best',result['chi_2'].min(),'q25',np.quantile(result['chi_2'],.25),'median',np.median(result['chi_2']),'total',time.time()-t0,flush=True)
+ save_result(result,i)
+ if 'low_chi_2' in result:result['chi_2']=result['low_chi_2']
+ ext,intr=swarm.update_position(result=result,verbose=False)
+ np.savez_compressed(G+'/last_population.npz',external=result['external'],internal=result['internal'],chi2=result['chi_2'])
+ i+=1
+ if '--test' in sys.argv or best<float(os.environ.get('TARGET_CHI','2.0')):break
+print('FINISHED',sid,best,flush=True)
+"""Replace one fragment by alternative chemically generated conformers.
+The chosen anchor atoms are least-squares aligned to the native seed; all other
+fragments' heavy-atom coordinates are preserved exactly. Search hypotheses only.
+"""
+import os,sys,json,numpy as np,itertools
+from rdkit import Chem
+from rdkit.Chem import AllChem
+from pyobjcryst.io import xml_cryst_file_load_all_object,xml_cryst_file_save_global
+from obj_model import add_component,export_cif
+sid,src,modelp,tag=sys.argv[1:5];fi=int(sys.argv[5]);anchors=list(map(int,sys.argv[6].split(','))) if len(sys.argv)>6 else None;maxkeep=int(os.getenv('MAX_CONFORMERS','12'));W='/app/work/'+sid
+O=xml_cryst_file_load_all_object(src);c=next(o for o in O if o.GetClassName()=='Crystal');p=next(o for o in O if o.GetClassName()=='PowderPattern');d=next(p.GetPowderPatternComponent(i) for i in range(p.GetNbPowderPatternComponent()) if p.GetPowderPatternComponent(i).GetClassName()=='PowderPatternDiffraction');mods=json.load(open(modelp));old=[]
+for i,md in enumerate(mods):
+ m=c.GetScatterer(i);n=Chem.MolFromSmiles(md['smiles']).GetNumAtoms();sc=list(m.GetScatteringComponentList())[:n];old.append(np.array([c.FractionalToOrthonormalCoords(a.X,a.Y,a.Z) for a in sc]))
+r0=Chem.MolFromSmiles(mods[fi]['smiles']);n=r0.GetNumAtoms();r=Chem.AddHs(r0)
+if anchors is None:anchors=list(r0.GetSubstructMatch(Chem.MolFromSmarts('[OX1]=[CX3][NX3]')))
+assert len(anchors)>=3
+ps=AllChem.ETKDGv3();ps.randomSeed=89743;ps.numThreads=1;ps.pruneRmsThresh=.15
+ids=list(AllChem.EmbedMultipleConfs(r,numConfs=200,params=ps));es=AllChem.MMFFOptimizeMoleculeConfs(r,numThreads=1,maxIters=700);ix=sorted(range(len(ids)),key=lambda i:es[i][1]);candidates=[];Y=old[fi][anchors]
+for i in ix:
+ if es[i][1]>es[ix[0]][1]+15:continue
+ base=np.array(r.GetConformer(ids[i]).GetPositions())[:n]
+ for reflect in [False,True]:
+  if reflect and any(a.GetChiralTag()!=Chem.ChiralType.CHI_UNSPECIFIED for a in r0.GetAtoms()):continue
+  xyz=base.copy()
+  if reflect:xyz[:,2]*=-1
+  X=xyz[anchors];U,sv,Vt=np.linalg.svd((X-X.mean(0)).T@(Y-Y.mean(0)));D=np.eye(3);D[-1,-1]=np.linalg.det(U@Vt);rot=U@D@Vt;dest=(xyz-X.mean(0))@rot+Y.mean(0)
+  if any(np.sqrt(np.mean((dest-a['dest'])**2)*3)<.15 for a in candidates):continue
+  candidates.append({'xyz':xyz,'dest':dest,'energy':es[i][1],'index':i,'reflected':reflect})
+  if len(candidates)>=maxkeep:break
+ if len(candidates)>=maxkeep:break
+print('CONFORMERS',len(ids),'distinct',len(candidates),'anchors',anchors,flush=True);results=[]
+for k,cc in enumerate(candidates):
+ for m in [c.GetScatterer(j) for j in range(c.GetNbScatterer())]:c.RemoveScatterer(m)
+ newmods=[]
+ for j,md in enumerate(mods):
+  dest=cc['dest'] if j==fi else old[j];ideal=cc['xyz'] if j==fi else np.array(md.get('restraint_coords',md.get('rdkit_coords',dest)))
+  m,mo=add_component(c,md['smiles'],'m'+str(j),coords_override=ideal.copy());ctr=dest.mean(0)
+  if m.GetClassName()=='Molecule':
+   for ii,v in enumerate(dest-ctr):a=m.GetAtom(ii);a.X,a.Y,a.Z=map(float,v)
+   m.Q0,m.Q1,m.Q2,m.Q3=1.,0.,0.,0.
+  m.X,m.Y,m.Z=c.OrthonormalToFractionalCoords(*ctr);newmods.append(mo)
+  actual=np.array([c.FractionalToOrthonormalCoords(a.X,a.Y,a.Z) for a in list(m.GetScatteringComponentList())[:len(dest)]])
+  assert np.max(np.abs(actual-dest))<1.e-6,'World coordinates changed'
+ d.SetExtractionMode(False);p.Prepare();p.FitScaleFactorForRw();name=tag+'c'+str(k);R=W+'/search_'+name;os.makedirs(R,exist_ok=True);json.dump(newmods,open(R+'/model.json','w'),indent=1);export_cif(c,R+'/best.cif');xml_cryst_file_save_global(R+'/best.xml');a={'tag':name,'energy':float(cc['energy']),'index':int(cc['index']),'reflected':cc['reflected'],'Rw':p.GetRw()};results.append(a);print(a,flush=True)
+json.dump(results,open(W+'/'+tag+'_choices.json','w'),indent=1)
+"""Generate the two axial/equatorial choices for each monosubstituted chair.
+A 180-degree rotation about the bisector of the two ring bonds at the attachment
+atom exchanges the two neighbouring C sites while turning over the remote ring.
+The substituent and attachment atom remain fixed. This is only a search move.
+"""
+import sys,os,json,numpy as np,itertools
+from rdkit import Chem
+from pyobjcryst.io import xml_cryst_file_load_all_object,xml_cryst_file_save_global
+from obj_model import export_cif
+sid,src,modelp,tag=sys.argv[1:5];W='/app/work/'+sid;O=xml_cryst_file_load_all_object(src);c=next(o for o in O if o.GetClassName()=='Crystal');p=next(o for o in O if o.GetClassName()=='PowderPattern');d=p.GetPowderPatternComponent(0);mods=json.load(open(modelp));moves=[];orig=[];mols=[];originalpos=[];anchors=[]
+for mi,md in enumerate(mods):
+ m=c.GetScatterer(mi);mols.append(m);originalpos.append([m.X,m.Y,m.Z])
+ if m.GetClassName()!='Molecule':orig.append(None);anchors.append(None);continue
+ r=Chem.MolFromSmiles(md['smiles']);N=r.GetNumAtoms();coords=np.array([[m.GetAtom(i).X,m.GetAtom(i).Y,m.GetAtom(i).Z] for i in range(m.GetNbAtoms())]);orig.append(coords);rh=Chem.AddHs(r)
+ nameindex={m.GetAtom(i).GetName():i for i in range(m.GetNbAtoms())};bonds=[]
+ for bo in m.GetBondList():bonds.append((nameindex[bo.GetAtom1().GetName()],nameindex[bo.GetAtom2().GetName()]))
+ for ring in r.GetRingInfo().AtomRings():
+  rs=set(ring)
+  if len(rs)!=6 or any(r.GetAtomWithIdx(i).GetIsAromatic() for i in rs):continue
+  external=[(i,a.GetIdx()) for i in rs for a in r.GetAtomWithIdx(i).GetNeighbors() if a.GetIdx() not in rs]
+  if len(external)!=1:continue
+  center,parent=external[0]
+  if r.GetAtomWithIdx(center).GetChiralTag()!=Chem.ChiralType.CHI_UNSPECIFIED:continue
+  nb=[a.GetIdx() for a in r.GetAtomWithIdx(center).GetNeighbors() if a.GetIdx() in rs]
+  moved=rs-{center}
+  for i,j in bonds:
+   if i in moved and j>=N:moved.add(j)
+   if j in moved and i>=N:moved.add(i)
+  moves.append((mi,center,nb,sorted(moved)))
+ a=m.GetScatteringComponentList()[0];anchors.append(np.array([a.X,a.Y,a.Z]))
+print('CHAIR_MOVES',moves,flush=True)
+res=[]
+for mask in itertools.product([0,1],repeat=len(moves)):
+ xyz=[None if a is None else a.copy() for a in orig]
+ for bit,(mi,center,nb,moved) in zip(mask,moves):
+  if not bit:continue
+  aa=xyz[mi];v=aa[nb]-aa[center];v/=np.linalg.norm(v,axis=1,keepdims=True);axis=v.sum(0);axis/=np.linalg.norm(axis);z=aa[moved]-aa[center];aa[moved]=aa[center]+2*(z@axis)[:,None]*axis-z
+ for mi,m in enumerate(mols):
+  if xyz[mi] is None:continue
+  m.X,m.Y,m.Z=map(float,originalpos[mi])
+  for i,v in enumerate(xyz[mi]):a=m.GetAtom(i);a.X,a.Y,a.Z=map(float,v)
+  a=m.GetScatteringComponentList()[0];df=anchors[mi]-np.array([a.X,a.Y,a.Z]);m.X+=df[0];m.Y+=df[1];m.Z+=df[2]
+ d.SetExtractionMode(False);p.Prepare();p.FitScaleFactorForRw();name=tag+'m'+''.join(map(str,mask));R=W+'/search_'+name;os.makedirs(R,exist_ok=True);json.dump(mods,open(R+'/model.json','w'),indent=1);export_cif(c,R+'/best.cif');xml_cryst_file_save_global(R+'/best.xml');res.append({'tag':name,'mask':mask,'Rw':p.GetRw()});print(res[-1],flush=True)
+json.dump(res,open(W+'/'+tag+'_choices.json','w'),indent=1)

@@ -1,0 +1,135 @@
+X7e382cb TRICLINIC P 4 peaks [2.80807, 5.63519, 7.73199, 8.27692, 8.66969, 11.30106, 11.74531, 12.68431, 13.33839, 13.85071, 14.1362, 15.48786, 19.1501] V 250.0 1800.0 Lmax 40.0
+3->40,1.48001,24.9999
+1.5708->2.35619,0.0785683,0.707107,9.99638
+250->1800,387.51,3.9999
+Starting: V=250->637.51
+    a= 7.98- 8.11 b= 6.37- 6.58 c= 6.36- 6.54 alpha=123.15-124.82 beta= 68.63- 67.92 gamma=114.09-115.34 V=242.95-255.15level=4, indexed=1(0 sol.)
+    a=0.01950-0.01919 b=0.03789-0.03719 c=0.03649-0.03578 alpha=0.01457-0.01499 beta=0.03482-0.03573 gamma=-0.00985--0.00929level=4, indexed=1(0 sol.)
+ Solution ? a=  8.076 b=  6.487 c=  6.429 alpha=123.545 beta= 67.886 gamma=115.088 V=  249.65 score= 20.35 #   0
+1559 solutions ! Redparing...
+-> 45 remaining
+1231 solutions ! Redparing...
+-> 89 remaining
+1884 solutions ! Redparing...
+CellExplorer::ReduceSolutions(): update threshold for report from 8 to 8.04261
+-> 100 remaining
+      a= 7.25- 7.29 b= 6.55- 6.58 c= 5.40- 5.44 alpha=102.16-102.51 beta= 97.37- 97.68 gamma= 90.34- 90.51 V=248.62-252.36level=6, indexed=1(2030 sol.)
+      a=0.01935-0.01919 b=0.02444-0.02426 c=0.03649-0.03613 alpha=0.00148-0.00169 beta=0.01273-0.01301 gamma=0.00704-0.00732level=6, indexed=1(2030 sol.)
+ Solution ? a=  7.251 b=  6.581 c=  5.424 alpha=102.186 beta= 96.901 gamma= 91.357 V=  250.83 score= 25.55 #2030
+      a= 7.21- 7.25 b= 6.57- 6.61 c= 5.37- 5.41 alpha=101.07-101.40 beta= 96.24- 96.55 gamma= 91.53- 91.72 V=248.15-251.83level=6, indexed=1(2052 sol.)
+      a=0.01950-0.01935 b=0.02408-0.02390 c=0.03649-0.03613 alpha=0.00211-0.00232 beta=0.01163-0.01190 gamma=0.00619-0.00647level=6, indexed=1(2052 sol.)
+ Solution ? a=  7.251 b=  6.581 c=  5.424 alpha=102.186 beta= 96.901 gamma= 91.357 V=  250.83 score= 25.55 #2052
+      a= 7.25- 7.28 b= 6.55- 6.58 c= 5.39- 5.43 alpha=102.04-102.38 beta= 96.50- 96.80 gamma= 91.62- 91.81 V=248.37-252.10level=6, indexed=1(2114 sol.)
+      a=0.01935-0.01919 b=0.02444-0.02426 c=0.03649-0.03613 alpha=0.00232-0.00253 beta=0.01273-0.01301 gamma=0.00647-0.00676level=6, indexed=1(2114 sol.)
+ Solution ? a=  7.251 b=  6.581 c=  5.424 alpha=102.186 beta= 96.901 gamma= 91.357 V=  250.83 score= 25.55 #2114
+      a= 7.25- 7.28 b= 6.56- 6.59 c= 5.40- 5.44 alpha=102.31-102.65 beta= 96.49- 96.79 gamma= 91.59- 91.77 V=248.63-252.38level=6, indexed=1(2116 sol.)
+      a=0.01935-0.01919 b=0.02444-0.02426 c=0.03649-0.03613 alpha=0.00232-0.00253 beta=0.01301-0.01329 gamma=0.00647-0.00676level=6, indexed=1(2116 sol.)
+ Solution ? a=  7.251 b=  6.581 c=  5.424 alpha=102.186 beta= 96.901 gamma= 91.357 V=  250.83 score= 25.55 #2116
+3132 solutions ! Redparing...
+CellExplorer::ReduceSolutions(): update threshold for report from 8.04261 to 9.66422
+-> 100 remaining
+1116 solutions ! Redparing...
+CellExplorer::ReduceSolutions(): update threshold for report from 9.66422 to 10.1552
+-> 100 remaining
+      a= 7.34- 7.37 b= 7.08- 7.14 c= 5.88- 5.93 alpha=114.73-115.30 beta= 77.59- 77.62 gamma= 97.89- 98.25 V=270.85-275.43level=6, indexed=1(1551 sol.)
+      a=0.01950-0.01935 b=0.02426-0.02408 c=0.03613-0.03578 alpha=0.00232-0.00253 beta=0.02381-0.02408 gamma=-0.00929--0.00901level=6, indexed=1(1551 sol.)
+ Solution ? a=  7.317 b=  7.053 c=  5.887 alpha=114.335 beta= 80.377 gamma= 96.419 V=  272.62 score= 26.33 #1551
+2391 solutions ! Redparing...
+CellExplorer::ReduceSolutions(): update threshold for report from 10.1552 to 11.3516
+-> 100 remaining
+1564 solutions ! Redparing...
+CellExplorer::ReduceSolutions(): update threshold for report from 11.3516 to 11.9769
+-> 100 remaining
+      a= 7.30- 7.33 b= 7.01- 7.07 c= 5.85- 5.90 alpha=114.03-114.58 beta= 80.08- 80.15 gamma= 95.78- 96.10 V=269.16-273.64level=6, indexed=1(1427 sol.)
+      a=0.01935-0.01919 b=0.02444-0.02426 c=0.03578-0.03543 alpha=0.00148-0.00169 beta=0.02353-0.02381 gamma=-0.00760--0.00732level=6, indexed=1(1427 sol.)
+ Solution ? a=  7.311 b=  7.048 c=  5.886 alpha=114.317 beta= 80.432 gamma= 96.349 V=  272.25 score= 28.83 #1427
+      a= 7.30- 7.32 b= 7.02- 7.08 c= 5.86- 5.91 alpha=114.30-114.84 beta= 80.39- 80.46 gamma= 95.69- 96.01 V=269.51-274.02level=6, indexed=1(1430 sol.)
+      a=0.01935-0.01919 b=0.02444-0.02426 c=0.03578-0.03543 alpha=0.00148-0.00169 beta=0.02381-0.02408 gamma=-0.00732--0.00704level=6, indexed=1(1430 sol.)
+ Solution ? a=  7.311 b=  7.048 c=  5.886 alpha=114.317 beta= 80.432 gamma= 96.349 V=  272.25 score= 28.83 #1430
+      a= 7.30- 7.33 b= 7.02- 7.07 c= 5.82- 5.87 alpha=113.61-114.15 beta= 80.44- 80.51 gamma= 96.35- 96.66 V=269.03-273.51level=6, indexed=1(1458 sol.)
+      a=0.01935-0.01919 b=0.02426-0.02408 c=0.03578-0.03543 alpha=0.00211-0.00232 beta=0.02298-0.02325 gamma=-0.00704--0.00676level=6, indexed=1(1458 sol.)
+ Solution ? a=  7.311 b=  7.048 c=  5.886 alpha=114.317 beta= 80.432 gamma= 96.349 V=  272.25 score= 28.83 #1458
+      a= 7.31- 7.34 b= 7.03- 7.09 c= 5.84- 5.89 alpha=113.94-114.49 beta= 80.07- 80.13 gamma= 96.54- 96.86 V=269.92-274.44level=6, indexed=1(1559 sol.)
+      a=0.01935-0.01919 b=0.02426-0.02408 c=0.03578-0.03543 alpha=0.00211-0.00232 beta=0.02325-0.02353 gamma=-0.00732--0.00704level=6, indexed=1(1559 sol.)
+ Solution ? a=  7.311 b=  7.048 c=  5.886 alpha=114.317 beta= 80.432 gamma= 96.349 V=  272.25 score= 28.83 #1559
+1659 solutions ! Redparing...
+CellExplorer::ReduceSolutions(): update threshold for report from 11.9769 to 12.294
+-> 100 remaining
+      a= 7.27- 7.30 b= 7.05- 7.11 c= 5.85- 5.90 alpha=114.20-114.74 beta= 80.41- 80.47 gamma= 96.43- 96.75 V=269.17-273.69level=6, indexed=1(115 sol.)
+      a=0.01950-0.01935 b=0.02426-0.02408 c=0.03578-0.03543 alpha=0.00211-0.00232 beta=0.02353-0.02381 gamma=-0.00704--0.00676level=6, indexed=1(115 sol.)
+ Solution ? a=  7.311 b=  7.048 c=  5.886 alpha=114.317 beta= 80.432 gamma= 96.349 V=  272.25 score= 28.83 # 115
+      a= 7.31- 7.35 b= 7.02- 7.07 c= 5.88- 5.94 alpha=114.13-114.61 beta=101.16-101.50 gamma= 87.95- 87.98 V=269.59-274.51level=6, indexed=1(2516 sol.)
+      a=0.01950-0.01935 b=0.02444-0.02426 c=0.03613-0.03578 alpha=0.00211-0.00232 beta=0.02436-0.02464 gamma=0.01041-0.01070level=6, indexed=1(2516 sol.)
+ Solution ? a=  7.311 b=  7.082 c=  5.886 alpha=114.921 beta= 99.568 gamma= 88.389 V=  272.25 score= 29.22 #2516
+2920 solutions ! Redparing...
+CellExplorer::ReduceSolutions(): update threshold for report from 12.294 to 14.0437
+-> 100 remaining
+      a= 7.69- 7.75 b= 6.78- 6.82 c= 5.99- 6.06 alpha=109.13-109.54 beta=111.17-111.66 gamma= 85.66- 85.61 V=274.69-279.95level=6, indexed=1(494 sol.)
+      a=0.01950-0.01935 b=0.02444-0.02426 c=0.03578-0.03543 alpha=0.00211-0.00232 beta=0.01910-0.01938 gamma=0.01886-0.01914level=6, indexed=1(494 sol.)
+ Solution ? a=  7.654 b=  6.763 c=  5.950 alpha=109.336 beta=113.072 gamma= 84.283 V=  267.22 score= 31.69 # 494
+      a= 7.69- 7.75 b= 6.79- 6.84 c= 6.00- 6.07 alpha=109.43-109.85 beta=111.19-111.68 gamma= 85.54- 85.49 V=275.20-280.49level=6, indexed=1(495 sol.)
+      a=0.01950-0.01935 b=0.02444-0.02426 c=0.03578-0.03543 alpha=0.00211-0.00232 beta=0.01938-0.01965 gamma=0.01886-0.01914level=6, indexed=1(495 sol.)
+ Solution ? a=  7.654 b=  6.763 c=  5.950 alpha=109.336 beta=113.072 gamma= 84.283 V=  267.22 score= 31.69 # 495
+1249 solutions ! Redparing...
+CellExplorer::ReduceSolutions(): update threshold for report from 14.0437 to 14.5481
+-> 100 remaining
+      a= 7.39- 7.42 b= 6.50- 6.53 c= 6.37- 6.39 alpha=100.04-100.48 beta= 76.63- 76.82 gamma= 94.18- 94.53 V=292.89-296.31level=6, indexed=1(133 sol.)
+      a=0.01935-0.01919 b=0.02444-0.02426 c=0.02678-0.02660 alpha=0.00148-0.00169 beta=0.00830-0.00858 gamma=-0.01013--0.00985level=6, indexed=1(133 sol.)
+ Solution ? a=  7.415 b=  6.531 c=  6.325 alpha=100.754 beta= 76.146 gamma= 95.118 V=  291.88 score= 31.92 # 133
+      a= 7.39- 7.41 b= 6.50- 6.54 c= 6.36- 6.38 alpha=100.14-100.58 beta= 76.90- 77.09 gamma= 94.69- 95.04 V=292.68-296.11level=6, indexed=1(789 sol.)
+      a=0.01935-0.01919 b=0.02444-0.02426 c=0.02678-0.02660 alpha=0.00190-0.00211 beta=0.00830-0.00858 gamma=-0.00985--0.00957level=6, indexed=1(789 sol.)
+ Solution ? a=  7.415 b=  6.531 c=  6.325 alpha=100.754 beta= 76.146 gamma= 95.118 V=  291.88 score= 31.92 # 789
+      a= 7.39- 7.41 b= 6.41- 6.44 c= 6.24- 6.26 alpha= 93.30- 93.70 beta= 76.75- 76.98 gamma= 92.65- 93.01 V=287.28-290.33level=6, indexed=1(916 sol.)
+      a=0.01935-0.01919 b=0.02444-0.02426 c=0.02714-0.02696 alpha=0.00148-0.00169 beta=0.00249-0.00277 gamma=-0.01041--0.01013level=6, indexed=1(916 sol.)
+ Solution ? a=  7.402 b=  6.441 c=  6.238 alpha= 95.031 beta= 76.580 gamma= 93.761 V=  287.86 score= 32.33 # 916
+      a= 7.40- 7.42 b= 6.41- 6.44 c= 6.21- 6.23 alpha= 93.30- 93.69 beta= 76.47- 76.70 gamma= 92.66- 93.03 V=285.71-288.72level=6, indexed=1(919 sol.)
+      a=0.01935-0.01919 b=0.02444-0.02426 c=0.02750-0.02732 alpha=0.00148-0.00169 beta=0.00249-0.00277 gamma=-0.01070--0.01041level=6, indexed=1(919 sol.)
+ Solution ? a=  7.402 b=  6.441 c=  6.238 alpha= 95.031 beta= 76.580 gamma= 93.761 V=  287.86 score= 32.33 # 919
+      a= 7.37- 7.39 b= 6.44- 6.47 c= 6.24- 6.26 alpha= 94.59- 94.99 beta= 76.42- 76.64 gamma= 92.96- 93.33 V=287.01-290.10level=6, indexed=1(969 sol.)
+      a=0.01950-0.01935 b=0.02426-0.02408 c=0.02732-0.02714 alpha=0.00148-0.00169 beta=0.00360-0.00388 gamma=-0.01070--0.01041level=6, indexed=1(969 sol.)
+ Solution ? a=  7.408 b=  6.453 c=  6.251 alpha= 95.564 beta= 76.624 gamma= 93.924 V=  289.02 score= 44.91 # 969
+1192 solutions ! Redparing...
+CellExplorer::ReduceSolutions(): update threshold for report from 14.5481 to 15.3501
+-> 100 remaining
+      a= 7.37- 7.40 b= 6.45- 6.48 c= 6.24- 6.26 alpha= 94.97- 95.38 beta= 76.38- 76.60 gamma= 93.33- 93.69 V=287.22-290.33level=6, indexed=1(1102 sol.)
+      a=0.01950-0.01935 b=0.02426-0.02408 c=0.02732-0.02714 alpha=0.00169-0.00190 beta=0.00388-0.00415 gamma=-0.01070--0.01041level=6, indexed=1(1102 sol.)
+ Solution ? a=  7.408 b=  6.453 c=  6.251 alpha= 95.564 beta= 76.624 gamma= 93.924 V=  289.02 score= 44.91 #1102
+      a= 7.38- 7.40 b= 6.43- 6.46 c= 6.22- 6.24 alpha= 95.07- 95.47 beta= 76.38- 76.59 gamma= 93.88- 94.24 V=285.33-288.43level=6, indexed=1(1227 sol.)
+      a=0.01950-0.01935 b=0.02444-0.02426 c=0.02750-0.02732 alpha=0.00211-0.00232 beta=0.00388-0.00415 gamma=-0.01070--0.01041level=6, indexed=1(1227 sol.)
+ Solution ? a=  7.408 b=  6.453 c=  6.251 alpha= 95.564 beta= 76.624 gamma= 93.924 V=  289.02 score= 44.91 #1227
+2856 solutions ! Redparing...
+CellExplorer::ReduceSolutions(): update threshold for report from 15.3501 to 15.9351
+-> 100 remaining
+      a= 8.03- 8.07 b= 6.86- 6.91 c= 6.93- 6.97 alpha=111.05-111.66 beta= 63.58- 63.58 gamma=100.85-101.35 V=319.00-323.38level=6, indexed=1(2159 sol.)
+      a=0.01935-0.01919 b=0.02444-0.02426 c=0.02876-0.02858 alpha=0.00148-0.00169 beta=0.01661-0.01689 gamma=-0.01942--0.01914level=6, indexed=1(2159 sol.)
+ Solution ? a=  8.114 b=  6.934 c=  6.992 alpha=112.178 beta= 62.591 gamma=102.277 V=  323.00 score= 48.00 #2159
+      a= 8.04- 8.08 b= 6.87- 6.92 c= 6.94- 6.98 alpha=111.19-111.80 beta= 63.47- 63.47 gamma=101.18-101.68 V=319.35-323.76level=6, indexed=1(2162 sol.)
+      a=0.01935-0.01919 b=0.02444-0.02426 c=0.02876-0.02858 alpha=0.00169-0.00190 beta=0.01661-0.01689 gamma=-0.01942--0.01914level=6, indexed=1(2162 sol.)
+ Solution ? a=  8.114 b=  6.934 c=  6.992 alpha=112.178 beta= 62.591 gamma=102.277 V=  323.00 score= 48.00 #2162
+      a= 8.04- 8.07 b= 6.89- 6.95 c= 6.95- 6.99 alpha=111.66-112.27 beta= 63.11- 63.09 gamma=101.71-102.22 V=318.65-323.08level=6, indexed=1(2165 sol.)
+      a=0.01950-0.01935 b=0.02444-0.02426 c=0.02894-0.02876 alpha=0.00190-0.00211 beta=0.01689-0.01716 gamma=-0.01970--0.01942level=6, indexed=1(2165 sol.)
+ Solution ? a=  8.132 b=  6.931 c=  6.994 alpha=112.193 beta= 62.581 gamma=102.264 V=  323.66 score= 77.85 #2165
+      a= 8.05- 8.08 b= 6.84- 6.90 c= 6.96- 7.01 alpha=111.73-112.34 beta= 63.38- 63.37 gamma=101.42-101.92 V=318.19-322.60level=6, indexed=1(2167 sol.)
+      a=0.01935-0.01919 b=0.02480-0.02462 c=0.02876-0.02858 alpha=0.00169-0.00190 beta=0.01716-0.01744 gamma=-0.01942--0.01914level=6, indexed=1(2167 sol.)
+ Solution ? a=  8.132 b=  6.931 c=  6.994 alpha=112.193 beta= 62.581 gamma=102.264 V=  323.66 score= 77.86 #2167
+2950 solutions ! Redparing...
+CellExplorer::ReduceSolutions(): update threshold for report from 15.9351 to 16.2341
+-> 100 remaining
+2171 solutions ! Redparing...
+CellExplorer::ReduceSolutions(): update threshold for report from 16.2341 to 16.6081
+-> 100 remaining
+2133 solutions ! Redparing...
+CellExplorer::ReduceSolutions(): update threshold for report from 16.6081 to 17.5178
+-> 100 remaining
+2639 solutions ! Redparing...
+CellExplorer::ReduceSolutions(): update threshold for report from 17.5178 to 18.6016
+-> 100 remaining
+      a= 7.84- 7.91 b= 6.94- 6.99 c= 6.97- 7.04 alpha=111.65-112.11 beta=113.42-113.96 gamma= 83.74- 83.62 V=323.08-329.13level=6, indexed=1(1015 sol.)
+      a=0.01935-0.01919 b=0.02408-0.02390 c=0.02804-0.02786 alpha=0.00190-0.00211 beta=0.01855-0.01882 gamma=0.01801-0.01830level=6, indexed=1(1015 sol.)
+ Solution ? a=  7.916 b=  6.931 c=  6.994 alpha=112.193 beta=114.239 gamma= 83.365 V=  323.66 score= 77.86 #1015
+      a= 7.84- 7.91 b= 6.96- 7.01 c= 6.98- 7.06 alpha=112.54-113.01 beta=113.44-113.98 gamma= 83.38- 83.25 V=322.70-328.79level=6, indexed=1(1084 sol.)
+      a=0.01935-0.01919 b=0.02426-0.02408 c=0.02822-0.02804 alpha=0.00190-0.00211 beta=0.01938-0.01965 gamma=0.01801-0.01830level=6, indexed=1(1084 sol.)
+ Solution ? a=  7.916 b=  6.931 c=  6.994 alpha=112.193 beta=114.239 gamma= 83.365 V=  323.66 score= 77.87 #1084
+1615 solutions ! Redparing...
+CellExplorer::ReduceSolutions(): update threshold for report from 18.6016 to 18.6938
+-> 100 remaining

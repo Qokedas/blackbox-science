@@ -1,0 +1,52 @@
+"""Make a chemically restrained GALLOP restart from a Rietveld XML snapshot.
+Existing Cartesian molecular geometry is maintained exactly.  The molecular
+coordinate and quaternion gauge is solved and checked by proper Procrustes.
+"""
+import os,sys,json,numpy as np,torch,xml.etree.ElementTree as ET
+from scipy.spatial.transform import Rotation
+from pyobjcryst.io import xml_cryst_file_load_all_object
+from gallop_prepare import prepare
+from gallop import tensor_prep,zm_to_cart
+from pymatgen.core import Lattice
+from rdkit import Chem
+sid=sys.argv[1];run=int(sys.argv[2]);src=sys.argv[3];model_path=sys.argv[4];W='/app/work/'+sid;G=W+'/gallop_'+str(run);os.makedirs(G,exist_ok=True)
+objs=xml_cryst_file_load_all_object(src);c=next(o for o in objs if o.GetClassName()=='Crystal');mods=json.load(open(model_path));cp=[c.GetPar(n).GetHumanValue() for n in ['a','b','c','alpha','beta','gamma']];lat=Lattice.from_parameters(*cp);newmods=[];target=[]
+for i,md in enumerate(mods):
+ m=c.GetScatterer(i);N=Chem.MolFromSmiles(md['smiles']).GetNumAtoms();sc=list(m.GetScatteringComponentList());f=np.array([[a.X,a.Y,a.Z] for a in sc[:N]]);xyz=f@lat.matrix;target.append(xyz);newmods.append(dict(smiles=md['smiles'],count=1,charge=0,coords=xyz.tolist(),virtual_bonds=md.get('virtual_bonds')))
+biso={}
+for i in range(c.GetNbScatteringPower() if hasattr(c,'GetNbScatteringPower') else len(c.GetScatteringPowerRegistry())):
+ sp=c.GetScatteringPowerRegistry().GetObj(i);biso[sp.GetSymbol()]=float(sp.GetBiso())
+# An independent atomless Le Bail base, retaining the refined lattice/profile.
+tree=ET.parse(src);root=tree.getroot()
+for cr in root.findall('Crystal'):
+ for el in list(cr):
+  if el.tag in ['Molecule','Atom','ZScatterer']:cr.remove(el)
+tree.write(G+'/base.xml',encoding='utf-8')
+json.dump({'components':newmods},open(G+'/restart_model.json','w'),indent=1)
+os.environ['BASE_XML']=G+'/base.xml'
+s,_=prepare(sid,run,1,model_path=G+'/restart_model.json',stolmax=float(os.environ.get('GALLOP_STOL','.30')))
+meta0=json.load(open(G+'/model.json'))
+for mi,mo in zip(meta0,mods):mi['restraint_coords']=mo.get('restraint_coords',mo.get('rdkit_coords',mi['rdkit_coords']))
+json.dump(meta0,open(G+'/model.json','w'),indent=1)
+for zm in s.zmatrices:zm.dw_factors.update({k:v for k,v in biso.items() if k in zm.dw_factors})
+open(G+'/structure.json','w').write(s.to_json())
+s.get_total_degrees_of_freedom(verbose=False);zmt=tensor_prep.get_zm_related_tensors(s,1,torch.float32,torch.device('cpu'))
+e=np.zeros((1,s.total_external_degrees_of_freedom));t=np.zeros((1,s.total_internal_degrees_of_freedom))
+for j,z in enumerate(s.zmatrices):
+ if len(s.rotation_indices[j]):e[0,s.rotation_indices[j]]=[1,0,0,0]
+ if len(s.torsion_indices[j]):t[0,s.torsion_indices[j]]=z.coords_radians_no_H[z.torsion_refinable_indices_no_H,2]
+def frac(e,t):
+ ts=tensor_prep.get_all_required_tensors(s,external=e,internal=t,requires_grad=False,device=torch.device('cpu'),verbose=False)
+ with torch.no_grad():return zm_to_cart.get_asymmetric_coords(**ts['zm']).numpy()[0]
+f=frac(e,t);offset=0;meta=json.load(open(G+'/model.json'));dest=[]
+for j,md in enumerate(meta):
+ N=len(md['order']);X=f[offset:offset+N]@s.lattice.matrix;Y=target[j][md['order']];dest.extend(Y);offset+=N
+ if len(s.rotation_indices[j]):
+  U,sv,Vt=np.linalg.svd((X-X.mean(0)).T@(Y-Y.mean(0)));D=np.eye(3);D[-1,-1]=np.linalg.det(U@Vt);R=U@D@Vt;q=Rotation.from_matrix(R.T).as_quat();e[0,s.rotation_indices[j]]=q[[3,0,1,2]]
+ else:R=np.eye(3)
+ e[0,s.position_indices[j]]=(Y.mean(0)-X.mean(0)@R)@np.linalg.inv(s.lattice.matrix)
+out=frac(e,t)@s.lattice.matrix;err=np.linalg.norm(out-np.array(dest),axis=1);print('RESTART_ERROR max/rms',err.max(),np.sqrt(np.mean(err**2)),flush=True)
+if err.max()>.005:raise Exception('Restart alignment failed')
+np.savez_compressed(G+'/warm.npz',external=e,internal=t,chi2=0.)
+np.save(G+'/warm_frac.npy',frac(e,t))
+print('WARM_READY',G,flush=True)

@@ -1,0 +1,22 @@
+ISO 0 P 21 21 21 Zp=2: 0.2214
+ISO 1 P 21 21 21 Zp=2: 0.2753
+ISO 2 P 21 21 21 Zp=2: 0.2818
+Xe3a2935/solve_c2.log:run 0: cost=52365.7 Rwp=0.1813 chi2=55127.5 t=620s
+Xe3a2935/solve_c2.log:run 1: cost=30417.6 Rwp=0.1501 chi2=37761.1 t=672s
+M20=   14.0 X20= 0 Nc= 75 Monoclinic-P     a=  7.4515 b= 27.9495 c= 24.2231 al= 90.000 be=104.342 ga= 90.000 V=  4887.6 Z~11.31
+M20=   13.7 X20= 0 Nc= 67 Monoclinic-P     a= 10.9488 b= 15.4357 c= 24.3424 al= 90.000 be= 99.137 ga= 90.000 V=  4061.7 Z~9.40
+g2_monoC.log
+g2_monoP.log
+g2_monoPb.log
+g2_monoPc.log
+g2_ortho.log
+g2index_monoC_20.txt
+g2index_monoP_20.txt
+g2index_monoPb_20.txt
+g2index_monoPc_20.txt
+g2index_ortho_20.txt
+peaks.png
+peaks.txt
+peaks_b.txt
+peaks_c.txt
+Sun Sep  6 06:01:55 UTC 2026

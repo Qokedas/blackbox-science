@@ -1,0 +1,111 @@
+/opt/conda/include/ObjCryst/ObjCryst/ScatteringCorr.h
+/opt/conda/pkgs/libobjcryst-2024.2.1-h2b4839b_1/include/ObjCryst/ObjCryst/ScatteringCorr.h
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/12401/status ]] && ! grep -q '^State:.*Z' /proc/12401/status; do sleep 5; done
+# Prioritise an improving zwitterion model before two exploratory difficult cases.
+while [[ ! -f /app/work/Xedd9c7b/refined_g11.json ]];do sleep 5;done
+GALLOP_STOL=.29 python /app/work/warm_gallop.py Xedd9c7b 50 /app/work/Xedd9c7b/refined_g11.xml /app/work/Xedd9c7b/search_g11/model.json > /app/work/Xedd9c7b/warm50.log 2>&1
+HBOND_COEFF=20 SEARCH_TIME=1700 PARTICLES=128 ITERATIONS=400 MACRO_ELITE_FRAC=.30 START_NPZ=/app/work/Xedd9c7b/gallop_50/warm.npz START_JITTER=.06 START_TOR_JITTER=.35 python /app/work/search_gallop.py Xedd9c7b 50 1 --hscatter --packing > /app/work/Xedd9c7b/gallop50.log 2>&1
+python /app/work/import_gallop.py Xedd9c7b 50 > /app/work/Xedd9c7b/import_g50.log 2>&1
+python /app/work/refine_obj.py Xedd9c7b g50 /app/work/Xedd9c7b/search_g50/best.xml --scale --tight --packing --stol=.37 > /app/work/Xedd9c7b/refine_g50.log 2>&1
+# Relax the centrosymmetry hypothesis for the biphenyl salt, without changing
+# the submitted space group until there is structural evidence.
+GALLOP_STOL=.27 python /app/work/warm_gallop.py X7e382cb 40 /app/work/X7e382cb/search_p1test/best.xml /app/work/X7e382cb/search_p1test/model.json > /app/work/X7e382cb/warm40.log 2>&1
+EXACT_BUMP_IMAGES=1 BUMP_COEFF=80 HBOND_COEFF=10 SEARCH_TIME=1500 PARTICLES=128 ITERATIONS=400 MACRO_ELITE_FRAC=.30 START_NPZ=/app/work/X7e382cb/gallop_40/warm.npz START_JITTER=.10 START_TOR_JITTER=.45 python /app/work/search_gallop.py X7e382cb 40 1 --hscatter --packing > /app/work/X7e382cb/gallop40.log 2>&1
+python /app/work/import_gallop.py X7e382cb 40 > /app/work/X7e382cb/import_g40.log 2>&1
+python /app/work/refine_obj.py X7e382cb g40 /app/work/X7e382cb/search_g40/best.xml --scale --tight --packing --stol=.38 > /app/work/X7e382cb/refine_g40.log 2>&1
+for r in 0 5; do
+ run=$((20+r))
+ SEARCH_TIME=1800 PARTICLES=128 ITERATIONS=450 GALLOP_STOL=.23 CONF_RANK=$r python /app/work/search_gallop.py X238783d $run 1 --prepare --hscatter > /app/work/X238783d/gallop${run}.log 2>&1
+ python /app/work/import_gallop.py X238783d $run > /app/work/X238783d/import_g${run}.log 2>&1
+ python /app/work/refine_obj.py X238783d g$run /app/work/X238783d/search_g$run/best.xml --scale --tight > /app/work/X238783d/refine_g${run}.log 2>&1
+done
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/31937/status ]] && ! grep -q '^State:.*Z' /proc/31937/status; do sleep 5;done
+for id in X263b09a X14a2b08;do
+ while [[ ! -f /app/work/$id/refined_g11.json ]];do sleep 5;done
+ python /app/work/guided_synthon.py $id g11 synseed > /app/work/$id/guided_synthon.log 2>&1
+ GALLOP_STOL=.27 python /app/work/warm_gallop.py $id 71 /app/work/$id/search_synseed/best.xml /app/work/$id/search_synseed/model.json > /app/work/$id/warm71.log 2>&1
+ SEARCH_TIME=1400 PARTICLES=128 ITERATIONS=450 HBOND_COEFF=8 BUMP_COEFF=60 START_NPZ=/app/work/$id/gallop_71/warm.npz START_JITTER=.08 START_TOR_JITTER=.35 MACRO_ELITE_FRAC=.35 python /app/work/search_gallop.py $id 71 1 --hscatter --packing > /app/work/$id/gallop71.log 2>&1
+ python /app/work/import_gallop.py $id 71 > /app/work/$id/import_g71.log 2>&1
+ python /app/work/refine_obj.py $id g71 /app/work/$id/search_g71/best.xml --scale --tight --stol=.38 > /app/work/$id/refine_g71.log 2>&1
+ python /app/work/submit.py $id /app/work/$id/refined_g71.cif --check > /app/work/$id/check_g71.log 2>&1
+done
+{
+ "X238783d:25": {
+  "START_REFL": 100,
+  "RAMP_REF_EVERY": 4,
+  "RAMP_REF_STEP": 50,
+  "ENABLE_PACKING": 1,
+  "HBOND_COEFF": 4
+ },
+ "Xbfeeda9:11": {
+  "START_REFL": 100,
+  "RAMP_REF_EVERY": 5,
+  "RAMP_REF_STEP": 50,
+  "ENABLE_PACKING": 1,
+  "HBOND_COEFF": 10
+ },
+ "X019b9a4:11": {
+  "START_REFL": 100,
+  "RAMP_REF_EVERY": 5,
+  "RAMP_REF_STEP": 50,
+  "ENABLE_PACKING": 1,
+  "HBOND_COEFF": 10,
+  "MODEL_JSON": "/app/work/X019b9a4/isomer0.json"
+ },
+ "Xeb393f9:51": {
+  "HBOND_COEFF": 25
+ },
+ "X8a06d7a:11": {
+  "BASE_XML": "/app/work/X8a06d7a/gallop_11/base.xml",
+  "HBOND_COEFF": 15,
+  "START_REFL": 100,
+  "RAMP_REF_EVERY": 4,
+  "RAMP_REF_STEP": 40,
+  "ENABLE_PACKING": 1
+ },
+ "X14a2b08:11": {
+  "HBOND_COEFF": 12,
+  "ENABLE_PACKING": 1
+ },
+ "X1db5091:11": {
+  "HBOND_COEFF": 12,
+  "ENABLE_PACKING": 1
+ },
+ "X7e382cb:40": {
+  "HBOND_MULTIPLE": 1
+ },
+ "X35b7fbc:11": {
+  "ENABLE_PACKING": 1,
+  "HBOND_COEFF": 10
+ },
+ "Xe1fb77b:11": {
+  "ENABLE_PACKING": 1,
+  "HBOND_COEFF": 10
+ },
+ "X019b9a4:12": {
+  "MODEL_JSON": "/app/work/X019b9a4/isomer1.json",
+  "ENABLE_PACKING": 1,
+  "HBOND_COEFF": 10,
+  "START_REFL": 100,
+  "RAMP_REF_EVERY": 3,
+  "RAMP_REF_STEP": 60
+ },
+ "X1a56c78:18": {
+  "HBOND_COEFF": 15,
+  "START_REFL": 90,
+  "RAMP_REF_EVERY": 4,
+  "RAMP_REF_STEP": 40
+ },
+ "X238783d:20": {
+  "ENABLE_PACKING": 1,
+  "HBOND_COEFF": 4
+ },
+ "Xd8634a2:31": {
+  "HBOND_COEFF": 8
+ },
+ "Xb7088cf:31": {
+  "HBOND_COEFF": 8
+ }
+}

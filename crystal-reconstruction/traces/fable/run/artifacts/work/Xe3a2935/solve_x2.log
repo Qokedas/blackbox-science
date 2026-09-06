@@ -1,0 +1,16 @@
+seed 1971312269
+down-weighting 7.55-8.05 deg (499 points) by sigma x30.0
+Imported powder pattern: 14001 points, 2theta=  2.000 ->  16.000, step= 0.001
+step ['Zero'] Rwp=0.2807
+step ['W'] Rwp=0.1657
+step ['a', 'b', 'c', 'alpha', 'beta', 'gamma'] Rwp=0.1517
+step ['U', 'V'] Rwp=0.1299
+step ['Eta0'] Rwp=0.0959
+step ['Eta1'] Rwp=0.0944
+step ['background'] Rwp=0.0858
+step ['Zero', 'W', 'U', 'V', 'Eta0', 'background', 'a', 'b', 'c', 'alpha', 'beta', 'gamma'] Rwp=0.0843
+LeBail Rwp=0.0841 chi2=10751.1 cell= 10.292604239359282 6.880587947585902 19.990350578411533 90.0
+  conformers: 4 distinct; energies [131.7, 132.2, 135.9, 136.2]; using rank 2 (E=135.9)
+  molecule mol0_0: 21 atoms, 22 bonds, 29 angles, 30 dihedral restraints, 2 free torsions
+run 0: cost=44811.3 Rwp=0.1812 chi2=50301.1 t=1940s
+polish: Rwp 0.1809 -> 0.1470 (accepted) restraint cost=0.00

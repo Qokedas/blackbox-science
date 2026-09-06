@@ -1,0 +1,6 @@
+14467 children 16582
+GALLOP 65 Nref 266 seconds 18.954630136489868 best 273.0945 q25 558.7311 median 609.0634 total 1732.0514414310455
+GALLOP 66 Nref 266 seconds 18.650773763656616 best 249.90112 q25 566.4083 median 620.851 total 1750.7054178714752
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1226.94it/s]
+GALLOP 12 Nref 368 seconds 27.027979135513306 best 362.59662 q25 536.8994 median 574.32825 total 416.337673664093
+-rw-r--r-- 1 root root 2451 Sep  6 06:00 /app/work/Xebbd488/fit_axial5.json

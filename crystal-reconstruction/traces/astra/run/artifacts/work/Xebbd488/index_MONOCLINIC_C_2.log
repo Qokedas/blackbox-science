@@ -1,0 +1,31 @@
+Xebbd488 MONOCLINIC C 2 peaks [5.84567, 6.26, 6.94403, 7.96925, 9.13606, 11.36, 12.56013, 12.91271, 13.91406, 14.3195, 14.79573, 15.38305, 15.93908, 16.24178, 17.53906, 18.21709, 18.83925, 19.66208, 20.64008, 21.86231, 22.16912, 22.81078] V 1453.9639892578125 10224 Lmax 60
+3->60,2.28001,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+1453.96->10224,877.091,9.999
+Starting: V=1453.96->2331.06
+Finished: V=1453.96->2331.06 A^3, 3906 unit cells tested, 152239 tests/s,   Elapsed time=0.025677s
+Starting: V=2331.06->3208.15
+Finished: V=2331.06->3208.15 A^3, 9411 unit cells tested, 143266 tests/s,   Elapsed time=0.065696s
+Starting: V=3208.15->4085.24
+Finished: V=3208.15->4085.24 A^3, 17228 unit cells tested, 143071 tests/s,   Elapsed time=0.120424s
+Starting: V=4085.24->4962.33
+Finished: V=4085.24->4962.33 A^3, 29117 unit cells tested, 151443 tests/s,   Elapsed time=0.192272s
+Starting: V=4962.33->5839.42
+Finished: V=4962.33->5839.42 A^3, 45621 unit cells tested, 161987 tests/s,   Elapsed time=0.281641s
+Starting: V=5839.42->6716.51
+Finished: V=5839.42->6716.51 A^3, 66028 unit cells tested, 170197 tests/s,   Elapsed time=0.387958s
+Starting: V=6716.51->7593.6
+Finished: V=6716.51->7593.6 A^3, 88110 unit cells tested, 173303 tests/s,   Elapsed time=0.508425s
+Starting: V=7593.6->8470.69
+Finished: V=7593.6->8470.69 A^3, 113227 unit cells tested, 175234 tests/s,   Elapsed time=0.646157s
+Starting: V=8470.69->9347.79
+Finished: V=8470.69->9347.79 A^3, 145756 unit cells tested, 181303 tests/s,   Elapsed time=0.803944s
+Starting: V=9347.79->10224
+      a=30.73-30.77 b= 6.54- 6.58 c=55.39-55.44 alpha= 90.00- 90.00 beta= 99.23- 99.30 gamma= 90.00- 90.00 V=10995.60-11082.79level=6, indexed=1(0 sol.)
+      a=0.03297-0.03293 b=0.15282-0.15192 c=0.01829-0.01828 alpha=0.16039-0.16159 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(0 sol.)
+ Solution ? a= 30.666 b=  6.555 c= 55.489 alpha= 90.000 beta= 99.409 gamma= 90.000 V=11003.95 score=  2.60 #   0
+Finished: V=9347.79->10224 A^3, 190832 unit cells tested, 194729 tests/s,   Elapsed time=0.979995s
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=30.6656, b=6.55503, c=55.4888, alpha=90, beta=99.4094, gamma=90, V=11003.9, score=2.5983
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2609 BEST ? a=30.6656, b=6.55503, c=55.4888, alpha=90, beta=99.4094, gamma=90, V=11003.9, score=2.5983
+190832unit cells tested, 194698 tests/s,   Elapsed time=0.98015s
+DONE Xebbd488 MONOCLINIC C 1 0.9803805351257324 [{'cell': [30.665592193603516, 6.555034637451172, 55.488773345947266, 90.00000250447816, 99.40936672773611, 90.00000250447816], 'volume': 11003.94921875, 'score': 2.5982954502105713, 'system': 'MONOCLINIC', 'centering': 'C', 'mode': 2}]

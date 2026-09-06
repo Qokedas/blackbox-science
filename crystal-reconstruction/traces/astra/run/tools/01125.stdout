@@ -1,0 +1,40 @@
+==== 111
+  s=CifParser(fn).parse_structures(primitive=False)[0];s.remove_species(['H']);rad=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<1.2*(rad[:,None]+rad[None,:]));g=nx.from_numpy_array(A)
+X1a56c78 root 88 expected {1: 'S'} actual {1: 'S'} OK True
+X1a56c78 root 89 expected {1: 'S'} actual {1: 'S'} OK True
+X1a56c78 root 90 expected {1: 'S'} actual {1: 'S'} OK True
+X1a56c78 root 91 expected {1: 'S'} actual {1: 'S'} OK True
+==== 112
+  s=CifParser(fn).parse_structures(primitive=False)[0];s.remove_species(['H']);rad=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<1.2*(rad[:,None]+rad[None,:]));g=nx.from_numpy_array(A)
+X1a56c78 root 88 expected {1: 'S'} actual {1: 'S'} OK True
+X1a56c78 root 89 expected {1: 'S'} actual {1: 'S'} OK True
+X1a56c78 root 90 expected {1: 'S'} actual {1: 'S'} OK True
+X1a56c78 root 91 expected {1: 'S'} actual {1: 'S'} OK True
+==== 113
+  s=CifParser(fn).parse_structures(primitive=False)[0];s.remove_species(['H']);rad=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<1.2*(rad[:,None]+rad[None,:]));g=nx.from_numpy_array(A)
+X1a56c78 root 88 expected {1: 'S'} actual {1: 'S'} OK True
+X1a56c78 root 89 expected {1: 'S'} actual {1: 'S'} OK True
+X1a56c78 root 90 expected {1: 'S'} actual {1: 'S'} OK True
+X1a56c78 root 91 expected {1: 'S'} actual {1: 'S'} OK True
+==== 114
+  s=CifParser(fn).parse_structures(primitive=False)[0];s.remove_species(['H']);rad=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<1.2*(rad[:,None]+rad[None,:]));g=nx.from_numpy_array(A)
+X1a56c78 root 88 expected {1: 'S'} actual {1: 'S'} OK True
+X1a56c78 root 89 expected {1: 'S'} actual {1: 'S'} OK True
+X1a56c78 root 90 expected {1: 'S'} actual {1: 'S'} OK True
+X1a56c78 root 91 expected {1: 'S'} actual {1: 'S'} OK True
+Imported powder pattern: 7209 points, 2theta=  4.000 ->  76.080, step= 0.010
+EXTENDED 0.4 7209 Rw 0.0778952669525722
+WITH_H 0.07789526695257022 22231796.645207122
+Imported powder pattern: 7209 points, 2theta=  4.000 ->  76.080, step= 0.010
+SCALED_SIGMA 55.532825119242666 7209.000000000023
+TIGHT_RESTRAINTS
+FLEXIBLE_RINGS
+AROMATIC_PLANARITY 0
+LSQ_PACKING 52 atoms 3834 terms sigma 0.01 cost 192.18059176117697
+CELL_BOUNDS .003 .2
+EXTENDED_BACKGROUND 0.07781145068132689
+CYCLE 0 0 Rw 0.0778137868284977 chi2 7193.926349802521 geom 1829.5748793384312 LSQ 10250.965370759748
+CYCLE 0 1 Rw 0.0778352983595294 chi2 7197.904404766242 geom 1829.5748793384312 LSQ 10249.32598102467
+CYCLE 0 2 Rw 0.0778436270566791 chi2 7199.44489795038 geom 1829.5748793384312 LSQ 10248.782223917482
+PACKING_STAGE 0 174.64897979574116
+Sun Sep  6 11:22:00 UTC 2026

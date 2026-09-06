@@ -1,0 +1,4 @@
+['AddRigidGroup', 'GetNbRigidGroups', 'GetRigidGroupClock', 'GetRigidGroupList', 'RemoveRigidGroup', 'RigidifyWithDihedralAngles']
+['AddScatteringPower', 'GetMasterClockScatteringPower', 'GetScatteringPower', 'GetScatteringPowerRegistry', 'RemoveScatteringPower']
+      <RigidGroup Atom0="m0_0_0_C7" Atom1="m0_0_0_C8" Atom2="m0_0_0_C9" Atom3="m0_0_0_C10" Atom4="m0_0_0_C13" Atom5="m0_0_0_C14" Atom6="m0_0_0_C15"/>
+      <RigidGroup Atom0="m0_0_0_C6" Atom1="m0_0_0_C5" Atom2="m0_0_0_C3" Atom3="m0_0_0_C4" Atom4="m0_0_0_C18" Atom5="m0_0_0_C16" Atom6="m0_0_0_C17"/>

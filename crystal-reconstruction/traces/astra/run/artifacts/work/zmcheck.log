@@ -1,0 +1,9 @@
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+/app/work/X13023e3/gallop_11 CC(C)Cc1ccc([C@@H](C)C(=O)O)cc1 maxbondError 1.7948944333046057e-06
+/app/work/X13023e3/gallop_11 NC(=O)c1cccnc1 maxbondError 2.2165800901419175e-06
+/app/work/X7e382cb/gallop_22 O=C([O-])c1ccc(-c2ccc(C(=O)[O-])cc2)cc1 maxbondError 2.0761791668100216e-06
+/app/work/X7e382cb/gallop_22 [NH4+] maxbondError 0
+/app/work/X7e382cb/gallop_22 [NH4+] maxbondError 0

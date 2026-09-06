@@ -1,0 +1,13 @@
+option Flexibility Model 0 Automatic from Restraints, relaxed - RECOMMENDED
+option Enable Flipping 0 Yes
+option Auto Optimize Starting Conformation 0 Yes
+option Optimize Orientation 0 Yes
+option Rotation Center 0 Geometrical center (recommended)
+Rwp0 0.13960938755588786
+after cr.BeginOptimization(True,True) 0.6499386019499719
+restored 0.6499386019499719
+after cr.BeginOptimization(False,False) 0.6499386019499719
+restored 0.6499386019499719
+after p.BeginOptimization(True,True) 0.6503183269083853
+restored 0.6499386019499719
+after pd.BeginOptimization(True,True) 0.6503183269083853

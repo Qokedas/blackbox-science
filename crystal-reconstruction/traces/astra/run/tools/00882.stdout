@@ -1,0 +1,18 @@
+ObjRegistry<T>::Find(ion_C): Not found !!
+List of Crystal ScatteringPowers :0 object registered:
+ORIGINAL 0.07038968132416873
+DOUBLETFIXED 0.0766722395324659
+Traceback (most recent call last):
+  File "/app/work/test_doublet.py", line 9, in <module>
+    p.quick_fit_profile(pdiff=d,auto_background=False,init_profile=False,plot=False,asym=True,verbose=False);p.FitScaleFactorForRw();print('DOUBLETFIT',p.GetRw(),flush=True)
+    ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PowderPattern' object has no attribute 'quick_fit_profile'
+X1a56c78 root 88 expected {1: 'S'} actual {1: 'R'} OK False
+X1a56c78 root 89 expected {1: 'S'} actual {1: 'R'} OK False
+X1a56c78 root 90 expected {1: 'S'} actual {1: 'R'} OK False
+X1a56c78 root 91 expected {1: 'S'} actual {1: 'R'} OK False
+X1a56c78 Nat 92 molecule sizes [22, 22, 22, 22, 1, 1, 1, 1]
+  component O[C@](CC[NH+]1CCCCC1)(c1ccccc1)C1CCCCC1 matches 4
+  component [Cl-] matches 4
+  bond range 1.3888558962705906 1.5713755611056328
+  min intermolecular distance 3.1190336564023102

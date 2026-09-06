@@ -1,0 +1,2 @@
+cat: idx_test2.log: No such file or directory
+tail: cannot open 'batch_index.log' for reading: No such file or directory

@@ -1,0 +1,26 @@
+Cell (6.022520065000001, 5.528170109, 28.003200531, 90.0, 93.118598938, 90.0) n 48 components [15, 15, 9, 9]
+2.6893 37 C23 C 3 45 O11 O 1
+2.6955 40 N22 N 2 42 O10 O 0
+2.7613 38 N16 N 2 47 O24 O 3
+3.1036 32 C20 C 2 39 N16 N 3
+3.1448 29 C18 C 3 38 N16 N 2
+3.1530 37 C23 C 3 43 O10 O 1
+3.2131 31 C19 C 3 38 N16 N 2
+3.2539 41 N22 N 3 45 O11 O 1
+3.2702 37 C23 C 3 38 N16 N 2
+3.3118 26 C17 C 2 39 N16 N 3
+3.3204 38 N16 N 2 39 N16 N 3
+3.3561 17 C9 C 1 37 C23 C 3
+3.3826 17 C9 C 1 41 N22 N 3
+3.6175 44 O11 O 0 46 O24 O 2
+3.6369 33 C20 C 3 45 O11 O 1
+3.6432 26 C17 C 2 47 O24 O 3
+3.7351 29 C18 C 3 45 O11 O 1
+3.7962 18 C12 C 0 34 C21 C 2
+{
+ "Rw": 0.12030859104183994,
+ "chi2": 3663.822072490737
+}The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+RESTART_ERROR max/rms 1.531955534434294e-06 8.413795081684468e-07
+WARM_READY /app/work/Xeb393f9/gallop_50

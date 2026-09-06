@@ -1,0 +1,302 @@
+[
+ {
+  "id": "X019b9a4",
+  "wl": 1.54056,
+  "heavy": 48,
+  "rotors": 8,
+  "mw": 676.7560000000001,
+  "npeaks": 40,
+  "noise": 36.96969696969697,
+  "chiral": false
+ },
+ {
+  "id": "X07806d9",
+  "wl": 0.81933,
+  "heavy": 10,
+  "rotors": 4,
+  "mw": 167.592,
+  "npeaks": 177,
+  "noise": 9.187878787877597,
+  "chiral": false
+ },
+ {
+  "id": "X13023e3",
+  "wl": 0.728302,
+  "heavy": 24,
+  "rotors": 5,
+  "mw": 328.4119999999999,
+  "npeaks": 106,
+  "noise": 23.636363636363637,
+  "chiral": true
+ },
+ {
+  "id": "X14a2b08",
+  "wl": 1.5418,
+  "heavy": 37,
+  "rotors": 6,
+  "mw": 528.989,
+  "npeaks": 75,
+  "noise": 7.272727272727273,
+  "chiral": false
+ },
+ {
+  "id": "X1a56c78",
+  "wl": 1.5418,
+  "heavy": 23,
+  "rotors": 5,
+  "mw": 337.9350000000002,
+  "npeaks": 65,
+  "noise": 107.87878787878789,
+  "chiral": true
+ },
+ {
+  "id": "X1db5091",
+  "wl": 1.54059,
+  "heavy": 38,
+  "rotors": 7,
+  "mw": 537.956,
+  "npeaks": 56,
+  "noise": 30.90909090909091,
+  "chiral": false
+ },
+ {
+  "id": "X2327841",
+  "wl": 0.80105,
+  "heavy": 32,
+  "rotors": 28,
+  "mw": 450.8800000000004,
+  "npeaks": 68,
+  "noise": 0.07909090909096808,
+  "chiral": true
+ },
+ {
+  "id": "X238783d",
+  "wl": 1.54056,
+  "heavy": 52,
+  "rotors": 8,
+  "mw": 747.9640000000002,
+  "npeaks": 65,
+  "noise": 41.21212121212121,
+  "chiral": true
+ },
+ {
+  "id": "X263b09a",
+  "wl": 1.54059,
+  "heavy": 36,
+  "rotors": 6,
+  "mw": 514.9620000000001,
+  "npeaks": 71,
+  "noise": 24.242424242424242,
+  "chiral": false
+ },
+ {
+  "id": "X35b7fbc",
+  "wl": 0.6996,
+  "heavy": 33,
+  "rotors": 6,
+  "mw": 455.51100000000014,
+  "npeaks": 152,
+  "noise": 30.303030303030305,
+  "chiral": true
+ },
+ {
+  "id": "X3c176e2",
+  "wl": 1.54056,
+  "heavy": 12,
+  "rotors": 0,
+  "mw": 180.156,
+  "npeaks": 66,
+  "noise": 26.666666666666668,
+  "chiral": false
+ },
+ {
+  "id": "X3f4781b",
+  "wl": 1.54059,
+  "heavy": 26,
+  "rotors": 3,
+  "mw": 419.908,
+  "npeaks": 120,
+  "noise": 23.03030303030303,
+  "chiral": true
+ },
+ {
+  "id": "X4f6fe58",
+  "wl": 1.54059,
+  "heavy": 20,
+  "rotors": 1,
+  "mw": 349.61499999999995,
+  "npeaks": 65,
+  "noise": 29.6969696969697,
+  "chiral": false
+ },
+ {
+  "id": "X7e382cb",
+  "wl": 0.709319,
+  "heavy": 20,
+  "rotors": 3,
+  "mw": 276.292,
+  "npeaks": 24,
+  "noise": 29.6969696969697,
+  "chiral": false
+ },
+ {
+  "id": "X8a06d7a",
+  "wl": 1.5418,
+  "heavy": 38,
+  "rotors": 7,
+  "mw": 537.956,
+  "npeaks": 67,
+  "noise": 15.151515151515152,
+  "chiral": false
+ },
+ {
+  "id": "X8a6f5a8",
+  "wl": 1.54059,
+  "heavy": 39,
+  "rotors": 10,
+  "mw": 564.572,
+  "npeaks": 85,
+  "noise": 27.272727272727273,
+  "chiral": true
+ },
+ {
+  "id": "X9af54a2",
+  "wl": 0.46873,
+  "heavy": 19,
+  "rotors": 6,
+  "mw": 290.74699999999996,
+  "npeaks": 191,
+  "noise": 1.5818181818181811,
+  "chiral": true
+ },
+ {
+  "id": "Xb7088cf",
+  "wl": 0.709319,
+  "heavy": 28,
+  "rotors": 6,
+  "mw": 376.4160000000001,
+  "npeaks": 25,
+  "noise": 30.303030303030305,
+  "chiral": false
+ },
+ {
+  "id": "Xbfc6d2c",
+  "wl": 1.5406,
+  "heavy": 18,
+  "rotors": 1,
+  "mw": 232.28599999999994,
+  "npeaks": 43,
+  "noise": 49.6969696969697,
+  "chiral": false
+ },
+ {
+  "id": "Xbfeeda9",
+  "wl": 1.54056,
+  "heavy": 35,
+  "rotors": 7,
+  "mw": 513.5090000000001,
+  "npeaks": 81,
+  "noise": 27.87878787878788,
+  "chiral": false
+ },
+ {
+  "id": "Xd4c1a35",
+  "wl": 1.23922,
+  "heavy": 24,
+  "rotors": 3,
+  "mw": 352.7700000000001,
+  "npeaks": 134,
+  "noise": 11.284848484848471,
+  "chiral": true
+ },
+ {
+  "id": "Xd8634a2",
+  "wl": 0.46873,
+  "heavy": 33,
+  "rotors": 7,
+  "mw": 471.4700000000002,
+  "npeaks": 215,
+  "noise": 1.6381818181818169,
+  "chiral": false
+ },
+ {
+  "id": "Xdcc971e",
+  "wl": 0.80105,
+  "heavy": 30,
+  "rotors": 26,
+  "mw": 422.8260000000004,
+  "npeaks": 45,
+  "noise": 0.03575757575748812,
+  "chiral": true
+ },
+ {
+  "id": "Xe1fb77b",
+  "wl": 0.45815,
+  "heavy": 38,
+  "rotors": 7,
+  "mw": 534.4700000000003,
+  "npeaks": 154,
+  "noise": 7.677696969696969,
+  "chiral": true
+ },
+ {
+  "id": "Xe3a2935",
+  "wl": 0.46873,
+  "heavy": 21,
+  "rotors": 3,
+  "mw": 280.291,
+  "npeaks": 136,
+  "noise": 1.4569696969696992,
+  "chiral": true
+ },
+ {
+  "id": "Xeb393f9",
+  "wl": 0.81933,
+  "heavy": 37,
+  "rotors": 9,
+  "mw": 547.0730000000001,
+  "npeaks": 129,
+  "noise": 6.109090909090865,
+  "chiral": true
+ },
+ {
+  "id": "Xebbd488",
+  "wl": 1.54059,
+  "heavy": 71,
+  "rotors": 20,
+  "mw": 1026.967,
+  "npeaks": 68,
+  "noise": 49.09090909090909,
+  "chiral": true
+ },
+ {
+  "id": "Xedd9c7b",
+  "wl": 1.540598,
+  "heavy": 19,
+  "rotors": 5,
+  "mw": 284.252,
+  "npeaks": 20,
+  "noise": 15.151515151515152,
+  "chiral": false
+ },
+ {
+  "id": "Xf8ac963",
+  "wl": 0.46873,
+  "heavy": 21,
+  "rotors": 4,
+  "mw": 289.419,
+  "npeaks": 138,
+  "noise": 1.6778787878787942,
+  "chiral": true
+ },
+ {
+  "id": "Xfca9f3c",
+  "wl": 0.80025,
+  "heavy": 26,
+  "rotors": 22,
+  "mw": 366.71800000000025,
+  "npeaks": 46,
+  "noise": 0.02363636363635592,
+  "chiral": true
+ }
+]

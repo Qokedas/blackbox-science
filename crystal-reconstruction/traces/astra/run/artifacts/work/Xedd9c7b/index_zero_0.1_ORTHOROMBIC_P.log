@@ -1,0 +1,21 @@
+Xedd9c7b ORTHOROMBIC P 4 peaks [11.10742, 11.81985, 12.52948, 14.26583, 14.8881, 15.39919, 17.12935, 17.38853, 19.31913, 19.98573, 20.61934, 21.50266, 22.228, 23.87816, 24.33548, 25.23826, 26.49338, 28.19291] V 450.0 2800.0 Lmax 40.0
+3->40,1.48001,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+450->2800,470.009,4.9999
+Starting: V=450->920.009
+Finished: V=450->920.009 A^3, 1374 unit cells tested, 713766 tests/s,   Elapsed time=0.001931s
+Starting: V=920.009->1390.02
+Finished: V=920.009->1390.02 A^3, 4884 unit cells tested, 836301 tests/s,   Elapsed time=0.005846s
+Starting: V=1390.02->1860.03
+Finished: V=1390.02->1860.03 A^3, 11867 unit cells tested, 971272 tests/s,   Elapsed time=0.012225s
+Starting: V=1860.03->2330.04
+Finished: V=1860.03->2330.04 A^3, 22792 unit cells tested, 543365 tests/s,   Elapsed time=0.041955s
+Starting: V=2330.04->2800
+    a= 9.54- 9.58 b=12.42-12.46 c=20.96-21.00 alpha= 90.00- 90.00 beta= 90.00- 90.00 gamma= 90.00- 90.00 V=2481.37-2507.54level=4, indexed=1(0 sol.)
+    a=0.10488-0.10438 b=0.08053-0.08024 c=0.04772-0.04762 alpha=0.00000-0.00000 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(0 sol.)
+ Solution ? a=  9.554 b= 12.421 c= 20.990 alpha= 90.000 beta= 90.000 gamma= 90.000 V= 2490.93 score=  4.83 #   0
+Finished: V=2330.04->2800 A^3, 39772 unit cells tested, 719321 tests/s,   Elapsed time=0.055299s
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=9.5544, b=12.4206, c=20.9901, alpha=90, beta=90, gamma=90, V=2490.93, score=4.82593
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2609 BEST ? a=9.5544, b=12.4206, c=20.9901, alpha=90, beta=90, gamma=90, V=2490.93, score=4.82593
+39772unit cells tested, 717544 tests/s,   Elapsed time=0.055435s
+DONE Xedd9c7b ORTHOROMBIC P 1 0.0556950569152832 [{'cell': [9.55439567565918, 12.420620918273926, 20.990089416503906, 90.00000250447816, 90.00000250447816, 90.00000250447816], 'volume': 2490.92578125, 'score': 4.825931549072266, 'system': 'ORTHOROMBIC', 'centering': 'P', 'mode': 4}]

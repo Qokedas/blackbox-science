@@ -1,0 +1,41 @@
+run 0: cost=373122.9 Rwp=0.2000 chi2=675657.3 t=4981s
+polish: Rwp 0.1981 -> 0.1629 (accepted) restraint cost=0.00
+run 0: cost=572089.1 Rwp=0.2344 chi2=935054.5 t=5112s
+polish: Rwp 0.2331 -> 0.1928 (accepted) restraint cost=0.00
+abs_ortho.log
+config.json
+g2_monoC.log
+g2_monoP.log
+g2_monoPc.log
+g2index_monoC_20.txt
+g2index_monoP_20.txt
+g2index_monoPc_20.txt
+lebail_P222.png
+low.png
+peaks.png
+peaks.txt
+peaks_clean.txt
+sol_a
+sol_a_sa
+sol_b
+solve_a.log
+solve_a_sa.log
+solve_b.log
+run 0: cost=88788.1 Rwp=0.2240 chi2=115889.1 t=610s
+run 1: cost=87793.1 Rwp=0.2255 chi2=117275.6 t=633s
+run 0: cost=295482.2 Rwp=0.4411 chi2=429345.8 t=718s
+polish: Rwp 0.4303 -> 0.4066 (accepted) restraint cost=0.00
+run 1: cost=401653.3 Rwp=1.3901 chi2=1056238.0 t=611s
+polish: Rwp 0.6749 -> 0.4832 (accepted) restraint cost=0.00
+{
+ "components": [
+  {
+   "smiles": "CC[C@@H](CO)NC(=O)[C@@H]1C=C2c3cccc4[nH]cc(c34)C[C@H]2[NH+](C)C1",
+   "count": 1,
+   "charge": 1
+  },
+  {
+   "smiles": "O=C([O-])C=CC(=O)O",
+   "count": 1,
+   "charge": -1
+  }

@@ -1,0 +1,231 @@
+total 13208
+-rw-r--r-- 1 root root    732 Sep  6 10:49 conditional101.log
+drwxr-xr-x 2 root root   4096 Sep  6 10:49 gallop_101
+-rw-r--r-- 1 root root   1350 Sep  6 10:49 warm100.log
+drwxr-xr-x 2 root root   4096 Sep  6 10:49 gallop_100
+-rw-r--r-- 1 root root    706 Sep  6 10:48 centro100_prepare.log
+drwxr-xr-x 2 root root   4096 Sep  6 10:48 search_centro100
+-rw-r--r-- 1 root root    735 Sep  6 10:45 check_ionH88.log
+-rw-r--r-- 1 root root   1855 Sep  6 10:45 refine_ionH88.log
+-rw-r--r-- 1 root root  81661 Sep  6 10:45 refined_ionH88.png
+-rw-r--r-- 1 root root     59 Sep  6 10:45 refined_ionH88.json
+-rw-r--r-- 1 root root 182622 Sep  6 10:45 refined_ionH88.xml
+-rw-r--r-- 1 root root   2265 Sep  6 10:45 refined_ionH88.cif
+-rw-r--r-- 1 root root 182622 Sep  6 10:45 refine_ionH88_stage3.xml
+-rw-r--r-- 1 root root   2265 Sep  6 10:45 refine_ionH88_stage3.cif
+-rw-r--r-- 1 root root 182612 Sep  6 10:45 refine_ionH88_stage2.xml
+-rw-r--r-- 1 root root   2265 Sep  6 10:45 refine_ionH88_stage2.cif
+-rw-r--r-- 1 root root 182590 Sep  6 10:45 refine_ionH88_stage1.xml
+-rw-r--r-- 1 root root   2265 Sep  6 10:45 refine_ionH88_stage1.cif
+-rw-r--r-- 1 root root 182543 Sep  6 10:45 refine_ionH88_stage0.xml
+-rw-r--r-- 1 root root   2265 Sep  6 10:45 refine_ionH88_stage0.cif
+-rw-r--r-- 1 root root 277875 Sep  6 10:45 scaled_refine.xye
+-rw-r--r-- 1 root root 277875 Sep  6 10:45 extended_ionH88.xye
+drwxr-xr-x 2 root root   4096 Sep  6 10:44 search_ionH88
+-rw-r--r-- 1 root root    442 Sep  6 10:44 addH88.log
+drwxr-xr-x 2 root root   4096 Sep  6 10:44 search_g88
+-rw-r--r-- 1 root root    435 Sep  6 10:44 import_g88.log
+-rw-r--r-- 1 root root   3139 Sep  6 10:44 gallop88.log
+-rw-r--r-- 1 root root    301 Sep  6 10:44 p1_centrosymmetry97.json
+drwxr-xr-x 2 root root   4096 Sep  6 10:20 gallop_88
+-rw-r--r-- 1 root root    242 Sep  6 10:16 check_ionH85.log
+-rw-r--r-- 1 root root   1906 Sep  6 10:16 refine_ionH85.log
+-rw-r--r-- 1 root root  81546 Sep  6 10:16 refined_ionH85.png
+-rw-r--r-- 1 root root     60 Sep  6 10:16 refined_ionH85.json
+-rw-r--r-- 1 root root 200231 Sep  6 10:16 refined_ionH85.xml
+-rw-r--r-- 1 root root   4051 Sep  6 10:16 refined_ionH85.cif
+-rw-r--r-- 1 root root 200231 Sep  6 10:16 refine_ionH85_stage3.xml
+-rw-r--r-- 1 root root   4051 Sep  6 10:16 refine_ionH85_stage3.cif
+-rw-r--r-- 1 root root 200210 Sep  6 10:15 refine_ionH85_stage2.xml
+-rw-r--r-- 1 root root   4051 Sep  6 10:15 refine_ionH85_stage2.cif
+-rw-r--r-- 1 root root 200224 Sep  6 10:15 refine_ionH85_stage1.xml
+-rw-r--r-- 1 root root   4051 Sep  6 10:15 refine_ionH85_stage1.cif
+-rw-r--r-- 1 root root 200111 Sep  6 10:14 refine_ionH85_stage0.xml
+-rw-r--r-- 1 root root   4051 Sep  6 10:14 refine_ionH85_stage0.cif
+-rw-r--r-- 1 root root 277875 Sep  6 10:14 extended_ionH85.xye
+drwxr-xr-x 2 root root   4096 Sep  6 10:14 search_ionH85
+-rw-r--r-- 1 root root     44 Sep  6 10:14 addH85.log
+drwxr-xr-x 2 root root   4096 Sep  6 10:14 search_g85
+-rw-r--r-- 1 root root     66 Sep  6 10:14 import_g85.log
+-rw-r--r-- 1 root root   1251 Sep  6 10:14 conditional85.log
+import os,sys,time,json,itertools,numpy as np,torch,gemmi
+from scipy.spatial.transform import Rotation
+from pyobjcryst.io import xml_cryst_file_load_all_object
+from obj_bridge import exact_pawley
+from obj_model import make_rdkit
+from pymatgen.core import Lattice
+from rdkit import Chem
+sid='X7e382cb';W='/app/work/'+sid;run=sys.argv[1] if len(sys.argv)>1 else 'twocentre1';out=W+'/'+run;os.makedirs(out,exist_ok=True)
+torch.set_num_threads(1);torch.set_num_interop_threads(1)
+O=xml_cryst_file_load_all_object(W+'/base.xml');p=next(o for o in O if o.GetClassName()=='PowderPattern');c=next(o for o in O if o.GetClassName()=='Crystal');d=p.GetPowderPatternComponent(0)
+
+from obj_model import add_component
+if c.GetNbScatterer()==0:dummy,_=add_component(c,'C','dummy_pawley')
+d.SetExtractionMode(True,False);p.Prepare();d.ExtractLeBail(20);p.Prepare();p.FitScaleFactorForRw()
+print('LEBAIL_RW',p.GetRw(),flush=True)
+pw=exact_pawley(p,d,stolmax=float(os.environ.get('STOL','.25')),rcond=.001);sel=pw['sel'];hkl=np.array([d.GetH(),d.GetK(),d.GetL()]).T[sel];stol=np.asarray(d.GetSinThetaOverLambda())[sel]
+cp=[c.GetPar(n).GetHumanValue() for n in ['a','b','c','alpha','beta','gamma']];lat=Lattice.from_parameters(*cp)
+r,xyz,en=make_rdkit('O=C([O-])c1ccccc1',seed=143,hydrogen=False)
+axis=xyz[6]-(xyz[5]+xyz[7])/2;axis/=np.linalg.norm(axis);center=xyz[6]+axis*.745;xyz=xyz-center
+axis=xyz[1]-xyz[3];axis/=np.linalg.norm(axis);point=xyz[3].copy();delta=xyz[[0,2]]-point
+els=[a.GetSymbol() for a in r.GetAtoms()]*2+['N','N'];counts=[a.GetTotalNumHs() for a in r.GetAtoms()];counts[6]=0;counts=counts*2+[4,4];rad=[.98 if el=='O' else 1.01 if el=='N' else 1.09 for el in els]
+sf=np.array([[gemmi.Element(el).it92.calculate_sf(float(s*s))+counts[i]*gemmi.Element('H').it92.calculate_sf(float(s*s))*np.sinc(4*s*rad[i]) for i,el in enumerate(els)] for s in stol])*2*np.exp(-3*stol[:,None]**2)
+T=lambda a:torch.tensor(a,dtype=torch.float32)
+li=T(np.linalg.inv(lat.matrix));lm=T(lat.matrix);sf=T(sf);hk=T(hkl);xy0=T(xyz);dv=T(delta);ax=T(axis);pt=T(point);nm=T(pw['normal']*1000/pw['var']);obs=T(pw['obs']);no=nm@obs;oo=obs@no
+N=int(os.environ.get('PARTICLES','256'));IT=int(os.environ.get('ITERATIONS','500'));BATCH=int(os.environ.get('BATCHES','40'));MAX=float(os.environ.get('SEARCH_TIME','1200'));centres=np.array([[0,0,.5],[0,.5,0],[.5,0,0],[0,.5,.5],[.5,0,.5],[.5,.5,0],[.5,.5,.5]])
+if 'CENTRE' in os.environ:centres=np.array([[float(x) for x in os.environ['CENTRE'].split(',')]])
+ids=np.arange(N)%len(centres);cnt=T(centres[ids]);best=1.e20;t0=time.time();bestpars=None;bestctr=None
+
+def coords(q,phi,pos):
+    q=q/torch.linalg.norm(q,dim=-1,keepdim=True);x,y,z,w=q.unbind(-1)
+    rr=torch.stack([1-2*y*y-2*z*z,2*x*y-2*z*w,2*x*z+2*y*w,2*x*y+2*z*w,1-2*x*x-2*z*z,2*y*z-2*x*w,2*x*z-2*y*w,2*y*z+2*x*w,1-2*x*x-2*y*y],-1).reshape(-1,2,3,3)
+    ca=torch.cos(phi)[...,None,None];sa=torch.sin(phi)[...,None,None]
+    mov=pt+dv*ca+torch.linalg.cross(ax.expand_as(dv),dv)*sa+ax*(dv@ax)[...,None]*(1-ca)
+    xy=xy0.repeat(len(q),2,1,1);xy[:,:,0]=mov[:,:,0];xy[:,:,2]=mov[:,:,1]
+    fr=(xy@rr.transpose(-1,-2))@li;fr[:,1]=fr[:,1]+cnt[:len(q),None,:]
+    return torch.cat([fr.reshape(-1,18,3),pos],1)
+
+# Covalent connectivity of each inversion-centred biphenyl excludes the
+# central bond and its 1-3/1-4 neighbours, without suppressing true contacts.
+rad0=[1.28 if e=='O' else 1.35 if e=='N' else 1.48 for e in els]
+dm=Chem.GetDistanceMatrix(r);ii=[];jj=[];signs=[];limits=[];weights=[]
+for sign in [1.,-1.]:
+ for i in range(20):
+  for j in range(20):
+   same_half=i<18 and j<18 and i//9==j//9
+   if sign==1 and (i>=j or (same_half and dm[i%9,j%9]<=3)):continue
+   if sign==-1 and same_half and dm[i%9,6]+1+dm[6,j%9]<=3:continue
+   ii.append(i);jj.append(j);signs.append(sign);limits.append(rad0[i]+rad0[j]-(.10 if els[i] in ['N','O'] and els[j] in ['N','O'] else 0.));weights.append(1. if sign==1 else .5)
+ii=torch.tensor(ii);jj=torch.tensor(jj);sgn=T(signs);limits=T(limits);weights=T(weights)
+shifts=T(np.array(list(itertools.product([-1,0,1],repeat=3)))@lat.matrix);shifts2=(shifts*shifts).sum(-1);coef=float(os.getenv('BUMP_COEFF','150'))
+def pack(fr):
+ dd=fr[:,ii]-fr[:,jj]*sgn[None,:,None];dd=dd-torch.round(dd).detach();cart=dd@lm
+ with torch.no_grad():correct=shifts[(2*(cart.detach()@shifts.T)+shifts2).argmin(-1)]
+ dist=torch.sqrt(((cart+correct)**2).sum(-1)+1e-8)
+ return coef*((torch.clamp(limits-dist,min=0)**2)*weights).sum(-1)
+
+def calc(q,phi,pos):
+    fr=coords(q,phi,pos);f=((torch.cos(2*np.pi*(fr@hk.T)))*sf.T).sum(1)**2
+    nf=f@nm;of=f@no;ff=(f*nf).sum(1);cost=oo-torch.clamp(of,min=0)**2/ff.clamp(min=1e-20)
+    penalty=pack(fr)
+    return cost,penalty,fr
+
+def save(q,ph,po,ctr,cost,batch):
+    global cnt
+    savecnt=cnt;cnt=T(np.array([ctr]));fr=coords(T(q[None]),T(ph[None]),T(po[None]))[0].detach().numpy();cnt=savecnt
+    text='data_solution\n'
+    for k,v in zip(['length_a','length_b','length_c','angle_alpha','angle_beta','angle_gamma'],cp):text+=f'_cell_{k} {v:.9f}\n'
+    text+="_space_group_name_H-M_alt 'P -1'\n_space_group_IT_number 2\nloop_\n_space_group_symop_id\n_space_group_symop_operation_xyz\n1 'x,y,z'\n2 '-x,-y,-z'\nloop_\n_atom_site_label\n_atom_site_type_symbol\n_atom_site_fract_x\n_atom_site_fract_y\n_atom_site_fract_z\n_atom_site_occupancy\n"
+    for i,(e,v) in enumerate(zip(els,fr)):text+=f'{e}{i+1} {e} {v[0]%1:.9f} {v[1]%1:.9f} {v[2]%1:.9f} 1\n'
+    open(out+'/best.cif','w').write(text);np.savez_compressed(out+'/best.npz',q=q,phi=ph,pos=po,centre=ctr,frac=fr);json.dump({'cost':float(cost),'batch':batch,'elapsed':time.time()-t0,'centre':list(ctr)},open(out+'/best.json','w'),indent=1)
+
+print('TWO_CENTRES',cp,'Nref',len(hkl),'Nparticle',N,flush=True)
+for batch in range(BATCH):
+    q=T(np.random.normal(size=(N,2,4)));phi=T(np.random.uniform(-np.pi,np.pi,size=(N,2)));pos=T(np.random.rand(N,2,3))
+    if bestpars is not None and batch%5!=0:
+        n=N//2;mask=np.all(centres[ids]==bestctr,axis=1);sel=np.where(mask)[0]
+        for ar,br in zip([q,phi,pos],bestpars):ar[sel]=T(br).unsqueeze(0)+torch.randn_like(ar[sel])*.16
+    for ar in [q,phi,pos]:ar.requires_grad_(True)
+    opt=torch.optim.Adam([q,phi,pos],lr=.035)
+    for it in range(IT):
+        opt.zero_grad();co,pe,fr=calc(q,phi,pos);loss=(co+pe).sum();loss.backward();torch.nn.utils.clip_grad_norm_([q,phi,pos],max_norm=100000);opt.step()
+        if it==IT*3//4:
+            for g in opt.param_groups:g['lr']=.008
+    with torch.no_grad():
+        co,pe,fr=calc(q,phi,pos);score=co+pe;k=int(score.argmin());val=float(score[k]);print('BATCH',batch,'best',val,'diffraction',float(co[k]),'p25',float(torch.quantile(score,.25)),'seconds',time.time()-t0,'centre',centres[ids[k]],flush=True)
+        if val<best:
+            best=val;bestpars=[ar[k].detach().numpy().copy() for ar in [q,phi,pos]];bestctr=centres[ids[k]].copy();save(*bestpars,bestctr,best,batch)
+    if time.time()-t0>MAX or best<3:break
+/app/work/X7e382cb/tc1.log
+/app/work/X7e382cb/tc2.log
+
+/app/work/X7e382cb/tc1:
+best.cif
+best.json
+best.npz
+
+/app/work/X7e382cb/tc2:
+best.cif
+best.json
+best.npz
+74:09:10 X263G72 native refinement breakthrough: Rwp .0572 atstage2, packing1.35, comparedg11.0964. Correctacid-lactamcluster hypothesis seems productive. Parent45980 paused (SIGSTOP) during finalG72refine50395 to update X14 transfer seed to improvedX263g72 instead ofoldg11. Background update_transfer72.sh waitsfor50395,graph-checks,backsupoldX14search_transfer72_oldG11, runs transfer_acm.py X263 X14 g72 transfer72, then trap resumes45980. No autosubmission. ConditionalcoformerG91justcompletedchi69.805 and native refinement started50521; G72may be substantiallybetter.
+75:09:14 X263g91 conditional coformer search gave better, chemically plausible solution than guidedG72: Rwp.0487685, packing0, geometry96.55, graph2x29+2x7, minOO(acid/lactam)2.6477 and lactamN...O dimer2.7076, DHA155deg. G72 instead has repulsive lactamO...O2.5999 with lessplausibleHBnetwork andRw.05228; do not preferit. SUBMITTED refined_g91.cif +matchingJSON, now14CIFs.
+76:Replaced X14 transfer pipeline again with G73 from chemicallypreferred X263g91. Stopped X14G72child50732 before firstbatch, parent45980, and waitingwarm49475. Newqueue_acm73.sh transfersX263g91 toX14,1500secs, thenhighres.4refine. ACM50warmqueue restarted withwaitonnewACM73parent and bestseedchoice includesg73,g91. OldG71buggy remains explicitlyexcluded. X14G72 sourcefromG72saved butnotfinished/notsubmitted.
+77:09:15 X8a6f5a8 INDEXING RESOLVED: nativeFCJtriclinicM27.03 refinesagainstALL23FCJlines withRMStwo_theta.00876°, max.0224°,nooutliers,allhklmoduleindex1. Cell16.66062448,11.54272919,7.86913440,94.65334052,84.51193059,108.72568003,V1424.59,zero+.01170. ChiralcompositionforcesP1; spglibsingleatom latticeonlyP-1 eventol.1, nohiddenmonoclinic. Z=2 formula gives18.26A3/heavy, plausible. WholeObjprofilefitfcjfinal0 Rwp.06716 vsoldgiantP21 .06919despite4.5xvolume, newC2 .07621. Smalltricliniccellclearlypreferred. SUBMITTED JSONnewP1matchingFCJmetric; oldJSONbackedupwork/submission_before_fcj_triclinic.json. NoCIFandnonequeuedforthisveryflexibleZ'=2solvate.
+78:Currentparents: ACM73=51090,ACM50warm=51094. Old45980/50732/49475killed intentionally. FCJfinalfits49423finished. Edd52lateimproved76.10->47.83atbatch7(total1926s), awaitnativefit.
+80:09:19 Edd52 latechi46.354 yielded strongphysicalrefinement Rwp.07975924 (nearwholeLBfloor.0736),geom11.824,packing6.950. Graphvalid8x19,bonds1.3634–1.6149. ShortphosphateOO2.4617/2.488andindoleN...O2.558(165deg),ammoniumN...O2.529(165deg),plausiblestrongzwitterionicHBnetworkalthoughveryshortNHcontacts. Profilemostlynoiseandmodestpeakheightdifferences. SUBMITTED refined_g52.cif+JSON (15CIFs). Newqueue_eddconditional.sh waitsBrconditional51460 thenwarm84fromg52/alternatingconditional85(4x128x350,Hb15/pack80)/native.4refine; noautosubmission.
+83:09:28 X1a apparent stereochemistryR from check_stereo.py is a GRAPH-MAPPING FALSE ALARM: phenyl andcyclohexylbothC6 connectivitycycle are interchangeable to unweightedGraphMatcher, whichpicksarbitraryfirstmap. Directknownatom-order CIP fromgallop18/templateandbest_frac bothSasprescribed. Nochiralitybugidentified. NativeCuKa2testvsmonousingidenticalfurtherprofilecycles: .06357doubletvs.06314mono; mono retained. Earlier.070fitjustneededmorecycles.
+85:X8a06Ka2diagnosticidenticalextraquickprofilecycles: monoP21 single.06041,doublet.05788; triP-1single.05386,doublet.05559. Trianglesretain~.13/.16offrightangles; symmetrynotyetresolved. CurrentP21JSONunchangedawaitP-1g12native. Refinedwholeprofilesinfit_mono_single/fit_tri_single etcareDIAGNOSTICSwithdisposableC, notstructures.
+86:X1dbconditionalg91finishedRwp.110886,graphvalid,stillinferiorfit/notstrongHBnetwork. WillbechosenbyACM50warmselector. X4conditionalg83Rwp.089702,geom140.8,packing90.1,notclearlysolved. Edd85queuehasstartedafterX4.
+91:09:44 X8a06P-1g12native.14505vsP21g11.21587, stillnotconverged. Newqueue_pic74.sh triesisostructuralacidtransferfromsolvedX263g91usingNEWrefinedtriclinicsingle-profile/entirelowrange (1500sec,warm74). transfer_acm.pynowsupportsTRANSFER_BASEenvandremovesanydisposableCbeforeaddingfragments. P21JSONnotyetchangedpendingthistest.
+92:09:46 LdecisionX8a06d7a: updateJSONfromP21toP-1usingfit_tri_single(a5.00967881,b11.85108557,c21.72453692,alpha86.05861325,beta89.87347918,gamma89.84390125). Arguments: consistentlybetterLeBailbothKaassumptions(.05386P-1vsbestmono.05788), reproducibleoff-rightangles, muchbetterfirstnativeP-1solution(.145vsP21.216),andcentrosymmetricpriorforachiralcocrystal. StillnotasconclusiveasotherLcases; restorebackupsubmission_before_final_tri.jsonifcontraryevidence. NoCIFyet.
+93:09:46 X14G73nativefinished.1228104,geom125,packing22,betterg11.175butnotconverged. ACM50queuehasstartedX263g91warm, thenwillselectX14g73, X1dbg91. X1aG83native.139922,geometry58packing0,graphvalidandactualSstereo; NH...Cl3.259bent115degnotcompelling, stillnotclearlysolved. NativeconditionalMDscanlaunchedfromg83toassessPOwithfinalcoordinates (notoldg18).
+94:09:55 continuation: X1a chair84 test (script now run/graph/stereo validated) yields four combinations; unflipped m00 further nativeRietveld .13126 vs g83 .13992; small RMS.084A shift. Flipped others in queue parent56091. New saltconditional86 parent56479 waits56091 thenstrongnative/warm/conditional X9 andX35, noautosubmit.
+96:X7 explicitNH4H nativeionH41 .0492426 improves bareN g41 .056038. Stillnotcentrosymmetric even spglib.8A andminN-O~2.51; P1conditional85active. AddedoptionalCHARGED_NO_MIN(mincationicN-O) tobothpackers(default0), previousfiles *_beforeNO.py. Newparent56680queue_x7_centros88 waitsB70855083: freshindependentP-1(fullanion+2NH4) fromtrustedbase, strongpacking150/N+N>=3.15/N+O>=2.65/HBmultiple20,1500sec160x400, explicitNH4Hthenhighresnative. This testscentrosymmetrywithcorrectmodernprofile/chemicalmodel; noautosubmit.
+101:10:42 Caprolactam queue57590 replaced by queue_caprolactam95_typed (waitchild62522). Same six ring variants, skip finished, then conditionalG95 has donorN--donorN>=2.95A, directionalNH(HB30), packing100 and schedule1;0;1;0, native packingSigma.008. This tests/removes neutral lactam NH--NH clash2.58A in g50. New optional DONOR_NN_MIN in both packers default0; other queues unchanged. No autosubmit.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 457 seconds 333.8126904964447 best 106.489 q25 170.19907 median 214.90045 total 333.82154536247253
+GALLOP 1 Nref 457 seconds 316.49406456947327 best 106.4878 q25 145.65045 median 206.7586 total 650.5822925567627
+GALLOP 2 Nref 457 seconds 256.99681425094604 best 106.48722 q25 153.9617 median 197.5278 total 907.8090980052948
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X35b7fbc 78.74118041992188
+CONDITIONAL 0 [1] best 77.879150390625 q25 87.54314 sec 228.27397179603577
+CONDITIONAL 1 [0] best 76.96517944335938 q25 509.48166 sec 425.393611907959
+HBOND_PRIOR 4 donors 12 acceptors coefficient 20.0 directional False
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X3f4781b 40.86460876464844
+ATTACHED_H_SCATTERING 20 heavy atoms 16 H atoms
+PACKING_ENABLED 20 atoms 519 pair terms coefficient 150.0 active_only True
+HBOND_PRIOR 2 donors 4 acceptors coefficient 20.0 directional False
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X7e382cb 977.0011596679688
+{
+ "paired_rms": 0.6247619269715883,
+ "N_rms": 1.7802670351675962,
+ "pair_max": 1.1260372135379102,
+ "origin": [
+  0.2596364957169628,
+  0.4135696340003647,
+  0.5529333590149288
+ ],
+ "permutation": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  13,
+  12,
+  14,
+  15,
+  16,
+  17
+ ]
+}{
+ "cell": {
+  "a": 6.950883561252238,
+  "b": 6.9714360090474425,
+  "c": 15.760000618785241,
+  "alpha": 65.620071071758,
+  "beta": 82.98049443060587,
+  "gamma": 67.39068753201737
+ },
+ "space_group": "P -1",
+ "space_group_number": 2
+}

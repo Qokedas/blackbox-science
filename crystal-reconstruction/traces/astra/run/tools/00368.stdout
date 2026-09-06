@@ -1,0 +1,87 @@
+PID=5191
+State:	S (sleeping)
+9976 
+PID=12401
+State:	S (sleeping)
+13143 
+PID=7272
+State:	S (sleeping)
+10494 
+PID=8306
+State:	S (sleeping)
+9670 
+PID=12403
+State:	S (sleeping)
+13802 
+PID=12769
+State:	S (sleeping)
+13532 
+PID=9939
+State:	S (sleeping)
+13800 
+PID=13235
+State:	Z (zombie)
+
+==== queue_structures_A2.sh
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/4659/status ]] && ! grep -q '^State:.*Z' /proc/4659/status; do sleep 5; done
+SEARCH_TIME=2000 MC_STEPS=3000000 TARGET_RW=.09 python /app/work/search_obj.py X35b7fbc 2 1 --rescale --model=/app/work/X35b7fbc/cis.json > /app/work/X35b7fbc/search2.log 2>&1
+python /app/work/refine_obj.py X35b7fbc 2 /app/work/X35b7fbc/search_2/best.xml --scale --tight > /app/work/X35b7fbc/refine_2.log 2>&1
+SEARCH_TIME=1600 MC_STEPS=3000000 TARGET_RW=.07 python /app/work/search_obj.py Xbfeeda9 1 1 --rescale --bump > /app/work/Xbfeeda9/search1.log 2>&1
+python /app/work/refine_obj.py Xbfeeda9 1 /app/work/Xbfeeda9/search_1/best.xml --scale --tight > /app/work/Xbfeeda9/refine_1.log 2>&1
+SEARCH_TIME=1400 MC_STEPS=3000000 TARGET_RW=.07 python /app/work/search_obj.py X4f6fe58 3 2 --rescale --fullbump --profile > /app/work/X4f6fe58/search3.log 2>&1
+python /app/work/refine_obj.py X4f6fe58 3 /app/work/X4f6fe58/search_3/best.xml --scale --tight --fixB > /app/work/X4f6fe58/refine_3.log 2>&1
+==== queue_structures_C_new.sh
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+SEARCH_TIME=1600 MC_STEPS=3000000 TARGET_RW=.13 python /app/work/search_obj.py Xd4c1a35 2 2 --rescale --profile > /app/work/Xd4c1a35/search2.log 2>&1
+python /app/work/refine_obj.py Xd4c1a35 2 /app/work/Xd4c1a35/search_2/best.xml --scale --tight > /app/work/Xd4c1a35/refine_2.log 2>&1
+SEARCH_TIME=1600 PARTICLES=128 ITERATIONS=400 GALLOP_STOL=.23 python /app/work/search_gallop.py X13023e3 11 1 --prepare > /app/work/X13023e3/gallop11.log 2>&1
+python /app/work/import_gallop.py X13023e3 11 > /app/work/X13023e3/import_g11.log 2>&1
+python /app/work/refine_obj.py X13023e3 g11 /app/work/X13023e3/search_g11/best.xml --scale --tight > /app/work/X13023e3/refine_g11.log 2>&1
+SEARCH_TIME=2200 MC_STEPS=4000000 TARGET_RW=.12 python /app/work/search_obj.py X263b09a 1 1 --rescale --profile > /app/work/X263b09a/search1.log 2>&1
+python /app/work/refine_obj.py X263b09a 1 /app/work/X263b09a/search_1/best.xml --scale --tight > /app/work/X263b09a/refine_1.log 2>&1
+SEARCH_TIME=2200 MC_STEPS=4000000 TARGET_RW=.12 python /app/work/search_obj.py X14a2b08 1 1 --rescale --profile > /app/work/X14a2b08/search1.log 2>&1
+python /app/work/refine_obj.py X14a2b08 1 /app/work/X14a2b08/search_1/best.xml --scale --tight > /app/work/X14a2b08/refine_1.log 2>&1
+==== queue_gallop_B3.sh
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/4263/status ]] && ! grep -q '^State:.*Z' /proc/4263/status; do sleep 5;done
+SEARCH_TIME=2000 PARTICLES=128 ITERATIONS=400 GALLOP_STOL=.25 python /app/work/search_gallop.py Xd8634a2 11 1 --prepare --hscatter > /app/work/Xd8634a2/gallop11.log 2>&1
+python /app/work/import_gallop.py Xd8634a2 11 > /app/work/Xd8634a2/import_g11.log 2>&1
+python /app/work/refine_obj.py Xd8634a2 g11 /app/work/Xd8634a2/search_g11/best.xml --scale --tight > /app/work/Xd8634a2/refine_g11.log 2>&1
+SEARCH_TIME=2000 PARTICLES=128 ITERATIONS=400 GALLOP_STOL=.25 python /app/work/search_gallop.py Xd4c1a35 11 2 --prepare --hscatter > /app/work/Xd4c1a35/gallop11.log 2>&1
+python /app/work/import_gallop.py Xd4c1a35 11 > /app/work/Xd4c1a35/import_g11.log 2>&1
+python /app/work/refine_obj.py Xd4c1a35 g11 /app/work/Xd4c1a35/search_g11/best.xml --scale --tight > /app/work/Xd4c1a35/refine_g11.log 2>&1
+SEARCH_TIME=2000 PARTICLES=128 ITERATIONS=400 GALLOP_STOL=.25 python /app/work/search_gallop.py Xb7088cf 11 1 --prepare --hscatter > /app/work/Xb7088cf/gallop11.log 2>&1
+python /app/work/import_gallop.py Xb7088cf 11 > /app/work/Xb7088cf/import_g11.log 2>&1
+python /app/work/refine_obj.py Xb7088cf g11 /app/work/Xb7088cf/search_g11/best.xml --scale --tight > /app/work/Xb7088cf/refine_g11.log 2>&1
+==== queue_gallop_A3.sh
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/5191/status ]] && ! grep -q '^State:.*Z' /proc/5191/status; do sleep 5;done
+SEARCH_TIME=1800 PARTICLES=160 ITERATIONS=450 GALLOP_STOL=.25 python /app/work/search_gallop.py X3f4781b 11 2 --prepare --hscatter > /app/work/X3f4781b/gallop11.log 2>&1
+python /app/work/import_gallop.py X3f4781b 11 > /app/work/X3f4781b/import_g11.log 2>&1
+python /app/work/refine_obj.py X3f4781b g11 /app/work/X3f4781b/search_g11/best.xml --scale --tight > /app/work/X3f4781b/refine_g11.log 2>&1
+SEARCH_TIME=2200 PARTICLES=160 ITERATIONS=450 GALLOP_STOL=.25 python /app/work/search_gallop.py X9af54a2 11 2 --prepare --hscatter > /app/work/X9af54a2/gallop11.log 2>&1
+python /app/work/import_gallop.py X9af54a2 11 > /app/work/X9af54a2/import_g11.log 2>&1
+python /app/work/refine_obj.py X9af54a2 g11 /app/work/X9af54a2/search_g11/best.xml --scale --tight > /app/work/X9af54a2/refine_g11.log 2>&1
+==== queue_metric.sh
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 NPEAK=28 NSPUR=1 MAXITER=700 INDEX_TIME=350 TTHERR=.025 TRIALS=60
+while [[ -r /proc/8838/status ]] && ! grep -q '^State:.*Z' /proc/8838/status; do sleep 5;done
+for sys in ORTHOROMBIC MONOCLINIC; do VMIN=500 VMAX=1550 VTARGET=800 python /app/work/index_metric.py Xedd9c7b $sys P > /app/work/Xedd9c7b/metric_${sys}.log 2>&1;done
+for sys in ORTHOROMBIC MONOCLINIC; do VMIN=1100 VMAX=3500 VTARGET=2200 python /app/work/index_metric.py X8a6f5a8 $sys P > /app/work/X8a6f5a8/metric_${sys}.log 2>&1;done
+for sys in ORTHOROMBIC MONOCLINIC; do VMIN=1900 VMAX=3300 VTARGET=2500 python /app/work/index_metric.py Xebbd488 $sys P > /app/work/Xebbd488/metric_${sys}.log 2>&1;done
+PEAK_SKIP=1 VMIN=1050 VMAX=3100 VTARGET=1600 SELECT_FILE=/app/work/X1db5091/peak_select_ext.json python /app/work/index_metric.py X1db5091 MONOCLINIC P > /app/work/X1db5091/metric_MONOCLINIC.log 2>&1
+==== queue_moreindex.sh
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 PEAK_FILE=peaks_raw.json NPEAK=18 NSPUR=1 INDEX_SCORE=60 INDEX_DEPTH=6 LMAX=40 TTHERR=.025 MAXERR=.06 INDEX_TAG=zeroscan
+while [[ -r /proc/8306/status ]] && ! grep -q '^State:.*Z' /proc/8306/status; do sleep 5; done
+for shift in -0.2 -0.1 0.1 0.2; do
+ for system in ORTHOROMBIC MONOCLINIC; do
+  for center in P C; do
+   TTHSHIFT=$shift timeout 90 python /app/work/index_one.py Xedd9c7b $system $center 4 450 2800 > /app/work/Xedd9c7b/index_zero_${shift}_${system}_${center}.log 2>&1
+  done
+ done
+done
+for id in Xedd9c7b Xb7088cf; do
+ for tag in raw_TRICLINIC_P raw_MONOCLINIC_P; do python /app/work/parse_index_log.py $id $tag; done
+ python /app/work/collect_candidates.py $id
+ for idx in 0 1 2 3; do python /app/work/fit_candidate.py $id $idx .3 > /app/work/$id/fit_$idx.log 2>&1; done
+done

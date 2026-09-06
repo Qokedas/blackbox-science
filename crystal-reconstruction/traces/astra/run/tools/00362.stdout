@@ -1,0 +1,198 @@
+            print("Can't convert input",external,"to pytorch tensor")
+
+    if internal is None:
+        tor = torch.rand((n_samples,
+                        Structure.total_internal_degrees_of_freedom))
+        tor -= 0.5
+        tor *= 2*np.pi
+        internal = tor.type(dtype).to(device)
+        if requires_grad:
+            internal.requires_grad = True
+    else:
+        error = "external.shape[0] != internal.shape[0]"
+        assert n_samples == internal.shape[0], error
+        try:
+            internal = torch.from_numpy(internal).type(dtype).to(device)
+            if requires_grad:
+                internal.requires_grad = True
+        except TypeError:
+            print("Can't convert input",internal,"to pytorch tensor")
+
+    if include_dw_factors:
+        if from_CIF:
+            dw_factors = Structure.CIF_dw_factors
+        else:
+            dw_factors = get_dw_factors(Structure)
+    else:
+        dw_factors = {}
+
+    intensity_tensors, chi2_tensors = get_data_related_tensors(Structure,
+                                n_reflections, dtype, device, verbose=verbose)
+
+    if from_CIF:
+        if Structure.ignore_H_atoms:
+            n_atoms_asymmetric = Structure.cif_frac_coords_no_H.shape[0]
+            asymmetric_frac_coords = Structure.cif_frac_coords_no_H.reshape(1,
+                                                        n_atoms_asymmetric,3)
+        else:
+            n_atoms_asymmetric = Structure.cif_frac_coords.shape[0]
+            asymmetric_frac_coords = Structure.cif_frac_coords.reshape(1,
+                                                        n_atoms_asymmetric,3)
+        asymmetric_frac_coords = torch.from_numpy(asymmetric_frac_coords)
+        asymmetric_frac_coords = asymmetric_frac_coords.type(dtype).to(device)
+        nsamples_ones = torch.ones(n_samples,
+                                n_atoms_asymmetric,
+                                1).type(dtype).to(device)
+        intensity_tensors["asymmetric_frac_coords"] = asymmetric_frac_coords
+        intensity_tensors["nsamples_ones"] = nsamples_ones
+    else:
+        zm_tensors = {"external" : external, "internal" : internal,
+                **get_zm_related_tensors(Structure, n_samples, dtype, device)}
+    # Calculate terms that are used in the intensity calculations, which include
+    # the atomic scattering factors etc.
+    full_prefix = Structure.generate_intensity_calculation_prefix(
+                        debye_waller_factors=dw_factors, just_asymmetric=False,
+                        from_cif=from_CIF)[:n_reflections]
+    asymm_prefix = Structure.generate_intensity_calculation_prefix(
+                        debye_waller_factors=dw_factors, just_asymmetric=True,
+                        from_cif=from_CIF)[:n_reflections]
+
+    intensity_tensors["intensity_calc_prefix_fs"] = torch.from_numpy(
+                                            full_prefix).type(dtype).to(device)
+    intensity_tensors["intensity_calc_prefix_fs_asymmetric"] = torch.from_numpy(
+                                            asymm_prefix).type(dtype).to(device)
+    intensity_tensors["centrosymmetric"] = Structure.centrosymmetric
+    intensity_tensors["space_group_number"] = Structure.sg_number
+
+    tensors = {}
+    if not from_CIF:
+        zm_tensors["lattice_inv_matrix"] = intensity_tensors.pop(
+                                                        "lattice_inv_matrix")
+        intensity_tensors["nsamples_ones"] = zm_tensors.pop("nsamples_ones")
+        tensors["zm"] = zm_tensors
+    else:
+        del intensity_tensors["lattice_inv_matrix"]
+
+
+# Not PEP8 compliant in most of the file but it's been formatted to try to be
+# readable
+
+@torch.jit.script
+def get_symmetry_equivalent_points(frac_coords, nsamples_ones, affine_matrices):
+    """
+    This code is a generic way to find all symmetry related positions in the
+    unit cell from the affine-matrices of the space group. There are faster ways
+    to generate intensities for some space groups, but these need to be coded
+    separately. This function works in the generic case.
+
+    Args:
+        frac_coords (Tensor): Fractional coordinates for the asymmetric unit,
+            with shape N_samples, Number of atoms in asymmetric unit, 3
+        nsamples_ones (Tensor): A tensor filled with 1s, of shape:
+            N_samples, Number of atoms in asymmetric unit, 1
+        affine_matrices (Tensor): The affine matrices for the space group
+
+    Returns:
+        Tensor: The coordinates of all atoms in the unit cell. Tensor with shape
+            N_samples, Number of atoms in unit cell, 3
+    """
+
+    wxyz = torch.cat((frac_coords, nsamples_ones), dim=-1)
+    frac_all = torch.einsum("bij,nkj->nbik",wxyz,affine_matrices)[:,:,:,:3]
+    n_samples = frac_coords.shape[0]
+    n_atoms = frac_coords.shape[1]*affine_matrices.shape[0]
+    return frac_all.permute(1,0,2,3).reshape(n_samples,n_atoms,3)
+
+@torch.jit.script
+def intensities_from_full_cell_contents(frac_all, hkl, intensity_calc_prefix_fs,
+    centrosymmetric):
+    # type: (Tensor, Tensor, Tensor, bool) -> Tensor
+    """
+    Fall back generic method for intensity calculation if the space group is not
+    included in calculate_intensities
+
+    Args:
+        frac_all (Tensor): Coordinates of all atoms in the unit cell
+        hkl (Tensor): Miller indices
+        intensity_calc_prefix_fs (Tensor): atomic scattering factors etc
+        centrosymmetric (bool): True if space group is centrosymmetric
+
+    Returns:
+        Tensor: Calculated intensities
+    """
+    pi = 3.141592653589793
+    hxkylz = 2. * pi * torch.einsum("ji,klj->kil", hkl, frac_all)
+    Asqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs,torch.cos(hxkylz)).sum(dim=2)**2
+    if centrosymmetric:
+        return Asqd
+    else:
+        Bsqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs,torch.sin(hxkylz)).sum(dim=2)**2
+        return Asqd + Bsqd
+
+@torch.jit.script
+def calculate_intensities(asymmetric_frac_coords, hkl, intensity_calc_prefix_fs,
+    Original code can be found in:
+    GSASIIstrMath.py > GetPrefOri
+
+    For original source code, see here:
+        https://subversion.xray.aps.anl.gov/pyGSAS/trunk/GSASIIstrMath.py
+
+    Args:
+        calculated_intensities (Tensor): Calculated intensities
+        cosP (Tensor): cosP, calculated in advance - see tensor_prep.py
+        sinP (Tensor): sinP, calculated in advance - see tensor_prep.py
+        factor (Tensor): The (sqrt of the) March-Dollase factor. Sqrt used to
+            avoid negative numbers.
+        eps (float): A small number to prevent numerical errors when using loss
+            functions such as X*log(X). Defaults to 1e-12
+
+    Returns:
+        Tensor: Modified intensities, with PO correction applied
+    """
+    A_all = (1.0/torch.sqrt((((factor+eps)**2)*cosP)**2+sinP**2/((factor+eps)**2)))**3
+    return calculated_intensities * A_all
+485:    def generate_intensity_calculation_prefix(self,
+545:                fs = np.tile(coeffs, (1,s2.shape[0])).T
+                atoms.append(restraint["atom"+str(i+1)] - indexing)
+
+            elements = {}
+            elements_no_H = {}
+            n_atoms = {}
+            all_elements = []
+            all_elements_no_H = []
+            for i, zmat in enumerate(self.zmatrices):
+                elements[i] = zmat.elements
+                elements_no_H[i] = zmat.elements_no_H
+                n_atoms[i] = len(zmat.elements)
+
+                all_elements += zmat.elements
+                all_elements_no_H += zmat.elements_no_H
+
+            atom_idx = []
+            atom_idx_no_H = []
+            for zmat, atom in zip([zms, atoms]):
+                prev_atoms = 0
+                prev_atoms_no_H = 0
+                for i in range(zmat):
+                    prev_atoms += len(elements[i])
+                    prev_atoms_no_H += len(elements_no_H[i])
+
+                atom_no_H = atom - elements[zmat][:atom].count("H")
+                atom += prev_atoms
+                atom_no_H += prev_atoms_no_H
+
+                atom_idx.append(atom)
+                atom_idx_no_H.append(atom_no_H)
+
+        atom_idx += [restraint_value, restraint_weight]
+        atom_idx_no_H += [restraint_value, restraint_weight]
+
+        if restraint_type.lower() == "distance":
+            self.distance_restraints.append(atom_idx)
+            self.distance_restraints_no_H.append(atom_idx_no_H)
+        elif restraint_type.lower() == "angle":
+            self.angle_restraints.append(atom_idx)
+            self.angle_restraints_no_H.append(atom_idx_no_H)
+        else:
+            self.torsion_restraints.append(atom_idx)
+            self.torsion_restraints_no_H.append(atom_idx_no_H)

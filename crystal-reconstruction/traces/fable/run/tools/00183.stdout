@@ -1,0 +1,26 @@
+fit: True
+rms(normalized), max: (np.float64(0.1009251168336177), np.float64(0.21349280835400938))
+approx rms Å = 0.259  max Å = 0.547
+{
+ "components": [
+  {
+   "smiles": "C[C@@H]1CC(=O)NN=C1c1ccc(NN=C(C#N)C#N)cc1",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}{
+ "components": [
+  {
+   "smiles": "COc1ccc(NC(=O)[C@@H]2C[C@H](C)CC[C@H]2C(C)C)cc1",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}

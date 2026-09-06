@@ -1,0 +1,11 @@
+dict_keys(['name', 'ignore_H_atoms', 'output_filename_root', 'zmatrices', 'absorb_H_Z_increase', 'absorb_H_occu_increase', 'radiation', 'temperature', 'original_sg_number', 'total_dof_calculated', 'sg_number', 'wavelength', 'hkl', 'twotheta', 'lattice', 'cif_frac_coords_no_H', 'cif_species_no_H', 'cif_frac_coords', 'cif_species', 'data_file', 'dspacing', 'data_resolution', 'source', 'profile', 'baseline_peaks', 'n_contributing_peaks', 'PawleyChiSq', 'centrosymmetric', 'affine_matrices', 'cif_dwfactors', 'dwfactors_asymmetric', 'dwfactors', 'total_degrees_of_freedom', 'total_external_degrees_of_freedom', 'total_internal_degrees_of_freedom', 'total_position_degrees_of_freedom', 'total_rotation_degrees_of_freedom', 'zm_torsions', 'distance_restraints', 'distance_restraints_no_H', 'angle_restraints', 'angle_restraints_no_H', 'torsion_restraints', 'torsion_restraints_no_H', 'fs', 'prefix', 'intensities', 'inverse_covariance_matrix', 'sg_symbol'])
+conformer [(1, 'S')]
+global [(1, 'S')]
+Traceback (most recent call last):
+  File "/app/work/test_doublet.py", line 6, in <module>
+    objs=xml_cryst_file_load_all_object(src);p=next(o for o in objs if o.GetClassName()=='PowderPattern');c=next(o for o in objs if o.GetClassName()=='Crystal');wrap_boost_powderpattern(p);d=p.GetPowderPatternComponent(0)
+                                                                                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.11/site-packages/pyobjcryst/powderpattern.py", line 656, in wrap_boost_powderpattern
+    exec("c.%s = MethodType(PowderPattern.%s, c)" % (func, func))
+  File "<string>", line 1, in <module>
+NameError: name 'MethodType' is not defined

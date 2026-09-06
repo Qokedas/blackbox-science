@@ -1,0 +1,232 @@
+['ObjCrystException', '__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__path__', '__spec__', '__version__', '_pyobjcryst', 'atom', 'crystal', 'diffractiondatasinglecrystal', 'gTopRefinableObjRegistry', 'general', 'globaloptim', 'globals', 'indexing', 'io', 'loadCrystal', 'lsq', 'molecule', 'polyhedron', 'powderpattern', 'pyobjcryst', 'radiation', 'refinableobj', 'reflectionprofile', 'scatterer', 'scatteringdata', 'scatteringpower', 'scatteringpowersphere', 'spacegroup', 'unitcell', 'version', 'warnings', 'zscatterer']
+['XMLCrystFileLoadAllObject_orig', 'XMLCrystFileSaveGlobal_orig', 'XMLCrystTag', '__all__', '__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__spec__', 'gTopRefinableObjRegistry', 'gzip', 'os', 'xml_cryst_file_load_all_object', 'xml_cryst_file_save_global']
+#!/usr/bin/env python
+##############################################################################
+#
+# pyobjcryst        by DANSE Diffraction group
+#                   Simon J. L. Billinge
+#                   (c) 2009 The Trustees of Columbia University
+#                   in the City of New York.  All rights reserved.
+#
+# File coded by:    Chris Farrow
+#
+# See AUTHORS.txt for a list of people who contributed.
+# See LICENSE_DANSE.txt for license information.
+#
+##############################################################################
+"""Python wrapping of Molecule.h.
+
+See the online ObjCryst++ documentation (https://objcryst.readthedocs.io).
+
+Changes from ObjCryst::Molecule
+
+- The public data are not wrapped.
+- Added __getitem__ access for MolAtoms.
+- AddAtom returns the added MolAtom
+- AddBond returns the added MolBond
+- AddBondAngle returns the added MolBondAngle
+- AddDihedralAngle returns the added MolDihedralAngle
+- RemoveAtom returns None, has an indexed version
+- RemoveBond returns None, has an indexed version
+- RemoveBondAngle returns None, has an indexed version
+- RemoveDihedralAngle returns None, has an indexed version
+- RemoveRigidGroup returns None
+- Added GetNbAtoms
+- Added GetNbBonds
+- Added GetNbBondAngles
+- Added GetNbDihedralAngles
+- Added GetNbRigidGroups
+- Added GetBond
+- Added GetBondAngle
+- Added GetDihedralAngle
+- Added GetRigidGroup
+- FindBond returns the bond if found, None otherwise
+- FindBondAngle returns the bond angle if found, None otherwise
+- FindDihedralAngle returns the dihedral angle if found, None otherwise
+- FindAtom is identical to GetAtom.
+- FlipAtomGroup is not wrapped.
+- FlipGroup, RotorGroup and StretchModeGroup are not wrapped.
+- StretchMode getters are not wrapped
+- Quaternion ordinates Q0, Q1, Q2 and Q3 wrapped as properties.
+
+Changes from ObjCryst::MolAtom
+
+- Wrapped as a to-python converter only (no constructor)
+- File IO is disabled
+- X, Y and Z are wrapped as properties rather than methods.
+
+Changes from ObjCryst::MolBondAngle
+
+- Wrapped as a to-python converter only (no constructor)
+- Added __getitem__ access for MolAtoms.
+- File IO is disabled
+- GetDeriv and CalcGradient are not wrapped.
+- Angle0, AngleDelta and AngleSigma are wrapped as properties rather than
+  methods.
+- IsFlexible and SetFlexible are not wrapped, as they are not implemented in
+  the library.
+
+Changes from ObjCryst::MolDihedralAngle
+
+- Wrapped as a to-python converter only (no constructor)
+- Added __getitem__ access for MolAtoms.
+
+Changes from ObjCryst::Quaternion
+
+- IO is not wrapped
+- Q0, Q1, Q2 and Q3 are wrapped as properties, rather than functions.
+- RotateVector overloaded to return tuple of the mutated arguments.
+
+Changes from ObjCryst::RigidGroup
+
+- RigidGroup is wrapped to have python-set methods rather than stl::set
+  methods.
+"""
+
+__all__ = [
+    "Molecule",
+    "GetBondLength",
+    "GetBondAngle",
+    "GetDihedralAngle",
+    "MolAtom",
+    "MolBond",
+    "MolBondAngle",
+    "MolDihedralAngle",
+    "Quaternion",
+    "RigidGroup",
+    "StretchMode",
+    "StretchModeBondLength",
+    "StretchModeBondAngle",
+    "StretchModeTorsion",
+    "StretchModeTwist",
+    "ZScatterer2Molecule",
+    "ImportFenskeHallZMatrix",
+]
+
+# TODO - MolRing
+
+from pyobjcryst._pyobjcryst import (
+    GetBondAngle,
+    GetBondLength,
+    GetDihedralAngle,
+    MolAtom,
+    MolBond,
+    MolBondAngle,
+    MolDihedralAngle,
+    Molecule,
+    Quaternion,
+    RigidGroup,
+    StretchMode,
+    StretchModeBondAngle,
+    StretchModeBondLength,
+    StretchModeTorsion,
+    StretchModeTwist,
+    ZScatterer2Molecule,
+)
+
+from .zscatterer import ZScatterer
+
+
+def ImportFenskeHallZMatrix(cryst, src, named=False):
+    """Create a Molecule from a Fenske-Hall z-matrix. This is cleaner
+    than importing the Z-matrix into a ZScatterer object and then using
+    ZScatterer2Molecule, as it takes care of keeping only the created
+    Molecule inside the Crystal.
+
+    :param cryst: a Crystal object to which will belong the created Molecule
+    :param src: either a python filed (opened in 'rb' mode), or
+        a filename, or an url ("http://...") to a text file with the z-matrix
+    :param named: if True, allows to read a named Z-matrix - the formatting
+        is similar to a Fenske-Hall z-matrix but only relies on spaces between the
+        different fields instead of a strict number of characters.
+    """
+    z = ZScatterer("", cryst)
+    z.ImportFenskeHallZMatrix(src, named)
+    m = ZScatterer2Molecule(z)
+    cryst.RemoveScatterer(z)
+    cryst.AddScatterer(m)
+    # TODO: this is a hack to keep a reference to the Crystal used for creation,
+    #  since with this function we can't use a custodian_and_ward.
+    #  It will just help avoiding deletion of the Crystal before the Molecule object.
+    m._crystal = cryst
+
+    return m
+106:      virtual pair<const CrystVector_REAL*,const RefinableObjClock*> GetPowderPatternIntegratedCalc()const=0;
+107:      virtual std::map<RefinablePar*,CrystVector_REAL>& GetPowderPatternIntegrated_FullDeriv(std::set<RefinablePar *> &vPar);
+130:         GetPowderPatternIntegratedCalcVariance() const=0;
+151:      virtual void CalcPowderPatternIntegrated_FullDeriv(std::set<RefinablePar *> &vPar);
+171:      mutable CrystVector_REAL mPowderPatternIntegratedCalc;
+176:      mutable CrystVector_REAL mPowderPatternIntegratedCalcVariance;
+179:      mutable CrystVector_long mIntegratedReflLimits;
+194:         mutable RefinableObjClock mClockPowderPatternIntegratedCalc;
+198:         mutable RefinableObjClock mClockPowderPatternIntegratedVarianceCalc;
+209:      mutable std::map<RefinablePar*,CrystVector_REAL> mPowderPatternIntegrated_FullDeriv;
+233:         GetPowderPatternIntegratedCalc()const;
+248:         GetPowderPatternIntegratedCalcVariance() const;
+266:      * copied such as in a LSQNumObj.
+272:      virtual void CalcPowderPatternIntegrated() const;
+273:      virtual void CalcPowderPatternIntegrated_FullDeriv(std::set<RefinablePar *> &vPar);
+342:         GetPowderPatternIntegratedCalc()const;
+382:         GetPowderPatternIntegratedCalcVariance() const;
+436:      virtual void CalcPowderPatternIntegrated() const;
+437:      virtual void CalcPowderPatternIntegrated_FullDeriv(std::set<RefinablePar *> &vPar);
+459:      void PrepareIntegratedProfile()const;
+543:         mutable vector< pair<unsigned long, CrystVector_REAL> > mIntegratedProfileFactor;
+545:         mutable RefinableObjClock mClockIntegratedProfileFactor;
+837:         REAL GetIntegratedR()const ;
+843:         REAL GetIntegratedRw()const;
+853:         REAL GetIntegratedChi2()const;
+860:         void FitScaleFactorForIntegratedR()const;
+863:         void FitScaleFactorForIntegratedRw()const;
+896:      //LSQ functions
+897:         virtual unsigned int GetNbLSQFunction()const;
+898:         virtual const CrystVector_REAL& GetLSQCalc(const unsigned int) const;
+899:         virtual const CrystVector_REAL& GetLSQObs(const unsigned int) const;
+900:         virtual const CrystVector_REAL& GetLSQWeight(const unsigned int) const;
+901:         virtual std::map<RefinablePar*, CrystVector_REAL>& GetLSQ_FullDeriv(const unsigned int,std::set<RefinablePar *> &vPar);
+918:         const CrystVector_long& GetIntegratedProfileMin()const;
+920:         const CrystVector_long& GetIntegratedProfileMax()const;
+922:         const RefinableObjClock& GetIntegratedProfileLimitsClock()const;
+992:      void CalcPowderPatternIntegrated() const;
+993:      void CalcPowderPatternIntegrated_FullDeriv(std::set<RefinablePar *> &vPar);
+997:      void PrepareIntegratedRfactor()const;
+1009:      mutable CrystVector_REAL mPowderPatternIntegratedCalc;
+1010:      mutable std::map<RefinablePar*,CrystVector_REAL> mPowderPatternIntegrated_FullDeriv;
+1016:      mutable CrystVector_REAL mPowderPatternBackgroundIntegratedCalc;
+1027:      /// taking into account observation and model errors. Integrated.
+1028:      mutable CrystVector_REAL mPowderPatternVarianceIntegrated;
+1033:      /// The calculated powder pattern. Cropped to the maximum sin(theta)/lambda for LSQ
+1036:      /// The calculated powder pattern. Cropped to the maximum sin(theta)/lambda for LSQ
+1038:      /// The weight for each point of the pattern. Cropped to the maximum sin(theta)/lambda for LSQ
+1063:         mutable RefinableObjClock mClockPowderPatternIntegratedCalc;
+1116:      /// Use Integrated profiles for Chi^2, R, Rwp...
+1119:      // Integrated R-factors
+1120:         mutable CrystVector_long mIntegratedPatternMin,mIntegratedPatternMax;
+1121:         mutable CrystVector_REAL mIntegratedObs;
+1122:         mutable CrystVector_REAL mIntegratedWeight;
+1123:         mutable CrystVector_REAL mIntegratedWeightObs;
+1124:         mutable CrystVector_REAL mIntegratedVarianceObs;
+1125:         mutable RefinableObjClock mClockIntegratedFactorsPrep;
+1127:         mutable REAL mChi2,mIntegratedChi2;
+1132:         mutable REAL mChi2LikeNorm,mIntegratedChi2LikeNorm;
+1136:         mutable RefinableObjClock mClockChi2,mClockIntegratedChi2;
+1281:   REAL GetP1IntegratedGoF();
+1286:   CrystVector_REAL mP1IntegratedProfileMin,mP1IntegratedProfileMax;
+CURHOM_1.zmatrix
+CURHOM_2_13_tors.zmatrix
+FOGVIG03_1.zmatrix
+Famotidine.dsl
+Famotidine.hcv
+Famotidine.pik
+Famotidine.sdi
+Famotidine.tic
+Famotidine.xye
+Reference for datasets.txt
+Verap.dsl
+Verap.hcv
+Verap.pik
+Verap.sdi
+Verap.tic
+Verap.xye
+__init__.py
+__pycache__

@@ -1,0 +1,8 @@
+P 21 21 21 -> P 21 21 21 nsym 4 centro False
+    [(np.float64(0.1), np.float64(0.2), np.float64(0.3)), (np.float64(0.4), np.float64(-0.2), np.float64(0.8)), (np.float64(0.6), np.float64(0.3), np.float64(-0.3)), (np.float64(-0.1), np.float64(0.7), np.float64(0.2))]
+P 21 2 21 -> P 21 2 21 nsym 4 centro False
+    [(np.float64(0.1), np.float64(0.2), np.float64(0.3)), (np.float64(0.4), np.float64(-0.2), np.float64(0.8)), (np.float64(0.6), np.float64(-0.2), np.float64(0.2)), (np.float64(-0.1), np.float64(0.2), np.float64(-0.3))]
+P 2 21 21 -> P 2 21 21 nsym 4 centro False
+    [(np.float64(0.1), np.float64(0.2), np.float64(0.3)), (np.float64(-0.1), np.float64(0.3), np.float64(0.8)), (np.float64(0.1), np.float64(-0.2), np.float64(-0.3)), (np.float64(-0.1), np.float64(0.7), np.float64(0.2))]
+P 21 21 2 -> P 21 21 2 nsym 4 centro False
+    [(np.float64(0.1), np.float64(0.2), np.float64(0.3)), (np.float64(-0.1), np.float64(-0.2), np.float64(0.3)), (np.float64(0.6), np.float64(0.3), np.float64(-0.3)), (np.float64(0.4), np.float64(0.7), np.float64(-0.3))]

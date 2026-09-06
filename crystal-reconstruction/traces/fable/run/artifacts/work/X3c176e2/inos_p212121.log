@@ -1,0 +1,49 @@
+LeBail Rwp=0.0562 chi2=24253.7 cell= 14.004097512569166 9.323203675472127 11.028167997880397 90.0
+  conformers: 3 distinct; energies [114.0, 120.9, 120.9]; using rank 0 (E=114.0)
+  molecule mol0_0: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions
+  conformers: 3 distinct; energies [114.0, 121.5, 123.3]; using rank 0 (E=114.0)
+  molecule mol0_1: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions
+run 0: cost=440207.9 Rwp=0.2214 chi2=375813.9 t=394s
+ISO 0 P 21 21 21 Zp=2: 0.2214
+LeBail Rwp=0.0562 chi2=24253.7 cell= 14.004097512569215 9.323203675472156 11.028167997880441 90.0
+  conformers: 8 distinct; energies [108.8, 116.8, 117.0, 117.1, 121.8, 124.3]; using rank 0 (E=108.8)
+  molecule mol0_0: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions
+  conformers: 7 distinct; energies [108.8, 116.8, 117.0, 117.1, 117.5, 122.8]; using rank 0 (E=108.8)
+  molecule mol0_1: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions
+run 0: cost=576747.0 Rwp=0.2753 chi2=575399.5 t=454s
+ISO 1 P 21 21 21 Zp=2: 0.2753
+LeBail Rwp=0.0562 chi2=24253.7 cell= 14.004097512569132 9.323203675472143 11.02816799788041 90.0
+  conformers: 4 distinct; energies [111.5, 111.5, 119.5, 121.9]; using rank 0 (E=111.5)
+  molecule mol0_0: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions
+  conformers: 5 distinct; energies [111.5, 111.5, 114.1, 114.1, 120.3]; using rank 0 (E=111.5)
+  molecule mol0_1: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions
+run 0: cost=560635.3 Rwp=0.2818 chi2=599545.5 t=393s
+ISO 2 P 21 21 21 Zp=2: 0.2818
+LeBail Rwp=0.0562 chi2=24253.7 cell= 14.004097512569183 9.323203675472143 11.02816799788042 90.0
+  conformers: 7 distinct; energies [104.4, 119.7, 120.0, 121.8, 122.8, 123.5]; using rank 0 (E=104.4)
+  molecule mol0_0: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions
+  conformers: 6 distinct; energies [104.4, 119.7, 120.5, 121.7, 122.2, 123.5]; using rank 0 (E=104.4)
+  molecule mol0_1: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions
+run 0: cost=651821.6 Rwp=0.3330 chi2=821187.7 t=409s
+ISO 3 P 21 21 21 Zp=2: 0.3330
+LeBail Rwp=0.0562 chi2=24253.7 cell= 14.004097512569208 9.323203675472213 11.028167997880468 90.0
+  conformers: 5 distinct; energies [104.4, 117.6, 118.0, 118.2, 121.5]; using rank 0 (E=104.4)
+  molecule mol0_0: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions
+  conformers: 6 distinct; energies [104.4, 117.2, 118.0, 118.2, 119.2, 119.9]; using rank 0 (E=104.4)
+  molecule mol0_1: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions
+run 0: cost=695088.9 Rwp=0.2966 chi2=672848.1 t=492s
+ISO 4 P 21 21 21 Zp=2: 0.2966
+LeBail Rwp=0.0562 chi2=24253.7 cell= 14.004097512569201 9.32320367547217 11.028167997880441 90.0
+  conformers: 2 distinct; energies [112.0, 114.3]; using rank 0 (E=112.0)
+  molecule mol0_0: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions
+  conformers: 4 distinct; energies [112.0, 114.3, 114.3, 120.9]; using rank 0 (E=112.0)
+  molecule mol0_1: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions
+run 0: cost=586617.1 Rwp=0.2931 chi2=652515.5 t=563s
+ISO 5 P 21 21 21 Zp=2: 0.2931
+LeBail Rwp=0.0562 chi2=24253.7 cell= 14.004097512569201 9.32320367547217 11.028167997880441 90.0
+  conformers: 4 distinct; energies [103.8, 124.9, 127.4, 132.9]; using rank 0 (E=103.8)
+  molecule mol0_0: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions
+  conformers: 4 distinct; energies [103.8, 128.9, 129.8, 132.0]; using rank 0 (E=103.8)
+  molecule mol0_1: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions
+run 0: cost=671369.5 Rwp=0.3504 chi2=892990.1 t=743s
+ISO 8 P 21 21 21 Zp=2: 0.3504

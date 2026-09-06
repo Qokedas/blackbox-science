@@ -1,0 +1,14 @@
+polish: Rwp 0.1787 -> 0.1506 (accepted) restraint cost=0.00
+run 1: cost=32399.7 Rwp=0.1505 chi2=37008.6 t=1530s
+polish: Rwp 0.1498 -> 0.1457 (accepted) restraint cost=0.00
+X35b7fbc/sol_a_sa/:
+P212121_run0_lsq_rw0.179.cif
+P212121_run0_rw0.261.cif
+
+Xe3a2935/sol_x3/:
+P212121_run0_lsq_rw0.151.cif
+P212121_run0_rw0.179.cif
+P212121_run1_lsq_rw0.146.cif
+P212121_run1_rw0.150.cif
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'Xe3a2935/sol_x3/P212121_run1_lsq_rw0.13*.cif'

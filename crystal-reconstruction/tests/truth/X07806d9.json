@@ -1,0 +1,26 @@
+{
+ "id": "X07806d9",
+ "reference_cif": "data_ref\n_cell_length_a 8.20862(9)\n_cell_length_b 11.22253(10)\n_cell_length_c 16.85949(21)\n_cell_angle_alpha 90\n_cell_angle_beta 90\n_cell_angle_gamma 90\n_cell_volume 1553.12(4)\n_symmetry_cell_setting orthorhombic\n_space_group_name_H-M_alt \"P b c a\"\n_space_group_name_Hall \"-P 2ac 2ab\"\n\nloop_\n_space_group_symop_id\n_space_group_symop_operation_xyz\n1 x,y,z\n2 1/2-x,1/2+y,z\n3 x,1/2-y,1/2+z\n4 1/2-x,-y,1/2+z\n5 -x,-y,-z\n6 1/2+x,1/2-y,-z\n7 -x,1/2+y,1/2-z\n8 1/2+x,y,1/2-z\n\nloop_\n_atom_site_label\n_atom_site_type_symbol\n_atom_site_fract_x\n_atom_site_fract_y\n_atom_site_fract_z\n_atom_site_occupancy\n_atom_site_adp_type\n_atom_site_U_iso_or_equiv\n_atom_site_site_symmetry_multiplicity\nCl1 Cl -0.08722(19) -0.38073(14) 0.41224(10) 1.0000 Uani 0.0481 8\nO2 O 0.0446(6) 0.1463(3) 0.44517(28) 1.0000 Uiso 0.0436(19) 8\nO3 O 0.1421(6) -0.1790(3) 0.36656(31) 1.0000 Uiso 0.0720(21) 8\nO4 O -0.0889(6) -0.0777(4) 0.33612(24) 1.0000 Uiso 0.0608(22) 8\nN5 N -0.1619(6) 0.3359(4) 0.4450(3) 1.0000 Uiso 0.0446(21) 8\nC6 C -0.0760(7) 0.3045(5) 0.3692(4) 1.0000 Uiso 0.0360(25) 8\nC7 C 0.0829(8) 0.1383(5) 0.3041(4) 1.0000 Uiso 0.0276(21) 8\nC8 C 0.0181(8) 0.1909(6) 0.3815(5) 1.0000 Uiso 0.0294(24) 8\nC9 C 0.1717(9) 0.0206(6) 0.3188(4) 1.0000 Uiso 0.0365(25) 8\nC10 C 0.0637(10) -0.0816(7) 0.3375(4) 1.0000 Uiso 0.0570(31) 8\nH11 H -0.16952 0.29163 0.31995 1.0000 Uiso 0.0432 8\nH12 H 0.01136 0.37928 0.35232 1.0000 Uiso 0.0432 8\nH13 H -0.07194 0.37918 0.48770 1.0000 Uiso 0.0535 8\nH14 H -0.21369 0.25158 0.47304 1.0000 Uiso 0.0535 8\nH15 H 0.17071 0.20435 0.27562 1.0000 Uiso 0.0332 8\nH16 H -0.02297 0.12117 0.26185 1.0000 Uiso 0.0332 8\nH17 H 0.26049 0.03343 0.37008 1.0000 Uiso 0.0438 8\nH18 H 0.24389 -0.00500 0.26360 1.0000 Uiso 0.0438 8\nH19 H -0.26527 0.40077 0.43180 1.0000 Uiso 0.0535 8\nH20 H 0.07050 -0.24190 0.38070 1.0000 Uiso 0.0865 8\n\nloop_\n_atom_type_symbol\n_atom_type_scat_source\n_atom_type_scat_dispersion_real\n_atom_type_scat_dispersion_imag\nC https://raw.githubusercontent.com/AdvancedPhotonSource/GSAS-II/refs/heads/main/GSASII/atmdata.py 0.005 0.002\nH https://raw.githubusercontent.com/AdvancedPhotonSource/GSAS-II/refs/heads/main/GSASII/atmdata.py 0.000 0.000\nCl https://raw.githubusercontent.com/AdvancedPhotonSource/GSAS-II/refs/heads/main/GSASII/atmdata.py 0.184 0.211\nN https://raw.githubusercontent.com/AdvancedPhotonSource/GSAS-II/refs/heads/main/GSASII/atmdata.py 0.009 0.005\nO https://raw.githubusercontent.com/AdvancedPhotonSource/GSAS-II/refs/heads/main/GSASII/atmdata.py 0.015 0.008\n\n_cell_formula_units_Z 8\n",
+ "space_group_number": 61,
+ "space_group_symbol": "P b c a",
+ "centring": "P",
+ "sohncke": false,
+ "chiral": false,
+ "L_graded": true,
+ "dof": 13.0,
+ "dof_bin": "calib_lt15",
+ "zprime": 1.0,
+ "n_heavy_asym": 10.0,
+ "components": [
+  {
+   "smiles": "[NH3+]CC(=O)CCC(=O)O",
+   "count": 1
+  },
+  {
+   "smiles": "[Cl-]",
+   "count": 1
+  }
+ ],
+ "radiation_class": "synchrotron",
+ "candidate_name": "5-Aminolevulinic acid hydrochloride"
+}

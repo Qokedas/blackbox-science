@@ -1,0 +1,38 @@
+data_solution
+_cell_length_a 8.21004009
+_cell_length_b 11.22420025
+_cell_length_c 16.86230087
+_cell_angle_alpha 90.00000000
+_cell_angle_beta 90.00000000
+_cell_angle_gamma 90.00000000
+_space_group_name_H-M_alt 'P b c a'
+_space_group_IT_number 61
+loop_
+_space_group_symop_id
+_space_group_symop_operation_xyz
+1 'x,y,z'
+2 '-x+1/2,-y,z+1/2'
+3 'x+1/2,-y+1/2,-z'
+4 '-x,y+1/2,-z+1/2'
+5 '-x,-y,-z'
+6 'x+1/2,y,-z+1/2'
+7 '-x+1/2,y+1/2,z'
+8 'x,-y+1/2,z+1/2'
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+_atom_site_B_iso_or_equiv
+N1 N 0.65928348 0.66293398 0.54762107 1.0 3.0000
+C2 C 0.59432818 0.68899024 0.62769963 1.0 3.0000
+C3 C 0.47837911 0.80392217 0.62642268 1.0 3.0000
+O4 O 0.46038183 0.85644526 0.55620338 1.0 3.0000
+C5 C 0.40813883 0.86869140 0.70648259 1.0 3.0000
+C6 C 0.31716181 0.98488484 0.68645164 1.0 3.0000
+C7 C 0.44210705 0.08256714 0.65636238 1.0 3.0000
+O8 O 0.58425052 0.08584395 0.67167662 1.0 3.0000
+O9 O 0.36121882 0.18030779 0.62989367 1.0 3.0000
+Cl10 Cl 0.41216992 0.88004966 0.91173892 1.0 3.0000

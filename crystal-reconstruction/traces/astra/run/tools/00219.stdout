@@ -1,0 +1,81 @@
+analysis.log
+base.png
+base.xml
+base_profile.xye
+basefresh.log
+candidates.json
+fit_0.json
+fit_0.log
+fit_0.png
+fit_0.xml
+fit_0.xye
+fit_1.json
+fit_1.log
+fit_1.png
+fit_1.xml
+fit_1.xye
+index_CUBIC_F_0.json
+index_CUBIC_F_0.log
+index_CUBIC_I_0.json
+index_CUBIC_I_0.log
+index_CUBIC_P_0.json
+index_CUBIC_P_0.log
+index_HEXAGONAL_P_0.json
+index_HEXAGONAL_P_0.log
+index_MONOCLINIC_C_0.json
+index_MONOCLINIC_C_0.log
+index_MONOCLINIC_P_0.json
+index_MONOCLINIC_P_0.log
+index_ORTHOROMBIC_C_0.json
+index_ORTHOROMBIC_C_0.log
+index_ORTHOROMBIC_I_0.json
+index_ORTHOROMBIC_I_0.log
+index_ORTHOROMBIC_P_0.json
+index_ORTHOROMBIC_P_0.log
+index_RHOMBOEDRAL_P_0.json
+index_RHOMBOEDRAL_P_0.log
+index_TETRAGONAL_I_0.json
+index_TETRAGONAL_I_0.log
+index_TETRAGONAL_P_0.json
+index_TETRAGONAL_P_0.log
+lattice.json
+lebail.npz
+peaks.json
+peaks.png
+processed.npz
+translations_1.json
+<ObjCryst Date="2026-09-06T04:01:49GMT" Revision="2024001">
+  <Crystal Name="X1a56c78" SpaceGroup="P 2 2 21">
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="a">5.90627</Par>
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="b">11.254</Par>
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="c">30.09</Par>
+    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="alpha">90</Par>
+    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="beta">90</Par>
+    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="gamma">90</Par>
+    <Option Name="Constrain Lattice to SpaceGroup Symmetry" Choice="0" ChoiceName="Yes (Default)"/>
+
+    <Option Name="Use Dynamical Occupancy Correction" Choice="1" ChoiceName="Yes"/>
+
+    <Option Name="Display Enantiomer" Choice="0" ChoiceName="No"/>
+
+
+===X35b7fbc
+===X13023e3
+===Xdcc971e
+===Xd4c1a35
+/app/work/X13023e3 search2.log
+/app/work/Xd8634a2 search_long.log
+/app/work/Xe3a2935 search_long.log
+/app/work/X4f6fe58 search_long.log
+/app/work/X4f6fe58 search2.log
+/app/work/X07806d9 search_long.log
+/app/work/X07806d9 search_test.log
+/app/work/Xbfc6d2c search_long.log
+/app/work/Xbfc6d2c search_test.log
+/app/work/X35b7fbc search2.log
+/app/work/X35b7fbc search1.log
+/app/work/X3f4781b search_long.log
+/app/work/Xf8ac963 search_long.log
+/app/work/Xf8ac963 search_test.log
+/app/work/Xd4c1a35 search1.log
+/app/work/Xe1fb77b search_long.log

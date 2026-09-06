@@ -1,0 +1,10 @@
+{
+  "author": "Qokedas",
+  "container_id": "8cf8605dc874edbf81ada18a117fea6af66ade987bb96594e9b3c94a2b9c32fa",
+  "trial_id": "qkd-0906-pxrd-astra",
+  "deadline_epoch": 1788693864.4177644,
+  "pid": 8207,
+  "armed_epoch": 1788665064.5286193,
+  "status": "cancelled_after_parent_freeze",
+  "finished_epoch": 1788693852.70001
+}

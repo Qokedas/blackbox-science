@@ -1,0 +1,24 @@
+Xe3a2935/sol_c2/:
+total 76
+drwxr-xr-x 2 root root  4096 Sep  6 06:03 .
+drwxr-xr-x 5 root root  4096 Sep  6 06:03 ..
+-rw-r--r-- 1 root root  3021 Sep  6 05:45 P212121_run0_lsq_rw0.148.cif
+-rw-r--r-- 1 root root  3021 Sep  6 05:45 P212121_run0_rw0.181.cif
+-rw-r--r-- 1 root root  3021 Sep  6 05:56 P212121_run1_lsq_rw0.146.cif
+-rw-r--r-- 1 root root 51484 Sep  6 06:03 P212121_run1_lsq_rw0.146_fit.png
+-rw-r--r-- 1 root root  3021 Sep  6 05:56 P212121_run1_rw0.150.cif
+
+Xe3a2935/sol_c2b/:
+total 16
+drwxr-xr-x 2 root root 4096 Sep  6 06:22 .
+drwxr-xr-x 5 root root 4096 Sep  6 06:03 ..
+-rw-r--r-- 1 root root 3021 Sep  6 06:22 P212121_run0_lsq_rw0.149.cif
+-rw-r--r-- 1 root root 3021 Sep  6 06:22 P212121_run0_rw0.185.cif
+run 0: cost=52365.7 Rwp=0.1813 chi2=55127.5 t=620s
+polish: Rwp 0.1806 -> 0.1481 (accepted) restraint cost=0.00
+run 1: cost=30417.6 Rwp=0.1501 chi2=37761.1 t=672s
+polish: Rwp 0.1495 -> 0.1457 (accepted) restraint cost=0.00
+RESULTS Xe3a2935 P 21 21 21 [(52365.714639566904, 0.18132255574862427, 55127.46914539137), (30417.574640520776, 0.15007262467613777, 37761.0839634333)]
+
+fit: False
+rms(normalized), max: None

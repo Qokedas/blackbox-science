@@ -1,0 +1,57 @@
+{
+ "components": [
+  {
+   "smiles": "C[C@@H]1CC(=O)NN=C1c1ccc(NN=C(C#N)C#N)cc1",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}
+{
+ "radiation": {
+  "type": "synchrotron",
+  "wavelength_A": 0.46873,
+  "wavelengths_A": [
+   0.46873
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 295.0,
+ "two_theta_range_deg": [
+  0.51,
+  49.995
+ ],
+ "n_points": 49486,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "sqrt(max(I,1)); counting statistics assumed",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}
+# Context-3 notes (started 04:56 UTC; hard end ~11:24 UTC)
+
+## Fixed in this context
+- polish() in solve.py now works: sets Molecule option 'Auto Optimize Starting Conformation'=No, rigid-body LSQ only
+  (atom coords, cell, Zero, occupancies, Biso fixed). Test on X9af54a2: 0.1396 -> 0.1204, rms move 0.03 A.
+  Xe3a2935 polish: 0.180 -> 0.1425 (but cell drifted 0.4% — cell now fixed in polish).
+- RNG: ObjCryst uses libc rand(); separate processes with identical commands gave IDENTICAL results.
+  Now solve.py/inositol_scan.py call ctypes.CDLL(None).srand(seed). Runs within one process (nruns>1) were always different.
+- solve.py new flags: --zprime N (multiplies component counts), --conf K (K-th distinct MMFF conformer by energy).
+- compare.py a.cif b.cif (pymatgen StructureMatcher), diffcif.py a b (same-label displacement).
+
+## Status
+- X9af54a2 finalized (CIF+JSON). X07806d9 done.
+- Xe3a2935: P212121 conf0 runs 0/1 same structure Rwp 0.185; conf2 (methyl equatorial) run0 0.181. 102 peak underestimated 1.75x.
+  Candidate CIFs in Xe3a2935/sol_a, sol_c2. Consider alt SGs P 2 21 21 / P 21 2 21.
+- Xf8ac963: P212121 2 runs identical structure Rwp 0.224 (bad; several obs peaks calc=0). P 21 2 21: 0.44/1.39 (bad).
+  Try P 2 21 21, P 21 21 2, P21 Z'=2 ... or leave as L-only.
+- Xd8634a2: P-1, 13 DOF; first 3e6 run 0.348 (bad). Running 5e6 x2 (tags c,d).
+- X3c176e2 inositol: iso map 0=cis 1=epi 2=allo 3=myo 4=neo 5=muco 6/7=chiro 8=scyllo. Pbca(P c a b) all bad (best cis 0.198).
+  P212121 Z'=2 scan running (inos_p212121.log); iso0 0.221.
+- X13023e3: indexing with peaks_c (SNR>=5.5, 20 peaks) monoP running (g2_monoPc.log).

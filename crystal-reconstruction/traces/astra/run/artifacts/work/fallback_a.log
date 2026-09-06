@@ -1,0 +1,55 @@
+/app/work/submit.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+X238783d Nat 208 molecule sizes [52, 52, 52, 52]
+  component CC[C@H]1OC(=O)[C@H](C)[C@@H](O[C@H]2C[C@@](C)(OC)[C@@H](O)[C@H](C)O2)[C@H](C)[C@@H](O[C@@H]2O[C@H](C)C[C@H](N(C)C)[C@H]2O)[C@](C)(OC)C[C@@H](C)C(=O)[C@H](C)[C@@H](O)[C@]1(C)O matches 4
+  bond range 1.2298929395564808 1.58582884605954
+  min intermolecular distance 2.7582552014468753
+SUBMITTED X238783d
+HYPOTHESIS_ADDED X238783d /app/work/X238783d/refined_g20.cif Rwp 0.19305281955322562
+GRAPH_REJECT Xd8634a2 /app/work/Xd8634a2/refined_g2.cif
+/app/work/submit.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+Xd8634a2 Nat 66 molecule sizes [33, 33]
+  component CNS(=O)(=O)Nc1nccc(Cc2c(C)c3ccc(Oc4ncccn4)cc3oc2=O)c1F matches 2
+  bond range 1.2238925806140082 1.6610902526135487
+  min intermolecular distance 3.021646373432025
+SUBMITTED Xd8634a2
+HYPOTHESIS_ADDED Xd8634a2 /app/work/Xd8634a2/refined_g11.cif Rwp 0.2178640563638808
+GRAPH_REJECT Xe1fb77b /app/work/Xe1fb77b/refined_1.cif
+/app/work/submit.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+Xe1fb77b Nat 76 molecule sizes [37, 37, 1, 1]
+  component O=C(/C=C/c1ccc(O)c(O)c1)O[C@@H]1C[C@@](OC(=O)/C=C/c2ccc(O)c(O)c2)(C(=O)O)C[C@@H](O)[C@@H]1O matches 2
+  component O matches 2
+  bond range 1.138074600064382 1.6228909170068162
+  min intermolecular distance 1.921435113145156
+SUBMITTED Xe1fb77b
+HYPOTHESIS_ADDED Xe1fb77b /app/work/Xe1fb77b/refined_2.cif Rwp 0.19097255385349643
+/app/work/submit.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+X8a06d7a Nat 76 molecule sizes [29, 29, 9, 9]
+  component COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1 matches 2
+  component NC(=O)c1ccccn1 matches 2
+  bond range 1.2224430916937152 1.71736956033343
+  min intermolecular distance 2.445137597893051
+SUBMITTED X8a06d7a
+HYPOTHESIS_ADDED X8a06d7a /app/work/X8a06d7a/refined_g12.cif Rwp 0.14505357408452488
+/app/work/submit.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+X9af54a2 Nat 76 molecule sizes [18, 18, 18, 18, 1, 1, 1, 1]
+  component COc1ccc(OC)c([C@H](O)CNC(=O)C[NH3+])c1 matches 4
+  component [Cl-] matches 4
+  bond range 1.224358292705737 1.559244872642821
+  min intermolecular distance 2.5218313935532364
+SUBMITTED X9af54a2
+HYPOTHESIS_ADDED X9af54a2 /app/work/X9af54a2/refined_g87.cif Rwp 0.29328738219368605
+/app/work/submit.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+X019b9a4 Nat 96 molecule sizes [37, 37, 7, 7, 4, 4]
+  component CC(=O)C(=NNc1ccc(C(=O)Nc2ccc(C(N)=O)cc2)cc1)C(=O)Nc1ccc2[nH]c(=O)[nH]c2c1 matches 2
+  component CN1CCCC1=O matches 2
+  component C[S+](C)[O-] matches 2
+  bond range 1.2155741367758903 1.8112477089887113
+  min intermolecular distance 2.7488601875781957
+SUBMITTED X019b9a4
+HYPOTHESIS_ADDED X019b9a4 /app/work/X019b9a4/refined_g12.cif Rwp 0.1615604915277562

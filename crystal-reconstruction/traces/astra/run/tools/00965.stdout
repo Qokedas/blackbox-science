@@ -1,0 +1,28 @@
+['ReflectionProfile', 'ReflectionProfileType', '__all__', '__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__spec__']
+CYCLE 2 2 Rw 0.21252195284098457 chi2 1245.5195761258851 geom 17.735285061364635 LSQ 1334.7151934311
+PACKING_STAGE 2 0.05327907645789019
+CYCLE 3 0 Rw 0.2102985880180759 chi2 1219.595113103838 geom 17.981732602500326 LSQ 1303.2541917667986
+CYCLE 3 1 Rw 0.20935809652495824 chi2 1208.7110267496291 geom 18.291718047209244 LSQ 1293.3015586692034
+CYCLE 3 2 Rw 0.2086690420666626 chi2 1200.7677263620553 geom 18.62671677714472 LSQ 1286.2134908201936
+PACKING_STAGE 3 0.19989295341441626
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X7e382cb 64.20481872558594
+CONDITIONAL 0 [1, 2, 4, 5] best 56.50246810913086 q25 93.325836 sec 297.57661747932434
+CONDITIONAL 1 [0] best 56.11135482788086 q25 173.46385 sec 458.90927243232727
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 837.60it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 523 seconds 241.89472556114197 best 116.84064 q25 403.62494 median 489.0633 total 241.9100866317749
+GALLOP 1 Nref 449 seconds 172.30276536941528 best 17.76231 q25 35.575516 median 255.13351 total 359.58979296684265
+GALLOP 2 Nref 449 seconds 179.30664801597595 best 17.215584 q25 33.36459 median 215.15195 total 538.9729897975922
+GALLOP 3 Nref 449 seconds 204.80690836906433 best 17.213844 q25 39.725517 median 224.97159 total 743.9931890964508
+GALLOP 4 Nref 449 seconds 186.70795321464539 best 17.21398 q25 45.68431 median 205.86401 total 930.9935121536255
+GALLOP 2 Nref 421 seconds 186.40312957763672 best 149.11285 q25 172.95802 median 374.30542 total 535.8419289588928
+GALLOP 3 Nref 421 seconds 200.8178973197937 best 148.72356 q25 171.74081 median 362.75256 total 737.1442422866821
+GALLOP 4 Nref 421 seconds 173.77675890922546 best 148.45874 q25 164.20715 median 345.9611 total 911.1956849098206
+GALLOP 5 Nref 421 seconds 189.29187726974487 best 148.31364 q25 171.01108 median 364.60315 total 1100.708612203598
+Sun Sep  6 10:03:27 UTC 2026

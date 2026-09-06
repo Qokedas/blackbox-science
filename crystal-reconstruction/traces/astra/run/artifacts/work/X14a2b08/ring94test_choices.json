@@ -1,0 +1,16 @@
+[
+ {
+  "tag": "ring94testc0",
+  "energy": -21.21360077473178,
+  "index": 1,
+  "reflected": false,
+  "Rw": 0.16611640228041302
+ },
+ {
+  "tag": "ring94testc1",
+  "energy": -21.21360077473178,
+  "index": 1,
+  "reflected": true,
+  "Rw": 0.1599312147439556
+ }
+]

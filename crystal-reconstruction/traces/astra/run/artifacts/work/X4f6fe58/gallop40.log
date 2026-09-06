@@ -1,0 +1,41 @@
+ObjRegistry<T>::Find(ion_C): Not found !!
+List of Crystal ScatteringPowers :0 object registered:
+EXACT_PAWLEY nref 368 rank 292 cond 958.014233637908 chi2 2299.6095774867904 netRwp 0.1003944133985945
+ZM O=C1CN=C(c2ccccc2Cl)c2cc(Br)ccc2N1 n 20 torsions 1 max_distance_error 8.152166941499672e-09
+ZM O=C1CN=C(c2ccccc2Cl)c2cc(Br)ccc2N1 n 20 torsions 1 max_distance_error 1.361186630077782e-08
+Total degrees of freedom: 16
+Total external degrees of freedom: 14 (pos: 6 rot: 8 )
+Total internal degrees of freedom: 2
+PREPARED X4f6fe58 Nref 368 PawleyRw 0.03129463881029755 SG P -1
+ATTACHED_H_SCATTERING 40 heavy atoms 20 H atoms
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1488.93it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 368 seconds 66.01811218261719 best 444.8624 q25 540.11835 median 586.45996 total 66.31630373001099
+GALLOP 1 Nref 368 seconds 61.20075798034668 best 380.82193 q25 464.82376 median 520.45325 total 127.60679292678833
+GALLOP 2 Nref 368 seconds 70.45149946212769 best 380.82214 q25 467.5188 median 531.53534 total 198.25524854660034
+GALLOP 3 Nref 368 seconds 74.00540614128113 best 363.85596 q25 410.60104 median 496.22937 total 272.3251738548279
+GALLOP 4 Nref 368 seconds 47.71575355529785 best 363.85532 q25 410.6521 median 507.45862 total 320.22333812713623
+GALLOP 5 Nref 368 seconds 66.14364004135132 best 356.5006 q25 478.05408 median 560.58527 total 386.4534389972687
+GALLOP 6 Nref 368 seconds 52.98647594451904 best 335.129 q25 415.482 median 517.8551 total 439.62053966522217
+GALLOP 7 Nref 368 seconds 42.13427424430847 best 335.1289 q25 449.96027 median 542.6007 total 481.8432433605194
+GALLOP 8 Nref 368 seconds 61.88472652435303 best 335.1291 q25 446.70712 median 539.51294 total 543.8215591907501
+GALLOP 9 Nref 368 seconds 56.51134657859802 best 335.1289 q25 438.61804 median 536.17816 total 600.4120666980743
+GALLOP 10 Nref 368 seconds 45.91213321685791 best 335.12888 q25 451.18332 median 538.83606 total 646.3411846160889
+GALLOP 11 Nref 368 seconds 56.764150857925415 best 335.12894 q25 454.19653 median 549.7352 total 703.1957983970642
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1908.45it/s]
+GALLOP 12 Nref 368 seconds 71.26472282409668 best 335.12894 q25 495.31863 median 565.3878 total 774.4974229335785
+GALLOP 13 Nref 368 seconds 67.21699833869934 best 335.12885 q25 466.37292 median 543.5869 total 841.731951713562
+GALLOP 14 Nref 368 seconds 84.22074246406555 best 335.1288 q25 457.65863 median 525.82007 total 926.1320199966431
+GALLOP 15 Nref 368 seconds 78.77984285354614 best 335.12872 q25 465.6849 median 540.96423 total 1005.109806060791
+GALLOP 16 Nref 368 seconds 82.67813229560852 best 330.53125 q25 448.3992 median 540.2262 total 1087.9928255081177
+GALLOP 17 Nref 368 seconds 81.16786432266235 best 330.5304 q25 416.7342 median 524.40405 total 1169.3113145828247
+GALLOP 18 Nref 368 seconds 79.40746450424194 best 330.5307 q25 414.45645 median 490.38275 total 1248.9245381355286
+GALLOP 19 Nref 368 seconds 80.65986061096191 best 330.53055 q25 389.79306 median 494.22736 total 1329.6064553260803
+GALLOP 20 Nref 368 seconds 88.27996611595154 best 330.53046 q25 388.24786 median 503.11664 total 1417.91699051857
+GALLOP 21 Nref 368 seconds 66.57545828819275 best 330.53064 q25 384.4748 median 490.36624 total 1484.5092475414276
+GALLOP 22 Nref 368 seconds 72.77087616920471 best 330.53058 q25 376.12686 median 496.1806 total 1557.3041479587555
+GALLOP 23 Nref 368 seconds 74.60902667045593 best 330.53064 q25 330.5311 median 503.67142 total 1631.943378686905
+FINISHED X4f6fe58 330.5303955078125

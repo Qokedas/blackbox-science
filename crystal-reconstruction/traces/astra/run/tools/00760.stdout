@@ -1,0 +1,9 @@
+PEAK 42 29.262793356332036 -> 29.254186873896916 sig 7.727795794121868 gam 27.473350145917333 area 2074.081906118535 err 0.0077777213292810335
+PEAK 43 29.516152041220202 -> 29.579472635916442 sig 12.040111427707537 gam 35.60192852409579 area 5788.253003637826 err 0.004615016560956798
+PEAK 44 30.115914173034508 -> 30.000684071174938 sig 185.99135649293237 gam 4.924611879004048 area 951.520335783809 err 0.02089342468746328
+PEAK 45 30.21301300289911 -> 30.272212808840774 sig 75.85629115181112 gam 1.8438751431251763 area 290.7207505336574 err 0.02652965965950514
+DONE 155.0118887424469 SHL 0.11143008551564297 Rw 0.019369247817288902
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],

@@ -1,0 +1,74 @@
+{
+ "radiation": {
+  "type": "CuK1",
+  "wavelength_A": 1.54059,
+  "wavelengths_A": [
+   1.54059
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 295.0,
+ "two_theta_range_deg": [
+  5.0,
+  80.0
+ ],
+ "n_points": 7501,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}{
+ "radiation": {
+  "type": "Cu K",
+  "wavelength_A": 1.5418,
+  "wavelengths_A": [
+   1.5418
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "reflection (flat plate / Bragg-Brentano)",
+ "geometry_source_text": null,
+ "temperature_K": 298.0,
+ "two_theta_range_deg": [
+  5.0,
+  104.86
+ ],
+ "n_points": 4994,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "sqrt(max(I,1)); counting statistics assumed",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": [
+  "the depositors recorded Cu K-alpha as a single wavelength 1.5418 A (the K-alpha1/K-alpha2 weighted mean); whether the K-alpha2 component is present in the data is not stated"
+ ]
+}{
+ "Rw": 0.08646378488878859,
+ "chi2": 6658.914229023637
+}Sun Sep  6 11:17:22 UTC 2026
+AROMATIC_PLANARITY 0
+LSQ_PACKING 52 atoms 3834 terms sigma 0.01 cost 129.6487330501802
+CELL_BOUNDS .003 .2
+EXTENDED_BACKGROUND 0.07481742725106258
+CYCLE 0 0 Rw 0.07469174235955184 chi2 7169.587740038926 geom 2165.339179310118 LSQ 10705.893185011832
+CYCLE 0 1 Rw 0.07468129127570075 chi2 7167.581501649674 geom 2165.339179310118 LSQ 10704.828978078385
+CYCLE 0 2 Rw 0.07467380325400334 chi2 7166.144239004933 geom 2165.339179310118 LSQ 10704.422943121072
+PACKING_STAGE 0 149.12272679362076
+CYCLE 1 0 Rw 0.07872518053183984 chi2 7964.826747964783 geom 1298.144726119231 LSQ 10529.036832480215
+CYCLE 1 1 Rw 0.07818154666131118 chi2 7855.204911362349 geom 1310.2132157287963 LSQ 10360.663751173717
+==== 111
+GALLOP 4 Nref 242 seconds 40.534289836883545 best 158.3388 q25 158.34259 median 227.7233 total 164.44744896888733
+GALLOP 5 Nref 291 seconds 54.88203692436218 best 158.17836 q25 172.02116 median 307.70123 total 219.3629961013794
+==== 112
+GALLOP 4 Nref 239 seconds 39.356738328933716 best 150.33484 q25 160.97202 median 249.74103 total 160.06203889846802
+GALLOP 5 Nref 286 seconds 51.73459315299988 best 150.24109 q25 150.24432 median 264.79556 total 211.83268976211548
+==== 113
+GALLOP 4 Nref 237 seconds 42.11210560798645 best 158.3025 q25 158.40703 median 217.5951 total 161.78413724899292
+GALLOP 5 Nref 288 seconds 69.54778623580933 best 158.12144 q25 158.12338 median 199.53024 total 231.3632471561432
+==== 114
+GALLOP 4 Nref 240 seconds 42.17990207672119 best 165.00969 q25 187.01398 median 289.77133 total 164.26621174812317
+GALLOP 5 Nref 291 seconds 56.187416076660156 best 164.88736 q25 180.41478 median 296.61444 total 220.48580932617188

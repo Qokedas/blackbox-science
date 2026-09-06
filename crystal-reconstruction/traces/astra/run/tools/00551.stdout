@@ -1,0 +1,16 @@
+PID 26196
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 300 seconds 101.07567691802979 best 47.288975 q25 47.528954 median 177.97278 total 101.08324646949768
+EXACT_PAWLEY nref 169 rank 159 cond 678.8512065931548 chi2 14383.732396127314 netRwp 0.16434835026190112
+TWO_CENTRES [6.95088005065918, 6.971439838409424, 15.760000228881836, 65.62010192871094, 82.98049926757812, 67.39070129394531] Nref 169 Nparticle 192
+BATCH 0 best 197.3004913330078 diffraction 178.7236328125 p25 514.7010498046875 seconds 47.60124349594116 centre [0.  0.5 0.5]
+BATCH 1 best 196.6064453125 diffraction 184.9296875 p25 443.92193603515625 seconds 109.55877017974854 centre [0.  0.5 0.5]
+ATTACHED_H_SCATTERING 52 heavy atoms 36 H atoms
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+PO_SCAN X3f4781b 11 original 142.2914425343032 best [(np.float64(137.13980135167196), (0, -1, 1), 0.8460317461094169), (np.float64(137.13980135167196), (0, 1, -1), 0.8460317461094169), (np.float64(137.72183829355242), (-1, -2, 2), 0.864197298260815), (np.float64(137.72183829355242), (1, 2, -2), 0.864197298260815), (np.float64(139.25527005743663), (0, -2, 1), 0.9180618673732643), (np.float64(139.25527005743663), (0, 2, -1), 0.9180618673732643), (np.float64(140.33284203130245), (-1, -1, 2), 0.9317160371911806), (np.float64(140.33284203130245), (1, 1, -2), 0.9317160371911806), (np.float64(140.75215751855512), (0, -1, 2), 0.9386892479615644), (np.float64(140.75215751855512), (0, 1, -2), 0.9386892479615644), (np.float64(141.07979587755915), (-1, 2, -2), 0.9246126137306062), (np.float64(141.07979587755915), (1, -2, 2), 0.9246126137306062)]

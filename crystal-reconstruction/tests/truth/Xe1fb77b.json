@@ -1,0 +1,26 @@
+{
+ "id": "Xe1fb77b",
+ "reference_cif": "data_ref\n_space_group_IT_number 4\n_space_group_name_Hall 'P 2yb'\n_space_group_name_H-M_alt 'P 1 21 1'\n_symmetry_cell_setting monoclinic\n_symmetry_space_group_name_Hall 'P 2yb'\n_symmetry_space_group_name_H-M 'P 1 21 1'\n_cell_angle_alpha 90\n_cell_angle_beta 94.9763(4)\n_cell_angle_gamma 90\n_cell_formula_units_Z 2\n_cell_length_a 13.88124(12)\n_cell_length_b 15.36081(4)\n_cell_length_c 5.59335(2)\n_cell_volume 1188.158(12)\n\nloop_\n_space_group_symop_id\n_space_group_symop_operation_xyz\n1 x,y,z\n2 -x,1/2+y,-z\n\nloop_\n_atom_site_type_symbol\n_atom_site_label\n_atom_site_fract_x\n_atom_site_fract_y\n_atom_site_fract_z\n_atom_site_U_iso_or_equiv\n_atom_site_adp_type\n_atom_site_occupancy\n_atom_site_site_symmetry_multiplicity\nO O1 0.1728(3) -0.04483 0.1064(8) 0.0172 Uiso 1.0000 2\nO O2 0.2516(2) 0.0659(3) 0.4396(5) 0.0172(7) Uiso 1.0000 2\nO O3 0.1372(3) 0.2178(3) 0.5169(8) 0.0309 Uiso 1.0000 2\nO O4 0.0098(4) 0.1885(3) 0.0918(8) 0.0309 Uiso 1.0000 2\nO O5 -0.0063(4) -0.1590(4) 0.3723(7) 0.0309 Uiso 1.0000 2\nO O6 0.0118(4) -0.1485(4) -0.0173(7) 0.0309 Uiso 1.0000 2\nO O7 0.2264(3) -0.1714(3) 0.2768(8) 0.0172 Uiso 1.0000 2\nO O8 0.3396(3) 0.1266(3) 0.7567(7) 0.0172 Uiso 1.0000 2\nO O9 0.7233(3) -0.2470(4) -0.0767(8) 0.0313 Uiso 1.0000 2\nO O10 0.8222(3) 0.2234(4) 0.3131(9) 0.0313 Uiso 1.0000 2\nO O11 0.7220(3) -0.1592(4) -0.4957(7) 0.0313 Uiso 1.0000 2\nO O12 0.8212(3) 0.1230(4) -0.0820(7) 0.0313 Uiso 1.0000 2\nC C13 0.0873(2) -0.0424(2) 0.2396(6) 0.0309(7) Uiso 1.0000 2\nC C14 0.1179(3) -0.0296(3) 0.5077(6) 0.0309 Uiso 1.0000 2\nC C15 0.1631(2) 0.0605(3) 0.5644(5) 0.0309 Uiso 1.0000 2\nC C16 0.0236(3) 0.0338(3) 0.1470(7) 0.0309 Uiso 1.0000 2\nC C17 0.0956(2) 0.1342(3) 0.4644(6) 0.0309 Uiso 1.0000 2\nC C18 0.0723(3) 0.1215(3) 0.1967(5) 0.0309 Uiso 1.0000 2\nC C19 0.0309(3) -0.1262(3) 0.1921(6) 0.0309 Uiso 1.0000 2\nC C20 0.2376(3) -0.1098(4) 0.1497(11) 0.0172 Uiso 1.0000 2\nC C21 0.3316(3) 0.1033(5) 0.5498(7) 0.0172 Uiso 1.0000 2\nC C22 0.3200(4) -0.1023(4) -0.0002(12) 0.0172 Uiso 1.0000 2\nC C23 0.4116(3) 0.0985(5) 0.3928(8) 0.0172 Uiso 1.0000 2\nC C24 0.3924(3) -0.1592(4) 0.0116(11) 0.0172 Uiso 1.0000 2\nC C25 0.5008(3) 0.1240(5) 0.4576(7) 0.0172 Uiso 1.0000 2\nC C26 0.4808(3) -0.1537(5) -0.1110(9) 0.0313(6) Uiso 1.0000 2\nC C27 0.5800(3) 0.1302(4) 0.3017(9) 0.0313 Uiso 1.0000 2\nC C28 0.5610(3) -0.2045(4) -0.0360(9) 0.0313 Uiso 1.0000 2\nC C29 0.4823(3) -0.1080(5) -0.3244(9) 0.0313 Uiso 1.0000 2\nC C30 0.6641(3) 0.1747(5) 0.3821(9) 0.0313 Uiso 1.0000 2\nC C31 0.5831(3) 0.0751(4) 0.1070(9) 0.0313 Uiso 1.0000 2\nC C32 0.6466(3) -0.1962(4) -0.1447(8) 0.0313 Uiso 1.0000 2\nC C33 0.5652(3) -0.1047(5) -0.4462(9) 0.0313 Uiso 1.0000 2\nC C34 0.7454(3) 0.1707(5) 0.2560(10) 0.0313 Uiso 1.0000 2\nC C35 0.6616(3) 0.0758(5) -0.0289(7) 0.0313 Uiso 1.0000 2\nC C36 0.6485(3) -0.1475(4) -0.3546(8) 0.0313 Uiso 1.0000 2\nC C37 0.7460(3) 0.1172(4) 0.0565(8) 0.0313 Uiso 1.0000 2\nH H38 0.05196 -0.03641 0.61447 0.0405 Uiso 1.0000 2\nH H39 0.17270 -0.08207 0.56884 0.0405 Uiso 1.0000 2\nH H40 0.18056 0.06862 0.76609 0.0405 Uiso 1.0000 2\nH H41 0.006581 0.02736 -0.05529 0.0405 Uiso 1.0000 2\nH H42 -0.04692 0.03207 0.23719 0.0405 Uiso 1.0000 2\nH H43 -0.00055 0.13650 0.44616 0.0405 Uiso 1.0000 2\nH H44 0.14282 0.12270 0.10628 0.0405 Uiso 1.0000 2\nH H45 0.10907 0.24003 0.39027 0.0405 Uiso 1.0000 2\nH H46 -0.00194 0.22937 -0.02964 0.0405 Uiso 1.0000 2\nH H47 -0.03874 -0.21065 0.42906 0.0405 Uiso 1.0000 2\nH H48 0.32303 -0.04605 -0.13227 0.0223 Uiso 1.0000 2\nH H49 0.39810 0.07147 0.20304 0.0223 Uiso 1.0000 2\nH H50 0.38904 -0.22010 0.12708 0.0223 Uiso 1.0000 2\nH H51 0.52206 0.14383 0.65142 0.0223 Uiso 1.0000 2\nH H52 0.55658 -0.25341 0.11596 0.0406 Uiso 1.0000 2\nH H53 0.41468 -0.07238 -0.40248 0.0406 Uiso 1.0000 2\nH H54 0.66638 0.21501 0.55363 0.0406 Uiso 1.0000 2\nH H55 0.52053 0.02860 0.05747 0.0406 Uiso 1.0000 2\nH H56 0.56494 -0.06685 -0.62155 0.0406 Uiso 1.0000 2\nH H57 0.65668 0.04222 -0.21131 0.0406 Uiso 1.0000 2\nH H58 0.71189 -0.28322 0.08019 0.0406 Uiso 1.0000 2\nH H59 0.80810 0.25425 0.47297 0.0406 Uiso 1.0000 2\nH H60 0.77235 -0.20131 -0.39372 0.0406 Uiso 1.0000 2\nH H61 0.86650 0.14729 -0.02780 0.0406 Uiso 1.0000 2\nO O62 0.1631(5) 0.5049(5) 0.4284(12) 0.114(3) Uiso 1.0000 2\nH H63 0.18734 0.44997 0.47321 0.1539 Uiso 1.0000 2\nH H64 0.16863 0.53948 0.34780 0.1539 Uiso 1.0000 2\n\nloop_\n_atom_type_symbol\n_atom_type_scat_dispersion_real\n_atom_type_scat_dispersion_imag\n_atom_type_scat_source\nC 0.001 0.001 https://subversion.xray.aps.anl.gov/pyGSAS/trunk/at\nH 0.000 0.000 https://subversion.xray.aps.anl.gov/pyGSAS/trun\nO 0.003 0.002 https://subversion.xray.aps.anl.gov/pyGSAS/trunk\n",
+ "space_group_number": 4,
+ "space_group_symbol": "P 1 21 1",
+ "centring": "P",
+ "sohncke": true,
+ "chiral": true,
+ "L_graded": true,
+ "dof": 16.0,
+ "dof_bin": "mid_15_25",
+ "zprime": 1.0,
+ "n_heavy_asym": 38.0,
+ "components": [
+  {
+   "smiles": "O=C(/C=C/c1ccc(O)c(O)c1)O[C@@H]1C[C@@](OC(=O)/C=C/c2ccc(O)c(O)c2)(C(=O)O)C[C@@H](O)[C@@H]1O",
+   "count": 1
+  },
+  {
+   "smiles": "O",
+   "count": 1
+  }
+ ],
+ "radiation_class": "synchrotron",
+ "candidate_name": "cynarine monohydrate"
+}

@@ -1,0 +1,29 @@
+X1db5091 MONOCLINIC P 0 peaks [4.21075, 7.21405, 8.12471, 8.56623, 9.43718, 12.88362, 13.9, 14.07521, 14.55706, 15.32607, 16.36086, 17.26318, 17.62729, 18.61135, 19.04102, 19.47008, 20.97467, 21.40196, 21.9486, 22.54676, 23.61, 23.89496] V 603.8245239257812 4713.99462890625 Lmax 46.94842843270968
+3->46.9484,1.75794,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+603.825->4713.99,456.691,8.9999
+Starting: V=603.825->1060.52
+Finished: V=603.825->1060.52 A^3, 4270 unit cells tested, 158677 tests/s,   Elapsed time=0.026919s
+Starting: V=1060.52->1517.21
+Finished: V=1060.52->1517.21 A^3, 11711 unit cells tested, 161911 tests/s,   Elapsed time=0.072338s
+Starting: V=1517.21->1973.9
+Finished: V=1517.21->1973.9 A^3, 23936 unit cells tested, 170719 tests/s,   Elapsed time=0.140216s
+Starting: V=1973.9->2430.59
+Finished: V=1973.9->2430.59 A^3, 45411 unit cells tested, 196681 tests/s,   Elapsed time=0.230895s
+Starting: V=2430.59->2887.28
+Finished: V=2430.59->2887.28 A^3, 82489 unit cells tested, 234693 tests/s,   Elapsed time=0.351485s
+Starting: V=2887.28->3343.97
+    a=21.76-21.85 b= 6.05- 6.09 c=27.97-28.08 alpha= 90.00- 90.00 beta=119.94-120.10 gamma= 90.00- 90.00 V=3190.22-3232.63level=4, indexed=1(0 sol.)
+    a=0.05303-0.05290 b=0.16535-0.16420 c=0.04126-0.04117 alpha=0.49913-0.50152 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(0 sol.)
+ Solution ? a= 21.758 b=  6.082 c= 28.036 alpha= 90.000 beta=119.949 gamma= 90.000 V= 3214.53 score=  6.03 #   0
+Finished: V=2887.28->3343.97 A^3, 139652 unit cells tested, 276422 tests/s,   Elapsed time=0.505222s
+Starting: V=3343.97->3800.66
+Finished: V=3343.97->3800.66 A^3, 222560 unit cells tested, 321649 tests/s,   Elapsed time=0.691944s
+Starting: V=3800.66->4257.35
+Finished: V=3800.66->4257.35 A^3, 322159 unit cells tested, 354758 tests/s,   Elapsed time=0.908118s
+Starting: V=4257.35->4713.99
+Finished: V=4257.35->4713.99 A^3, 447586 unit cells tested, 385635 tests/s,   Elapsed time=1.16066s
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=21.7584, b=6.08162, c=28.036, alpha=90, beta=119.949, gamma=90, V=3214.53, score=6.0312
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2609 BEST ? a=21.7584, b=6.08162, c=28.036, alpha=90, beta=119.949, gamma=90, V=3214.53, score=6.0312
+447586unit cells tested, 385583 tests/s,   Elapsed time=1.16081s
+DONE X1db5091 MONOCLINIC P 1 1.1610333919525146 [{'cell': [21.758413314819336, 6.081622123718262, 28.03602409362793, 90.00000250447816, 119.94888620355584, 90.00000250447816], 'volume': 3214.527587890625, 'score': 6.031196594238281, 'system': 'MONOCLINIC', 'centering': 'P', 'mode': 0}]

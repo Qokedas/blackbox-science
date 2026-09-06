@@ -1,0 +1,20 @@
+ATTACHED_H_SCATTERING 40 heavy atoms 20 H atoms
+PACKING_ENABLED 40 atoms 2204 pair terms coefficient 12.0
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1291.55it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 368 seconds 115.7214207649231 best 386.97137 q25 528.7881 median 612.6205 total 115.73091840744019
+GALLOP 1 Nref 368 seconds 71.1697518825531 best 386.9713 q25 458.93378 median 568.0659 total 187.06053066253662
+GALLOP 2 Nref 368 seconds 71.70655512809753 best 386.97128 q25 441.04337 median 555.669 total 258.84672474861145
+GALLOP 3 Nref 368 seconds 106.36595106124878 best 386.9712 q25 434.02 median 535.3745 total 365.30181097984314
+GALLOP 4 Nref 368 seconds 137.93246364593506 best 386.97122 q25 435.84888 median 544.7998 total 503.4312138557434
+GALLOP 5 Nref 368 seconds 81.94959020614624 best 386.97125 q25 441.04306 median 573.8263 total 585.4480969905853
+GALLOP 6 Nref 368 seconds 71.33454751968384 best 386.971 q25 410.06134 median 542.5963 total 656.8260681629181
+GALLOP 7 Nref 368 seconds 90.28220510482788 best 386.97125 q25 439.57553 median 575.553 total 747.1852705478668
+GALLOP 8 Nref 368 seconds 117.60758399963379 best 386.9712 q25 424.78992 median 587.3253 total 864.817146062851
+GALLOP 9 Nref 368 seconds 120.74717402458191 best 386.97125 q25 429.69955 median 573.6095 total 985.6466574668884
+GALLOP 10 Nref 368 seconds 102.50028705596924 best 386.97116 q25 441.0429 median 555.672 total 1088.2131011486053
+GALLOP 11 Nref 368 seconds 78.20157122612 best 386.9711 q25 433.29742 median 557.27704 total 1166.4360496997833
+FINISHED X4f6fe58 386.97100830078125

@@ -1,0 +1,14 @@
+1:import sys, os, json, time, argparse, numpy as np
+3:import warnings; warnings.filterwarnings('ignore')
+4:from rdkit import Chem
+5:from rdkit.Chem import AllChem
+6:import pyobjcryst
+7:from pyobjcryst.crystal import Crystal
+8:from pyobjcryst.molecule import Molecule
+9:from pyobjcryst.atom import Atom
+10:from pyobjcryst.scatteringpower import ScatteringPowerAtom
+11:from pyobjcryst.globaloptim import MonteCarlo, AnnealingSchedule
+  single atom Cl
+restored from X9af54a2/sol_a/P121_c1_run0_rw0.140.cif: Rwp=0.1396 restraint cost=0.00
+polish: Rwp 0.1396 -> 0.1396 (rejected) restraint cost=0.00
+RESTORE-POLISH X9af54a2 0.13960938755589836

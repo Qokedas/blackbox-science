@@ -1,0 +1,76 @@
+import os,sys,time,json,numpy as np,gemmi
+from numba import njit
+from scipy.optimize import least_squares
+from pymatgen.core import Lattice
+sid=sys.argv[1];sgname=sys.argv[2] if len(sys.argv)>2 else 'P 1 21 1';W='/app/work/'+sid
+ps=json.load(open(W+'/peaks_raw.json'));sp=os.getenv('SELECT_FILE',W+'/peak_select_raw.json');sel=json.load(open(sp))['indices'] if os.path.exists(sp) else list(range(1,len(ps)+1));sel=sel[:int(os.getenv('NPEAK','26'))];ps=[ps[i-1] for i in sel]
+wl=json.load(open('/app/data/instances/'+sid+'/instrument.json'))['radiation']['wavelength_A'];tt=np.array([p['two_theta'] for p in ps]);q=(2*np.sin(np.deg2rad(tt/2))/wl)**2;fac=wl*wl/(2*np.sin(np.deg2rad(tt)))*180/np.pi;nm=len(q)
+lo=float(os.getenv('VMIN','500'));hi=float(os.getenv('VMAX','6500'));target=float(os.getenv('VTARGET',str((lo+hi)/2)));nspur=int(os.getenv('NSPUR','1'));err=float(os.getenv('TTHERR','.03'));nanchor=min(int(os.getenv('NANCHOR','6')),nm);nbanchor=min(int(os.getenv('NBANCHOR','12')),nm)
+sg=gemmi.find_spacegroup_by_name(sgname);orth=sg.crystal_system_str()=='orthorhombic';ops=sg.operations()
+hk=np.array([[h,k,l] for h in range(0,8) for k in range(0,15) for l in (range(0,8) if orth else range(-7,8)) if (h or k or l) and not (h==0 and l<0) and not ops.is_systematically_absent([h,k,l])],float);T=np.array([hk[:,0]**2,hk[:,1]**2,hk[:,2]**2,2*hk[:,0]*hk[:,2]]).T
+am=np.array([n for n in [1,2,3,4] if not ops.is_systematically_absent([n,0,0])]);bm=np.array([n for n in [1,2,3,4] if not ops.is_systematically_absent([0,n,0])]);cm=np.array([n for n in [1,2,3,4] if not ops.is_systematically_absent([0,0,n])]);am=am[:2];bm=bm[:2];cm=cm[:2]
+hkl3=np.array([[h,k,l] for h in range(1,4) for k in range(0,4) for l in range(-3,4) if l and not ops.is_systematically_absent([h,k,l])],float)
+@njit(cache=False)
+def metricscore(g,z,screen=True):
+ qc=T@g;df=np.zeros(nm);ix=np.zeros(nm,np.int64);bad=0
+ for i in range(nm):
+  diff=1e10
+  for j in range(len(qc)):
+   dd=abs(qc[j]-q[i]+z/fac[i])
+   if dd<diff:diff=dd;ix[i]=j
+  df[i]=(qc[ix[i]]-q[i])*fac[i]+z
+  if i<12 and abs(df[i])>.065:
+   bad+=1
+   if screen and bad>2:return 100.,ix,df
+ vol=1/np.sqrt(g[1]*(g[0]*g[2]-g[3]*g[3]));sq=np.log1p((df/err)**2);sq.sort();score=np.mean(sq[:nm-nspur])*vol/target
+ return score,ix,df
+@njit(cache=False)
+def enumerate_cells(z):
+ qc=q-z/fac;rows=np.zeros((40000,5));nr=0;best=100.
+ for i in range(nanchor):
+  for j in range(i+1,nanchor):
+   for a0 in am:
+    for c0 in cm:
+     A=qc[i]/a0**2;C=qc[j]/c0**2
+     for ip in range(nbanchor):
+      if ip==i or ip==j:continue
+      for b0 in bm:
+       B=qc[ip]/b0**2
+       if orth:
+        vol=1/np.sqrt(A*B*C)
+        if vol<lo or vol>hi:continue
+        g=np.array([A,B,C,0.]);cost,ix,df=metricscore(g,z)
+        if cost<1.5 and nr<40000:rows[nr,0]=cost;rows[nr,1:]=g;nr+=1
+        continue
+       for it in range(min(10,nm)):
+        if it==i or it==j or it==ip:continue
+        for ht,kt,lt in hkl3:
+         D=(qc[it]-A*ht*ht-B*kt*kt-C*lt*lt)/(2*ht*lt)
+         if abs(D)/np.sqrt(A*C)>.72:continue
+         det=B*(A*C-D*D)
+         if det<=0:continue
+         vol=1/np.sqrt(det)
+         if vol<lo or vol>hi:continue
+         g=np.array([A,B,C,D]);cost,ix,df=metricscore(g,z)
+         if cost<1.25 and nr<40000:rows[nr,0]=cost;rows[nr,1:]=g;nr+=1
+ return rows[:nr]
+t0=time.time();out=[];tag=os.getenv('INDEX_TAG','axial_'+str(sg.number))
+for zero in [-.08,0.,.08]:
+ rows=enumerate_cells(zero);rows=rows[np.argsort(rows[:,0])][:160]
+ print('ENUM',sid,sgname,'zero',zero,'rows',len(rows),'seconds',time.time()-t0,flush=True)
+ for row in rows:
+  x=np.r_[row[1:],zero];co,ix,df=metricscore(x[:4],x[4],False)
+  for it in range(5):
+   if orth:
+    R=least_squares(lambda z:(T[ix,:3]@z[:3]-q)*fac+z[3],x[[0,1,2,4]],loss='soft_l1',f_scale=err,max_nfev=80);x=np.r_[R.x[:3],0.,R.x[3]]
+   else:R=least_squares(lambda z:(T[ix]@z[:4]-q)*fac+z[4],x,loss='soft_l1',f_scale=err,max_nfev=80);x=R.x
+   co,ix,df=metricscore(x[:4],x[4],False)
+  g=x[:4];GM=np.array([[g[0],0.,g[3]],[0.,g[1],0.],[g[3],0.,g[2]]])
+  if np.linalg.det(GM)<=0:continue
+  L=Lattice(np.linalg.cholesky(np.linalg.inv(GM)));red=L.get_niggli_reduced_lattice();rv=list(red.parameters)
+  if any(np.allclose(rv[:3],s['reduced'][:3],rtol=.003) and np.allclose(rv[3:],s['reduced'][3:],atol=.3) for s in out):continue
+  o=dict(cell=list(L.parameters),volume=L.volume,system='ORTHOROMBIC' if orth else 'MONOCLINIC',centering=sg.centring_type(),sg=sgname,cost=float(co),score=float(1/max(co,1e-15)),zero=float(x[4]),mode=31,reduced=rv,diff=df.tolist(),hkl=hk[ix].astype(int).tolist(),source='axial_index')
+  out.append(o)
+ out.sort(key=lambda s:s['cost']);json.dump(out,open(W+'/index_'+tag+'.json','w'),indent=1)
+ for o in out[:4]:print('BEST',o['cost'],np.round(o['cell'],4),np.round(o['diff'],4),flush=True)
+print('DONE',sid,time.time()-t0,flush=True)

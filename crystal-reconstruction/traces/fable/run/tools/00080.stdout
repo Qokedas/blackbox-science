@@ -1,0 +1,15 @@
+X07806d9: wrote CIF with 10 asym atoms -> 80 atoms in cell; spg P b c a (61); formula C40 N8 Cl8 O24
+{
+ "cell": {
+  "a": 16.85574,
+  "b": 8.20685,
+  "c": 11.21976,
+  "alpha": 90.0,
+  "beta": 90.0,
+  "gamma": 90.0
+ },
+ "space_group": "P b c a",
+ "space_group_number": 61
+}  s = CifParser(cif).parse_structures(primitive=False)[0]
+X07806d9: 80 atoms in cell; fragments=16; matched counts=[8, 8] (expected ratio [1, 1]); unmatched=0; OK=True
+   min interatomic distance in cell: 1.24 A

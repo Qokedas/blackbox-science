@@ -1,0 +1,57 @@
+Xd8634a2/solve_a.log:run 0: cost=138568.9 Rwp=0.3479 chi2=213314.0 t=1570s
+Xd8634a2/solve_a.log:polish: Rwp 0.3423 -> 0.3221 (accepted) restraint cost=0.00
+Xd8634a2/solve_b.log:run 0: cost=138568.9 Rwp=0.3479 chi2=213314.0 t=1437s
+Xd8634a2/solve_b.log:polish: Rwp 0.3423 -> 0.3221 (accepted) restraint cost=0.00
+Xd8634a2/solve_c.log:run 0: cost=58637.8 Rwp=0.2241 chi2=90474.8 t=2469s
+Xd8634a2/solve_c.log:polish: Rwp 0.2229 -> 0.2146 (accepted) restraint cost=0.00
+Xd8634a2/solve_c.log:RESULTS Xd8634a2 P -1 [(58637.78425598496, 0.22406685456343636, 90474.76673940285)]
+Xd8634a2/solve_d.log:run 0: cost=126049.1 Rwp=0.3333 chi2=196369.5 t=2525s
+Xd8634a2/solve_d.log:polish: Rwp 0.3284 -> 0.3133 (accepted) restraint cost=0.00
+Xd8634a2/solve_d.log:RESULTS Xd8634a2 P -1 [(126049.11073304166, 0.33334174821933266, 196369.54368349852)]
+X35b7fbc/:
+total 352
+drwxr-xr-x 4 root root  4096 Sep  6 06:36 .
+drwxr-xr-x 1 root root  4096 Sep  6 05:54 ..
+-rw-r--r-- 1 root root  3329 Sep  6 04:21 abs_ortho.log
+-rw-r--r-- 1 root root    16 Sep  6 04:21 config.json
+-rw-r--r-- 1 root root 24805 Sep  6 04:28 g2_monoC.log
+-rw-r--r-- 1 root root 20649 Sep  6 04:11 g2_monoP.log
+-rw-r--r-- 1 root root 36916 Sep  6 04:19 g2_monoPc.log
+-rw-r--r-- 1 root root  3819 Sep  6 04:28 g2index_monoC_20.txt
+-rw-r--r-- 1 root root  3810 Sep  6 04:11 g2index_monoP_20.txt
+-rw-r--r-- 1 root root  3810 Sep  6 04:19 g2index_monoPc_20.txt
+-rw-r--r-- 1 root root 57085 Sep  6 04:21 lebail_P222.png
+-rw-r--r-- 1 root root 51811 Sep  6 04:13 low.png
+-rw-r--r-- 1 root root 90949 Sep  6 03:48 peaks.png
+-rw-r--r-- 1 root root  4112 Sep  6 03:48 peaks.txt
+-rw-r--r-- 1 root root  3574 Sep  6 04:14 peaks_clean.txt
+drwxr-xr-x 2 root root  4096 Sep  6 06:36 sol_a
+drwxr-xr-x 2 root root  4096 Sep  6 06:36 sol_b
+-rw-r--r-- 1 root root   776 Sep  6 06:36 solve_a.log
+-rw-r--r-- 1 root root   776 Sep  6 06:36 solve_b.log
+
+Xd8634a2/:
+total 300
+drwxr-xr-x 8 root root  4096 Sep  6 06:18 .
+drwxr-xr-x 1 root root  4096 Sep  6 05:54 ..
+-rw-r--r-- 1 root root 15968 Sep  6 04:33 g2_monoC.log
+-rw-r--r-- 1 root root 44233 Sep  6 04:21 g2_monoP.log
+-rw-r--r-- 1 root root 12533 Sep  6 04:37 g2_tri.log
+-rw-r--r-- 1 root root  3812 Sep  6 04:33 g2index_monoC_20.txt
+-rw-r--r-- 1 root root  3810 Sep  6 04:21 g2index_monoP_20.txt
+-rw-r--r-- 1 root root  3810 Sep  6 04:37 g2index_tri_20.txt
+-rw-r--r-- 1 root root 63708 Sep  6 04:39 lebail_P-1.png
+-rw-r--r-- 1 root root 79801 Sep  6 03:48 peaks.png
+-rw-r--r-- 1 root root  4226 Sep  6 03:48 peaks.txt
+drwxr-xr-x 2 root root  4096 Sep  6 05:27 sol_a
+drwxr-xr-x 2 root root  4096 Sep  6 05:25 sol_b
+drwxr-xr-x 2 root root  4096 Sep  6 06:16 sol_c
+drwxr-xr-x 2 root root  4096 Sep  6 06:17 sol_d
+drwxr-xr-x 2 root root  4096 Sep  6 06:18 sol_e
+drwxr-xr-x 2 root root  4096 Sep  6 06:18 sol_f
+-rw-r--r-- 1 root root   630 Sep  6 05:27 solve_a.log
+-rw-r--r-- 1 root root   630 Sep  6 05:25 solve_b.log
+-rw-r--r-- 1 root root   838 Sep  6 06:16 solve_c.log
+-rw-r--r-- 1 root root   842 Sep  6 06:17 solve_d.log
+-rw-r--r-- 1 root root   641 Sep  6 06:18 solve_e.log
+-rw-r--r-- 1 root root   641 Sep  6 06:18 solve_f.log

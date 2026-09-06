@@ -1,0 +1,32 @@
+FAST_SYMMETRY P 1 21/a 1 mono14 max_relative_error 1.2041354011671501e-06
+ATTACHED_H_SCATTERING 35 heavy atoms 34 H atoms
+WARM_CHI [13.3386345]
+PACKING_ENABLED 35 atoms 4120 pair terms coefficient 60.0 active_only True
+HBOND_PRIOR 2 donors 3 acceptors coefficient 12.0
+WARM_COMBINED [13.3386345]
+{
+ "cell": [
+  5.905248814300708,
+  11.252070606740055,
+  30.08138947876488,
+  90.0,
+  90.0,
+  90.0
+ ],
+ "volume": 1984.4838723847654,
+ "score": 0,
+ "system": "ORTHOROMBIC",
+ "centering": "P",
+ "mode": 0,
+ "source": "index_MONOCLINIC_P_0.json",
+ "sg": "P 2 21 21",
+ "sgstart": "P 2 21 21",
+ "Rw": 0.07069285221208464,
+ "groups": [
+  {
+CYCLE 3 2 Rw 0.13883133564151603 chi2 2853.653903715562 geom 20.455600448772415 LSQ 3024.178054103026
+PACKING_STAGE 3 2.47079378969338
+FINISHED X3f4781b 0.13883133564151603
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],

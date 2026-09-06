@@ -1,0 +1,5 @@
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/work/lebail.py", line 57, in add_crystal
+    cr = Crystal(a, b, c, al, be, ga, spg)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pyobjcryst.ObjCrystException: alpha must be within ]0;pi[

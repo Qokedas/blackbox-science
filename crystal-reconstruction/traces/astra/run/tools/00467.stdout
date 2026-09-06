@@ -1,0 +1,429 @@
+None
+['Angle', 'Angle0', 'AngleDelta', 'AngleSigma', 'GetAngle', 'GetAngle0', 'GetAngleDelta', 'GetAngleSigma', 'GetAtom1', 'GetAtom2', 'GetAtom3', 'GetAtom4', 'GetLogLikelihood', 'GetMolecule', 'GetName', 'GetType', 'SetAngle0', 'SetAngleDelta', 'SetAngleSigma', 'SetAtom1', 'SetAtom2', 'SetAtom3', 'SetAtom4', 'SetType', 'int_ptr']
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/16582/status ]] && ! grep -q '^State:.*Z' /proc/16582/status; do sleep 5; done
+python /app/work/import_gallop.py X13023e3 31 > /app/work/X13023e3/import_g31.log 2>&1
+python /app/work/refine_obj.py X13023e3 g31 /app/work/X13023e3/search_g31/best.xml --scale --tight > /app/work/X13023e3/refine_g31.log 2>&1
+cp -r /app/work/X7e382cb/gallop_22 /app/work/X7e382cb/gallop_31
+rm -f /app/work/X7e382cb/gallop_31/STOP
+SEARCH_TIME=1800 PARTICLES=128 ITERATIONS=400 START_NPZ=/app/work/X7e382cb/gallop_22/best.npz START_JITTER=.18 START_TOR_JITTER=.5 python /app/work/search_gallop.py X7e382cb 31 1 --packing --hscatter > /app/work/X7e382cb/gallop31.log 2>&1
+python /app/work/import_gallop.py X7e382cb 31 > /app/work/X7e382cb/import_g31.log 2>&1
+python /app/work/refine_obj.py X7e382cb g31 /app/work/X7e382cb/search_g31/best.xml --scale --tight > /app/work/X7e382cb/refine_g31.log 2>&1
+SEARCH_TIME=2200 PARTICLES=160 ITERATIONS=450 GALLOP_STOL=.23 CONF_RANK=0 python /app/work/search_gallop.py Xedd9c7b 11 2 --prepare --hscatter > /app/work/Xedd9c7b/gallop11.log 2>&1
+python /app/work/import_gallop.py Xedd9c7b 11 > /app/work/Xedd9c7b/import_g11.log 2>&1
+python /app/work/refine_obj.py Xedd9c7b g11 /app/work/Xedd9c7b/search_g11/best.xml --scale --tight > /app/work/Xedd9c7b/refine_g11.log 2>&1
+for id in X1a56c78 X8a06d7a; do
+ SEARCH_TIME=2200 PARTICLES=128 ITERATIONS=400 GALLOP_STOL=.24 CONF_RANK=0 python /app/work/search_gallop.py $id 11 1 --prepare --hscatter > /app/work/$id/gallop11.log 2>&1
+ python /app/work/import_gallop.py $id 11 > /app/work/$id/import_g11.log 2>&1
+ python /app/work/refine_obj.py $id g11 /app/work/$id/search_g11/best.xml --scale --tight > /app/work/$id/refine_g11.log 2>&1
+done
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/5191/status ]] && ! grep -q '^State:.*Z' /proc/5191/status; do sleep 5;done
+SEARCH_TIME=1800 PARTICLES=128 ITERATIONS=400 GALLOP_STOL=.25 CONF_RANK=0 python /app/work/search_gallop.py X4f6fe58 11 2 --prepare --hscatter > /app/work/X4f6fe58/gallop11.log 2>&1
+python /app/work/import_gallop.py X4f6fe58 11 > /app/work/X4f6fe58/import_g11.log 2>&1
+python /app/work/refine_obj.py X4f6fe58 g11 /app/work/X4f6fe58/search_g11/best.xml --scale --tight > /app/work/X4f6fe58/refine_g11.log 2>&1
+SEARCH_TIME=1800 PARTICLES=160 ITERATIONS=450 GALLOP_STOL=.25 python /app/work/search_gallop.py X3f4781b 11 2 --prepare --hscatter > /app/work/X3f4781b/gallop11.log 2>&1
+python /app/work/import_gallop.py X3f4781b 11 > /app/work/X3f4781b/import_g11.log 2>&1
+python /app/work/refine_obj.py X3f4781b g11 /app/work/X3f4781b/search_g11/best.xml --scale --tight > /app/work/X3f4781b/refine_g11.log 2>&1
+SEARCH_TIME=2200 PARTICLES=160 ITERATIONS=450 GALLOP_STOL=.25 python /app/work/search_gallop.py X9af54a2 11 2 --prepare --hscatter > /app/work/X9af54a2/gallop11.log 2>&1
+python /app/work/import_gallop.py X9af54a2 11 > /app/work/X9af54a2/import_g11.log 2>&1
+python /app/work/refine_obj.py X9af54a2 g11 /app/work/X9af54a2/search_g11/best.xml --scale --tight > /app/work/X9af54a2/refine_g11.log 2>&1
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/4263/status ]] && ! grep -q '^State:.*Z' /proc/4263/status; do sleep 5;done
+SEARCH_TIME=2000 PARTICLES=128 ITERATIONS=400 GALLOP_STOL=.25 python /app/work/search_gallop.py Xd8634a2 11 1 --prepare --hscatter > /app/work/Xd8634a2/gallop11.log 2>&1
+python /app/work/import_gallop.py Xd8634a2 11 > /app/work/Xd8634a2/import_g11.log 2>&1
+python /app/work/refine_obj.py Xd8634a2 g11 /app/work/Xd8634a2/search_g11/best.xml --scale --tight > /app/work/Xd8634a2/refine_g11.log 2>&1
+SEARCH_TIME=2000 PARTICLES=128 ITERATIONS=400 GALLOP_STOL=.25 python /app/work/search_gallop.py Xd4c1a35 11 2 --prepare --hscatter > /app/work/Xd4c1a35/gallop11.log 2>&1
+python /app/work/import_gallop.py Xd4c1a35 11 > /app/work/Xd4c1a35/import_g11.log 2>&1
+python /app/work/refine_obj.py Xd4c1a35 g11 /app/work/Xd4c1a35/search_g11/best.xml --scale --tight > /app/work/Xd4c1a35/refine_g11.log 2>&1
+SEARCH_TIME=2000 PARTICLES=128 ITERATIONS=400 GALLOP_STOL=.25 python /app/work/search_gallop.py Xb7088cf 11 1 --prepare --hscatter > /app/work/Xb7088cf/gallop11.log 2>&1
+python /app/work/import_gallop.py Xb7088cf 11 > /app/work/Xb7088cf/import_g11.log 2>&1
+python /app/work/refine_obj.py Xb7088cf g11 /app/work/Xb7088cf/search_g11/best.xml --scale --tight > /app/work/Xb7088cf/refine_g11.log 2>&1
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/7272/status ]] && ! grep -q '^State:.*Z' /proc/7272/status; do sleep 5; done
+for id in X263b09a X14a2b08; do
+ SEARCH_TIME=2400 PARTICLES=160 ITERATIONS=450 GALLOP_STOL=.25 CONF_RANK=0 python /app/work/search_gallop.py $id 11 1 --prepare --hscatter > /app/work/$id/gallop11.log 2>&1
+ python /app/work/import_gallop.py $id 11 > /app/work/$id/import_g11.log 2>&1
+ python /app/work/refine_obj.py $id g11 /app/work/$id/search_g11/best.xml --scale --tight > /app/work/$id/refine_g11.log 2>&1
+done
+MAX_STOL=.32 python /app/work/create_stable_base.py X1db5091 final2 'P 1 21/c 1' --submit > /app/work/X1db5091/basefresh.log 2>&1
+SEARCH_TIME=2800 PARTICLES=160 ITERATIONS=450 GALLOP_STOL=.25 CONF_RANK=0 python /app/work/search_gallop.py X1db5091 11 1 --prepare --hscatter > /app/work/X1db5091/gallop11.log 2>&1
+python /app/work/import_gallop.py X1db5091 11 > /app/work/X1db5091/import_g11.log 2>&1
+python /app/work/refine_obj.py X1db5091 g11 /app/work/X1db5091/search_g11/best.xml --scale --tight > /app/work/X1db5091/refine_g11.log 2>&1
+GALLOP 21 Nref 122 seconds 26.555549144744873 best 5.5905676 q25 13.350748 median 25.082825 total 580.3889808654785
+GALLOP 22 Nref 122 seconds 29.118279457092285 best 4.9941936 q25 15.903206 median 28.00853 total 609.5105803012848
+GALLOP 23 Nref 122 seconds 27.20602512359619 best 3.542864 q25 11.004066 median 25.055454 total 636.7541744709015
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 2372.68it/s]
+GALLOP 24 Nref 122 seconds 34.517261028289795 best 3.5408618 q25 18.529541 median 28.85651 total 671.2911326885223
+GALLOP 25 Nref 122 seconds 46.49087977409363 best 3.540164 q25 17.241545 median 28.362347 total 717.808153629303
+GALLOP 26 Nref 122 seconds 42.801137924194336 best 3.540003 q25 17.372807 median 27.293232 total 760.6529552936554
+GALLOP 27 Nref 122 seconds 42.832011699676514 best 3.5400264 q25 16.15636 median 26.189865 total 803.5130085945129
+GALLOP 28 Nref 122 seconds 50.36752939224243 best 3.5407264 q25 12.391922 median 23.575459 total 853.8851315975189
+GALLOP 29 Nref 122 seconds 54.653077125549316 best 3.5404472 q25 8.584182 median 24.729565 total 908.5442028045654
+GALLOP 30 Nref 122 seconds 61.79410099983215 best 2.9254684 q25 9.619066 median 22.628828 total 970.3429620265961
+GALLOP 31 Nref 122 seconds 60.20396399497986 best 2.8241265 q25 12.821206 median 22.555048 total 1030.5726408958435
+GALLOP 32 Nref 122 seconds 52.097519874572754 best 2.8235338 q25 8.6866865 median 21.45766 total 1082.6967017650604
+GALLOP 33 Nref 122 seconds 46.78615212440491 best 2.8233693 q25 10.458639 median 21.301125 total 1129.5453956127167
+GALLOP 34 Nref 122 seconds 43.00663447380066 best 2.823632 q25 3.5938642 median 19.097317 total 1172.580461025238
+refined_g12t.json
+refined_g12t.png
+refined_g12t.xml
+refined_g41.cif
+refined_g41.json
+refined_g41.png
+refined_g41.xml
+refined_pyrflip.cif
+refined_pyrflip.json
+refined_pyrflip.png
+refined_pyrflip.xml
+scaled_refine.xye
+search2.log
+search_2
+search_g11
+search_g12
+search_g12fix
+search_g12free
+search_g12stable
+search_g12t
+search_g41
+search_pyrflip
+translations_0.json
+translations_0.log
+translations_1.json
+{
+ "ids": [
+  "X019b9a4",
+  "X07806d9",
+  "X13023e3",
+  "X14a2b08",
+  "X1a56c78",
+  "X1db5091",
+  "X2327841",
+  "X238783d",
+  "X263b09a",
+  "X35b7fbc",
+  "X3c176e2",
+  "X3f4781b",
+  "X4f6fe58",
+  "X7e382cb",
+  "X8a06d7a",
+  "X8a6f5a8",
+  "X9af54a2",
+  "Xb7088cf",
+  "Xbfc6d2c",
+  "Xbfeeda9",
+  "Xd4c1a35",
+  "Xd8634a2",
+  "Xdcc971e",
+  "Xe1fb77b",
+  "Xe3a2935",
+  "Xeb393f9",
+  "Xebbd488",
+  "Xedd9c7b",
+  "Xf8ac963",
+  "Xfca9f3c"
+ ],
+ "n": 30,
+ "instances": [
+  {
+   "id": "X019b9a4",
+   "n_points": 1550,
+   "two_theta_range_deg": [
+    3.0,
+    33.98
+   ],
+   "n_components": 3,
+   "heavy_atoms_per_formula_unit": 48
+  },
+  {
+   "id": "X07806d9",
+   "n_points": 29816,
+   "two_theta_range_deg": [
+    0.5008,
+    75.0383
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 10
+  },
+  {
+   "id": "X13023e3",
+   "n_points": 9572,
+   "two_theta_range_deg": [
+    2.015,
+    40.299
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 24
+  },
+  {
+   "id": "X14a2b08",
+   "n_points": 9626,
+   "two_theta_range_deg": [
+    3.0,
+    80.0
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 37
+  },
+  {
+   "id": "X1a56c78",
+   "n_points": 4994,
+   "two_theta_range_deg": [
+    5.0,
+    104.86
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 23
+  },
+  {
+   "id": "X1db5091",
+   "n_points": 7201,
+   "two_theta_range_deg": [
+    3.0,
+    75.0
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 38
+  },
+  {
+   "id": "X2327841",
+   "n_points": 12834,
+   "two_theta_range_deg": [
+    1.5,
+    39.999
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 32
+  },
+  {
+   "id": "X238783d",
+   "n_points": 6701,
+   "two_theta_range_deg": [
+    2.0,
+    69.0
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 52
+  },
+  {
+   "id": "X263b09a",
+   "n_points": 7201,
+   "two_theta_range_deg": [
+    3.0,
+    75.0
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 36
+  },
+  {
+   "id": "X35b7fbc",
+   "n_points": 11591,
+   "two_theta_range_deg": [
+    0.515,
+    29.49
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 33
+  },
+  {
+   "id": "X3c176e2",
+   "n_points": 7800,
+   "two_theta_range_deg": [
+    2.0,
+    79.99
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 12
+  },
+  {
+   "id": "X3f4781b",
+   "n_points": 8601,
+   "two_theta_range_deg": [
+    4.0,
+    90.0
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 26
+  },
+  {
+   "id": "X4f6fe58",
+   "n_points": 7501,
+   "two_theta_range_deg": [
+    5.0,
+    80.0
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 20
+  },
+  {
+   "id": "X7e382cb",
+   "n_points": 5862,
+   "two_theta_range_deg": [
+    1.0125,
+    49.987
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 20
+  },
+  {
+   "id": "X8a06d7a",
+   "n_points": 4531,
+   "two_theta_range_deg": [
+    3.001,
+    80.011
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 38
+  },
+  {
+   "id": "X8a6f5a8",
+   "n_points": 8151,
+   "two_theta_range_deg": [
+    3.5,
+    85.0
+   ],
+   "n_components": 3,
+   "heavy_atoms_per_formula_unit": 39
+  },
+  {
+   "id": "X9af54a2",
+   "n_points": 49486,
+   "two_theta_range_deg": [
+    0.51,
+    49.995
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 19
+  },
+  {
+   "id": "Xb7088cf",
+   "n_points": 5864,
+   "two_theta_range_deg": [
+    1.0067,
+    49.9958
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 28
+  },
+  {
+   "id": "Xbfc6d2c",
+   "n_points": 4250,
+   "two_theta_range_deg": [
+    5.0,
+    89.98
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 18
+  },
+  {
+   "id": "Xbfeeda9",
+   "n_points": 9820,
+   "two_theta_range_deg": [
+    2.0,
+    100.19
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 35
+  },
+  {
+   "id": "Xd4c1a35",
+   "n_points": 5499,
+   "two_theta_range_deg": [
+    5.05,
+    60.04
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 24
+  },
+  {
+   "id": "Xd8634a2",
+   "n_points": 49486,
+   "two_theta_range_deg": [
+    0.51,
+    49.995
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 33
+  },
+  {
+   "id": "Xdcc971e",
+   "n_points": 12667,
+   "two_theta_range_deg": [
+    2.001,
+    39.999
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 30
+  },
+  {
+   "id": "Xe1fb77b",
+   "n_points": 49575,
+   "two_theta_range_deg": [
+    0.5,
+    49.9965
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 38
+  },
+  {
+   "id": "Xe3a2935",
+   "n_points": 49486,
+   "two_theta_range_deg": [
+    0.51,
+    49.995
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 21
+  },
+  {
+   "id": "Xeb393f9",
+   "n_points": 29816,
+   "two_theta_range_deg": [
+    0.5008,
+    75.0383
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 37
+  },
+  {
+   "id": "Xebbd488",
+   "n_points": 7001,
+   "two_theta_range_deg": [
+    5.0,
+    75.0
+   ],
+   "n_components": 3,
+   "heavy_atoms_per_formula_unit": 71
+  },
+  {
+   "id": "Xedd9c7b",
+   "n_points": 2818,
+   "two_theta_range_deg": [
+    3.0066,
+    39.9938
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 19
+  },
+  {
+   "id": "Xf8ac963",
+   "n_points": 49486,
+   "two_theta_range_deg": [
+    0.51,
+    49.995
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 21
+  },
+  {
+   "id": "Xfca9f3c",
+   "n_points": 12834,
+   "two_theta_range_deg": [
+    1.5,
+    39.999
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 26
+  }
+ ]
+}

@@ -1,0 +1,160 @@
+/opt/conda/include/ObjCryst/ObjCryst/ScatteringCorr.h
+/opt/conda/pkgs/libobjcryst-2024.2.1-h2b4839b_1/include/ObjCryst/ObjCryst/ScatteringCorr.h
+import os,sys,json,numpy as np,gemmi
+import matplotlib
+matplotlib.use('Agg')
+from pyobjcryst.crystal import Crystal
+from pyobjcryst.powderpattern import PowderPattern,ReflectionProfileType
+from pyobjcryst.io import xml_cryst_file_save_global
+sid=sys.argv[1];tag=sys.argv[2];sg=sys.argv[3];W='/app/work/'+sid
+j=json.load(open(W+'/fit_'+tag+'.json'));cp=j['cell'];ins=json.load(open('/app/data/instances/'+sid+'/instrument.json'));wl=ins['radiation']['wavelength_A'];rad=ins['radiation']
+c=Crystal(*cp[:3],*np.deg2rad(cp[3:]),sg);c.SetName(sid)
+data=np.loadtxt('/app/data/instances/'+sid+'/pattern.xye');peaks=json.load(open(W+'/peaks.json'));mh=max(p['height'] for p in peaks);valid=[p for p in peaks if p['height']>.015*mh];xmin=max(data[0,0],min(p['two_theta'] for p in valid)-.5*wl/1.54)
+if os.path.exists(W+'/peak_select.json'):xmin=max(xmin,json.load(open(W+'/peak_select.json')).get('min_two_theta',xmin))
+stol=float(os.environ.get('MAX_STOL','.25'));data=data[(data[:,0]>=xmin)&(data[:,0]<np.rad2deg(2*np.arcsin(stol*wl)))]
+if len(data)>12000:
+ n=len(data)//2*2;data=np.column_stack([data[:n,0].reshape(-1,2).mean(1),data[:n,1].reshape(-1,2).mean(1),np.sqrt((data[:n,2]**2).reshape(-1,2).sum(1))/2])
+# A constant uncertainty rescaling preserves all diffraction relative weights and prevents disproportionate molecular restraint weighting.
+scale=max(1.,np.median(np.sqrt(np.clip(data[:,1],1,None))/data[:,2]));data[:,2]*=scale
+np.savetxt(W+'/base_profile.xye',data)
+p=PowderPattern();p.SetName(sid);p.ImportPowderPattern2ThetaObsSigma(W+'/base_profile.xye');p.SetWavelength(wl);p.SetMaxSinThetaOvLambda(stol)
+if len(rad.get('wavelengths_A') or [])>1:p.SetWavelength('Mo' if wl<1 else 'Cu')
+d=p.AddPowderPatternDiffraction(c)
+wid=np.median([v['fwhm'] for v in sorted(valid,key=lambda z:-z['height'])[:25]])
+d.SetReflectionProfilePar(ReflectionProfileType.PROFILE_PSEUDO_VOIGT,np.deg2rad(wid)**2,0,0,.5,0)
+b=p.AddPowderPatternBackground();nbkg=max(20,int((data[-1,0]-data[0,0])/(1.2*wl/1.54)));bx=np.linspace(np.deg2rad(data[0,0]),np.deg2rad(data[-1,0]),nbkg);raw=np.load(W+'/processed.npz');by=np.interp(np.rad2deg(bx),raw['x'],raw['background']);b.SetInterpPoints(bx,by)
+p.Prepare();p.quick_fit_profile(pdiff=d,auto_background=False,init_profile=False,plot=False,asym=True,verbose=False);p.FitScaleFactorForRw()
+print('FRESH_BASE',sid,sg,p.GetRw(),p.GetChi2(),flush=True)
+# Save the actual optimum reached. Excessive multiplicative Le Bail cycles can destabilize heavily overlapped lines.
+scale2=max(1.,np.sqrt(p.GetChi2()/len(data)));data[:,2]*=scale2;np.savetxt(W+'/base_profile.xye',data);p.ImportPowderPattern2ThetaObsSigma(W+'/base_profile.xye');p.Prepare();p.FitScaleFactorForRw()
+print('SCALED',scale*scale2,'Rw',p.GetRw(),'Chi2',p.GetChi2(),flush=True)
+cell={n:float(c.GetPar(n).GetHumanValue()) for n in ['a','b','c','alpha','beta','gamma']};out={'cell':cell,'space_group':sg,'space_group_number':gemmi.find_spacegroup_by_name(sg).number}
+json.dump(out,open(W+'/lattice.json','w'),indent=1)
+if '--submit' in sys.argv:json.dump(out,open('/app/results/submission/'+sid+'.json','w'),indent=1)
+xml_cryst_file_save_global(W+'/base.xml');np.savez_compressed(W+'/lebail.npz',h=d.GetH(),k=d.GetK(),l=d.GetL(),stol=d.GetSinThetaOverLambda(),f2=d.GetFhklObsSq(),x=p.GetPowderPatternX(),obs=p.GetPowderPatternObs(),calc=p.GetPowderPatternCalc())
+p.plot(diff=True,hkl=False);p.figure.savefig(W+'/base.png',dpi=140)
+import os,sys,json,glob,time
+import numpy as np,gemmi,spglib
+from pymatgen.core import Lattice
+import matplotlib
+matplotlib.use('Agg')
+from pyobjcryst.crystal import Crystal
+from pyobjcryst.powderpattern import PowderPattern,ReflectionProfileType,SpaceGroupExplorer
+from pyobjcryst.io import xml_cryst_file_save_global
+from pyobjcryst.refinableobj import refpartype_scattdata_background
+sid=sys.argv[1];tag=sys.argv[2] if len(sys.argv)>2 else 'best';W='/app/work/'+sid
+spec=json.load(open(W+'/candidates.json'))
+sol=spec[int(tag)] if tag.isdigit() else spec[0]
+cp=sol['cell'];sgstart=sol.get('sg','P m m m' if sol['system']=='ORTHOROMBIC' else 'P 1 2/m 1' if sol['system']=='MONOCLINIC' else 'P -1')
+ins=json.load(open('/app/data/instances/'+sid+'/instrument.json'));wl=ins['radiation']['wavelength_A'];comp=json.load(open('/app/data/instances/'+sid+'/composition.json'));chiral=any('@' in m['smiles'] for m in comp['components'])
+# cell angles are constrained using the corresponding metric symmetry
+c=Crystal(*cp[:3],*np.deg2rad(cp[3:]),sgstart);c.SetName(sid+'_'+tag)
+data=np.loadtxt('/app/data/instances/'+sid+'/pattern.xye');peaks=json.load(open(W+'/peaks.json'));mx=max(v['height'] for v in peaks);valid=[v for v in peaks if v['height']>mx*.015];xmin=max(data[0,0],min(v['two_theta'] for v in valid)-.5*wl/1.54)
+
+if os.path.exists(W+'/peak_select.json'):
+ manual=json.load(open(W+'/peak_select.json'));xmin=max(xmin,manual.get('min_two_theta',xmin))
+stol=float(sys.argv[3]) if len(sys.argv)>3 else .25
+sel=(data[:,0]>=xmin)&(data[:,0]<min(data[-1,0]+.001,np.rad2deg(2*np.arcsin(wl*stol))));data=data[sel]
+# reduce oversampling at very fine synchrotron steps, preserving counting errors appropriately
+step=1
+if len(data)>12000: step=2
+if step>1:
+ n=len(data)//step*step;data=np.column_stack([data[:n,0].reshape(-1,step).mean(1),data[:n,1].reshape(-1,step).mean(1),np.sqrt((data[:n,2]**2).reshape(-1,step).sum(1))/step])
+np.savetxt(W+'/fit_'+tag+'.xye',data)
+p=PowderPattern();p.SetName(sid+'_'+tag);p.ImportPowderPattern2ThetaObsSigma(W+'/fit_'+tag+'.xye');p.SetWavelength(wl);p.SetMaxSinThetaOvLambda(stol)
+rad=ins['radiation']
+if len(rad.get('wavelengths_A') or [])>1: p.SetWavelength('Mo' if wl<1 else 'Cu')
+d=p.AddPowderPatternDiffraction(c)
+wid=np.median([v['fwhm'] for v in sorted(valid,key=lambda z:-z['height'])[:25]])
+d.SetReflectionProfilePar(ReflectionProfileType.PROFILE_PSEUDO_VOIGT,np.deg2rad(wid)**2,0,0,.5,0)
+b=p.AddPowderPatternBackground();nbkg=max(20,int((data[-1,0]-data[0,0])/(1.2*wl/1.54)))
+bx=np.linspace(np.deg2rad(data[0,0]),np.deg2rad(data[-1,0]),nbkg);orig=np.load(W+'/processed.npz');by=np.interp(np.rad2deg(bx),orig['x'],orig['background']);b.SetInterpPoints(bx,by)
+p.Prepare()
+p.quick_fit_profile(pdiff=d,auto_background=False,init_profile=False,plot=False,asym=True,verbose=False)
+print('STARTFIT',sid,tag,'Rw',p.GetRw(),flush=True)
+xml_cryst_file_save_global(W+'/pre_scan_'+tag+'.xml')
+# Enumerate meaningful settings with compatible symmetry; absences alone do not prove chirality/centrosymmetry.
+system=sol['system'];cent=sol['centering']
+if system=='ORTHOROMBIC':
+ nums=[16,17,18,19,20,21,22,23,24] if chiral else [16,17,18,19,20,21,22,23,24,29,33,36,37,38,39,40,41,42,43,46,50,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74]
+elif system=='MONOCLINIC': nums=[3,4,5] if chiral else list(range(3,16))
+else:nums=[1] if chiral else [1,2]
+groups=[]
+for sg in gemmi.spacegroup_table():
+ if sg.number not in nums:continue
+ if system=='MONOCLINIC' and sg.monoclinic_unique_axis()!='b':continue
+ name=sg.xhm()
+ # Avoid alternate origin choices (irrelevant extinctions)
+ if ':2' in name:continue
+ if name not in groups:groups.append(name)
+sgex=SpaceGroupExplorer(d);scores=[]
+for name in groups:
+ try:
+  r=sgex.Run(name,False,False,True,False)
+  scores.append(dict(sg=name,number=gemmi.find_spacegroup_by_name(name).number,Rw=float(r.Rw),GoF=float(r.GoF),nGoF=float(r.nGoF),mult=len(gemmi.find_spacegroup_by_name(name).operations())))
+ except Exception as e:print('ERRORSG',name,str(e),flush=True)
+scores.sort(key=lambda x:x['Rw'])
+print('GROUPS',json.dumps(scores),flush=True)
+d.SetExtractionMode(True,True);d.ExtractLeBail(40)
+# save baseline refined parameters and candidate scan without arbitrarily finalising SG
+cp=[float(c.GetPar(n).GetHumanValue()) for n in ['a','b','c','alpha','beta','gamma']]
+result=dict(sol,cell=cp,sgstart=sgstart,Rw=float(p.GetRw()),groups=scores,stol=stol)
+json.dump(result,open(W+'/fit_'+tag+'.json','w'),indent=1)
+p.plot(diff=True,hkl=False);p.figure.savefig(W+'/fit_'+tag+'.png',dpi=130)
+xml_cryst_file_save_global(W+'/fit_'+tag+'.xml')
+# Profile values for custom intensity/model code
+try:
+ pp={p.GetPar(i).GetName():p.GetPar(i).GetHumanValue() for i in range(p.GetNbPar())}
+ dp={d.GetPar(i).GetName():d.GetPar(i).GetHumanValue() for i in range(d.GetNbPar())}
+ result['p_pars']=pp;result['d_pars']=dp
+ json.dump(result,open(W+'/fit_'+tag+'.json','w'),indent=1)
+except:pass
+print('DONE',sid,tag,p.GetRw(),cp,flush=True)
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 PEAK_FILE=peaks_raw.json NPEAK=18 NSPUR=1 INDEX_SCORE=55 INDEX_DEPTH=6 LMAX=80
+while [[ -r /proc/3434/status ]] && ! grep -q '^State:.*Z' /proc/3434/status; do sleep 5; done
+for id in X1db5091 Xebbd488 X8a6f5a8 X7e382cb Xb7088cf Xedd9c7b; do
+ case "$id" in
+  X7e382cb) vol='250 1800';export TTHERR=.016 TTHSHIFT=-.02 NPEAK=13;;
+  Xb7088cf) vol='700 3200';export TTHERR=.016 TTHSHIFT=-.04 NPEAK=18;;
+  Xedd9c7b) vol='400 2600';export TTHERR=.03 TTHSHIFT=0 NPEAK=18;;
+  X1db5091) vol='1050 1800';export TTHERR=.03 TTHSHIFT=0 NPEAK=18;;
+  Xebbd488) vol='1200 6500';export TTHERR=.03 TTHSHIFT=0 NPEAK=18;;
+  X8a6f5a8) vol='1000 5500';export TTHERR=.03 TTHSHIFT=0 NPEAK=18;;
+ esac
+ for system in ORTHOROMBIC MONOCLINIC; do
+  for center in P C; do
+   timeout 150 python /app/work/index_one.py $id $system $center 4 $vol > /app/work/$id/index_raw_${system}_${center}.log 2>&1
+  done
+ done
+ if [[ "$id" == X1db5091 || "$id" == Xedd9c7b || "$id" == X7e382cb || "$id" == Xb7088cf ]]; then
+  timeout 420 python /app/work/index_one.py $id TRICLINIC P 4 $vol > /app/work/$id/index_raw_TRICLINIC_P.log 2>&1
+ fi
+done
+import numpy as np,itertools,io,re
+from rdkit import Chem
+
+def add_antibump(c,models,full=False,scale=10.):
+ types=[];pt=Chem.GetPeriodicTable()
+ for ic,md in enumerate(models):
+  m=c.GetScatterer(ic);r=Chem.MolFromSmiles(md['smiles'])
+  if m.GetClassName()=='Atom':types.append((m.GetScatteringPower(),ic,0,None));continue
+  if m.GetNbAtoms()>r.GetNumAtoms():r=Chem.AddHs(r)
+  mat=Chem.GetDistanceMatrix(r)
+  for ia in range(m.GetNbAtoms()):
+   a=m.GetAtom(ia);sp=a.GetScatteringPower()
+   if sp.GetSymbol()!='H':types.append((sp,ic,ia,mat))
+ for i,(s,ic,ia,dm) in enumerate(types):
+  for t,jc,ja,dmat in types[i:]:
+   e1=s.GetSymbol();e2=t.GetSymbol()
+   if e1=='H' or e2=='H':continue
+   r0=pt.GetRvdw(e1)+pt.GetRvdw(e2)-.7
+   r0=max(2.35,r0)
+   if full and ic==jc and dm is not None and ia!=ja:
+    if dm[ia,ja]<=2:
+     xyz=np.array(models[ic]['rdkit_coords']);r0=min(r0,np.linalg.norm(xyz[ia]-xyz[ja])*.86)
+   elif not full:
+    if not (s.GetName().startswith('ion_') or t.GetName().startswith('ion_')):continue
+   c.SetBumpMergeDistance(s,t,float(r0),False)
+ # XMLInput on an existing Molecule invalidates its Python-owned internal pointers; keep the safe default scale here.
+ scale=1.0
+ print('ANTIBUMP',len(c.GetBumpMergeParList()),'Scale',scale,'Initial cost',c.GetBumpMergeCost(),flush=True)

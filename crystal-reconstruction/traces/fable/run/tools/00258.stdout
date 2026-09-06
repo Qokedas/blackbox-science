@@ -1,0 +1,3 @@
+  s = CifParser(cif).parse_structures(primitive=False)[0]
+Xe3a2935: 84 atoms in cell; fragments=4; matched counts=[4] (expected ratio [1]); unmatched=0; OK=True
+   min interatomic distance in cell: 1.14 A

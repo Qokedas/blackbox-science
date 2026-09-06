@@ -1,0 +1,44 @@
+111 unique extinction patterns
+P m m m        # 47 Rwp=0.0551 nrefl= 132 t=4s
+P 2 2 21       # 17 Rwp=0.0590 nrefl= 129 t=4s
+P 21 2 2       # 17 Rwp=0.0563 nrefl= 129 t=4s
+P 2 21 2       # 17 Rwp=0.0564 nrefl= 130 t=4s
+P 21 21 2      # 18 Rwp=0.0596 nrefl= 127 t=4s
+P 2 21 21      # 18 Rwp=0.0578 nrefl= 127 t=4s
+P 21 2 21      # 18 Rwp=0.0510 nrefl= 126 t=4s
+P 21 21 21     # 19 Rwp=0.0515 nrefl= 124 t=4s
+C 2 2 21       # 20 Rwp=0.7094 nrefl=  64 t=4s
+A 21 2 2       # 20 Rwp=0.4931 nrefl=  65 t=4s
+B 2 21 2       # 20 Rwp=0.7113 nrefl=  65 t=4s
+C m m m        # 65 Rwp=0.7406 nrefl=  67 t=4s
+A m m m        # 65 Rwp=0.4603 nrefl=  68 t=3s
+B m m m        # 65 Rwp=0.6738 nrefl=  67 t=2s
+F m m m        # 69 Rwp=0.7847 nrefl=  35 t=2s
+I m m m        # 71 Rwp=0.3909 nrefl=  65 t=2s
+P m c m        # 51 Rwp=0.0669 nrefl= 116 t=2s
+P c m m        # 51 Rwp=0.0600 nrefl= 121 t=2s
+P m m a        # 51 Rwp=0.1448 nrefl= 118 t=2s
+P m a m        # 51 Rwp=0.0604 nrefl= 117 t=2s
+P b m m        # 51 Rwp=0.2372 nrefl= 121 t=2s
+P m m b        # 51 Rwp=0.0853 nrefl= 119 t=2s
+P c c m        # 49 Rwp=0.0721 nrefl= 108 t=2s
+P m a a        # 49 Rwp=0.1444 nrefl= 106 t=2s
+P b m b        # 49 Rwp=0.2436 nrefl= 110 t=2s
+P c a m        # 57 Rwp=0.0604 nrefl= 106 t=2s
+P b c m        # 57 Rwp=0.2397 nrefl= 105 t=2s
+P m a b        # 57 Rwp=0.0758 nrefl= 104 t=2s
+P m c a        # 57 Rwp=0.1491 nrefl= 102 t=3s
+P c m b        # 57 Rwp=0.0865 nrefl= 108 t=4s
+P b m a        # 57 Rwp=0.2665 nrefl= 107 t=4s
+P n c m        # 53 Rwp=0.2417 nrefl= 107 t=4s
+P c n m        # 53 Rwp=0.0615 nrefl= 107 t=4s
+P m n a        # 53 Rwp=0.1511 nrefl= 104 t=4s
+P m a n        # 53 Rwp=0.1352 nrefl= 105 t=4s
+P b m n        # 53 Rwp=0.2624 nrefl= 108 t=4s
+P n m b        # 53 Rwp=0.2428 nrefl= 109 t=4s
+P m n m        # 59 Rwp=0.0564 nrefl= 115 t=4s
+P n m m        # 59 Rwp=0.2396 nrefl= 120 t=4s
+run 0: cost=1692737.6 Rwp=0.5063 chi2=1933020.4 t=157s
+ISO 0 P m n m Zp=1: 0.5063
+run 0: cost=1635021.3 Rwp=0.4934 chi2=1837819.8 t=113s
+ISO 1 P m n m Zp=1: 0.4934

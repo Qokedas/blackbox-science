@@ -1,0 +1,21 @@
+/opt/conda/lib/python3.11/site-packages/monty/design_patterns.py:76: UserWarning: Full symbol not available, falling back to short Hermann Mauguin symbol P12_1/a1 instead
+  orig_init(instance, *args, **kwargs)
+FAST_SYMMETRY P 1 21/a 1 mono14 max_relative_error 1.7524946542835096e-06
+ATTACHED_H_SCATTERING 38 heavy atoms 34 H atoms
+PACKING_ENABLED 38 atoms 4887 pair terms coefficient 60.0 active_only True
+HBOND_PRIOR 6 donors 6 acceptors coefficient 15.0
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1448.68it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 258 seconds 251.00764083862305 best 77.014915 q25 189.17148 median 243.7628 total 251.06556057929993
+GALLOP 1 Nref 258 seconds 242.595951795578 best 76.13098 q25 199.50287 median 244.3393 total 493.86426758766174
+GALLOP 2 Nref 258 seconds 234.52613592147827 best 76.100296 q25 196.18318 median 249.236 total 728.5892610549927
+GALLOP 3 Nref 258 seconds 224.08546495437622 best 76.1003 q25 182.12398 median 240.31937 total 952.8568501472473
+GALLOP 4 Nref 258 seconds 240.63830494880676 best 76.10083 q25 169.15366 median 241.07114 total 1193.5936093330383
+GALLOP 5 Nref 258 seconds 248.6805658340454 best 76.10034 q25 189.37234 median 245.35971 total 1442.3655953407288
+GALLOP 6 Nref 258 seconds 243.4605393409729 best 76.10046 q25 165.04082 median 234.01299 total 1685.8643629550934
+GALLOP 7 Nref 258 seconds 240.62964129447937 best 47.832165 q25 184.46582 median 238.51196 total 1926.5864746570587
+GALLOP 8 Nref 258 seconds 160.85005903244019 best 46.35399 q25 170.59601 median 221.85635 total 2087.6175253391266
+FINISHED Xedd9c7b 46.35398864746094

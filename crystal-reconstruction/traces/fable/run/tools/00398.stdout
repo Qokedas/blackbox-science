@@ -1,0 +1,42 @@
+  refpartype_scattdata_corr,
+    refpartype_scattdata_profile,
+    refpartype_scattdata_radiation,
+    refpartype_scattdata_scale,
+    refpartype_unitcell,
+)
+
+
+class MonteCarlo(MonteCarlo_orig):
+
+    def Optimize(self, nb_step: int, final_cost=0, max_time=-1):
+        self._fix_parameters_for_global_optim()
+        if type(self) is MonteCarlo_orig:
+            self._Optimize(int(nb_step), True, final_cost, max_time)
+        else:
+            super().Optimize(int(nb_step), True, final_cost, max_time)
+
+    def MultiRunOptimize(
+        self, nb_run: int, nb_step: int, final_cost=0, max_time=-1
+    ):
+        self._fix_parameters_for_global_optim()
+        if type(self) is MonteCarlo_orig:
+            self._MultiRunOptimize(
+                int(nb_run), int(nb_step), True, final_cost, max_time
+            )
+        else:
+            super().MultiRunOptimize(
+                int(nb_run), int(nb_step), True, final_cost, max_time
+            )
+
+    def RunSimulatedAnnealing(self, nb_step: int, final_cost=0, max_time=-1):
+        self._fix_parameters_for_global_optim()
+        if type(self) is MonteCarlo_orig:
+            self._RunSimulatedAnnealing(
+                int(nb_step), True, final_cost, max_time
+            )
+        else:
+            super().RunSimulatedAnnealing(
+                int(nb_step), True, final_cost, max_time
+            )
+
+    def RunParallelTempering(self, nb_

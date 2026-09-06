@@ -1,0 +1,130 @@
+"""Test whether a single March-Dollase texture term explains a residual.
+This is conditional on a candidate structure and is not evidence of solution.
+"""
+import sys,os,json,numpy as np,torch,itertools
+from scipy.optimize import minimize_scalar
+from gallop import tensor_prep,zm_to_cart,intensities
+from gallop_io import load_structure
+from hydrogen_prefix import enable_hydrogen_prefix
+from gallop_fast_symmetry import enable_fast_symmetry
+torch.set_num_threads(1);torch.set_num_interop_threads(1)
+sid=sys.argv[1];run=sys.argv[2];G='/app/work/'+sid+'/gallop_'+run;s=load_structure(G+'/structure.json');enable_fast_symmetry(s);enable_hydrogen_prefix(s,G+'/model.json');best=np.load(G+'/best.npz');ts=tensor_prep.get_all_required_tensors(s,external=best['external'],internal=best['internal'],requires_grad=False,device=torch.device('cpu'),verbose=False)
+with torch.no_grad():fr=zm_to_cart.get_asymmetric_coords(**ts['zm']);f=intensities.calculate_intensities(fr,**ts['int_tensors']).numpy()[0]
+obs=s.intensities;N=np.asarray(s.inverse_covariance_matrix)/(len(s.hkl)-2);no=N@obs;oo=obs@no;B=s.lattice.reciprocal_lattice_crystallographic.matrix;g=s.hkl@B;gn=np.linalg.norm(g,axis=1)
+def chi(f):return float(oo-max(f@no,0)**2/max(f@N@f,1e-30))
+base=chi(f);out=[]
+for ax in itertools.product(range(-1,2),repeat=3):
+ if not any(ax):continue
+ if next(x for x in ax if x)!=1:continue
+ u=np.array(ax)@B;c2=((g@u)/(gn*np.linalg.norm(u)))**2
+ def fun(lr):
+  r=np.exp(lr);md=(r*r*c2+(1-c2)/r)**(-1.5);return chi(f*md)
+ fit=minimize_scalar(fun,bounds=(np.log(.25),np.log(4)),method='bounded');out.append(dict(axis=ax,MD=float(np.exp(fit.x)),chi=float(fit.fun)))
+out.sort(key=lambda a:a['chi']);print('BASE',base,flush=True)
+for a in out[:8]:print(a,flush=True)
+json.dump({'untextured_chi':base,'scan':out},open(G+'/po_scan.json','w'),indent=1)
+import sys,os,json,itertools,numpy as np,torch
+from scipy.optimize import minimize_scalar
+from gallop_io import load_structure
+from gallop import tensor_prep,zm_to_cart,intensities
+from hydrogen_prefix import enable_hydrogen_prefix
+sid=sys.argv[1];run=sys.argv[2];G='/app/work/'+sid+'/gallop_'+run;torch.set_num_threads(1);torch.set_num_interop_threads(1)
+s=load_structure(G+'/structure.json');enable_hydrogen_prefix(s,G+'/model.json');v=np.load(G+'/best.npz');ts=tensor_prep.get_all_required_tensors(s,external=v['external'],internal=v['internal'],requires_grad=False,device=torch.device('cpu'),verbose=False)
+with torch.no_grad():
+ fr=zm_to_cart.get_asymmetric_coords(**ts['zm']);f=intensities.calculate_intensities(fr,**ts['int_tensors']).numpy()[0]
+hkl=s.hkl;rec=s.lattice.reciprocal_lattice_crystallographic.matrix;nm=s.inverse_covariance_matrix/(len(hkl)-2);obs=s.intensities;no=nm@obs;oo=obs@no
+rv=hkl@rec;norm=np.linalg.norm(rv,axis=-1)
+def score(fc):
+ nf=nm@fc;dot=fc@no;return oo-max(0,dot)**2/(fc@nf)
+rows=[]
+for ax in itertools.product(range(-2,3),repeat=3):
+ if max(abs(x) for x in ax)==0:continue
+ if np.gcd.reduce(np.abs(ax))>1:continue
+ u=np.array(ax)@rec;co=(rv@u/(norm*np.linalg.norm(u)))**2
+ def ev(lr):
+  r=np.exp(lr);md=(r*r*co+(1-co)/r)**(-1.5);return score(f*md)
+ z=minimize_scalar(ev,bounds=(np.log(.4),np.log(2.5)),method='bounded');rows.append((z.fun,ax,float(np.exp(z.x))))
+rows.sort();print('PO_SCAN',sid,run,'original',score(f),'best',rows[:12],flush=True)
+json.dump({'baseline':float(score(f)),'candidates':rows},open(G+'/po_scan.json','w'),indent=1)
+ATTACHED_H_SCATTERING 20 heavy atoms 16 H atoms
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+PO_SCAN X7e382cb 32 original 136.6937654896833 best [(np.float64(116.76232805031111), (-1, 0, -2), 0.8757982340777606), (np.float64(116.76232805031111), (1, 0, 2), 0.8757982340777606), (np.float64(118.85392412671183), (0, -1, -1), 1.2888969529585865), (np.float64(118.85392412671183), (0, 1, 1), 1.2888969529585865), (np.float64(119.24159285919768), (-1, 0, 2), 1.2375612487243122), (np.float64(119.24159285919768), (1, 0, -2), 1.2375612487243122), (np.float64(119.69058973324502), (-1, 0, -1), 0.859881203166687), (np.float64(119.69058973324502), (1, 0, 1), 0.859881203166687), (np.float64(123.0701286879846), (0, -1, -2), 1.2262442531138376), (np.float64(123.0701286879846), (0, 1, 2), 1.2262442531138376), (np.float64(123.7883591050603), (-1, -2, -1), 1.182143532798129), (np.float64(123.7883591050603), (1, 2, 1), 1.182143532798129)]
+ATTACHED_H_SCATTERING 40 heavy atoms 20 H atoms
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+PO_SCAN X4f6fe58 11 original 339.36054130648404 best [(np.float64(284.8287990645508), (-1, 0, -2), 1.4950905505917729), (np.float64(284.8287990645508), (1, 0, 2), 1.4950905505917729), (np.float64(306.52672585476023), (-1, 0, -1), 1.2984921191529002), (np.float64(306.52672585476023), (1, 0, 1), 1.2984921191529002), (np.float64(307.83249334898494), (-1, -1, -2), 1.280706951786674), (np.float64(307.83249334898494), (1, 1, 2), 1.280706951786674), (np.float64(309.3406165024089), (-2, -1, -2), 1.2778571029961934), (np.float64(309.3406165024089), (2, 1, 2), 1.2778571029961934), (np.float64(313.85670653867885), (0, -2, -1), 0.855723567435479), (np.float64(313.85670653867885), (0, 2, 1), 0.855723567435479), (np.float64(315.011801342073), (-1, 1, -2), 1.2423737886208748), (np.float64(315.011801342073), (1, -1, 2), 1.2423737886208748)]
+ATTACHED_H_SCATTERING 33 heavy atoms 18 H atoms
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+PO_SCAN Xd8634a2 11 original 162.34211209879015 best [(np.float64(151.67872599254463), (0, -1, -2), 1.083871684827479), (np.float64(151.67872599254463), (0, 1, 2), 1.083871684827479), (np.float64(151.95808923802292), (-1, 2, -2), 0.9094308538392362), (np.float64(151.95808923802292), (1, -2, 2), 0.9094308538392362), (np.float64(152.62441629133411), (-1, 1, -1), 0.8973256277581935), (np.float64(152.62441629133411), (1, -1, 1), 0.8973256277581935), (np.float64(153.54536445821714), (-1, 1, -2), 0.9181511261066576), (np.float64(153.54536445821714), (1, -1, 2), 0.9181511261066576), (np.float64(154.1942447767184), (-2, 1, -2), 0.9096779124668253), (np.float64(154.1942447767184), (2, -1, 2), 0.9096779124668253), (np.float64(154.281921921121), (-1, 0, 2), 1.1016013622638807), (np.float64(154.281921921121), (1, 0, -2), 1.1016013622638807)]
+ATTACHED_H_SCATTERING 28 heavy atoms 20 H atoms
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+PO_SCAN Xb7088cf 11 original 115.6384912427203 best [(np.float64(112.6483840465877), (-1, 2, 2), 1.1000497127431244), (np.float64(112.6483840465877), (1, -2, -2), 1.1000497127431244), (np.float64(113.59051316610191), (-1, -1, -2), 0.9611525220210064), (np.float64(113.59051316610191), (1, 1, 2), 0.9611525220210064), (np.float64(113.72479966333321), (-1, -1, -1), 0.9618324867141239), (np.float64(113.72479966333321), (1, 1, 1), 0.9618324867141239), (np.float64(113.7924776517757), (-2, -2, -1), 0.9615748615383716), (np.float64(113.7924776517757), (2, 2, 1), 0.9615748615383716), (np.float64(113.85778238390287), (-1, 0, -2), 0.9672451200489552), (np.float64(113.85778238390287), (1, 0, 2), 0.9672451200489552), (np.float64(113.86207263958227), (-1, -1, 0), 0.9608989600250046), (np.float64(113.86207263958227), (1, 1, 0), 0.9608989600250046)]
+ATTACHED_H_SCATTERING 52 heavy atoms 36 H atoms
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+PO_SCAN X3f4781b 11 original 142.2914425343032 best [(np.float64(137.13980135167196), (0, -1, 1), 0.8460317461094169), (np.float64(137.13980135167196), (0, 1, -1), 0.8460317461094169), (np.float64(137.72183829355242), (-1, -2, 2), 0.864197298260815), (np.float64(137.72183829355242), (1, 2, -2), 0.864197298260815), (np.float64(139.25527005743663), (0, -2, 1), 0.9180618673732643), (np.float64(139.25527005743663), (0, 2, -1), 0.9180618673732643), (np.float64(140.33284203130245), (-1, -1, 2), 0.9317160371911806), (np.float64(140.33284203130245), (1, 1, -2), 0.9317160371911806), (np.float64(140.75215751855512), (0, -1, 2), 0.9386892479615644), (np.float64(140.75215751855512), (0, 1, -2), 0.9386892479615644), (np.float64(141.07979587755915), (-1, 2, -2), 0.9246126137306062), (np.float64(141.07979587755915), (1, -2, 2), 0.9246126137306062)]
+"""Make a chemically restrained GALLOP restart from a Rietveld XML snapshot.
+Existing Cartesian molecular geometry is maintained exactly.  The molecular
+coordinate and quaternion gauge is solved and checked by proper Procrustes.
+"""
+import os,sys,json,numpy as np,torch,xml.etree.ElementTree as ET
+from scipy.spatial.transform import Rotation
+from pyobjcryst.io import xml_cryst_file_load_all_object
+from gallop_prepare import prepare
+from gallop import tensor_prep,zm_to_cart
+from pymatgen.core import Lattice
+from rdkit import Chem
+sid=sys.argv[1];run=int(sys.argv[2]);src=sys.argv[3];model_path=sys.argv[4];W='/app/work/'+sid;G=W+'/gallop_'+str(run);os.makedirs(G,exist_ok=True)
+objs=xml_cryst_file_load_all_object(src);c=next(o for o in objs if o.GetClassName()=='Crystal');mods=json.load(open(model_path));cp=[c.GetPar(n).GetHumanValue() for n in ['a','b','c','alpha','beta','gamma']];lat=Lattice.from_parameters(*cp);newmods=[];target=[]
+for i,md in enumerate(mods):
+ m=c.GetScatterer(i);N=Chem.MolFromSmiles(md['smiles']).GetNumAtoms();sc=list(m.GetScatteringComponentList());f=np.array([[a.X,a.Y,a.Z] for a in sc[:N]]);xyz=f@lat.matrix;target.append(xyz);newmods.append(dict(smiles=md['smiles'],count=1,charge=0,coords=xyz.tolist(),virtual_bonds=md.get('virtual_bonds'),biso_by_atom=[float(m.GetAtom(ii).GetScatteringPower().GetBiso()) for ii in range(N)] if m.GetClassName()=='Molecule' else [float(m.GetScatteringPower().GetBiso())]))
+biso={}
+for i in range(c.GetNbScatteringPower() if hasattr(c,'GetNbScatteringPower') else len(c.GetScatteringPowerRegistry())):
+ sp=c.GetScatteringPowerRegistry().GetObj(i);biso[sp.GetSymbol()]=float(sp.GetBiso())
+# An independent atomless Le Bail base, retaining the refined lattice/profile.
+tree=ET.parse(src);root=tree.getroot()
+for cr in root.findall('Crystal'):
+ for el in list(cr):
+  if el.tag in ['Molecule','Atom','ZScatterer']:cr.remove(el)
+tree.write(G+'/base.xml',encoding='utf-8')
+json.dump({'components':newmods},open(G+'/restart_model.json','w'),indent=1)
+os.environ['BASE_XML']=G+'/base.xml'
+s,_=prepare(sid,run,1,model_path=G+'/restart_model.json',stolmax=float(os.environ.get('GALLOP_STOL','.30')))
+meta0=json.load(open(G+'/model.json'))
+for mi,mo in zip(meta0,mods):mi['restraint_coords']=mo.get('restraint_coords',mo.get('rdkit_coords',mi['rdkit_coords']))
+json.dump(meta0,open(G+'/model.json','w'),indent=1)
+for zm in s.zmatrices:zm.dw_factors.update({k:v for k,v in biso.items() if k in zm.dw_factors})
+open(G+'/structure.json','w').write(s.to_json())
+s.get_total_degrees_of_freedom(verbose=False);zmt=tensor_prep.get_zm_related_tensors(s,1,torch.float32,torch.device('cpu'))
+e=np.zeros((1,s.total_external_degrees_of_freedom));t=np.zeros((1,s.total_internal_degrees_of_freedom))
+for j,z in enumerate(s.zmatrices):
+ if len(s.rotation_indices[j]):e[0,s.rotation_indices[j]]=[1,0,0,0]
+ if len(s.torsion_indices[j]):t[0,s.torsion_indices[j]]=z.coords_radians_no_H[z.torsion_refinable_indices_no_H,2]
+def frac(e,t):
+ ts=tensor_prep.get_all_required_tensors(s,external=e,internal=t,requires_grad=False,device=torch.device('cpu'),verbose=False)
+ with torch.no_grad():return zm_to_cart.get_asymmetric_coords(**ts['zm']).numpy()[0]
+f=frac(e,t);offset=0;meta=json.load(open(G+'/model.json'));dest=[]
+for j,md in enumerate(meta):
+ N=len(md['order']);X=f[offset:offset+N]@s.lattice.matrix;Y=target[j][md['order']];dest.extend(Y);offset+=N
+ if len(s.rotation_indices[j]):
+  U,sv,Vt=np.linalg.svd((X-X.mean(0)).T@(Y-Y.mean(0)));D=np.eye(3);D[-1,-1]=np.linalg.det(U@Vt);R=U@D@Vt;q=Rotation.from_matrix(R.T).as_quat();e[0,s.rotation_indices[j]]=q[[3,0,1,2]]
+ else:R=np.eye(3)
+ e[0,s.position_indices[j]]=(Y.mean(0)-X.mean(0)@R)@np.linalg.inv(s.lattice.matrix)
+out=frac(e,t)@s.lattice.matrix;err=np.linalg.norm(out-np.array(dest),axis=1);print('RESTART_ERROR max/rms',err.max(),np.sqrt(np.mean(err**2)),flush=True)
+if err.max()>.005:raise Exception('Restart alignment failed')
+np.savez_compressed(G+'/warm.npz',external=e,internal=t,chi2=0.)
+np.save(G+'/warm_frac.npy',frac(e,t))
+print('WARM_READY',G,flush=True)

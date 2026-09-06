@@ -1,0 +1,38 @@
+== X3f4781b
+[('COC(=O)[C@H](c1ccccc1Cl)[NH+]1CCc2sccc2C1', 1), ('O=S(=O)([O-])O', 1)] SMILES carry the stereochemistry of the 
+[1.54059] [4.0, 90.0] 295.0
+g2_monoC.log
+g2_monoP.log
+g2index_monoC_20.txt
+g2index_monoP_20.txt
+peaks.png
+peaks.txt
+== X238783d
+[('CC[C@H]1OC(=O)[C@H](C)[C@@H](O[C@H]2C[C@@](C)(OC)[C@@H](O)[C@H](C)O2)[C@H](C)[C@@H](O[C@@H]2O[C@H](C)C[C@H](N(C)C)[C@H]2O)[C@](C)(OC)C[C@@H](C)C(=O)[C@H](C)[C@@H](O)[C@]1(C)O', 1)] SMILES carry the stereochemistry of the 
+[1.54056] [2.0, 69.0] 298.0
+g2_monoC.log
+g2_monoP.log
+g2_ortho.log
+g2index_monoC_20.txt
+g2index_monoP_20.txt
+peaks.png
+peaks.txt
+== X2327841
+[('CCCCCCCCCCCCCCCCCCCCCC[C@@H](C)CCCCCCCC', 1)] SMILES carry the stereochemistry of the 
+[0.80105] [1.5, 39.999] 100.0
+g2_monoC.log
+g2_monoP.log
+g2_ortho.log
+g2index_monoC_20.txt
+g2index_monoP_20.txt
+peaks.png
+peaks.txt
+== Xdcc971e
+[('CCCCCCCCCCCCCCCC[C@@H](C)CCCCCCCCCCCC', 1)] SMILES carry the stereochemistry of the 
+[0.80105] [2.001, 39.999] 100.0
+g2_monoC.log
+g2_monoP.log
+g2index_monoC_20.txt
+g2index_monoP_20.txt
+peaks.png
+peaks.txt

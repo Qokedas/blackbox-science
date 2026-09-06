@@ -1,0 +1,10 @@
+-rw-r--r-- 1 root root 0 Sep  6 03:55 /app/work/X3f4781b/search_1/STOP
+-rw-r--r-- 1 root root 0 Sep  6 03:55 /app/work/Xd8634a2/search_1/STOP
+RUN 6 steps 1000000 time 123.92111659049988 total 713.7172093391418 LLK 179182878.67872193 Rw 0.2949502168692761 Integrated 179182049.57914162
+RUN 7 steps 1000000 time 133.23965001106262 total 846.9571847915649 LLK 175767956.34232304 Rw 0.29900967285331037 Integrated 175767012.5627638
+FINISHED 173170596.69393972
+-rw-r--r-- 1 root root 146K Sep  6 03:52 /app/work/X3f4781b/search_1/best.xml
+while time.time()-t0<float(os.environ.get("SEARCH_TIME",3600)) and not os.path.exists(R+'/STOP'):
+-> 47 remaining
+1503 solutions ! Redparing...
+-> 49 remaining

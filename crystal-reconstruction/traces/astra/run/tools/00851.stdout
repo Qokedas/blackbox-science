@@ -1,0 +1,69 @@
+"""An isostructural starting hypothesis for the two acemetacin/lactam cells.
+No solution claim: preserve the acid pose and align only the lactam O=C-N group.
+"""
+import sys,os,json,subprocess,numpy as np,xml.etree.ElementTree as ET
+from pyobjcryst.io import xml_cryst_file_load_all_object,xml_cryst_file_save_global
+from obj_model import add_component,make_rdkit,export_cif
+from rdkit import Chem
+source,target,run,tag=sys.argv[1:5];S='/app/work/'+source;W='/app/work/'+target;R=W+'/search_'+tag;os.makedirs(R,exist_ok=True)
+src=S+'/refined_'+run+'.xml';mods=json.load(open(S+'/search_'+run+'/model.json'))
+subprocess.run([sys.executable,'/app/work/extract_molecule_coords.py',src,R+'/source_coords.json'],check=True);sc=json.load(open(R+'/source_coords.json'))
+# The source may have a joined acid-lactam synthon. Split by supplied atom counts.
+comp0=json.load(open('/app/data/instances/'+source+'/composition.json'))['components'];counts=[Chem.MolFromSmiles(x['smiles']).GetNumAtoms() for x in comp0]
+if len(sc)==1:
+ a=sc[0];sc=[];off=0
+ for n in counts:
+  sc.append({k:v[off:off+n] for k,v in a.items() if k in ['cartesian','fractional','elements']});off+=n
+objs=xml_cryst_file_load_all_object(W+'/base.xml');c=next(o for o in objs if o.GetClassName()=='Crystal');p=next(o for o in objs if o.GetClassName()=='PowderPattern');d=p.GetPowderPatternComponent(0)
+comp=json.load(open('/app/data/instances/'+target+'/composition.json'))['components'];newmods=[]
+for i,cm in enumerate(comp):
+ oldN=counts[i];oldxyz=np.asarray(sc[i]['cartesian'])[:oldN];oldfrac=np.asarray(sc[i]['fractional'])[:oldN];ct=oldxyz.mean(0);dest=np.asarray(c.FractionalToOrthonormalCoords(*oldfrac.mean(0)))
+ if i==0:
+  assert cm['smiles']==comp0[0]['smiles'];ideal=np.asarray(mods[0].get('restraint_coords',mods[0]['rdkit_coords']))[:oldN];xyz=oldxyz-ct+dest
+ else:
+  q,ideal,_=make_rdkit(cm['smiles'],seed=233,nconf=40,conf_rank=int(os.getenv('CONF_RANK','0')));r=Chem.MolFromSmiles(comp0[i]['smiles']);pat=Chem.MolFromSmarts('[OX1]=[CX3][NX3]');i0=r.GetSubstructMatch(pat);i1=q.GetSubstructMatch(pat)
+  X=ideal[list(i1)];Y=oldxyz[list(i0)];U,sv,Vt=np.linalg.svd((X-X.mean(0)).T@(Y-Y.mean(0)));D=np.eye(3);D[-1,-1]=np.linalg.det(U@Vt);rot=U@D@Vt;xyz=(ideal-X.mean(0))@rot+Y.mean(0)-ct+dest
+ m,md=add_component(c,cm['smiles'],'m'+str(i),coords_override=ideal.copy());ctr=xyz.mean(0)
+ for j,v in enumerate(xyz-ctr):a=m.GetAtom(j);a.X,a.Y,a.Z=v
+ m.Q0,m.Q1,m.Q2,m.Q3=1.,0.,0.,0.;m.X,m.Y,m.Z=c.OrthonormalToFractionalCoords(*ctr);newmods.append(md)
+d.SetExtractionMode(False);p.Prepare();p.FitScaleFactorForRw();print('TRANSFER',source,target,'Rw',p.GetRw(),flush=True)
+json.dump(newmods,open(R+'/model.json','w'),indent=1);export_cif(c,R+'/best.cif');xml_cryst_file_save_global(R+'/best.xml')
+"""Release an artificial disconnected synthon into independent native fragments.
+Preserves exact unwrapped heavy coordinates and the original geometric targets.
+"""
+import os,sys,json,subprocess,xml.etree.ElementTree as ET,numpy as np
+from rdkit import Chem
+from pyobjcryst.io import xml_cryst_file_load_all_object,xml_cryst_file_save_global
+from obj_model import add_component,export_cif
+sid,run,tag=sys.argv[1:4];W='/app/work/'+sid;R=W+'/search_'+tag;os.makedirs(R,exist_ok=True);src=W+'/refined_'+run+'.xml';mods=json.load(open(W+'/search_'+run+'/model.json'))
+subprocess.run([sys.executable,'/app/work/extract_molecule_coords.py',src,R+'/source_coords.json'],check=True);sc=json.load(open(R+'/source_coords.json'))
+tree=ET.parse(src)
+for cr in tree.getroot().findall('Crystal'):
+ for el in list(cr):
+  if el.tag in ['Molecule','Atom','ZScatterer']:cr.remove(el)
+tree.write(R+'/empty.xml');objs=xml_cryst_file_load_all_object(R+'/empty.xml');c=next(o for o in objs if o.GetClassName()=='Crystal');p=next(o for o in objs if o.GetClassName()=='PowderPattern');d=p.GetPowderPatternComponent(0);newmods=[]
+for mi,md in enumerate(mods):
+ xyz=np.asarray(sc[mi]['cartesian']);ideal=np.asarray(md.get('restraint_coords',md['rdkit_coords']));off=0
+ for sm in md['smiles'].split('.'):
+  n=Chem.MolFromSmiles(sm).GetNumAtoms();x=xyz[off:off+n].copy();y=ideal[off:off+n].copy();off+=n;m,nmd=add_component(c,sm,'m'+str(len(newmods)),coords_override=y);ct=x.mean(0)
+  for i,v in enumerate(x-ct):a=m.GetAtom(i);a.X,a.Y,a.Z=v
+  m.Q0,m.Q1,m.Q2,m.Q3=1.,0.,0.,0.;m.X,m.Y,m.Z=c.OrthonormalToFractionalCoords(*ct);newmods.append(nmd)
+d.SetExtractionMode(False);p.Prepare();p.FitScaleFactorForRw();print('SPLIT_SYNTHON',sid,run,'Rw',p.GetRw(),flush=True)
+json.dump(newmods,open(R+'/model.json','w'),indent=1);export_cif(c,R+'/best.cif');xml_cryst_file_save_global(R+'/best.xml')
+CYCLE 0 2 Rw 0.09455182641051063 chi2 4325.903668522255 geom 13.913511489647885 LSQ 5156.409948162068
+PACKING_STAGE 0 712.2801072657264
+CYCLE 1 0 Rw 0.07582145967229552 chi2 2781.770398769663 geom 213.86263152774114 LSQ 3375.490946544219
+CYCLE 1 1 Rw 0.0680186546558725 chi2 2238.685441505841 geom 56.60747724329289 LSQ 2538.653638843257
+CYCLE 1 2 Rw 0.06264998578857299 chi2 1899.236084774744 geom 50.647943622522845 LSQ 2153.8918707003418
+PACKING_STAGE 1 11.377441610746251
+CYCLE 2 0 Rw 0.05955088373862511 chi2 1715.9847389028187 geom 128.42625407655768 LSQ 2025.134499913393
+CYCLE 2 1 Rw 0.057666710634542796 chi2 1609.1160198697266 geom 35.01883970516661 LSQ 1812.9257860463633
+CYCLE 2 2 Rw 0.05721839813098305 chi2 1584.1940945174413 geom 51.616285526353956 LSQ 1790.1763062082714
+PACKING_STAGE 2 1.3504106673557403
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+COFORMER 0 best 69.80543518066406 q25 83.04179 sec 163.12879824638367
+COFORMER 1 best 69.80525207519531 q25 70.81578 sec 318.9429008960724
+COFORMER 2 best 69.80526733398438 q25 69.805504 sec 474.83992099761963
+FINISHED X263b09a 69.80525207519531
+50395 python /app/work/refine_obj.py X263b09a g72 /app/work/X263b09a/search_g72/best.xml --scale --tight --stol=.38 
+50521 python /app/work/refine_obj.py X263b09a g91 /app/work/X263b09a/search_g91/best.xml --scale --tight --stol=.4 

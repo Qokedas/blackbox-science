@@ -1,0 +1,34 @@
+Imported powder pattern: 2717 points, 2theta=  1.876 ->  24.570, step= 0.008
+STARTFIT Xb7088cf 0 Rw 0.051460886316635174
+Lookup of '' symbol failed, trying as Hall symbol.
+Could not interpret Spacegroup Symbol:
+ERRORSG A 1 Space group symbol '' not recognized
+Lookup of '' symbol failed, trying as Hall symbol.
+Could not interpret Spacegroup Symbol:
+ERRORSG B 1 Space group symbol '' not recognized
+Lookup of '' symbol failed, trying as Hall symbol.
+Could not interpret Spacegroup Symbol:
+ERRORSG C 1 Space group symbol '' not recognized
+Lookup of '' symbol failed, trying as Hall symbol.
+Could not interpret Spacegroup Symbol:
+ERRORSG F 1 Space group symbol '' not recognized
+Lookup of '' symbol failed, trying as Hall symbol.
+Could not interpret Spacegroup Symbol:
+ERRORSG I 1 Space group symbol '' not recognized
+Lookup of '' symbol failed, trying as Hall symbol.
+Could not interpret Spacegroup Symbol:
+ERRORSG A -1 Space group symbol '' not recognized
+Lookup of '' symbol failed, trying as Hall symbol.
+Could not interpret Spacegroup Symbol:
+ERRORSG B -1 Space group symbol '' not recognized
+Lookup of '' symbol failed, trying as Hall symbol.
+Could not interpret Spacegroup Symbol:
+ERRORSG C -1 Space group symbol '' not recognized
+Lookup of '' symbol failed, trying as Hall symbol.
+Could not interpret Spacegroup Symbol:
+ERRORSG F -1 Space group symbol '' not recognized
+Lookup of '' symbol failed, trying as Hall symbol.
+Could not interpret Spacegroup Symbol:
+ERRORSG I -1 Space group symbol '' not recognized
+GROUPS [{"sg": "P 1", "number": 1, "Rw": 5.650915998587176, "GoF": 5.583699619963545, "nGoF": 1.693680880176796, "mult": 1}, {"sg": "P -1", "number": 2, "Rw": 5.650915998587176, "GoF": 5.583699619963545, "nGoF": 1.6936808801767955, "mult": 2}]
+DONE Xb7088cf 0 0.049858263366713784 [9.691904663198521, 10.08390919395141, 10.227997488571564, 66.8219216186884, 88.92709026852326, 82.40355503372527]

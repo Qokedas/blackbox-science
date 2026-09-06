@@ -1,0 +1,192 @@
+      a=0.00406-0.00404 b=0.00838-0.00834 c=0.01640-0.01631 alpha=0.00361-0.00363 beta=0.00121-0.00127 gamma=-0.00126--0.00124level=6, indexed=1(363 sol.)
+ Solution ? a= 16.661 b= 11.542 c=  7.872 alpha= 94.658 beta= 84.506 gamma=108.699 V= 1425.29 score= 27.03 # 363
+      a=16.59-16.63 b=11.51-11.55 c= 7.85- 7.88 alpha= 94.51- 94.66 beta= 84.53- 84.53 gamma=108.15-108.34 V=1417.21-1427.94level=6, indexed=1(641 sol.)
+      a=0.00404-0.00403 b=0.00838-0.00834 c=0.01640-0.01631 alpha=0.00357-0.00359 beta=0.00121-0.00127 gamma=-0.00122--0.00120level=6, indexed=1(641 sol.)
+ Solution ? a= 16.661 b= 11.542 c=  7.872 alpha= 94.658 beta= 84.506 gamma=108.699 V= 1425.29 score= 27.03 # 641
+      a=16.63-16.67 b=11.53-11.57 c= 7.85- 7.88 alpha= 94.54- 94.70 beta= 84.50- 84.50 gamma=108.49-108.69 V=1420.05-1430.85level=6, indexed=1(766 sol.)
+      a=0.00404-0.00403 b=0.00838-0.00834 c=0.01640-0.01631 alpha=0.00363-0.00366 beta=0.00121-0.00127 gamma=-0.00122--0.00120level=6, indexed=1(766 sol.)
+ Solution ? a= 16.661 b= 11.542 c=  7.872 alpha= 94.658 beta= 84.506 gamma=108.699 V= 1425.29 score= 27.03 # 766
+      a=16.62-16.67 b=11.53-11.57 c= 7.88- 7.90 alpha= 94.53- 94.68 beta= 84.57- 84.57 gamma=108.49-108.68 V=1423.84-1434.70level=6, indexed=1(781 sol.)
+      a=0.00404-0.00403 b=0.00838-0.00834 c=0.01631-0.01622 alpha=0.00363-0.00366 beta=0.00121-0.00127 gamma=-0.00120--0.00117level=6, indexed=1(781 sol.)
+ Solution ? a= 16.661 b= 11.542 c=  7.872 alpha= 94.658 beta= 84.506 gamma=108.699 V= 1425.29 score= 27.03 # 781
+      a=16.66-16.70 b=11.56-11.60 c= 7.85- 7.88 alpha= 94.55- 94.70 beta= 84.55- 84.55 gamma=108.83-109.03 V=1422.75-1433.62level=6, indexed=1(824 sol.)
+      a=0.00404-0.00403 b=0.00838-0.00834 c=0.01640-0.01631 alpha=0.00370-0.00372 beta=0.00121-0.00127 gamma=-0.00120--0.00117level=6, indexed=1(824 sol.)
+ Solution ? a= 16.661 b= 11.542 c=  7.872 alpha= 94.658 beta= 84.506 gamma=108.699 V= 1425.29 score= 27.03 # 824
+      a=16.60-16.64 b=11.53-11.57 c= 7.86- 7.88 alpha= 94.57- 94.72 beta= 84.43- 84.43 gamma=108.47-108.67 V=1417.97-1428.75level=6, indexed=1(950 sol.)
+      a=0.00406-0.00404 b=0.00838-0.00834 c=0.01640-0.01631 alpha=0.00363-0.00366 beta=0.00121-0.00127 gamma=-0.00124--0.00122level=6, indexed=1(950 sol.)
+ Solution ? a= 16.661 b= 11.542 c=  7.872 alpha= 94.658 beta= 84.506 gamma=108.699 V= 1425.29 score= 27.03 # 950
+1409 solutions ! Redparing...
+-> 73 remaining
+      a=16.58-16.62 b=11.53-11.57 c= 7.88- 7.90 alpha= 94.68- 94.84 beta= 84.46- 84.46 gamma=108.45-108.65 V=1419.77-1430.59level=6, indexed=1(655 sol.)
+      a=0.00407-0.00406 b=0.00838-0.00834 c=0.01631-0.01622 alpha=0.00363-0.00366 beta=0.00127-0.00132 gamma=-0.00122--0.00120level=6, indexed=1(655 sol.)
+ Solution ? a= 16.661 b= 11.542 c=  7.872 alpha= 94.658 beta= 84.506 gamma=108.699 V= 1425.29 score= 27.03 # 655
+1103 solutions ! Redparing...
+-> 73 remaining
+1390 solutions ! Redparing...
+-> 73 remaining
+1156 solutions ! Redparing...
+-> 76 remaining
+1107 solutions ! Redparing...
+-> 76 remaining
+"""Enumerate 2-D reciprocal nets from early lines, then complete monoclinic b*.
+Uses the common-FCJ peak centres, independent of prior candidate metrics.
+"""
+import os,sys,time,itertools,json,numpy as np,gemmi
+from numba import njit
+from scipy.optimize import least_squares
+from pymatgen.core import Lattice
+sid='X8a6f5a8';W='/app/work/'+sid;ps=json.load(open(W+'/peaks_fcj.json'));sel=json.load(open(W+'/peak_select_fcj.json'))['indices'];tt=np.array([ps[i-1]['two_theta'] for i in sel]);wl=1.54059;q=(2*np.sin(np.deg2rad(tt/2))/wl)**2;fac=wl**2/(2*np.sin(np.deg2rad(tt)))*180/np.pi;zero=.009;qq=q-zero/fac;n=len(q);tol=float(os.getenv('TTHERR','.03'))
+hl=np.array([[h,l] for h in range(0,9) for l in range(-8,9) if h or l>0],float);T2=np.array([hl[:,0]**2,hl[:,1]**2,2*hl[:,0]*hl[:,1]]).T
+@njit
+def plane_score(g,z):
+ qc=T2@g;di=np.empty(n);ix=np.empty(n,np.int64)
+ for i in range(n):
+  ds=np.abs((qc-q[i])*fac[i]+z);j=np.argmin(ds);di[i]=(qc[j]-q[i])*fac[i]+z;ix[i]=j
+ return di,ix
+planes=[];t0=time.time()
+# Axial basis vectors may be twice or three times a primitive reciprocal vector.
+for i,j in [(0,1),(0,3),(1,3),(0,4),(1,4)]:
+ for a,c in itertools.product([1,2],repeat=2):
+  A=qq[i]/a**2;C=qq[j]/c**2
+  for k in range(2,12):
+   if k in [i,j]:continue
+   for h,l in itertools.product(range(1,4),range(1,4)):
+    D=(qq[k]-A*h*h-C*l*l)/(2*h*l)
+    if A*C-D*D<=0 or abs(D)/np.sqrt(A*C)>.87:continue
+    g=np.array([A,C,D]);di,ix=plane_score(g,zero);use=np.abs(di)<.045
+    if use[:12].sum()<5:continue
+    v=np.r_[g,zero]
+    for it in range(3):
+     use=np.abs(di)<.045
+     if sum(use)<6:break
+     fit=least_squares(lambda x:(T2[ix[use]]@x[:3]-q[use])*fac[use]+x[3],v,loss='soft_l1',f_scale=.015,max_nfev=60);v=fit.x;di,ix=plane_score(v[:3],v[3])
+    if sum(np.abs(di)<.035)<8 or abs(v[3])>.06 or v[0]*v[1]<=v[2]**2:continue
+    if any(np.allclose(v[:3],p[:3],rtol=.001,atol=1e-6) for p in planes):continue
+    planes.append(v)
+print('PLANES',len(planes),'seconds',time.time()-t0,flush=True)
+np.save(W+'/fcj_planes.npy',planes)
+lo=float(os.getenv('VMIN','1000'));hi=float(os.getenv('VMAX','4100'));outs=[]
+for sgname in ['P 1 21 1','C 1 2 1']:
+ sg=gemmi.find_spacegroup_by_name(sgname);ops=sg.operations();hk=np.array([[h,k,l] for h in range(0,9) for k in range(0,11) for l in range(-8,9) if (h or k or l>0) and not ops.is_systematically_absent([h,k,l])],float);T=np.array([hk[:,0]**2,hk[:,1]**2,hk[:,2]**2,2*hk[:,0]*hk[:,2]]).T;vf=.5 if sg.centring_type()=='C' else 1
+ @njit
+ def score(v,screen=False):
+  det=v[1]*(v[0]*v[2]-v[3]*v[3])
+  if det<=0:return 1e5,np.zeros(n,np.int64),np.zeros(n)
+  vol=1/np.sqrt(det);qc=T@v[:4];di=np.empty(n);ix=np.empty(n,np.int64);bad=0
+  for i in range(n):
+   best=1e5
+   for j in range(len(qc)):
+    e=(qc[j]-q[i])*fac[i]+v[4]
+    if abs(e)<best:best=abs(e);ix[i]=j;di[i]=e
+   if i<12 and abs(di[i])>.09:
+    bad+=1
+    if screen and bad>2:return 1e5,ix,di
+  ss=np.log1p((di/tol)**2);ss.sort();val=np.mean(ss[:-1])*vol*vf/1800
+  if vol<lo/vf or vol>hi/vf:val+=10
+  return val,ix,di
+ @njit
+ def complete(v):
+  rows=np.zeros((40000,6));nc=0;area=v[0]*v[1]-v[2]**2
+  if area<=0:return rows[:0]
+  qc0=T[:,0]*v[0]+T[:,2]*v[1]+T[:,3]*v[2]
+  for i in range(n):
+   for j in range(len(qc0)):
+    if T[j,1]==0:continue
+    B=(q[i]-v[3]/fac[i]-qc0[j])/T[j,1]
+    if B<1/40**2 or B>1/3**2:continue
+    vol=1/np.sqrt(B*area)
+    if vol<lo/vf or vol>hi/vf:continue
+    vv=np.array([v[0],B,v[1],v[2],v[3]]);cc,ix,di=score(vv,True)
+    if cc<1.25 and nc<len(rows):rows[nc,0]=cc;rows[nc,1:]=vv;nc+=1
+  return rows[:nc]
+ candidates=[]
+ for i,v in enumerate(planes):
+  rows=complete(v);rows=rows[np.argsort(rows[:,0])][:20]
+  for r in rows:
+   if any(np.allclose(r[1:5],z[1:5],rtol=.003,atol=1e-6) for z in candidates):continue
+   candidates.append(r)
+  if i%20==0:print('COMPLETE',sgname,i,len(candidates),'seconds',time.time()-t0,flush=True)
+ for row in sorted(candidates,key=lambda x:x[0])[:150]:
+  v=row[1:]
+  for it in range(5):
+   cc,ix,di=score(v);fit=least_squares(lambda x:(T[ix]@x[:4]-q)*fac+x[4],v,loss='soft_l1',f_scale=.020,max_nfev=75);v=fit.x
+  cc,ix,di=score(v)
+  G=np.array([[v[0],0,v[3]],[0,v[1],0],[v[3],0,v[2]]])
+  if np.linalg.det(G)<=0 or cc>2 or abs(v[4])>.10:continue
+  lat=Lattice(np.linalg.cholesky(np.linalg.inv(G)));red=list(lat.get_niggli_reduced_lattice().parameters)
+  if any(s['sg']==sgname and np.allclose(s['reduced'][:3],red[:3],rtol=.002) and np.allclose(s['reduced'][3:],red[3:],atol=.3) for s in outs):continue
+  outs.append(dict(cell=list(lat.parameters),sg=sgname,system='MONOCLINIC',centering=sg.centring_type(),volume=lat.volume,cost=float(cc),score=float(1/max(cc,1e-10)),zero=float(v[4]),diff=di.tolist(),hkl=hk[ix].astype(int).tolist(),reduced=red))
+ outs.sort(key=lambda x:x['cost']);json.dump(outs,open(W+'/index_fcjplanes.json','w'),indent=1)
+ for o in outs[:8]:print('BEST',o['cost'],o['sg'],np.round(o['cell'],5),o['zero'],np.round(o['diff'],4),flush=True)
+print('DONE',time.time()-t0,flush=True)
+import os,sys,glob,json,numpy as np,gemmi
+from scipy.optimize import least_squares
+from pymatgen.core import Lattice
+from numba import njit
+sid='X8a6f5a8';W='/app/work/'+sid
+p=json.load(open(W+'/peaks_fcj.json'));selected=json.load(open(W+'/peak_select_fcj.json'))['indices'];pp=[p[i-1] for i in selected]
+tt=np.array([q['two_theta'] for q in pp]);wl=json.load(open('/app/data/instances/'+sid+'/instrument.json'))['radiation']['wavelength_A'];q=(2*np.sin(np.deg2rad(tt/2))/wl)**2;fac=wl*wl/(2*np.sin(np.deg2rad(tt)))*180/np.pi
+# Fixed conservative error, not overprecise least-squares formal uncertainty.
+err=np.maximum(.010,np.array([r.get('fcj_error',.015)*2 for r in pp]));out=[]
+@njit
+def assign(v,T,q,fac):
+ qc=T@v[:-1];d=np.zeros(len(q));ind=np.zeros(len(q),np.int64)
+ for i in range(len(q)):
+  delta=(qc-q[i])*fac[i]+v[-1];j=np.argmin(np.abs(delta));d[i]=delta[j];ind[i]=j
+ return d,ind
+hkl={};terms={}
+for sgname in ['P 1','P 1 2 1','P 1 21 1','C 1 2 1','P 21 21 21']:
+ sg=gemmi.find_spacegroup_by_name(sgname);sysm='TRICLINIC' if sg.number==1 else 'ORTHOROMBIC' if sg.number==19 else 'MONOCLINIC'
+ hk=np.array([[h,k,l] for h in range(11) for k in (range(-10,11) if sysm=='TRICLINIC' else range(11)) for l in (range(13) if sysm=='ORTHOROMBIC' else range(-12,13)) if (h or k>0 or (k==0 and l>0)) and not sg.operations().is_systematically_absent([h,k,l])],float)
+ hkl[sgname]=hk
+ tr=np.array([hk[:,0]**2,hk[:,1]**2,hk[:,2]**2,2*hk[:,1]*hk[:,2],2*hk[:,0]*hk[:,2],2*hk[:,0]*hk[:,1]]).T
+ terms[sgname]=tr[:,:3] if sysm=='ORTHOROMBIC' else tr[:,[0,1,2,4]] if sysm=='MONOCLINIC' else tr
+seen=[];starts=[]
+for f in glob.glob(W+'/fit_*.json')+glob.glob(W+'/index_*.json')+glob.glob(W+'/candidates*.json'):
+ try:
+  rows=json.load(open(f));rows=rows if isinstance(rows,list) else [rows]
+  for j,row in enumerate(rows[:30]):
+   if not isinstance(row,dict) or 'cell' not in row:continue
+   cp=row['cell'];sysm=row.get('system','TRICLINIC')
+   if isinstance(cp,dict):cp=[cp[k] for k in ['a','b','c','alpha','beta','gamma']]
+   L=Lattice.from_parameters(*cp)
+   if L.volume<900 or L.volume>8500:continue
+   re=L.get_niggli_reduced_lattice().parameters
+   if any(np.allclose(re[:3],rr[:3],rtol=.002) and np.allclose(re[3:],rr[3:],atol=.15) for rr in seen):continue
+   seen.append(re);starts.append((cp,sysm,os.path.basename(f)+':'+str(j),row.get('zero',0.)))
+ except Exception:continue
+print('STARTS',len(starts),flush=True)
+for ni,(cp,sysm,source,zero) in enumerate(starts):
+ sgs=['P 1'] if sysm=='TRICLINIC' else ['P 21 21 21'] if sysm=='ORTHOROMBIC' else ['P 1 21 1','P 1 2 1']
+ if sysm=='MONOCLINIC':sgs+=['C 1 2 1']
+ for sgname in sgs:
+  mat=Lattice.from_parameters(*cp).reciprocal_lattice_crystallographic.metric_tensor
+  v=np.array([mat[0,0],mat[1,1],mat[2,2]]+([] if sysm=='ORTHOROMBIC' else [mat[0,2]] if sysm=='MONOCLINIC' else [mat[1,2],mat[0,2],mat[0,1]])+[float(np.clip(zero+.018,-.18,.18))]);T=terms[sgname]
+  for it in range(8):
+   d,ind=assign(v,T,q,fac)
+   res=least_squares(lambda vv:((T[ind]@vv[:-1]-q)*fac+vv[-1])/err,v,loss='soft_l1',f_scale=1.,max_nfev=80)
+   if np.max(abs(res.x-v))<1e-10:break
+   v=res.x
+  d,ind=assign(v,T,q,fac);g=np.zeros(6);g[:3]=v[:3]
+  if sysm=='MONOCLINIC':g[4]=v[3]
+  if sysm=='TRICLINIC':g[3:]=v[3:6]
+  GM=np.array([[g[0],g[5],g[4]],[g[5],g[1],g[3]],[g[4],g[3],g[2]]])
+  if np.linalg.eigvalsh(GM).min()<=0:continue
+  lat=Lattice(np.linalg.cholesky(np.linalg.inv(GM)));vol=lat.volume
+  if not(900<vol<9000) or abs(v[-1])>.22:continue
+  red=lat.get_niggli_reduced_lattice().parameters
+  if min(red[:3])<3.:continue
+  if any(o['sg']==sgname and np.allclose(red[:3],o['reduced'][:3],rtol=.002) and np.allclose(red[3:],o['reduced'][3:],atol=.15) for o in out):continue
+  robust=float(np.mean(np.log1p((d/err)**2)));co=robust*(vol/(2 if sgname.startswith('C') else 1))/2800
+  out.append(dict(cell=list(lat.parameters),system=sysm,centering=sgname[0],sg=sgname,volume=vol,zero=float(v[-1]),cost=co,robust=robust,rms=float(np.sqrt(np.mean(d*d))),nclose=int(sum(abs(d)<.035)),diff=d.tolist(),hkl=hkl[sgname][ind].astype(int).tolist(),source=source,reduced=list(red),score=1/max(co,1e-10),mode=81))
+ if ni%30==0:print('AT',ni,flush=True)
+out.sort(key=lambda x:x['cost']);json.dump(out,open(W+'/candidates_fcjrefine.json','w'),indent=1)
+for o in out[:30]:print('BEST',o['cost'],o['nclose'],o['sg'],np.round(o['cell'],5),o['zero'],o['source'],np.round(o['diff'],4),flush=True)
+ATTACHED_H_SCATTERING 36 heavy atoms 27 H atoms
+PACKING_ENABLED 36 atoms 1784 pair terms coefficient 70.0 active_only True
+HBOND_PRIOR 2 donors 7 acceptors coefficient 80.0
+GALLOP 8 Nref 162 seconds 142.5106954574585 best 103.780716 q25 112.935135 median 195.46747 total 1201.9257588386536
+GALLOP 9 Nref 162 seconds 166.8775691986084 best 103.78076 q25 103.78099 median 178.53836 total 1368.900403022766
+GALLOP 10 Nref 162 seconds 148.40173077583313 best 103.78071 q25 114.59465 median 289.47998 total 1517.3244724273682
+GALLOP 11 Nref 162 seconds 152.66115641593933 best 103.78078 q25 103.78096 median 201.30322 total 1670.0906002521515
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 810.81it/s]

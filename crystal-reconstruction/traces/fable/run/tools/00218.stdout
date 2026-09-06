@@ -1,0 +1,8 @@
+  conformers: 4 distinct; energies [131.7, 132.2, 135.9, 136.2]; using rank 0 (E=131.7)
+rank 0 methyl angle to normal 8 C7-C8 dihedral -167 C11-N12 14
+  conformers: 4 distinct; energies [131.7, 132.2, 135.9, 136.2]; using rank 1 (E=132.2)
+rank 1 methyl angle to normal 8 C7-C8 dihedral 14 C11-N12 -14
+  conformers: 4 distinct; energies [131.7, 132.2, 135.9, 136.2]; using rank 2 (E=135.9)
+rank 2 methyl angle to normal 65 C7-C8 dihedral -51 C11-N12 171
+  conformers: 4 distinct; energies [131.7, 132.2, 135.9, 136.2]; using rank 3 (E=136.2)
+rank 3 methyl angle to normal 66 C7-C8 dihedral 125 C11-N12 -172

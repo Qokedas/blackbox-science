@@ -1,0 +1,12 @@
+X07806d9: 80 atoms in cell; fragments=16; matched counts=[8, 8] (expected ratio [1, 1]); unmatched=0; OK=True
+   min interatomic distance in cell: 1.24 A
+X07806d9 P b c a {'a': 16.85574, 'b': 8.20685, 'c': 11.21976, 'alpha': 90.0, 'beta': 90.0, 'gamma': 90.0}
+X9af54a2: 76 atoms in cell; fragments=8; matched counts=[4, 4] (expected ratio [1, 1]); unmatched=0; OK=True
+   min interatomic distance in cell: 1.23 A
+X9af54a2 P 1 21/c 1 {'a': 5.17785, 'b': 8.25222, 'c': 32.94593, 'alpha': 90.0, 'beta': 92.751, 'gamma': 90.0}
+Xe3a2935: 84 atoms in cell; fragments=4; matched counts=[4] (expected ratio [1]); unmatched=0; OK=True
+   min interatomic distance in cell: 1.14 A
+Xe3a2935 P 21 21 21 {'a': 10.29233, 'b': 6.88044, 'c': 19.98978, 'alpha': 90.0, 'beta': 90.0, 'gamma': 90.0}
+Xd8634a2: 66 atoms in cell; fragments=2; matched counts=[2] (expected ratio [1]); unmatched=0; OK=True
+   min interatomic distance in cell: 1.21 A
+Xd8634a2 P -1 {'a': 8.90993, 'b': 9.47823, 'c': 13.24501, 'alpha': 96.017, 'beta': 98.224, 'gamma': 66.679}

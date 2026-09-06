@@ -1,0 +1,194 @@
+"""Analytical structure factors for two otherwise generic settings.
+Algebraically identical to explicit symmetry expansion. Checked at random
+fractional coordinates before being installed; no crystallographic approximation.
+"""
+import numpy as np,torch,gemmi
+from gallop import intensities,chi2,zm_to_cart
+
+@torch.jit.script
+def monoclinic_centred_inversion(fr:torch.Tensor,hkl:torch.Tensor,prefix:torch.Tensor,t:torch.Tensor):
+ p=6.283185307179586
+ halfshift=(hkl*t[:,None]).sum(0)/2
+ xz=p*(torch.einsum('i,nj->nij',hkl[0],fr[:,:,0])+torch.einsum('i,nj->nij',hkl[2],fr[:,:,2])+halfshift[None,:,None])
+ y=p*(torch.einsum('i,nj->nij',hkl[1],fr[:,:,1])-halfshift[None,:,None])
+ amp=4*torch.cos(xz)*torch.cos(y)
+ return (amp*prefix[None,:,:]).sum(2)**2
+
+@torch.jit.script
+def orthorhombic_2221(fr:torch.Tensor,hkl:torch.Tensor,prefix:torch.Tensor):
+ p=6.283185307179586
+ a=p*torch.einsum('i,nj->nij',hkl[0],fr[:,:,0])
+ b=p*(torch.einsum('i,nj->nij',hkl[1],fr[:,:,1])+hkl[2][None,:,None]/4)
+ c=p*(torch.einsum('i,nj->nij',hkl[2],fr[:,:,2])-hkl[2][None,:,None]/4)
+ re=(4*torch.cos(a)*torch.cos(b)*torch.cos(c)*prefix[None,:,:]).sum(2)
+ im=(-4*torch.sin(a)*torch.sin(b)*torch.sin(c)*prefix[None,:,:]).sum(2)
+ return re**2+im**2
+
+def enable_fast_symmetry(s):
+ sg=gemmi.find_spacegroup_by_name(s.space_group.symbol);kind=None;tr=None
+ if sg.number==14 and sg.xhm()!=gemmi.find_spacegroup_by_number(14).xhm():
+  for op in sg.operations():
+   r=np.array(op.rot)/op.DEN;t=np.array(op.tran)/op.DEN
+   if np.allclose(r,np.diag([-1,1,-1])):tr=torch.tensor(t,dtype=torch.float32)
+  inversion=any(np.allclose(np.array(op.rot)/op.DEN,-np.eye(3)) and np.allclose((np.array(op.tran)/op.DEN)%1,0) for op in sg.operations())
+  if inversion and tr is not None:kind='mono14'
+ if sg.xhm()=='P 2 2 21':kind='2221'
+ if kind is None:return False
+ old=intensities.calculate_intensities
+ def fun(asymmetric_frac_coords,hkl,intensity_calc_prefix_fs,intensity_calc_prefix_fs_asymmetric,nsamples_ones,affine_matrices,centrosymmetric,space_group_number):
+  if kind=='mono14':return monoclinic_centred_inversion(asymmetric_frac_coords,hkl,intensity_calc_prefix_fs_asymmetric,tr)
+  return orthorhombic_2221(asymmetric_frac_coords,hkl,intensity_calc_prefix_fs_asymmetric)
+ # Independent random geometry test against explicit symmetry expansion.
+ h=torch.tensor(np.asarray(s.hkl[:min(250,len(s.hkl))]).T,dtype=torch.float32);fr=torch.rand(3,9,3);ones=torch.ones(3,9,1);aff=torch.tensor(np.asarray(s.affine_matrices),dtype=torch.float32);pr=torch.rand(h.shape[1],9);fullpr=pr.repeat(1,len(sg.operations()))
+ expanded=intensities.get_symmetry_equivalent_points(fr,ones,aff);ref=intensities.intensities_from_full_cell_contents(expanded,h,fullpr,sg.is_centrosymmetric());val=fun(fr,h,fullpr,pr,ones,aff,sg.is_centrosymmetric(),s.sg_number)
+ err=float((val-ref).abs().max()/ref.max())
+ if err>1e-4:raise RuntimeError('Fast-symmetry validation failed '+str(err))
+ intensities.calculate_intensities=fun
+ # The unmodified GALLOP chi2 function is TorchScript and binds its own copy of
+ # the old intensity function. Supply an equivalent Python dispatch as well.
+ def calc(zm,int_tensors,chisqd_tensors,profile=None):
+  fr=zm_to_cart.get_asymmetric_coords(**zm);f=fun(fr,**int_tensors)
+  return chi2.calc_int_chisqd(f,**chisqd_tensors) if profile is None else chi2.calc_prof_chisqd(f,**profile)
+ chi2.get_chi_2=calc
+ print('FAST_SYMMETRY',sg.xhm(),kind,'max_relative_error',err,flush=True)
+ return True
+import os,json,itertools,numpy as np,torch
+from rdkit import Chem
+from gallop import chi2,zm_to_cart,intensities
+
+def enable_packing(s,model_path,coefficient=None):
+ """Differentiable minimum-image heavy-atom steric screening in an ASU.
+ Excludes fixed-topology 1-2/1-3/1-4 intramolecular contacts. The cutoff is
+ deliberately softer than a van der Waals sum, allowing hydrogen bonds.
+ """
+ mods=json.load(open(model_path));n=sum(len(m['order']) for m in mods);els=[];exclude=np.eye(n,dtype=bool);off=0
+ for m in mods:
+  r=Chem.MolFromSmiles(m['smiles']);order=m['order'];N=len(order);dm=Chem.GetDistanceMatrix(r)[np.ix_(order,order)];exclude[off:off+N,off:off+N]=(dm<=3);els.extend([r.GetAtomWithIdx(i).GetSymbol() for i in order]);off+=N
+ radii={'C':1.48,'N':1.35,'O':1.28,'F':1.32,'S':1.55,'P':1.52,'Cl':1.58,'Br':1.67,'I':1.78}
+ ii=[];jj=[];rr=[];tr=[];lim=[];weights=[];all_r=[];all_t=[]
+ for oi,op in enumerate(s.space_group.symmetry_ops):
+  rot=op.rotation_matrix;trans=op.translation_vector;all_r.append(rot);all_t.append(trans);ident=np.allclose(rot,np.eye(3)) and np.allclose(trans%1,0)
+  for i in range(n):
+   for j in range(n):
+    if ident and (i>=j or exclude[i,j]):continue
+    limit=radii.get(els[i],1.4)+radii.get(els[j],1.4)
+    if set([els[i],els[j]])<=set(['N','O']):limit-=.10
+    ii.append(i);jj.append(oi*n+j);lim.append(limit);weights.append(1 if ident else .5)
+ ii=torch.tensor(ii,dtype=torch.long);jj=torch.tensor(jj,dtype=torch.long);rr=torch.tensor(np.array(all_r),dtype=torch.float32);tr=torch.tensor(np.array(all_t),dtype=torch.float32);lim=torch.tensor(lim,dtype=torch.float32);weights=torch.tensor(weights,dtype=torch.float32);lm=torch.tensor(s.lattice.matrix,dtype=torch.float32)
+ cf=float(coefficient if coefficient is not None else os.environ.get('BUMP_COEFF','50'))
+ exact=os.environ.get('EXACT_BUMP_IMAGES','1' if n<30 and (min(s.lattice.angles)<75 or max(s.lattice.angles)>105) else '0')=='1'
+ shifts=torch.tensor(np.array(list(itertools.product([-1,0,1],repeat=3)))@s.lattice.matrix,dtype=torch.float32);shift2=(shifts*shifts).sum(-1)
+ diagonal=bool(np.allclose(np.array(all_r),np.array([np.diag(np.diag(r)) for r in all_r])))
+ rdiag=torch.diagonal(rr,dim1=1,dim2=2)
+ def penalty(fr):
+  if diagonal:full=fr[:,None,:,:]*rdiag[None,:,None,:]+tr[None,:,None,:]
+  else:full=torch.einsum('nki,oji->nokj',fr,rr)+tr[None,:,None,:]
+  right=full.reshape(len(fr),-1,3)[:,jj,:]
+  delta=fr[:,ii,:]-right;delta=delta-torch.round(delta).detach();cart=delta@lm
+  if exact:
+   with torch.no_grad():
+    sid=(2*(cart.detach()@shifts.T)+shift2).argmin(-1);correction=shifts[sid]
+   cart=cart+correction
+  dist=torch.sqrt((cart*cart).sum(-1)+1e-8)
+  return cf*(torch.clamp(lim-dist,min=0)**2*weights).sum(-1)
+ def calc(zm,int_tensors,chisqd_tensors,profile=None):
+  fr=zm_to_cart.get_asymmetric_coords(**zm);f=intensities.calculate_intensities(fr,**int_tensors)
+  val=chi2.calc_int_chisqd(f,**chisqd_tensors) if profile is None else chi2.calc_prof_chisqd(f,**profile)
+  return val+penalty(fr)
+ s.packing_penalty=penalty;s.diffraction_get_chi_2=chi2.get_chi_2;chi2.get_chi_2=calc
+ print('PACKING_ENABLED',n,'atoms',len(ii),'pair terms','coefficient',cf,flush=True)
+ return penalty
+"""Optional soft donor/acceptor proximity prior for ionic and H-bonded solids.
+This does not prescribe a particular intermolecular synthon: each donor may
+choose any chemically possible acceptor, including a distant topological
+intramolecular acceptor. Steric lower bounds are supplied separately.
+"""
+import os,json,itertools,numpy as np,torch
+from rdkit import Chem
+from rdkit.Chem import Lipinski
+from gallop import chi2,zm_to_cart
+
+def enable_hbonds(s,model_path,coefficient=None):
+ mods=json.load(open(model_path));donors=[];donor_counts={};acceptors=[];groups=[];ids=[];dm=[];off=0;els=[]
+ for k,m in enumerate(mods):
+  r=Chem.MolFromSmiles(m['smiles']);order=m['order'];inv={j:i for i,j in enumerate(order)};dm.append(Chem.GetDistanceMatrix(r))
+  for a in Lipinski._HDonors(r):
+   ix=off+inv[a[0]];donors.append(ix);atom=r.GetAtomWithIdx(a[0]);donor_counts[ix]=min(3,atom.GetTotalNumHs()) if os.getenv('HBOND_MULTIPLE','0')=='1' else 1
+  for a in Lipinski._HAcceptors(r):acceptors.append(off+inv[a[0]])
+  for a in r.GetAtoms():
+   if a.GetSymbol() in ['Cl','Br'] and a.GetFormalCharge()<0:acceptors.append(off+inv[a.GetIdx()])
+  groups.extend([k]*len(order));ids.extend(order);els.extend([r.GetAtomWithIdx(i).GetSymbol() for i in order]);off+=len(order)
+ if not donors or not acceptors:return
+ LM=torch.tensor(s.lattice.matrix,dtype=torch.float32);shifts=torch.tensor(np.array(list(itertools.product([-1,0,1],repeat=3)))@s.lattice.matrix,dtype=torch.float32);ss=(shifts*shifts).sum(-1)
+ tensors=[]
+ for i in donors:
+  jj=[];rt=[];tr=[];target=[]
+  for op in s.space_group.symmetry_ops:
+   R=op.rotation_matrix;T=op.translation_vector;ident=np.allclose(R,np.eye(3)) and np.allclose(T%1,0)
+   for j in acceptors:
+    if ident and groups[i]==groups[j] and dm[groups[i]][ids[i],ids[j]]<=3:continue
+    jj.append(j);rt.append(R);tr.append(T);target.append(3.25 if els[j] in ['Cl','Br'] else 3.05)
+  tensors.append((i,torch.tensor(jj,dtype=torch.long),torch.tensor(np.array(rt),dtype=torch.float32),torch.tensor(np.array(tr),dtype=torch.float32),torch.tensor(target,dtype=torch.float32)))
+ cf=float(coefficient if coefficient is not None else os.getenv('HBOND_COEFF','20'))
+ def penalty(fr):
+  val=torch.zeros(len(fr),device=fr.device)
+  for i,jj,rr,tt,target in tensors:
+   right=torch.einsum('nki,kji->nkj',fr[:,jj,:],rr)+tt;dd=fr[:,i,None]-right;dd=dd-torch.round(dd).detach();cart=dd@LM
+   with torch.no_grad():corr=shifts[(2*(cart.detach()@shifts.T)+ss).argmin(-1)]
+   dist=torch.sqrt(((cart+corr)**2).sum(-1)+1e-8);near=torch.topk(dist-target,k=min(donor_counts[i],len(jj)),dim=-1,largest=False).values;val+=(torch.clamp(near,min=0)**2).sum(-1)
+  return cf*val
+ old=chi2.get_chi_2
+ def calc(zm,int_tensors,chisqd_tensors,profile=None):
+  fr=zm_to_cart.get_asymmetric_coords(**zm)
+  return old(zm,int_tensors,chisqd_tensors,profile=profile)+penalty(fr)
+ chi2.get_chi_2=calc;s.hbond_penalty=penalty
+ print('HBOND_PRIOR',len(donors),'donors',len(acceptors),'acceptors','coefficient',cf,flush=True)
+ return penalty
+ATTACHED_H_SCATTERING 40 heavy atoms 20 H atoms
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1488.93it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 368 seconds 66.01811218261719 best 444.8624 q25 540.11835 median 586.45996 total 66.31630373001099
+Imported powder pattern: 5400 points, 2theta=  5.080 ->  59.070, step= 0.010
+{
+ "cell": [
+  16.86422000406547,
+  17.99627235535582,
+  22.606412956143604,
+  90.0,
+  110.72979744121672,
+  90.0
+ ],
+ "system": "MONOCLINIC",
+ "centering": "P",
+ "sg": "P 1 21 1",
+ "score": 2.8976998150448052,
+ "cost": 0.3451013092550229,
+ "volume": 6418.70332166467,
+ "zero": 0.005667020933763016,
+ "diff": [
+  -0.0012381095402582412,
+  -0.008794939080450793,
+  0.005558865728681779,
+  0.009272161576718417,
+  0.009209118642183163,
+  0.003203341266779354,
+  0.00491286030728946,
+  -0.077384288484581,
+  -0.0010558162695436107,
+  0.007218075603837927,
+  0.00820416624587408,
+  0.0052892455579514235,
+  -0.016210288293874067,
+  0.007338846483008074,
+  0.011650676687990132,
+  0.006759296163892799,
+  -0.014750009128277307,
+  -0.005632329252359716
+ ],
+ "hkl": [
+  [
+   1,
+   0,

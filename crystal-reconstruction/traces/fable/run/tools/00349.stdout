@@ -1,0 +1,42 @@
+== Xd4c1a35
+abs_ortho.log
+g2_monoC.log
+g2_monoP.log
+g2index_monoC_20.txt
+g2index_monoP_20.txt
+lebail_P212121.png
+peaks.png
+peaks.txt
+ticks.png
+[('COC1=CC(=O)C[C@@H](C)[C@]12Oc1c(Cl)c(OC)cc(OC)c1C2=O', 1, 0)]
+== Xe1fb77b
+abs_mono.log
+g2_monoC.log
+g2_monoP.log
+g2index_monoC_20.txt
+g2index_monoP_20.txt
+lebail_P1211.png
+peaks.png
+peaks.txt
+[('O=C(/C=C/c1ccc(O)c(O)c1)O[C@@H]1C[C@@](OC(=O)/C=C/c2ccc(O)c(O)c2)(C(=O)O)C[C@@H](O)[C@@H]1O', 1, 0), ('O', 1, 0)]
+== X3f4781b
+g2_monoC.log
+g2_monoP.log
+g2index_monoC_20.txt
+g2index_monoP_20.txt
+lebail_P1211.png
+lebail_p21.log
+peaks.png
+peaks.txt
+[('COC(=O)[C@H](c1ccccc1Cl)[NH+]1CCc2sccc2C1', 1, 1), ('O=S(=O)([O-])O', 1, -1)]
+== X238783d
+g2_monoC.log
+g2_monoP.log
+g2_ortho.log
+g2index_monoC_20.txt
+g2index_monoP_20.txt
+lebail_P212121.png
+lebail_p212121.log
+peaks.png
+peaks.txt
+[('CC[C@H]1OC(=O)[C@H](C)[C@@H](O[C@H]2C[C@@](C)(OC)[C@@H](O)[C@H](C)O2)[C@H](C)[C@@H](O[C@@H]2O[C@H](C)C[C@H](N(C)C)[C@H]2O)[C@](C)(OC)C[C@@H](C)C(=O)[C@H](C)[C@@H](O)[C@]1(C)O', 1, 0)]

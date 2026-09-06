@@ -1,0 +1,8 @@
+/app/work/compare_periodic.py:7: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  A=CifParser(sys.argv[1]).parse_structures(primitive=False)[0];A.remove_species(['H']);L=A.lattice;fa=A.frac_coords;ea=np.array([a.specie.symbol for a in A]);els=np.unique(ea)
+/app/work/compare_periodic.py:9: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  B=CifParser(path).parse_structures(primitive=False)[0];B.remove_species(['H']);fb=B.frac_coords;eb=np.array([b.specie.symbol for b in B]);assert all((ea==e).sum()==(eb==e).sum() for e in els)
+/app/work/X7e382cb/refined_ionH88.cif origin [9.99999994e-01 1.95986161e-09 9.99999994e-01] rms/max (np.float64(0.2035440161552008), np.float64(0.3656311111642608))
+/app/work/compare_periodic.py:9: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  B=CifParser(path).parse_structures(primitive=False)[0];B.remove_species(['H']);fb=B.frac_coords;eb=np.array([b.specie.symbol for b in B]);assert all((ea==e).sum()==(eb==e).sum() for e in els)
+/app/work/X7e382cb/refined_fixed105.cif origin [0.49999999 0.50000001 0.99999999] rms/max (np.float64(0.3617390834428451), np.float64(0.9989137017544654))

@@ -1,0 +1,16 @@
+python /app/work/search_obj.py Xeb393f9 1 1 --rescale 
+#  3:ScatteringPowerAtom(Cl)
+Imported powder pattern: 7578 points, 2theta=  4.678 ->  23.621, step= 0.002
+RESCALED_BASE 1.0004644785769743 0.046395222945572724 7577.999999999983
+INITIAL Xeb393f9 1 Rw 0.2688026345500707 LLK 186500.52827408884 Integrated 185153.28212240367 DOF -1
+RUN 0 steps 100000 time 29.4878511428833 total 29.487924814224243 LLK 37728.519233669984 Rw 0.1369213554625328 Integrated 36290.14913488902
+data_solution
+_cell_length_a 6.02224223
+_cell_length_b 5.52844610
+_cell_length_c 27.99532257
+_cell_angle_alpha 90.00000000
+_cell_angle_beta 93.11364452
+_cell_angle_gamma 90.00000000
+_space_group_name_H-M_alt 'P 1 21 1'
+_space_group_IT_number 4
+loop_

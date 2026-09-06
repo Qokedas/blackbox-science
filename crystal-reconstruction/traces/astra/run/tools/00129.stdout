@@ -1,0 +1,13 @@
+Xe1fb77b Nat 76 molecule sizes [38, 38]
+  component O=C(/C=C/c1ccc(O)c(O)c1)O[C@@H]1C[C@@](OC(=O)/C=C/c2ccc(O)c(O)c2)(C(=O)O)C[C@@H](O)[C@@H]1O matches 0
+  component O matches 0
+Xfca 0 [12.438254766780187, 4.9400580972029235, 21.680331338437835, 90.0, 106.38743412335367, 90.0] 0.05395511888847979 [('P 1 2 1', 6.636), ('P 1 21 1', 6.636), ('I 1 2 1', 14.309)]
+Xfca 1 [12.356432558177977, 4.9364282268554645, 21.458451438501175, 90.0, 105.69620681798072, 90.0] 0.0389907559154495 [('P 1 2 1', 6.444), ('P 1 21 1', 6.445), ('I 1 2 1', 17.153)]
+Xfca 2 [12.330075347139594, 4.941604763055026, 21.56089549363593, 90.0, 105.23174240915006, 90.0] 0.05738356760392875 [('P 1 2 1', 7.139), ('P 1 21 1', 7.14), ('A 1 2 1', 18.165)]
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 55 seconds 16.567200899124146 best 460.00992 q25 585.83276 median 629.47504 total 16.57240915298462
+/app/work/search_gallop.py:17: RuntimeWarning: overflow encountered in cast
+  if mn>=best:return
+-> 100 remaining
+1942 solutions ! Redparing...
+-> 100 remaining

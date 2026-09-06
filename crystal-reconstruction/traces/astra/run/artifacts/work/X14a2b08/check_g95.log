@@ -1,0 +1,7 @@
+/app/work/submit.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+X14a2b08 Nat 74 molecule sizes [29, 29, 8, 8]
+  component COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1 matches 2
+  component O=C1CCCCCN1 matches 2
+  bond range 1.2121673102389159 1.6901104088872503
+  min intermolecular distance 2.4604500624291212

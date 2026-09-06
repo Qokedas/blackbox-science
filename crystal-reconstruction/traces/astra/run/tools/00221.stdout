@@ -1,0 +1,84 @@
+X13023e3 Nat 48 molecule sizes [24, 24]
+  component CC(C)Cc1ccc([C@@H](C)C(=O)O)cc1 matches 0
+  component NC(=O)c1cccnc1 matches 0
+{
+ "cell": [
+  11.762655131681251,
+  12.005569927553701,
+  24.279471749886724,
+  90.0,
+  90.0,
+  90.0
+ ],
+ "volume": 3426.4131865009003,
+ "score": 72.69881439208984,
+ "system": "ORTHOROMBIC",
+ "centering": "P",
+ "mode": 0,
+ "source": "index_ORTHOROMBIC_P_0.json",
+ "sg": "Pmmm",
+ "sgstart": "Pmmm",
+ "Rw": 0.15406054976912975,
+ "groups": [
+  {
+   "sg": "P 21 2 21",
+   "number": 18,
+   "Rw": 15.755708526072207,
+   "GoF": 923203.2371467606,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 21 2 2",
+   "number": 17,
+   "Rw": 15.755757840266751,
+   "GoF": 924534.0381812783,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 2 2 21",
+   "number": 17,
+   "Rw": 15.756022577903602,
+   "GoF": 923902.0992626981,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 2 2 2",
+{
+ "radiation": {
+  "type": "synchrotron",
+  "wavelength_A": 1.23922,
+  "wavelengths_A": [
+   1.23922
+  ],
+  "wavelength_weights": null,
+  "monochromator": "?",
+  "source": "?"
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 293.0,
+ "two_theta_range_deg": [
+  5.05,
+  60.04
+ ],
+ "n_points": 5499,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}/app/work/Xd4c1a35/fit_0.json
+{
+ "Rw": 0.08750586611841747,
+ "chi2": 422.70100728022777
+}data_solution
+_cell_length_a 6.02238282
+_cell_length_b 5.52857670
+_cell_length_c 27.99211012
+_cell_angle_alpha 90.00000000
+_cell_angle_beta 93.11501642
+_cell_angle_gamma 90.00000000
+_space_group_name_H-M_alt 'P 1 21 1'
+_space_group_IT_number 4

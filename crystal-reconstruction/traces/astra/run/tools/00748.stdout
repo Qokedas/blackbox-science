@@ -1,0 +1,231 @@
+      SUBROUTINE PSVFCJO(DTT,TTHETA,SIG,GAM,SL,HL,PRFUNC,DPRDT,
+     1  SIGPART,GAMPART,SLPART,HLPART)
+
+!PURPOSE: Compute function & derivatives for Pseudovoigt profile
+!   [W.I.F.David (1986), J. Appl. Cryst. 19, 63-64 &
+!    P. Thompson, D.E. Cox & J.B. Hastings (1987) J. Appl. Cryst.,20,79-83.]
+! Finger-Cox-Jephcoat (FCJ94) asymmetry correction 
+!   [L.W. Finger, D.E. Cox & A.P. Jephcoat (1994) J. Appl. Cryst.,27,892-900.]
+! coded 11/95 by B. H. Toby (NIST). revised version
+! parameterized as asym1=S/L asym2=H/L
+
+
+      INCLUDE       '../INCLDS/COPYRIGT.FOR' 
+
+!CALLING ARGUMENTS:
+
+      REAL*4        DTT                 !delta 2-theta in centidegrees                 
+      REAL*4        TTHETA              !2-theta in centidegrees              
+      REAL*4        SIG,GAM             
+      REAL*4        SL,HL               !S/L & H/L               
+      REAL*4        PRFUNC              
+      REAL*4        DPRDT               
+      REAL*4        SIGPART,GAMPART     
+      REAL*4        SLPART,HLPART       
+
+!INCLUDE STATEMENTS:
+      REAL*4 SIND,COSD,TAND,ACOSD
+! External function declarations 
+      EXTERNAL SIND,COSD,TAND,ACOSD
+
+!LOCAL VARIABLES:
+
+      REAL*4        R                   ! pseudo-voight intensity
+      REAL*4        DRDT                ! deriv R w/r theta
+      REAL*4        DRDS                ! deriv R w/r sig
+      REAL*4        DRDG                ! deriv R w/r gam
+      REAL*4        F                   
+      REAL*4        G                   
+      REAL*4        DFDA                
+      REAL*4        DGDA                
+      REAL*4        DGDB                
+      REAL*4        DYDA                
+      REAL*4        DYDB                
+      REAL*4        SIN2THETA2          ! sin(2theta)**2
+      REAL*4        COS2THETA           ! cos(2theta)
+      REAL*4        COS2THETA2          ! cos(2theta)**2
+      REAL*4        SIN2THETA           ! sin(2THETA)
+      REAL*4        SINDELTA            ! sin(Delta)
+      REAL*4        COSDELTA            ! cos(Delta)
+      REAL*4        RCOSDELTA           ! 1/cos(Delta)
+      REAL*4        TANDELTA            ! tan(Delta)
+      REAL*4        COSDELTA2           ! cos(Delta)**2
+      REAL*4        A                   ! asym1 [coff(7)]
+      REAL*4        B                   ! asym2 [coff(8)]
+      REAL*4        APB                 ! (A+B)
+      REAL*4        AMB                 ! (A-B)
+      REAL*4        APB2                ! (A+B)**2
+      REAL*4        TTHETAD             ! Two Theta in degrees
+
+! Intermediate variables
+
+      REAL*4        RSUMWG2             !      1.0/(sum of w G)**2
+      REAL*4        SUMWG               !      sum of w G
+      REAL*4        WG                  !      w G
+      REAL*4        RSUMWG              !      1.0/sum of w G
+      REAL*4        SUMWRG              !      sum of w G
+      REAL*4        SUMWDGDA            !      sum of w dGdA
+      REAL*4        SUMWRDGDA           !      sum of w R dGdA
+      REAL*4        SUMWDGDB            !      sum of w dGdB
+      REAL*4        SUMWRDGDB           !      sum of w R dGdB
+      REAL*4        SUMWGDRD2T          !      sum of w G dRd(2theta)
+      REAL*4        SUMWGDRDSIG         !      sum of w G dRdp(n)
+      REAL*4        SUMWGDRDGAM         !      sum of w G dRdp(n)
+      REAL*4        SUMWGDRDA           
+      REAL*4        SUMWGDRDB           
+      REAL*4        EMIN                ! 2phi minimum
+      REAL*4        EINFL               ! 2phi of inflection point
+      REAL*4        DEMINDA             ! Derivative of Emin wrt A
+      REAL*4        DELTA               ! Angle of integration for convolution
+      REAL*4        DDELTADA            
+      REAL*4        TMP,TMP1,TMP2       ! intermediates
+      INTEGER*4     I,K,IT              ! Miscellaneous loop variables
+c       
+c       Local Variables for Gaussian Integration
+c        
+126:      SUBROUTINE PYPSVFCJO(NPTS,DTT,TTHETA,SIG,GAM,SPH,PRFUNC)
+127-C DTT in degrees
+128-C TTHETA in degrees
+129-C SPH is S/L + H/L
+130-C RETURNS FUNCTION ONLY
+131-Cf2py intent(in) NPTS
+132-Cf2py intent(in) DTT
+133-Cf2py depend(NPTS) DTT
+134-Cf2py intent(in) TTHETA
+135-Cf2py intent(in) SIG
+136-Cf2py intent(in) GAM
+137-Cf2py intent(in) SPH
+138-Cf2py intent(out) PRFUNC
+139-Cf2py depend(NPTS) PRFUNC
+140-
+141-      INTEGER*4 NPTS
+142-      REAL*4 TTHETA,SIG,GAM,SPH
+143-      REAL*4 DTT(0:NPTS-1),PRFUNC(0:NPTS-1)
+144-      REAL*4 DPRDT,SIGPART,GAMPART,SLPART,HLPART
+145-      DO I=0,NPTS-1
+146-        CALL PSVFCJO(DTT(I)*100.,TTHETA*100.,SIG,GAM,SPH/2.0,SPH/2.0,
+147-     1     PRFUNC(I),DPRDT,SIGPART,GAMPART,SLPART,HLPART)
+148-      END DO
+149-      RETURN
+150-      END
+151-
+152:      SUBROUTINE PYDPSVFCJO(NPTS,DTT,TTHETA,SIG,GAM,SPH,PRFUNC,
+153-     1  DPRDT,SIGPART,GAMPART,SLPART)
+154-C DTT in degrees
+155-C TTHETA in degrees
+156-C SPH is S/L + H/L
+157-C RETURNS FUNCTION & DERIVATIVES
+158-Cf2py intent(in) NPTS
+159-Cf2py intent(in) DTT
+160-Cf2py depend(NPTS) DTT
+161-Cf2py intent(in) TTHETA
+162-Cf2py intent(in) SIG
+163-Cf2py intent(in) GAM
+164-Cf2py intent(in) SPH
+165-Cf2py intent(out) PRFUNC
+166-Cf2py depend(NPTS) PRFUNC
+167-Cf2py intent(out) DPRDT
+168-Cf2py depend(NPTS) DPRDT
+169-Cf2py intent(out) SIGPART
+170-Cf2py depend(NPTS) SIGPART
+171-Cf2py intent(out) GAMPART
+172-Cf2py depend(NPTS) GAMPART
+173-Cf2py intent(out) SLPART
+174-Cf2py depend(NPTS) SLPART
+175-
+176-      INTEGER*4 NPTS
+177-      REAL*4 TTHETA,SIG,GAM,SPH
+178-      REAL*4 DTT(0:NPTS-1),DPRDT(0:NPTS-1),SIGPART(0:NPTS-1),
+179-     1   GAMPART(0:NPTS-1),SLPART(0:NPTS-1),PRFUNC(0:NPTS-1)
+180-      DO I=0,NPTS-1
+181-        CALL PSVFCJO(DTT(I)*100.,TTHETA*100.,SIG,GAM,SPH/2.,SPH/2.,
+182-     1     PRFUNC(I),DPRDT(I),SIGPART(I),GAMPART(I),SPART,HPART)
+183-          SLPART(I) = SPART
+184-        DPRDT(I) = DPRDT(I)*100.
+185-      END DO
+186-      RETURN
+187-      END
+188-
+189-      SUBROUTINE PYPSVFCJEXPO(NPTS,DTT,TTHETA,ALP,BET,SIG,GAM,
+190-     1  SPH,PRFUNC)
+191-C DTT in degrees
+192-C TTHETA in degrees
+acosd.for
+cosd.for
+epsvoigt.for
+expint.for
+gauleg.for
+gerfc.for
+hfunc.for
+lorentz.for
+psvfcj.f90
+psvfcjexpo.for
+psvfcjo.for
+psvoigt.for
+sind.for
+tand.for
+ Module Profile_Finger
+    !    Here the functions provided in the original code by L. Finger have been
+    !    implemented as subroutines as is the common practice in Fortran 90 when
+    !    several dummy arguments have output intent attribute.
+    !    The subroutine Prof_Val returns the value of the profile function at twoth of
+    !    a peak of centre twoth0 as well as the derivatives wrt profile parameters.
+    !    Asymmetry due to axial divergence using the method of Finger, Cox and Jephcoat,
+    !    J. Appl. Cryst. 27, 892, 1992.
+    !    This version based on code provided by Finger, Cox and Jephcoat as modified
+    !    by J Hester (J. Appl. Cryst. (2013),46,1219-1220)
+    !    with a new derivative calculation method and then optimised,
+    !    adapted to Fortran 90 and further improved by J. Rodriguez-Carvajal.
+    !    Further changed by J. Hester to include optimisations found in GSAS-II version
+    !    of original FCJ code, and streamlined for incorporation into GSAS-II
+   
+    IMPLICIT NONE
+
+    !---- LIST OF PUBLIC SUBROUTINES ----!
+    PUBLIC :: PROF_VAL
+
+    !---- LIST OF PRIVATE FUNCTIONS ----!
+    PRIVATE ::  DFUNC_INT, EXTRA_INT
+
+    INTEGER,       PARAMETER :: SP = SELECTED_REAL_KIND(6,30)
+    INTEGER,       PARAMETER :: DP = SELECTED_REAL_KIND(14,150)
+    INTEGER,       PARAMETER :: CP = SP    !SWITCH TO DOUBLE PRECISION BY PUTTING CP=DP
+    REAL(KIND=DP), PARAMETER :: PI = 3.141592653589793238463_DP
+    REAL(KIND=DP), PARAMETER :: TO_DEG  = 180.0_DP/PI
+    REAL(KIND=DP), PARAMETER :: TO_RAD  = PI/180.0_DP
+    INTEGER,       PARAMETER :: NUMTAB = 34
+    INTEGER, PRIVATE,DIMENSION(NUMTAB) :: NTERMS =(/2,4,6,8,10,12,14,16,18,20,22,24,26,28, &
+         30,40,50,60,70,80,90,100,110,120,140,160,180,200,220,240,260,280,300,400/)
+    INTEGER, PRIVATE,DIMENSION(NUMTAB) :: FSTTERM=(/0,1,3,6,10,15,21,28,36,45,55,66,78, &
+         91,105,120,140,165,195,230,270,315,365,420,480,550,630, &
+         720,820,930,1050,1180,1320,1470/) !FSTTERM(1) SHOULD BE ZERO, INDEXING STARTS AT 1+ THIS NUMBER
+    REAL(KIND=CP),PRIVATE,DIMENSION(0:1883) :: WP  !EXTRA SPACE FOR EXPANSION
+    REAL(KIND=CP),PRIVATE,DIMENSION(0:1883) :: XP  !EXTRA SPACE FOR EXPANSION
+
+    !
+    ! VARIABLES TO SWITCH TO NEW CALCULATIONS OF SOME VARIABLES THAT DEPEND
+    ! ONLY ON (TWOTH0,ASYM1,ASYM2) AND NOT ON THE PARTICULAR POINT OF THE PROFILE.
+    ! WHEN THE SUBROUTINE IS INVOKED FOR THE SAME REFLECTION SOME VARIABLES
+    ! ARE NOT CALCULATED.
+    !
+    !
+    REAL(KIND=CP), PRIVATE, SAVE :: TWOTH0_PREV = 0.0_CP
+    REAL(KIND=CP), PRIVATE, SAVE ::  ASYM1_PREV = 0.0_CP
+    REAL(KIND=CP), PRIVATE, SAVE ::  ASYM2_PREV = 0.0_CP
+
+    ! FIXED CONSTANTS
+    REAL(KIND=CP), PRIVATE, PARAMETER :: PI_OVER_TWO=0.5_CP*PI
+    REAL(KIND=CP), PRIVATE, PARAMETER :: EPS=1.0E-6_CP
+    ! FOLLOWING GIVES THE NOTIONAL NUMBER OF STEPS PER DEGREE FOR QUADRATURE
+    INTEGER,       PRIVATE, PARAMETER :: CTRL_NSTEPS= 300
+    LOGICAL,       PRIVATE, DIMENSION(NUMTAB) :: CALCLFG
+GALLOP 6 Nref 163 seconds 166.91948199272156 best 145.70345 q25 176.95018 median 333.57925 total 930.5205829143524
+GALLOP 7 Nref 176 seconds 161.77557706832886 best 144.65118 q25 156.89133 median 346.87372 total 1092.4124484062195
+GALLOP 8 Nref 190 seconds 146.44934964179993 best 144.61868 q25 152.00223 median 326.76642 total 1238.9894337654114
+GALLOP 9 Nref 200 seconds 155.70188093185425 best 143.87921 q25 153.93546 median 222.38129 total 1394.8051755428314
+GALLOP 10 Nref 200 seconds 170.3039882183075 best 142.6563 q25 144.76926 median 241.95813 total 1565.2211680412292
+GALLOP 2 Nref 164 seconds 167.7883369922638 best 216.30336 q25 273.69714 median 319.8921 total 453.9570288658142
+GALLOP 3 Nref 196 seconds 209.26303911209106 best 192.38934 q25 229.56866 median 307.08728 total 663.3759801387787
+GALLOP 4 Nref 235 seconds 212.4995424747467 best 187.25981 q25 212.08624 median 301.24188 total 875.986389875412
+GALLOP 5 Nref 276 seconds 208.10361862182617 best 187.04715 q25 239.93417 median 317.34982 total 1084.1857640743256
+GALLOP 6 Nref 298 seconds 288.16859698295593 best 186.48587 q25 246.82549 median 301.09436 total 1372.5686542987823

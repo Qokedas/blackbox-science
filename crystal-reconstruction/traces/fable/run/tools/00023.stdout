@@ -1,0 +1,51 @@
+GSASII
+GSASII-bin
+LICENSE
+README.md
+backcompat
+docs
+meson.build
+pixi
+pyproject.toml
+sources
+tests
+39:def scaleAbyV(A,V):
+46:def ranaxis(dmin,dmax):
+51:def ran2axis(k,N):
+68:def ranAbyV(Bravais,dmin,dmax,V):
+84:def ranAbyR(Bravais,A,k,N,ranFunc):
+118:def rancell(Bravais,dmin,dmax):
+163:def calc_M20(peaks,HKL,ifX20=True):
+192:def calc_M20SS(peaks,HKL):
+220:def sortM20(cells):
+235:def sortCells(cells,col):
+248:def findMV(peaks,controls,ssopt,Inst,deltM,dlg):
+311:def IndexPeaks(peaks,HKL):
+354:def IndexSSPeaks(peaks,HKL):
+404:def Values2A(ibrav,values):
+419:def A2values(ibrav,A):
+432:def Values2Vec(ibrav,vec,Vref,val):
+451:def FitHKL(ibrav,peaks,A,Pwr):
+484:def FitHKLZ(wave,ibrav,peaks,A,Z,Zref):
+526:def FitHKLZSS(wave,ibrav,peaks,A,V,Vref,Z,Zref):
+580:def FitHKLT(difC,ibrav,peaks,A,Z,Zref):
+622:def FitHKLE(tth,ibrav,peaks,A):
+655:def FitHKLTSS(difC,ibrav,peaks,A,V,Vref,Z,Zref):
+711:def rotOrthoA(A):
+715:def swapMonoA(A):
+719:def oddPeak(indx,peaks):
+728:def halfCell(ibrav,A,peaks):
+749:def getDmin(peaks):
+753:def getDmax(peaks):
+757:def refinePeaksZ(peaks,wave,ibrav,A,Zero,ZeroRef):
+769:def refinePeaksT(peaks,difC,ibrav,A,Zero,ZeroRef):
+781:def refinePeaksE(peaks,tth,ibrav,A):
+793:def refinePeaksZSS(peaks,wave,Inst,SGData,SSGData,maxH,ibrav,A,vec,vecRef,Zero,ZeroRef):
+805:def refinePeaksTSS(peaks,difC,Inst,SGData,SSGData,maxH,ibrav,A,vec,vecRef,Zero,ZeroRef):
+818:def refinePeaks(peaks,ibrav,A,ifX20=True,cctbx_args=None):
+863:def findBestCell(dlg,ncMax,A,Ntries,ibrav,peaks,V1,ifX20=True,cctbx_args=None):
+915:def monoCellReduce(ibrav,A):
+976:def DoIndexPeaks(peaks,controls,bravais,dlg,ifX20=True,
+1116:def TestData():
+1183:def test0():
+1206:def test1():

@@ -1,0 +1,51 @@
+Traceback (most recent call last):
+  File "/app/work/extend_low_base.py", line 10, in <module>
+    scale=(1/np.sqrt(ww[mid]))/np.interp(xx[mid],raw[:,0],raw[:,2]);lo=float(os.getenv('MIN_TTH',str(raw[0,0])))
+                     ~~^^^^^
+IndexError: index 0 is out of bounds for axis 0 with size 0
+"""Restore measured low-angle observations which were omitted by a strong-peak cutoff."""
+import sys,os,json,numpy as np,xml.etree.ElementTree as ET
+from pyobjcryst.io import xml_cryst_file_load_all_object,xml_cryst_file_save_global
+from obj_model import add_component,recenter_molecules
+sid,src,dest=sys.argv[1:4];W='/app/work/'+sid
+objs=xml_cryst_file_load_all_object(src);c=next(o for o in objs if o.GetClassName()=='Crystal');p=next(o for o in objs if o.GetClassName()=='PowderPattern');d=next(p.GetPowderPatternComponent(i) for i in range(p.GetNbPowderPatternComponent()) if p.GetPowderPatternComponent(i).GetClassName()=='PowderPatternDiffraction');b=next(p.GetPowderPatternComponent(i) for i in range(p.GetNbPowderPatternComponent()) if p.GetPowderPatternComponent(i).GetClassName()=='PowderPatternBackground')
+dummy=c.GetNbScatterer()==0
+if dummy:at,_=add_component(c,'C','low_dummy')
+p.Prepare();xx=np.rad2deg(np.array(p.GetPowderPatternX()));ww=np.array(p.GetLSQWeight(0));raw=np.loadtxt('/app/data/instances/'+sid+'/pattern.xye');mid=len(ww)//2
+scale=(1/np.sqrt(ww[mid]))/np.interp(xx[mid],raw[:,0],raw[:,2]);lo=float(os.getenv('MIN_TTH',str(raw[0,0])))
+raw=raw[(raw[:,0]>=lo)&(raw[:,0]<=xx[-1]+1e-5)];raw[:,2]*=scale
+nbin=max(1,int(np.ceil(len(raw)/12000)))
+if nbin>1:
+ n=len(raw)//nbin*nbin;raw=np.column_stack([raw[:n,0].reshape(-1,nbin).mean(1),raw[:n,1].reshape(-1,nbin).mean(1),np.sqrt((raw[:n,2]**2).reshape(-1,nbin).sum(1))/nbin])
+bx=np.array(b.GetInterpPointsX());by=np.array(b.GetInterpPointsY());step=np.median(np.diff(bx));newx=np.arange(np.deg2rad(lo),bx[0]-.01*step,step);bg=np.load(W+'/processed.npz');newy=np.interp(np.rad2deg(newx),bg['x'],bg['background']);b.SetInterpPoints(np.r_[newx,bx],np.r_[newy,by]);fn=os.path.splitext(dest)[0]+'.xye';np.savetxt(fn,raw)
+p.ImportPowderPattern2ThetaObsSigma(fn);d.SetExtractionMode(True,False);p.Prepare();d.ExtractLeBail(30);p.Prepare();p.FitScaleFactorForRw();recenter_molecules(c);print('RESTORED_LOW_RANGE',sid,lo,xx[0],xx[-1],len(raw),'Rw',p.GetRw(),flush=True);xml_cryst_file_save_global(dest)
+if dummy:
+ tree=ET.parse(dest);root=tree.getroot();cr=root.find('Crystal')
+ for el in list(cr):
+  if el.tag=='Atom' and el.attrib.get('Name')=='low_dummy':cr.remove(el)
+ tree.write(dest,encoding='utf-8')
+PREPARED X3f4781b Nref 165 PawleyRw 0.07735460433188417 SG P 1 21 1
+ATTACHED_H_SCATTERING 52 heavy atoms 36 H atoms
+PACKING_ENABLED 52 atoms 3834 pair terms coefficient 50.0 active_only True
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 2298.88it/s]
+Traceback (most recent call last):
+  File "/app/work/search_gallop.py", line 54, in <module>
+    warm=np.load(os.environ['START_NPZ']);nn=NP//2;ext[:nn]=warm['external'][0]+np.random.normal(size=ext[:nn].shape)*float(os.environ.get('START_JITTER','.15'));intr[:nn]=warm['internal'][0]+np.random.normal(size=intr[:nn].shape)*float(os.environ.get('START_TOR_JITTER','.4'))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.11/site-packages/numpy/lib/_npyio_impl.py", line 454, in load
+    fid = stack.enter_context(open(os.fspath(file), "rb"))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/app/work/X3f4781b/gallop_50/warm.npz'
+Traceback (most recent call last):
+  File "/app/work/import_gallop.py", line 7, in <module>
+    meta=json.load(open(G+'/model.json'));frac=np.load(G+'/best_frac.npy');offset=0;models=[]
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.11/site-packages/numpy/lib/_npyio_impl.py", line 454, in load
+    fid = stack.enter_context(open(os.fspath(file), "rb"))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/app/work/X3f4781b/gallop_50/best_frac.npy'
+34128 python /app/work/search_gallop.py Xbfeeda9 11 1 --prepare --hscatter 
+35189 python /app/work/search_gallop.py X14a2b08 11 1 --prepare --hscatter 
+36191 python /app/work/search_gallop.py X14a2b08 70 1 --prepare --hscatter --packing --model=/app/work/X14a2b08/synthon.json 
+36287 python /app/work/search_gallop.py X7e382cb 40 1 --hscatter --packing 
+37166 python /app/work/search_gallop.py X8a06d7a 11 1 --prepare --hscatter 

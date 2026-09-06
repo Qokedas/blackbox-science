@@ -1,0 +1,281 @@
+ENUM X8a6f5a8 -0.12 11 10.204742193222046
+ENUM X8a6f5a8 -0.06 9 10.490856885910034
+ENUM X8a6f5a8 0.0 40 10.7760488986969
+ENUM X8a6f5a8 0.06 12 11.063476324081421
+ENUM X8a6f5a8 0.12 1 11.343916177749634
+ZONE 6.927641897965502 6 11 425.5080319892486 [np.float64(23.56051225907536), np.float64(18.39749086487), np.float64(100.98787055132009)] 0.0075848392092767326
+ZONE 6.836019449047589 6 11 477.73222345684786 [np.float64(23.89247316051312), np.float64(20.117130107165853), np.float64(83.68577117185336)] 0.04490894537977156
+ZONE 6.662018142862168 6 10 350.27306285038026 [np.float64(22.47634439715508), np.float64(16.65896809853146), np.float64(110.69470725517081)] -0.13057028462081385
+ZONE 6.615383412306079 5 12 352.41275332697614 [np.float64(22.513198620602793), np.float64(16.743758192281913), np.float64(69.21071309719345)] -0.09551059735929814
+ZONE 6.615383412306061 5 12 352.41275332697427 [np.float64(22.51319862060273), np.float64(16.74375819228187), np.float64(110.78928690280655)] -0.0955105973593336
+ZONE 6.568072470474248 6 10 483.20539314803307 [np.float64(31.74688066948285), np.float64(15.345185729347216), np.float64(97.30709527581924)] -0.00044465679978119817
+ZONE 6.568072470463549 6 10 483.20539314573955 [np.float64(31.746880669400234), np.float64(15.345185729318068), np.float64(82.69290472407152)] -0.0004446568195679723
+ZONE 6.565235540221823 6 10 485.5851122689593 [np.float64(23.231775154919884), np.float64(20.95574755113769), np.float64(85.88656407144754)] -0.2160059209669386
+ZONE 6.5652355402218046 6 10 485.5851122689783 [np.float64(23.231775154920314), np.float64(20.95574755113812), np.float64(94.11343592855226)] -0.216005920966648
+ZONE 6.555480303740087 6 10 486.02468590441504 [np.float64(23.241936110119717), np.float64(20.96753761684195), np.float64(85.81164153668924)] -0.21351345398594598
+ZONE 6.542754752172096 6 10 489.1046712073244 [np.float64(31.881788254868045), np.float64(15.499400173906462), np.float64(81.80661827059127)] 0.02141680490250934
+ZONE 6.276658429946791 6 9 458.5649066364899 [np.float64(22.998356099295272), np.float64(20.01325363926647), np.float64(94.93611111427855)] -0.004681863906138443
+DONE 12.877220153808594
+[
+ {
+  "plane_metric": [
+   0.0004487858744889199,
+   0.0058755596299640235,
+   -0.00040615024389921287
+  ],
+  "zero": -0.004973642560046859,
+  "area": 636.0388738400628,
+  "axes": [
+   48.753778405781354,
+   13.474208070087647,
+   75.51558814899256
+  ],
+  "nmatch": 13,
+  "nlow": 10,
+  "score": 10.213002578176747,
+  "hkl": [
+   [
+    3,
+    0
+   ],
+   [
+    2,
+    -1
+   ],
+   [
+    6,
+    0
+   ],
+   [
+    6,
+    1
+   ],
+   [
+    5,
+    -1
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    0,
+    2
+   ],
+   [
+    1,
+    -2
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    3,
+    -2
+   ],
+   [
+    7,
+    -1
+   ],
+   [
+    9,
+    1
+   ],
+   [
+    9,
+    0
+   ],
+   [
+    4,
+    -2
+   ],
+   [
+    5,
+    -2
+   ],
+   [
+    10,
+    0
+   ],
+   [
+    9,
+    2
+   ],
+   [
+    6,
+    -2
+   ]
+  ],
+  "diff": [
+   -0.003783080689806753,
+   0.261325748522795,
+   0.011187896345882894,
+   -0.0045395397416314615,
+   0.6268035917378981,
+   0.010181331626336523,
+   0.015048568349840943,
+   -0.12081345059130631,
+import os,sys,json,time,numpy as np
+from numba import njit
+from scipy.optimize import least_squares
+sid=sys.argv[1];W='/app/work/'+sid
+ps=json.load(open(W+'/peaks_raw.json'));sf=os.getenv('SELECT_FILE',W+'/peak_select_raw.json');select=json.load(open(sf))['indices'] if os.path.exists(sf) else list(range(1,len(ps)+1));select=select[:int(os.getenv('NPEAK','24'))];ps=[ps[i-1] for i in select]
+wl=json.load(open('/app/data/instances/'+sid+'/instrument.json'))['radiation']['wavelength_A'];tt=np.array([p['two_theta'] for p in ps]);q=(2*np.sin(np.deg2rad(tt/2))/wl)**2;fac=wl*wl/(2*np.sin(np.deg2rad(tt)))*180/np.pi
+hk=np.array([[h,k] for h in range(0,19) for k in range(-18,19) if h or k>0],float);T=np.array([hk[:,0]**2,hk[:,1]**2,2*hk[:,0]*hk[:,1]]).T
+err=float(os.getenv('TTHERR','.035'));nm=len(tt);amin=float(os.getenv('AREA_MIN','80'));amax=float(os.getenv('AREA_MAX','700'));nlow=min(int(os.getenv('NLOW','14')),len(tt));nh=min(int(os.getenv('NANCHOR','7')),len(tt));vneed=int(os.getenv('NEED','9'))
+@njit(cache=False)
+def ev(g,z):
+ qc=T@g;ix=np.zeros(nm,np.int64);diff=np.zeros(nm);num=0;nlo=0;cost=0.
+ for i in range(nm):
+  mn=1e20
+  for j in range(len(qc)):
+   d=abs(qc[j]-q[i]+z/fac[i])
+   if d<mn:mn=d;ix[i]=j
+  diff[i]=(qc[ix[i]]-q[i])*fac[i]+z
+  if abs(diff[i])<err:
+   num+=1
+   if i<nlow:nlo+=1
+  cost+=min((diff[i]/err)**2,1.)
+ return num,nlo,cost,ix,diff
+@njit(cache=False)
+def enum(z):
+ out=np.zeros((50000,6));nr=0;qc=q-z/fac
+ for i1 in range(nh):
+  for i2 in range(i1+1,nh):
+   for mult1 in [1,2,3]:
+    for mult2 in [1,2,3]:
+     a=qc[i1]/(mult1*mult1);b=qc[i2]/(mult2*mult2)
+     for i3 in range(min(13,nm)):
+      if i3==i1 or i3==i2:continue
+      for h in range(1,5):
+       for k in range(1,5):
+        cross=(qc[i3]-h*h*a-k*k*b)/(2*h*k)
+        if abs(cross)/np.sqrt(a*b)>.999:continue
+        area=1/np.sqrt(a*b-cross*cross)
+        if area<amin or area>amax:continue
+        g=np.array([a,b,cross]);num,nlo,cost,ix,dd=ev(g,z)
+        if nlo<vneed:continue
+        # Reward coverage, but heavily penalize an unnecessarily large net.
+        score=nlo+0.3*(num-nlo)-area/1200-cost*.025
+        out[nr,0]=score;out[nr,1:4]=g;out[nr,4]=z;out[nr,5]=area;nr+=1
+        if nr>=50000:return out[:nr]
+ return out[:nr]
+t0=time.time();rows=[]
+for z in [-.12,-.06,0.,.06,.12]:
+ rr=enum(z);rr=rr[np.argsort(-rr[:,0])][:120]
+ rows.extend(rr);print('ENUM',sid,z,len(rr),time.time()-t0,flush=True)
+rows=sorted(rows,key=lambda r:-r[0]);out=[]
+for row in rows:
+ x=row[1:5];num,nlo,cost,ix,dd=ev(x[:3],x[3])
+ for j in range(4):
+  use=abs(dd)<err*1.5
+  if use.sum()<4:break
+  fit=least_squares(lambda v:(T[ix[use]]@v[:3]-q[use])*fac[use]+v[3],x,loss='soft_l1',f_scale=err*.5,max_nfev=100);x=fit.x;num,nlo,cost,ix,dd=ev(x[:3],x[3])
+ G=np.array([[x[0],x[2]],[x[2],x[1]]])
+ # Gauss-reduce the reciprocal planar basis; observed peaks need not be near-orthogonal basis vectors.
+ for itr in range(30):
+  if G[0,0]>G[1,1]:G=G[[1,0]][:,[1,0]]
+  m=int(np.round(G[0,1]/G[0,0]));B=np.array([[1.,0.],[-m,1.]])
+  if m==0:break
+  G=B@G@B.T
+ x[:3]=[G[0,0],G[1,1],G[0,1]]
+ num,nlo,cost,ix,dd=ev(x[:3],x[3]);det=np.linalg.det(G)
+ if det<=0:continue
+ area=1/np.sqrt(det);J=np.linalg.inv(G);a=np.sqrt(J[0,0]);b=np.sqrt(J[1,1]);angle=np.degrees(np.arccos(J[0,1]/(a*b)))
+ if angle<40 or angle>140 or area>amax or area<amin:continue
+ score=nlo+.3*(num-nlo)-area/1200-cost*.025
+ v=dict(plane_metric=x[:3].tolist(),zero=float(x[3]),area=float(area),axes=[a,b,angle],nmatch=int(num),nlow=int(nlo),score=float(score),hkl=hk[ix].astype(int).tolist(),diff=dd.tolist(),indices=select)
+ if any(np.allclose(v['plane_metric'],o['plane_metric'],rtol=.003,atol=1e-6) for o in out):continue
+ out.append(v)
+out.sort(key=lambda r:-r['score']);json.dump(out,open(W+'/'+os.getenv('ZONES_FILE','zones.json'),'w'),indent=1)
+for o in out[:12]:print('ZONE',o['score'],o['nlow'],o['nmatch'],o['area'],o['axes'],o['zero'],flush=True)
+print('DONE',time.time()-t0,flush=True)
+import sys,os,json,time,numpy as np,gemmi
+from scipy.optimize import least_squares
+from pymatgen.core import Lattice
+from numba import njit
+sid=sys.argv[1];W='/app/work/'+sid;idx=int(sys.argv[2]) if len(sys.argv)>2 else 0
+start=json.load(open(os.getenv('START_CELLS',W+'/candidates_metric.json')))[idx];L=Lattice.from_parameters(*start['cell']);G=L.reciprocal_lattice_crystallographic.metric_tensor
+ps=json.load(open(W+'/peaks_raw.json'));select=json.load(open(os.getenv('SELECT_FILE',W+'/peak_select_raw.json')))['indices'];ps=[ps[i-1] for i in select];tt=np.array([p['two_theta'] for p in ps]);wl=json.load(open('/app/data/instances/'+sid+'/instrument.json'))['radiation']['wavelength_A'];q=(2*np.sin(np.deg2rad(tt/2))/wl)**2;fac=wl*wl/(2*np.sin(np.deg2rad(tt)))*180/np.pi
+n=len(q);hl=np.array([[h,l] for h in range(0,10) for l in range(-12,13) if h or l>0],float);T0=np.array([hl[:,0]**2,hl[:,1]**2,2*hl[:,0]*hl[:,1]]).T
+x=np.array([G[0,0],G[2,2],G[0,2],start.get('zero',0.)]);fixed_ids=[int(i) for i in os.getenv('PLANE_IDS','').split(',') if i]
+for it in range(5):
+ dif=(T0@x[:3]-q[:,None])*fac[:,None]+x[3];ix=np.argmin(abs(dif),axis=1);di=dif[np.arange(n),ix];use=np.array([i in fixed_ids for i in select]) if fixed_ids else abs(di)<float(os.getenv('PLANE_ERR','.05'))
+ fit=least_squares(lambda v:(T0[ix[use]]@v[:3]-q[use])*fac[use]+v[3],x,loss='soft_l1',f_scale=.015);x=fit.x
+print('PLANE',idx,x.tolist(),'USE',[s for s,u in zip(select,use) if u],flush=True)
+print('DIFFS',np.round((T0@x[:3]-q[:,None])[np.arange(n),ix]*fac+x[3],4),flush=True)
+lo=float(os.getenv('VMIN','1100'));hi=float(os.getenv('VMAX','8000'));tar=float(os.getenv('VTARGET','2800'));err=float(os.getenv('TTHERR','.035'));nspur=int(os.getenv('NSPUR','0'));out=[]
+for sgname in os.getenv('SG_NAMES','P 1 21 1;C 1 2 1').split(';'):
+ sg=gemmi.find_spacegroup_by_name(sgname);ops=sg.operations();hkl=np.array([[h,k,l] for h in range(0,12) for k in range(0,17) for l in range(-12,13) if (h or k or l>0) and not ops.is_systematically_absent([h,k,l])],float);T=np.array([hkl[:,0]**2,hkl[:,1]**2,hkl[:,2]**2,2*hkl[:,0]*hkl[:,2]]).T
+ @njit(cache=False)
+ def score(v):
+  qc=T@v[:4];df=np.zeros(n);ii=np.zeros(n,np.int64)
+  for i in range(n):
+   bd=1e20
+   for j in range(len(qc)):
+    d=abs((qc[j]-q[i])*fac[i]+v[4])
+    if d<bd:bd=d;ii[i]=j
+   df[i]=(qc[ii[i]]-q[i])*fac[i]+v[4]
+  det=v[1]*(v[0]*v[2]-v[3]*v[3])
+  if det<=0:return 1e5,ii,df
+  vol=1/np.sqrt(det);ss=np.log1p((df/err)**2);ss.sort();cost=np.mean(ss[:n-nspur])*vol/tar
+  if vol<lo or vol>hi:cost+=10
+  return cost,ii,df
+ for hmult in [1,2]:
+  xx=x.copy();xx[0]/=hmult**2;xx[2]/=hmult
+  AC=np.array([xx[0],xx[1],xx[2]]);pterms=T[:,[0,2,3]]@AC
+  bs=[]
+  for qq,fa in zip(q,fac):
+   vals=(qq-xx[3]/fa-pterms)/(T[:,1]+1e-20);bs.extend(vals[(T[:,1]>0)&(vals>1/40**2)&(vals<1/3.0**2)])
+  bs=np.unique(np.round(bs,8));rows=[]
+  for bb in bs:
+   v=np.array([xx[0],bb,xx[1],xx[2],xx[3]]);cost,ii,di=score(v)
+   if cost<2.:rows.append((cost,v))
+  rows.sort(key=lambda z:z[0]);print('ENUM',sgname,hmult,len(bs),len(rows),flush=True)
+  for c0,v in rows[:80]:
+   for it in range(4):
+    cc,ii,di=score(v);v=least_squares(lambda vv:(T[ii]@vv[:4]-q)*fac+vv[4],v,loss='soft_l1',f_scale=err,max_nfev=80).x
+   co,ii,di=score(v);g=v[:4];GM=np.array([[g[0],0,g[3]],[0,g[1],0],[g[3],0,g[2]]])
+   if np.linalg.det(GM)<=0:continue
+   lat=Lattice(np.linalg.cholesky(np.linalg.inv(GM)));re=list(lat.get_niggli_reduced_lattice().parameters)
+   if lat.volume<lo or lat.volume>hi:continue
+   if any(s['sg']==sgname and np.allclose(re[:3],s['reduced'][:3],rtol=.003) and np.allclose(re[3:],s['reduced'][3:],atol=.3) for s in out):continue
+   out.append(dict(cell=list(lat.parameters),system='MONOCLINIC',centering=sg.centring_type(),sg=sgname,score=1/max(co,1e-12),cost=co,volume=lat.volume,zero=float(v[4]),diff=di.tolist(),hkl=hkl[ii].astype(int).tolist(),reduced=re,plane_index=idx,hmult=hmult,mode=32))
+  out.sort(key=lambda s:s['cost']);json.dump(out,open(W+'/index_'+os.getenv('INDEX_TAG','axis'+str(idx))+'.json','w'),indent=1)
+for o in out[:12]:print('BEST',o['cost'],o['sg'],np.round(o['cell'],5),o['zero'],np.round(o['diff'],4),flush=True)
+alkane_reindex.log
+complete_plane_mono.py
+find_zones.py
+find_zones_v1.py
+gsas_index.py
+index1db_raw_strict.sh
+index_axial.py
+index_batch.log
+index_de.py
+index_de_v1.py
+index_metric.py
+index_metric_v1.py
+index_one.py
+indexstrict.log
+nextindexes.log
+parse_index_log.py
+queue_fit_finalplane.log
+queue_fit_finalplane.sh
+queue_index8wide.log
+queue_index8wide.sh
+queue_index_de.sh
+queue_index_de2.sh
+queue_index_ext.log
+queue_index_ext.sh
+queue_moreindex.log
+queue_moreindex.sh
+queue_targetindex.log
+queue_targetindex.sh
+queue_zones.log
+queue_zones.sh
+raw_index_queue.sh
+rawindex.log
+reindex_batch.log
+reindex_batch.py
+run_index_batch.py

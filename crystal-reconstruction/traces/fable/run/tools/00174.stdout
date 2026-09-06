@@ -1,0 +1,6 @@
+Rwp 0.13960938755589847
+npar 161 notfixed -1
+after lsq.UnFixAllPar notfixed -1
+['Background_Point_0', 'Background_Point_1', 'Background_Point_2', 'Background_Point_3', 'Background_Point_4', 'Background_Point_5', 'Background_Point_6', 'Background_Point_7', 'Background_Point_8', 'Background_Point_9', 'Background_Point_10', 'Background_Point_11', 'Background_Point_12', 'Background_Point_13', 'Background_Point_14', 'Background_Point_15', 'Background_Point_16', 'Background_Point_17', 'Background_Point_18', 'Background_Point_19', 'Background_Point_20', 'Background_Point_21', 'Background_Point_22', 'Background_Point_23', 'Zero', '2ThetaDispl', '2ThetaTransp', 'DIFC', 'DIFA', 'MuR', 'Scale_', 'Wavelength', 'XRayTubeDeltaLambda', 'XRayTubeAlpha2Alpha1Ratio', 'a', 'b', 'c', 'alpha', 'beta', 'gamma', 'EPR1', 'EPR2', 'EPR3', 'EPR4', 'EPR5', 'EPR6', 'Global Biso', 'U', 'V', 'W', 'Eta0', 'Eta1', 'Asym0', 'Asym1', 'Asym2', 'mol0_0_x', 'mol0_0_y', 'mol0_0_z', 'mol0_0_Occ', 'mol0_0_Q0']
+notfixed -1
+Rwp after 0.5207992481520719 restraint 0.0

@@ -1,0 +1,39 @@
+ZM COc1ccc(NC(=O)[C@@H]2C[C@H](C)CC[C@H]2C(C)C)cc1 n 21 torsions 4 max_distance_error 1.1266165778067716e-08
+Total degrees of freedom: 11
+Total external degrees of freedom: 7 (pos: 3 rot: 4 )
+Total internal degrees of freedom: 4
+Traceback (most recent call last):
+  File "/app/work/gallop_prepare.py", line 91, in <module>
+    prepare(sid,run,zp,rigid='--rigid' in sys.argv,model_path=mp,stolmax=float(os.environ.get('GALLOP_STOL','.21')))
+  File "/app/work/gallop_prepare.py", line 85, in prepare
+    s.get_total_degrees_of_freedom(verbose=True);json.dump(meta,open(G+'/model.json','w'),indent=1);open(G+'/structure.json','w').write(s.to_json());np.savez_compressed(G+'/profile_matrix.npz',matrix=A,hkl=hkls,normal=normal,tt=tt,obs=f2)
+                                                                                                                                        ^^^^^^^^^^^
+  File "/opt/conda/lib/python3.11/site-packages/gallop/structure.py", line 166, in to_json
+    dumpable[k] = [zm.to_json(return_json=return_json) for zm in v]
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.11/site-packages/gallop/structure.py", line 166, in <listcomp>
+    dumpable[k] = [zm.to_json(return_json=return_json) for zm in v]
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.11/site-packages/gallop/z_matrix.py", line 133, in to_json
+    return json.dumps(dumpable)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.11/json/__init__.py", line 231, in dumps
+    return _default_encoder.encode(obj)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.11/json/encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.11/json/encoder.py", line 258, in iterencode
+    return _iterencode(o, 0)
+           ^^^^^^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.11/json/encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+RUN 1 steps 1000000 time 162.78111147880554 total 175.45391416549683 LLK 174977221.69843465 Rw 0.2839245042982601 Integrated 174976370.31305385
+RUN 2 steps 1000000 time 106.71493411064148 total 282.2099914550781 LLK 173298147.69674695 Rw 0.28577512300079355 Integrated 173297244.86783078
+RUN 3 steps 1000000 time 102.77394437789917 total 385.02319622039795 LLK 182321740.1317481 Rw 0.2989141872503462 Integrated 182320779.67882434
+RUN 4 steps 1000000 time 98.44143295288086 total 483.46510434150696 LLK 173170596.69393972 Rw 0.29307618273692126 Integrated 173169664.23246977
+RUN 2 steps 1000000 time 78.21388125419617 total 204.09815764427185 LLK 267546.6404677423 Rw 0.457663551754412 Integrated 266403.87250361184
+RUN 3 steps 1000000 time 88.8841392993927 total 293.07884550094604 LLK 264687.41342196974 Rw 0.4751248095752232 Integrated 263562.0195494764
+RUN 4 steps 1000000 time 78.6379873752594 total 371.81134963035583 LLK 266914.5559384552 Rw 0.4875589001146934 Integrated 265727.483885781
+RUN 5 steps 1000000 time 75.364985704422 total 447.1766538619995 LLK 286457.05487015634 Rw 0.5383442076353001 Integrated 285235.9785141927

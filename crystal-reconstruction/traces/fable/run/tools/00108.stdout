@@ -1,0 +1,12 @@
+N.B. Configuration file /root/.GSASII/config.ini does not exist
+======================================================================
+Module pyspg in '/opt/g2/GSAS-II/GSASII-bin/linux_64_p3.13_n2.2' could not be loaded
+error msg: /lib/x86_64-linux-gnu/libm.so.6: version `GLIBC_2.38' not found (required by /opt/g2/GSAS-II/GSASII-bin/linux_64_p3.13_n2.2/pyspg.cpython-313-x86_64-linux-gnu.so)
+======================================================================
+*** ERROR: Unable to find GSAS-II binaries. Much of GSAS-II cannot function
+binary load error: pyspg not found
+pypowder is not available - profile calcs. not allowed
+pydiffax is not available for this platform
+pypowder is not available - profile calcs. not allowed
+peaks used: [np.float64(10.156), np.float64(11.35), np.float64(13.901), np.float64(16.02), np.float64(17.711), np.float64(18.641), np.float64(18.979), np.float64(19.693), np.float64(20.013), np.float64(21.588), np.float64(22.717), np.float64(24.255), np.float64(24.949), np.float64(25.385), np.float64(25.758), np.float64(26.96), np.float64(27.327), np.float64(28.145), np.float64(28.993), np.float64(29.368)]
+lattice parameter range =     2.500   43.511

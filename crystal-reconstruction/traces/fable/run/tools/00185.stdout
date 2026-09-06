@@ -1,0 +1,20 @@
+TORSION :C7-C8:O3,: base rotation=0.974028 free=0
+TORSION :C7-C8:C9,N1,C10,O4,C11,N2,: base rotation=0.281629 free=0
+TORSION :C8-O3:C9,N1,C10,O4,C11,N2,: base rotation=0.285625 free=0
+TORSION :C8-C9:O3,: base rotation=0.974028 free=0
+TORSION :N1-C10:O4,: base rotation=0.974028 free=0
+TORSION :N1-C10:C11,N2,: base rotation=0.974028 free=0
+TORSION :C10-O4:C11,N2,: base rotation=0.974028 free=0
+TORSION :C10-C11:O4,: base rotation=0.974028 free=0
+TORSION :C12-C7:C8,O3,C9,N1,C10,O4,C11,N2,: base rotation=0.255841 free=0
+TORSION :C12-C2:C1,O1,: base rotation=0.974028 free=0
+MDAtomGroup: C2 C7 C4 C5 C3 C12 
+  Involving bond restraints:O1-C2  C2-C3  C3-C4  C4-C5  C5-O2  C5-C7  C7-C8  C7-C12  C12-C2  
+  Involving bond angle restraints:C3-C2-C12  O1-C2-C12  O1-C2-C3  C1-O1-C2  C8-C7-C12  C7-C8-O3  C7-C8-C9  C7-C12-C2  C2-C3-C4  C3-C4-C5  C4-C5-O2  C4-C5-C7  O2-C5-C7  C5-O2-C6  C5-C7-C8  C5-C7-C12  
+  Involving dihedral angle restraints:O1-C2-C3-C4  C12-C2-C3-C4  C2-C3-C4-C5  C3-C4-C5-O2  C3-C4-C5-C7  C4-C5-C7-C8  C4-C5-C7-C12  O2-C5-C7-C8  O2-C5-C7-C12  C5-C7-C12-C2  C8-C7-C12-C2  C7-C12-C2-O1  C7-C12-C2-C3  
+Full MD atom group:
+ C2 C6 C7 C4 C5 O2 C3 C1 O1 C8 O3 C9 N1 C10 O4 C11 N2 C12 
+after cr.BeginOptimization(True,True) 0.13960938755589836
+restored 0.13960938755589836
+set Flexibility Model -> Rigid Body
+after cr.BeginOptimization(True,True) rigid 0.13960938755589836

@@ -1,0 +1,2 @@
+tail: cannot open '/app/work/X263b09a/refine1.log' for reading: No such file or directory
+<stdin>:6: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.

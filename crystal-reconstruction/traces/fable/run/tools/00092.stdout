@@ -1,0 +1,3 @@
+["    pk = np.loadtxt(f'/app/work/{iid}/peaks.txt')", "    fwhm = float(open(f'/app/work/{iid}/peaks.txt').readline().split()[2])"]
+rank.py:69:    pk = np.loadtxt(f'/app/work/{iid}/peaks.txt')
+rank.py:70:    fwhm = float(open(f'/app/work/{iid}/peaks.txt').readline().split()[2])

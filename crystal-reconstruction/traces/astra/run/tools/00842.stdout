@@ -1,0 +1,179 @@
+import sys,os,time,json,itertools,numpy as np
+import matplotlib
+matplotlib.use('Agg')
+from rdkit import Chem
+from pyobjcryst.io import xml_cryst_file_load_all_object,xml_cryst_file_save_global
+from pyobjcryst._pyobjcryst import LSQ
+from pyobjcryst.scatteringpower import ScatteringPowerAtom
+from pyobjcryst.refinableobj import *
+from obj_model import export_cif,recenter_molecules,add_aromatic_planarity
+sid=sys.argv[1];run=sys.argv[2] if len(sys.argv)>2 else '1';W='/app/work/'+sid
+src=W+'/search_'+run+'/best.xml' if len(sys.argv)<4 else sys.argv[3]
+objs=xml_cryst_file_load_all_object(src);c=[o for o in objs if o.GetClassName()=='Crystal'][0];p=[o for o in objs if o.GetClassName()=='PowderPattern'][0]
+d=[p.GetPowderPatternComponent(i) for i in range(p.GetNbPowderPatternComponent()) if p.GetPowderPatternComponent(i).GetClassName()=='PowderPatternDiffraction'][0]
+mods=json.load(open(W+'/search_'+run+'/model.json'));mols=[c.GetScatterer(i) for i in range(c.GetNbScatterer())]
+p.Prepare()
+print('START',p.GetRw(),p.GetChi2(),flush=True)
+# Add geometrically generated hydrogens to the molecular model, keeping all heavy-atom positions unchanged.
+if '--noH' not in sys.argv:
+ try:hs=c.GetScatteringPower('H')
+ except:hs=ScatteringPowerAtom('H','H',4.0);c.AddScatteringPower(hs)
+ for m,md in zip(mols,mods):
+  if m.GetClassName()!='Molecule':continue
+  r=Chem.MolFromSmiles(md['smiles']);n=r.GetNumAtoms()
+  ac=m.GetScatteringComponentList()[0];old_xyz=np.array([ac.X,ac.Y,ac.Z])
+  if m.GetNbAtoms()!=n:continue
+  cf=Chem.Conformer(n)
+  for i in range(n):
+   a=m.GetAtom(i);cf.SetAtomPosition(i,(a.X,a.Y,a.Z))
+  r.AddConformer(cf);rh=Chem.AddHs(r,addCoords=True);xyz=rh.GetConformer().GetPositions()
+  for i in range(n,rh.GetNumAtoms()):
+   h=m.AddAtom(*xyz[i],hs,m.GetName()+'_H'+str(i+1),False)
+   j=rh.GetAtomWithIdx(i).GetNeighbors()[0].GetIdx();parent=m.GetAtom(j);bl=float(np.linalg.norm(xyz[i]-xyz[j]));m.AddBond(parent,h,bl,.02,.015,1,False)
+   for nb in rh.GetAtomWithIdx(j).GetNeighbors():
+    k=nb.GetIdx()
+    if k==i or k>=i:continue
+    v1=xyz[i]-xyz[j];v2=xyz[k]-xyz[j];ang=np.arccos(np.clip(v1@v2/np.linalg.norm(v1)/np.linalg.norm(v2),-1,1));m.AddBondAngle(h,parent,m.GetAtom(k),ang,np.deg2rad(2),np.deg2rad(2),False)
+   for rg in range(m.GetNbRigidGroups()):
+    group=m.GetRigidGroupList()[rg]
+    if parent in group:group.add(h)
+   # Aromatic atoms and nitrile terminal atoms require no additional torsions.
+  ac=m.GetScatteringComponentList()[0];new_xyz=np.array([ac.X,ac.Y,ac.Z]);delta=old_xyz-new_xyz
+  m.X+=delta[0];m.Y+=delta[1];m.Z+=delta[2]
+ c.SetParIsFixed(refpartype_scattpow_temperature,True)
+# Optional extension to higher-angle observations for a final coordinate refinement.
+new_stol=next((float(a.split('=',1)[1]) for a in sys.argv if a.startswith('--stol=')),None)
+if new_stol is not None:
+ ins=json.load(open('/app/data/instances/'+sid+'/instrument.json'));wl=ins['radiation']['wavelength_A'];raw=np.loadtxt('/app/data/instances/'+sid+'/pattern.xye')
+ lo=np.rad2deg(p.GetPowderPatternX()[0]);hi=np.rad2deg(2*np.arcsin(new_stol*wl));raw=raw[(raw[:,0]>=lo)&(raw[:,0]<hi)]
+ nbin=max(1,int(np.ceil(len(raw)/12000)))
+ if nbin>1:
+  n=len(raw)//nbin*nbin;raw=np.column_stack([raw[:n,0].reshape(-1,nbin).mean(1),raw[:n,1].reshape(-1,nbin).mean(1),np.sqrt((raw[:n,2]**2).reshape(-1,nbin).sum(1))/nbin])
+ data0=np.load(W+'/processed.npz');b=[p.GetPowderPatternComponent(i) for i in range(p.GetNbPowderPatternComponent()) if p.GetPowderPatternComponent(i).GetClassName()=='PowderPatternBackground'][0]
+ bx0=np.array(b.GetInterpPointsX());by0=np.array(b.GetInterpPointsY());step=np.median(np.diff(bx0));extra=np.arange(bx0[-1]+step,np.deg2rad(raw[-1,0])+step,step)
+ byextra=np.interp(np.rad2deg(extra),data0['x'],data0['background']);b.SetInterpPoints(np.r_[bx0,extra],np.r_[by0,byextra])
+ np.savetxt(W+'/extended_'+run+'.xye',raw);p.ImportPowderPattern2ThetaObsSigma(W+'/extended_'+run+'.xye');p.SetMaxSinThetaOvLambda(new_stol);p.Prepare()
+ print('EXTENDED',new_stol,len(raw),'Rw',p.GetRw(),flush=True)
+p.GetOption(0).SetChoice(1) # use the point-by-point profile for Rietveld refinement
+p.Prepare();p.FitScaleFactorForRw()
+print('WITH_H',p.GetRw(),p.GetChi2(),flush=True)
+if '--scale' in sys.argv:
+ wgt=np.array(p.GetLSQWeight(0));xx=np.rad2deg(p.GetPowderPatternX());yy=np.array(p.GetPowderPatternObs())
+ n=min(len(xx),len(wgt));scale=np.sqrt(max(1.,p.GetChi2()/n))
+ ss=1/np.sqrt(np.maximum(wgt[:n],1e-20))*scale
+ np.savetxt(W+'/scaled_refine.xye',np.column_stack([xx[:n],yy[:n],ss]));p.ImportPowderPattern2ThetaObsSigma(W+'/scaled_refine.xye');p.Prepare()
+ print('SCALED_SIGMA',scale,p.GetChi2(),flush=True)
+
+if '--tight' in sys.argv:
+ for m in mols:
+  if m.GetClassName()!='Molecule':continue
+  for bo in m.GetBondList():
+   if bo.GetAtom1().GetScatteringPower().GetSymbol()!='H' and bo.GetAtom2().GetScatteringPower().GetSymbol()!='H':bo.SetLengthSigma(.006);bo.SetLengthDelta(.008)
+  for an in m.GetBondAngleList():
+   if all(a.GetScatteringPower().GetSymbol()!='H' for a in [an.GetAtom1(),an.GetAtom2(),an.GetAtom3()]):an.SetAngleSigma(np.deg2rad(.8));an.SetAngleDelta(np.deg2rad(1.))
+ print('TIGHT_RESTRAINTS',flush=True)
+if '--keep-rigid' not in sys.argv:
+ for m in mols:
+  if m.GetClassName()=='Molecule':
+   for rg in list(m.GetRigidGroupList()):m.RemoveRigidGroup(rg)
+ print('FLEXIBLE_RINGS',flush=True)
+if '--no-planarity' not in sys.argv:
+ nplan=0
+ for m,md in zip(mols,mods):
+  if m.GetClassName()=='Molecule':nplan+=add_aromatic_planarity(m,md['smiles'],md.get('rdkit_coords'))
+ print('AROMATIC_PLANARITY',nplan,flush=True)
+packing_restraint=None
+if '--no-packing' not in sys.argv:
+ import lsq_packing
+ packing_restraint=lsq_packing.attach_packing(p,c,mods)
+lsq=LSQ();lsq.SetRefinedObj(p,0,True,True);lsq.PrepareRefParList(True);ref=lsq.GetCompiledRefinedObj();ref.FixAllPar()
+if new_stol is not None:
+ lsq.SetParIsFixed(refpartype_scattdata_background,False)
+ for i in range(2):
+  try:lsq.SafeRefine(nbCycle=5,useLevenbergMarquardt=True,silent=True)
+  except:break
+  p.FitScaleFactorForRw()
+ print('EXTENDED_BACKGROUND',p.GetRw(),flush=True)
+lsq.SetParIsFixed(refpartype_scatt_transl,False);lsq.SetParIsFixed(refpartype_scatt_orient,False)
+if '--free-march' in sys.argv:
+ for i in range(ref.GetNbPar()):
+  par=ref.GetPar(i)
+  if par.GetName().startswith('MarchCoeff_'):
+   par.SetIsFixed(False);par.SetLimitsAbsolute(.4,2.5);print('FREE_MARCH',par.GetName(),par.GetHumanValue(),flush=True)
+
+# Begin with positions and orientations only, then allow restrained intramolecular relaxation.
+for stage in range(4):
+ if stage==1:
+  lsq.SetParIsFixed(refpartype_scatt_conform,False)
+ if stage==2 and '--fixB' not in sys.argv:
+  lsq.SetParIsFixed(refpartype_scattpow_temperature,False)
+  # H displacement parameters have limited information; keep at chemically reasonable bounds.
+  for i in range(len(c.GetScatteringPowerRegistry())):
+   sp=c.GetScatteringPowerRegistry().GetObj(i);sp.SetLimitsAbsolute('Biso',.3,10.)
+ if stage==3:
+  for n in ['a','b','c','alpha','beta','gamma','Zero','U','V','W','Eta0','Eta1']:
+   try:lsq.SetParIsFixed(n,False)
+   except:pass
+ for j in range(3):
+  try:lsq.SafeRefine(nbCycle=10,useLevenbergMarquardt=True,silent=True)
+  except Exception as e:print('REFINE_ERROR',e,flush=True);break
+  recenter_molecules(c);p.FitScaleFactorForRw();print('CYCLE',stage,j,'Rw',p.GetRw(),'chi2',p.GetChi2(),'geom',sum(m.GetLogLikelihood() for m in mols),'LSQ',lsq.ChiSquare(),flush=True)
+ if packing_restraint is not None:print('PACKING_STAGE',stage,lsq_packing.cost(packing_restraint),flush=True)
+ export_cif(c,W+'/refine_'+run+'_stage'+str(stage)+'.cif')
+ xml_cryst_file_save_global(W+'/refine_'+run+'_stage'+str(stage)+'.xml')
+# Final pattern and parameters
+export_cif(c,W+'/refined_'+run+'.cif');xml_cryst_file_save_global(W+'/refined_'+run+'.xml')
+json.dump({'Rw':p.GetRw(),'chi2':p.GetChi2()},open(W+'/refined_'+run+'.json','w'),indent=1)
+import matplotlib.pyplot as plt
+x=np.rad2deg(p.GetPowderPatternX());y=p.GetPowderPatternObs();yc=p.GetPowderPatternCalc();fig,ax=plt.subplots(figsize=(14,6));ax.plot(x,y,'k',lw=.6,label='Observed');ax.plot(x,yc,'r',lw=.6,label='Rietveld');ax.plot(x,y-yc-y.max()*.13,'b',lw=.4,label='Difference');ax.legend();ax.set_title(sid+' Rwp %.4f'%p.GetRw());fig.tight_layout();fig.savefig(W+'/refined_'+run+'.png',dpi=130)
+print('FINISHED',sid,p.GetRw(),flush=True)
+
+if packing_restraint is not None:lsq_packing.detach(p,packing_restraint)
+    <PowderPatternComponent Scale="1" Name=""/>
+
+    <XIobsSigmaWeightList>
+      1.479 52.586 7.25162 0.0190165 
+      1.48 57.002 7.54997 0.0175432 
+      1.481 61.855 7.86479 0.0161669 
+      1.482 65.154 8.0718 0.0153483 
+      1.483 74.378 8.62427 0.0134448 
+      1.484 72.967 8.54207 0.0137048 
+      1.485 63.307 7.95657 0.015796 
+      1.486 58.896 7.67437 0.0169791 
+      1.487 63.143 7.94626 0.0158371 
+GALLOP 0 Nref 409 seconds 222.4976680278778 best 103.35097 q25 345.8469 median 441.23944 total 222.50522685050964
+GALLOP 1 Nref 409 seconds 205.4007203578949 best 103.0253 q25 327.623 median 465.01886 total 428.1203353404999
+GALLOP 2 Nref 409 seconds 214.73724508285522 best 103.00182 q25 325.35846 median 434.74915 total 643.1213910579681
+GALLOP 3 Nref 409 seconds 230.90524649620056 best 103.00144 q25 345.7233 median 448.71222 total 874.2292268276215
+GALLOP 4 Nref 409 seconds 201.90984654426575 best 103.00185 q25 300.5567 median 426.9541 total 1076.3930368423462
+GALLOP 5 Nref 409 seconds 212.1918694972992 best 103.00244 q25 364.6688 median 478.15637 total 1288.6126592159271
+CYCLE 2 0 Rw 0.19770581503016058 chi2 2066.3457986935387 geom 18.57523391937471 LSQ 2183.848187053317
+CYCLE 2 1 Rw 0.1941325320094094 chi2 1992.3276077233631 geom 12.450711485924908 LSQ 2103.0165843144578
+CYCLE 2 2 Rw 0.19283953036114573 chi2 1965.8765644691043 geom 12.682103366067192 LSQ 2076.0759143059395
+PACKING_STAGE 2 0.0
+CYCLE 3 0 Rw 0.19146151506424855 chi2 1937.8809683443428 geom 10.971052242882992 LSQ 2041.9649971867916
+CYCLE 3 1 Rw 0.1912307968636318 chi2 1933.2133460160865 geom 10.892290335338787 LSQ 2034.3879067240287
+CYCLE 3 2 Rw 0.19071146168060674 chi2 1922.7273527990162 geom 10.91946294320226 LSQ 2022.602027872868
+PACKING_STAGE 3 0.0
+FINISHED X1a56c78 0.19071146168060674
+PACKING_STAGE 0 1348.7666874926686
+CYCLE 1 0 Rw 0.13871381083557074 chi2 5580.557348790531 geom 163.24617878053354 LSQ 6303.60447392688
+CYCLE 1 1 Rw 0.13675386628396444 chi2 5423.9714674210445 geom 41.28936131645385 LSQ 5812.346882431129
+CYCLE 1 2 Rw 0.13588846730488235 chi2 5355.5412628795975 geom 31.822459487698893 LSQ 5700.523434856357
+PACKING_STAGE 1 164.6824055480107
+CYCLE 2 0 Rw 0.13551794412272217 chi2 5326.375478731144 geom 29.708704046944863 LSQ 5587.204407634039
+CYCLE 2 1 Rw 0.13475223007045437 chi2 5266.354522780699 geom 29.013333380805626 LSQ 5522.734593184323
+CYCLE 2 2 Rw 0.13479974022454733 chi2 5270.068738459654 geom 28.259030773369908 LSQ 5519.827948481876
+PACKING_STAGE 2 78.38088658473161
+CYCLE 3 0 Rw 0.13178924104214967 chi2 5036.916754553852 geom 25.88154704126229 LSQ 5285.669929745916
+HBOND_PRIOR 2 donors 7 acceptors coefficient 80.0
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 258 seconds 251.00764083862305 best 77.014915 q25 189.17148 median 243.7628 total 251.06556057929993
+GALLOP 1 Nref 258 seconds 242.595951795578 best 76.13098 q25 199.50287 median 244.3393 total 493.86426758766174
+GALLOP 2 Nref 258 seconds 234.52613592147827 best 76.100296 q25 196.18318 median 249.236 total 728.5892610549927
+GALLOP 3 Nref 258 seconds 224.08546495437622 best 76.1003 q25 182.12398 median 240.31937 total 952.8568501472473
+GALLOP 4 Nref 258 seconds 240.63830494880676 best 76.10083 q25 169.15366 median 241.07114 total 1193.5936093330383

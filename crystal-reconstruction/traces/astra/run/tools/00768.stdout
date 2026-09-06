@@ -1,0 +1,26 @@
+/app/work/Xedd9c7b/warm50.log:EXACT_PAWLEY nref 258 rank 206 cond 957.6291798488846 chi2 993.722412217968 netRwp 0.20454107489385817
+/app/work/Xedd9c7b/warm50.log:PREPARED Xedd9c7b Nref 258 PawleyRw 0.07196169903009421 SG P 1 21/a 1
+/app/work/Xedd9c7b/warm52.log:EXACT_PAWLEY nref 258 rank 198 cond 970.8370342919661 chi2 949.9137653401224 netRwp 0.2280111533636094
+/app/work/Xedd9c7b/warm52.log:PREPARED Xedd9c7b Nref 258 PawleyRw 0.09064984261516006 SG P 1 21/a 1
+/app/work/Xedd9c7b/gallop11.log:EXACT_PAWLEY nref 258 rank 210 cond 882.1877639983078 chi2 1820.8441368066883 netRwp 0.20503665250606432
+/app/work/Xedd9c7b/gallop11.log:PREPARED Xedd9c7b Nref 258 PawleyRw 0.0720359098848644 SG P 1 21/a 1
+/app/work/Xbfeeda9/warm60.log:EXACT_PAWLEY nref 442 rank 356 cond 932.2412534772227 chi2 417.76778918772214 netRwp 0.0641599583043689
+/app/work/Xbfeeda9/warm60.log:PREPARED Xbfeeda9 Nref 442 PawleyRw 0.036948551858085835 SG P 1 21/a 1
+/app/work/Xedd9c7b/fit_zero6.json:   "Rw": 25.654031778702198,
+/app/work/Xedd9c7b/fit_zero6.json:   "Rw": 28.353002545881317,
+/app/work/Xedd9c7b/fit_zero6.json:   "Rw": 28.353002545881317,
+/app/work/Xedd9c7b/fit_zero6.json:   "Rw": 28.353002545881317,
+/app/work/Xedd9c7b/fit_zero6.json:   "Rw": 28.52202036754515,
+/app/work/Xedd9c7b/fit_zero6.json:   "Rw": 28.52202036754515,
+/app/work/Xedd9c7b/fit_zero6.json:   "Rw": 28.52202036754515,
+/app/work/Xedd9c7b/fit_zero6.json:   "Rw": 28.52202036754515,
+Total degrees of freedom: 24
+Total external degrees of freedom: 14 (pos: 6 rot: 8 )
+Total internal degrees of freedom: 10
+PREPARED Xedd9c7b Nref 258 PawleyRw 0.09064984261516006 SG P 1 21/a 1
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+RESTART_ERROR max/rms 1.953298830778754e-06 1.1753424308078288e-06
+WARM_READY /app/work/Xedd9c7b/gallop_52

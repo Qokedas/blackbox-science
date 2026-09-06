@@ -1,0 +1,214 @@
+import sys,os,time,json,numpy as np,torch,gemmi
+from gallop.structure import Structure
+from gallop.optim import local
+from gallop.optim.swarm import Swarm
+from gallop import tensor_prep,zm_to_cart,chi2
+from gallop_prepare import prepare
+sid=sys.argv[1];run=int(sys.argv[2]) if len(sys.argv)>2 else 1;zp=int(sys.argv[3]) if len(sys.argv)>3 else 1
+W='/app/work/'+sid;G=W+'/gallop_'+str(run);torch.set_num_threads(int(os.environ.get('TORCH_THREADS',1)));torch.set_num_interop_threads(1)
+if not os.path.exists(G+'/structure.json') or '--prepare' in sys.argv:
+ mp=next((v.split('=',1)[1] for v in sys.argv if v.startswith('--model=')),None);s,G=prepare(sid,run,zp,rigid='--rigid' in sys.argv,model_path=mp,stolmax=float(os.environ.get('GALLOP_STOL','.21')))
+else:s=Structure();s.from_json(open(G+'/structure.json').read())
+if '--hscatter' in sys.argv:
+ from hydrogen_prefix import enable_hydrogen_prefix
+ enable_hydrogen_prefix(s,G+'/model.json')
+if '--packing' in sys.argv:
+ from gallop_packing import enable_packing
+ enable_packing(s,G+'/model.json')
+np.random.seed((int(time.time())+run)%1000000);NP=int(os.environ.get('PARTICLES','128'));IT=int(os.environ.get('ITERATIONS','450'));ns=max(1,NP//32);max_time=float(os.environ.get('SEARCH_TIME',1800));best=1e100;elite_e=None;elite_i=None;t0=time.time();i=0
+
+def save_result(result,i):
+ global best,elite_e,elite_i
+ mn=float(result['chi_2'].min());ix=int(result['chi_2'].argmin())
+ if mn>=best:return
+ best=float(mn);elite_e=result['external'][ix].copy();elite_i=result['internal'][ix].copy()
+ np.savez_compressed(G+'/best.npz',external=result['external'][ix:ix+1],internal=result['internal'][ix:ix+1],chi2=mn)
+ t=tensor_prep.get_all_required_tensors(s,external=result['external'][ix:ix+1],internal=result['internal'][ix:ix+1],requires_grad=False,device=torch.device('cpu'),verbose=False)
+ with torch.no_grad():frac=zm_to_cart.get_asymmetric_coords(**t['zm']).detach().numpy()[0]
+ np.save(G+'/best_frac.npy',frac)
+ sg=gemmi.find_spacegroup_by_name(s.space_group.symbol);text='data_solution\n'
+ for name,v in zip(['length_a','length_b','length_c','angle_alpha','angle_beta','angle_gamma'],s.lattice.parameters):text+=f'_cell_{name} {v:.9f}\n'
+ text+=f"_space_group_name_H-M_alt '{sg.xhm()}'\n_space_group_IT_number {sg.number}\nloop_\n_space_group_symop_id\n_space_group_symop_operation_xyz\n"
+ for j,op in enumerate(sg.operations()):text+=f"{j+1} '{op.triplet()}'\n"
+ text+='loop_\n_atom_site_label\n_atom_site_type_symbol\n_atom_site_fract_x\n_atom_site_fract_y\n_atom_site_fract_z\n_atom_site_occupancy\n'
+ els=[el for z in s.zmatrices for el in z.elements_no_H]
+ for j,(el,v) in enumerate(zip(els,frac)):text+=f'{el}{j+1} {el} {v[0]%1:.9f} {v[1]%1:.9f} {v[2]%1:.9f} 1\n'
+ open(G+'/best.cif','w').write(text);json.dump({'chi2':float(mn),'Rint':float(np.sqrt(mn/1000)),'iteration':i,'elapsed':time.time()-t0},open(G+'/best.json','w'),indent=1)
+
+while time.time()-t0<max_time and not os.path.exists(G+'/STOP'):
+ if i%12==0:
+  swarm=Swarm(s,n_particles=NP,n_swarms=ns,global_update=True,global_update_freq=5);ext,intr=swarm.get_initial_positions()
+  # Optional warm-start around a chemically sensible best particle.
+  if 'START_NPZ' in os.environ:
+   warm=np.load(os.environ['START_NPZ']);nn=NP//2;ext[:nn]=warm['external'][0]+np.random.normal(size=ext[:nn].shape)*float(os.environ.get('START_JITTER','.15'));intr[:nn]=warm['internal'][0]+np.random.normal(size=intr[:nn].shape)*float(os.environ.get('START_TOR_JITTER','.4'))
+ # Retain a small elite cloud across PSO and reset boundaries.
+ if elite_e is not None:
+  ne=max(1,int(NP*float(os.environ.get('ELITE_FRAC','.10'))));ext[:ne]=elite_e+np.random.normal(size=ext[:ne].shape)*float(os.environ.get('ELITE_JITTER','.045'));intr[:ne]=elite_i+np.random.normal(size=intr[:ne].shape)*float(os.environ.get('ELITE_TOR_JITTER','.12'));ext[0]=elite_e;intr[0]=elite_i
+ ti=time.time()
+ nref=min(len(s.hkl),int(os.environ.get('START_REFL',str(len(s.hkl))))+40*(i//12))
+ result=local.minimise(s,external=ext,internal=intr,n_reflections=nref,n_iterations=IT,n_cooldown=IT//4,learning_rate=.04,device=torch.device('cpu'),loss='sum',use_progress_bar=False,save_CIF=False,run=i,verbose=False,check_min=25)
+ if nref<len(s.hkl):
+  ft=tensor_prep.get_all_required_tensors(s,external=result['external'],internal=result['internal'],requires_grad=False,device=torch.device('cpu'),verbose=False)
+  with torch.no_grad():full_chi=chi2.get_chi_2(ft['zm'],ft['int_tensors'],ft['chisqd_tensors']).numpy()
+  result['low_chi_2']=result['chi_2'].copy();result['chi_2']=full_chi
+ print('GALLOP',i,'Nref',nref,'seconds',time.time()-ti,'best',result['chi_2'].min(),'q25',np.quantile(result['chi_2'],.25),'median',np.median(result['chi_2']),'total',time.time()-t0,flush=True)
+ save_result(result,i)
+ if 'low_chi_2' in result:result['chi_2']=result['low_chi_2']
+ ext,intr=swarm.update_position(result=result,verbose=False)
+ np.savez_compressed(G+'/last_population.npz',external=result['external'],internal=result['internal'],chi2=result['chi_2'])
+ i+=1
+ if '--test' in sys.argv or best<float(os.environ.get('TARGET_CHI','2.0')):break
+print('FINISHED',sid,best,flush=True)
+import os,json,numpy as np,torch
+from rdkit import Chem
+from gallop import chi2,zm_to_cart,intensities
+
+def enable_packing(s,model_path,coefficient=None):
+ """Differentiable minimum-image heavy-atom steric screening in an ASU.
+ Excludes fixed-topology 1-2/1-3/1-4 intramolecular contacts. The cutoff is
+ deliberately softer than a van der Waals sum, allowing hydrogen bonds.
+ """
+ mods=json.load(open(model_path));n=sum(len(m['order']) for m in mods);els=[];exclude=np.eye(n,dtype=bool);off=0
+ for m in mods:
+  r=Chem.MolFromSmiles(m['smiles']);order=m['order'];N=len(order);dm=Chem.GetDistanceMatrix(r)[np.ix_(order,order)];exclude[off:off+N,off:off+N]=(dm<=3);els.extend([r.GetAtomWithIdx(i).GetSymbol() for i in order]);off+=N
+ radii={'C':1.48,'N':1.35,'O':1.28,'F':1.32,'S':1.55,'P':1.52,'Cl':1.58,'Br':1.67,'I':1.78}
+ ii=[];jj=[];rr=[];tr=[];lim=[];weights=[]
+ for op in s.space_group.symmetry_ops:
+  rot=op.rotation_matrix;trans=op.translation_vector;ident=np.allclose(rot,np.eye(3)) and np.allclose(trans%1,0)
+  for i in range(n):
+   for j in range(n):
+    if ident and (i>=j or exclude[i,j]):continue
+    limit=radii.get(els[i],1.4)+radii.get(els[j],1.4)
+    if set([els[i],els[j]])<=set(['N','O']):limit-=.10
+    ii.append(i);jj.append(j);rr.append(rot);tr.append(trans);lim.append(limit);weights.append(1 if ident else .5)
+ ii=torch.tensor(ii,dtype=torch.long);jj=torch.tensor(jj,dtype=torch.long);rr=torch.tensor(np.array(rr),dtype=torch.float32);tr=torch.tensor(np.array(tr),dtype=torch.float32);lim=torch.tensor(lim,dtype=torch.float32);weights=torch.tensor(weights,dtype=torch.float32);lm=torch.tensor(s.lattice.matrix,dtype=torch.float32)
+ cf=float(coefficient if coefficient is not None else os.environ.get('BUMP_COEFF','12'))
+ def penalty(fr):
+  right=torch.einsum('nki,kji->nkj',fr[:,jj,:],rr)+tr
+  delta=fr[:,ii,:]-right;delta=delta-torch.round(delta).detach();cart=delta@lm;dist=torch.sqrt((cart*cart).sum(-1)+1e-8)
+  return cf*(torch.clamp(lim-dist,min=0)**2*weights).sum(-1)
+ def calc(zm,int_tensors,chisqd_tensors,profile=None):
+  fr=zm_to_cart.get_asymmetric_coords(**zm);f=intensities.calculate_intensities(fr,**int_tensors)
+  val=chi2.calc_int_chisqd(f,**chisqd_tensors) if profile is None else chi2.calc_prof_chisqd(f,**profile)
+  return val+penalty(fr)
+ s.packing_penalty=penalty;s.diffraction_get_chi_2=chi2.get_chi_2;chi2.get_chi_2=calc
+ print('PACKING_ENABLED',n,'atoms',len(ii),'pair terms','coefficient',cf,flush=True)
+ return penalty
+import numpy as np,itertools,os,json
+from rdkit import Chem
+from rdkit.Chem import AllChem,rdMolTransforms,Lipinski
+from pyobjcryst.molecule import Molecule
+from pyobjcryst.atom import Atom
+from pyobjcryst.scatteringpower import ScatteringPowerAtom
+from pyobjcryst.refinableobj import refpartype_scatt_occup,refpartype_scattpow_temperature
+import gemmi
+
+def recenter_molecules(c):
+ # Molecular scattering is defined about the geometrical center. Remove the
+ # coordinate-gauge null mode before serializing at ObjCryst XML precision.
+ for im in range(c.GetNbScatterer()):
+  m=c.GetScatterer(im)
+  if m.GetClassName()!='Molecule':continue
+  xyz=np.array([[m.GetAtom(i).X,m.GetAtom(i).Y,m.GetAtom(i).Z] for i in range(m.GetNbAtoms())]);ctr=xyz.mean(axis=0)
+  if np.linalg.norm(ctr)>1e-6:
+   for i,v in enumerate(xyz-ctr):a=m.GetAtom(i);a.X,a.Y,a.Z=v
+
+def export_cif(c,path):
+ recenter_molecules(c)
+ cp=[c.GetPar(n).GetHumanValue() for n in ['a','b','c','alpha','beta','gamma']]
+ sgname=c.GetSpaceGroup().GetName();sg=gemmi.find_spacegroup_by_name(sgname)
+ if sg is None: raise Exception(sgname)
+ text='data_solution\n'
+ for name,v in zip(['length_a','length_b','length_c','angle_alpha','angle_beta','angle_gamma'],cp):text+=f'_cell_{name} {v:.8f}\n'
+ text+=f"_space_group_name_H-M_alt '{sg.xhm()}'\n_space_group_IT_number {sg.number}\nloop_\n_space_group_symop_id\n_space_group_symop_operation_xyz\n"
+ for i,op in enumerate(sg.operations()):text+=f"{i+1} '{op.triplet()}'\n"
+ text+='loop_\n_atom_site_label\n_atom_site_type_symbol\n_atom_site_fract_x\n_atom_site_fract_y\n_atom_site_fract_z\n_atom_site_occupancy\n_atom_site_B_iso_or_equiv\n'
+ for i,a in enumerate(c.GetScatteringComponentList()):
+  if a.mpScattPow is None:continue
+  el=a.mpScattPow.GetSymbol();text+=f'{el}{i+1} {el} {a.X%1:.8f} {a.Y%1:.8f} {a.Z%1:.8f} 1.0 {a.mpScattPow.GetBiso():.4f}\n'
+ open(path,'w').write(text)
+
+def make_rdkit(smiles,seed=10,nconf=30,conf_rank=0,hydrogen=False):
+ r=Chem.AddHs(Chem.MolFromSmiles(smiles));ps=AllChem.ETKDGv3();ps.randomSeed=seed;ps.numThreads=1;ps.pruneRmsThresh=.25
+ ids=list(AllChem.EmbedMultipleConfs(r,numConfs=nconf,params=ps))
+ if not ids:
+  ps.useRandomCoords=True;ids=list(AllChem.EmbedMultipleConfs(r,numConfs=nconf,params=ps))
+ try:
+  es=AllChem.MMFFOptimizeMoleculeConfs(r,numThreads=1,maxIters=600)
+ except Exception:
+  es=AllChem.UFFOptimizeMoleculeConfs(r,numThreads=1,maxIters=600)
+ ranked=sorted(range(len(ids)),key=lambda i:es[i][1]);ci=ids[ranked[conf_rank%len(ranked)]]
+ c=r.GetConformer(ci);coords=c.GetPositions();els=[a.GetSymbol() for a in r.GetAtoms()]
+ if not hydrogen:
+  keep=[i for i,x in enumerate(els) if x!='H'];coords=coords[keep];r=Chem.RemoveHs(r);els=[a.GetSymbol() for a in r.GetAtoms()]
+ # use the selected coordinates, indexed independently of RDKit conformer indices
+ return r,coords,es[ranked[conf_rank%len(ranked)]][1]
+
+def add_component(c,smiles,name,seed=10,conf_rank=0,rigid=False,hydrogen=False,coords_override=None,unique_sp=False):
+ base=Chem.MolFromSmiles(smiles)
+ if base.GetNumHeavyAtoms()==1:
+  atom=base.GetAtomWithIdx(0);el=atom.GetSymbol();spname=name+'_'+el if unique_sp else 'ion_'+el
+  try:sp=c.GetScatteringPower(spname)
+  except Exception:sp=ScatteringPowerAtom(spname,el,3.0);c.AddScatteringPower(sp)
+  a=Atom(*np.random.random(3),name,sp,1.0);c.AddScatterer(a);a.SetParIsFixed(refpartype_scatt_occup,True)
+  return a,{'elements':[el],'smiles':smiles}
+ if coords_override is None:
+  r,coords,e=make_rdkit(smiles,seed=seed,conf_rank=conf_rank,hydrogen=hydrogen)
+ else:
+  r=Chem.MolFromSmiles(smiles);coords=np.array(coords_override,dtype=float);e=0.
+  cf=Chem.Conformer(r.GetNumAtoms())
+  for i,v in enumerate(coords):cf.SetAtomPosition(i,v)
+  r.AddConformer(cf)
+  if hydrogen:r=Chem.AddHs(r,addCoords=True);coords=r.GetConformer().GetPositions()
+ coords-=coords.mean(axis=0)
+ m=Molecule(c,name);ats=[];els=[]
+ for i,(at,xyz) in enumerate(zip(r.GetAtoms(),coords)):
+  el=at.GetSymbol();els.append(el);spname=name+'_'+el+str(i) if unique_sp else el
+  try:sp=c.GetScatteringPower(spname)
+  except Exception:sp=ScatteringPowerAtom(spname,el,3.0 if el!='H' else 4.0);c.AddScatteringPower(sp)
+  ats.append(m.AddAtom(*xyz,sp,name+'_'+el+str(i+1),False))
+ for bo in r.GetBonds():
+  i,j=bo.GetBeginAtomIdx(),bo.GetEndAtomIdx();dist=np.linalg.norm(coords[i]-coords[j]);m.AddBond(ats[i],ats[j],dist,.02,.025,bo.GetBondTypeAsDouble(),False)
+ for a in r.GetAtoms():
+  j=a.GetIdx()
+  for i,k in itertools.combinations([a.GetIdx() for a in a.GetNeighbors()],2):
+   d1=coords[i]-coords[j];d2=coords[k]-coords[j];ang=np.arccos(np.clip(d1@d2/np.linalg.norm(d1)/np.linalg.norm(d2),-1,1));m.AddBondAngle(ats[i],ats[j],ats[k],ang,np.deg2rad(1.5),np.deg2rad(2),False)
+ # Freeze each ring system, preserving the embedded chair/fused-ring conformations.
+ rings=[set(x) for x in r.GetRingInfo().AtomRings()]
+ merged=[]
+ while rings:
+  s=rings.pop();flag=True
+  while flag:
+   flag=False
+   for t in rings[:]:
+    if s&t:s|=t;rings.remove(t);flag=True
+  merged.append(s)
+ for ring in merged:
+  # Add directly attached terminal atoms and hydrogens to aromatic or saturated ring geometry.
+  extended=set(ring)
+  for i in ring:
+   for n in r.GetAtomWithIdx(i).GetNeighbors():
+    j=n.GetIdx()
+    if n.GetDegree()==1:extended.add(j)
+  m.AddRigidGroup([ats[i] for i in sorted(extended)],False)
+ # Planarity about multiple and amide bonds, based on the input conformer.
+ cf=Chem.Conformer(r.GetNumAtoms())
+ for i,v in enumerate(coords):cf.SetAtomPosition(i,v)
+ for bo in r.GetBonds():
+  i,j=bo.GetBeginAtomIdx(),bo.GetEndAtomIdx()
+  ai=r.GetAtomWithIdx(i);aj=r.GetAtomWithIdx(j)
+  amide=(ai.GetAtomicNum()==7 and aj.GetAtomicNum()==6 and any(b.GetBondTypeAsDouble()==2 and b.GetOtherAtom(aj).GetAtomicNum() in [8,16] for b in aj.GetBonds())) or (aj.GetAtomicNum()==7 and ai.GetAtomicNum()==6 and any(b.GetBondTypeAsDouble()==2 and b.GetOtherAtom(ai).GetAtomicNum() in [8,16] for b in ai.GetBonds()))
+  if bo.IsInRing():continue
+  # N-aroyl heteroaromatics (e.g. acemetacin) have a genuinely rotatable N-CO bond.
+  if (ai.GetAtomicNum()==7 and ai.GetIsAromatic()) or (aj.GetAtomicNum()==7 and aj.GetIsAromatic()):amide=False
+  if bo.GetBondTypeAsDouble()>1.1 or amide:
+   ni=[a.GetIdx() for a in ai.GetNeighbors() if a.GetIdx()!=j];nj=[a.GetIdx() for a in aj.GetNeighbors() if a.GetIdx()!=i]
+   if ni and nj:
+    k,l=ni[0],nj[0];angle=rdMolTransforms.GetDihedralRad(cf,k,i,j,l);m.AddDihedralAngle(ats[k],ats[i],ats[j],ats[l],angle,np.deg2rad(3),np.deg2rad(6),False)
+ m.GetOption(0).SetChoice(1 if rigid else 2)
+ m.GetOption(1).SetChoice(1) # never invert supplied stereochemistry
+ m.GetOption(2).SetChoice(1)
+ m.X,m.Y,m.Z=np.random.random(3)
+ q=np.random.normal(size=4);q/=np.linalg.norm(q);m.Q0,m.Q1,m.Q2,m.Q3=q
+ m.SetParIsFixed(refpartype_scatt_occup,True);c.AddScatterer(m)
+ return m,{'smiles':smiles,'elements':els,'rdkit_coords':coords.tolist(),'energy':e}

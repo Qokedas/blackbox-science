@@ -1,0 +1,3 @@
+kill 7352 /bin/bash X3c176e2/run_zp1.sh 
+kill 7836 timeout --signal=TERM --kill-after=5s 30 bash -lc cd /app/work; for p in /proc/[0-9]*; do pid=${p#/proc/}; cl=$(tr '\0' ' ' < $p/cmdline 2>/dev/null); case "$cl" in *run_zp1*) echo "kill $pid $cl"; kill -9 $pid;; esac; done; ./killpy.sh "P c n m"; sleep 1; for p in /proc/[0-9]*; do tr '\0' ' ' < $p/cmdline 2>/dev/null; echo; done | grep -E "python|run_zp1" | grep -v grep 
+kill 7842 bash -lc cd /app/work; for p in /proc/[0-9]*; do pid=${p#/proc/}; cl=$(tr '\0' ' ' < $p/cmdline 2>/dev/null); case "$cl" in *run_zp1*) echo "kill $pid $cl"; kill -9 $pid;; esac; done; ./killpy.sh "P c n m"; sleep 1; for p in /proc/[0-9]*; do tr '\0' ' ' < $p/cmdline 2>/dev/null; echo; done | grep -E "python|run_zp1" | grep -v grep 

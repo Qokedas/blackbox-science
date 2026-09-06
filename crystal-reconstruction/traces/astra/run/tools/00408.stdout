@@ -1,0 +1,82 @@
+/app/work/X8a6f5a8/fit_0.json
+/app/work/X8a6f5a8/fit_1.json
+/app/work/X8a6f5a8/fit_2.json
+/app/work/X8a6f5a8/fit_3.json
+/app/work/X8a6f5a8/fit_metric0.json
+/app/work/X8a6f5a8/fit_metric1.json
+/app/work/X8a6f5a8/fit_metric2.json
+/app/work/X8a6f5a8/fit_metric3.json
+/app/work/X8a6f5a8/fit_metric4.json
+==== /app/work/X8a6f5a8/fit_raw*.json
+==== /app/work/Xebbd488/fit_rawC0.json
+{
+ "cell": [
+  13.732405500635483,
+  30.22394476689028,
+  14.390622018835284,
+  90.0,
+  120.16866085586264,
+  90.0
+ ],
+ "volume": 5228.3330078125,
+ "score": 7.423840045928955,
+ "system": "MONOCLINIC",
+ "centering": "C",
+ "mode": 4,
+ "sgstart": "P 1 2/m 1",
+ "Rw": 0.3327427331136281,
+ "groups": [
+  {
+   "sg": "P 1 21 1",
+   "number": 4,
+   "Rw": 26.16331325919533,
+   "GoF": 51532.63101610243,
+   "nGoF": 0.0,
+   "mult": 2
+Xedd9c7b ORTHOROMBIC P 0 peaks [11.09651, 11.81626, 12.51208, 14.25936, 14.88268, 15.40458, 17.12157, 17.38763, 19.2921, 20.00393, 20.62841, 21.50922, 22.25651, 23.87096, 24.33687, 25.24578, 26.47015, 28.20457, 28.80072, 29.30941] V 405.3445739746094 3420 Lmax 42.185843128344516
+3->42.1858,1.56744,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+405.345->3420,430.671,6.9999
+Starting: V=405.345->836.016
+Finished: V=405.345->836.016 A^3, 329 unit cells tested, 221549 tests/s,   Elapsed time=0.001491s
+Starting: V=836.016->1266.69
+Finished: V=836.016->1266.69 A^3, 1324 unit cells tested, 313002 tests/s,   Elapsed time=0.004236s
+Starting: V=1266.69->1697.36
+Finished: V=1266.69->1697.36 A^3, 3211 unit cells tested, 380992 tests/s,   Elapsed time=0.008434s
+Starting: V=1697.36->2128.03
+Finished: V=1697.36->2128.03 A^3, 6500 unit cells tested, 456397 tests/s,   Elapsed time=0.014249s
+Starting: V=2128.03->2558.7
+Finished: V=2128.03->2558.7 A^3, 11073 unit cells tested, 513781 tests/s,   Elapsed time=0.021558s
+Starting: V=2558.7->2989.37
+    a=11.12-11.17 b=15.46-15.51 c=17.13-17.18 alpha= 90.00- 90.00 beta= 90.00- 90.00 gamma= 90.00- 90.00 V=2945.43-2975.58level=4, indexed=1(0 sol.)
+    a=0.08990-0.08954 b=0.06469-0.06446 c=0.05838-0.05822 alpha=0.00000-0.00000 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(0 sol.)
+ Solution ? a= 11.163 b= 15.472 c= 17.143 alpha= 90.000 beta= 90.000 gamma= 90.000 V= 2960.73 score=  4.66 #   0
+Finished: V=2558.7->2989.37 A^3, 17237 unit cells tested, 562125 tests/s,   Elapsed time=0.03067s
+Starting: V=2989.37->3420
+    a=11.12-11.17 b=15.46-15.51 c=17.13-17.18 alpha= 90.00- 90.00 beta= 90.00- 90.00 gamma= 90.00- 90.00 V=2945.43-2975.58level=4, indexed=1(1 sol.)
+    a=0.08990-0.08954 b=0.06469-0.06446 c=0.05838-0.05822 alpha=0.00000-0.00000 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(1 sol.)
+ Solution ? a= 11.163 b= 15.472 c= 17.143 alpha= 90.000 beta= 90.000 gamma= 90.000 V= 2960.73 score=  4.66 #   1
+Finished: V=2989.37->3420 A^3, 24194 unit cells tested, 591540 tests/s,   Elapsed time=0.040906s
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=11.1625, b=15.472, c=17.1432, alpha=90, beta=90, gamma=90, V=2960.73, score=4.6605
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2609 BEST ? a=11.1625, b=15.472, c=17.1432, alpha=90, beta=90, gamma=90, V=2960.73, score=4.6605
+24194unit cells tested, 589465 tests/s,   Elapsed time=0.041051s
+DONE Xedd9c7b ORTHOROMBIC P 1 0.04126858711242676 [{'cell': [11.16250991821289, 15.47195053100586, 17.14322280883789, 90.00000250447816, 90.00000250447816, 90.00000250447816], 'volume': 2960.73388671875, 'score': 4.660500526428223, 'system': 'ORTHOROMBIC', 'centering': 'P', 'mode': 0}]
+#  3:ScatteringPowerAtom(Cl)
+Imported powder pattern: 7578 points, 2theta=  4.678 ->  23.621, step= 0.002
+RESCALED_BASE 1.0004644785769743 0.046395222945572724 7577.999999999983
+INITIAL Xeb393f9 1 Rw 0.2688026345500707 LLK 186500.52827408884 Integrated 185153.28212240367 DOF -1
+RUN 0 steps 100000 time 29.4878511428833 total 29.487924814224243 LLK 37728.519233669984 Rw 0.1369213554625328 Integrated 36290.14913488902
+RUN 1 steps 4000000 time 600.0131418704987 total 629.6252927780151 LLK 13985.610211307898 Rw 0.09508150311094965 Integrated 12509.513964364744
+RUN 2 steps 4000000 time 600.08154129982 total 1229.980306148529 LLK 11818.541913903038 Rw 0.08936435543106927 Integrated 10377.17979645274
+RUN 3 steps 4000000 time 600.0220737457275 total 1830.2132830619812 LLK 11737.82607791489 Rw 0.08125147783036163 Integrated 10198.306194797051
+RUN 4 steps 4000000 time 579.4991238117218 total 2409.824725627899 LLK 10691.6867835035 Rw 0.07942466073351741 Integrated 9195.81485712304
+# 37:ScatteringPowerAtom(m1_0_0_C17)
+# 38:ScatteringPowerAtom(m1_0_0_C18)
+ANTIBUMP 820 Scale 10.0 Initial cost 219857.78609105927
+Imported powder pattern: 3981 points, 2theta=  5.470 ->  45.270, step= 0.010
+RESCALED_BASE 219.19006609942804 0.21823912129475445 3980.58624839309
+INITIAL X4f6fe58 3 Rw 0.22692746012579085 LLK 254651.88217952673 Integrated 3770.758318089708 DOF -1
+RUN 0 steps 100000 time 168.0830636024475 total 168.08313369750977 LLK 32559.317611797156 Rw 0.15623395948638966 Integrated 1853.8059584078503
+12401 13143 
+12769 15139 
+8306 9670 

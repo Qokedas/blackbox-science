@@ -1,0 +1,27 @@
+ObjRegistry<T>::Find(ion_C): Not found !!
+List of Crystal ScatteringPowers :0 object registered:
+EXACT_PAWLEY nref 171 rank 165 cond 749.7534850565971 chi2 1463.4863323015472 netRwp 0.21096768428794352
+ZM Nc1ccccc1NC(=O)c1ccc(CNC(=O)OCc2cccnc2)cc1 n 28 torsions 7 max_distance_error 1.772809454791968e-08
+Total degrees of freedom: 14
+Total external degrees of freedom: 7 (pos: 3 rot: 4 )
+Total internal degrees of freedom: 7
+PREPARED Xb7088cf Nref 171 PawleyRw 0.0449967279245659 SG P 21 21 21
+ATTACHED_H_SCATTERING 28 heavy atoms 20 H atoms
+PACKING_ENABLED 28 atoms 2623 pair terms coefficient 50.0 active_only True
+HBOND_PRIOR 3 donors 5 acceptors coefficient 8.0 directional False
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1499.04it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 90 seconds 154.6047763824463 best 153.79314 q25 251.24031 median 291.34866 total 154.61129426956177
+GALLOP 1 Nref 103 seconds 161.98654651641846 best 153.57498 q25 206.03577 median 248.76505 total 316.7047097682953
+GALLOP 2 Nref 117 seconds 223.86588430404663 best 153.45544 q25 203.20212 median 246.01881 total 540.7862339019775
+GALLOP 3 Nref 136 seconds 140.8122043609619 best 147.80911 q25 172.35698 median 226.99985 total 681.6949200630188
+GALLOP 4 Nref 149 seconds 152.2041335105896 best 147.05147 q25 157.40784 median 213.9906 total 833.9956352710724
+GALLOP 5 Nref 162 seconds 155.31511306762695 best 147.80896 q25 184.65681 median 257.4535 total 989.4098908901215
+GALLOP 6 Nref 171 seconds 210.00547099113464 best 145.14874 q25 162.2511 median 243.4436 total 1199.4955432415009
+GALLOP 7 Nref 171 seconds 169.9012966156006 best 141.27132 q25 185.60599 median 236.50626 total 1369.501053571701
+GALLOP 8 Nref 171 seconds 179.56979179382324 best 137.92043 q25 170.32797 median 238.94885 total 1549.1785159111023
+GALLOP 9 Nref 171 seconds 241.72647953033447 best 125.34824 q25 156.4833 median 240.83838 total 1791.0200295448303
+FINISHED Xb7088cf 125.3482437133789

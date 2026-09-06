@@ -1,0 +1,24 @@
+EXACT_PAWLEY nref 305 rank 275 cond 940.9961714030021 chi2 239538.3385644549 netRwp 0.10662807704151357
+ZM O[C@](CC[NH+]1CCCCC1)(c1ccccc1)C1CCCCC1 n 22 torsions 5 max_distance_error 1.4330401754136801e-08
+ZM [Cl-] n 1 torsions 0 max_distance_error 0.0
+Total degrees of freedom: 15
+Total external degrees of freedom: 10 (pos: 6 rot: 4 )
+Total internal degrees of freedom: 5
+PREPARED X1a56c78 Nref 305 PawleyRw 0.06745583656199575 SG P 21 21 21
+ATTACHED_H_SCATTERING 23 heavy atoms 32 H atoms
+PACKING_ENABLED 23 atoms 1751 pair terms coefficient 80.0 active_only True
+HBOND_PRIOR 2 donors 2 acceptors coefficient 15.0 directional True
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 2707.31it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 95 seconds 26.635016202926636 best 183.4322 q25 340.94318 median 378.09692 total 26.63871669769287
+GALLOP 1 Nref 126 seconds 26.928582668304443 best 174.0921 q25 223.25659 median 312.84692 total 53.600165367126465
+GALLOP 2 Nref 158 seconds 30.85814619064331 best 152.4267 q25 215.92401 median 307.87097 total 84.49353241920471
+GALLOP 3 Nref 195 seconds 36.14237642288208 best 150.55151 q25 192.46811 median 267.36935 total 120.67110323905945
+GALLOP 4 Nref 239 seconds 39.356738328933716 best 150.33484 q25 160.97202 median 249.74103 total 160.06203889846802
+GALLOP 5 Nref 286 seconds 51.73459315299988 best 150.24109 q25 150.24432 median 264.79556 total 211.83268976211548
+GALLOP 6 Nref 305 seconds 59.530765533447266 best 150.23264 q25 150.23315 median 226.67743 total 271.3988914489746
+GALLOP 7 Nref 305 seconds 50.60450577735901 best 150.23256 q25 150.23311 median 247.69702 total 322.0575029850006
+FINISHED X1a56c78 150.23255920410156

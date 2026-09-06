@@ -1,0 +1,174 @@
+{
+ "cell": {
+  "a": 5.178728935315927,
+  "b": 8.253763769789536,
+  "c": 32.95138585905239,
+  "alpha": 90.0,
+  "beta": 92.75227709009262,
+  "gamma": 90.0
+ },
+ "space_group": "P 1 21 1",
+ "space_group_number": 4
+}  0%|          | 0/5 [00:00<?, ?it/s]100%|██████████| 5/5 [00:00<00:00, 1475.62it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 221 seconds 119.89439105987549 best 246.72224 q25 316.7724 median 348.00537 total 119.9018144607544
+GALLOP 1 Nref 221 seconds 117.0888934135437 best 225.1021 q25 282.92505 median 312.65143 total 237.11985087394714
+GALLOP 2 Nref 221 seconds 104.71159100532532 best 208.93712 q25 286.7752 median 330.63028 total 341.9556317329407
+GALLOP 3 Nref 221 seconds 107.34045052528381 best 202.42828 q25 290.26938 median 328.49008 total 449.4549825191498
+GALLOP 4 Nref 221 seconds 98.6124370098114 best 201.37137 q25 283.8898 median 328.73688 total 548.219324350357
+GALLOP 5 Nref 221 seconds 111.15437293052673 best 201.2288 q25 279.84933 median 326.91406 total 659.5055408477783
+GALLOP 6 Nref 221 seconds 85.7991361618042 best 201.22481 q25 284.91534 median 320.9367 total 745.348525762558
+GALLOP 7 Nref 221 seconds 95.0817346572876 best 201.22426 q25 290.37952 median 318.4039 total 840.5068566799164
+GALLOP 8 Nref 221 seconds 105.1890504360199 best 201.22488 q25 289.98892 median 327.35492 total 945.825546503067
+GALLOP 9 Nref 221 seconds 75.85425734519958 best 201.22505 q25 287.43347 median 323.46194 total 1021.6994941234589
+GALLOP 10 Nref 221 seconds 80.31776452064514 best 201.22433 q25 290.72028 median 334.5868 total 1102.0366830825806
+GALLOP 11 Nref 221 seconds 81.1977481842041 best 201.22507 q25 275.5672 median 324.8662 total 1183.3010938167572
+  0%|          | 0/5 [00:00<?, ?it/s]100%|██████████| 5/5 [00:00<00:00, 1092.72it/s]
+GALLOP 12 Nref 221 seconds 107.96190166473389 best 201.22507 q25 280.1803 median 338.67538 total 1291.301707983017
+GALLOP 13 Nref 221 seconds 75.62731337547302 best 201.22484 q25 282.74695 median 329.8463 total 1366.946926832199
+GALLOP 14 Nref 221 seconds 84.10177612304688 best 201.22473 q25 288.1891 median 319.00003 total 1451.1008677482605
+GALLOP 15 Nref 221 seconds 88.97649765014648 best 201.22507 q25 293.03955 median 330.50772 total 1540.1065034866333
+GALLOP 16 Nref 221 seconds 113.29361534118652 best 201.22507 q25 283.82983 median 325.2774 total 1653.4196741580963
+GALLOP 17 Nref 221 seconds 90.5600357055664 best 201.22435 q25 282.7567 median 329.00476 total 1744.0099401474
+GALLOP 18 Nref 221 seconds 81.40576839447021 best 201.22464 q25 284.5453 median 322.3259 total 1825.4353411197662
+GALLOP 19 Nref 221 seconds 95.74615597724915 best 197.18904 q25 267.45706 median 313.48633 total 1921.207840204239
+GALLOP 20 Nref 221 seconds 91.44992518424988 best 194.7499 q25 272.95618 median 326.1727 total 2012.7047657966614
+GALLOP 21 Nref 221 seconds 101.29471969604492 best 192.60054 q25 265.4621 median 318.53387 total 2114.1131525039673
+GALLOP 22 Nref 221 seconds 94.09359049797058 best 190.28998 q25 259.52026 median 312.77844 total 2208.2522208690643
+FINISHED X9af54a2 190.28997802734375
+FLEXIBLE_RINGS
+AROMATIC_PLANARITY 0
+LSQ_PACKING 38 atoms 2015 terms sigma 0.01 cost 42609.96311191577
+CYCLE 0 0 Rw 0.4400815620913609 chi2 23675.70322333566 geom 15.984754514194833 LSQ 36316.963099292145
+CYCLE 0 1 Rw 0.411351528047792 chi2 20685.345076657133 geom 15.984754514194833 LSQ 27047.652661699613
+CYCLE 0 2 Rw 0.41115652864353736 chi2 20665.738129171026 geom 15.984754514194833 LSQ 25483.936453470385
+PACKING_STAGE 0 4787.960353048819
+CYCLE 1 0 Rw 0.37406446260882226 chi2 17105.250626282257 geom 1317.0612650791973 LSQ 20891.94574217515
+CYCLE 1 1 Rw 0.3554416347378492 chi2 15444.474490365163 geom 1211.195107384549 LSQ 18124.707176829004
+CYCLE 1 2 Rw 0.34639173327487904 chi2 14668.0228648776 geom 774.8900746924361 LSQ 16782.685477734063
+PACKING_STAGE 1 697.8448778351615
+CYCLE 2 0 Rw 0.3396482323464862 chi2 14102.472380658131 geom 541.4599329858852 LSQ 15742.291968510697
+CYCLE 2 1 Rw 0.3348417949886756 chi2 13706.162080579132 geom 624.2891660734529 LSQ 15412.134105507888
+CYCLE 2 2 Rw 0.33057366074634165 chi2 13358.971850998021 geom 724.7806152696313 LSQ 15314.532538002779
+PACKING_STAGE 2 621.4143440094932
+CYCLE 3 0 Rw 0.3268271026814079 chi2 13057.879853905319 geom 511.5257324063456 LSQ 14559.015792416718
+CYCLE 3 1 Rw 0.32779114905094864 chi2 13135.027481221445 geom 457.2253198888869 LSQ 14522.261021909637
+CYCLE 3 2 Rw 0.3266073746978208 chi2 13040.327961164618 geom 466.76193584617397 LSQ 14442.247007001124
+PACKING_STAGE 3 398.0196947042265
+FINISHED X9af54a2 0.3266073746978208
+"""Alternating conditional rigid-fragment direct-space searches.
+A validated native seed supplies the unchanged fragments; only the selected
+fragments are randomized/optimized in each pass. Final Rietveld refinement must
+release all fragments. This is a search, not an assertion of convergence.
+"""
+import os,sys,json,time,shutil,numpy as np,torch
+from gallop_io import load_structure
+from gallop import tensor_prep,zm_to_cart,chi2
+from gallop.optim import local
+from hydrogen_prefix import enable_hydrogen_prefix
+from gallop_fast_symmetry import enable_fast_symmetry
+from gallop_packing import enable_packing
+from gallop_hbond import enable_hbonds
+sid,source,run=sys.argv[1:4];W='/app/work/'+sid;S=W+'/gallop_'+source;G=W+'/gallop_'+run;os.makedirs(G,exist_ok=True)
+for f in os.listdir(S):
+ if f.endswith('.zmatrix') or f in ['structure.json','model.json','base.xml','warm.npz']:shutil.copyfile(S+'/'+f,G+'/'+f)
+torch.set_num_threads(1);torch.set_num_interop_threads(1);s=load_structure(G+'/structure.json');enable_fast_symmetry(s);enable_hydrogen_prefix(s,G+'/model.json');enable_packing(s,G+'/model.json');enable_hbonds(s,G+'/model.json');s.get_total_degrees_of_freedom(verbose=False)
+tensor_prep.get_zm_related_tensors(s,1,torch.float32,torch.device('cpu'))
+warm=np.load(G+'/warm.npz');N=int(os.getenv('PARTICLES','128'));IT=int(os.getenv('ITERATIONS','350'));t0=time.time()
+cur_e=warm['external'][0].copy();cur_t=warm['internal'][0].copy();best=1.e100
+schedule=[list(map(int,v.split(','))) for v in os.getenv('FREE_SCHEDULE','0;1;0;1').split(';')]
+def save(e,t,v,step):
+ np.savez_compressed(G+'/best.npz',external=e[None],internal=t[None],chi2=v)
+ ts=tensor_prep.get_all_required_tensors(s,external=e[None],internal=t[None],requires_grad=False,device=torch.device('cpu'),verbose=False)
+ with torch.no_grad():fr=zm_to_cart.get_asymmetric_coords(**ts['zm']).numpy()[0]
+ np.save(G+'/best_frac.npy',fr);json.dump(dict(chi2=float(v),elapsed=time.time()-t0,step=step),open(G+'/best.json','w'))
+ts=tensor_prep.get_all_required_tensors(s,external=cur_e[None],internal=cur_t[None],requires_grad=False,device=torch.device('cpu'),verbose=False)
+with torch.no_grad():best=float(chi2.get_chi_2(ts['zm'],ts['int_tensors'],ts['chisqd_tensors'])[0])
+save(cur_e,cur_t,best,-1);print('INITIAL',sid,best,flush=True)
+for step,free in enumerate(schedule):
+ me=np.zeros(s.total_external_degrees_of_freedom);mi=np.zeros(s.total_internal_degrees_of_freedom)
+ for j in free:
+  me[np.r_[s.position_indices[j],s.rotation_indices[j]]]=1;mi[s.torsion_indices[j]]=1
+ masks=[torch.tensor(me,dtype=torch.float32),torch.tensor(mi,dtype=torch.float32)]
+ class MaskedAdam(torch.optim.Adam):
+  def step(self,closure=None):
+   for p,m in zip(self.param_groups[0]['params'],masks):
+    if p.grad is not None:p.grad.mul_(m)
+   return super().step(closure)
+ e=np.tile(cur_e,(N,1));t=np.tile(cur_t,(N,1));near=N//4
+ for j in free:
+  pp=s.position_indices[j];rr=s.rotation_indices[j];tt=s.torsion_indices[j]
+  e[1:near,pp]+=np.random.normal(size=(near-1,len(pp)))*.10
+  e[near:,pp]=np.random.rand(N-near,len(pp))
+  if len(rr):
+   e[1:near,rr]+=np.random.normal(size=(near-1,len(rr)))*.25
+   e[near:,rr]=np.random.normal(size=(N-near,len(rr)))
+  if len(tt):
+   t[1:near,tt]+=np.random.normal(size=(near-1,len(tt)))*.4
+   t[near:,tt]=np.random.uniform(-np.pi,np.pi,size=(N-near,len(tt)))
+ opt=MaskedAdam([torch.zeros(1,requires_grad=True)],lr=.04)
+ r=local.minimise(s,external=e,internal=t,n_iterations=IT,n_cooldown=IT//4,learning_rate=.04,optimizer=opt,device=torch.device('cpu'),loss='sum',use_progress_bar=False,save_CIF=False,verbose=False,check_min=25)
+ assert np.max(np.abs(r['external'][:,me==0]-e[:,me==0]),initial=0)<1e-5,'Fixed external DoFs moved'
+ assert np.max(np.abs(r['internal'][:,mi==0]-t[:,mi==0]),initial=0)<1e-5,'Fixed internal DoFs moved'
+ k=int(r['chi_2'].argmin());v=float(r['chi_2'][k]);print('CONDITIONAL',step,free,'best',v,'q25',np.quantile(r['chi_2'],.25),'sec',time.time()-t0,flush=True)
+ if v<best:
+  best=v;cur_e=r['external'][k].copy();cur_t=r['internal'][k].copy();save(cur_e,cur_t,best,step)
+print('FINISHED',sid,best,flush=True)
+"""Optional soft donor/acceptor proximity prior for ionic and H-bonded solids.
+This does not prescribe a particular intermolecular synthon: each donor may
+choose any chemically possible acceptor, including a distant topological
+intramolecular acceptor. Steric lower bounds are supplied separately.
+"""
+import os,json,itertools,numpy as np,torch
+from rdkit import Chem
+from rdkit.Chem import Lipinski
+from gallop import chi2,zm_to_cart
+
+def enable_hbonds(s,model_path,coefficient=None):
+ mods=json.load(open(model_path));donor_neighbours={};donors=[];donor_counts={};acceptors=[];groups=[];ids=[];dm=[];off=0;els=[]
+ for k,m in enumerate(mods):
+  r=Chem.MolFromSmiles(m['smiles']);order=m['order'];inv={j:i for i,j in enumerate(order)};dm.append(Chem.GetDistanceMatrix(r))
+  for a in Lipinski._HDonors(r):
+   ix=off+inv[a[0]];donors.append(ix);atom=r.GetAtomWithIdx(a[0]);donor_counts[ix]=min(3,atom.GetTotalNumHs()) if os.getenv('HBOND_MULTIPLE','0')=='1' else 1
+  for ix in donors:
+   if ix<off:continue
+   atom=r.GetAtomWithIdx(order[ix-off]);nb=[a.GetIdx() for a in atom.GetNeighbors() if a.GetAtomicNum()>1]
+   if atom.GetSymbol()=='N' and atom.GetTotalNumHs()==1 and len(nb) in [2,3]:donor_neighbours[ix]=torch.tensor([off+inv[j] for j in nb],dtype=torch.long)
+  for a in Lipinski._HAcceptors(r):acceptors.append(off+inv[a[0]])
+  for a in r.GetAtoms():
+   if a.GetSymbol() in ['Cl','Br'] and a.GetFormalCharge()<0:acceptors.append(off+inv[a.GetIdx()])
+  groups.extend([k]*len(order));ids.extend(order);els.extend([r.GetAtomWithIdx(i).GetSymbol() for i in order]);off+=len(order)
+ if not donors or not acceptors:return
+ LM=torch.tensor(s.lattice.matrix,dtype=torch.float32);shifts=torch.tensor(np.array(list(itertools.product([-1,0,1],repeat=3)))@s.lattice.matrix,dtype=torch.float32);ss=(shifts*shifts).sum(-1)
+ tensors=[]
+ for i in donors:
+  jj=[];rt=[];tr=[];target=[]
+  for op in s.space_group.symmetry_ops:
+   R=op.rotation_matrix;T=op.translation_vector;ident=np.allclose(R,np.eye(3)) and np.allclose(T%1,0)
+   for j in acceptors:
+    if ident and groups[i]==groups[j] and dm[groups[i]][ids[i],ids[j]]<=3:continue
+    jj.append(j);rt.append(R);tr.append(T);target.append(3.25 if els[j] in ['Cl','Br'] else 3.05)
+  tensors.append((i,torch.tensor(jj,dtype=torch.long),torch.tensor(np.array(rt),dtype=torch.float32),torch.tensor(np.array(tr),dtype=torch.float32),torch.tensor(target,dtype=torch.float32)))
+ cf=float(coefficient if coefficient is not None else os.getenv('HBOND_COEFF','20'));directional=os.getenv('HBOND_DIRECTIONAL','0')=='1';angle_weight=float(os.getenv('HBOND_ANGLE_WEIGHT','4'))
+ def penalty(fr):
+  val=torch.zeros(len(fr),device=fr.device)
+  for i,jj,rr,tt,target in tensors:
+   right=torch.einsum('nki,kji->nkj',fr[:,jj,:],rr)+tt;dd=fr[:,i,None]-right;dd=dd-torch.round(dd).detach();cart=dd@LM
+   with torch.no_grad():corr=shifts[(2*(cart.detach()@shifts.T)+ss).argmin(-1)]
+   cart=cart+corr;dist=torch.sqrt((cart**2).sum(-1)+1e-8)
+   pair_cost=torch.clamp(dist-target,min=0)**2
+   if directional and i in donor_neighbours:
+    nb=donor_neighbours[i];vv=(fr[:,nb]-fr[:,i,None])@LM;vv=vv/torch.linalg.norm(vv,dim=-1,keepdim=True).clamp(min=1.e-7);hh=-vv.sum(1);hh=hh/torch.linalg.norm(hh,dim=-1,keepdim=True).clamp(min=1.e-7)
+    cosine=(-(cart*hh[:,None]).sum(-1)/dist).clamp(-1,1);pair_cost+=angle_weight*torch.clamp(.82-cosine,min=0)**2
+   near=torch.topk(pair_cost,k=min(donor_counts[i],len(jj)),dim=-1,largest=False).values;val+=near.sum(-1)
+  return cf*val
+ old=chi2.get_chi_2
+ def calc(zm,int_tensors,chisqd_tensors,profile=None):
+  fr=zm_to_cart.get_asymmetric_coords(**zm)
+  return old(zm,int_tensors,chisqd_tensors,profile=profile)+penalty(fr)
+ chi2.get_chi_2=calc;s.hbond_penalty=penalty
+ print('HBOND_PRIOR',len(donors),'donors',len(acceptors),'acceptors','coefficient',cf,'directional',directional,flush=True)
+ return penalty

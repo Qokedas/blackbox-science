@@ -1,0 +1,24 @@
+first harmonic d,zero 15.729315122407286 0.009004405009843858 [ 5.62257729 11.25159291 16.90511237] [ 0.00047948 -0.00095203  0.00047255]
+CYCLE 2 1 Rw 0.03516380947118821 chi2 3449.1220172603244 geom 159.66094841782052 LSQ 3895.294748070334
+CYCLE 2 2 Rw 0.03515870151148224 chi2 3448.1200384110075 geom 159.20481116858755 LSQ 3889.1139960860237
+PACKING_STAGE 2 0.0
+CYCLE 3 0 Rw 0.03474364147236323 chi2 3367.1882053148224 geom 169.08045440989912 LSQ 3839.9951636334767
+CYCLE 3 1 Rw 0.03469427300022892 chi2 3357.625889627206 geom 168.29146218305155 LSQ 3826.0205893548045
+CYCLE 3 2 Rw 0.03468464463503249 chi2 3355.762529506788 geom 164.12780560967187 LSQ 3817.0278316146914
+PACKING_STAGE 3 0.0
+FINISHED Xbfeeda9 0.03468464463503249
+ObjRegistry<T>::Find(ion_C): Not found !!
+List of Crystal ScatteringPowers :5 object registered:
+#  0:ScatteringPowerAtom(C)
+#  1:ScatteringPowerAtom(O)
+#  2:ScatteringPowerAtom(N)
+#  3:ScatteringPowerAtom(Cl)
+#  4:ScatteringPowerAtom(H)
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 90 seconds 123.70289969444275 best 152.48442 q25 295.19763 median 347.2475 total 123.70815062522888
+GALLOP 1 Nref 99 seconds 121.92426776885986 best 116.577644 q25 232.27725 median 310.9764 total 245.72918558120728
+GALLOP 2 Nref 108 seconds 127.37411403656006 best 103.998474 q25 152.099 median 292.8233 total 373.1964223384857
+GALLOP 3 Nref 118 seconds 122.23010754585266 best 103.9558 q25 188.85422 median 300.5452 total 495.5168571472168

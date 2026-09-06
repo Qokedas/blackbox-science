@@ -1,0 +1,338 @@
+[
+ {
+  "smiles": "CNS(=O)(=O)Nc1nccc(Cc2c(C)c3ccc(Oc4ncccn4)cc3oc2=O)c1F",
+  "elements": [
+   "C",
+   "N",
+   "S",
+   "O",
+   "O",
+   "N",
+   "C",
+   "N",
+   "C",
+   "C",
+   "C",
+   "C",
+   "C",
+   "C",
+   "C",
+   "C",
+   "C",
+   "C",
+   "C",
+   "O",
+   "C",
+   "N",
+   "C",
+   "C",
+   "C",
+   "N",
+   "C",
+   "C",
+   "O",
+   "C",
+   "O",
+   "C",
+   "F"
+  ],
+  "order": [
+   0,
+   1,
+   2,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   11,
+   12,
+   13,
+   15,
+   16,
+   17,
+   18,
+   19,
+   20,
+   21,
+   22,
+   23,
+   24,
+   25,
+   26,
+   27,
+   28,
+   29,
+   30,
+   14,
+   31,
+   32,
+   3,
+   4
+  ],
+  "rdkit_coords": [
+   [
+    -6.773223601278228,
+    -2.6534547980074685,
+    0.989850709207416
+   ],
+   [
+    -5.533328767306413,
+    -1.9939202148463833,
+    1.4115922735491582
+   ],
+   [
+    -5.572915203328943,
+    -0.32648798439546856,
+    1.5445125152616848
+   ],
+   [
+    -6.770856409086951,
+    0.005009909832958596,
+    2.278552456021507
+   ],
+   [
+    -4.272726179268311,
+    0.09685554085091565,
+    2.002919348716919
+   ],
+   [
+    -5.824077204671935,
+    0.13341788003315802,
+    -0.03416123925109686
+   ],
+   [
+    -4.671876748124644,
+    0.38812532618680734,
+    -0.8194317658763407
+   ],
+   [
+    -4.805926375127064,
+    1.5648467744072734,
+    -1.4679897928723051
+   ],
+   [
+    -3.794565041848518,
+    1.9143387697234857,
+    -2.2925605288664728
+   ],
+   [
+    -2.6648389085290662,
+    1.1365525387296576,
+    -2.506237119078796
+   ],
+   [
+    -2.5510898578670314,
+    -0.09180947514889175,
+    -1.8437496866646166
+   ],
+   [
+    -1.3386170610816133,
+    -0.9754875223649179,
+    -2.028201280516124
+   ],
+   [
+    -0.07920226135388099,
+    -0.41353686170703713,
+    -1.3930436980660892
+   ],
+   [
+    0.29005482216436096,
+    -0.5933118214785847,
+    -0.10376943310347385
+   ],
+   [
+    -0.5090284373090401,
+    -1.385078780766496,
+    0.9012789852381901
+   ],
+   [
+    1.5441258215223501,
+    0.022117751155896828,
+    0.37876032281266653
+   ],
+   [
+    1.9902444415803364,
+    -0.05267177219344698,
+    1.7080026586978843
+   ],
+   [
+    3.1936885077940156,
+    0.5464727792484954,
+    2.101528697503083
+   ],
+   [
+    3.9762204529868685,
+    1.2173883704085549,
+    1.1654355433812493
+   ],
+   [
+    5.122803914007546,
+    1.8312672787218285,
+    1.600652927786435
+   ],
+   [
+    6.320478457739559,
+    1.3728821777751519,
+    1.0648636943968663
+   ],
+   [
+    7.36880012115364,
+    2.194172391673434,
+    1.2447492618282676
+   ],
+   [
+    8.547729629090432,
+    1.7619587350933343,
+    0.7622188720857069
+   ],
+   [
+    8.712122853619796,
+    0.5549546815125935,
+    0.12470513413314528
+   ],
+   [
+    7.577557203776554,
+    -0.2117073294438282,
+    0.0041574673629591755
+   ],
+   [
+    6.372830150249028,
+    0.16696732509292084,
+    0.46656756103165264
+   ],
+   [
+    3.5415289231653695,
+    1.3331907702394483,
+    -0.15085559674809473
+   ],
+   [
+    2.3388107514188436,
+    0.7286805859466204,
+    -0.5211789219545332
+   ],
+   [
+    1.9612287363313288,
+    0.8796901177584107,
+    -1.86224011423322
+   ],
+   [
+    0.777415718164515,
+    0.35389300416554126,
+    -2.3425284861136193
+   ],
+   [
+    0.4533670977460164,
+    0.5215188662757232,
+    -3.514730774152342
+   ],
+   [
+    -3.5982148668573193,
+    -0.4788441192798004,
+    -1.0051262882681389
+   ],
+   [
+    -3.559890208682246,
+    -1.6817274425835282,
+    -0.4176706435550259
+   ]
+  ],
+  "energy": -159.59951746152643
+ }
+]
+import os,sys,json,itertools,numpy as np,xml.etree.ElementTree as ET
+from rdkit import Chem
+from rdkit.Chem import Lipinski
+from pymatgen.core import Lattice
+from pymatgen.symmetry.groups import SpaceGroup
+from gallop.structure import Structure
+from gallop.z_matrix import Z_matrix
+from pyobjcryst.io import xml_cryst_file_load_all_object
+from obj_model import make_rdkit
+import gemmi
+
+def make_zmatrix(smiles,path,seed=10,rank=0,rigid=False):
+ r,xyz,e=make_rdkit(smiles,seed=seed,nconf=30,conf_rank=rank,hydrogen=False);n=len(xyz)
+ adj={i:[a.GetIdx() for a in r.GetAtomWithIdx(i).GetNeighbors()] for i in range(n)}
+ # Start at a terminal atom where possible; DFS preserves a reference for all rigid branches.
+ root=min(range(n),key=lambda i:(len(adj[i]),i));parent={root:None};order=[];children={i:[] for i in range(n)}
+ def dfs(i):
+  order.append(i)
+  for j in sorted(adj[i],key=lambda a:(len(adj[a])==1,a)):
+   if j in parent:continue
+   parent[j]=i;children[i].append(j);dfs(j)
+ dfs(root);idx={j:i for i,j in enumerate(order)}
+ flex={frozenset(x) for x in r.GetSubstructMatches(Lipinski.RotatableBondSmarts)}
+ # Amide C-N bonds are planar. Other single bonds retain their internal degree of freedom.
+ for b in r.GetBonds():
+  i,j=b.GetBeginAtomIdx(),b.GetEndAtomIdx();ai=r.GetAtomWithIdx(i);aj=r.GetAtomWithIdx(j)
+  amide=(ai.GetAtomicNum()==7 and aj.GetAtomicNum()==6 and any(z.GetBondTypeAsDouble()==2 and z.GetOtherAtom(aj).GetAtomicNum() in [8,16] for z in aj.GetBonds())) or (aj.GetAtomicNum()==7 and ai.GetAtomicNum()==6 and any(z.GetBondTypeAsDouble()==2 and z.GetOtherAtom(ai).GetAtomicNum() in [8,16] for z in ai.GetBonds()))
+  if amide:flex.discard(frozenset([i,j]))
+ if rigid:flex=set()
+ lines=['Generated from supplied connectivity and an RDKit conformer','1 1 1 90 90 90',f'{n} 0'];zm=[]
+ xyzord=xyz[order]
+ # Transform first three atoms to the NERF initial convention using a proper rotation.
+ if n>=3:
+  ex=xyzord[1]-xyzord[0];ex/=np.linalg.norm(ex);ey=xyzord[2]-xyzord[0];ey-=ey@ex*ex;ey/=np.linalg.norm(ey);ez=np.cross(ex,ey);xyzcanon=(xyzord-xyzord[0])@np.array([ex,ey,ez]).T
+ elif n==2:xyzcanon=np.array([[0,0,0],[np.linalg.norm(xyzord[1]-xyzord[0]),0,0]])
+ else:xyzcanon=np.zeros((1,3))
+ for ii,old in enumerate(order):
+  ref=0
+  if ii==0:R,ang,phi,b,a,t=0,0,0,0,0,0
+  elif ii in [1,2]:
+   v=xyzcanon[ii];R=np.linalg.norm(v);ang=np.rad2deg(np.arccos(np.clip(-v[0]/R,-1,1)));phi=0.;b,a,t=1,0,0
+  else:
+   pp=parent[old];gp=parent[pp]
+   if gp is None:
+    # At a root branch: use another previously placed neighbour as the angle reference.
+    gp=next(o for o in order[:ii] if o!=pp and np.linalg.norm(np.cross(xyz[old]-xyz[pp],xyz[o]-xyz[pp]))>1e-5)
+   siblings=children[pp];first=siblings[0]
+   if old!=first:tp=first
+   else:tp=parent.get(gp)
+   if tp is None or tp in [old,pp,gp] or idx.get(tp,ii)>=ii:
+    tp=max([o for o in order[:ii] if o not in [pp,gp]],key=lambda o:np.linalg.norm(np.cross(xyz[gp]-xyz[o],xyz[pp]-xyz[gp])))
+   C=xyz[pp];B=xyz[gp];A=xyz[tp];bc=C-B;bc/=np.linalg.norm(bc);nv=np.cross(B-A,bc);nv/=np.linalg.norm(nv);nbc=np.cross(nv,bc);v=xyz[old]-C;R=np.linalg.norm(v);ang=np.rad2deg(np.arccos(np.clip(-v@bc/R,-1,1)));phi=np.rad2deg(np.arctan2(v@nv,v@nbc));b,a,t=idx[pp]+1,idx[gp]+1,idx[tp]+1
+   if old==first and frozenset([pp,gp]) in flex:ref=1
+  el=r.GetAtomWithIdx(old).GetSymbol();lines.append(f'{el} {R:.8f} 0 {ang:.8f} 0 {phi:.8f} {ref} {b} {a} {t} 3.0 1.0 {ii+1} {el}{old+1}')
+ open(path,'w').write('\n'.join(lines)+'\n');z=Z_matrix(path)
+ dist=np.max(np.abs(np.linalg.norm(xyzcanon[:,None]-xyzcanon[None,:],axis=2)-np.linalg.norm(z.initial_cartesian[:,None]-z.initial_cartesian[None,:],axis=2)))
+ print('ZM',smiles,'n',n,'torsions',z.internal_degrees_of_freedom,'max_distance_error',dist,flush=True)
+ if dist>.002:raise RuntimeError('Z-matrix failed to reproduce molecular geometry')
+ return z,dict(smiles=smiles,elements=[a.GetSymbol() for a in r.GetAtoms()],order=order,rdkit_coords=xyz.tolist(),energy=e)
+
+def prepare(sid,run=1,zprime=1,rigid=False,model_path=None,stolmax=.21):
+ W='/app/work/'+sid;G=W+'/gallop_'+str(run);os.makedirs(G,exist_ok=True)
+ objs=xml_cryst_file_load_all_object(W+'/base.xml');c=[o for o in objs if o.GetClassName()=='Crystal'][0];p=[o for o in objs if o.GetClassName()=='PowderPattern'][0];d=p.GetPowderPatternComponent(0);d.SetExtractionMode(True,False);p.Prepare()
+ cp=[c.GetPar(n).GetHumanValue() for n in ['a','b','c','alpha','beta','gamma']];sg=gemmi.find_spacegroup_by_name(c.GetSpaceGroup().GetName());L=Lattice.from_parameters(*cp);ins=json.load(open('/app/data/instances/'+sid+'/instrument.json'));wl=ins['radiation']['wavelength_A']
+ # Read the original Le Bail reflection order before applying a resolution cutoff.
+ hkls=np.array([d.GetH(),d.GetK(),d.GetL()]).T.astype(int);stol=np.array(d.GetSinThetaOverLambda());f2=np.array(d.GetFhklObsSq());xx=np.rad2deg(p.GetPowderPatternX());obs=np.array(p.GetPowderPatternObs());wg=np.array(p.GetLSQWeight(0));tt=np.rad2deg(2*np.arcsin(wl*stol));zero=p.GetPar('Zero').GetHumanValue()
+ sel=(tt+zero>xx[0]-.02)&(tt+zero<xx[-1])&(stol<=stolmax);hkls=hkls[sel];tt=tt[sel];stol=stol[sel];f2=f2[sel]
+ s=Structure(sid,ignore_H_atoms=True);s.lattice=L;s.sg_number=sg.number;s.original_sg_number=sg.number;s.space_group=SpaceGroup(sg.xhm());s.centrosymmetric=sg.is_centrosymmetric();s.affine_matrices=np.array([op.affine_matrix for op in s.space_group.symmetry_ops]);s.wavelength=wl;s.hkl=hkls;s.intensities=f2;s.twotheta=tt;s.dspacing=1/(2*stol);s.data_resolution=float(s.dspacing[-1]);s.source='GSAS';s.PawleyChiSq=1.;s.temperature=ins.get('temperature_K',298.)
+ # Approximate the normal matrix of the extracted profile: all overlaps retain their positive covariance coupling.
+ tree=ET.parse(W+'/base.xml');pr=tree.find('.//ReflectionProfilePseudoVoigt');pd={el.attrib['Name']:float(el.text) for el in pr.findall('Par')};th=np.deg2rad(tt/2);wid=np.sqrt(np.maximum(pd['U']*np.tan(th)**2+pd['V']*np.tan(th)+pd['W'],.000001));eta=np.clip(pd['Eta0']+pd['Eta1']*np.deg2rad(tt),0,1)
+ mult=[]
+ for h in hkls:
+  equiv={tuple(op.apply_to_hkl(h.tolist())) for op in sg.operations()};equiv|={tuple(-np.array(v)) for v in list(equiv)};mult.append(len(equiv))
+ lp=(1+np.cos(2*th)**2)/(np.sin(th)**2*np.cos(th));corr=np.array(mult)*lp
+ # Use a sparse angular support to limit memory (the long Lorentzian tails do not materially change overlap correlations).
+ A=np.zeros((len(xx),len(hkls)),dtype=np.float64)
+ for j,t in enumerate(tt+zero):
+  selx=np.abs(xx-t)<wid[j]*12;z=(xx[selx]-t)/wid[j];A[selx,j]=corr[j]*((1-eta[j])*np.sqrt(4*np.log(2)/np.pi)*np.exp(-4*np.log(2)*z*z)+eta[j]*2/np.pi/(1+4*z*z))/wid[j]
+ n=min(len(wg),len(xx));normal=A[:n].T@(A[:n]*wg[:n,None]);v=f2@normal@f2;normal*=(len(hkls)-2)*1000/max(v,1e-25);s.inverse_covariance_matrix=normal
+ comp=json.load(open(model_path or '/app/data/instances/'+sid+'/composition.json'));meta=[]
+ for z in range(zprime):
+  for ic,co in enumerate(comp['components']):
+   for cc in range(co['count']):
+    zm,md=make_zmatrix(co['smiles'],G+f'/m{z}_{ic}_{cc}.zmatrix',seed=1027+run*21+z*11+ic,rank=run,rigid=rigid);s.zmatrices.append(zm);meta.append(md)
+ s.get_total_degrees_of_freedom(verbose=True)
+ for obj in [s]+s.zmatrices:
+  for key,value in list(obj.__dict__.items()):
+   if isinstance(value,np.generic):setattr(obj,key,value.item())
+ json.dump(meta,open(G+'/model.json','w'),indent=1);open(G+'/structure.json','w').write(s.to_json());np.savez_compressed(G+'/profile_matrix.npz',matrix=A,hkl=hkls,normal=normal,tt=tt,obs=f2)
+ print('PREPARED',sid,'Nref',len(hkls),'PawleyRw',p.GetRw(),'SG',sg.xhm(),flush=True)
+ return s,G
+
+if __name__=='__main__':
+ sid=sys.argv[1];run=int(sys.argv[2]) if len(sys.argv)>2 else 1;zp=int(sys.argv[3]) if len(sys.argv)>3 else 1;mp=next((v.split('=',1)[1] for v in sys.argv if v.startswith('--model=')),None)
+ prepare(sid,run,zp,rigid='--rigid' in sys.argv,model_path=mp,stolmax=float(os.environ.get('GALLOP_STOL','.21')))

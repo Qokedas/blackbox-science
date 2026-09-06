@@ -1,0 +1,6 @@
+BASE X07806d9 P b c a Rw 0.12386231120771624 chi2 2441372.8550467626
+Traceback (most recent call last):
+  File "/app/work/make_base.py", line 28, in <module>
+    p.plot(diff=True,hkl=False);p.figure.savefig(W+'/base.png',dpi=140)
+                                ^^^^^^^^
+AttributeError: 'PowderPattern' object has no attribute 'figure'

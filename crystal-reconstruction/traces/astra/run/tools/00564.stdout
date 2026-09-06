@@ -1,0 +1,44 @@
+/opt/conda/include/ObjCryst/ObjCryst/General.h:84:#define REAL float
+1059:      virtual void GlobalOptRandomMove(const REAL mutationAmplitude,
+1068:      void BeginGlobalOptRandomMove();
+1310:      /// \internal This true is false if RefinableObj::GlobalOptRandomMove() has been called
+1311:      /// since RefinableObj::BeginGlobalOptRandomMove() was called.
+0000000000257050 T ObjCryst::RefinableObj::GlobalOptRandomMove(double, ObjCryst::RefParType const*)
+83:#ifndef REAL
+84:#define REAL float
+180:   REAL mXmin, mXmax, mYmin, mYmax, mZmin, mZmax;
+/*  ObjCryst++ Object-Oriented Crystallographic Library
+    (c) 2000-2008 Vincent Favre-Nicolin vincefn@users.sourceforge.net
+        2000-2001 University of Geneva (Switzerland)
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+*/
+// This header defines which description should be used
+// for vectors.
+
+#ifndef __LIBCRYST_VECTOR_H
+#define __LIBCRYST_VECTOR_H
+
+#include "ObjCryst/ObjCryst/General.h"
+
+#undef __LIBCRYST_VECTOR_USE_BLITZ__
+//#define __LIBCRYST_VECTOR_USE_BLITZ__
+
+#ifdef __LIBCRYST_VECTOR_USE_BLITZ__
+
+#include <blitz/array.h>
+using namespace blitz;
+
+//Still use pointers for the Geometrical Structure computation ?

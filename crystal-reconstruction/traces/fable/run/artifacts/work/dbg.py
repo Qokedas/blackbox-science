@@ -1,0 +1,21 @@
+import sys, json, numpy as np, time
+sys.path.insert(0,'/app/work')
+from lebail import *
+iid='X4f6fe58'
+print('make pattern', flush=True)
+p, ins = make_pattern(iid, tt_max=50)
+print('pattern ok', p.GetNbPoint(), flush=True)
+cr, pd = add_crystal(p, [10.5197,14.8446,19.3852,90,101.918,90], 'P1')
+print('crystal ok', flush=True)
+pd.SetReflectionProfilePar(ReflectionProfileType.PROFILE_PSEUDO_VOIGT, 1e-7)
+print('profile ok', flush=True)
+p.quick_fit_profile(pdiff=pd, auto_background=False, init_profile=True, plot=False, zero=True, constant_width=True, width=True, eta=True, backgd=True, cell=True, asym=False, verbose=True)
+print('fit ok', p.GetRw(), flush=True)
+res = dict(rw=p.GetRw(), r=p.GetR(), chi2=p.GetChi2())
+print('res ok', flush=True)
+print(p.GetIntegratedRw(), flush=True)
+print(p.GetNbPointUsed(), flush=True)
+print(cr.a, cr.alpha, flush=True)
+print(pd.GetNbReflBelowMaxSinThetaOvLambda(), flush=True)
+x = np.degrees(p.GetPowderPatternX()); yo = p.GetPowderPatternObs(); yc = p.GetPowderPatternCalc()
+print('arrays ok', flush=True)

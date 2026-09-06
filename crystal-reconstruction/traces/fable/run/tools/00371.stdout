@@ -1,0 +1,5 @@
+LeBail Rwp=0.0863 chi2=12492.6 cell= 10.29089538333883 6.881051179858904 19.988919605192578 90.0
+  conformers: 4 distinct; energies [131.7, 132.2, 135.9, 136.2]; using rank 0 (E=131.7)
+  molecule mol0_0: 21 atoms, 22 bonds, 29 angles, 30 dihedral restraints, 2 free torsions
+run 0: cost=50213.7 Rwp=0.1789 chi2=52674.3 t=1753s
+polish: Rwp 0.1787 -> 0.1506 (accepted) restraint cost=0.00

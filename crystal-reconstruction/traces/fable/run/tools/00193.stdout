@@ -1,0 +1,21 @@
+{
+ "components": [
+  {
+   "smiles": "CNS(=O)(=O)Nc1nccc(Cc2c(C)c3ccc(Oc4ncccn4)cc3oc2=O)c1F",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}[0.46873] [0.51, 49.995] 49486 transmission (capillary / Debye-Scherrer)
+g2_monoC.log
+g2_monoP.log
+g2_tri.log
+g2index_monoC_20.txt
+g2index_monoP_20.txt
+g2index_tri_20.txt
+lebail_P-1.png
+peaks.png
+peaks.txt

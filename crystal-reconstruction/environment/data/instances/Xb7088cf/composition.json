@@ -1,0 +1,12 @@
+{
+ "components": [
+  {
+   "smiles": "Nc1ccccc1NC(=O)c1ccc(CNC(=O)OCc2cccnc2)cc1",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}

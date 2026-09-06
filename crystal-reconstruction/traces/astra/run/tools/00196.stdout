@@ -1,0 +1,443 @@
+      * the max is calculated.
+      */
+      REAL mMaxSinThetaOvLambda;
+
+      /// Constant error (sigma) on the calculated pattern, due to an incomplete
+      /// model
+      REAL mModelVariance;
+
+      /// Type of interpolation performed: linear or cubic spline
+      RefObjOpt mInterpolationModel;
+      //To be removed
+      friend class PowderPattern;
+   #ifdef __WX__CRYST__
+   public:
+      virtual WXCrystObjBasic* WXCreate(wxWindow*);
+      friend class WXPowderPatternBackground;
+   #endif
+};
+
+//######################################################################
+/** \brief Class to compute the contribution to a powder pattern from
+* a crystalline phase.
+*
+*/
+//######################################################################
+class PowderPatternDiffraction : virtual public PowderPatternComponent,public ScatteringData
+{
+   public:
+      PowderPatternDiffraction();
+      PowderPatternDiffraction(const PowderPatternDiffraction&);
+      virtual ~PowderPatternDiffraction();
+      virtual PowderPatternDiffraction* CreateCopy()const;
+      virtual const string& GetClassName() const;
+
+      virtual void SetParentPowderPattern(PowderPattern&);
+      virtual const CrystVector_REAL& GetPowderPatternCalc()const;
+      virtual pair<const CrystVector_REAL*,const RefinableObjClock*>
+         GetPowderPatternIntegratedCalc()const;
+
+      /** Set reflection profile parameters
+      *
+      * :TODO: assymmetric profiles
+      * \param fwhmCagliotiW,fwhmCagliotiU,fwhmCagliotiV : these are the U,V and W
+      * parameters in the Caglioti's law :
+      * \f$ fwhm^2= U \tan^2(\theta) + V \tan(\theta) +W \f$
+      * if only W is given, the width is constant
+      * \param eta0,eta1: these are the mixing parameters in the case of a
+      * pseudo-Voigt function.
+      */
+      void SetReflectionProfilePar(const ReflectionProfileType prof,
+                                   const REAL fwhmCagliotiW,
+                                   const REAL fwhmCagliotiU=0,
+                                   const REAL fwhmCagliotiV=0,
+                                   const REAL eta0=0.5,
+                                   const REAL eta1=0.);
+      /** Assign a new profile
+      *
+      */
+      void SetProfile(ReflectionProfile *prof);
+      /// Get reflection profile
+      const ReflectionProfile& GetProfile()const;
+      /// Get reflection profile
+      ReflectionProfile& GetProfile();
+      virtual void GenHKLFullSpace()const;
+      virtual void XMLOutput(ostream &os,int indent=0)const;
+      virtual void XMLInput(istream &is,const XMLCrystTag &tag);
+      //virtual void XMLInputOld(istream &is,const IOCrystTag &tag);
+      virtual void GetGeneGroup(const RefinableObj &obj,
+                                CrystVector_uint & groupIndex,
+                                unsigned int &firstGroup) const;
+      virtual void BeginOptimization(const bool allowApproximations=false,
+                                     const bool enableRestraints=false);
+      virtual void EndOptimization();
+      virtual void SetApproximationFlag(const bool allow);
+      virtual const Radiation& GetRadiation()const;
+      virtual const CrystVector_REAL& GetPowderPatternCalcVariance()const;
+      virtual pair<const CrystVector_REAL*,const RefinableObjClock*>
+         GetPowderPatternIntegratedCalcVariance() const;
+      virtual bool HasPowderPatternCalcVariance()const;
+      virtual void SetCrystal(Crystal &crystal);
+      /** Prepare intensity extraction (Le Bail or Pawley)
+      *
+      *
+      *\param extract: if true, begin extraction mode, else enable structure factor calculations
+      *\param init: if true and extract=true, intensities are set to 100. Otherwise if extract==true
+      * and init=false, the program will try to re-use existing extracted data (in mpLeBailData),
+      * but only if the list of HKL is unchanged. Otherwise initilization to 100 will be forced.
+      */
+      void SetExtractionMode(const bool extract=true,const bool init=false);
+      /// Return true if in extraction mode, i.e. using extracted intensities instead of computed structure factors.
+      bool GetExtractionMode()const;
+      /** Extract intensities using Le Bail method
+      *
+      *\param nbcycle: number of cycles
+      */
+      void ExtractLeBail(unsigned int nbcycle=1);
+      /// Recalc, and get the number of reflections which should be actually used,
+      /// due to the maximuml sin(theta)/lambda value set.
+      virtual long GetNbReflBelowMaxSinThetaOvLambda()const;
+      /// Change one parameter in mFrozenLatticePar. This triggers a call to CalcLocalBMatrix() if the parameter has changed
+      void SetFrozenLatticePar(const unsigned int i, REAL v);
+      /// Access to one parameter in mFrozenLatticePar
+      REAL GetFrozenLatticePar(const unsigned int i) const;
+      /// Set the use local cell parameters ? (see mFrozenLatticePar)
+      /// If this changes mUseLocalLatticePar from false to true, this triggers a copy
+      /// of the Crystal's lattice parameters into mFrozenLatticePar
+      void FreezeLatticePar(const bool use);
+      /// Do we use local cell parameters ? (see mFrozenLatticePar)
+      bool FreezeLatticePar() const;
+      /** Get the 'net' number of observed intensities, minus the number of reflections, for a profile fit.
+      * This calculation takes into account where each reflection appears:
+      * - if in a low angle region there are 500 points and 2 reflections, this will contribute 498 net
+      * - if at high angle there are 200 points and 250 reflections, this will contribute to 0 net oberved.
+      * - reflections appearing at exactly the same angle count as one
+      * Note that the calculation only includes the region below max(sin(theta)/lambda).
+      * No over paremeters (profile, background) are taken into account
+      */
+      unsigned int GetProfileFitNetNbObs()const;
+      /// Return true if there are extracted (le Bail) squared structure factors, false otherwise
+      bool HasFhklObsSq() const;
+      /** Get the extracted structure factors modulus (squared), e.g. using the Le Bail method.
+      *
+      * Note that the number of reflections listed is limited to the evaluated ones,
+      *which is usually smaller than the H,K and L arrays.
+      *
+      * Raises an exception if this is not available.
+      */
+      const CrystVector_REAL& GetFhklObsSq() const;
+   protected:
+      virtual void CalcPowderPattern() const;
+      virtual void CalcPowderPattern_FullDeriv(std::set<RefinablePar *> &vPar);
+      virtual void CalcPowderPatternIntegrated() const;
+      virtual void CalcPowderPatternIntegrated_FullDeriv(std::set<RefinablePar *> &vPar);
+
+      /// \internal Calc reflection profiles for ALL reflections (powder diffraction)
+      void CalcPowderReflProfile()const;
+      /// \internal Calc derivatives of reflection profiles for all used reflections,
+      /// for a given list of refinable parameters
+      void CalcPowderReflProfile_FullDeriv(std::set<RefinablePar *> &vPar);
+      /// \internal Calc Lorentz-Polarisation-Aperture correction
+      void CalcIntensityCorr()const;
+      /// \internal Compute the intensity for all reflections (taking into account
+      /// corrections, but not the multiplicity)
+      virtual void CalcIhkl() const;
+      virtual void CalcIhkl_FullDeriv(std::set<RefinablePar*> &vPar);
+      virtual void Prepare();
+      virtual void InitOptions();
+      virtual const CrystVector_long& GetBraggLimits()const;
+      virtual void SetMaxSinThetaOvLambda(const REAL max);
+      /// This can use either locally stored lattice parameters from mLocalLatticePar,
+      /// or the Crystal's, depending on mUseLocalLatticePar.
+      virtual const CrystMatrix_REAL& GetBMatrix()const;
+      /// Calculate the local BMatrix, used if mFreezeLatticePar is true.
+      void CalcFrozenBMatrix()const;
+      void PrepareIntegratedProfile()const;
+      //Clocks
+         /// Last time the reflection parameters were changed
+         RefinableObjClock mClockProfilePar;
+         /// Last time the Lorentz-Polarization and slit parameters were changed
+         RefinableObjClock mClockLorentzPolarSlitCorrPar;
+      //Clocks (internal, mutable)
+         /// Last time the Lorentz-Polar-Slit correction was computed
+         mutable RefinableObjClock mClockIntensityCorr;
+         /// Last time the reflection profiles were computed
+         mutable RefinableObjClock mClockProfileCalc;
+         /// Last time intensities were computed
+         mutable RefinableObjClock mClockIhklCalc;
+      /// Profile
+         ReflectionProfile *mpReflectionProfile;
+      // Corrections
+         /** \brief Calculated corrections for all reflections. Calc F^2 must be multiplied
+         *by this factor to yield intensities.
+         *
+         * Thus we have : \f$ I_{hkl} = L \times P \times SlitAp \times F_{hkl}^2 \f$
+         *
+         *with \f$ L = \frac{1}{\sin(2\theta)} \f$ (Lorentz factor).
+         *\f$ P = \frac{1}{1+A}\left(1+A\cos^2(2\theta)\right) \f$ (Polarization factor), with
+         * \f$ A = \frac{1-f}{1+f} \f$, where f is the polarization rate of the incident
+         *beam in the plane which (i) includes the incident beam, and (ii) is perpendicular to
+         *the diffracting plane. For an X-Ray Tube without monochromator, A=1, and
+         *if there is a monochromator : \f$ A = \cos^2(2\theta_{mono}) \f$
+         *The factor \f$ SlitAp = \frac{1}{\sin(\theta)} \f$ takes into account the
+         *fraction of the diffracted cone which falls in the detector slit.
+         *
+         * If there is prefereed orientation, this also holds the associated correction.
+         *
+         * \todo: store all corrections in a registry, so that other corrections
+         * can more easily be added (? Maybe not that useful, especially since these
+         * correction do not need to be displayed to the user ?).
+         */
+         mutable CrystVector_REAL mIntensityCorr;
+         /// Lorentz correction
+         LorentzCorr mCorrLorentz;
+         /// Polarization correction
+         PolarizationCorr mCorrPolar;
+         /// Slit aperture correction
+         PowderSlitApertureCorr mCorrSlitAperture;
+         /// Preferred orientation (texture) correction following the March-Dollase model
+         TextureMarchDollase mCorrTextureMarchDollase;
+         /// Preferred orientation (texture) correction following the Ellipsoidal function
+         TextureEllipsoid mCorrTextureEllipsoid;
+         void ImportPowderPatternPSI_DMC(const string &filename);
+         /** \brief Import powder pattern, format from ILL D1A/D2B
+         * (format without counter info)
+         */
+         void ImportPowderPatternILL_D1A5(const string &filename);
+         /** \brief Import *.xdd diffraction data (Topas,...).
+         *\param fileName: filename
+         */
+         void ImportPowderPatternXdd(const string &fileName);
+         /** \brief Import *.cpi Sietronics diffraction data
+         *\param fileName: filename
+         */
+         void ImportPowderPatternSietronicsCPI(const string &fileName);
+         /** \brief Import file with 3 columns 2Theta Iobs Sigma.
+         *\param fileName: the filename (surprise!)
+         *\param nbSkip: the number of lines to skip at the beginning of the file (default=0)
+         */
+         void ImportPowderPattern2ThetaObsSigma(const string &fileName,const int nbSkip=0);
+         /** \brief Import diffraction data from a file, with the first line
+         * has 2ThetaMin, step, 2thetaMax, and the following lines alternate
+         * 10 Iobs and 10 sigma. Ends with null entries (to fill last Iobs line
+         * to reach last sigme line).
+
+         * That's fullprof format #4.
+         *\param fileName: filename
+         */
+         void ImportPowderPatternFullprof4(const string &fileName);
+         /** \brief diffraction data in a multi-detector format (fullprof format #6).
+         *
+         * First line is text. Third entry of second line is the 2theta step. Third
+         *line has the 2thetamin, fourth line has monitors and temperatures.
+         * Then each line has ten pairs (I2,I8)of NbCounters,intensity. Ends with
+         * negative entries.
+         *\param fileName: filename
+         */
+         void ImportPowderPatternMultiDetectorLLBG42(const string &fileName);
+         /** \brief Import file with 2 columns 2Theta Iobs.
+         *
+         *\param fileName: the filename (surprise!)
+         *\param nbSkip: the number of lines to skip at the beginning of the file (default=0)
+         */
+         void ImportPowderPattern2ThetaObs(const string &fileName,const int nbSkip=0);
+         /** \brief Import TOF file (ISIS type, 3 columns t, Iobs, sigma(Iobs))
+         *\param fileName: the filename
+         */
+         void ImportPowderPatternTOF_ISIS_XYSigma(const string &fileName);
+         /** Import GSAS standard powder pattern data (see GSAS manual).
+         * \warning : partial support (only CONST-constant wavelength- data so far)
+         */
+         void ImportPowderPatternGSAS(const string &fileName);
+         /** Import CIF powder pattern data.
+         */
+         void ImportPowderPatternCIF(const CIF &cif);
+         /** \brief Set observed powder pattern from vector array.
+         *
+         * Note: powder pattern parameters must have been set before calling this function,
+         * for example by calling DiffractionDataPowder::InitPowderPatternPar().
+         */
+         void SetPowderPatternObs(const CrystVector_REAL& obs);
+
+         ///Save powder pattern to one file, text format, 3 columns theta Iobs Icalc.
+         ///If Iobs is missing, the column is omitted.
+         ///
+         /// \todo export in other formats (.prf,...), with a list of reflection
+         /// position for all phases...
+         void SavePowderPattern(const string &filename="powderPattern.out") const;
+         /// Print to thee screen/console the observed and calculated pattern (long,
+         /// mostly useful for debugging)
+         void PrintObsCalcData(ostream&os=cout)const;
+
+      // Statistics..
+         /** \brief  Unweighted R-factor
+         *
+         * \return \f$ R= \sqrt {\frac{\sum_i \left( I_i^{obs}-I_i^{calc} \right)^2}
+         * {\sum_i (I_i^{obs})^2} }\f$
+         */
+         REAL GetR()const ;
+         REAL GetIntegratedR()const ;
+         /** Get the weighted R-factor
+         * \return \f$ R_{w}= \sqrt {\frac{\sum_i w_i\left( I_i^{obs}-I_i^{calc} \right)^2}
+         * {\sum_i w_i (I_i^{obs})^2} }\f$
+      * \param h,k,l: REAL arrays (vectors with NbRefl elements -same size),
+      *with the h, k and l coordinates of all reflections.
+      */
+      virtual void SetHKL( const CrystVector_REAL &h,
+                           const CrystVector_REAL &k,
+                           const CrystVector_REAL &l);
+      /** \brief Generate a list of h,k,l to describe a full reciprocal space,
+      * up to a given maximum theta value
+      *
+      * \param maxTheta:maximum theta value
+      * \param unique: if set to true, only unique reflections will be listed.
+      * Bijvoet (Friedel) pairs
+      * are NOT merged, for 'anomalous' reasons, unless you have chosen to ignore the
+      * imaginary part of the scattering factor.
+      *
+      * The multiplicity is always stored in ScatteringData::mMultiplicity.
+      *
+      * \warning The ScatteringData object must already have been assigned
+      * a crystal object using SetCrystal(), and the experimental wavelength
+      * must also have been set before calling this function.
+      */
+      virtual void GenHKLFullSpace2(const REAL maxsithsl,
+                                   const bool unique=false);
+      /** \brief Generate a list of h,k,l to describe a full reciprocal space,
+      * up to a given maximum theta value
+      *
+      * \param maxsithsl:maximum sin(theta)/lambda=1/2d value
+      * \param unique: if set to true, only unique reflections will be listed.
+      * Bijvoet (Friedel) pairs
+      * are NOT merged, for 'anomalous' reasons, unless you have chosen to ignore the
+      * imaginary part of the scattering factor.
+      *
+      * The multiplicity is always stored in ScatteringData::mMultiplicity.
+      *
+      * \warning The ScatteringData object must already have been assigned
+      * a crystal object using SetCrystal(), and the experimental wavelength
+      * must also have been set before calling this function.
+      *
+      * \deprecated Rather use PowderPattern::GenHKLFullSpace2,
+      * with a maximum sin(theta)/lambda value, which also works for dispersive experiments.
+      */
+      virtual void GenHKLFullSpace(const REAL maxTheta,
+                                   const bool unique=false);
+
+      ///Neutron or x-ray experiment ? Wavelength ?
+      RadiationType GetRadiationType()const;
+      /// Get the radiation object for this data
+      virtual const Radiation& GetRadiation()const=0;
+
+      /**Set the crystal for this experiment
+      *
+      */
+      virtual void SetCrystal(Crystal &crystal);
+      /// Const access to the data's crystal
+      const Crystal& GetCrystal()const ;
+      /// Access to the data's crystal
+      Crystal& GetCrystal() ;
+      /// Has a Crystal structure associated yet ?
+      bool HasCrystal()const;
+
+      ///Return the number of reflections in this experiment.
+      long GetNbRefl() const;
+      ///Return the 1D array of H coordinates for all reflections
+      const CrystVector_REAL& GetH() const;
+      ///Return the 1D array of K coordinates for all reflections
+      const CrystVector_REAL& GetK() const;
+      ///Return the 1D array of L coordinates for all reflections
+      const CrystVector_REAL& GetL() const;
+      /// Return the 1D array of H coordinates for all reflections, multiplied by 2*pi
+      /// \internal  Should be private
+      const CrystVector_REAL& GetH2Pi() const;
+      ///Return the 1D array of K coordinates for all reflections, multiplied by 2*pi
+      /// \internal  Should be private
+      const CrystVector_REAL& GetK2Pi() const;
+      ///Return the 1D array of L coordinates for all reflections, multiplied by 2*pi
+      /// \internal  Should be private
+      const CrystVector_REAL& GetL2Pi() const;
+      ///Return the 1D array of orthonormal x coordinates for all reflections (recipr. space)
+      const CrystVector_REAL& GetReflX() const;
+      ///Return the 1D array of orthonormal y coordinates for all reflections (recipr. space)
+      const CrystVector_REAL& GetReflY() const;
+      ///Return the 1D array of orthonormal z coordinates for all reflections (recipr. space)
+      const CrystVector_REAL& GetReflZ() const;
+
+      /// Return an array with \f$ \frac{sin(\theta)}{\lambda} = \frac{1}{2d_{hkl}}\f$
+      ///for all reflections
+      const CrystVector_REAL& GetSinThetaOverLambda()const;
+      /// Return an array with theta values for all reflections
+      const CrystVector_REAL& GetTheta()const;
+      /// Clock the last time the sin(theta)/lambda and theta arrays were re-computed
+      const RefinableObjClock& GetClockTheta()const;
+
+      ///  Returns the Array of calculated |F(hkl)|^2 for all reflections.
+      const CrystVector_REAL& GetFhklCalcSq() const;
+      std::map<RefinablePar*, CrystVector_REAL> & GetFhklCalcSq_FullDeriv(std::set<RefinablePar *> &vPar);
+      /// Access to real part of F(hkl)calc
+      const CrystVector_REAL& GetFhklCalcReal() const;
+      /// Access to imaginary part of F(hkl)calc
+      const CrystVector_REAL& GetFhklCalcImag() const;
+
+      ///  Returns the vector of observed |F(hkl)|^2 for all reflections.
+      const CrystVector_REAL& GetFhklObsSq() const;
+      ///  Set the vector of observed |F(hkl)|^2 for all reflections. The supplied vector must have the same size
+      /// as the mH, mK, mL vectors.
+      void SetFhklObsSq(const CrystVector_REAL &obs);
+
+      /// Scattering factors for each ScatteringPower, as vectors with NbRefl elements
+      const map<const ScatteringPower*,CrystVector_REAL> &GetScatteringFactor() const;
+
+      ///wavelength of the experiment (in Angstroems)
+      CrystVector_REAL GetWavelength()const;
+
+      /// If true, then the imaginary part of the scattering factor is ignored during
+      /// Structure factor computation. (default value=false)
+      ///
+      /// \todo this should become useless once we take fully advantage of coupled
+      /// computation of Structure Factors for Fridel/Bijvoet mates using an internal
+      /// list of 'fully unique' reflections. Then only one of the mates need to be computed..
+      void SetIsIgnoringImagScattFact(const bool b);
+      /// If true, then the imaginary part of the scattering factor is ignored during
+      /// Structure factor computation.
+      bool IsIgnoringImagScattFact() const;
+      // Set an option so that only low-amgle reflections (theta < angle)
+      // are used. See DiffractionData::mUseOnlyLowAngleData
+      //virtual void SetUseOnlyLowAngleData(const bool useOnlyLowAngle,const REAL angle)=0;
+      /** \brief Print H, K, L F^2 Re(F) Im(F) theta sin(theta)/lambda for all reflections
+      *
+      */
+      virtual void PrintFhklCalc(ostream &os=cout)const;
+      /** \brief Print H, K, L sin(theta)/lambda theta F^2 Re(F) Im(F) [Re(F) Im(F)]_i,
+      * where [Re(F) Im(F)]_i are the real and imaginary contribution of the different
+      * scattering powers to the overall structure factor
+      */
+      virtual void PrintFhklCalcDetail(ostream &os=cout)const;
+
+      virtual void BeginOptimization(const bool allowApproximations=false,
+                                     const bool enableRestraints=false);
+      virtual void EndOptimization();
+      virtual void SetApproximationFlag(const bool allow);
+      /// Set the maximum value for sin(theta)/lambda. All data (reflections,..) still
+      /// exist but are ignored for all calculations.
+98:            gpRefParTypeScattDataScale= new RefParType(gpRefParTypeObjCryst,"Scale Factor");
+437:      const map<const ScatteringPower*,CrystVector_REAL> &GetScatteringFactor() const;
+448:      void SetIsIgnoringImagScattFact(const bool b);
+451:      bool IsIgnoringImagScattFact() const;
+553:         void CalcScattFactor()const;
+559:         virtual void CalcResonantScattFactor()const;
+660:         mutable map<const ScatteringPower*,CrystVector_REAL> mvTemperatureFactor;
+663:         mutable map<const ScatteringPower*,CrystVector_REAL> mvScatteringFactor;
+680:         mutable RefinableObjClock mClockScattFactor;
+682:         mutable RefinableObjClock mClockScattFactorResonant;
+705:      bool mIgnoreImagScattFact;
+728:         mutable map<const ScatteringPower*,CrystVector_REAL> mvLuzzatiFactor;
+{"indices": [4, 10, 11, 12, 13, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29]}build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=8.45052, b=21.3997, c=24.229, alpha=90, beta=107.899, gamma=90, V=4169.47, score=4.44107
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=14.5041, b=31.2403, c=12.8309, alpha=90, beta=131.143, gamma=90, V=4378.22, score=4.34451
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=6.7264, b=35.1407, c=15.8413, alpha=90, beta=92.9043, gamma=90, V=3739.6, score=4.34425
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=8.16327, b=36.7319, c=16.3563, alpha=90, beta=107.753, gamma=90, V=4670.93, score=4.18054
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=6.69656, b=34.6768, c=15.7469, alpha=90, beta=92.3379, gamma=90, V=3653.63, score=3.91592
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2609 BEST ? a=12.4424, b=31.4315, c=15.1837, alpha=90, beta=108.341, gamma=90, V=5636.47, score=13.3705
+3078434unit cells tested, 1.59107e+06 tests/s,   Elapsed time=1.93482s
+DONE X8a6f5a8 MONOCLINIC C 38 1.9357383251190186 [{'cell': [12.44243335723877, 31.431488037109375, 15.183707237243652, 90.00000250447816, 108.34057672795815, 90.00000250447816], 'volume': 5636.46923828125, 'score': 13.370471000671387, 'system': 'MONOCLINIC', 'centering': 'C', 'mode': 4}, {'cell': [7.751583576202393, 63.11197280883789, 11.788716316223145, 90.00000250447816, 94.2034648442441, 90.00000250447816], 'volume': 5751.7353515625, 'score': 11.174103736877441, 'system': 'MONOCLINIC', 'centering': 'C', 'mode': 4}, {'cell': [16.26034927368164, 31.341751098632812, 14.693044662475586, 90.00000250447816, 137.65402060779286, 90.00000250447816], 'volume': 5043.94970703125, 'score': 9.51508903503418, 'system': 'MONOCLINIC', 'centering': 'C', 'mode': 4}, {'cell': [7.747590065002441, 63.07828903198242, 11.740194320678711, 90.00000250447816, 94.40853444388456, 90.00000250447816], 'volume': 5720.51318359375, 'score': 9.2440824508667, 'system': 'MONOCLINIC', 'centering': 'C', 'mode': 4}, {'cell': [12.460591316223145, 31.465839385986328, 15.239709854125977, 90.00000250447816, 108.58688017961798, 90.00000250447816], 'volume': 5663.5712890625, 'score': 9.17793083190918, 'system': 'MONOCLINIC', 'centering': 'C', 'mode': 4}]

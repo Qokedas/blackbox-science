@@ -1,0 +1,51 @@
+launched
+candidates.json
+index_CUBIC_F_0.json
+index_CUBIC_F_0.log
+index_CUBIC_I_0.json
+index_CUBIC_I_0.log
+index_CUBIC_P_0.json
+index_CUBIC_P_0.log
+index_HEXAGONAL_P_0.json
+index_HEXAGONAL_P_0.log
+index_MONOCLINIC_C_0.json
+index_MONOCLINIC_C_0.log
+index_MONOCLINIC_C_2.json
+index_MONOCLINIC_C_2.log
+index_MONOCLINIC_P_0.json
+index_MONOCLINIC_P_0.log
+index_MONOCLINIC_P_2.json
+index_MONOCLINIC_P_2.log
+index_ORTHOROMBIC_C_0.json
+index_ORTHOROMBIC_C_0.log
+index_ORTHOROMBIC_I_0.json
+index_ORTHOROMBIC_I_0.log
+index_ORTHOROMBIC_P_0.json
+index_ORTHOROMBIC_P_0.log
+index_ORTHOROMBIC_P_2.json
+index_ORTHOROMBIC_P_2.log
+index_RHOMBOEDRAL_P_0.json
+index_RHOMBOEDRAL_P_0.log
+index_TETRAGONAL_I_0.json
+index_TETRAGONAL_I_0.log
+index_TETRAGONAL_P_0.json
+index_TETRAGONAL_P_0.log
+peaks.json
+peaks.png
+processed.npz
+CYCLE 2 1 Rw 0.10672968503587994 chi2 597.9351903600476
+CYCLE 2 2 Rw 0.10658291096247038 chi2 596.2917668081185
+CYCLE 3 0 Rw 0.10637120760283622 chi2 593.925316158242
+CYCLE 3 1 Rw 0.10608291012823244 chi2 590.7102519611337
+CYCLE 3 2 Rw 0.10617538699708622 chi2 591.7405940729739
+FINISHED Xf8ac963 0.10617538699708622
+Lookup of '' symbol failed, trying as Hall symbol.
+Could not interpret Spacegroup Symbol:
+ERRORSG I -1 Space group symbol '' not recognized
+GROUPS [{"sg": "P 1", "number": 1, "Rw": 9.079638626238488, "GoF": 1.2949643282171392, "nGoF": 0.18728316918231544, "mult": 1}, {"sg": "P -1", "number": 2, "Rw": 9.079638626238488, "GoF": 1.2949643282171392, "nGoF": 0.18728316918231544, "mult": 2}]
+DONE Xd8634a2 0 0.08728370169030533 [8.910224529671574, 9.47853854706852, 13.245448446774777, 83.9828213031522, 81.77582566596926, 66.67860706119507]
+1434 solutions ! Redparing...
+-> 73 remaining
+     a=21.47-21.49 b=12.13-12.15 c= 5.00- 5.02 alpha= 98.51- 98.63 beta= 83.51- 83.48 gamma= 95.57- 95.65 V=1273.59-1282.61level=5, indexed=1(2119 sol.)
+     a=0.00221-0.00221 b=0.00700-0.00698 c=0.04139-0.04104 alpha=0.00064-0.00065 beta=0.00472-0.00476 gamma=-0.00192--0.00191level=5, indexed=1(2119 sol.)
+ Solution ? a= 21.477 b= 12.057 c=  5.008 alpha= 97.784 beta= 83.327 gamma= 95.470 V= 1271.91 score= 35.59 #2119

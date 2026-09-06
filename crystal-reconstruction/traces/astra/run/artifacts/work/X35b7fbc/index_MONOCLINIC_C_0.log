@@ -1,0 +1,15 @@
+X35b7fbc MONOCLINIC C 0 peaks [0.7025, 0.77, 0.83152, 0.845, 0.88, 1.1475, 2.41209, 3.35784, 3.9574, 4.79351, 5.76488, 6.27629, 6.72785, 6.81333, 7.12348, 7.25458, 7.4258, 7.69062, 7.78591, 7.90558, 8.06365, 8.50689] V 2579.332763671875 4752 Lmax 47.0742607550105
+3->47.0743,1.76298,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+2579.33->4752,434.542,4.9999
+Starting: V=2579.33->3013.88
+Finished: V=2579.33->3013.88 A^3, 5968 unit cells tested, 267791 tests/s,   Elapsed time=0.022294s
+Starting: V=3013.88->3448.42
+Finished: V=3013.88->3448.42 A^3, 12315 unit cells tested, 246640 tests/s,   Elapsed time=0.049939s
+Starting: V=3448.42->3882.96
+Finished: V=3448.42->3882.96 A^3, 18989 unit cells tested, 237868 tests/s,   Elapsed time=0.079839s
+Starting: V=3882.96->4317.5
+Finished: V=3882.96->4317.5 A^3, 25912 unit cells tested, 227207 tests/s,   Elapsed time=0.114055s
+Starting: V=4317.5->4752
+Finished: V=4317.5->4752 A^3, 33018 unit cells tested, 216960 tests/s,   Elapsed time=0.152193s
+DONE X35b7fbc MONOCLINIC C 0 0.15234589576721191 []

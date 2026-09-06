@@ -1,0 +1,13 @@
+====Xb7088cf g50
+N1 H30 N16 DA 3.5151 HA 2.6630 DHA 139.74 nearest (np.float64(0.0), np.float64(1.0), np.float64(0.0))
+N1 H30 O18 DA 2.5243 HA 1.7304 DHA 130.28 nearest (np.float64(0.0), np.float64(0.0), np.float64(0.0))
+N8 H35 O18 DA 3.5404 HA 2.7352 DHA 135.06 nearest (np.float64(0.0), np.float64(0.0), np.float64(0.0))
+====Xb7088cf pyr51m1
+N1 H30 N16 DA 3.5404 HA 2.6707 DHA 141.65 nearest (np.float64(0.0), np.float64(1.0), np.float64(0.0))
+N1 H30 O18 DA 2.5197 HA 1.8386 DHA 119.96 nearest (np.float64(0.0), np.float64(0.0), np.float64(0.0))
+N8 H35 O18 DA 3.6177 HA 2.8627 DHA 130.33 nearest (np.float64(0.0), np.float64(0.0), np.float64(0.0))
+====Xb7088cf g51
+N1 H30 N16 DA 3.5793 HA 2.7638 DHA 136.11 nearest (np.float64(0.0), np.float64(1.0), np.float64(0.0))
+N1 H30 O18 DA 2.5254 HA 1.6870 DHA 135.16 nearest (np.float64(-1.0), np.float64(0.0), np.float64(0.0))
+N8 H35 O18 DA 3.5188 HA 2.7442 DHA 132.13 nearest (np.float64(0.0), np.float64(0.0), np.float64(0.0))
+N16 H40 N25 DA 3.5673 HA 2.7364 DHA 137.18 nearest (np.float64(-1.0), np.float64(0.0), np.float64(0.0))

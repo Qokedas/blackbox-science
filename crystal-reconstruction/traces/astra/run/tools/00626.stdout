@@ -1,0 +1,178 @@
+Xeb393f9 Nat 37 molecule sizes [27, 10]
+  component O=C(O)CCC[NH+]1CCC(O[C@@H](c2ccc(Cl)cc2)c2ccccn2)CC1 matches 1
+  component O=S(=O)([O-])c1ccccc1 matches 1
+  bond range 1.2274242990600102 1.845194410166988
+  min intermolecular distance 2.733136761351062
+Xeb393f9 root 31 expected {11: 'S'} actual {11: 'S'} OK True
+Cell (8.013931020000001, 9.81544991, 10.23349856, 74.86888031, 68.95753743, 65.93179477) n 37 components [27, 10]
+2.7331 5 C9 C 0 35 O56 O 1
+2.8523 31 O1 O 0 34 O54 O 1
+2.9800 32 O3 O 0 34 O54 O 1
+3.1909 6 C10 C 0 26 C63 C 1
+3.2803 4 C8 C 0 35 O56 O 1
+3.3037 25 C62 C 1 33 O11 O 0
+3.3037 0 C2 C 0 34 O54 O 1
+3.3081 11 C16 C 0 23 C60 C 1
+3.3115 12 C18 C 0 36 O57 O 1
+3.3242 6 C10 C 0 25 C62 C 1
+3.3904 10 C15 C 0 24 C61 C 1
+3.4503 23 C60 C 1 30 Cl17 Cl 0
+3.4719 26 C63 C 1 33 O11 O 0
+3.4744 19 C26 C 0 26 C63 C 1
+3.5187 15 C21 C 0 36 O57 O 1
+3.5239 17 C23 C 0 36 O57 O 1
+3.5284 26 C63 C 1 30 Cl17 Cl 0
+3.5373 1 C4 C 0 25 C62 C 1
+3.5917 17 C23 C 0 34 O54 O 1
+3.6029 11 C16 C 0 24 C61 C 1
+3.6118 4 C8 C 0 36 O57 O 1
+3.6283 10 C15 C 0 23 C60 C 1
+3.6311 31 O1 O 0 35 O56 O 1
+3.6683 17 C23 C 0 23 C60 C 1
+3.6853 4 C8 C 0 27 S55 S 1
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/21574/status ]] && ! grep -q '^State:.*Z' /proc/21574/status; do sleep 5;done
+mkdir -p /app/work/Xeb393f9/search_chem51
+cp /app/work/Xeb393f9/search_g51/model.json /app/work/Xeb393f9/search_chem51/model.json
+PACKING_SIGMA=.01 python /app/work/refine_obj.py Xeb393f9 chem51 /app/work/Xeb393f9/refined_g51.xml --scale --tight --packing --stol=.40 > /app/work/Xeb393f9/refine_chem51.log 2>&1
+python /app/work/submit.py Xeb393f9 /app/work/Xeb393f9/refined_chem51.cif --check > /app/work/Xeb393f9/check_chem51.log 2>&1
+python /app/work/check_stereo.py Xeb393f9 /app/work/Xeb393f9/refined_chem51.cif >> /app/work/Xeb393f9/check_chem51.log 2>&1
+import os,sys,json,glob,time
+import numpy as np,gemmi,spglib
+from pymatgen.core import Lattice
+import matplotlib
+matplotlib.use('Agg')
+from pyobjcryst.crystal import Crystal
+from pyobjcryst.powderpattern import PowderPattern,ReflectionProfileType,SpaceGroupExplorer
+from pyobjcryst.io import xml_cryst_file_save_global
+from pyobjcryst.refinableobj import refpartype_scattdata_background
+sid=sys.argv[1];tag=sys.argv[2] if len(sys.argv)>2 else 'best';W='/app/work/'+sid
+spec=json.load(open(os.environ.get('CANDIDATE_FILE',W+'/candidates.json')))
+sol=spec[int(os.environ.get('CANDIDATE_INDEX',tag if tag.isdigit() else '0'))]
+cp=sol['cell'];sgstart=sol.get('sg','P m m m' if sol['system']=='ORTHOROMBIC' else 'P 1 2/m 1' if sol['system']=='MONOCLINIC' else 'P -1')
+ins=json.load(open('/app/data/instances/'+sid+'/instrument.json'));wl=ins['radiation']['wavelength_A'];comp=json.load(open('/app/data/instances/'+sid+'/composition.json'));chiral=any('@' in m['smiles'] for m in comp['components'])
+# cell angles are constrained using the corresponding metric symmetry
+c=Crystal(*cp[:3],*np.deg2rad(cp[3:]),sgstart);c.SetName(sid+'_'+tag)
+data=np.loadtxt('/app/data/instances/'+sid+'/pattern.xye');peaks=json.load(open(W+'/peaks.json'));mx=max(v['height'] for v in peaks);valid=[v for v in peaks if v['height']>mx*.015];xmin=max(data[0,0],min(v['two_theta'] for v in valid)-.5*wl/1.54)
+
+if os.path.exists(W+'/peak_select.json'):
+ manual=json.load(open(W+'/peak_select.json'));xmin=max(xmin,manual.get('min_two_theta',xmin))
+stol=float(sys.argv[3]) if len(sys.argv)>3 else .25
+sel=(data[:,0]>=xmin)&(data[:,0]<min(data[-1,0]+.001,np.rad2deg(2*np.arcsin(wl*stol))));data=data[sel]
+# reduce oversampling at very fine synchrotron steps, preserving counting errors appropriately
+step=1
+if len(data)>12000: step=2
+if step>1:
+ n=len(data)//step*step;data=np.column_stack([data[:n,0].reshape(-1,step).mean(1),data[:n,1].reshape(-1,step).mean(1),np.sqrt((data[:n,2]**2).reshape(-1,step).sum(1))/step])
+np.savetxt(W+'/fit_'+tag+'.xye',data)
+p=PowderPattern();p.SetName(sid+'_'+tag);p.ImportPowderPattern2ThetaObsSigma(W+'/fit_'+tag+'.xye');p.SetWavelength(wl);p.SetMaxSinThetaOvLambda(stol)
+rad=ins['radiation']
+if len(rad.get('wavelengths_A') or [])>1: p.SetWavelength('Mo' if wl<1 else 'Cu')
+d=p.AddPowderPatternDiffraction(c)
+wid=np.median([v['fwhm'] for v in sorted(valid,key=lambda z:-z['height'])[:25]])
+d.SetReflectionProfilePar(ReflectionProfileType.PROFILE_PSEUDO_VOIGT,np.deg2rad(wid)**2,0,0,.5,0)
+b=p.AddPowderPatternBackground();nbkg=max(20,int((data[-1,0]-data[0,0])/(1.2*wl/1.54)))
+bx=np.linspace(np.deg2rad(data[0,0]),np.deg2rad(data[-1,0]),nbkg);orig=np.load(W+'/processed.npz');by=np.interp(np.rad2deg(bx),orig['x'],orig['background']);b.SetInterpPoints(bx,by)
+p.Prepare()
+p.quick_fit_profile(pdiff=d,auto_background=False,init_profile=False,plot=False,asym=True,verbose=False)
+print('STARTFIT',sid,tag,'Rw',p.GetRw(),flush=True)
+xml_cryst_file_save_global(W+'/pre_scan_'+tag+'.xml')
+# Enumerate meaningful settings with compatible symmetry; absences alone do not prove chirality/centrosymmetry.
+system=sol['system'];cent=sol['centering']
+if system=='ORTHOROMBIC':
+ nums=[16,17,18,19,20,21,22,23,24] if chiral else [16,17,18,19,20,21,22,23,24,29,33,36,37,38,39,40,41,42,43,46,50,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74]
+elif system=='MONOCLINIC': nums=[3,4,5] if chiral else list(range(3,16))
+else:nums=[1] if chiral else [1,2]
+groups=[]
+for sg in gemmi.spacegroup_table():
+ if sg.number not in nums:continue
+ if system=='MONOCLINIC' and sg.monoclinic_unique_axis()!='b':continue
+ name=sg.xhm()
+ # Avoid alternate origin choices (irrelevant extinctions)
+ if ':2' in name:continue
+ if name not in groups:groups.append(name)
+if os.environ.get('SG_SCAN','1')=='0':groups=[sgstart]
+sgex=SpaceGroupExplorer(d);scores=[]
+for name in groups:
+ try:
+  r=sgex.Run(name,False,False,True,False)
+  scores.append(dict(sg=name,number=gemmi.find_spacegroup_by_name(name).number,Rw=float(r.Rw),GoF=float(r.GoF),nGoF=float(r.nGoF),mult=len(gemmi.find_spacegroup_by_name(name).operations())))
+ except Exception as e:print('ERRORSG',name,str(e),flush=True)
+scores.sort(key=lambda x:x['Rw'])
+print('GROUPS',json.dumps(scores),flush=True)
+d.SetExtractionMode(True,True);d.ExtractLeBail(40)
+# save baseline refined parameters and candidate scan without arbitrarily finalising SG
+cp=[float(c.GetPar(n).GetHumanValue()) for n in ['a','b','c','alpha','beta','gamma']]
+result=dict(sol,cell=cp,sgstart=sgstart,Rw=float(p.GetRw()),groups=scores,stol=stol)
+json.dump(result,open(W+'/fit_'+tag+'.json','w'),indent=1)
+p.plot(diff=True,hkl=False);p.figure.savefig(W+'/fit_'+tag+'.png',dpi=130)
+xml_cryst_file_save_global(W+'/fit_'+tag+'.xml')
+# Profile values for custom intensity/model code
+try:
+ pp={p.GetPar(i).GetName():p.GetPar(i).GetHumanValue() for i in range(p.GetNbPar())}
+ dp={d.GetPar(i).GetName():d.GetPar(i).GetHumanValue() for i in range(d.GetNbPar())}
+ result['p_pars']=pp;result['d_pars']=dp
+ json.dump(result,open(W+'/fit_'+tag+'.json','w'),indent=1)
+except:pass
+print('DONE',sid,tag,p.GetRw(),cp,flush=True)
+/app/work/adopt_fit.py
+/app/work/alkane_fits.log
+/app/work/alkane_reindex.log
+/app/work/fit_candidate.py
+/app/work/fits2.log
+/app/work/fits_batch.log
+/app/work/gsas_index.py
+/app/work/index1db_raw_strict.sh
+/app/work/index_axial.py
+/app/work/index_batch.log
+/app/work/index_de.py
+/app/work/index_de_v1.py
+/app/work/index_metric.py
+/app/work/index_metric_v1.py
+/app/work/index_one.py
+/app/work/indexstrict.log
+/app/work/moretrifits.log
+/app/work/newfits.log
+/app/work/nextindexes.log
+/app/work/nowfits.log
+/app/work/parse_index_log.py
+/app/work/queue_fit1db2d.log
+/app/work/queue_fit1db2d.sh
+/app/work/queue_fit2d.log
+/app/work/queue_fit2d.sh
+/app/work/queue_fit_de.log
+/app/work/queue_fit_de.sh
+/app/work/queue_fit_finalplane.log
+/app/work/queue_fit_finalplane.sh
+/app/work/queue_fit_metric8.log
+/app/work/queue_fit_metric8.sh
+/app/work/queue_fit_missing2.log
+/app/work/queue_fit_missing2.sh
+/app/work/queue_highfit.log
+/app/work/queue_highfit.sh
+/app/work/queue_index8wide.log
+/app/work/queue_index8wide.sh
+/app/work/queue_index_de.sh
+/app/work/queue_index_de2.sh
+/app/work/queue_index_ext.log
+/app/work/queue_index_ext.sh
+/app/work/queue_missing_fits.log
+/app/work/queue_missing_fits.sh
+/app/work/queue_moreindex.log
+/app/work/queue_moreindex.sh
+/app/work/queue_newfits.log
+/app/work/queue_newfits.sh
+/app/work/queue_targetindex.log
+/app/work/queue_targetindex.sh
+/app/work/queue_tc2_fit8.log
+/app/work/queue_tc2_fit8.sh
+/app/work/raw_index_queue.sh
+/app/work/rawindex.log
+/app/work/reindex_batch.log
+/app/work/reindex_batch.py
+/app/work/restorefit.log
+/app/work/run_fits.py
+/app/work/run_fits2.py
+/app/work/run_index_batch.py
+/app/work/test_fit.log
+/app/work/test_fit.py

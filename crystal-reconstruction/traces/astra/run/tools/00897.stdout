@@ -1,0 +1,30 @@
+queue_twocentre.log
+queue_twocentre.sh
+solve_half_biphenyl.py
+solve_half_biphenyl_v1.py
+solve_twocentres.py
+solve_twocentres_v1.py
+/app/work/X7e382cb/tc2/best.json
+/app/work/X7e382cb/tc2/best.cif
+/app/work/X7e382cb/tc2/best.npz
+16777 S 1 bash /app/work/queue_gallop_A4.sh 
+29859 S 1 bash /app/work/queue_gallop_B5.sh 
+32867 S 1 bash /app/work/queue_gallop_A5.sh 
+43321 S 1 bash /app/work/queue_gallop_D8.sh 
+45641 S 1 bash /app/work/queue_b708_warm.sh 
+47634 S 1 bash /app/work/queue_x7ion.sh 
+48500 R 29859 python /app/work/search_gallop.py X238783d 25 1 --prepare --hscatter 
+48694 R 16777 python /app/work/search_gallop.py Xe1fb77b 11 1 --prepare --hscatter 
+49576 R 43321 python /app/work/search_gallop.py X8a06d7a 12 1 --prepare --hscatter --packing 
+50027 R 45641 python /app/work/search_gallop.py Xb7088cf 50 1 --hscatter --packing 
+51090 S 1 bash /app/work/queue_acm73.sh 
+51094 S 1 bash /app/work/queue_acm_warm.sh 
+51186 R 51090 python /app/work/search_gallop.py X14a2b08 73 1 --hscatter --packing 
+51425 R 47634 python /app/work/search_gallop.py X7e382cb 41 1 --hscatter --packing 
+51460 S 1 bash /app/work/queue_brconditional.sh 
+51579 S 1 bash /app/work/queue_eddconditional.sh 
+51662 R 51460 python /app/work/search_conditional.py X4f6fe58 82 83 
+51725 S 1 bash /app/work/queue_nicotinamide_cond.sh 
+52927 S 1 bash /app/work/queue_additional_cond.sh 
+52928 S 1 bash /app/work/queue_clopidogrel_cond.sh 
+53101 R 51725 python /app/work/refine_obj.py X1db5091 g91 /app/work/X1db5091/search_g91/best.xml --scale --tight --stol=.4 

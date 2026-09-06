@@ -1,0 +1,12 @@
+/proc/1909/cmdline 	S (sleeping) bash -c for id in X14a2b08 X1db5091 X263b09a X8a6f5a8 X8a06d7a; do timeout 1200 python /app/work/index_one.py $id TRICLINIC P 3 > /app/work/$id/index_TRICLINIC_P_3.log 2>&1; done 
+/proc/2100/cmdline 	S (sleeping) bash -c SEARCH_TIME=1800 python /app/work/search_obj.py X3f4781b 1 1 > /app/work/X3f4781b/search_long.log 2>&1; python /app/work/refine_obj.py X3f4781b 1 /app/work/X3f4781b/search_1/best.xml --scale > /app/work/X3f4781b/refine_1.log 2>&1; python /app/work/make_base.py X4f6fe58 0 "P -1" --submit > /app/work/X4f6fe58/base.log 2>&1; SEARCH_TIME=1800 python /app/work/search_obj.py X4f6fe58 1 2 > /app/work/X4f6fe58/search_long.log 2>&1; python /app/work/refine_obj.py X4f6fe58 1 /app/work/X4f6fe58/search_1/best.xml --scale > /app/work/X4f6fe58/refine_1.log 2>&1 
+/proc/3252/cmdline 	S (sleeping) timeout 1200 python /app/work/index_one.py X8a06d7a TRICLINIC P 3 
+/proc/3253/cmdline 	R (running) python /app/work/index_one.py X8a06d7a TRICLINIC P 3 
+/proc/3313/cmdline 	R (running) python /app/work/search_obj.py X4f6fe58 1 2 
+/proc/3401/cmdline 	S (sleeping) bash -c while [[ -r /proc/2103/status ]] && ! grep -q "^State:.*Z" /proc/2103/status; do sleep 5; done; SEARCH_TIME=1800 python /app/work/search_obj.py Xe3a2935 1 1 > /app/work/Xe3a2935/search_long.log 2>&1; python /app/work/refine_obj.py Xe3a2935 1 /app/work/Xe3a2935/search_1/best.xml --scale > /app/work/Xe3a2935/refine_1.log 2>&1; for i in 0 1 2 3 4 5 6 7 8; do SEARCH_TIME=130 TARGET_RW=.07 python /app/work/search_obj.py X3c176e2 $((i+10)) 2 --rigid --model=/app/work/X3c176e2/isomer_$i.json > /app/work/X3c176e2/isomer_search_$i.log 2>&1; done 
+/proc/3434/cmdline 	S (sleeping) bash -c while [[ -r /proc/1909/status ]] && ! grep -q "^State:.*Z" /proc/1909/status; do sleep 10; done; for z in 0 0.04 -0.04 0.08 -0.08; do NPEAK=18 NSPUR=1 TTHERR=.028 TTHSHIFT=$z INDEX_SCORE=40 INDEX_DEPTH=6 timeout 180 python /app/work/index_one.py X1db5091 TRICLINIC P 4 1000 1900 > /app/work/X1db5091/index_TRI_zero$z.log 2>&1; done; for id in Xeb393f9 Xedd9c7b Xebbd488 X7e382cb Xb7088cf; do INDEX_SCORE=40 INDEX_DEPTH=6 timeout 300 python /app/work/index_one.py $id TRICLINIC P 4 > /app/work/$id/index_TRICLINIC_P_4.log 2>&1; done 
+/proc/3477/cmdline 	R (running) python /app/work/search_gallop.py Xd8634a2 2 1 --prepare 
+/proc/3618/cmdline 	R (running) python /app/work/search_obj.py X3c176e2 10 2 --rigid --model=/app/work/X3c176e2/isomer_0.json 
+Xe3a2935
+X4f6fe58
+Xd8634a2

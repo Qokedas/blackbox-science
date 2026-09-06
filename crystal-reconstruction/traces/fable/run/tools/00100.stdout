@@ -1,0 +1,30 @@
+0kl: k+l odd (n_a)           6    0.691     5    2.648   0.261
+h0l: h odd (a_b)             7    0.421     9    0.471   0.893
+h0l: l odd (c_b)             8    0.124     8    0.774   0.160 (weak)
+h0l: h+l odd (n_b)           9    0.368     7    0.552   0.667
+hk0: h odd (a_c)             6    1.342     8    1.372   0.978
+hk0: k odd (b_c)             6    0.052     8    2.339   0.022 <== ABSENT?
+hk0: h+k odd (n_c)           8    0.995     6    1.844   0.540
+hkl: h+k odd (C)            22    1.032    22    0.968   1.066
+hkl: h+l odd (B)            22    0.934    22    1.066   0.876
+hkl: k+l odd (A)            22    0.463    22    1.537   0.301
+hkl: h+k+l odd (I)          23    0.772    21    1.250   0.617
+--- absences : 273 reflections used (stol<=0.324)
+class                     nAbs   <I>abs nPres  <I>pres   ratio
+h00: h odd (2_1 a)           5    0.913     4    0.505   1.807
+0k0: k odd (2_1 b)           3    0.068     3    6.032   0.011 <== ABSENT?
+00l: l odd (2_1 c)           4    0.043     3    2.817   0.015 <== ABSENT?
+0kl: k odd (b_a)            20    1.549    21    1.693   0.915
+0kl: l odd (c_a)            19    0.437    22    2.647   0.165 (weak)
+0kl: k+l odd (n_a)          21    1.396    20    1.861   0.751
+h0l: h odd (a_b)            28    0.400    31    1.013   0.395
+h0l: l odd (c_b)            28    0.233    31    1.163   0.200
+h0l: h+l odd (n_b)          30    0.527    29    0.923   0.571
+hk0: h odd (a_c)            24    1.025    26    1.989   0.515
+hk0: k odd (b_c)            23    0.267    27    2.599   0.103 (weak)
+hk0: h+k odd (n_c)          25    0.980    25    2.073   0.473
+hkl: h+k odd (C)           137    0.869   136    1.132   0.767
+hkl: h+l odd (B)           135    0.894   138    1.104   0.809
+hkl: k+l odd (A)           136    0.801   137    1.197   0.669
+hkl: h+k+l odd (I)         136    0.774   137    1.225   0.632
+lowest-angle reflections (h k l  2theta  I):

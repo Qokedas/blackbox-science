@@ -1,0 +1,143 @@
+    pd.SetReflectionProfilePar(ReflectionProfileType.PROFILE_PSEUDO_VOIGT, 1e-7)
+    steps = [['Zero'], ['W'], ['a', 'b', 'c', 'alpha', 'beta', 'gamma'], ['U', 'V'], ['Eta0'], ['Eta1'], ['background']]
+    if asym: steps.append(['Asym0', 'Asym1'])
+    steps.append(['Zero', 'W', 'U', 'V', 'Eta0', 'background', 'a', 'b', 'c', 'alpha', 'beta', 'gamma'])
+    lsq = fit_sequence(p, pd, steps, verbose=verbose)
+    print(f'LeBail Rwp={p.GetRw():.4f} chi2={p.GetChi2():.1f} cell=', cr.a, cr.b, cr.c, np.degrees(cr.beta), flush=True)
+    pd.SetExtractionMode(False)
+    sps = {}
+    mols = []
+    comps = comp['components'] if components is None else components
+    for ci, c in enumerate(comps):
+        smi = c['smiles']
+        n = c['count']
+        molr = Chem.MolFromSmiles(smi)
+        nheavy = molr.GetNumHeavyAtoms()
+        for k in range(n):
+            if nheavy == 1:
+                sym = molr.GetAtomWithIdx(0).GetSymbol()
+                if sym not in sps:
+                    sp = ScatteringPowerAtom(sym, sym); cr.AddScatteringPower(sp); sps[sym] = sp
+                at = Atom(np.random.rand(), np.random.rand(), np.random.rand(), f'{sym}_{ci}_{k}', sps[sym])
+                cr.AddScatterer(at)
+                mols.append(at)
+                print(f'  single atom {sym}', flush=True)
+            else:
+                mol, best, en = embed(smi, seed=42+k)
+                m = add_molecule(cr, mol, best, f'mol{ci}_{k}', sps)
+                m._crystal = cr
+                mols.append(m)
+    cr.SetUseDynPopCorr(1)
+    return p, cr, pd, mols, lsq
+
+def polish(p, cr, ncycle=20, verbose=True):
+    """restrained LSQ (Rietveld-like) refinement of molecule position/orientation/geometry + profile + background"""
+    rw0 = p.GetRw()
+    lsq = LSQ()
+    lsq.SetRefinedObj(p, 0, True, True)
+    lsq.PrepareRefParList(True)
+    lsqr = lsq.GetCompiledRefinedObj()
+    lsqr.UnFixAllPar()
+    # fix Biso, occupancies, and anything exotic
+    for i in range(lsqr.GetNbPar()):
+        par = lsqr.GetPar(i)
+        n = par.GetName()
+        if n.startswith('Biso') or n.startswith('Occup') or n.startswith('Asym') or n in ('Eta1',) or n.startswith('Q') and False:
+            par.SetIsFixed(True)
+    sid = lsqr.CreateParamSet('prepolish')
+    lsqr.SaveParamSet(sid)
+    ok = False
+    try:
+        lsq.SafeRefine(nbCycle=ncycle, useLevenbergMarquardt=True, silent=True)
+        rw1 = p.GetRw()
+        if np.isfinite(rw1) and rw1 < rw0:
+            ok = True
+        else:
+            lsqr.RestoreParamSet(sid)
+    except Exception as e:
+        if verbose: print('polish failed', e, flush=True)
+        lsqr.RestoreParamSet(sid)
+    if verbose: print(f'polish: Rwp {rw0:.4f} -> {p.GetRw():.4f} ({"accepted" if ok else "rejected"}) restraint cost={cr.GetRestraintCost():.2f}', flush=True)
+    return ok
+
+def optimize(p, cr, nsteps=1e6, nruns=1, seed=None, maxtime=-1, save_prefix=None, do_polish=True):
+    mc = MonteCarlo()
+    mc.AddRefinableObj(cr)
+    mc.AddRefinableObj(p)
+    mc.SetAlgorithmParallTempering(AnnealingSchedule.SMART, 0.1, 0.01, AnnealingSchedule.EXPONENTIAL, 16, 0.125) if False else None
+    results = []
+    for r in range(nruns):
+        t0 = time.time()
+        mc.RandomizeStartingConfig() if r > 0 or True else None
+        mc.Optimize(int(nsteps), 0, maxtime)
+        cost = mc.GetLogLikelihood()
+        rw = p.GetRw()
+        chi2 = p.GetChi2()
+        print(f'run {r}: cost={cost:.1f} Rwp={rw:.4f} chi2={chi2:.1f} t={time.time()-t0:.0f}s', flush=True)
+        if save_prefix:
+            write_cif(cr, f'{save_prefix}_run{r}_rw{rw:.3f}.cif')
+        if do_polish:
+            try:
+                sid = cr.CreateParamSet('mc_best'); cr.SaveParamSet(sid)
+                ok = polish(p, cr)
+                if ok and save_prefix:
+                    write_cif(cr, f'{save_prefix}_run{r}_lsq_rw{p.GetRw():.3f}.cif')
+                cr.RestoreParamSet(sid)  # continue next run from MC state (randomized anyway)
+            except Exception as e:
+                print('polish error', e, flush=True)
+        results.append((cost, rw, chi2))
+    return mc, results
+
+def restore_from_cif(cr, mols, ciffile):
+    """Place molecules/atoms at positions read from an ObjCryst-written CIF with the same atom naming/order."""
+    import gemmi
+    doc = gemmi.cif.read(ciffile); blk = doc.sole_block()
+    names = list(blk.find_values('_atom_site_label'))
+    fx = [float(v) for v in blk.find_values('_atom_site_fract_x')]
+    fy = [float(v) for v in blk.find_values('_atom_site_fract_y')]
+    fz = [float(v) for v in blk.find_values('_atom_site_fract_z')]
+    pos = {n: np.array([x, y, z]) for n, x, y, z in zip(names, fx, fy, fz)}
+    for m in mols:
+        if hasattr(m, 'GetNbAtoms'):
+            nat = m.GetNbAtoms()
+            fr = np.array([pos[m.GetAtom(i).GetName()] for i in range(nat)])
+            # unwrap: make molecule contiguous around first atom
+            fr = fr - np.round(fr - fr[0])
+            cen = fr.mean(axis=0)
+            cart = np.array([cr.FractionalToOrthonormalCoords(*(f - cen)) for f in fr])
+            for i in range(nat):
+                a = m.GetAtom(i); a.SetX(cart[i, 0]); a.SetY(cart[i, 1]); a.SetZ(cart[i, 2])
+            m.X, m.Y, m.Z = cen
+            m.Q0, m.Q1, m.Q2, m.Q3 = 1.0, 0.0, 0.0, 0.0
+        else:
+            f = pos[m.GetName()]
+            m.X, m.Y, m.Z = f
+    cr.UpdateDisplay() if hasattr(cr, 'UpdateDisplay') else None
+
+def write_cif(cr, fn):
+    cr.CIFOutput(fn)
+
+if __name__ == '__main__':
+    ap = argparse.ArgumentParser()
+    ap.add_argument('iid'); ap.add_argument('cell', nargs=6, type=float); ap.add_argument('spg')
+    ap.add_argument('--nsteps', type=float, default=2e6); ap.add_argument('--nruns', type=int, default=1)
+    ap.add_argument('--ttmax', type=float, default=None); ap.add_argument('--tag', default='a')
+    ap.add_argument('--maxtime', type=float, default=-1)
+    ap.add_argument('--restore', default=None, help='CIF from a previous run: restore and polish only')
+    a = ap.parse_args()
+    np.random.seed(int(time.time()*1000) % 2**31)
+    p, cr, pd, mols, lsq = setup(a.iid, a.cell, a.spg, ttmax=a.ttmax)
+    outdir = f'/app/work/{a.iid}/sol_{a.tag}'
+    os.makedirs(outdir, exist_ok=True)
+    if a.restore:
+        restore_from_cif(cr, mols, a.restore)
+        p.FitScaleFactorForRw()
+        print(f'restored from {a.restore}: Rwp={p.GetRw():.4f} restraint cost={cr.GetRestraintCost():.2f}', flush=True)
+        write_cif(cr, f'{outdir}/restored_check.cif')
+        ok = polish(p, cr, ncycle=30)
+        write_cif(cr, f'{outdir}/restored_lsq_rw{p.GetRw():.3f}.cif')
+        print('RESTORE-POLISH', a.iid, p.GetRw(), flush=True)
+        os._exit(0)
+    mc, res = optimize(p, cr, nsteps=a.nsteps, nruns=a.nruns, maxtime=a.maxtime, save_prefix=f'{outdir}/{a.spg.replace(" ","").replace("/","_")}')
+    print('RESULTS', a.iid, a.spg, res, flush=True)
+    os._exit(0)

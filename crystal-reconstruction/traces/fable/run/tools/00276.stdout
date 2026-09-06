@@ -1,0 +1,12 @@
+=== Xe3a2935/sol_c2/P212121_run1_lsq_rw0.146.cif
+Traceback (most recent call last):
+  File "/app/work/hbonds.py", line 12, in <module>
+    sg = StructureGraph.with_local_env_strategy(s, JmolNN())
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'StructureGraph' has no attribute 'with_local_env_strategy'. Did you mean: 'from_local_env_strategy'?
+=== Xe3a2935/sol_c2b/P212121_run0_lsq_rw0.149.cif
+Traceback (most recent call last):
+  File "/app/work/hbonds.py", line 12, in <module>
+    sg = StructureGraph.with_local_env_strategy(s, JmolNN())
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'StructureGraph' has no attribute 'with_local_env_strategy'. Did you mean: 'from_local_env_strategy'?

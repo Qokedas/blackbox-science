@@ -1,0 +1,14 @@
+step ['Zero'] Rwp=0.1466
+step ['W'] Rwp=0.1456
+step ['a', 'b', 'c', 'alpha', 'beta', 'gamma'] Rwp=0.1452
+step ['U', 'V'] Rwp=0.1117
+step ['Eta0'] Rwp=0.0997
+step ['Eta1'] Rwp=0.0992
+step ['background'] Rwp=0.0828
+step ['Zero', 'W', 'U', 'V', 'Eta0', 'background', 'a', 'b', 'c', 'alpha', 'beta', 'gamma'] Rwp=0.0790
+LeBail Rwp=0.0781 chi2=11694.4 cell= 5.177851333359381 8.252224511769358 32.94592735343639 92.75134280172806
+  molecule mol0_0: 18 atoms, 18 bonds, 23 angles, 15 dihedral restraints, 6 free torsions
+  single atom Cl
+restored from X9af54a2/sol_a/P121_c1_run0_rw0.140.cif: Rwp=0.1396 restraint cost=0.00
+polish: Rwp 0.1396 -> 0.1396 (rejected) restraint cost=0.00
+RESTORE-POLISH X9af54a2 0.13960938755589836

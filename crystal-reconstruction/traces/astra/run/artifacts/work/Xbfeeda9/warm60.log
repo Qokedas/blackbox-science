@@ -1,0 +1,24 @@
+ObjRegistry<T>::Find(ion_C): Not found !!
+List of Crystal ScatteringPowers :6 object registered:
+#  0:ScatteringPowerAtom(C)
+#  1:ScatteringPowerAtom(N)
+#  2:ScatteringPowerAtom(O)
+#  3:ScatteringPowerAtom(Cl)
+#  4:ScatteringPowerAtom(ion_Cl)
+#  5:ScatteringPowerAtom(H)
+/opt/conda/lib/python3.11/site-packages/monty/design_patterns.py:76: UserWarning: Full symbol not available, falling back to short Hermann Mauguin symbol P12_1/a1 instead
+  orig_init(instance, *args, **kwargs)
+EXACT_PAWLEY nref 442 rank 356 cond 932.2412534772227 chi2 417.76778918772214 netRwp 0.0641599583043689
+ZM CN(C)C(=O)C(CC[NH+]1CCC(O)(c2ccc(Cl)cc2)CC1)(c1ccccc1)c1ccccc1 n 34 torsions 7 max_distance_error 2.198774140538262e-08
+ZM [Cl-] n 1 torsions 0 max_distance_error 0.0
+GENERIC_SYMMETRY P 1 21/a 1
+Total degrees of freedom: 17
+Total external degrees of freedom: 10 (pos: 6 rot: 4 )
+Total internal degrees of freedom: 7
+PREPARED Xbfeeda9 Nref 442 PawleyRw 0.036948551858085835 SG P 1 21/a 1
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+RESTART_ERROR max/rms 1.3694704390771797e-06 8.722646548948728e-07
+WARM_READY /app/work/Xbfeeda9/gallop_60

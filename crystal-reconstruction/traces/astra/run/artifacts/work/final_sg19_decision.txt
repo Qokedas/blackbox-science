@@ -1,0 +1,5 @@
+X1a56c78, final independent SG19 diagnostic (runs111-114):
+Native restrained Rwp: 111=.18692559,112=.18497000,113=.18704666,114=.19616950.
+All are markedly inferior to submitted SG18 g90 Rwp=.13004914. No SG change.
+Clear observed axial100 at14.9966deg and absent010/003 continue to support
+P 2 21 21 (#18); SG19 searches did not provide evidence against this.

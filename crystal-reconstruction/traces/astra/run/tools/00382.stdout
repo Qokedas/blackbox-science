@@ -1,0 +1,116 @@
+{
+ "components": [
+  {
+   "smiles": "[NH3+]CC(=O)CCC(=O)O",
+   "count": 1,
+   "charge": 1
+  },
+  {
+   "smiles": "[Cl-]",
+   "count": 1,
+   "charge": -1
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}{
+ "components": [
+  {
+   "smiles": "[C-]#[N+]c1ccc(-c2ccc([N+]#[C-])c(C)c2)cc1C",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}{
+ "components": [
+  {
+   "smiles": "C[C@@H]1CC(=O)NN=C1c1ccc(NN=C(C#N)C#N)cc1",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}{
+ "components": [
+  {
+   "smiles": "COc1ccc(NC(=O)[C@@H]2C[C@H](C)CC[C@H]2C(C)C)cc1",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}==== X07806d9
+/app/work/X07806d9/search_0
+/app/work/X07806d9/search_1
+/app/work/X07806d9/search_1h
+/app/work/X07806d9/search_long.log
+/app/work/X07806d9/search_test.log
+/app/work/X07806d9/refined_1.xml
+/app/work/X07806d9/refined_1h.xml
+==== Xbfc6d2c
+/app/work/Xbfc6d2c/search_0
+/app/work/Xbfc6d2c/search_1
+/app/work/Xbfc6d2c/search_1h
+/app/work/Xbfc6d2c/search_long.log
+/app/work/Xbfc6d2c/search_test.log
+/app/work/Xbfc6d2c/refined_1.xml
+/app/work/Xbfc6d2c/refined_1h.xml
+==== Xe3a2935
+/app/work/Xe3a2935/search_1
+/app/work/Xe3a2935/search_1h
+/app/work/Xe3a2935/search_long.log
+/app/work/Xe3a2935/refined_1.xml
+/app/work/Xe3a2935/refined_1h.xml
+==== Xf8ac963
+/app/work/Xf8ac963/search_0
+/app/work/Xf8ac963/search_1
+/app/work/Xf8ac963/search_1h
+/app/work/Xf8ac963/search_long.log
+/app/work/Xf8ac963/search_test.log
+/app/work/Xf8ac963/refined_1.xml
+/app/work/Xf8ac963/refined_1h.xml
+==== X3c176e2
+/app/work/X3c176e2/search_10
+/app/work/X3c176e2/search_10h
+/app/work/X3c176e2/search_11
+/app/work/X3c176e2/search_12
+/app/work/X3c176e2/search_13
+/app/work/X3c176e2/search_14
+/app/work/X3c176e2/search_15
+/app/work/X3c176e2/search_16
+/app/work/X3c176e2/search_17
+/app/work/X3c176e2/search_18
+/app/work/X3c176e2/refined_10.xml
+/app/work/X3c176e2/refined_10h.xml
+69:        centrosymmetric, space_group_number):
+98:        space_group_number (integer): The space group number for the current
+107:    if space_group_number == 1:
+115:    elif space_group_number == 2:
+121:    elif space_group_number == 3:
+137:    elif space_group_number == 4:
+156:    elif space_group_number == 5:
+175:    elif space_group_number == 7:
+193:    elif space_group_number == 9:
+213:    elif space_group_number == 11:
+224:    elif space_group_number == 12:
+234:    elif space_group_number == 13:
+244:    elif space_group_number == 14:
+254:    elif space_group_number == 15:
+267:    elif space_group_number == 18:
+290:    elif space_group_number == 19:
+314:    elif space_group_number == 29:
+334:    elif space_group_number == 33:
+354:    elif space_group_number == 60:
+369:    elif space_group_number == 61:
+384:    elif space_group_number == 62:
+399:    elif space_group_number == 88:
+416:    elif space_group_number == 92:
+438:    elif space_group_number == 148:

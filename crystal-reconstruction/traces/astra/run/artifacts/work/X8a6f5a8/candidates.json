@@ -1,0 +1,138 @@
+[
+ {
+  "cell": [
+   12.442433357238768,
+   31.431488037109368,
+   15.183707237243652,
+   90.0,
+   108.34057672795817,
+   90.0
+  ],
+  "volume": 5636.469090438184,
+  "score": 13.370471000671387,
+  "system": "MONOCLINIC",
+  "centering": "C",
+  "mode": 4,
+  "source": "index_MONOCLINIC_C_4_1000_5500_z0_peaks_raw.json",
+  "sg": "C2/m"
+ },
+ {
+  "cell": [
+   21.878,
+   4.93,
+   45.53708975943459,
+   90.0,
+   91.09430419056206,
+   90.0
+  ],
+  "volume": 4910.668224699851,
+  "score": 11.61,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9,
+  "source": "index_raw_MONOCLINIC_P_partial.json",
+  "sg": "P2/m"
+ },
+ {
+  "cell": [
+   15.846999999999998,
+   7.332,
+   39.16299999999999,
+   90.0,
+   97.161,
+   90.0
+  ],
+  "volume": 4514.863187992851,
+  "score": 11.56,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9,
+  "source": "index_raw_MONOCLINIC_P_partial.json",
+  "sg": "P2/m"
+ },
+ {
+  "cell": [
+   7.751583576202395,
+   63.11197280883788,
+   11.788716316223143,
+   90.0,
+   94.2034648442441,
+   90.0
+  ],
+  "volume": 5751.735426126712,
+  "score": 11.174103736877441,
+  "system": "MONOCLINIC",
+  "centering": "C",
+  "mode": 4,
+  "source": "index_MONOCLINIC_C_4_1000_5500_z0_peaks_raw.json",
+  "sg": "C2/m"
+ },
+ {
+  "cell": [
+   16.861,
+   9.932,
+   22.704,
+   90.0,
+   110.75399999999999,
+   90.0
+  ],
+  "volume": 3555.3743794585366,
+  "score": 11.14,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9,
+  "source": "index_raw_MONOCLINIC_P_partial.json",
+  "sg": "P2/m"
+ },
+ {
+  "cell": [
+   15.786,
+   6.223,
+   21.540999999999993,
+   90.0,
+   93.54,
+   90.0
+  ],
+  "volume": 2112.0699939885317,
+  "score": 10.73,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9,
+  "source": "index_raw_MONOCLINIC_P_partial.json",
+  "sg": "P2/m"
+ },
+ {
+  "cell": [
+   16.260349273681637,
+   31.341751098632812,
+   11.275025465368913,
+   90.0,
+   118.62079611574732,
+   90.0
+  ],
+  "volume": 5043.949999821067,
+  "score": 9.51508903503418,
+  "system": "MONOCLINIC",
+  "centering": "C",
+  "mode": 4,
+  "source": "index_MONOCLINIC_C_4_1000_5500_z0_peaks_raw.json",
+  "sg": "C2/m"
+ },
+ {
+  "cell": [
+   10.93901252746582,
+   13.500888824462889,
+   16.329559326171875,
+   75.93098259783281,
+   84.45098606803056,
+   79.26981129056682
+  ],
+  "volume": 2295.0594740907686,
+  "score": 9.43746280670166,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 3,
+  "source": "index_TRICLINIC_P_3.json",
+  "sg": "P-1"
+ }
+]

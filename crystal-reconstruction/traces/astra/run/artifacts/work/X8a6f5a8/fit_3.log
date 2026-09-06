@@ -1,0 +1,19 @@
+Imported powder pattern: 4408 points, 2theta=  5.080 ->  49.150, step= 0.010
+STARTFIT X8a6f5a8 3 Rw 0.09399311565968314
+Lookup of '' symbol failed, trying as Hall symbol.
+Could not interpret Spacegroup Symbol:
+ERRORSG A 1 Space group symbol '' not recognized
+Lookup of '' symbol failed, trying as Hall symbol.
+Could not interpret Spacegroup Symbol:
+ERRORSG B 1 Space group symbol '' not recognized
+Lookup of '' symbol failed, trying as Hall symbol.
+Could not interpret Spacegroup Symbol:
+ERRORSG C 1 Space group symbol '' not recognized
+Lookup of '' symbol failed, trying as Hall symbol.
+Could not interpret Spacegroup Symbol:
+ERRORSG F 1 Space group symbol '' not recognized
+Lookup of '' symbol failed, trying as Hall symbol.
+Could not interpret Spacegroup Symbol:
+ERRORSG I 1 Space group symbol '' not recognized
+GROUPS [{"sg": "P 1", "number": 1, "Rw": 10.524522659373726, "GoF": 11874.92856708213, "nGoF": 6055.419072207172, "mult": 1}]
+DONE X8a6f5a8 3 0.09249317048279865 [10.899751380029665, 13.511742292798063, 16.32287023323132, 75.82162556542893, 84.21689504531294, 79.48787078537788]

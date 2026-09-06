@@ -1,0 +1,113 @@
+19:from gallop.optim import restraints
+37:            optimizer, loss, eps, save_CIF, streamlit, torsion_shadowing,
+38:            Z_prime, use_restraints, include_PO, PO_axis
+55:    settings["loss"] = "xlogx"
+61:    settings["use_restraints"] = False
+139:def get_loss(chi_2, restraint_penalty, loss, restraint_weight_type):
+140:    """Calculate the loss function - what is actually optimised by pytorch
+143:        chi_2 (Tensor): The chi2 for the current crystal structures
+144:        restraint_penalty (Tensor): The penalty for restraints (if used) or 0
+145:        loss (str): How to combine the chi2s and restraints to get a single
+147:        restraint_weight_type (str): How to weight the restraint penalties
+153:    # Need a function to convert all of the chi_2 values into a scalar
+154:    if "chi2" in restraint_weight_type.lower():
+155:        if "min" in restraint_weight_type.lower():
+157:                chi2_no_grad = chi_2.min()
+160:                chi2_no_grad = chi_2.clone().detach()
+161:    if isinstance(loss, str):
+162:        if loss.lower() == "sse":
+163:            if restraint_weight_type == "constant":
+164:                L = ((chi_2 + restraint_penalty)**2).sum()
+166:                L = ((chi_2 + chi2_no_grad*restraint_penalty)**2).sum()
+167:        elif loss.lower() == "sum":
+168:            if restraint_weight_type == "constant":
+169:                L = (chi_2 + restraint_penalty).sum()
+171:                L = (chi_2 + chi2_no_grad*restraint_penalty).sum()
+172:        elif loss.lower() == "xlogx":
+173:            if restraint_weight_type == "constant":
+174:                L = ((torch.log(chi_2)*chi_2) + restraint_penalty).sum()
+176:                L = ((torch.log(chi_2)*chi_2) + chi2_no_grad*restraint_penalty).sum()
+179:        if loss is None:
+180:            # Default to the sum operation if loss is None
+181:            if restraint_weight_type == "constant":
+182:                L = (chi_2 + restraint_penalty).sum()
+184:                L = (chi_2 + chi2_no_grad*restraint_penalty).sum()
+187:                L = loss(chi_2, restraint_penalty)
+190:                    L = loss(chi_2)
+192:                    print("Unknown / incompatible loss function",loss)
+214:        plot (bool, optional): Plot the curve of learning rate vs loss.
+221:        tuple: Tuple containing the trial learning rate values, the losses
+223:                associated with the minimum loss value multiplied by the
+239:        lr_minimiser_settings["save_loss"] = True
+242:        # Get the losses at each learning rate
+245:        losses = result["losses"]
+250:            plt.plot(trial_values, losses)
+255:            minpoint = np.argmin(losses)
+262:            if losses[-1] < final_0pt25:
+264:            elif losses[-1] < final_0pt5:
+270:        minimum_point = trial_values[losses == losses.min()][0]
+271:        return trial_values, losses, multiplication_factor, multiplication_factor * minimum_point
+309:def minimise(Structure, external=None, internal=None, n_samples=10000,
+313:    print_every=10, learning_rate=3e-2, betas=None, eps=1e-8, loss="sum",
+315:    save_trajectories=False, save_grad=False, save_loss=False,
+317:    save_CIF=True, streamlit=False, use_restraints=False,
+318:    restraint_weight_type="min_chi2", include_PO=False, PO_axis=(0, 0, 1),
+351:            chi_2 calculation. If None, use all available.
+390:        loss (str or function, optional):   Pytorch requires a scalar to
+426:        save_trajectories (bool, optional): Store the DoF, chi_2 and loss value
+430:            external DoF with respect to the chi_2 / loss values after every
+433:        save_loss (bool, optional) : Save the value of the loss at each
+446:        use_restraints (bool, optional): Use distance-based restraints as an
+447:            additional penalty term in the loss function. Must be added to the
+448:            Structure object via Structure.add_restraint() before use. Defaults
+450:        restraint_weight_type (str, optional): One of chi2, min_chi2, constant.
+451:            If constant, then then instead of weighting the restraints relative
+468:            degrees of freedom and their associated chi_2 values.
+470:            trajectories of the particles, the chi_2 values and loss values
+486:    losses = []
+511:    if use_restraints:
+512:        restraint_tensors = tensor_prep.get_restraint_tensors(Structure,
+605:        # chi_2 value for each set of external/internal DoFs.
+606:        if use_restraints or include_PO or torsion_shadowing:
+627:                    chi_2 = chi2.calc_prof_chisqd(corrected_intensities, **profile_tensors)
+629:                    chi_2 = chi2.calc_int_chisqd(corrected_intensities,
+633:                    chi_2 = chi2.calc_prof_chisqd(calculated_intensities, **profile_tensors)
+635:                    chi_2 = chi2.calc_int_chisqd(calculated_intensities,
+639:                chi_2 = chi2.get_chi_2(**tensors, profile=profile_tensors)
+641:                chi_2 = chi2.get_chi_2(**tensors)
+643:        if use_restraints:
+644:            restraint_penalty = restraints.get_restraint_penalties(
+645:                                asymmetric_frac_coords, **restraint_tensors)
+647:            restraint_penalty = 0
+649:        L = get_loss(chi_2, restraint_penalty, loss, restraint_weight_type)
+653:        if save_loss:
+654:            losses.append(L.detach().cpu().numpy())
+656:            best = torch.min(chi_2).item()
+CYCLE 1 2 Rw 0.06077048508783181 chi2 1644.3295711287699
+CYCLE 2 0 Rw 0.05911454095459561 chi2 1555.9373425084534
+CYCLE 2 1 Rw 0.0586668167690734 chi2 1532.4577490782012
+CYCLE 2 2 Rw 0.05850924853719302 chi2 1524.2370067977624
+CYCLE 3 0 Rw 0.048896096573879375 chi2 1064.515137896227
+CYCLE 3 1 Rw 0.04689910296590496 chi2 979.3378353942883
+CYCLE 3 2 Rw 0.04651546031045999 chi2 963.2296033694399
+FINISHED Xfca9f3c 0.04651546031045999
+RUN 0 steps 100000 time 8.243419170379639 total 8.243496417999268 LLK 29789.981105425944 Rw 0.2328567931741872 Integrated 681.6905276021217
+RUN 1 steps 1000000 time 174.72498655319214 total 183.01064729690552 LLK 13090.754589644603 Rw 0.1896736748040253 Integrated 1338.8438597643267
+RUN 2 steps 1000000 time 145.8339958190918 total 328.9045977592468 LLK 8351.929643690664 Rw 0.22025584136493037 Integrated 383.53627257699
+RUN 3 steps 1000000 time 145.93001461029053 total 474.9002454280853 LLK 10688.026551158733 Rw 0.24820608330485333 Integrated 582.6306827719
+RUN 4 steps 1000000 time 149.63948488235474 total 624.5401554107666 LLK 13983.988718053788 Rw 0.21370912319628635 Integrated 314.3290290628575
+RUN 5 steps 1000000 time 136.16411590576172 total 760.7055151462555 LLK 12510.522058753637 Rw 0.2066426168320129 Integrated 446.283464598129
+RUN 6 steps 1000000 time 133.5933964252472 total 894.2992684841156 LLK 11706.936699429656 Rw 0.21988623351288328 Integrated 426.6746657971979
+RUN 7 steps 1000000 time 134.25746250152588 total 1028.557023525238 LLK 5436.695968637989 Rw 0.2225391103838733 Integrated 545.7861700458997
+ Solution ? a= 10.478 b=  3.603 c= 15.379 alpha= 90.000 beta=110.613 gamma= 90.000 V=  543.45 score= 34.42 #1905
+Finished: V=250->637.51 A^3, 12789007 unit cells tested, 95733.9 tests/s,   Elapsed time=133.589s
+Starting: V=637.51->1025.02
+3763 solutions ! Redparing...
+CellExplorer::ReduceSolutions(): update threshold for report from 15.4774 to 19.2377
+-> 100 remaining
+#  0:ScatteringPowerAtom(C)
+#  1:ScatteringPowerAtom(O)
+Imported powder pattern: 7136 points, 2theta=  2.300 ->  20.137, step= 0.003
+RESCALED_BASE 3.6418637513412286 0.06912182078479759 7136.00000000004
+INITIAL X35b7fbc 2 Rw 0.6874752172078724 LLK 450528.6739564393 Integrated 449203.8273532785 DOF -1
+RUN 0 steps 100000 time 15.05964207649231 total 15.059704542160034 LLK 129786.86494035748 Rw 0.33936977435798 Integrated 128399.62516818871

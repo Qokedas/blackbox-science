@@ -1,0 +1,4 @@
+  s = CifParser(f'{outdir}/{iid}.cif').parse_structures(primitive=False)[0]
+Xd4c1a35: wrote CIF with 48 asym atoms -> 192 atoms in cell; spg P 21 21 21 (19); formula C136 Cl8 O48
+   unmatched fragment: 48 atoms CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCClClOOOOOOOOOOOO edges 57
+   min interatomic distance in cell: 0.89 A

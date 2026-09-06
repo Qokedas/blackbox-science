@@ -1,0 +1,7 @@
+ACM50_PARENT=47291
+SPLIT_SYNTHON X263b09a g70 Rw 0.148128668220857
+X263b09a Nat 72 molecule sizes [29, 29, 7, 7]
+  component COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1 matches 2
+  component O=C1CCCCN1 matches 2
+  bond range 1.2226660703880994 1.7103190827518429
+  min intermolecular distance 2.479608384835242

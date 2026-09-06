@@ -1,0 +1,58 @@
+Sun Sep  6 08:52:31 UTC 2026
+41285 16777 R python /app/work/search_gallop.py X35b7fbc 11 1 --prepare --hscatter --model=/app/work/X35b7fbc/cis.json 
+43088 16742 R python /app/work/search_gallop.py X1db5091 11 1 --prepare --hscatter 
+44613 43321 R python /app/work/search_gallop.py X1a56c78 18 1 --prepare --hscatter --packing 
+44768 39221 R python /app/work/search_gallop.py X4f6fe58 41 2 --prepare --hscatter --packing 
+45943 41900 R python /app/work/search_gallop.py Xedd9c7b 52 1 --hscatter --packing 
+46076 45980 R python /app/work/search_gallop.py X263b09a 72 1 --hscatter --packing 
+47547 29859 R python /app/work/refine_obj.py X238783d g20 /app/work/X238783d/search_g20/best.xml --scale --tight 
+47552 45579 S timeout 260 python /app/work/index_native_fcj.py X8a6f5a8 MONOCLINIC P 3 2100 3800 
+47553 47552 R python /app/work/index_native_fcj.py X8a6f5a8 MONOCLINIC P 3 2100 3800 
+====
+GALLOP 1 Nref 99 seconds 121.92426776885986 best 116.577644 q25 232.27725 median 310.9764 total 245.72918558120728
+GALLOP 2 Nref 108 seconds 127.37411403656006 best 103.998474 q25 152.099 median 292.8233 total 373.1964223384857
+GALLOP 3 Nref 118 seconds 122.23010754585266 best 103.9558 q25 188.85422 median 300.5452 total 495.5168571472168
+GALLOP 4 Nref 130 seconds 136.0823860168457 best 104.02241 q25 149.81253 median 274.54773 total 631.6889522075653
+GALLOP 5 Nref 138 seconds 137.71503520011902 best 103.81904 q25 145.47304 median 280.43005 total 769.4244382381439
+GALLOP 6 Nref 149 seconds 143.9749071598053 best 103.83424 q25 155.08087 median 292.17044 total 913.5005435943604
+GALLOP 7 Nref 160 seconds 145.7966272830963 best 103.782646 q25 104.53323 median 230.413 total 1059.3147206306458
+====
+GALLOP 1 Nref 196 seconds 253.37459754943848 best 186.69449 q25 248.21637 median 315.79453 total 502.1845266819
+GALLOP 2 Nref 196 seconds 235.46995949745178 best 162.46185 q25 251.65599 median 313.36005 total 737.7819201946259
+GALLOP 3 Nref 196 seconds 258.0718982219696 best 143.8517 q25 254.06339 median 310.346 total 995.9741108417511
+GALLOP 4 Nref 196 seconds 255.594806432724 best 139.49974 q25 223.07904 median 305.48218 total 1251.6950964927673
+GALLOP 5 Nref 196 seconds 256.6709945201874 best 138.14879 q25 245.16185 median 326.76764 total 1508.4832377433777
+GALLOP 6 Nref 196 seconds 266.79285430908203 best 127.63758 q25 263.02954 median 335.02454 total 1775.3979878425598
+GALLOP 7 Nref 196 seconds 269.0319011211395 best 125.78276 q25 249.94704 median 311.1617 total 2044.599457502365
+====
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1448.68it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 258 seconds 251.00764083862305 best 77.014915 q25 189.17148 median 243.7628 total 251.06556057929993
+GALLOP 1 Nref 258 seconds 242.595951795578 best 76.13098 q25 199.50287 median 244.3393 total 493.86426758766174
+====
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1974.72it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 409 seconds 222.4976680278778 best 103.35097 q25 345.8469 median 441.23944 total 222.50522685050964
+GALLOP 1 Nref 409 seconds 205.4007203578949 best 103.0253 q25 327.623 median 465.01886 total 428.1203353404999
+====
+Starting: V=2840.02->3260.02
+Finished: V=2840.02->3260.02 A^3, 11066 unit cells tested, 430316 tests/s,   Elapsed time=0.025727s
+Starting: V=3260.02->3680.03
+Finished: V=3260.02->3680.03 A^3, 17567 unit cells tested, 459364 tests/s,   Elapsed time=0.03826s
+Starting: V=3680.03->4100
+Finished: V=3680.03->4100 A^3, 27097 unit cells tested, 250268 tests/s,   Elapsed time=0.108285s
+DONE X8a6f5a8 ORTHOROMBIC P 0 0.10856318473815918 []
+====
+AROMATIC_PLANARITY 0
+LSQ_PACKING 52 atoms 9197 terms sigma 0.01 cost 1086.5852328758403
+CYCLE 0 0 Rw 0.23087621333480432 chi2 3754.5910327365345 geom 0.0 LSQ 4711.78423987565
+CYCLE 0 1 Rw 0.23128254533082931 chi2 3767.8184930300436 geom 0.0 LSQ 4690.260345485588
+CYCLE 0 2 Rw 0.23126321776830466 chi2 3767.188789611511 geom 0.0 LSQ 4689.622636982821
+PACKING_STAGE 0 922.4334304362194
+CYCLE 1 0 Rw 0.22194364943411038 chi2 3469.6822367785653 geom 241.11009574190882 LSQ 3919.7563836481004

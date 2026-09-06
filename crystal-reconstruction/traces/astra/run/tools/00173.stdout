@@ -1,0 +1,23 @@
+RESTORED_CIF X3c176e2 0.042467775896363955 779.8777496375945
+INOSITOL_HIGH=5009
+Xe3a2935 Nat 84 molecule sizes [21, 21, 21, 21]
+  component C[C@@H]1CC(=O)NN=C1c1ccc(NN=C(C#N)C#N)cc1 matches 4
+  bond range 1.095684757491818 1.5541990250193414
+  min intermolecular distance 2.8997439091142696
+SUBMITTED Xe3a2935
+Xf8ac963 Nat 84 molecule sizes [21, 21, 21, 21]
+  component COc1ccc(NC(=O)[C@@H]2C[C@H](C)CC[C@H]2C(C)C)cc1 matches 4
+  bond range 1.213978940306614 1.600004541681028
+  min intermolecular distance 2.9283042271107487
+SUBMITTED Xf8ac963
+Xbfc6d2c Nat 72 molecule sizes [18, 18, 18, 18]
+  component [C-]#[N+]c1ccc(-c2ccc([N+]#[C-])c(C)c2)cc1C matches 4
+  bond range 1.1451848123601707 1.5527909866944751
+  min intermolecular distance 3.366988999862826
+SUBMITTED Xbfc6d2c
+X07806d9 Nat 80 molecule sizes [9, 9, 9, 9, 9, 9, 9, 9, 1, 1, 1, 1, 1, 1, 1, 1]
+  component [NH3+]CC(=O)CCC(=O)O matches 8
+  component [Cl-] matches 8
+  bond range 1.2284056312101104 1.558917642106387
+  min intermolecular distance 2.9754442572220428
+SUBMITTED X07806d9

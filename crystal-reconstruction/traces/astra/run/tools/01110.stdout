@@ -1,0 +1,50 @@
+Sun Sep  6 11:15:31 UTC 2026
+Xebbd488 JSON only C 1 2 1
+Xedd9c7b CIF graph/stereo/cell/SG validated Nat 152
+Xf8ac963 CIF graph/stereo/cell/SG validated Nat 84
+Xfca9f3c CIF graph/stereo/cell/SG validated Nat 52
+DONE 30 instances 28 CIFs
+X019b9a4 [('refined_g12.cif', None)]
+X07806d9 [('refined_freeh.cif', None)]
+X13023e3 [('refined_ghigh.cif', None)]
+X14a2b08 [('refined_g95.cif', None)]
+X1a56c78 [('refined_g90.cif', None)]
+X1db5091 [('refined_g103.cif', None)]
+X2327841 [('refined_10t.cif', None)]
+X238783d [('refined_g20.cif', None)]
+X263b09a [('refined_tight96.cif', None)]
+X35b7fbc [('refined_g87.cif', None)]
+X3c176e2 [('refined_freeh.cif', None)]
+X3f4781b [('refined_ninv110m00.cif', None)]
+X4f6fe58 [('refined_g101.cif', None)]
+X7e382cb [('refined_bound108.cif', None)]
+X8a06d7a [('refined_g12.cif', None)]
+X9af54a2 [('refined_g87.cif', None)]
+Xb7088cf [('refined_pyr51m1.cif', None)]
+Xbfc6d2c [('refined_plan.cif', None)]
+Xbfeeda9 [('refined_g60.cif', None)]
+Xd4c1a35 [('refined_ghigh.cif', None)]
+Xd8634a2 [('refined_g11.cif', None)]
+Xdcc971e [('refined_10t.cif', None)]
+Xe1fb77b [('refined_2.cif', None)]
+Xe3a2935 [('refined_plan.cif', None)]
+Xeb393f9 [('refined_chem51.cif', None)]
+Xedd9c7b [('refined_g85.cif', None)]
+Xf8ac963 [('refined_plan.cif', None)]
+Xfca9f3c [('refined_10t.cif', None)]
+==== 111
+GALLOP 1 Nref 126 seconds 27.546993732452393 best 160.62329 q25 245.9239 median 314.95264 total 54.13477182388306
+GALLOP 2 Nref 159 seconds 31.12047553062439 best 159.51189 q25 211.22015 median 295.85248 total 85.28578281402588
+GALLOP 3 Nref 196 seconds 38.56448554992676 best 158.62422 q25 180.9137 median 284.7439 total 123.88213515281677
+==== 112
+GALLOP 1 Nref 126 seconds 26.928582668304443 best 174.0921 q25 223.25659 median 312.84692 total 53.600165367126465
+GALLOP 2 Nref 158 seconds 30.85814619064331 best 152.4267 q25 215.92401 median 307.87097 total 84.49353241920471
+GALLOP 3 Nref 195 seconds 36.14237642288208 best 150.55151 q25 192.46811 median 267.36935 total 120.67110323905945
+==== 113
+GALLOP 1 Nref 127 seconds 26.96713948249817 best 159.58145 q25 217.57356 median 341.893 total 54.059301137924194
+GALLOP 2 Nref 159 seconds 28.85740089416504 best 159.0094 q25 217.56192 median 314.20248 total 82.95002126693726
+GALLOP 3 Nref 194 seconds 36.656522035598755 best 158.66937 q25 164.97243 median 295.56442 total 119.63892984390259
+==== 114
+GALLOP 1 Nref 127 seconds 26.774730682373047 best 175.36684 q25 290.26904 median 340.48877 total 53.92034101486206
+GALLOP 2 Nref 159 seconds 30.878194332122803 best 169.62022 q25 204.16318 median 293.04416 total 84.82975554466248
+GALLOP 3 Nref 196 seconds 37.190237045288086 best 165.4524 q25 197.74309 median 274.71338 total 122.05413603782654

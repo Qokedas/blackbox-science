@@ -1,0 +1,135 @@
+"""Patterson/partial-structure search for two inversion-related heavy-atom pairs.
+Only used as a source of direct-space starting positions, not a final model.
+"""
+import os,sys,json,time,numpy as np,torch,gemmi
+from gallop.structure import Structure
+from rdkit import Chem
+sid=sys.argv[1];run=sys.argv[2];G='/app/work/'+sid+'/gallop_'+run
+s=Structure();s.from_json(open(G+'/structure.json').read());md=json.load(open(G+'/model.json'));assert s.original_sg_number==2
+els=[e for z in s.zmatrices for e in z.elements_no_H];atomic=np.array([gemmi.Element(e).atomic_number for e in els]);idx=np.flatnonzero(atomic==atomic.max());assert len(idx)==2
+T=lambda x:torch.tensor(x,dtype=torch.float32)
+torch.set_num_threads(1);torch.set_num_interop_threads(1)
+ss=np.linalg.norm(s.hkl@s.lattice.reciprocal_lattice_crystallographic.matrix,axis=1)/2
+sf=np.array([[gemmi.Element(el).it92.calculate_sf(float(v*v)) for el in els] for v in ss])*np.exp(-3*ss[:,None]**2)
+fh=T(2*sf[:,idx[0]]);wilson=T(2*np.sum(np.delete(sf,idx,axis=1)**2,axis=1));hk=T(s.hkl);nm=T(s.inverse_covariance_matrix/(len(s.hkl)-2));obs=T(s.intensities);no=nm@obs;oo=obs@no;lm=T(s.lattice.matrix)
+def score(x):
+ f=(torch.cos(2*np.pi*(x@hk.T)).sum(1)*fh)**2+wilson
+ nf=f@nm;of=f@no;cost=oo-of.clamp(min=0)**2/(f*nf).sum(1).clamp(min=1e-20)
+ # Suppress merged Br sites; this is a partial heavy atom model, not chemistry.
+ df=x[:,0]-x[:,1];df-=torch.round(df).detach();dr=x[:,0]+x[:,1];dr-=torch.round(dr).detach()
+ penalty=200*(torch.clamp(2.6-torch.linalg.norm(df@lm,dim=-1),min=0)**2+torch.clamp(2.6-torch.linalg.norm(dr@lm,dim=-1),min=0)**2)
+ return cost+penalty
+N=int(os.environ.get('PARTICLES','384'));IT=int(os.environ.get('ITERATIONS','450'));maxsec=float(os.environ.get('SEARCH_TIME','300'));t0=time.time();pool=[];best=None
+for batch in range(99):
+ x=T(np.random.rand(N,2,3))
+ if best is not None:x[:N//4]=T(best)[None]+torch.randn_like(x[:N//4])*.045
+ x.requires_grad_(True);opt=torch.optim.Adam([x],lr=.025)
+ for it in range(IT):
+  opt.zero_grad();loss=score(x).sum();loss.backward();opt.step()
+  if it==IT*3//4:
+   for g in opt.param_groups:g['lr']=.003
+ with torch.no_grad():
+  vals=score(x).numpy();positions=x.numpy()%1
+ for j in np.argsort(vals)[:80]:pool.append((float(vals[j]),positions[j].copy()))
+ pool.sort(key=lambda a:a[0]);pool=pool[:120];best=pool[0][1]
+ np.savez_compressed(G+'/heavy_pool.npz',positions=np.array([v[1] for v in pool]),chi2=np.array([v[0] for v in pool]),indices=idx)
+ print('HEAVY',batch,'best',pool[0][0],'q25',np.quantile(vals,.25),'elapsed',time.time()-t0,flush=True)
+ if time.time()-t0>maxsec:break
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/21574/status ]] && ! grep -q '^State:.*Z' /proc/21574/status; do sleep 5; done
+SEARCH_TIME=350 PARTICLES=384 ITERATIONS=450 python /app/work/solve_heavy.py X4f6fe58 11 > /app/work/X4f6fe58/heavy11.log 2>&1
+HEAVY_POOL=/app/work/X4f6fe58/gallop_11/heavy_pool.npz SEARCH_TIME=1600 PARTICLES=128 ITERATIONS=400 CONF_RANK=4 GALLOP_STOL=.25 python /app/work/search_gallop.py X4f6fe58 40 2 --prepare --hscatter > /app/work/X4f6fe58/gallop40.log 2>&1
+python /app/work/import_gallop.py X4f6fe58 40 > /app/work/X4f6fe58/import_g40.log 2>&1
+python /app/work/refine_obj.py X4f6fe58 g40 /app/work/X4f6fe58/search_g40/best.xml --scale --tight > /app/work/X4f6fe58/refine_g40.log 2>&1
+set -e
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/38122/status ]] && ! grep -q '^State:.*Z' /proc/38122/status;do sleep 5;done
+HEAVY_ANCHOR=/app/work/X4f6fe58/gallop_11/heavy_pool.npz HEAVY_ANCHOR_COEFF=30 HEAVY_ANCHOR_TOL=.35 HEAVY_POOL=/app/work/X4f6fe58/gallop_11/heavy_pool.npz HBOND_COEFF=15 BUMP_COEFF=40 START_REFL=100 SEARCH_TIME=1700 PARTICLES=128 ITERATIONS=400 CONF_RANK=0 GALLOP_STOL=.26 python /app/work/search_gallop.py X4f6fe58 41 2 --prepare --hscatter --packing > /app/work/X4f6fe58/gallop41.log 2>&1
+python /app/work/import_gallop.py X4f6fe58 41 > /app/work/X4f6fe58/import_g41.log 2>&1
+python /app/work/refine_obj.py X4f6fe58 g41 /app/work/X4f6fe58/search_g41/best.xml --scale --tight --stol=.38 > /app/work/X4f6fe58/refine_g41.log 2>&1
+python /app/work/submit.py X4f6fe58 /app/work/X4f6fe58/refined_g41.cif --check > /app/work/X4f6fe58/check_g41.log 2>&1
+"""Optional loose positional prior for an independently fitted heavy substructure.
+All P-1 orbit, permutation and half-origin alternatives are retained.  This is
+an exploratory conditional search; the prior must be removed in final refinement.
+"""
+import os,itertools,numpy as np,torch
+from gallop import chi2,zm_to_cart
+
+def enable_heavy_anchor(s,path):
+ p=np.load(path);r=p['positions'][0];idx=p['indices'];assert len(idx)==2 and s.original_sg_number==2
+ cases=[]
+ for perm in [(0,1),(1,0)]:
+  for signs in itertools.product([-1,1],repeat=2):
+   for shift in itertools.product([0,.5],repeat=3):
+    cases.append((r[list(perm)]*np.array(signs)[:,None]+shift)%1)
+ target=torch.tensor(np.array(cases),dtype=torch.float32);idx=torch.tensor(idx,dtype=torch.long);LM=torch.tensor(s.lattice.matrix,dtype=torch.float32)
+ shifts=torch.tensor(np.array(list(itertools.product([-1,0,1],repeat=3)))@s.lattice.matrix,dtype=torch.float32);ss=(shifts*shifts).sum(-1)
+ coef=float(os.getenv('HEAVY_ANCHOR_COEFF','30'));tol=float(os.getenv('HEAVY_ANCHOR_TOL','.35'))
+ def penalty(fr):
+  delta=fr[:,None,idx,:]-target[None,:,:,:];delta-=torch.round(delta).detach();cart=delta@LM
+  with torch.no_grad():corr=shifts[(2*(cart.detach()@shifts.T)+ss).argmin(-1)]
+  dist=torch.sqrt(((cart+corr)**2).sum(-1)+1e-8);val=(torch.clamp(dist-tol,min=0)**2).sum(-1)
+  return coef*val.min(-1).values
+ old=chi2.get_chi_2
+ def calc(zm,int_tensors,chisqd_tensors,profile=None):
+  fr=zm_to_cart.get_asymmetric_coords(**zm)
+  return old(zm,int_tensors,chisqd_tensors,profile=profile)+penalty(fr)
+ chi2.get_chi_2=calc;s.heavy_anchor_penalty=penalty
+ print('HEAVY_ANCHOR',len(idx),'coef',coef,'tolerance_A',tol,flush=True)
+ return penalty
+{
+ "radiation": {
+  "type": "CuK1",
+  "wavelength_A": 1.54059,
+  "wavelengths_A": [
+   1.54059
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 295.0,
+ "two_theta_range_deg": [
+  5.0,
+  80.0
+ ],
+ "n_points": 7501,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}{
+ "cell": [
+  7.555477033684864,
+  13.072865019837627,
+  15.417504879610412,
+  72.25496173074335,
+  83.44145094599322,
+  77.58872908217276
+ ],
+ "volume": 1422.8258782326423,
+ "score": 13.456541061401367,
+ "system": "TRICLINIC",
+ "centering": "P",
+ "mode": 3,
+ "source": "index_TRICLINIC_P_3.json",
+ "sg": "P-1",
+ "sgstart": "P-1",
+ "Rw": 0.0332905465894755,
+ "groups": [
+  {
+   "sg": "P 1",
+   "number": 1,
+best.cif
+best.json
+best.npz
+best_frac.npy
+last_population.npz
+m0_0_0.zmatrix
+m1_0_0.zmatrix
+model.json
+po_scan.json
+profile_matrix.npz
+structure.json

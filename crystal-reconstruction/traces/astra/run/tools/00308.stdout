@@ -1,0 +1,39 @@
+X13023e3 Nat 48 molecule sizes [15, 15, 9, 9]
+  component CC(C)Cc1ccc([C@@H](C)C(=O)O)cc1 matches 2
+  component NC(=O)c1cccnc1 matches 2
+  bond range 1.2202148931228998 1.5410900161049126
+  min intermolecular distance 2.463368643412368
+{
+ "cell": {
+  "a": 4.999584602800609,
+  "b": 11.831413390342545,
+  "c": 21.68533115813385,
+  "alpha": 86.06323923792469,
+  "beta": 89.85872810759945,
+  "gamma": 89.8431412644944
+ },
+ "space_group": "P -1",
+ "space_group_number": 2
+}{
+ "cell": {
+  "a": 5.165877184364981,
+  "b": 11.772027748380406,
+  "c": 20.58141278316823,
+  "alpha": 83.71040616962603,
+  "beta": 89.48707270231955,
+  "gamma": 86.79113824773394
+ },
+ "space_group": "P -1",
+ "space_group_number": 2
+}GALLOP 2 Nref 122 seconds 38.60990834236145 best 7.34395 q25 15.229885 median 22.228085 total 123.83582496643066
+GALLOP 3 Nref 122 seconds 37.56049728393555 best 7.3282175 q25 14.851086 median 20.44379 total 161.40079808235168
+GALLOP 4 Nref 122 seconds 35.014708042144775 best 6.1542253 q25 12.663937 median 19.78979 total 196.42231678962708
+GALLOP 5 Nref 122 seconds 37.810044288635254 best 6.207498 q25 16.437363 median 22.141235 total 234.3094847202301
+GALLOP 6 Nref 122 seconds 37.690905809402466 best 6.1323667 q25 16.079817 median 22.665018 total 272.0074305534363
+ACTIVE
+10494: python /app/work/search_gallop.py X13023e3 11 1 --prepare
+10827: python /app/work/index_de.py X263b09a
+8971: python /app/work/search_obj.py Xe1fb77b 2 1 --rescale --lsq --bump
+9561: python /app/work/search_gallop.py X7e382cb 21 1 --prepare
+9670: python /app/work/search_obj.py Xeb393f9 1 1 --rescale
+9976: python /app/work/search_obj.py Xbfeeda9 1 1 --rescale --bump

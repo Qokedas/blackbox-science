@@ -1,0 +1,28 @@
+8306
+HALF_SOLVE 0 cost 202.12224920645485 elapsed 58.973294258117676 x [-2.65087009 -0.89395483  1.8589227   0.6216905   0.84646258  0.631883
+  2.69225735]
+HALF_SOLVE 1 cost 204.56084892923994 elapsed 96.6973922252655 x [1.07293631 0.09801452 0.79975522 0.58831429 0.11124948 0.60509284
+ 0.74964002]
+HALF_SOLVE 2 cost 202.12204389552312 elapsed 123.40100336074829 x [ 2.69126155  0.81665688 -1.22277055  0.3783101   0.15353321  0.36811633
+  0.44932858]
+HALF_SOLVE 3 cost 202.12200480206113 elapsed 150.6021122932434 x [ 0.53585842 -0.77112212  1.79812037  0.37831862  0.15353685  0.36810928
+ -0.44914474]
+ERRORSG C -1 Space group symbol '' not recognized
+Lookup of '' symbol failed, trying as Hall symbol.
+Could not interpret Spacegroup Symbol:
+ERRORSG F -1 Space group symbol '' not recognized
+Lookup of '' symbol failed, trying as Hall symbol.
+Could not interpret Spacegroup Symbol:
+ERRORSG I -1 Space group symbol '' not recognized
+GROUPS [{"sg": "P 1", "number": 1, "Rw": 4.05634287476456, "GoF": 9.221592321633876, "nGoF": 2.638392983510142, "mult": 1}, {"sg": "P -1", "number": 2, "Rw": 4.05634287476456, "GoF": 9.221592321633876, "nGoF": 2.638392983510143, "mult": 2}]
+===X14a2b08
+/app/work/X14a2b08/fit_de0.json
+/app/work/X14a2b08/fit_de1.json
+===X263b09a
+/app/work/X263b09a/fit_de0.json
+/app/work/X263b09a/fit_de1.json
+/app/work/X263b09a/fit_de2.json
+===X8a06d7a
+/app/work/X8a06d7a/fit_de0.json
+/app/work/X8a06d7a/fit_de1.json
+/app/work/X8a06d7a/fit_de2.json

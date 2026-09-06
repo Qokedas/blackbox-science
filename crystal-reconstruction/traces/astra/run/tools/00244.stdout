@@ -1,0 +1,60 @@
+EXACT_PAWLEY nref 147 rank 133 cond 388.50008535731797 chi2 26477.4121216309 netRwp 0.21918515132500424
+ Solution ? a=  9.845 b=  9.640 c=  9.224 alpha=102.383 beta= 75.782 gamma= 93.684 V=  828.81 score= 12.36 # 265
+      a= 9.86- 9.88 b= 9.62- 9.66 c= 9.23- 9.26 alpha=102.24-102.64 beta= 75.65- 75.74 gamma= 93.47- 93.77 V=828.44-835.20level=6, indexed=1(270 sol.)
+      a=0.01096-0.01091 b=0.01132-0.01126 c=0.01306-0.01300 alpha=0.00019-0.00028 beta=0.00495-0.00507 gamma=-0.00576--0.00567level=6, indexed=1(270 sol.)
+ Solution ? a=  9.845 b=  9.640 c=  9.224 alpha=102.383 beta= 75.782 gamma= 93.684 V=  828.81 score= 12.36 # 270
+1569 solutions ! Redparing...
+CellExplorer::ReduceSolutions(): update threshold for report from 8 to 8.26477
+-> 100 remaining
+1123 solutions ! Redparing...
+CellExplorer::ReduceSolutions(): update threshold for report from 8.26477 to 8.53265
+-> 100 remaining
+Lookup of '' symbol failed, trying as Hall symbol.
+Could not interpret Spacegroup Symbol:
+ERRORSG F -1 Space group symbol '' not recognized
+Lookup of '' symbol failed, trying as Hall symbol.
+Could not interpret Spacegroup Symbol:
+ERRORSG I -1 Space group symbol '' not recognized
+GROUPS [{"sg": "P 1", "number": 1, "Rw": 9.768578036580488, "GoF": 806.2866131149167, "nGoF": 279.69202908806955, "mult": 1}, {"sg": "P -1", "number": 2, "Rw": 9.768578036580488, "GoF": 806.2866131149167, "nGoF": 279.6920290880694, "mult": 2}]
+DONE X14a2b08 de0 0.08768279486434363 [5.100961909524811, 11.933336296274689, 22.097657582437467, 95.27479167986763, 105.68175126183898, 87.01621831252402]
+base.log
+base.png
+base.xml
+candidates.json
+fit_0.json
+fit_0.log
+fit_0.png
+fit_0.xml
+fit_0.xye
+index_CUBIC_F_0.json
+index_CUBIC_F_0.log
+index_CUBIC_I_0.json
+index_CUBIC_I_0.log
+index_CUBIC_P_0.json
+index_CUBIC_P_0.log
+index_HEXAGONAL_P_0.json
+index_HEXAGONAL_P_0.log
+index_MONOCLINIC_C_0.json
+index_MONOCLINIC_C_0.log
+index_MONOCLINIC_C_2.json
+index_MONOCLINIC_C_2.log
+index_MONOCLINIC_P_0.json
+index_MONOCLINIC_P_0.log
+index_MONOCLINIC_P_2.json
+index_MONOCLINIC_P_2.log
+index_ORTHOROMBIC_C_0.json
+index_ORTHOROMBIC_C_0.log
+index_ORTHOROMBIC_I_0.json
+index_ORTHOROMBIC_I_0.log
+index_ORTHOROMBIC_P_0.json
+index_ORTHOROMBIC_P_0.log
+index_ORTHOROMBIC_P_2.json
+index_ORTHOROMBIC_P_2.log
+index_RHOMBOEDRAL_P_0.json
+index_RHOMBOEDRAL_P_0.log
+index_TETRAGONAL_I_0.json
+index_TETRAGONAL_I_0.log
+index_TETRAGONAL_P_0.json
+index_TETRAGONAL_P_0.log
+index_TRICLINIC_P_3.json
+{"indices": [1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 13, 14, 15, 17, 18, 20, 22, 24, 25]}

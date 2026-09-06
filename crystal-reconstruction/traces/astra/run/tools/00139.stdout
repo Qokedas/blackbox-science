@@ -1,0 +1,168 @@
+import os,sys,json,shutil,numpy as np,networkx as nx,gemmi
+from pymatgen.io.cif import CifParser
+from rdkit import Chem
+sid=sys.argv[1];f=sys.argv[2]
+s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+for i in g:g.nodes[i]['el']=s[i].specie.symbol
+matched=set();ratios=[]
+for comp in json.load(open('/app/data/instances/'+sid+'/composition.json'))['components']:
+ rm=Chem.MolFromSmiles(comp['smiles']);rg=nx.Graph();rg.add_nodes_from((a.GetIdx(),{'el':a.GetSymbol()}) for a in rm.GetAtoms());rg.add_edges_from((b.GetBeginAtomIdx(),b.GetEndAtomIdx()) for b in rm.GetBonds());matches=[j for j,co in enumerate(cs) if nx.is_isomorphic(g.subgraph(co),rg,node_match=lambda a,b:a['el']==b['el'])];matched|=set(matches);ratios.append(len(matches)/comp['count']);print('  component',comp['smiles'],'matches',len(matches))
+valid=len(matched)==len(cs) and min(ratios)>0 and max(ratios)==min(ratios)
+if not valid:raise Exception('Connectivity validation failed')
+print('  bond range',np.min(D[A]),np.max(D[A]) if A.any() else None)
+print('  min intermolecular distance',min((D[i,j] for ii,co in enumerate(cs) for co2 in cs[ii+1:] for i in co for j in co2),default=0))
+b=gemmi.cif.read_file(f).sole_block();keys=['a','b','c','alpha','beta','gamma'];ct=['length_a','length_b','length_c','angle_alpha','angle_beta','angle_gamma'];out={'cell':{k:float(b.find_value('_cell_'+v)) for k,v in zip(keys,ct)},'space_group':gemmi.cif.as_string(b.find_value('_space_group_name_H-M_alt')),'space_group_number':int(b.find_value('_space_group_IT_number'))}
+shutil.copyfile(f,'/app/results/submission/'+sid+'.cif');json.dump(out,open('/app/results/submission/'+sid+'.json','w'),indent=1)
+print('SUBMITTED',sid)
+<ObjCryst Date="2026-09-06T04:04:01GMT" Revision="2024001">
+  <Crystal Name="" SpaceGroup="P 1">
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="a">10</Par>
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="b">10</Par>
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="c">10</Par>
+    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="alpha">90</Par>
+    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="beta">90</Par>
+    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="gamma">90</Par>
+    <Option Name="Constrain Lattice to SpaceGroup Symmetry" Choice="0" ChoiceName="Yes (Default)"/>
+
+    <Option Name="Use Dynamical Occupancy Correction" Choice="1" ChoiceName="Yes"/>
+
+    <Option Name="Display Enantiomer" Choice="0" ChoiceName="No"/>
+
+    <ScatteringPowerAtom Name="O" Symbol="O">
+      <Par Refined="0" Limited="1" Min="0.1" Max="5" Name="Biso">1</Par>
+      <Par Refined="0" Limited="0" Min="0" Max="1" Name="ML Error">0</Par>
+      <Par Refined="0" Limited="1" Min="0" Max="10" Name="ML-NbGhost">0</Par>
+      <Par Refined="0" Limited="1" Min="-10" Max="10" Name="Formal Charge">0</Par>
+      <RGBColour>1 0.051 0.051</RGBColour>
+    </ScatteringPowerAtom>
+
+    <Atom Name="a" ScattPow="O">
+      <Par Refined="1" Limited="0" Min="0" Max="1" Name="x">0.1</Par>
+      <Par Refined="1" Limited="0" Min="0" Max="1" Name="y">0.1</Par>
+      <Par Refined="1" Limited="0" Min="0" Max="1" Name="z">0.1</Par>
+      <Par Refined="0" Limited="1" Min="0.01" Max="1" Name="Occup">1</Par>
+    </Atom>
+    <Atom Name="b" ScattPow="O">
+      <Par Refined="1" Limited="0" Min="0" Max="1" Name="x">0.2</Par>
+      <Par Refined="1" Limited="0" Min="0" Max="1" Name="y">0.1</Par>
+      <Par Refined="1" Limited="0" Min="0" Max="1" Name="z">0.1</Par>
+      <Par Refined="0" Limited="1" Min="0.01" Max="1" Name="Occup">1</Par>
+    </Atom>
+
+      <AntiBumpDistance ScattPow1="O" ScattPow2="O" AllowMerge="0">2.5</AntiBumpDistance>
+      <AntiBumpScale>1</AntiBumpScale>
+  </Crystal>
+</ObjCryst>267:      * to \e mergeDist.
+268:      *\param mergeDist : distance below which atoms are considered fully overlapping.
+277:      void CalcDynPopCorr(const REAL overlapDist=1., const REAL mergeDist=.0)const ;
+301:      /** Get the Anti-bumping/pro-Merging cost function. Only works (ie returnes a non-null
+302:      * value) if you have added antibump distances using Crystal::SetBumpMergeDistance().
+305:      REAL GetBumpMergeCost() const;
+306:      /** Set the Anti-bumping distance between two scattering types
+309:      void SetBumpMergeDistance(const ScatteringPower &scatt1,
+311:      /// Set the Anti-bumping distance between two scattering types.
+312:      void SetBumpMergeDistance(const ScatteringPower &scatt1,
+314:                                const bool allowMerge);
+316:      /// Remove an Anti-bumping distance between two scattering types.
+317:      void RemoveBumpMergeDistance(const ScatteringPower &scatt1,
+320:      /// Storage for anti-bump/merge parameters
+321:      struct BumpMergePar
+323:         BumpMergePar();
+326:         * \param dist: the bump/merge distance in Angstroems
+328:         BumpMergePar(const REAL dist, const bool canOverlap=false);
+329:         /// The squared antibump interatomic distance
+335:      /// Anti-bump parameters. Each atom type (ScatteringPower is referenced
+337:      typedef std::map<pair<const ScatteringPower*, const ScatteringPower*>,Crystal::BumpMergePar > VBumpMergePar;
+338:      const VBumpMergePar& GetBumpMergeParList()const;
+339:      VBumpMergePar& GetBumpMergeParList();
+499:      /** Merge all equal scattering powers
+502:      * classification will be merged into one, with the averaged isotropic Debye-Waller factor. Otherwise, the scattering
+503:      * powers will be merged only if the Debye Waller factors (isotropic and anisotropic, if any) are identical.
+508:      void MergeEqualScatteringPowers(const bool oneScatteringPowerPerElement);
+561:      /// Anti-bump parameters map
+562:      VBumpMergePar mvBumpMergePar;
+566:      /// Last Time Anti-bump parameters were changed
+567:      RefinableObjClock mBumpMergeParClock;
+568:      /// Last Time Anti-bump parameters were changed
+569:      mutable RefinableObjClock mBumpMergeCostClock;
+570:      /// Current bump-merge cost
+571:      mutable REAL mBumpMergeCost;
+572:      /// Bump-merge scale factor
+573:      REAL mBumpMergeScale;
+X019b9a4
+X07806d9
+X13023e3
+X14a2b08
+X1a56c78
+X1db5091
+X2327841
+X238783d
+X263b09a
+X35b7fbc
+X3c176e2
+X3f4781b
+X4f6fe58
+X7e382cb
+X8a06d7a
+X8a6f5a8
+X9af54a2
+Xb7088cf
+Xbfc6d2c
+Xbfeeda9
+Xd4c1a35
+Xd8634a2
+Xdcc971e
+Xe1fb77b
+Xe3a2935
+Xeb393f9
+Xebbd488
+Xedd9c7b
+Xf8ac963
+Xfca9f3c
+Zprime_notes.txt
+__pycache__
+alkane_fits.log
+alkane_reindex.log
+analyze_lattice.py
+collect_candidates.py
+create_base.py
+fit_candidate.py
+fits2.log
+fits_batch.log
+fresh.log
+gallop_prepare.py
+index_batch.log
+index_one.py
+make_base.py
+newbases.log
+newfits.log
+newtasks.log
+newtris.log
+nextindexes.log
+nextstructures.log
+nowfits.log
+obj_model.py
+overview0.png
+overview1.png
+overview2.png
+parse_index_log.py
+preprocess.log
+preprocess.py
+refine_obj.py
+reindex_batch.log
+reindex_batch.py
+restorefit.log
+run_fits.py
+run_fits2.py
+run_index_batch.py
+search_gallop.py
+search_obj.py
+subcells.log
+submit.py
+summary.json
+task_3f478.log
+task_d863.log
+task_e1.log
+test_bump.xml
+test_fit.log
+test_fit.py

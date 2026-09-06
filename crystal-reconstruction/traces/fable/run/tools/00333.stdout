@@ -1,0 +1,17 @@
+Sun Sep  6 08:04:11 UTC 2026
+X35b7fbc/solve_a.log:run 0: cost=373122.9 Rwp=0.2000 chi2=675657.3 t=4981s
+X35b7fbc/solve_a.log:polish: Rwp 0.1981 -> 0.1629 (accepted) restraint cost=0.00
+X35b7fbc/solve_a.log:RESULTS X35b7fbc P 21 21 21 [(373122.8864576588, 0.1999818285574305, 675657.3307977491)]
+X35b7fbc/solve_b.log:run 0: cost=572089.1 Rwp=0.2344 chi2=935054.5 t=5112s
+X35b7fbc/solve_b.log:polish: Rwp 0.2331 -> 0.1928 (accepted) restraint cost=0.00
+X35b7fbc/solve_b.log:RESULTS X35b7fbc P 21 21 21 [(572089.0976708698, 0.23438043765444533, 935054.4835952023)]
+Xe3a2935/solve_x3.log:run 0: cost=50213.7 Rwp=0.1789 chi2=52674.3 t=1753s
+Xe3a2935/solve_x3.log:polish: Rwp 0.1787 -> 0.1506 (accepted) restraint cost=0.00
+X3c176e2/inos_p19x_a.log:run 0: cost=547073.5 Rwp=0.2932 chi2=616980.6 t=1312s
+X3c176e2/inos_p19x_a.log:ISO 8 P 21 21 21 Zp=2: 0.2932
+X3c176e2/inos_p19x_a.log:run 0: cost=476546.2 Rwp=0.2593 chi2=484388.3 t=1497s
+X3c176e2/inos_p19x_a.log:ISO 3 P 21 21 21 Zp=2: 0.2593
+X3c176e2/inos_p19x_b.log:run 0: cost=456939.5 Rwp=0.2469 chi2=437636.0 t=1525s
+X3c176e2/inos_p19x_b.log:ISO 4 P 21 21 21 Zp=2: 0.2469
+X3c176e2/inos_p19x_b.log:run 0: cost=584655.1 Rwp=0.2965 chi2=618447.5 t=1490s
+X3c176e2/inos_p19x_b.log:ISO 5 P 21 21 21 Zp=2: 0.2965

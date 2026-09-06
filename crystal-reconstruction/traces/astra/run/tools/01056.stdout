@@ -1,0 +1,14 @@
+PAIRING [(0, 3), (1, 2)] origin [0.2596365  0.41356963 0.55293336]
+DEBUG 0 maxerr 1.6653345369377348e-16 actual [[-0.35745856  0.99789518  0.32814192]
+ [-0.3633518   0.81153336  0.36930017]
+ [-0.40665471  0.74213937  0.45246344]] desired [[-0.35745856  0.99789518  0.32814192]
+ [-0.3633518   0.81153336  0.36930017]
+ [-0.40665471  0.74213937  0.45246344]] xyzrange [ 3.3011261  11.07060186  5.62183309]
+DEBUG 1 maxerr 1.0 actual [[0.07247513 0.1153272  0.74924294]] desired [[ 0.07247513  0.1153272  -0.25075706]] xyzrange [0. 0. 0.]
+Traceback (most recent call last):
+  File "/app/work/x7_symmetrise.py", line 29, in <module>
+    actual=np.array([[a.X,a.Y,a.Z] for a in list(m.GetScatteringComponentList())[:len(fr)]]);print('DEBUG',j,'maxerr',np.max(np.abs(actual-fr)), 'actual',actual[:3],'desired',fr[:3], 'xyzrange',np.ptp(xyz,axis=0),flush=True);assert np.max(np.abs(actual-fr))<1.e-6
+                                                                                                                                                                                                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+49:while time.time()-t0<max_time and not os.path.exists(G+'/STOP'):
+BEST_SOURCE ring94c3

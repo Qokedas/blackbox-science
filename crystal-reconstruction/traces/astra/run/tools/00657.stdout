@@ -1,0 +1,15 @@
+PACKING_ENABLED 35 atoms 4120 pair terms coefficient 50.0
+PACKING_ENABLED 35 atoms 4120 pair terms coefficient 50.0 active_only True
+EQUAL Xbfeeda9 costerr 0.001953125 graderr 0.00048828125 relgrad 4.1057806043909295e-08
+TIME Xbfeeda9 old 3.08856201171875
+TIME Xbfeeda9 new 2.015702724456787
+PACKING_ENABLED 20 atoms 519 pair terms coefficient 50.0
+PACKING_ENABLED 20 atoms 519 pair terms coefficient 50.0 active_only True
+EQUAL X7e382cb costerr 0.0009765625 graderr 0.00048828125 relgrad 6.421179676863176e-08
+TIME X7e382cb old 2.0909276008605957
+TIME X7e382cb new 1.9917867183685303
+PACKING_ENABLED 36 atoms 1784 pair terms coefficient 50.0
+PACKING_ENABLED 36 atoms 1784 pair terms coefficient 50.0 active_only True
+EQUAL X263b09a costerr 0.00244140625 graderr 0.0009765625 relgrad 1.0200623989931046e-07
+TIME X263b09a old 2.805314302444458
+TIME X263b09a new 1.897587537765503

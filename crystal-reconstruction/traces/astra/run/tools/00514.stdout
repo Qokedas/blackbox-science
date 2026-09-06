@@ -1,0 +1,80 @@
+===X263b09a
+{
+ "components": [
+  {
+   "smiles": "COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1",
+   "count": 1,
+   "charge": 0
+  },
+  {
+   "smiles": "O=C1CCCCN1",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}===X1db5091
+{
+ "components": [
+  {
+   "smiles": "COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1",
+   "count": 1,
+   "charge": 0
+  },
+  {
+   "smiles": "NC(=O)c1cccnc1",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}===X14a2b08
+{
+ "components": [
+  {
+   "smiles": "COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1",
+   "count": 1,
+   "charge": 0
+  },
+  {
+   "smiles": "O=C1CCCCCN1",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}===X1a56c78
+{
+ "components": [
+  {
+   "smiles": "O[C@](CC[NH+]1CCCCC1)(c1ccccc1)C1CCCCC1",
+   "count": 1,
+   "charge": 1
+  },
+  {
+   "smiles": "[Cl-]",
+   "count": 1,
+   "charge": -1
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}TRIAL 16 sec 244.17930340766907 cost 0.22280113868452533 score 3.1446556469833333 vol 4200.862218139867 cell [ 22.923    5.886   32.6867  90.     107.726   90.    ] zero 0.01213991752596168 best 0.11560611777279961 diff [ 0.0034 -0.006   0.0084  0.0343 -0.0864  0.0063  0.005  -0.0447 -0.025
+ -0.0091  0.011   0.0044 -0.0152  0.0056  0.0295  0.0081  0.0846 -0.006
+ -0.0043 -0.009   0.0263  0.0185 -0.0131  0.0092 -0.0184 -0.0084 -0.0335
+  0.0164 -0.0014 -0.0014]
+TRIAL 17 sec 268.2482759952545 cost 0.14633567241387427 score 3.814158964814969 vol 5926.08527383792 cell [ 38.9719   4.7826  33.5295  90.     108.5113  90.    ] zero 0.09458177843818598 best 0.11560611777279961 diff [ 0.0386  0.0266 -0.0042 -0.0065  0.002  -0.0121 -0.0081 -0.0042 -0.0377
+ -0.0034 -0.0182 -0.0139 -0.0135  0.0104  0.0219  0.006   0.0136 -0.0057
+  0.0108 -0.0015 -0.0037 -0.0026 -0.0024 -0.0056 -0.0111  0.0028  0.0219
+ -0.0042 -0.001   0.0154]
+{
+ "Rw": 0.04498542127338241,
+ "chi2": 3783.6075587834484
+}

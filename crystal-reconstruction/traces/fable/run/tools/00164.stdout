@@ -1,0 +1,10 @@
+P121_c1_run0_rw0.140.cif
+P121_c1_run1_rw0.148.cif
+  self.symmetry_operations = self.get_symops(data)  # type:ignore[assignment]
+Skipping relative stoichiometry check because CIF does not contain formula keys.
+  return parser.parse_structures(primitive=primitive)[0]
+['X9af54a2/sol_a/P121_c1_run0_rw0.140.cif', 'X9af54a2/sol_a/P121_c1_run1_rw0.148.cif'] True (np.float64(0.06538916051172525), np.float64(0.18050323998813197))
+X9af54a2: 76 atoms in cell; fragments=8; matched counts=[4, 4] (expected ratio [1, 1]); unmatched=0; OK=True
+   min interatomic distance in cell: 1.23 A
+X9af54a2: 76 atoms in cell; fragments=8; matched counts=[4, 4] (expected ratio [1, 1]); unmatched=0; OK=True
+   min interatomic distance in cell: 1.24 A

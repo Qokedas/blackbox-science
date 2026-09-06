@@ -1,0 +1,237 @@
+import sys,numpy as np
+from pyobjcryst.io import xml_cryst_file_load_all_object
+objs=xml_cryst_file_load_all_object(sys.argv[1]);c=next(o for o in objs if o.GetClassName()=='Crystal');rows=[]
+for i in range(c.GetNbScatterer()):
+ m=c.GetScatterer(i)
+ if m.GetClassName()!='Molecule':continue
+ for tag,meth,n in [('bond',m.GetBondList,2),('angle',m.GetBondAngleList,3),('dihedral',m.GetDihedralAngleList,4)]:
+  for b in meth():
+   try:ll=b.GetLogLikelihood()
+   except:continue
+   ats=[getattr(b,'GetAtom'+str(k+1))() for k in range(n)];names=[a.GetName() for a in ats];rows.append((ll,tag,names,str(b)))
+print('All geom',sum(r[0] for r in rows))
+for row in sorted(rows,reverse=True,key=lambda r:r[0])[:30]:print(row[:3])
+METHOXY
+import os,sys,json,itertools,numpy as np,gemmi,time
+from rdkit import Chem
+from pyobjcryst.io import xml_cryst_file_load_all_object,xml_cryst_file_save_global
+from obj_model import export_cif
+sid=sys.argv[1];src=sys.argv[2];modelp=sys.argv[3];tag=sys.argv[4] if len(sys.argv)>4 else 'methoxy';W='/app/work/'+sid
+obs=xml_cryst_file_load_all_object(src);c=next(o for o in obs if o.GetClassName()=='Crystal');p=next(o for o in obs if o.GetClassName()=='PowderPattern');d=next(p.GetPowderPatternComponent(i) for i in range(p.GetNbPowderPatternComponent()) if p.GetPowderPatternComponent(i).GetClassName()=='PowderPatternDiffraction');d.SetExtractionMode(False);md=json.load(open(modelp));mols=[c.GetScatterer(i) for i in range(c.GetNbScatterer())];orig=[];moves=[];els=[];exclude=[];offs=[0]
+for mi,(m,z) in enumerate(zip(mols,md)):
+ r=Chem.MolFromSmiles(z['smiles']);N=r.GetNumAtoms();a=np.array([[m.GetAtom(i).X,m.GetAtom(i).Y,m.GetAtom(i).Z] for i in range(m.GetNbAtoms())]);orig.append(a);rh=Chem.AddHs(r)
+ dm=Chem.GetDistanceMatrix(r);exclude.append(dm<=3);els.extend([a.GetSymbol() for a in r.GetAtoms()]);offs.append(offs[-1]+N)
+ for i,o,j in r.GetSubstructMatches(Chem.MolFromSmarts('[CH3]-[O;X2]-[c,C]')):
+  attached=[i];iname=m.GetAtom(i).GetName()
+  for bo in m.GetBondList():
+   aa,bb=bo.GetAtom1(),bo.GetAtom2()
+   if bb.GetName()==iname:aa,bb=bb,aa
+   if aa.GetName()==iname and bb.GetScatteringPower().GetSymbol()=='H':attached.append(next(ii for ii in range(m.GetNbAtoms()) if m.GetAtom(ii).GetName()==bb.GetName()))
+  moves.append((mi,i,o,j,attached))
+print('MOVES',moves,flush=True)
+basepos=[np.array([m.X,m.Y,m.Z]) for m in mols]
+anchor=[];oldf=[]
+for mi,m in enumerate(mols):
+ moved=set(k for mov in moves if mov[0]==mi for k in mov[4]);ii=next(i for i in range(m.GetNbAtoms()) if i not in moved);anchor.append(ii);a=m.GetScatteringComponentList()[ii];oldf.append(np.array([a.X,a.Y,a.Z]))
+N=len(els);ex=np.eye(N,dtype=bool)
+for i,e in enumerate(exclude):ex[offs[i]:offs[i+1],offs[i]:offs[i+1]]=e
+cp=[c.GetPar(x).GetHumanValue() for x in ['a','b','c','alpha','beta','gamma']];from pymatgen.core import Lattice
+L=Lattice.from_parameters(*cp);sg=gemmi.find_spacegroup_by_name(c.GetSpaceGroup().GetName());ops=list(sg.operations());rot=np.array([np.array(o.rot)/o.DEN for o in ops]);trans=np.array([np.array(o.tran)/o.DEN for o in ops]);radii={'C':1.48,'O':1.28,'N':1.35,'Cl':1.58,'Br':1.67};ra=np.array([radii.get(x,1.5) for x in els]);lim=ra[:,None]+ra[None,:]
+def packing():
+ fc=np.array([[a.X,a.Y,a.Z] for a in c.GetScatteringComponentList() if a.mpScattPow.GetSymbol()!='H']);bump=0;mind=10;worst=None
+ for oi,(R,T) in enumerate(zip(rot,trans)):
+  delta=fc[:,None,:]-(fc@R.T+T)[None,:,:];delta-=np.round(delta);dist=np.linalg.norm(delta@L.matrix,axis=-1);use=np.ones((N,N),bool)
+  if np.allclose(R,np.eye(3)) and np.allclose(T%1,0):use=~ex;use&=np.triu(np.ones_like(use),1)
+  pen=np.maximum(lim-dist,0)**2;pen[~use]=0;bump+=pen.sum()*(1 if oi==0 else .5)
+  co=dist.copy();co[~use]=100;ix=np.unravel_index(co.argmin(),co.shape)
+  if co[ix]<mind:mind=co[ix];worst=[int(ix[0]),int(ix[1]),int(oi),els[ix[0]],els[ix[1]]]
+ return bump,mind,worst
+p.Prepare();p.FitScaleFactorForRw();print('BASE',p.GetRw(),packing(),flush=True);results=[];best=1e100;t0=time.time();os.makedirs(W+'/search_'+tag,exist_ok=True)
+json.dump(md,open(W+'/search_'+tag+'/model.json','w'),indent=1)
+for mask in itertools.product([0,1],repeat=len(moves)):
+ xyz=[a.copy() for a in orig]
+ for bit,(mi,i,o,j,at) in zip(mask,moves):
+  if not bit:continue
+  axis=xyz[mi][j]-xyz[mi][o];axis/=np.linalg.norm(axis);v=xyz[mi][at]-xyz[mi][o];xyz[mi][at]=xyz[mi][o]+2*(v@axis)[:,None]*axis-v
+ for mi,(m,a) in enumerate(zip(mols,xyz)):
+  m.X,m.Y,m.Z=basepos[mi]
+  for i,vec in enumerate(a):at=m.GetAtom(i);at.X,at.Y,at.Z=vec
+  # ObjCryst molecular translation refers to the geometric center, not a fixed atom.
+  # Compensate that gauge shift to keep all unrotated atoms fixed in the lattice.
+  ac=m.GetScatteringComponentList()[anchor[mi]];delta=oldf[mi]-np.array([ac.X,ac.Y,ac.Z]);m.X+=delta[0];m.Y+=delta[1];m.Z+=delta[2]
+ p.Prepare();p.FitScaleFactorForRw();rw=p.GetRw();bump,mind,worst=packing();# normalized Rwp-squared plus packing, deliberate chemical selection for weak methyl density
+ score=1000*rw**2+float(os.getenv('BUMP_COEFF','3'))*bump
+ result=dict(mask=mask,Rw=rw,bump=bump,min_contact=mind,worst=worst,score=score);results.append(result)
+ if score<best:
+  best=score;print('BEST',result,'sec',time.time()-t0,flush=True);export_cif(c,W+'/search_'+tag+'/best.cif');xml_cryst_file_save_global(W+'/search_'+tag+'/best.xml');json.dump(result,open(W+'/search_'+tag+'/best.json','w'),indent=1)
+results.sort(key=lambda v:v['score']);json.dump(results,open(W+'/methoxy_'+tag+'.json','w'),indent=1)
+print('DONE',time.time()-t0,results[:5],flush=True)
+ROTATIONS
+import os,sys,json,itertools,numpy as np,gemmi,time
+from rdkit import Chem
+from pyobjcryst.io import xml_cryst_file_load_all_object,xml_cryst_file_save_global
+from obj_model import export_cif
+sid=sys.argv[1];src=sys.argv[2];modelp=sys.argv[3];tag=sys.argv[4] if len(sys.argv)>4 else 'methoxy';W='/app/work/'+sid
+obs=xml_cryst_file_load_all_object(src);c=next(o for o in obs if o.GetClassName()=='Crystal');p=next(o for o in obs if o.GetClassName()=='PowderPattern');d=next(p.GetPowderPatternComponent(i) for i in range(p.GetNbPowderPatternComponent()) if p.GetPowderPatternComponent(i).GetClassName()=='PowderPatternDiffraction');d.SetExtractionMode(False);md=json.load(open(modelp));mols=[c.GetScatterer(i) for i in range(c.GetNbScatterer())];orig=[];moves=[];els=[];exclude=[];offs=[0]
+for mi,(m,z) in enumerate(zip(mols,md)):
+ r=Chem.MolFromSmiles(z['smiles']);N=r.GetNumAtoms();a=np.array([[m.GetAtom(i).X,m.GetAtom(i).Y,m.GetAtom(i).Z] for i in range(m.GetNbAtoms())]);orig.append(a);rh=Chem.AddHs(r)
+ dm=Chem.GetDistanceMatrix(r);exclude.append(dm<=3);els.extend([a.GetSymbol() for a in r.GetAtoms()]);offs.append(offs[-1]+N)
+ if 'TORSION_BONDS' in os.environ:
+  ts=[list(map(int,q.split(':'))) for q in os.environ['TORSION_BONDS'].split(',')]
+  names={m.GetAtom(i).GetName():i for i in range(m.GetNbAtoms())};adj={i:set() for i in range(m.GetNbAtoms())}
+  for bo in m.GetBondList():
+   ai=names[bo.GetAtom1().GetName()];aj=names[bo.GetAtom2().GetName()];adj[ai].add(aj);adj[aj].add(ai)
+  for mj,beg,end in ts:
+   if mj!=mi:continue
+   seen={end};todo=[end]
+   while todo:
+    aa=todo.pop()
+    for bb in adj[aa]:
+     if (aa==beg and bb==end) or (aa==end and bb==beg) or bb in seen:continue
+     seen.add(bb);todo.append(bb)
+   if beg in seen:raise ValueError('Bond belongs to a ring')
+   moves.append((mi,end,beg,end,sorted(seen)))
+ else:
+  for i,o,j in r.GetSubstructMatches(Chem.MolFromSmarts('[CH3]-[O;X2]-[c,C]')):
+   attached=[i];iname=m.GetAtom(i).GetName()
+   for bo in m.GetBondList():
+    aa,bb=bo.GetAtom1(),bo.GetAtom2()
+    if bb.GetName()==iname:aa,bb=bb,aa
+    if aa.GetName()==iname and bb.GetScatteringPower().GetSymbol()=='H':attached.append(next(ii for ii in range(m.GetNbAtoms()) if m.GetAtom(ii).GetName()==bb.GetName()))
+   moves.append((mi,i,o,j,attached))
+print('MOVES',moves,flush=True)
+basepos=[np.array([m.X,m.Y,m.Z]) for m in mols]
+anchor=[];oldf=[]
+for mi,m in enumerate(mols):
+ moved=set(k for mov in moves if mov[0]==mi for k in mov[4]);ii=next(i for i in range(m.GetNbAtoms()) if i not in moved);anchor.append(ii);a=m.GetScatteringComponentList()[ii];oldf.append(np.array([a.X,a.Y,a.Z]))
+N=len(els);ex=np.eye(N,dtype=bool)
+for i,e in enumerate(exclude):ex[offs[i]:offs[i+1],offs[i]:offs[i+1]]=e
+cp=[c.GetPar(x).GetHumanValue() for x in ['a','b','c','alpha','beta','gamma']];from pymatgen.core import Lattice
+L=Lattice.from_parameters(*cp);sg=gemmi.find_spacegroup_by_name(c.GetSpaceGroup().GetName());ops=list(sg.operations());rot=np.array([np.array(o.rot)/o.DEN for o in ops]);trans=np.array([np.array(o.tran)/o.DEN for o in ops]);radii={'C':1.48,'O':1.28,'N':1.35,'Cl':1.58,'Br':1.67};ra=np.array([radii.get(x,1.5) for x in els]);lim=ra[:,None]+ra[None,:]
+def packing():
+ fc=np.array([[a.X,a.Y,a.Z] for a in c.GetScatteringComponentList() if a.mpScattPow.GetSymbol()!='H']);bump=0;mind=10;worst=None
+ for oi,(R,T) in enumerate(zip(rot,trans)):
+  delta=fc[:,None,:]-(fc@R.T+T)[None,:,:];delta-=np.round(delta);dist=np.linalg.norm(delta@L.matrix,axis=-1);use=np.ones((N,N),bool)
+  if np.allclose(R,np.eye(3)) and np.allclose(T%1,0):use=~ex;use&=np.triu(np.ones_like(use),1)
+  pen=np.maximum(lim-dist,0)**2;pen[~use]=0;bump+=pen.sum()*(1 if oi==0 else .5)
+  co=dist.copy();co[~use]=100;ix=np.unravel_index(co.argmin(),co.shape)
+  if co[ix]<mind:mind=co[ix];worst=[int(ix[0]),int(ix[1]),int(oi),els[ix[0]],els[ix[1]]]
+ return bump,mind,worst
+p.Prepare();p.FitScaleFactorForRw();print('BASE',p.GetRw(),packing(),flush=True);results=[];best=1e100;t0=time.time();os.makedirs(W+'/search_'+tag,exist_ok=True)
+json.dump(md,open(W+'/search_'+tag+'/model.json','w'),indent=1)
+for mask in itertools.product([0,1],repeat=len(moves)):
+ xyz=[a.copy() for a in orig]
+ for bit,(mi,i,o,j,at) in zip(mask,moves):
+  if not bit:continue
+  axis=xyz[mi][j]-xyz[mi][o];axis/=np.linalg.norm(axis);v=xyz[mi][at]-xyz[mi][o];xyz[mi][at]=xyz[mi][o]+2*(v@axis)[:,None]*axis-v
+ for mi,(m,a) in enumerate(zip(mols,xyz)):
+  m.X,m.Y,m.Z=basepos[mi]
+  for i,vec in enumerate(a):at=m.GetAtom(i);at.X,at.Y,at.Z=vec
+  # ObjCryst molecular translation refers to the geometric center, not a fixed atom.
+  # Compensate that gauge shift to keep all unrotated atoms fixed in the lattice.
+  ac=m.GetScatteringComponentList()[anchor[mi]];delta=oldf[mi]-np.array([ac.X,ac.Y,ac.Z]);m.X+=delta[0];m.Y+=delta[1];m.Z+=delta[2]
+ p.Prepare();p.FitScaleFactorForRw();rw=p.GetRw();bump,mind,worst=packing();# normalized Rwp-squared plus packing, deliberate chemical selection for weak methyl density
+ score=1000*rw**2+float(os.getenv('BUMP_COEFF','3'))*bump
+ result=dict(mask=mask,Rw=rw,bump=bump,min_contact=mind,worst=worst,score=score);results.append(result)
+ if os.environ.get('SAVE_ALL','0')=='1':
+  sub=W+'/search_'+tag+'m'+''.join(str(k) for k in mask);os.makedirs(sub,exist_ok=True);json.dump(md,open(sub+'/model.json','w'),indent=1);export_cif(c,sub+'/best.cif');xml_cryst_file_save_global(sub+'/best.xml');json.dump(result,open(sub+'/best.json','w'),indent=1)
+ if score<best:
+  best=score;print('BEST',result,'sec',time.time()-t0,flush=True);export_cif(c,W+'/search_'+tag+'/best.cif');xml_cryst_file_save_global(W+'/search_'+tag+'/best.xml');json.dump(result,open(W+'/search_'+tag+'/best.json','w'),indent=1)
+results.sort(key=lambda v:v['score']);json.dump(results,open(W+'/methoxy_'+tag+'.json','w'),indent=1)
+print('DONE',time.time()-t0,results[:5],flush=True)
+PACKING_STAGE 1 5.455530625966903
+CYCLE 2 0 Rw 0.10040027639026393 chi2 4144.150416095213 geom 75.15128025842695 LSQ 4466.565693063954
+CYCLE 2 1 Rw 0.10013328696149759 chi2 4122.139058437554 geom 75.71902222719362 LSQ 4446.119082056525
+CYCLE 2 2 Rw 0.10001062003211315 chi2 4112.045703146905 geom 76.18698651250887 LSQ 4436.945593622848
+PACKING_STAGE 2 3.5924455946141864
+CYCLE 3 0 Rw 0.09694173063482875 chi2 3863.556170796402 geom 60.85430425402188 LSQ 4141.24836055335
+CYCLE 3 1 Rw 0.09568235959412763 chi2 3763.825211509102 geom 53.88333047813107 LSQ 4031.783276404087
+set -e
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 HBOND_DIRECTIONAL=1 HBOND_ANGLE_WEIGHT=4 ACCEPTOR_NO_MIN=2.80
+while [[ -r /proc/54759/status ]] && ! grep -q '^State:.*Z' /proc/54759/status;do sleep 5;done
+id=Xeb393f9
+GALLOP_STOL=.30 python /app/work/warm_gallop.py $id 89 /app/work/$id/refined_chem51.xml /app/work/$id/search_chem51/model.json > /app/work/$id/warm89.log 2>&1
+BUMP_COEFF=90 HBOND_COEFF=30 PARTICLES=128 ITERATIONS=400 FREE_SCHEDULE='1;0;1;0' python /app/work/search_conditional.py $id 89 90 > /app/work/$id/conditional90.log 2>&1
+python /app/work/import_gallop.py $id 90 > /app/work/$id/import_g90.log 2>&1
+python /app/work/refine_obj.py $id g90 /app/work/$id/search_g90/best.xml --scale --tight --stol=.4 > /app/work/$id/refine_g90.log 2>&1
+python /app/work/submit.py $id /app/work/$id/refined_g90.cif --check > /app/work/$id/check_g90.log 2>&1
+python /app/work/check_stereo.py $id /app/work/$id/refined_g90.cif >> /app/work/$id/check_g90.log 2>&1
+{
+ "X238783d:25": {
+  "START_REFL": 100,
+  "RAMP_REF_EVERY": 4,
+  "RAMP_REF_STEP": 50,
+  "ENABLE_PACKING": 1,
+  "HBOND_COEFF": 4,
+  "BASE_XML": "/app/work/X238783d/gallop_25/base.xml"
+ },
+ "Xbfeeda9:11": {
+  "START_REFL": 100,
+  "RAMP_REF_EVERY": 5,
+  "RAMP_REF_STEP": 50,
+  "ENABLE_PACKING": 1,
+  "HBOND_COEFF": 10
+ },
+ "X019b9a4:11": {
+  "START_REFL": 100,
+  "RAMP_REF_EVERY": 5,
+  "RAMP_REF_STEP": 50,
+  "ENABLE_PACKING": 1,
+  "HBOND_COEFF": 10,
+  "MODEL_JSON": "/app/work/X019b9a4/isomer0.json"
+ },
+ "Xeb393f9:51": {
+  "HBOND_COEFF": 25
+ },
+ "X8a06d7a:11": {
+  "BASE_XML": "/app/work/X8a06d7a/gallop_11/base.xml",
+  "HBOND_COEFF": 15,
+  "START_REFL": 100,
+  "RAMP_REF_EVERY": 4,
+  "RAMP_REF_STEP": 40,
+  "ENABLE_PACKING": 1
+ },
+ "X14a2b08:11": {
+  "HBOND_COEFF": 12,
+  "ENABLE_PACKING": 1
+ },
+ "X1db5091:11": {
+  "HBOND_COEFF": 12,
+  "ENABLE_PACKING": 1
+ },
+ "X7e382cb:40": {
+  "HBOND_MULTIPLE": 1
+ },
+ "X35b7fbc:11": {
+  "ENABLE_PACKING": 1,
+  "HBOND_COEFF": 10
+ },
+ "Xe1fb77b:11": {
+  "ENABLE_PACKING": 1,
+  "HBOND_COEFF": 10
+ },
+ "X019b9a4:12": {
+  "MODEL_JSON": "/app/work/X019b9a4/isomer1.json",
+  "ENABLE_PACKING": 1,
+  "HBOND_COEFF": 10,
+  "START_REFL": 100,
+  "RAMP_REF_EVERY": 3,
+  "RAMP_REF_STEP": 60
+ },
+ "X1a56c78:18": {
+  "HBOND_COEFF": 15,
+  "START_REFL": 90,
+  "RAMP_REF_EVERY": 4,
+  "RAMP_REF_STEP": 40
+ },
+ "X238783d:20": {
+  "ENABLE_PACKING": 1,
+  "HBOND_COEFF": 4
+ },
+ "Xd8634a2:31": {
+  "HBOND_COEFF": 8
+ },
+ "Xb7088cf:31": {
+  "HBOND_COEFF": 8
+ }
+}

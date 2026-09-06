@@ -1,0 +1,157 @@
+def minimise(Structure, external=None, internal=None, n_samples=10000,
+    b_bounds_1_cycle=None, check_min=1, optimizer="Adam", verbose=False,
+    Main minimiser function used by GALLOP. Take a set of input external and
+    intensities and inverse covariance matrix, and optimise the chi-squared
+    swarm optimisation step which is used to generate the starting positions
+        external (Numpy array, optional):   The external degrees of freedom for
+        n_samples (int, optional):  If the external/internal DoFs are None,
+            local-optimisation algorithm. Defaults to 500.
+            The number of iterations at the end of a local optimisation run with
+            during the optimisation process.
+                                lr = learning_rate * 1/np.sqrt((iteration)+1.)
+        optimizer (str or torch-compatible optimizer): Either a string or a
+            torch-compatible optimizer. The only strings currently used are
+            optimizers. Defaults to 1e-8.
+            external DoF with respect to the chi_2 / loss values after every
+            after optimising. Defaults to True.
+            to the intensities during optimization. Defaults to False.
+        dictionary: A dictionary containing the optimised external and internal
+    # Load the tensors and other parameters needed
+                                Structure, external=external, internal=internal,
+                            n_reflections, tensors["zm"]["external"].shape[0],
+    # Initialize the optimizer
+    if isinstance(optimizer, str):
+            init_lr = learning_rate[0]
+            init_lr = learning_rate
+        if optimizer.lower() == "adam":
+                optimizer = torch.optim.Adam([tensors["zm"]["external"],
+                                        lr=init_lr, betas=betas, eps=eps)
+                optimizer = torch.optim.Adam([tensors["zm"]["external"],
+                                        lr=init_lr, betas=betas, eps=eps)
+        elif optimizer.lower() == "yogi":
+            optimizer = t_optim.Yogi([tensors["zm"]["external"],
+                                        lr=init_lr, betas=betas, eps=eps)
+        elif optimizer.lower() == "diffgrad":
+            optimizer = t_optim.DiffGrad([tensors["zm"]["external"],
+                                        lr=init_lr, betas=betas, eps=eps)
+            print("Only supported optimizers are \"Adam\", \"DiffGrad\" or",
+        # Ensure that the optimizer is a torch compatible optimizer that
+        if not hasattr(optimizer, "param_groups"):
+            optimizer.param_groups[0]["params"] = [tensors["zm"]["external"],
+            for param_group in optimizer.param_groups:
+                    param_group['lr'] = learning_rate[0]
+                    param_group['lr'] = learning_rate
+        optimizer.add_param_group({"params" : [factor]})
+    # Now perform the optimisation iterations
+        optimizer.zero_grad()
+        lr = update_learning_rate(i,optimizer,learning_rate,learning_rate_schedule,
+        # chi_2 value for each set of external/internal DoFs.
+                        "GALLOP iter {:04d} | LO iter {:04d} | lr {:.3f} ||",
+                            run+1, i, lr,
+                        "GALLOP iter {:04d} | LO iter {:04d} | lr {:.3f} ||",
+                            run+1, i, lr,
+                    [tensors["zm"]["external"].detach().cpu().numpy(),
+                [tensors["zm"]["external"].grad.detach().cpu().numpy(),
+            optimizer.step()
+            "external"     : tensors["zm"]["external"].detach().cpu().numpy(),
+            external=result["external"][best][0].reshape(1,-1),
+            external=result["external"][best].reshape(1,-1),
+set -e
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+for pid in 16742 45980;do
+ while [[ -r /proc/$pid/status ]] && ! grep -q '^State:.*Z' /proc/$pid/status;do sleep 5;done
+done
+for id in X263b09a X14a2b08 X1db5091;do
+ old=$(python - "$id" <<'PY'
+import json,sys,os,subprocess
+W='/app/work/'+sys.argv[1];ans=[]
+for run in ['g11','g70','g72','1']:
+ if not os.path.exists(W+'/refined_'+run+'.json'):continue
+ r=subprocess.run([sys.executable,'/app/work/submit.py',sys.argv[1],W+'/refined_'+run+'.cif','--check'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+ if r.returncode==0:ans.append((json.load(open(W+'/refined_'+run+'.json'))['Rw'],run))
+print(min(ans)[1])
+PY
+ )
+ python /app/work/split_synthon.py "$id" "$old" split50 > /app/work/$id/split50.log 2>&1
+ GALLOP_STOL=.28 python /app/work/warm_gallop.py $id 50 /app/work/$id/search_split50/best.xml /app/work/$id/search_split50/model.json > /app/work/$id/warm50.log 2>&1
+ SEARCH_TIME=1500 PARTICLES=128 ITERATIONS=400 BUMP_COEFF=70 HBOND_COEFF=15 MACRO_ELITE_FRAC=.35 START_NPZ=/app/work/$id/gallop_50/warm.npz START_JITTER=.08 START_TOR_JITTER=.35 python /app/work/search_gallop.py $id 50 1 --hscatter --packing > /app/work/$id/gallop50.log 2>&1
+ python /app/work/import_gallop.py $id 50 > /app/work/$id/import_g50.log 2>&1
+ python /app/work/refine_obj.py $id g50 /app/work/$id/search_g50/best.xml --scale --tight --stol=.4 > /app/work/$id/refine_g50.log 2>&1
+ python /app/work/submit.py $id /app/work/$id/refined_g50.cif --check > /app/work/$id/check_g50.log 2>&1
+done
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/15174/status ]] && ! grep -q '^State:.*Z' /proc/15174/status; do sleep 5; done
+for id in Xbfeeda9 X35b7fbc Xe1fb77b X019b9a4; do
+ model=; secs=2300; [[ $id == X35b7fbc ]] && model=--model=/app/work/X35b7fbc/cis.json
+ SEARCH_TIME=$secs PARTICLES=160 ITERATIONS=450 GALLOP_STOL=.24 CONF_RANK=0 python /app/work/search_gallop.py $id 11 1 --prepare --hscatter $model > /app/work/$id/gallop11.log 2>&1
+ python /app/work/import_gallop.py $id 11 > /app/work/$id/import_g11.log 2>&1
+ python /app/work/refine_obj.py $id g11 /app/work/$id/search_g11/best.xml --scale --tight > /app/work/$id/refine_g11.log 2>&1
+done
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/17408/status ]] && ! grep -q '^State:.*Z' /proc/17408/status; do sleep 5;done
+# Independently test the two-screw orthorhombic group: 100 observed; 010 and 003 absent for X1a.
+python - <<'PY'
+import json
+W='/app/work/X1a56c78';j=json.load(open(W+'/fit_1.json'));j['sg']='P 2 21 21';json.dump([j],open(W+'/candidates_sg18.json','w'))
+PY
+SG_SCAN=0 CANDIDATE_FILE=/app/work/X1a56c78/candidates_sg18.json CANDIDATE_INDEX=0 python /app/work/fit_candidate.py X1a56c78 sg18 .30 > /app/work/X1a56c78/fit_sg18.log 2>&1
+mkdir -p /app/work/X1a56c78/gallop_18; cp /app/work/X1a56c78/fit_sg18.xml /app/work/X1a56c78/gallop_18/base.xml
+BASE_XML=/app/work/X1a56c78/gallop_18/base.xml SEARCH_TIME=1700 PARTICLES=128 ITERATIONS=400 GALLOP_STOL=.24 CONF_RANK=1 python /app/work/search_gallop.py X1a56c78 18 1 --prepare --hscatter --packing > /app/work/X1a56c78/gallop18.log 2>&1
+python /app/work/import_gallop.py X1a56c78 18 > /app/work/X1a56c78/import_g18.log 2>&1
+python /app/work/refine_obj.py X1a56c78 g18 /app/work/X1a56c78/search_g18/best.xml --scale --tight > /app/work/X1a56c78/refine_g18.log 2>&1
+# Independent centrosymmetric hypothesis for the nearly-monoclinic acemetacin/picolinamide lattice.
+mkdir -p /app/work/X8a06d7a/gallop_12
+python /app/work/extend_low_base.py X8a06d7a /app/work/X8a06d7a/fit_2d1.xml /app/work/X8a06d7a/gallop_12/base.xml > /app/work/X8a06d7a/extend_low12.log 2>&1
+BASE_XML=/app/work/X8a06d7a/gallop_12/base.xml HBOND_COEFF=12 BUMP_COEFF=60 START_REFL=100 SEARCH_TIME=1800 PARTICLES=128 ITERATIONS=400 GALLOP_STOL=.25 CONF_RANK=1 python /app/work/search_gallop.py X8a06d7a 12 1 --prepare --hscatter --packing > /app/work/X8a06d7a/gallop12.log 2>&1
+python /app/work/import_gallop.py X8a06d7a 12 > /app/work/X8a06d7a/import_g12.log 2>&1
+python /app/work/refine_obj.py X8a06d7a g12 /app/work/X8a06d7a/search_g12/best.xml --scale --tight --stol=.38 > /app/work/X8a06d7a/refine_g12.log 2>&1
+for id in Xd8634a2 Xb7088cf; do
+ START_REFL=90 RAMP_REF_EVERY=5 RAMP_REF_STEP=40 SEARCH_TIME=1700 PARTICLES=128 ITERATIONS=400 GALLOP_STOL=.25 CONF_RANK=4 python /app/work/search_gallop.py $id 31 1 --prepare --hscatter --packing > /app/work/$id/gallop31.log 2>&1
+ python /app/work/import_gallop.py $id 31 > /app/work/$id/import_g31.log 2>&1
+ python /app/work/refine_obj.py $id g31 /app/work/$id/search_g31/best.xml --scale --tight > /app/work/$id/refine_g31.log 2>&1
+ done
+PACKING_STAGE 0 284.7968593904171
+CYCLE 1 0 Rw 0.23852518229844022 chi2 6268.43543606113 geom 315.1895245018656 LSQ 6882.450925493542
+CYCLE 1 1 Rw 0.22987858235342712 chi2 5822.207837907561 geom 156.024557015384 LSQ 6301.256152457387
+CYCLE 1 2 Rw 0.221089652850158 chi2 5385.518470515512 geom 338.9503434986957 LSQ 6090.986194041825
+PACKING_STAGE 1 65.51797883450158
+CYCLE 2 0 Rw 0.21873121432621295 chi2 5271.232985721363 geom 259.29527415245985 LSQ 5899.433079312586
+CYCLE 2 1 Rw 0.21434565907048825 chi2 5061.975855930156 geom 308.80113343620775 LSQ 5693.178192038051
+CYCLE 2 2 Rw 0.21213022095485612 chi2 4957.87728165599 geom 332.55615744285603 LSQ 5610.802313325175
+PACKING_STAGE 2 51.89142100048515
+CYCLE 3 0 Rw 0.2091414714295711 chi2 4819.156195130625 geom 346.2553870817405 LSQ 5494.024394206495
+CYCLE 3 1 Rw 0.20745246259671296 chi2 4741.632306873399 geom 346.44520279891 LSQ 5420.297545146132
+CYCLE 3 2 Rw 0.20564318518603483 chi2 4659.285556661178 geom 345.0155383374009 LSQ 5344.5861595563
+PACKING_STAGE 3 60.45259407089504
+FINISHED X35b7fbc 0.20564318518603483
+GALLOP 3 Nref 118 seconds 122.23010754585266 best 103.9558 q25 188.85422 median 300.5452 total 495.5168571472168
+GALLOP 4 Nref 130 seconds 136.0823860168457 best 104.02241 q25 149.81253 median 274.54773 total 631.6889522075653
+GALLOP 5 Nref 138 seconds 137.71503520011902 best 103.81904 q25 145.47304 median 280.43005 total 769.4244382381439
+GALLOP 6 Nref 149 seconds 143.9749071598053 best 103.83424 q25 155.08087 median 292.17044 total 913.5005435943604
+GALLOP 7 Nref 160 seconds 145.7966272830963 best 103.782646 q25 104.53323 median 230.413 total 1059.3147206306458
+GALLOP 8 Nref 162 seconds 142.5106954574585 best 103.780716 q25 112.935135 median 195.46747 total 1201.9257588386536
+GALLOP 9 Nref 162 seconds 166.8775691986084 best 103.78076 q25 103.78099 median 178.53836 total 1368.900403022766
+GALLOP 10 Nref 162 seconds 148.40173077583313 best 103.78071 q25 114.59465 median 289.47998 total 1517.3244724273682
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 258 seconds 251.00764083862305 best 77.014915 q25 189.17148 median 243.7628 total 251.06556057929993
+GALLOP 1 Nref 258 seconds 242.595951795578 best 76.13098 q25 199.50287 median 244.3393 total 493.86426758766174
+GALLOP 2 Nref 258 seconds 234.52613592147827 best 76.100296 q25 196.18318 median 249.236 total 728.5892610549927
+GALLOP 3 Nref 258 seconds 224.08546495437622 best 76.1003 q25 182.12398 median 240.31937 total 952.8568501472473
+PLANES 401 seconds 32.48954892158508
+COMPLETE P 1 21 1 0 0 seconds 50.76359581947327
+COMPLETE P 1 21 1 20 82 seconds 53.26539373397827
+COMPLETE P 1 21 1 40 146 seconds 57.38194680213928
+COMPLETE P 1 21 1 60 221 seconds 63.800522565841675
+COMPLETE P 1 21 1 80 278 seconds 70.81255292892456
+COMPLETE P 1 21 1 100 338 seconds 78.61272144317627
+COMPLETE P 1 21 1 120 397 seconds 86.37987279891968
+COMPLETE P 1 21 1 140 434 seconds 93.06685423851013
+COMPLETE P 1 21 1 160 497 seconds 103.36409401893616
+COMPLETE P 1 21 1 180 560 seconds 116.69526314735413
+COMPLETE P 1 21 1 200 601 seconds 127.51078820228577
+COMPLETE P 1 21 1 220 621 seconds 133.59785628318787
+COMPLETE P 1 21 1 240 634 seconds 137.09414148330688
+COMPLETE P 1 21 1 260 657 seconds 142.70821332931519

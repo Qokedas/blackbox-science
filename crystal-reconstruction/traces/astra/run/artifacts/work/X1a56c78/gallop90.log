@@ -1,0 +1,17 @@
+/opt/conda/lib/python3.11/site-packages/monty/design_patterns.py:76: UserWarning: Full symbol not available, falling back to short Hermann Mauguin symbol P22_12_1 instead
+  orig_init(instance, *args, **kwargs)
+FAST_SYMMETRY P 2 21 21 222gen max_relative_error 8.634906976112688e-07
+ATTACHED_H_SCATTERING 23 heavy atoms 32 H atoms
+PACKING_ENABLED 23 atoms 1751 pair terms coefficient 80.0 active_only True
+HBOND_PRIOR 2 donors 2 acceptors coefficient 15.0 directional True
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1400.67it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 279 seconds 231.5870382785797 best 52.731766 q25 233.13261 median 305.46753 total 231.59774208068848
+GALLOP 1 Nref 279 seconds 180.60932970046997 best 52.73186 q25 221.90385 median 294.89435 total 412.337806224823
+GALLOP 2 Nref 279 seconds 179.12365794181824 best 52.731693 q25 165.45245 median 263.48697 total 591.5342950820923
+GALLOP 3 Nref 279 seconds 171.90822434425354 best 52.731842 q25 119.94336 median 235.84914 total 763.6085646152496
+GALLOP 4 Nref 279 seconds 221.7838397026062 best 52.731815 q25 98.6691 median 207.83133 total 985.4077534675598
+FINISHED X1a56c78 52.731693267822266

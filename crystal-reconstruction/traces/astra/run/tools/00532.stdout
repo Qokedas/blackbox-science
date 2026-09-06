@@ -1,0 +1,113 @@
+import ctypes, numpy as np
+_lib=ctypes.CDLL('/app/work/libobj_bridge.so')
+_lib.bridge_matrix.argtypes=[ctypes.c_void_p,ctypes.c_void_p,ctypes.c_long,ctypes.c_long]
+_lib.bridge_setobs.argtypes=[ctypes.c_void_p,ctypes.c_void_p,ctypes.c_long]
+_lib.bridge_march.argtypes=[ctypes.c_void_p]+[ctypes.c_double]*5
+_lib.bridge_bumpscale.argtypes=[ctypes.c_void_p,ctypes.c_double]
+def profile_matrix(p,d,nref=None):
+ p.Prepare();d.GetPowderPatternCalc()
+ if nref is None:nref=len(d.GetFhklObsSq())
+ a=np.zeros((len(p.GetPowderPatternX()),nref),dtype=np.float64)
+ ret=_lib.bridge_matrix(d.int_ptr(),a.ctypes.data,*a.shape)
+ if ret<0:raise RuntimeError('Profile matrix failed '+str(ret))
+ return a
+def set_obs(d,values):
+ v=np.ascontiguousarray(values,dtype=np.float64);_lib.bridge_setobs(d.int_ptr(),v.ctypes.data,len(v))
+def add_march(d,fraction,coeff,h,k,l):
+ _lib.bridge_march(d.int_ptr(),float(fraction),float(coeff),float(h),float(k),float(l))
+def set_bump_scale(c,scale):
+ _lib.bridge_bumpscale(c.int_ptr(),float(scale))
+
+def exact_pawley(p,d,stolmax=None,rcond=1e-4):
+ # Exact linear design matrix at fixed profile, lattice, and background.
+ # Retain all overlap couplings; truncate only near-null singular directions.
+ d.SetExtractionMode(True,False);p.Prepare();p.FitScaleFactorForRw()
+ mat=profile_matrix(p,d);f0=np.asarray(d.GetFhklObsSq())
+ # A loaded Le Bail cache can still point at calculated rather than extracted
+ # intensities. Verify the actual fixed-profile bridge before using its covariance.
+ for check in range(3):
+  cp=np.asarray(d.GetPowderPatternCalc());ratio=np.linalg.norm(mat[:,:len(f0)]@f0-cp)/max(np.linalg.norm(cp),1e-30)
+  if np.isfinite(ratio) and ratio<.005:break
+  print('PAWLEY_CACHE_REPAIR',check,ratio,p.GetRw(),flush=True)
+  d.ExtractLeBail(10);p.Prepare();p.FitScaleFactorForRw();mat=profile_matrix(p,d);f0=np.asarray(d.GetFhklObsSq())
+ x=np.asarray(p.GetPowderPatternX());weight=np.asarray(p.GetLSQWeight(0));obs=np.asarray(p.GetPowderPatternObs());calc=np.asarray(p.GetPowderPatternCalc());compcalc=np.asarray(d.GetPowderPatternCalc());scale=np.dot(calc-p.GetPowderPatternComponent(1).GetPowderPatternCalc(),compcalc)/np.dot(compcalc,compcalc)
+ background=calc-compcalc*scale
+ n=min(len(weight),len(x));sel=np.arange(len(f0))
+ if stolmax is not None:
+  stol=np.asarray(d.GetSinThetaOverLambda())[:len(f0)];sel=sel[stol<=stolmax]
+  n=min(n,int(np.searchsorted(x,2*np.arcsin(stolmax*p.GetWavelength())+np.deg2rad(p.GetPar('Zero').GetHumanValue()))))
+ a=mat[:n,sel]*scale;target=obs[:n]-background[:n]
+ excluded=np.setdiff1d(np.arange(len(f0)),sel)
+ if len(excluded):target-=mat[:n,excluded]@f0[excluded]*scale
+ sw=np.sqrt(weight[:n]);aw=a*sw[:,None];yw=target*sw
+ # Scale columns for numerical stability. Use Le Bail distribution in null modes.
+ cs=np.linalg.norm(aw,axis=0);cs=np.maximum(cs,np.max(cs)*1e-9);an=aw/cs
+ u,sv,vt=np.linalg.svd(an,full_matrices=False);keep=sv>sv[0]*rcond
+ corr=(vt[keep].T@((u[:,keep].T@(yw-aw@f0[sel]))/sv[keep]))/cs
+ f=f0[sel]+corr
+ # Filter near-null modes also from normal matrix, keeping a PSD covariance.
+ av=(vt[keep]*sv[keep,None])*cs[None,:];normal=av.T@av
+ chi=np.sum((yw-aw@f)**2);var=float(f@normal@f)
+ print('EXACT_PAWLEY','nref',len(sel),'rank',int(keep.sum()),'cond',sv[0]/sv[keep][-1], 'chi2',chi,'netRwp',np.sqrt(chi/max(np.dot(yw,yw),1e-30)),flush=True)
+ return dict(matrix=a,normal=normal,obs=f,sel=sel,x=x[:n],weights=weight[:n],profile=target,chi2=chi,var=var)
+TIGHT_RESTRAINTS
+FLEXIBLE_RINGS
+AROMATIC_PLANARITY 0
+EXTENDED_BACKGROUND 0.062331936262117006
+CYCLE 0 0 Rw 0.060162283903565365 chi2 4075.0404413093156 geom 0.7226962187485786 LSQ 4115.488911830069
+CYCLE 0 1 Rw 0.06015051764836483 chi2 4073.446642870979 geom 0.7226962187485786 LSQ 4113.990817041728
+CYCLE 0 2 Rw 0.060149201196639704 chi2 4073.268342254827 geom 0.7226962187485786 LSQ 4113.65677109059
+-rw-r--r-- 1 root root 146969 Sep  6 06:37 /app/work/X8a6f5a8/index_wide21.json
+-rw-r--r-- 1 root root  92117 Sep  6 06:45 /app/work/X8a6f5a8/index_wide5.json
+wide21
+0 [ 33.3711   5.671   38.4859  90.     108.7879  90.    ] V 6895 cost 0.105 rms/max 0.014364829836273404 0.05638460498348122
+1 [ 33.3789   5.7691  38.7644  90.     108.373   90.    ] V 7084 cost 0.116 rms/max 0.011512502873763234 0.03152539034039853
+2 [34.8483  6.1174 34.1168 90.     92.0309 90.    ] V 7268 cost 0.119 rms/max 0.060050662806769156 0.3241548057879271
+3 [ 33.4277   4.8234  38.8101  90.     108.3939  90.    ] V 5938 cost 0.134 rms/max 0.020435431064115415 0.09034442764859407
+4 [ 33.4324   6.6887  34.8149  90.     107.8629  90.    ] V 7410 cost 0.142 rms/max 0.025006441625936224 0.1215964055486223
+5 [38.7099  5.5324 32.3529 90.     96.285  90.    ] V 6887 cost 0.146 rms/max 0.015171146192857025 0.052671012896968766
+6 [ 38.9719   4.7826  33.5295  90.     108.5113  90.    ] V 5926 cost 0.146 rms/max 0.014734536087898395 0.03858670904512011
+7 [ 32.1023   6.9377  33.7498  90.     107.8431  90.    ] V 7155 cost 0.147 rms/max 0.012354155361072 0.026331360187820067
+8 [ 36.818    4.3342  43.0671  90.     120.7104  90.    ] V 5909 cost 0.149 rms/max 0.026371356240417494 0.12638474713287323
+9 [ 32.8043   8.0994  31.6276  90.     118.1987  90.    ] V 7406 cost 0.151 rms/max 0.024592559528815863 0.11874287066463225
+wide5
+0 [ 33.7615   8.2202  22.9099  90.     112.6662  90.    ] V 5867 cost 0.421 rms/max 0.03453728691194894 0.12271775825041574
+1 [ 33.4019   9.3764  22.8324  90.     112.1253  90.    ] V 6624 cost 0.433 rms/max 0.03482055265532054 0.1365384336521363
+2 [ 33.804    7.4826  22.7557  90.     110.7701  90.    ] V 5382 cost 0.443 rms/max 0.07114557852330826 0.33924753756296655
+3 [ 33.6113   9.3334  22.6085  90.     110.6887  90.    ] V 6635 cost 0.447 rms/max 0.0432077019600812 0.14258958504759925
+4 [ 33.1934   6.7918  21.6657  90.     110.4842  90.    ] V 4576 cost 0.448 rms/max 0.04198752902728488 0.14586434671625292
+5 [ 33.474    9.4845  22.9318  90.     112.6248  90.    ] V 6720 cost 0.477 rms/max 0.02931837843954328 0.08124395723475714
+6 [ 33.832    6.8497  21.4193  90.     111.0745  90.    ] V 4632 cost 0.492 rms/max 0.05432385195806509 0.18474879429377122
+7 [ 33.4733   7.3488  23.1079  90.     112.4955  90.    ] V 5252 cost 0.494 rms/max 0.036382474937968805 0.10684089476451858
+8 [ 33.9591   3.9397  23.8893  90.     113.2715  90.    ] V 2936 cost 0.497 rms/max 0.14177474642191054 0.6721335842944733
+9 [ 33.6714   6.4609  22.9462  90.     112.4893  90.    ] V 4612 cost 0.504 rms/max 0.05972276645585684 0.26223023187259215
+X019b9a4 P -1 [{'smiles': 'CC(=O)C(=NNc1ccc(C(=O)Nc2ccc(C(N)=O)cc2)cc1)C(=O)Nc1ccc2[nH]c(=O)[nH]c2c1', 'count': 1, 'charge': 0}, {'smiles': 'CN1CCCC1=O', 'count': 1, 'charge': 0}, {'smiles': 'C[S+](C)[O-]', 'count': 1, 'charge': 0}]
+X07806d9 P b c a [{'smiles': '[NH3+]CC(=O)CCC(=O)O', 'count': 1, 'charge': 1}, {'smiles': '[Cl-]', 'count': 1, 'charge': -1}]
+X13023e3 P 1 21 1 [{'smiles': 'CC(C)Cc1ccc([C@@H](C)C(=O)O)cc1', 'count': 1, 'charge': 0}, {'smiles': 'NC(=O)c1cccnc1', 'count': 1, 'charge': 0}]
+X14a2b08 P -1 [{'smiles': 'COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1', 'count': 1, 'charge': 0}, {'smiles': 'O=C1CCCCCN1', 'count': 1, 'charge': 0}]
+X1a56c78 P 2 2 21 [{'smiles': 'O[C@](CC[NH+]1CCCCC1)(c1ccccc1)C1CCCCC1', 'count': 1, 'charge': 1}, {'smiles': '[Cl-]', 'count': 1, 'charge': -1}]
+X1db5091 P 1 21/c 1 [{'smiles': 'COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1', 'count': 1, 'charge': 0}, {'smiles': 'NC(=O)c1cccnc1', 'count': 1, 'charge': 0}]
+X2327841 P 1 21 1 [{'smiles': 'CCCCCCCCCCCCCCCCCCCCCC[C@@H](C)CCCCCCCC', 'count': 1, 'charge': 0}]
+X238783d P 21 21 21 [{'smiles': 'CC[C@H]1OC(=O)[C@H](C)[C@@H](O[C@H]2C[C@@](C)(OC)[C@@H](O)[C@H](C)O2)[C@H](C)[C@@H](O[C@@H]2O[C@H](C)C[C@H](N(C)C)[C@H]2O)[C@](C)(OC)C[C@@H](C)C(=O)[C@H](C)[C@@H](O)[C@]1(C)O', 'count': 1, 'charge': 0}]
+X263b09a P -1 [{'smiles': 'COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1', 'count': 1, 'charge': 0}, {'smiles': 'O=C1CCCCN1', 'count': 1, 'charge': 0}]
+X35b7fbc P 21 21 21 [{'smiles': 'CC[C@@H](CO)NC(=O)[C@@H]1C=C2c3cccc4[nH]cc(c34)C[C@H]2[NH+](C)C1', 'count': 1, 'charge': 1}, {'smiles': 'O=C([O-])C=CC(=O)O', 'count': 1, 'charge': -1}]
+X3c176e2 P 21 21 21 [{'smiles': 'OC1C(O)C(O)C(O)C(O)C1O', 'count': 1, 'charge': 0}]
+X3f4781b P 1 21 1 [{'smiles': 'COC(=O)[C@H](c1ccccc1Cl)[NH+]1CCc2sccc2C1', 'count': 1, 'charge': 1}, {'smiles': 'O=S(=O)([O-])O', 'count': 1, 'charge': -1}]
+X4f6fe58 P -1 [{'smiles': 'O=C1CN=C(c2ccccc2Cl)c2cc(Br)ccc2N1', 'count': 1, 'charge': 0}]
+X7e382cb P -1 [{'smiles': 'O=C([O-])c1ccc(-c2ccc(C(=O)[O-])cc2)cc1', 'count': 1, 'charge': -2}, {'smiles': '[NH4+]', 'count': 2, 'charge': 1}]
+X8a06d7a P -1 [{'smiles': 'COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1', 'count': 1, 'charge': 0}, {'smiles': 'NC(=O)c1ccccn1', 'count': 1, 'charge': 0}]
+X8a6f5a8 P 1 21 1 [{'smiles': 'COc1ccccc1OCC[NH2+]C[C@@H](O)COc1cccc2[nH]c3ccccc3c12', 'count': 1, 'charge': 1}, {'smiles': 'O=P([O-])(O)O', 'count': 1, 'charge': -1}, {'smiles': 'CC(C)O', 'count': 1, 'charge': 0}]
+X9af54a2 P 1 21 1 [{'smiles': 'COc1ccc(OC)c([C@H](O)CNC(=O)C[NH3+])c1', 'count': 1, 'charge': 1}, {'smiles': '[Cl-]', 'count': 1, 'charge': -1}]
+Xb7088cf P 21 21 21 [{'smiles': 'Nc1ccccc1NC(=O)c1ccc(CNC(=O)OCc2cccnc2)cc1', 'count': 1, 'charge': 0}]
+Xbfc6d2c P 1 21/a 1 [{'smiles': '[C-]#[N+]c1ccc(-c2ccc([N+]#[C-])c(C)c2)cc1C', 'count': 1, 'charge': 0}]
+Xbfeeda9 P 1 21/a 1 [{'smiles': 'CN(C)C(=O)C(CC[NH+]1CCC(O)(c2ccc(Cl)cc2)CC1)(c1ccccc1)c1ccccc1', 'count': 1, 'charge': 1}, {'smiles': '[Cl-]', 'count': 1, 'charge': -1}]
+Xd4c1a35 P 21 21 21 [{'smiles': 'COC1=CC(=O)C[C@@H](C)[C@]12Oc1c(Cl)c(OC)cc(OC)c1C2=O', 'count': 1, 'charge': 0}]
+Xd8634a2 P -1 [{'smiles': 'CNS(=O)(=O)Nc1nccc(Cc2c(C)c3ccc(Oc4ncccn4)cc3oc2=O)c1F', 'count': 1, 'charge': 0}]
+Xdcc971e P 1 21 1 [{'smiles': 'CCCCCCCCCCCCCCCC[C@@H](C)CCCCCCCCCCCC', 'count': 1, 'charge': 0}]
+Xe1fb77b P 1 21 1 [{'smiles': 'O=C(/C=C/c1ccc(O)c(O)c1)O[C@@H]1C[C@@](OC(=O)/C=C/c2ccc(O)c(O)c2)(C(=O)O)C[C@@H](O)[C@@H]1O', 'count': 1, 'charge': 0}, {'smiles': 'O', 'count': 1, 'charge': 0}]
+Xe3a2935 P 21 21 21 [{'smiles': 'C[C@@H]1CC(=O)NN=C1c1ccc(NN=C(C#N)C#N)cc1', 'count': 1, 'charge': 0}]
+Xeb393f9 P 1 [{'smiles': 'O=C(O)CCC[NH+]1CCC(O[C@@H](c2ccc(Cl)cc2)c2ccccn2)CC1', 'count': 1, 'charge': 1}, {'smiles': 'O=S(=O)([O-])c1ccccc1', 'count': 1, 'charge': -1}]
+Xebbd488 C 1 2 1 [{'smiles': 'COc1ccccc1OCC[NH2+]C[C@H](O)COc1cccc2[nH]c3ccccc3c12', 'count': 2, 'charge': 1}, {'smiles': 'O=P([O-])(O)O', 'count': 2, 'charge': -1}, {'smiles': 'O', 'count': 1, 'charge': 0}]
+Xedd9c7b P 1 21/a 1 [{'smiles': 'C[NH+](C)CCc1c[nH]c2cccc(OP(=O)([O-])O)c12', 'count': 1, 'charge': 0}]
+Xf8ac963 P 21 21 21 [{'smiles': 'COc1ccc(NC(=O)[C@@H]2C[C@H](C)CC[C@H]2C(C)C)cc1', 'count': 1, 'charge': 0}]
+Xfca9f3c P 1 21 1 [{'smiles': 'CCCCCCCCCCCCCCCC[C@@H](C)CCCCCCCC', 'count': 1, 'charge': 0}]

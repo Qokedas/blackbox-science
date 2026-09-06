@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/app/work/ticks.py", line 36, in <module>
+    for t,r in zip(tt[:40],refl[:40]): print(f'{t:8.3f} {r[1]:3d}{r[2]:3d}{r[3]:3d} d={r[0]:.3f}')
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+BrokenPipeError: [Errno 32] Broken pipe

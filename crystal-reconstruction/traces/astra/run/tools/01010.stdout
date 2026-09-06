@@ -1,0 +1,124 @@
+X7 Files
+base_double.log
+candidates.json
+candidates_subother.json
+double_candidates.json
+fit_0.json
+fit_double0.json
+fit_double0.log
+fit_double0.png
+fit_double0.xml
+fit_double0.xye
+half30.log
+half30_best.cif
+half30_best.json
+half30_best.npy
+half30_eval.json
+half30_eval.log
+half30_eval.png
+half30_eval.xml
+half_base
+half_best.cif
+half_best.json
+half_best.npy
+half_solve.log
+index_CUBIC_F_0.json
+index_CUBIC_I_0.json
+index_CUBIC_P_0.json
+index_HEXAGONAL_P_0.json
+index_MONOCLINIC_C_0.json
+index_MONOCLINIC_C_2.json
+index_MONOCLINIC_P_0.json
+index_MONOCLINIC_P_2.json
+index_ORTHOROMBIC_C_0.json
+index_ORTHOROMBIC_C_4_250_1800_z-.02_peaks_raw.json
+index_ORTHOROMBIC_I_0.json
+index_ORTHOROMBIC_P_0.json
+index_ORTHOROMBIC_P_2.json
+index_ORTHOROMBIC_P_4_250_1800_z-.02_peaks_raw.json
+index_RHOMBOEDRAL_P_0.json
+index_TETRAGONAL_I_0.json
+index_TETRAGONAL_P_0.json
+index_TRICLINIC_P_4.json
+index_raw_MONOCLINIC_P_partial.json
+index_raw_TRICLINIC_P_partial.json
+lattice.json
+native_po_g40.json
+peak_select.json
+peak_select_raw.json
+peaks.json
+peaks_raw.json
+pre_scan_double0.xml
+refined_chem32.json
+refined_g22.json
+refined_g31.json
+refined_g32.json
+refined_g40.json
+refined_g41.json
+refined_ionH41.json
+refined_ionH85.json
+tc1
+tc1.log
+tc2
+tc2.log
+QUEUES
+/app/work/queue_tc2_fit8.sh:SEARCH_TIME=950 BUMP_COEFF=150 PARTICLES=192 ITERATIONS=450 BATCHES=50 python /app/work/solve_twocentres.py tc2 > /app/work/X7e382cb/tc2.log 2>&1
+/app/work/queue_small7.sh:HALF_BASE=/app/work/X7e382cb/fit_0.xml HALF_STOL=.30 HALF_TAG=half30 TRIALS=10 SEARCH_TIME=400 python /app/work/solve_half_biphenyl.py > /app/work/X7e382cb/half30.log 2>&1
+{
+ "cell": {
+  "a": 6.950883561252238,
+  "b": 6.9714360090474425,
+  "c": 15.760000618785241,
+  "alpha": 65.620071071758,
+  "beta": 82.98049443060587,
+  "gamma": 67.39068753201737
+ },
+ "space_group": "P -1",
+ "space_group_number": 2
+}data_solution
+_cell_length_a 6.96068870
+_cell_length_b 7.00692534
+_cell_length_c 15.77187852
+_cell_angle_alpha 65.78390108
+_cell_angle_beta 83.07943922
+_cell_angle_gamma 67.33759465
+_space_group_name_H-M_alt 'P 1'
+_space_group_IT_number 1
+loop_
+_space_group_symop_id
+_space_group_symop_operation_xyz
+1 'x,y,z'
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+_atom_site_B_iso_or_equiv
+O1 O 0.96401669 0.42190610 0.87366271 1.0 8.4886
+C2 C 0.90324929 0.25784216 0.90621446 1.0 5.5397
+/app/work/solve_half_biphenyl.py
+/app/work/solve_half_biphenyl_v1.py
+PACKING_ENABLED 20 atoms 519 pair terms coefficient 150.0 active_only True
+HBOND_PRIOR 2 donors 4 acceptors coefficient 20.0 directional False
+  0%|          | 0/5 [00:00<?, ?it/s]100%|██████████| 5/5 [00:00<00:00, 1736.20it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 90 seconds 107.06359839439392 best 167.72588 q25 424.58945 median 635.2606 total 107.07051968574524
+GALLOP 1 Nref 111 seconds 103.60648107528687 best 166.66914 q25 179.45056 median 359.02222 total 210.7929265499115
+GALLOP 2 Nref 132 seconds 103.7869553565979 best 161.03862 q25 166.50514 median 234.17719 total 314.6757068634033
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 470 seconds 219.7923686504364 best 61.217808 q25 63.3435 median 237.255 total 219.8115692138672
+GALLOP 1 Nref 470 seconds 172.01301407814026 best 61.218513 q25 109.60196 median 236.323 total 392.10888957977295
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 90 seconds 154.6047763824463 best 153.79314 q25 251.24031 median 291.34866 total 154.61129426956177
+GALLOP 1 Nref 103 seconds 161.98654651641846 best 153.57498 q25 206.03577 median 248.76505 total 316.7047097682953
+GALLOP 2 Nref 117 seconds 223.86588430404663 best 153.45544 q25 203.20212 median 246.01881 total 540.7862339019775
+GALLOP 3 Nref 136 seconds 140.8122043609619 best 147.80911 q25 172.35698 median 226.99985 total 681.6949200630188
+GALLOP 4 Nref 149 seconds 152.2041335105896 best 147.05147 q25 157.40784 median 213.9906 total 833.9956352710724

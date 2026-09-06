@@ -1,0 +1,508 @@
+15:def get_symmetry_equivalent_points(frac_coords, nsamples_ones, affine_matrices):
+41:def intensities_from_full_cell_contents(frac_all, hkl, intensity_calc_prefix_fs,
+67:def calculate_intensities(asymmetric_frac_coords, hkl, intensity_calc_prefix_fs,
+69:        centrosymmetric, space_group_number):
+98:        space_group_number (integer): The space group number for the current
+107:    if space_group_number == 1:
+115:    elif space_group_number == 2:
+121:    elif space_group_number == 3:
+137:    elif space_group_number == 4:
+156:    elif space_group_number == 5:
+175:    elif space_group_number == 7:
+193:    elif space_group_number == 9:
+213:    elif space_group_number == 11:
+224:    elif space_group_number == 12:
+234:    elif space_group_number == 13:
+244:    elif space_group_number == 14:
+254:    elif space_group_number == 15:
+267:    elif space_group_number == 18:
+290:    elif space_group_number == 19:
+314:    elif space_group_number == 29:
+334:    elif space_group_number == 33:
+354:    elif space_group_number == 60:
+369:    elif space_group_number == 61:
+384:    elif space_group_number == 62:
+399:    elif space_group_number == 88:
+416:    elif space_group_number == 92:
+438:    elif space_group_number == 148:
+483:def apply_MD_PO_correction(calculated_intensities, cosP, sinP, factor, eps=1e-12):
+# coding: utf-8
+# Copyright (c) Mark Spillman.
+# Distributed under the terms of the GPL v3 License.
+"""
+Calculates PXRD intensities given fractional atomic coordinates.
+"""
+
+import torch
+from torch import Tensor
+
+# Not PEP8 compliant in most of the file but it's been formatted to try to be
+# readable
+
+@torch.jit.script
+def get_symmetry_equivalent_points(frac_coords, nsamples_ones, affine_matrices):
+    """
+    This code is a generic way to find all symmetry related positions in the
+    unit cell from the affine-matrices of the space group. There are faster ways
+    to generate intensities for some space groups, but these need to be coded
+    separately. This function works in the generic case.
+
+    Args:
+        frac_coords (Tensor): Fractional coordinates for the asymmetric unit,
+            with shape N_samples, Number of atoms in asymmetric unit, 3
+        nsamples_ones (Tensor): A tensor filled with 1s, of shape:
+            N_samples, Number of atoms in asymmetric unit, 1
+        affine_matrices (Tensor): The affine matrices for the space group
+
+    Returns:
+        Tensor: The coordinates of all atoms in the unit cell. Tensor with shape
+            N_samples, Number of atoms in unit cell, 3
+    """
+
+    wxyz = torch.cat((frac_coords, nsamples_ones), dim=-1)
+    frac_all = torch.einsum("bij,nkj->nbik",wxyz,affine_matrices)[:,:,:,:3]
+    n_samples = frac_coords.shape[0]
+    n_atoms = frac_coords.shape[1]*affine_matrices.shape[0]
+    return frac_all.permute(1,0,2,3).reshape(n_samples,n_atoms,3)
+
+@torch.jit.script
+def intensities_from_full_cell_contents(frac_all, hkl, intensity_calc_prefix_fs,
+    centrosymmetric):
+    # type: (Tensor, Tensor, Tensor, bool) -> Tensor
+    """
+    Fall back generic method for intensity calculation if the space group is not
+    included in calculate_intensities
+
+    Args:
+        frac_all (Tensor): Coordinates of all atoms in the unit cell
+        hkl (Tensor): Miller indices
+        intensity_calc_prefix_fs (Tensor): atomic scattering factors etc
+        centrosymmetric (bool): True if space group is centrosymmetric
+
+    Returns:
+        Tensor: Calculated intensities
+    """
+    pi = 3.141592653589793
+    hxkylz = 2. * pi * torch.einsum("ji,klj->kil", hkl, frac_all)
+    Asqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs,torch.cos(hxkylz)).sum(dim=2)**2
+    if centrosymmetric:
+        return Asqd
+    else:
+        Bsqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs,torch.sin(hxkylz)).sum(dim=2)**2
+        return Asqd + Bsqd
+
+@torch.jit.script
+def calculate_intensities(asymmetric_frac_coords, hkl, intensity_calc_prefix_fs,
+        intensity_calc_prefix_fs_asymmetric, nsamples_ones, affine_matrices,
+        centrosymmetric, space_group_number):
+    # type: (Tensor, Tensor, Tensor, Tensor, Tensor, Tensor, bool, int) -> Tensor
+    """
+    Calculate the intensities for a set of Miller indices and atomic fractional
+    coordinates. For some space groups, an equation taken from the International
+    Tables of Crystallography has been used to allow the structure factors to be
+    determined directly from the contents of the asymmetric unit.
+    If this equation has not been added to the code, then the fall-back method
+    is to generate the equivalent positions within the unit cell, and then
+    determine the structure factors using the general P1 equation (or P-1 if
+    centrosymmetric). Note: equations taken from international tables may not
+    be faster or use less memory than the fallback method - testing is advised!
+
+    Args:
+        asymmetric_frac_coords (Tensor): The fractional coordinates of the atoms
+            in the asymmetric unit
+        hkl (Tensor): The hkl Miller indices of the observed reflections
+        intensity_calc_prefix_fs (Tensor): The atomic scattering factors,
+            occupancies and DW-factors of all atoms in the unit cell.
+            Only used in fallback method, generated with a Structure object.
+        intensity_calc_prefix_fs_asymmetric (Tensor): The atomic scattering
+            factors, occupancies and DW-factors of atoms in the asymmetric unit.
+            Generated with a Structure object.
+        nsamples_ones (Tensor): a tensor of ones, with the
+            shape(nsamples, natoms, 1). Only used in fallback method
+        affine_matrices (Tensor): Tensor of affine matrices obtained from
+            pymatgen. Only used in fallback method
+        centrosymmetric (bool): True if the space group is centrosymmetric
+            else False
+        space_group_number (integer): The space group number for the current
+            crystal
+
+    Returns:
+        intensities: A tensor of shape (n_samples, n_reflections) containing
+                    the calculated intensities for all hkl's.
+    """
+    pi = 3.141592653589793
+    peaks = hkl.shape[1]
+    if space_group_number == 1:
+        # P1
+        hxkylz = 2 * pi * torch.einsum("ji,klj->kil", hkl, asymmetric_frac_coords)
+        Asqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,torch.cos(hxkylz)).sum(dim=2)**2
+        Bsqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,torch.sin(hxkylz)).sum(dim=2)**2
+        # (a + ib) * (a - ib) = a^2 + b^2
+        intensities = Asqd + Bsqd
+
+    elif space_group_number == 2:
+        # P-1
+        hxkylz = 2 * pi * torch.einsum("ji,klj->kil", hkl, asymmetric_frac_coords)
+        A = 2 * torch.cos(hxkylz)
+        intensities = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,A).sum(dim=2)**2
+
+    elif space_group_number == 3:
+        # P2
+        hl = 2 * pi * (torch.einsum("i,jk->jik", hkl[0], asymmetric_frac_coords[:,:,0])
+                        + torch.einsum("i,jk->jik", hkl[2], asymmetric_frac_coords[:,:,2]))
+        ky = 2 * pi * torch.einsum("i,jk->jik", hkl[1], asymmetric_frac_coords[:,:,1])
+
+        chl = torch.cos(hl)
+        cky = torch.cos(ky)
+        sky = torch.sin(ky)
+
+        A = 2 * chl * cky
+        B = 2 * chl * sky
+        Asqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,A).sum(dim=2)**2
+        Bsqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,B).sum(dim=2)**2
+        intensities = Asqd + Bsqd
+
+    elif space_group_number == 4:
+        # P21
+        hl = 2 * pi * (torch.einsum("i,jk->jik", hkl[0], asymmetric_frac_coords[:,:,0])
+                        + torch.einsum("i,jk->jik", hkl[2], asymmetric_frac_coords[:,:,2])
+                        + hkl[1].view(1,peaks,1)/4)
+        ky = 2 * pi * (torch.einsum("i,jk->jik", hkl[1], asymmetric_frac_coords[:,:,1])
+                        - hkl[1].view(1,peaks,1)/4)
+
+        chl = torch.cos(hl)
+        cky = torch.cos(ky)
+        sky = torch.sin(ky)
+
+        A = 2 * chl * cky
+        B = 2 * chl * sky
+
+        Asqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,A).sum(dim=2)**2
+        Bsqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,B).sum(dim=2)**2
+        intensities = Asqd + Bsqd
+
+    elif space_group_number == 5:
+        # C2
+        # This expression is simpler and quicker than the style used
+        # in the other space groups. For reference, it would be:
+        # A = 4 * cos(2pi (h+k/4))*cos(2pi(hx+lz))*cos(2piky)
+        # B = 4 * cos(2pi (h+k/4))*cos(2pi(hx+lz))*sin(2piky)
+        # This would require a minimum of 4 x trig functions to determine
+        # whereas the following only requires 3.
+        chl = torch.cos(2.*pi*(torch.einsum("i,jk->jik", hkl[0], asymmetric_frac_coords[:,:,0])
+                                + torch.einsum("i,jk->jik", hkl[2], asymmetric_frac_coords[:,:,2])))
+        ky = 2 * pi * torch.einsum("i,jk->jik", hkl[1], asymmetric_frac_coords[:,:,1])
+
+        A = 4 * chl * torch.cos(ky)
+        B = 4 * chl * torch.sin(ky)
+
+        Asqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,A).sum(dim=2)**2
+        Bsqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,B).sum(dim=2)**2
+        intensities = Asqd + Bsqd
+
+    elif space_group_number == 7:
+        # Pc
+        hl = 2 * pi * (torch.einsum("i,jk->jik", hkl[0], asymmetric_frac_coords[:,:,0])
+                        + torch.einsum("i,jk->jik", hkl[2], asymmetric_frac_coords[:,:,2])
+                        + hkl[2].view(1,peaks,1)/4)
+        ky = 2 * pi * (torch.einsum("i,jk->jik", hkl[1], asymmetric_frac_coords[:,:,1])
+                        - hkl[2].view(1,peaks,1)/4)
+
+        chl = torch.cos(hl)
+        shl = torch.sin(hl)
+        cky = torch.cos(ky)
+        A = 2 * chl * cky
+        B = 2 * shl * cky
+
+        Asqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,A).sum(dim=2)**2
+        Bsqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,B).sum(dim=2)**2
+        intensities = Asqd + Bsqd
+
+    elif space_group_number == 9:
+        # Cc
+        hl = 2 * pi * (torch.einsum("i,jk->jik", hkl[0], asymmetric_frac_coords[:,:,0])
+                        + torch.einsum("i,jk->jik", hkl[2], asymmetric_frac_coords[:,:,2])
+                        + hkl[2].view(1,peaks,1)/4)
+        ky = 2 * pi * (torch.einsum("i,jk->jik", hkl[1], asymmetric_frac_coords[:,:,1])
+                        - hkl[2].view(1,peaks,1)/4)
+        hk = (2 * pi * (hkl[0] + hkl[1])/4).view(1,peaks,1)
+
+        chl = torch.cos(hl)
+        shl = torch.sin(hl)
+        cky = torch.cos(ky)
+        c_sqd_hk = torch.cos(hk)**2
+        A = 4 * c_sqd_hk * chl * cky
+        B = 4 * c_sqd_hk * shl * cky
+
+        Asqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,A).sum(dim=2)**2
+        Bsqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,B).sum(dim=2)**2
+        intensities = Asqd + Bsqd
+
+    elif space_group_number == 11:
+        # P21/m
+        hl = 2 * pi * (torch.einsum("i,jk->jik", hkl[0], asymmetric_frac_coords[:,:,0])
+                        + torch.einsum("i,jk->jik", hkl[2], asymmetric_frac_coords[:,:,2])
+                        + hkl[1].view(1,peaks,1)/4)
+        ky = 2 * pi * (torch.einsum("i,jk->jik", hkl[1], asymmetric_frac_coords[:,:,1])
+                        - hkl[1].view(1,peaks,1)/4)
+
+        A = 4 * torch.cos(hl) * torch.cos(ky)
+        intensities = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,A).sum(dim=2)**2
+
+    elif space_group_number == 12:
+        # C2/m
+        hl = 2 * pi * (torch.einsum("i,jk->jik", hkl[0], asymmetric_frac_coords[:,:,0])
+                        + torch.einsum("i,jk->jik", hkl[2], asymmetric_frac_coords[:,:,2]))
+        ky = 2 * pi * (torch.einsum("i,jk->jik", hkl[1], asymmetric_frac_coords[:,:,1]))
+        hk = (2 * pi * (hkl[0] + hkl[1])/4).view(1,peaks,1)
+        c_sqd_hk = torch.cos(hk)**2
+        A = 8 * c_sqd_hk * torch.cos(hl) * torch.cos(ky)
+        intensities = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,A).sum(dim=2)**2
+
+    elif space_group_number == 13:
+        # P2/c
+        hl = 2 * pi * (torch.einsum("i,jk->jik", hkl[0], asymmetric_frac_coords[:,:,0])
+                        + torch.einsum("i,jk->jik", hkl[2], asymmetric_frac_coords[:,:,2])
+                        + hkl[2].view(1,peaks,1)/4)
+        ky = 2 * pi * (torch.einsum("i,jk->jik", hkl[1], asymmetric_frac_coords[:,:,1])
+                        - hkl[2].view(1,peaks,1)/4)
+        A = 4 * torch.cos(hl) * torch.cos(ky)
+        intensities = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,A).sum(dim=2)**2
+
+    elif space_group_number == 14:
+        # P21/c
+        hl = 2 * pi * (torch.einsum("i,jk->jik", hkl[0], asymmetric_frac_coords[:,:,0])
+                        + torch.einsum("i,jk->jik", hkl[2], asymmetric_frac_coords[:,:,2])
+                        + (hkl[1] + hkl[2]).view(1,peaks,1)/4)
+        ky = 2 * pi * (torch.einsum("i,jk->jik", hkl[1], asymmetric_frac_coords[:,:,1])
+                        - (hkl[1] + hkl[2]).view(1,peaks,1)/4)
+        A = 4 * torch.cos(hl) * torch.cos(ky)
+        intensities = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,A).sum(dim=2)**2
+
+    elif space_group_number == 15:
+        # C2/c
+        hl = 2 * pi * (torch.einsum("i,jk->jik", hkl[0], asymmetric_frac_coords[:,:,0])
+                        + torch.einsum("i,jk->jik", hkl[2], asymmetric_frac_coords[:,:,2])
+                        + hkl[2].view(1,peaks,1)/4)
+        ky = 2 * pi * (torch.einsum("i,jk->jik", hkl[1], asymmetric_frac_coords[:,:,1])
+                        - hkl[2].view(1,peaks,1)/4)
+# coding: utf-8
+# Copyright (c) Mark Spillman.
+# Distributed under the terms of the GPL v3 License.
+"""
+Provides functions to generate all of the tensors needed for local optimisation
+"""
+
+import torch
+import numpy as np
+
+
+def get_zm_related_tensors(Structure, n_samples, dtype, device):
+    """
+    Get tensors about the ZMs from the numpy arrays in the Structure.
+
+    The external and internal DoF tensors may contain information
+    pertaining to multiple fragments. The information needs to be indexed
+    such that positions, rotations and torsions are assigned consistently
+    and correctly. Example below has 2 fragments, with 6 torsions each.
+    Each fragment therefore requires:
+        3 x position, 4 x quaternions, 6 x torsions
+    The layout of the DoF of the tensors is as follows:
+        external = n_samples*[pos_1_x, pos_1_y, pos_1_z, pos_2_x, pos_2_y,
+                                pos_2_z, rot_1_q1, rot_1_q2, rot_1_q3, rot_1_q4,
+                                rot_2_q1, rot_2_q2, rot_2_q3, rot_2_q4]
+        internal = n_samples*[tor_1_1, tor_1_2, tor_1_3, tor_1_4, tor_1_5,
+                                tor_1_6, tor_2_1, tor_2_2, tor_2_3, tor_2_4,
+                                tor_2_5, tor_2_6]
+    This function makes lists of numpy arrays: position_indices,
+    rotation_indices, torsion_indices that denote what information
+    pertains to each fragment. In the above example:
+        position_indices = [[0,1,2], [3,4,5]]
+        rotation_indices = [[6,7,8,9], [10,11,12,13]]
+        torsion_indices  = [[0,1,2,3,4,5], [6,7,8,9,10,11]]
+
+    Args:
+        Structure (class): GALLOP structure object
+        n_samples (int): Number of simultaneous samples to load
+        dtype (torch dtype): dtype to use for tensors
+        device (torch device): device to move tensors to
+
+    Returns:
+        dict: Dictionary of the tensors. The complete dict of values returned
+        by this function is given below:
+            tensors = {"zmatrices_degrees_of_freedom" : zm_degrees_of_freedom,
+                    "position" : zm_position_indices,
+                    "rotation" : zm_rotation_indices,
+                    "torsion" : zm_torsion_indices,
+                    "initial_D2" : init_D2,
+                    "torsion_refinable_indices" : torsion_refinable_indices,
+                    "bond_connection" : bond_connection,
+                    "angle_connection" : angle_connection,
+                    "torsion_connection" : torsion_connection,
+                    "init_cart_coords" : init_cart_coords,
+                    "nsamples_ones" : nsamples_ones
+                    }
+    """
+    position_indices = []
+    rotation_indices = []
+    torsion_indices = []
+    zm_degrees_of_freedom = []
+    init_D2 = []
+    torsion_refinable_indices = []
+    bond_connection = []
+    angle_connection = []
+    torsion_connection = []
+    init_cart_coords = []
+    n_atoms_asymmetric = 0
+    i = 0
+    # First loop over each of the z-matrices and get information about
+    # connectivity, degrees of freedom etc
+    for i, zm in enumerate(Structure.zmatrices):
+        # First generate the indices needed
+        if i == 0:
+            position_indices.append(np.arange(zm.position_degrees_of_freedom))
+            rotation_indices.append(np.arange(zm.rotation_degrees_of_freedom))
+            torsion_indices.append(np.arange(zm.internal_degrees_of_freedom))
+        else:
+            try:
+                max_pos = np.hstack(position_indices).max()
+            except ValueError:
+                max_pos = -1
+            try:
+                max_rot = np.hstack(rotation_indices).max()
+            except ValueError:
+                max_rot = -1
+            try:
+                max_tor = np.hstack(torsion_indices).max()
+            except ValueError:
+                max_tor = -1
+            position_indices.append(np.arange(zm.position_degrees_of_freedom)
+                                            + max_pos + 1)
+            rotation_indices.append(np.arange(zm.rotation_degrees_of_freedom)
+                                            + max_rot + 1)
+            torsion_indices.append(np.arange(zm.internal_degrees_of_freedom)
+                                            + max_tor + 1)
+        zm_degrees_of_freedom.append(zm.degrees_of_freedom)
+
+        # Now get initial D2 matrix and torsion refinable indices for
+        # internal -> Cartesian conversion
+        # and get initial Cartesian coordinates for rigid bodies. See (S)NeRF
+        # paper and gallop.z_matrix for more details.
+        if Structure.ignore_H_atoms:
+            init_D2_stacked = zm.initial_D2_no_H.reshape(1,
+                        zm.initial_D2_no_H.shape[0],
+                        zm.initial_D2_no_H.shape[1]).repeat(n_samples,axis=0)
+            torsion_refinable_indices.append(torch.from_numpy(
+                zm.torsion_refinable_indices_no_H).type(torch.long).to(device))
+            if zm.degrees_of_freedom == 7:
+                init_cart_coords.append(torch.from_numpy(
+                        zm.initial_cartesian_no_H.reshape(1,
+                        zm.initial_cartesian_no_H.shape[0],
+                        zm.initial_cartesian_no_H.shape[1])
+                        .repeat(n_samples,axis=0)).type(dtype).to(device))
+            else:
+                init_cart_coords.append([])
+        else:
+            init_D2_stacked = zm.initial_D2.reshape(1,
+                                zm.initial_D2.shape[0],
+                                zm.initial_D2.shape[1]).repeat(n_samples,axis=0)
+            torsion_refinable_indices.append(
+                torch.from_numpy(
+                    zm.torsion_refinable_indices).type(torch.long).to(device)
+                )
+            if zm.degrees_of_freedom == 7:
+                init_cart_coords.append(torch.from_numpy(
+                        zm.initial_cartesian.reshape(1,
+                            zm.initial_cartesian.shape[0],
+                            zm.initial_cartesian.shape[1]).repeat(
+                                n_samples,axis=0)).type(dtype).to(device)
+                                )
+            else:
+                init_cart_coords.append([])
+
+        init_D2.append(torch.from_numpy(init_D2_stacked).type(dtype).to(device))
+
+        # Next get the molecular connectivity information
+        if Structure.ignore_H_atoms:
+            bond_connection.append(
+                torch.from_numpy(
+                    zm.bond_connection_no_H).type(torch.long).to(device)
+                )
+            angle_connection.append(
+                torch.from_numpy(
+                    zm.angle_connection_no_H).type(torch.long).to(device)
+                )
+            torsion_connection.append(
+                torch.from_numpy(
+                    zm.torsion_connection_no_H).type(torch.long).to(device)
+                )
+        else:
+            bond_connection.append(
+                torch.from_numpy(zm.bond_connection).type(torch.long).to(device)
+                )
+            angle_connection.append(
+                torch.from_numpy(
+                    zm.angle_connection).type(torch.long).to(device)
+                )
+            torsion_connection.append(
+                torch.from_numpy(
+                    zm.torsion_connection).type(torch.long).to(device)
+                )
+        if Structure.ignore_H_atoms:
+            n_atoms_asymmetric += zm.coords_no_H.shape[0]
+        else:
+            n_atoms_asymmetric += zm.coords.shape[0]
+
+    # Now correct the external DoF indices for rotations
+    # The external input has the following layout:
+    # pos_zm_1, pos_zm_2, ... , pos_zm_n, rot_zm_1, rot_zm_2, ... , rot_zm_n
+    # so the previously generated indices need to be corrected for the total
+    # number of positional indexes that are also included.
+    for r in rotation_indices:
+        try:
+            r+=np.hstack(position_indices).max()+1
+        except ValueError:
+            pass
+
+    # Add this information to the Structure object for easy access
+    Structure.degrees_of_freedom = zm_degrees_of_freedom
+    Structure.position_indices   = position_indices
+    Structure.rotation_indices   = rotation_indices
+    Structure.torsion_indices    = torsion_indices
+
+    # Create the lists of PyTorch tensors needed. Tensors used for indexing must
+    # be of type torch.long
+    zm_position_indices = []
+    zm_rotation_indices = []
+    zm_torsion_indices  = []
+    for p in position_indices:
+        zm_position_indices.append(
+                                torch.from_numpy(p).type(torch.long).to(device))
+    for r in rotation_indices:
+        zm_rotation_indices.append(
+                                torch.from_numpy(r).type(torch.long).to(device))
+    for t in torsion_indices:
+        zm_torsion_indices.append(
+                                torch.from_numpy(t).type(torch.long).to(device))
+
+    # nsamples_ones needed for fall-back Structure factor calculation method.
+    # It is concatenated with the x,y,z fractional coordinates, which then
+    # allows for multiplication with the affine matrices to generate symmetry
+    # equivalent positions.
+    nsamples_ones = torch.ones(n_samples,
+                                n_atoms_asymmetric,
+                                1).type(dtype).to(device)
+
+    tensors = {"zmatrices_degrees_of_freedom" : zm_degrees_of_freedom,
+                "position" : zm_position_indices,
+                "rotation" : zm_rotation_indices,
+                "torsion" : zm_torsion_indices,
+                "initial_D2" : init_D2,
+                "torsion_refinable_indices" : torsion_refinable_indices,
+                "bond_connection" : bond_connection,
+                "angle_connection" : angle_connection,
+                "torsion_connection" : torsion_connection,
+                "init_cart_coords" : init_cart_coords,
+                "nsamples_ones" : nsamples_ones}
+
+    return tensors

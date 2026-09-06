@@ -1,0 +1,429 @@
+==== /app/work/X13023e3/gallop11.log
+GALLOP 39 Nref 122 seconds 23.98229432106018 best 6.529657 q25 12.91105 median 18.955826 total 1300.6022322177887
+GALLOP 40 Nref 122 seconds 32.3074734210968 best 8.48967 q25 15.011224 median 20.243286 total 1332.9162187576294
+GALLOP 41 Nref 122 seconds 36.0042884349823 best 8.425233 q25 14.426317 median 20.489973 total 1368.9252927303314
+GALLOP 42 Nref 122 seconds 36.31671500205994 best 8.002121 q25 14.059729 median 20.562374 total 1405.2466464042664
+GALLOP 43 Nref 122 seconds 29.90425157546997 best 5.6503625 q25 14.330686 median 21.97303 total 1435.1550841331482
+GALLOP 44 Nref 122 seconds 27.36703848838806 best 5.362035 q25 13.821646 median 18.631191 total 1462.5292174816132
+GALLOP 45 Nref 122 seconds 27.161086797714233 best 6.4094086 q25 12.59886 median 18.231525 total 1489.695853471756
+GALLOP 46 Nref 122 seconds 29.69598150253296 best 5.199716 q25 15.129135 median 19.4617 total 1519.3961291313171
+GALLOP 47 Nref 122 seconds 21.894227743148804 best 5.168953 q25 13.059339 median 18.118801 total 1541.2982425689697
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 2537.01it/s]
+GALLOP 48 Nref 122 seconds 19.539982795715332 best 6.004874 q25 16.40909 median 22.950077 total 1560.8454082012177
+GALLOP 49 Nref 122 seconds 19.840237617492676 best 5.709673 q25 15.316243 median 22.88183 total 1580.6916766166687
+==== /app/work/Xeb393f9/search1.log
+List of Crystal ScatteringPowers :4 object registered:
+#  0:ScatteringPowerAtom(O)
+#  1:ScatteringPowerAtom(C)
+#  2:ScatteringPowerAtom(N)
+#  3:ScatteringPowerAtom(Cl)
+Imported powder pattern: 7578 points, 2theta=  4.678 ->  23.621, step= 0.002
+RESCALED_BASE 1.0004644785769743 0.046395222945572724 7577.999999999983
+INITIAL Xeb393f9 1 Rw 0.2688026345500707 LLK 186500.52827408884 Integrated 185153.28212240367 DOF -1
+RUN 0 steps 100000 time 29.4878511428833 total 29.487924814224243 LLK 37728.519233669984 Rw 0.1369213554625328 Integrated 36290.14913488902
+RUN 1 steps 4000000 time 600.0131418704987 total 629.6252927780151 LLK 13985.610211307898 Rw 0.09508150311094965 Integrated 12509.513964364744
+RUN 2 steps 4000000 time 600.08154129982 total 1229.980306148529 LLK 11818.541913903038 Rw 0.08936435543106927 Integrated 10377.17979645274
+RUN 3 steps 4000000 time 600.0220737457275 total 1830.2132830619812 LLK 11737.82607791489 Rw 0.08125147783036163 Integrated 10198.306194797051
+==== /app/work/Xd8634a2/gallop11.log
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 266 seconds 46.58451008796692 best 483.76123 q25 579.0052 median 624.40814 total 46.590912103652954
+/app/work/search_gallop.py:20: RuntimeWarning: overflow encountered in cast
+  if mn>=best:return
+GALLOP 1 Nref 266 seconds 46.6188702583313 best 478.95514 q25 574.38367 median 620.1144 total 93.30033993721008
+GALLOP 2 Nref 266 seconds 31.098251819610596 best 467.40137 q25 559.6513 median 604.5741 total 124.48669242858887
+GALLOP 3 Nref 266 seconds 22.019362688064575 best 467.33008 q25 553.1061 median 599.5089 total 146.53229975700378
+GALLOP 4 Nref 266 seconds 23.722449779510498 best 467.32498 q25 548.2715 median 596.8823 total 170.305242061615
+GALLOP 5 Nref 266 seconds 22.117058038711548 best 467.30304 q25 561.2064 median 602.754 total 192.44866609573364
+GALLOP 6 Nref 266 seconds 22.49726438522339 best 452.1375 q25 565.015 median 612.4128 total 214.99625420570374
+GALLOP 7 Nref 266 seconds 23.095789432525635 best 451.9518 q25 562.0116 median 613.0762 total 238.1174669265747
+GALLOP 8 Nref 266 seconds 30.59404182434082 best 445.24536 q25 578.57855 median 616.4324 total 268.7379357814789
+==== /app/work/Xbfeeda9/search1.log
+List of Crystal ScatteringPowers :4 object registered:
+#  0:ScatteringPowerAtom(C)
+#  1:ScatteringPowerAtom(N)
+#  2:ScatteringPowerAtom(O)
+#  3:ScatteringPowerAtom(Cl)
+ANTIBUMP 5 Scale 10.0 Initial cost 3951.290161268634
+Imported powder pattern: 4041 points, 2theta=  4.850 ->  45.251, step= 0.010
+RESCALED_BASE 2.2519343277139 0.0464910011027389 4040.999999999988
+INITIAL Xbfeeda9 1 Rw 0.4758924869647883 LLK 299928.47530277877 Integrated 294450.45788102126 DOF -1
+RUN 0 steps 100000 time 224.03500199317932 total 224.03508639335632 LLK 115530.38822475183 Rw 0.27262385070481876 Integrated 113045.05589373872
+RUN 1 steps 3000000 time 600.0807440280914 total 824.2978436946869 LLK 62636.11237333063 Rw 0.19897836658259482 Integrated 60423.110774860455
+RUN 2 steps 3000000 time 600.1743259429932 total 1424.5194396972656 LLK 70987.86829466806 Rw 0.24102872709754755 Integrated 68557.93241296662
+==== /app/work/Xedd9c7b/metric_MONOCLINIC.log
+  2.440e-02  1.690e-02 -5.710e-02  8.600e-03 -2.300e-03  5.000e-04
+ -6.910e-02]
+TRIAL 26 sec 121.82589817047119 cost 1.4572104945560578 score 2.796431463329697 vol 507.06101221784843 cell [ 13.5      5.1469   7.9649  90.     113.6192  90.    ] zero -0.03675533731161467 best 1.0990408291467015 diff [ 1.931e-01  2.653e-01 -4.414e-01  7.200e-03 -3.334e-01 -8.266e-01
+  4.900e-02 -2.096e-01 -6.870e-01  7.800e-03  3.000e-03 -3.900e-03
+ -2.680e-02 -6.760e-02  2.500e-03  4.000e-04 -1.700e-03  2.870e-02
+  6.900e-03]
+TRIAL 27 sec 131.514173746109 cost 1.3451947252923664 score 2.9810661498476048 vol 527.3858390290411 cell [ 20.7029   4.4195   7.4787  90.     129.5813  90.    ] zero -0.041683941499097425 best 1.0990408291467015 diff [-0.0678  0.0349 -0.0096 -0.6223  0.4374 -0.0809 -0.0092 -0.267   0.0473
+  0.0482  0.1796  0.0259 -0.0017  0.0033 -0.0074 -0.0026 -0.0071 -0.1698
+  0.3459]
+TRIAL 28 sec 134.9348828792572 cost 1.3451947490251175 score 2.9800710559448302 vol 527.3419694189157 cell [ 18.4402   4.4193   7.4786  90.     120.0866  90.    ] zero -0.04228772084445797 best 1.0990408291467015 diff [-0.0681  0.0345 -0.0098 -0.6228  0.4374 -0.081  -0.0097 -0.2674  0.0474
+  0.0484  0.1798  0.0255 -0.0017  0.003  -0.0073 -0.0026 -0.007  -0.1693
+  0.3464]
+==== /app/work/X8a6f5a8/metric_ORTHOROMBIC.log
+{
+ "ids": [
+  "X019b9a4",
+  "X07806d9",
+  "X13023e3",
+  "X14a2b08",
+  "X1a56c78",
+  "X1db5091",
+  "X2327841",
+  "X238783d",
+  "X263b09a",
+  "X35b7fbc",
+  "X3c176e2",
+  "X3f4781b",
+  "X4f6fe58",
+  "X7e382cb",
+  "X8a06d7a",
+  "X8a6f5a8",
+  "X9af54a2",
+  "Xb7088cf",
+  "Xbfc6d2c",
+  "Xbfeeda9",
+  "Xd4c1a35",
+  "Xd8634a2",
+  "Xdcc971e",
+  "Xe1fb77b",
+  "Xe3a2935",
+  "Xeb393f9",
+  "Xebbd488",
+  "Xedd9c7b",
+  "Xf8ac963",
+  "Xfca9f3c"
+ ],
+ "n": 30,
+ "instances": [
+  {
+   "id": "X019b9a4",
+   "n_points": 1550,
+   "two_theta_range_deg": [
+    3.0,
+    33.98
+   ],
+   "n_components": 3,
+   "heavy_atoms_per_formula_unit": 48
+  },
+  {
+   "id": "X07806d9",
+   "n_points": 29816,
+   "two_theta_range_deg": [
+    0.5008,
+    75.0383
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 10
+  },
+  {
+   "id": "X13023e3",
+   "n_points": 9572,
+   "two_theta_range_deg": [
+    2.015,
+    40.299
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 24
+  },
+  {
+   "id": "X14a2b08",
+   "n_points": 9626,
+   "two_theta_range_deg": [
+    3.0,
+    80.0
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 37
+  },
+  {
+   "id": "X1a56c78",
+   "n_points": 4994,
+   "two_theta_range_deg": [
+    5.0,
+    104.86
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 23
+  },
+  {
+   "id": "X1db5091",
+   "n_points": 7201,
+   "two_theta_range_deg": [
+    3.0,
+    75.0
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 38
+  },
+  {
+   "id": "X2327841",
+   "n_points": 12834,
+   "two_theta_range_deg": [
+    1.5,
+    39.999
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 32
+  },
+  {
+   "id": "X238783d",
+   "n_points": 6701,
+   "two_theta_range_deg": [
+    2.0,
+    69.0
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 52
+  },
+  {
+   "id": "X263b09a",
+   "n_points": 7201,
+   "two_theta_range_deg": [
+    3.0,
+    75.0
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 36
+  },
+  {
+   "id": "X35b7fbc",
+   "n_points": 11591,
+   "two_theta_range_deg": [
+    0.515,
+    29.49
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 33
+  },
+  {
+   "id": "X3c176e2",
+   "n_points": 7800,
+   "two_theta_range_deg": [
+    2.0,
+    79.99
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 12
+  },
+  {
+   "id": "X3f4781b",
+   "n_points": 8601,
+   "two_theta_range_deg": [
+    4.0,
+    90.0
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 26
+  },
+  {
+   "id": "X4f6fe58",
+   "n_points": 7501,
+   "two_theta_range_deg": [
+    5.0,
+    80.0
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 20
+  },
+  {
+   "id": "X7e382cb",
+   "n_points": 5862,
+   "two_theta_range_deg": [
+    1.0125,
+    49.987
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 20
+  },
+  {
+   "id": "X8a06d7a",
+   "n_points": 4531,
+   "two_theta_range_deg": [
+    3.001,
+    80.011
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 38
+  },
+  {
+   "id": "X8a6f5a8",
+   "n_points": 8151,
+   "two_theta_range_deg": [
+    3.5,
+    85.0
+   ],
+   "n_components": 3,
+   "heavy_atoms_per_formula_unit": 39
+  },
+  {
+   "id": "X9af54a2",
+   "n_points": 49486,
+   "two_theta_range_deg": [
+    0.51,
+    49.995
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 19
+  },
+  {
+   "id": "Xb7088cf",
+   "n_points": 5864,
+   "two_theta_range_deg": [
+    1.0067,
+    49.9958
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 28
+  },
+  {
+   "id": "Xbfc6d2c",
+   "n_points": 4250,
+   "two_theta_range_deg": [
+    5.0,
+    89.98
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 18
+  },
+  {
+   "id": "Xbfeeda9",
+   "n_points": 9820,
+   "two_theta_range_deg": [
+    2.0,
+    100.19
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 35
+  },
+  {
+   "id": "Xd4c1a35",
+   "n_points": 5499,
+   "two_theta_range_deg": [
+    5.05,
+    60.04
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 24
+  },
+  {
+   "id": "Xd8634a2",
+   "n_points": 49486,
+   "two_theta_range_deg": [
+    0.51,
+    49.995
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 33
+  },
+  {
+   "id": "Xdcc971e",
+   "n_points": 12667,
+   "two_theta_range_deg": [
+    2.001,
+    39.999
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 30
+  },
+  {
+   "id": "Xe1fb77b",
+   "n_points": 49575,
+   "two_theta_range_deg": [
+    0.5,
+    49.9965
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 38
+  },
+  {
+   "id": "Xe3a2935",
+   "n_points": 49486,
+   "two_theta_range_deg": [
+    0.51,
+    49.995
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 21
+  },
+  {
+   "id": "Xeb393f9",
+   "n_points": 29816,
+   "two_theta_range_deg": [
+    0.5008,
+    75.0383
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 37
+  },
+  {
+   "id": "Xebbd488",
+   "n_points": 7001,
+   "two_theta_range_deg": [
+    5.0,
+    75.0
+   ],
+   "n_components": 3,
+   "heavy_atoms_per_formula_unit": 71
+  },
+  {
+   "id": "Xedd9c7b",
+   "n_points": 2818,
+   "two_theta_range_deg": [
+    3.0066,
+    39.9938
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 19
+  },
+  {
+   "id": "Xf8ac963",
+   "n_points": 49486,
+   "two_theta_range_deg": [
+    0.51,
+    49.995
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 21
+  },
+  {
+   "id": "Xfca9f3c",
+   "n_points": 12834,
+   "two_theta_range_deg": [
+    1.5,
+    39.999
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 26
+  }
+ ]
+}X3f4781b clopidogrel bisulfate: cell volume ~1852 A3 with MW420. Z=4 (density1.5), not Z=2 (density0.75). In P21 MUST use Z'=2: two clopidogrel cations and two bisulfates. The first MC trial had Z'=1 and was necessarily incorrect; do not submit its structure.
+X9af54a2 P21 volume1407 Z=4 Z'=2.
+X3c176e2 P212121 volume1444 Z=8 Z'=2.
+Xd4c1a35 P212121 volume3426 Z=8 Z'=2.
+X4f6fe58 P-1 volume1410 Z=4 Z'=2.
+X3c176e2 inositol isomer0 (RDKit enumeration) with Z'=2 P212121 solved, Rwp0.04247, minO-contact2.532 A, bonds1.413-1.563 A; submitted.
+Xe3a2935 final Rwp0.09778 vs Le Bail0.0869; plausible heavy connectivity, 2.80A mincontacts; submitted.
+Xfca9f3c best cell candidate1/P21 newly submitted JSON after freshbase0.03974.
+X8a06d7a partial TRI log gives M47.37 V1300.7 a5.061,b11.862,c21.748,angles93.96,91.916,92.17; fits in progress for five candidates.
+Antibump test: ObjCryst DOES count intramolecular bonds! New script antibump.py assigns topology-aware minima only with separate atom scattering powers (--fullbump), or solvent/ion selective only (--bump). Scale via c.XMLInput(XMLOutput modified AntiBumpScale). Usual scale10; rescale diffraction errors before search (--rescale) for comparable chemical likelihood.
+IMPORTANT: automatic MonteCarlo LSQ after each run was causing very large geometry likelihood and nonphysical high-cost models in X130/X35. Default MC_LSQ now 0 (never); only enable explicitly if useful. Added --profile for full point-by-point MC when integrated-profile objective is suspicious.
+IMPORTANT: Molecule internal-coordinate translation is a gauge mode. Least squares (especially --rigid starting models) can drift its common XYZ center to 1e9 A; CIF calc remains correct but ObjCryst XML six-significant-digit serialization collapses the molecule! Added recenter_molecules() before CIF/XML saving and each refinement cycle. X3c176e2 refined_10.xml was corrupted this way, but original CIF fine; restored via restore_cif.py and highres fit 0.03704, re-submitted.
+IMPORTANT: c.XMLInput on a crystal already containing Python-owned Molecules can abort with invalid pointer. antibump.py now leaves default AntiBumpScale1, does not use XMLInput. --fullbump sameatom SP distances still work without scaling.
+X35b7fbc likely ergometrine maleate. Default unspecified C=C conformer was TRANS, cannot change under rigid double-bond restraint. Now cis.json/trans.json enumerate. Stopped trans search after ~4M; new cis search scheduled.
+Four original submitted structures replaced by higher-resolution dmin1.316A refinements: Xe3 Rwp.07252, Xf8.08811, Xbfc.03502, X078.12342; all connectivity/contact checks passed.
+Xeb393f9 triclinic cell V~682, M72.29, whole-profile Lebail.0454. Enantiopure one FU has density1.33 with Z1, thus P1 plausible; freshbase/JSON submitted. Candidate reducedcell8.014,9.816,10.233 angles74.871,68.959,65.931.
+X14a2b08 candidate4 is markedly better (Lebail.0838 vs .109 others), freshbase/JSON replaces candidate0. X8a06d7a cell4 tentative (best prior.125 but fresh.146); raw-peak reindex needed.
+
+Continuation: ObjCryst bridge compiled in /app/work/libobj_bridge.so with wrapper obj_bridge.py.
+Exact fixed-profile Pawley matrix now implemented and GALLOP preparation uses exact weighted profile overlaps and SVD extraction (old gallop runs remain old).
+Anti-bump scale safely adjustable via bridge (no XMLInput); current antibump.py respects requested scale, default10.
+Aromatic N-aroyl amide torsion restraints disabled in new model generation (e.g. acemetacin) because truly rotatable.
+Xd4 run1 was killed (bad older base Le Bail .228). Fresh base .09397 saved and run2/full-profile started on new CoreC queue.
+X130 run2 refined to .0875 but cocrystal molecules overlap/connect; not submitted.
+Xfca all-trans run10 refined to .04652; validated two26-heavy molecules; submitted six-th CIF. High-resolution refinement planned.
+X7e reconsidered: candidate V324 ignored clearly crystalline first2.808° peak (and5.635°,11.301° harmonics). Doubling c toV647 permits first001, full-profile .03496 vs .04522 half-cell. Half-anion global solver plateau ~202 normalized cost /Rwp.096, likely half-cell is only pseudosubcell. Replaced mainbase with fit_double0.xml (.32, not inferior fresh doublebase), and JSON with doubledcell. Fullanion+2N Zprime1 P-1 GALLOP21 queued. Half oldbase remains half_base/.
+Refinement fix: ObjCryst rigid-group local translations are not properly accounted in cross-group geometrical restraints during LSQ. Copy-par True/False and manual Begin did not fix; removing ALL rigid groups before final Rietveld does. refine_obj.py default now removes rigid groups; --keep-rigid opts back into old behavior. X130 g12free graph valid, Rwp.08133 vs broken g12t. Rings no longer distort or disconnect from substituents. True restraints now work; further tight physical refinements needed.

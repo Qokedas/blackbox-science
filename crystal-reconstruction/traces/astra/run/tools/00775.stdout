@@ -1,0 +1,241 @@
+X3f4781b clopidogrel bisulfate: cell volume ~1852 A3 with MW420. Z=4 (density1.5), not Z=2 (density0.75). In P21 MUST use Z'=2: two clopidogrel cations and two bisulfates. The first MC trial had Z'=1 and was necessarily incorrect; do not submit its structure.
+X9af54a2 P21 volume1407 Z=4 Z'=2.
+X3c176e2 P212121 volume1444 Z=8 Z'=2.
+Xd4c1a35 P212121 volume3426 Z=8 Z'=2.
+X4f6fe58 P-1 volume1410 Z=4 Z'=2.
+X3c176e2 inositol isomer0 (RDKit enumeration) with Z'=2 P212121 solved, Rwp0.04247, minO-contact2.532 A, bonds1.413-1.563 A; submitted.
+Xe3a2935 final Rwp0.09778 vs Le Bail0.0869; plausible heavy connectivity, 2.80A mincontacts; submitted.
+Xfca9f3c best cell candidate1/P21 newly submitted JSON after freshbase0.03974.
+X8a06d7a partial TRI log gives M47.37 V1300.7 a5.061,b11.862,c21.748,angles93.96,91.916,92.17; fits in progress for five candidates.
+Antibump test: ObjCryst DOES count intramolecular bonds! New script antibump.py assigns topology-aware minima only with separate atom scattering powers (--fullbump), or solvent/ion selective only (--bump). Scale via c.XMLInput(XMLOutput modified AntiBumpScale). Usual scale10; rescale diffraction errors before search (--rescale) for comparable chemical likelihood.
+IMPORTANT: automatic MonteCarlo LSQ after each run was causing very large geometry likelihood and nonphysical high-cost models in X130/X35. Default MC_LSQ now 0 (never); only enable explicitly if useful. Added --profile for full point-by-point MC when integrated-profile objective is suspicious.
+IMPORTANT: Molecule internal-coordinate translation is a gauge mode. Least squares (especially --rigid starting models) can drift its common XYZ center to 1e9 A; CIF calc remains correct but ObjCryst XML six-significant-digit serialization collapses the molecule! Added recenter_molecules() before CIF/XML saving and each refinement cycle. X3c176e2 refined_10.xml was corrupted this way, but original CIF fine; restored via restore_cif.py and highres fit 0.03704, re-submitted.
+IMPORTANT: c.XMLInput on a crystal already containing Python-owned Molecules can abort with invalid pointer. antibump.py now leaves default AntiBumpScale1, does not use XMLInput. --fullbump sameatom SP distances still work without scaling.
+X35b7fbc likely ergometrine maleate. Default unspecified C=C conformer was TRANS, cannot change under rigid double-bond restraint. Now cis.json/trans.json enumerate. Stopped trans search after ~4M; new cis search scheduled.
+Four original submitted structures replaced by higher-resolution dmin1.316A refinements: Xe3 Rwp.07252, Xf8.08811, Xbfc.03502, X078.12342; all connectivity/contact checks passed.
+Xeb393f9 triclinic cell V~682, M72.29, whole-profile Lebail.0454. Enantiopure one FU has density1.33 with Z1, thus P1 plausible; freshbase/JSON submitted. Candidate reducedcell8.014,9.816,10.233 angles74.871,68.959,65.931.
+X14a2b08 candidate4 is markedly better (Lebail.0838 vs .109 others), freshbase/JSON replaces candidate0. X8a06d7a cell4 tentative (best prior.125 but fresh.146); raw-peak reindex needed.
+
+Continuation: ObjCryst bridge compiled in /app/work/libobj_bridge.so with wrapper obj_bridge.py.
+Exact fixed-profile Pawley matrix now implemented and GALLOP preparation uses exact weighted profile overlaps and SVD extraction (old gallop runs remain old).
+Anti-bump scale safely adjustable via bridge (no XMLInput); current antibump.py respects requested scale, default10.
+Aromatic N-aroyl amide torsion restraints disabled in new model generation (e.g. acemetacin) because truly rotatable.
+Xd4 run1 was killed (bad older base Le Bail .228). Fresh base .09397 saved and run2/full-profile started on new CoreC queue.
+X130 run2 refined to .0875 but cocrystal molecules overlap/connect; not submitted.
+Xfca all-trans run10 refined to .04652; validated two26-heavy molecules; submitted six-th CIF. High-resolution refinement planned.
+X7e reconsidered: candidate V324 ignored clearly crystalline first2.808° peak (and5.635°,11.301° harmonics). Doubling c toV647 permits first001, full-profile .03496 vs .04522 half-cell. Half-anion global solver plateau ~202 normalized cost /Rwp.096, likely half-cell is only pseudosubcell. Replaced mainbase with fit_double0.xml (.32, not inferior fresh doublebase), and JSON with doubledcell. Fullanion+2N Zprime1 P-1 GALLOP21 queued. Half oldbase remains half_base/.
+Refinement fix: ObjCryst rigid-group local translations are not properly accounted in cross-group geometrical restraints during LSQ. Copy-par True/False and manual Begin did not fix; removing ALL rigid groups before final Rietveld does. refine_obj.py default now removes rigid groups; --keep-rigid opts back into old behavior. X130 g12free graph valid, Rwp.08133 vs broken g12t. Rings no longer distort or disconnect from substituents. True restraints now work; further tight physical refinements needed.
+New important cache issue: loading some empty Le Bail bases (X4f6, X3f, X14) yielded Rwp .22-.40 despite the saved .03-.10. The exact matrix@Fobs also disagreed (~.995 relative) with the actual component calc. A disposable C atom stabilizes empty-crystal scales, and ExtractLeBail(20) followed by Prepare/FitScale after loading repairs the cache (X3f actual .077 and matrix error1e-4). search_obj --rescale now performs that extraction, gallop_prepare adds disposable C and 20 LB cycles, exact_pawley verifies/repairs matrix bridge. X4 base freshly .032 but old run3 used bad .218; STOP set, GALLOP11 queued ahead of X3f/X9. X3f/X14 bases recreated via create_stable_base but audit is still bad until extraction after load; future searches now patched. New create_stable_base writes named components and strips disposable Atom from XML.
+Xeb393f9 P1 MC/refine1 solved to Rwp.0616327; graph37=27+10 and chiralityS good; minimum contact2.70A. Submitted both CIF+JSON. Now11CIFs.
+Five old submissions replaced by freeh tight/free-ring refinement: X078 .123626, Xbfc .035702, Xe3 .074208, Xf8 .093051, X3c .037. Graph and stereo all validated; RMSD to old submissions only0.015-.054A (max0.118) hence same convergence basins.
+X130 packing GALLOP31 begins promising: chi combined5.67, best graph sizes15,15,9,9, min contact2.42A. Do not confuse invalid g11 with valid g31. Wait/refine before submit.
+New L submissions: Xedd9c7b P21/a a10.37794,b15.45814,c17.16180,beta95.6539,V2740; LeBail .07359, absences a-glide clearly preferred over n/c. Probably Z8 Zprime2; new GALLOP11 Zprime2 queued D5. Found in zero scans originally ranked behind bad GSAS giant cells; targeted mono fits decisive.
+Xebbd488 C2 a26.65439,b12.39193,c16.58989,beta106.5733,V~5250; directed axial enumerator widerV found it, wholefit.07316 freshbase .08327. Correct volume for one listed71-heavy FU perASU (=2cations+2phos+water),C2Z4. Two weaklow lines5.836/7.740 off~.15deg but bulkpatternexcellent.
+X8a6f5a8 remains uncertain; NEW PROVISIONAL JSON P21 a16.86422,b17.99627,c22.60641,beta110.7298 (largeV~6415). Wholefit axis3 .07269. This is doubled b from metric1; needed to explain weakline12.25. Other competingmetric2a17.6056b7.1886c23.1409beta105.36 .09178 but indices12.2496=010 would violateP21! Do not blindly prefer metric2. Newcomplete_mono_axis.py found candidate P21b9.94 .09125 andC2 a33.75,b7.46,c22.61beta110.69 .12, not better. Possible actual triclinic/2Dnet subcell unresolved. All30 now haveJSON,29 fairly credible exceptX8 uncertain.
+Aromatic planarity fixed: obj_model.add_aromatic_planarity constrains every quadruplet across aromatic bond (including first substituent atoms), sigma1°delta1°, deduplicated by names. refine_obj automatically adds/restores these before LSQ. Saturated rings untouched. Backups obj_model_v2.py/refine_obj_v5.py. Planarity X130g41plan rings .0013Å; Xebplan .007/.006/.005Å vs previous .09/.18/.08. Xeb planar model shifts RMS.204,max.473 from old, highres and pyridine180flip tests pending queue_bep_plan parent20084.
+GALLOP packing exact nearest27 lattice images added behind EXACT_BUMP_IMAGES=1; queued X7 D6 patched to use it (skew lattice65/67° makes rounding inaccurate). Other default searches unchanged for speed.
+Current context changes: Xbfc/Xe3/Xf8 submissions replaced by refined_plan.cif with aromatic planarity; graph/stereo validated. Xeb two pyridine180flip models high-resolution .38 refined_pyrm0 Rwp.0610301 and pyrm1 .0610419; neither submitted (old .06163 remains). Both physicalgraphs but there is intramolecular C18-C25 contact~2.47Å. A further GALLOP packing restart from each Rietveld model is queued after X8 wide indexing; parent21574 queue_bep_packing.sh. New warm_gallop.py makes GALLOP geometry matching any Rietveld model with Procrustes quat/translation (tested max1.6e-6Å). Stores independent base.xml in G; prepare respects BASE_XML env; import uses G/base.xml if present. Propagates refined per-element B factors. This makes near-basin global repacking possible. Xeb50 warm prepared but queue will rebuild to include B factors.
+X130G31 best improved2.82335 (from3.54), plateau500sec, STOP set to release D6 to import/refine and start X7. Xd4GALLOP11 improving 39->25->12->11.8 after1285sec; do not interrupt yet. X4 G11 best339 refined.1202, macro31 best386 no improvement, stopped; extra X8 indexing18059 now active.
+X130 new G31 physical synthon solved: no old O...O2.415/C...C2.64; new acidO...pyridineN2.61 and amideN...O2.74. Refinedg31.06291, extendedhighstol.40 -> refined_ghigh.0449854, graph+stereo valid minN...O2.592,C...O2.657. SUBMITTED refined_ghigh.cif replacing oldg12free entirely. Likely genuine convergence. Model source search_ghigh.
+Warm converter now preserves original ideal restraint_coords separately from current search rdkit_coords; import_gallop uses restraint_coords for bond/angle targets. This prevents locking distorted Rietveld bonds during warm global searches. Per-element B retained in warm structure JSON.
+Queue heavy4 parent22050 afterBep21574: Br-only Patterson/partial-structure search350sec for two ASU Br positions (P-1), then128x400 GALLOP40 withHEAVY_POOL initial anchoring1600sec differentCONFRANK4. Neither partial heavyatom model is a deliverable. Queued acm warm parent221xx afterC4: packing restarts of X263, X14, X1db bestprev1500sec each; new queue_acm_warm.sh.
+X7 G31 softpacking chi119.539 has validgraph but N...O2.14 and O...O2.25, unphysical; STOP early at~600sec. New hardpacking G32 BUMP_COEFF200 EXACTimages96x350 warmstartedG31,700sec immediate background (hard7.sh). Default future GALLOP packing coefficient raised from12 to50 because normalised diffractioncost100 can swamp weak chemical penalties. X130 oldrun unaffected. Do not compare combinedchi acrossdifferentBUMP_COEFF values.
+Xd4 GALLOP11 validated graph 8x24, all R/S stereocenters, contacts3.12A. Highresolution .40 refined_ghigh Rwp.0579205, graph+stereo valid min3.133; SUBMITTED high replacing g11/old2freeh. X7hard32 refine_g32 Rwp.0704 but ions collapse badly (N...N1.92A and organic bonded extraN); not submit. tc2 rerun twohalf centers with full exactpacking150 and fresh LeBail queued/start. Added gallop_io.load_structure preserving sg_number0 and actual nonstandardSG; search_gallop uses it, prepare writes sg_symbol. Old structure.from_json raised ValueError for0; fixed future warm restarts in P21/a etc.
+Continuation: X8a06d7a mono lattice fit_force_mono (P21 a11.8385,b5.00407,c21.6943,beta86.0682,Rwp.096) materially better than tentative P-1 model; older fit_2d0 mono .0745. Config now runs upcoming G11 against independent G11/base.xml from fit_force_mono; HBOND15/coarsefine enabled. JSON remainsP-1 pending solution. X7 P1 symmetry release built via expand_p1.py: P1test heavygraph2x18+4N, oldRwp.07383. New B5 queue replaced B4 wait: afterXb708G11 => Xeddwarm50 packing/Hbond20,1700sec; X7P1warm40 packing80,Hbond10,1500sec; X238runs20&25 only1800sec each. All otherqueueparents unchanged. Xeb51 config HBOND25 fixed before start.
+Added gallop_fast_symmetry.py: exactly validated analytic SF for nonstandardP21/a (#14) and P2221 (#17), errors<2e-6 vs fullsym expansion. search_gallop nowenables for futurestarts; existingXedd50/X1a11beganjustbeforepatch. Allfuturefreeacm/Xbfee/X35/Xe1/X019searchconfig nowENABLE_PACKING1 andHBOND10-15. X019hydrazoneE/Ztwoisomersenumeratedas isomer0/1.json (currentG11defaultstillnotselected). Added optionalHBOND_MULTIPLE1 forX7P1G40 torequirethreeacceptorsforNH4 insteadone.
+Added synthon_model.py acid-lactam R2(8) hypothesis forX263 andX14: combinedcomponentSMILESdot, coordsdockO...O/N...O2.78; virtualO...OlinkinZmatrixmakescluster14dofratherthan22, notchemicalbond. gallop_prepare supportsvirtual_bonds metadata. Tested36atoms8torsions maxerror1.5e-8. Newqueue_synthon_acm.sh waits25595index then1400secclusterG70each X263/X14,packing+HB8, coarsefine, refinepacking/stol.35. This is hypothesis alongsidefreefragments, notautomaticstructureevidence.
+XeddG11chi48.346refine.093874 butsevereoverlapsN...O2.05,C...C2.13,graph4x19+2x38: NEVERsubmit. Xb708G11.062213graph4x28butC...O2.14andC...C2.16: NEVERsubmit. Xeddwarm50underwaywithpacking/HB20. Xeb51HBpriorplateau47.502, fullgraphvalid andN+...pyridineN3.21vsunflipped>5A; postrefinechem51queuedwithPACKING_SIGMA.01highstol.40.
+Xeb393f9 chem51 audit: intramolecular C25...C18 now2.92084A vs2.5858old; periodic piperidiniumN6...pyridineN24=3.2748A, valid27+10graph/Sstereo. Rwp.059328/stol.40. SUBMITTED refined_chem51 replacingold1. A5queue launchedparent32867. TriwideX8P1fits0,1,2,5startedparent33127.
+Refinement now defaults to packing unless --no-packing, and packing sigma default.01 ratherthan.03. True structures should satisfy these permissive lowerbounds; prevents LSQ destroying sensible GALLOP models. Backupsrefine_obj_v7,lsq_packing_v1. Existing processesalreadyloadedoldversionunaffected.
+X1a56c78 axial audit atCu1.5418: clear100peak14.9966 (calc14.9995), height6151 shoulderresolved; 010calc7.8557 absent; 0038.816absent. This favors P22121(#18) overP2221(#17), rulesP212121unless100impurity. D7 changedSG19testtoSG18P22121; parentrestarted. Generic222exactfastformula forSG18 added/validated againstfullsym; maxerror<1e-5.
+Futurespeedup: gallop_packing.py active_only exactsupport screening enableddefault; validatescost/gradientall3testsystems relativegradient1e-7. About1.5xfasterinrandom32particlebenchmark; noobjectiveapprox. Backupv3. Warm/import nowpropagatevirtual_bonds, enablingclusterrestarts. Guided_synthon.py buildsacidposepreservinglactamdock; queuedparent34757 aftersynthon31937, X263/X14G71 1400seceach thenhighres .38refine.
+X8a6f5a8 strongasymmetriclowtails: EMGglobalfitall45linesin5-31deg givesRw.02462 (notcrystallographicfit). Newpeaks_emg.json withpositionuncertainties; 23reliablepeaksselectedpeak_select_emg.json. Indexqueueparent34814 triesorthSG19,monoSG4,triwith480secbudgets. OriginalJSONunchangeduntilcomparedwithwholeprofile.
+XeddG50 improvedthroughlastbatches118.75->114.004; rawgraph8x19validbutminC...O2.461A. Tightstrongpackhighrefineg50stol.37Rwp.1155124,geom8.41,packingcost27.76; notsubmitted. FastcontinuationG51queuedparent36093afterEMGindex34814,copyG50and1400secsHB20packing50thenstol.38refine. X263freeG11finalchi84.2789refined.0963988,graph2x29+2x7valid,minC...O2.733; missingconvincingacid-Hbond, notsubmitted. ClusterG70chi258.445refine.1380131clearlyinferior, notsubmitted. GuidedseedtestworksRwp.234, warmmaxgeomerror9e-6A; G71queuevalid.
+Xebchem51periodicN+...Npyr3.2748 hasN-Halignmentdeviation51deg (=bentN-H...N112deg): weakratherthanstrongHbondevidence; unflippednoacceptorcloser4A. Independentchem50strongpackingstol.40controlrunningparent36667 tocomparelikeforlikediffractionmodel. Currentchem51submissionunchanged.
+MDtextureconditionaltestX4G40chi335->309bestMD1.23along101, onlymodest; X9chi190->186MD~.94; preferredorientationunlikelymainfailure, noPOsearchchanges.
+FutureX238runs20/25 nowpacking+HB4; X1a18HB15coarse90; Xd86331/Xb70831HB8.
+L-submission changes at08:04: X1a56c78 nowP22121(#18) based observed100 andabsent010/003/005, plusgroupprior; SG18solutionteststillqueued. X8a06d7a nowmonoclinicP21 withfit_2d0cell11.859878,5.013696,21.734571,beta86.0501: metricnearlymonoclinicandwholefit .0745, unlikeprovisionalP-1. ExistingG11P21searchactive. BotholdJSONpreservedwork/submission_before_sgaudit.json.
+X3f lowwarm queue initiallyfailed: extend_low_base GetLSQWeight empty beforecalc. Fixed byGetOption(0).SetChoice(1),p.GetRw() beforeweight. Newparent38122 set-e, lowrange4.0-55.05 restored, warmerror1.32e-6, HB10; activeG50. BrG40refinedstrongpackingRwp.13229 graph4x20validbutnotstructuralsolution; noHBnetwork. NewconditionalBranchorG41 queuedparent39221 after38122: supports allP-1origins/orbits/permutations ofpartialBrpair withloose.35A tolerance/coeff30; finalRietveldremovesanchor. search_gallop newHEAVY_ANCHORenvhook optionalonly, backup_v7.
+Xebchem50controlvalidatedgraph/stereo; Rwp.059397vschem51.059328, retainchem51submission.
+08:21 continuation: Native MD001 validates PO hypothesis for Xbfeeda9: imported g11 Rwp.2040 ->.1551 fixedr1.32295. Strongpack restrained refinement g11 untextured.14678; independently MD/free coefficient/stol.35 gives g11md Rwp.03834498, packing0, geometry64.91, MD1.34244. Graph4x34+4Cl valid, minO...Cl3.0039/N...Cl3.1067,bond1.2434-1.7145. SUBMITTED refined_g11md.cif + matchingJSON. Now12CIFs. Newadd_fixed_march.py and refine_obj --free-march flag unfix only coefficient (axes/fractionfixed); bridge exactprofilematrix validatedincludesMD. QueuebfeePOparent41254 waitsEdd51 thenwarmG60fixedtexture2000sec +highstol.4 freeMDrefine.
+Lowcutoffaudit with correcthumanXMLangles: Xedd4allowedreflections5.17,7.708,10.29,10.35 omitted priorfirst10.61; X2382allowed5.73/7.38 omittedfirst8.05; X8a06mono0014.08 alsoomitted. Queued Xeddlow52parent41900:afterEdd51restoreentire3degdata/preparewarm52, waitsBfeePO then2000secsearch. X238G25 independentbaseextendedto2degandconfigBASE_XMLpatched. Newrestore_structure_mode.py togglesFalse afterextend_low_base (whichsavesLeBailTrue). AlloriginalsubmissionsunchangedexceptBfee.
+X7P1G40 refined.0586066/graph2x18+4NvalidbutN...N2.6343 andtriplycloseN...O2.52 pileup; notsolved/notsubmitted. Largeunfitshouldernear8.3deg persists.
+08:25: D7waitingparent33679 stopped/replaced D8: sameX1aSG18test, thenNEW X8a06d7aP-1G12 1800sec usingfit_2d1/free2near90anglesandrestoredlow3degdata, thenXd86331/Xb70831. P-1wasneverstructurallytestedbefore. CellP-1fit2d1Rw.06761vsmono2d0.07448; mayreflectfalsepeak-splittingoverfitoractualP-1. JSONP21unchangeduntilstructurecomparison.
+08:27: X8a6f5a8 peakshape breakthrough. EMG independenttailsRw.02462 notasgoodas commonFCJaxialdivergence withsig/gamindividual+oneSHL: Rw.019369,SHL.11143, realistic peakedshapes. Newpeaks_fcj.json/peak_select_fcj.json, mu systematically.02-.08 belowEMG. Built nativeFortran/ctypes libfcj.so fromsuppliedGSASII sources because installedGSASbinaryrequiresunavailableGLIBC2.38. Scriptsfcj_bridge.f90/fcj_global8.py/fcj_refine_cells.py; diagnosticsnotstructures. FCJindexqueuefirstrefinesalloldcandidatecells, then450secmonovol1000-2100 (P21Z2vol~1400previousEMGmonomissed),2100-3800,ortho2000-4100. OriginalprovisionalJSONunchanged.
+08:35: XbfeeG60warmdiffraction13.34 (afteractualnativeRw.038) partlydue B mismatch: covalentClB8.985 vsionicClB2.943, warmoldper-elementmergeusedlastClforall. Added optionalbiso_by_atom metadata throughwarm/prepare/hydrogen_prefix forfuturewarmsearches. ExistingrunningG60notchanged; itsfirstbatchchi10.27. STOPsettofinishaftercurrentbatchthenhighresolutionRietveld. Currentg11mdsubmissionretained.
+====QUEUES
+==== /app/work/queue_bfee_po.sh
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+set -e
+id=Xbfeeda9
+while [[ ! -f /app/work/$id/refined_g11.json ]];do sleep 5;done
+python /app/work/add_fixed_march.py $id g11md /app/work/$id/refined_g11.xml 1.32295 0 0 1 /app/work/$id/search_g11/model.json > /app/work/$id/md_add.log 2>&1
+python /app/work/refine_obj.py $id g11md /app/work/$id/search_g11md/best.xml --scale --tight --free-march --stol=.35 > /app/work/$id/refine_g11md.log 2>&1
+# Avoid an eighth long global search: wait for the psilocybin continuation.
+while [[ -r /proc/36093/status ]] && ! grep -q '^State:.*Z' /proc/36093/status;do sleep 5;done
+GALLOP_STOL=.27 python /app/work/warm_gallop.py $id 60 /app/work/$id/refined_g11md.xml /app/work/$id/search_g11md/model.json > /app/work/$id/warm60.log 2>&1
+SEARCH_TIME=2000 PARTICLES=128 ITERATIONS=400 BUMP_COEFF=60 HBOND_COEFF=12 START_NPZ=/app/work/$id/gallop_60/warm.npz START_JITTER=.08 START_TOR_JITTER=.40 MACRO_ELITE_FRAC=.35 python /app/work/search_gallop.py $id 60 1 --hscatter --packing > /app/work/$id/gallop60.log 2>&1
+python /app/work/import_gallop.py $id 60 > /app/work/$id/import_g60.log 2>&1
+python /app/work/refine_obj.py $id g60 /app/work/$id/search_g60/best.xml --scale --tight --free-march --stol=.4 > /app/work/$id/refine_g60.log 2>&1
+python /app/work/submit.py $id /app/work/$id/refined_g60.cif --check > /app/work/$id/check_g60.log 2>&1
+==== /app/work/queue_edd_low.sh
+set -e
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+id=Xedd9c7b
+while [[ -r /proc/36093/status ]] && ! grep -q '^State:.*Z' /proc/36093/status;do sleep 5;done
+mkdir -p /app/work/$id/search_low51
+cp /app/work/$id/search_g51/model.json /app/work/$id/search_low51/model.json
+python /app/work/extend_low_base.py $id /app/work/$id/refined_g51.xml /app/work/$id/search_low51/best.xml > /app/work/$id/extend_low51.log 2>&1
+python /app/work/restore_structure_mode.py /app/work/$id/search_low51/best.xml >> /app/work/$id/extend_low51.log 2>&1
+GALLOP_STOL=.28 python /app/work/warm_gallop.py $id 52 /app/work/$id/search_low51/best.xml /app/work/$id/search_low51/model.json > /app/work/$id/warm52.log 2>&1
+while [[ -r /proc/41254/status ]] && ! grep -q '^State:.*Z' /proc/41254/status;do sleep 5;done
+SEARCH_TIME=2000 PARTICLES=128 ITERATIONS=450 BUMP_COEFF=60 HBOND_COEFF=15 START_NPZ=/app/work/$id/gallop_52/warm.npz START_JITTER=.10 START_TOR_JITTER=.4 MACRO_ELITE_FRAC=.40 python /app/work/search_gallop.py $id 52 1 --hscatter --packing > /app/work/$id/gallop52.log 2>&1
+python /app/work/import_gallop.py $id 52 > /app/work/$id/import_g52.log 2>&1
+python /app/work/refine_obj.py $id g52 /app/work/$id/search_g52/best.xml --scale --tight --stol=.4 > /app/work/$id/refine_g52.log 2>&1
+python /app/work/submit.py $id /app/work/$id/refined_g52.cif --check > /app/work/$id/check_g52.log 2>&1
+==== /app/work/queue_fcj_index8.sh
+set -e
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+python /app/work/fcj_refine_cells.py > /app/work/X8a6f5a8/fcj_refine_cells.log 2>&1
+export PEAK_FILE=peaks_fcj.json SELECT_FILE=/app/work/X8a6f5a8/peak_select_fcj.json NPEAK=23 NSPUR=1 TTHERR=.015 TRIALS=120 INDEX_TIME=450 VTARGET=1500 AMAX=45 ZEROMAX=.08
+VMIN=1000 VMAX=2100 SG_FILTER='P 1 21 1' INDEX_TAG=fcj4z2 python /app/work/index_metric.py X8a6f5a8 MONOCLINIC P > /app/work/X8a6f5a8/index_fcj4z2.log 2>&1
+VMIN=2100 VMAX=3800 SG_FILTER='P 1 21 1' INDEX_TAG=fcj4z4 python /app/work/index_metric.py X8a6f5a8 MONOCLINIC P > /app/work/X8a6f5a8/index_fcj4z4.log 2>&1
+VMIN=2000 VMAX=4100 SG_FILTER='P 21 21 21' INDEX_TAG=fcj19 python /app/work/index_metric.py X8a6f5a8 ORTHOROMBIC P > /app/work/X8a6f5a8/index_fcj19.log 2>&1
+==== /app/work/queue_gallop_A4.sh
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/15174/status ]] && ! grep -q '^State:.*Z' /proc/15174/status; do sleep 5; done
+for id in Xbfeeda9 X35b7fbc Xe1fb77b X019b9a4; do
+ model=; secs=2300; [[ $id == X35b7fbc ]] && model=--model=/app/work/X35b7fbc/cis.json
+ SEARCH_TIME=$secs PARTICLES=160 ITERATIONS=450 GALLOP_STOL=.24 CONF_RANK=0 python /app/work/search_gallop.py $id 11 1 --prepare --hscatter $model > /app/work/$id/gallop11.log 2>&1
+ python /app/work/import_gallop.py $id 11 > /app/work/$id/import_g11.log 2>&1
+ python /app/work/refine_obj.py $id g11 /app/work/$id/search_g11/best.xml --scale --tight > /app/work/$id/refine_g11.log 2>&1
+done
+==== /app/work/queue_gallop_A5.sh
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/16777/status ]] && ! grep -q '^State:.*Z' /proc/16777/status; do sleep 5;done
+# The two C=N hydrazone configurations are unspecified in the supplied SMILES.
+# G11 uses the first; this is the independent second configuration.
+SEARCH_TIME=1800 PARTICLES=160 ITERATIONS=450 GALLOP_STOL=.24 CONF_RANK=0 python /app/work/search_gallop.py X019b9a4 12 1 --prepare --hscatter > /app/work/X019b9a4/gallop12.log 2>&1
+python /app/work/import_gallop.py X019b9a4 12 > /app/work/X019b9a4/import_g12.log 2>&1
+python /app/work/refine_obj.py X019b9a4 g12 /app/work/X019b9a4/search_g12/best.xml --scale --tight --packing > /app/work/X019b9a4/refine_g12.log 2>&1
+==== /app/work/queue_gallop_B5.sh
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/12401/status ]] && ! grep -q '^State:.*Z' /proc/12401/status; do sleep 5; done
+# Prioritise an improving zwitterion model before two exploratory difficult cases.
+while [[ ! -f /app/work/Xedd9c7b/refined_g11.json ]];do sleep 5;done
+GALLOP_STOL=.29 python /app/work/warm_gallop.py Xedd9c7b 50 /app/work/Xedd9c7b/refined_g11.xml /app/work/Xedd9c7b/search_g11/model.json > /app/work/Xedd9c7b/warm50.log 2>&1
+HBOND_COEFF=20 SEARCH_TIME=1700 PARTICLES=128 ITERATIONS=400 MACRO_ELITE_FRAC=.30 START_NPZ=/app/work/Xedd9c7b/gallop_50/warm.npz START_JITTER=.06 START_TOR_JITTER=.35 python /app/work/search_gallop.py Xedd9c7b 50 1 --hscatter --packing > /app/work/Xedd9c7b/gallop50.log 2>&1
+python /app/work/import_gallop.py Xedd9c7b 50 > /app/work/Xedd9c7b/import_g50.log 2>&1
+python /app/work/refine_obj.py Xedd9c7b g50 /app/work/Xedd9c7b/search_g50/best.xml --scale --tight --packing --stol=.37 > /app/work/Xedd9c7b/refine_g50.log 2>&1
+# Relax the centrosymmetry hypothesis for the biphenyl salt, without changing
+# the submitted space group until there is structural evidence.
+GALLOP_STOL=.27 python /app/work/warm_gallop.py X7e382cb 40 /app/work/X7e382cb/search_p1test/best.xml /app/work/X7e382cb/search_p1test/model.json > /app/work/X7e382cb/warm40.log 2>&1
+EXACT_BUMP_IMAGES=1 BUMP_COEFF=80 HBOND_COEFF=10 SEARCH_TIME=1500 PARTICLES=128 ITERATIONS=400 MACRO_ELITE_FRAC=.30 START_NPZ=/app/work/X7e382cb/gallop_40/warm.npz START_JITTER=.10 START_TOR_JITTER=.45 python /app/work/search_gallop.py X7e382cb 40 1 --hscatter --packing > /app/work/X7e382cb/gallop40.log 2>&1
+python /app/work/import_gallop.py X7e382cb 40 > /app/work/X7e382cb/import_g40.log 2>&1
+python /app/work/refine_obj.py X7e382cb g40 /app/work/X7e382cb/search_g40/best.xml --scale --tight --packing --stol=.38 > /app/work/X7e382cb/refine_g40.log 2>&1
+for r in 0 5; do
+ run=$((20+r))
+ SEARCH_TIME=1800 PARTICLES=128 ITERATIONS=450 GALLOP_STOL=.23 CONF_RANK=$r python /app/work/search_gallop.py X238783d $run 1 --prepare --hscatter > /app/work/X238783d/gallop${run}.log 2>&1
+ python /app/work/import_gallop.py X238783d $run > /app/work/X238783d/import_g${run}.log 2>&1
+ python /app/work/refine_obj.py X238783d g$run /app/work/X238783d/search_g$run/best.xml --scale --tight > /app/work/X238783d/refine_g${run}.log 2>&1
+done
+==== /app/work/queue_gallop_C4.sh
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/7272/status ]] && ! grep -q '^State:.*Z' /proc/7272/status; do sleep 5; done
+for id in X263b09a X14a2b08; do
+ SEARCH_TIME=2400 PARTICLES=160 ITERATIONS=450 GALLOP_STOL=.25 CONF_RANK=0 python /app/work/search_gallop.py $id 11 1 --prepare --hscatter > /app/work/$id/gallop11.log 2>&1
+ python /app/work/import_gallop.py $id 11 > /app/work/$id/import_g11.log 2>&1
+ python /app/work/refine_obj.py $id g11 /app/work/$id/search_g11/best.xml --scale --tight > /app/work/$id/refine_g11.log 2>&1
+done
+MAX_STOL=.32 python /app/work/create_stable_base.py X1db5091 final2 'P 1 21/c 1' --submit > /app/work/X1db5091/basefresh.log 2>&1
+SEARCH_TIME=2800 PARTICLES=160 ITERATIONS=450 GALLOP_STOL=.25 CONF_RANK=0 python /app/work/search_gallop.py X1db5091 11 1 --prepare --hscatter > /app/work/X1db5091/gallop11.log 2>&1
+python /app/work/import_gallop.py X1db5091 11 > /app/work/X1db5091/import_g11.log 2>&1
+python /app/work/refine_obj.py X1db5091 g11 /app/work/X1db5091/search_g11/best.xml --scale --tight > /app/work/X1db5091/refine_g11.log 2>&1
+==== /app/work/queue_acm_warm.sh
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/16742/status ]] && ! grep -q '^State:.*Z' /proc/16742/status; do sleep 5;done
+for id in X263b09a X14a2b08 X1db5091; do
+ old=$(python - "$id" <<'PY'
+import json,sys,os
+W='/app/work/'+sys.argv[1]
+ans=[]
+for run in ['g11','1']:
+ if os.path.exists(W+'/refined_'+run+'.json'):ans.append((json.load(open(W+'/refined_'+run+'.json'))['Rw'],run))
+print(min(ans)[1])
+PY
+)
+ GALLOP_STOL=.27 python /app/work/warm_gallop.py $id 50 /app/work/$id/refined_$old.xml /app/work/$id/search_$old/model.json > /app/work/$id/warm50.log 2>&1
+ SEARCH_TIME=1500 PARTICLES=128 ITERATIONS=400 MACRO_ELITE_FRAC=.30 START_NPZ=/app/work/$id/gallop_50/warm.npz START_JITTER=.05 START_TOR_JITTER=.30 python /app/work/search_gallop.py $id 50 1 --hscatter --packing > /app/work/$id/gallop50.log 2>&1
+ python /app/work/import_gallop.py $id 50 > /app/work/$id/import_g50.log 2>&1
+ python /app/work/refine_obj.py $id g50 /app/work/$id/search_g50/best.xml --scale --tight --stol=.35 > /app/work/$id/refine_g50.log 2>&1
+ done
+==== /app/work/queue_guided_acm.sh
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/31937/status ]] && ! grep -q '^State:.*Z' /proc/31937/status; do sleep 5;done
+for id in X263b09a X14a2b08;do
+ while [[ ! -f /app/work/$id/refined_g11.json ]];do sleep 5;done
+ python /app/work/guided_synthon.py $id g11 synseed > /app/work/$id/guided_synthon.log 2>&1
+ GALLOP_STOL=.27 python /app/work/warm_gallop.py $id 71 /app/work/$id/search_synseed/best.xml /app/work/$id/search_synseed/model.json > /app/work/$id/warm71.log 2>&1
+ SEARCH_TIME=1400 PARTICLES=128 ITERATIONS=450 HBOND_COEFF=8 BUMP_COEFF=60 START_NPZ=/app/work/$id/gallop_71/warm.npz START_JITTER=.08 START_TOR_JITTER=.35 MACRO_ELITE_FRAC=.35 python /app/work/search_gallop.py $id 71 1 --hscatter --packing > /app/work/$id/gallop71.log 2>&1
+ python /app/work/import_gallop.py $id 71 > /app/work/$id/import_g71.log 2>&1
+ python /app/work/refine_obj.py $id g71 /app/work/$id/search_g71/best.xml --scale --tight --stol=.38 > /app/work/$id/refine_g71.log 2>&1
+ python /app/work/submit.py $id /app/work/$id/refined_g71.cif --check > /app/work/$id/check_g71.log 2>&1
+done
+==== /app/work/queue_gallop_D8.sh
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/17408/status ]] && ! grep -q '^State:.*Z' /proc/17408/status; do sleep 5;done
+# Independently test the two-screw orthorhombic group: 100 observed; 010 and 003 absent for X1a.
+python - <<'PY'
+import json
+W='/app/work/X1a56c78';j=json.load(open(W+'/fit_1.json'));j['sg']='P 2 21 21';json.dump([j],open(W+'/candidates_sg18.json','w'))
+PY
+SG_SCAN=0 CANDIDATE_FILE=/app/work/X1a56c78/candidates_sg18.json CANDIDATE_INDEX=0 python /app/work/fit_candidate.py X1a56c78 sg18 .30 > /app/work/X1a56c78/fit_sg18.log 2>&1
+mkdir -p /app/work/X1a56c78/gallop_18; cp /app/work/X1a56c78/fit_sg18.xml /app/work/X1a56c78/gallop_18/base.xml
+BASE_XML=/app/work/X1a56c78/gallop_18/base.xml SEARCH_TIME=1700 PARTICLES=128 ITERATIONS=400 GALLOP_STOL=.24 CONF_RANK=1 python /app/work/search_gallop.py X1a56c78 18 1 --prepare --hscatter --packing > /app/work/X1a56c78/gallop18.log 2>&1
+python /app/work/import_gallop.py X1a56c78 18 > /app/work/X1a56c78/import_g18.log 2>&1
+python /app/work/refine_obj.py X1a56c78 g18 /app/work/X1a56c78/search_g18/best.xml --scale --tight > /app/work/X1a56c78/refine_g18.log 2>&1
+# Independent centrosymmetric hypothesis for the nearly-monoclinic acemetacin/picolinamide lattice.
+mkdir -p /app/work/X8a06d7a/gallop_12
+python /app/work/extend_low_base.py X8a06d7a /app/work/X8a06d7a/fit_2d1.xml /app/work/X8a06d7a/gallop_12/base.xml > /app/work/X8a06d7a/extend_low12.log 2>&1
+BASE_XML=/app/work/X8a06d7a/gallop_12/base.xml HBOND_COEFF=12 BUMP_COEFF=60 START_REFL=100 SEARCH_TIME=1800 PARTICLES=128 ITERATIONS=400 GALLOP_STOL=.25 CONF_RANK=1 python /app/work/search_gallop.py X8a06d7a 12 1 --prepare --hscatter --packing > /app/work/X8a06d7a/gallop12.log 2>&1
+python /app/work/import_gallop.py X8a06d7a 12 > /app/work/X8a06d7a/import_g12.log 2>&1
+python /app/work/refine_obj.py X8a06d7a g12 /app/work/X8a06d7a/search_g12/best.xml --scale --tight --stol=.38 > /app/work/X8a06d7a/refine_g12.log 2>&1
+for id in Xd8634a2 Xb7088cf; do
+ START_REFL=90 RAMP_REF_EVERY=5 RAMP_REF_STEP=40 SEARCH_TIME=1700 PARTICLES=128 ITERATIONS=400 GALLOP_STOL=.25 CONF_RANK=4 python /app/work/search_gallop.py $id 31 1 --prepare --hscatter --packing > /app/work/$id/gallop31.log 2>&1
+ python /app/work/import_gallop.py $id 31 > /app/work/$id/import_g31.log 2>&1
+ python /app/work/refine_obj.py $id g31 /app/work/$id/search_g31/best.xml --scale --tight > /app/work/$id/refine_g31.log 2>&1
+ done
+==== /app/work/queue_heavy_anchor4.sh
+set -e
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/38122/status ]] && ! grep -q '^State:.*Z' /proc/38122/status;do sleep 5;done
+HEAVY_ANCHOR=/app/work/X4f6fe58/gallop_11/heavy_pool.npz HEAVY_ANCHOR_COEFF=30 HEAVY_ANCHOR_TOL=.35 HEAVY_POOL=/app/work/X4f6fe58/gallop_11/heavy_pool.npz HBOND_COEFF=15 BUMP_COEFF=40 START_REFL=100 SEARCH_TIME=1700 PARTICLES=128 ITERATIONS=400 CONF_RANK=0 GALLOP_STOL=.26 python /app/work/search_gallop.py X4f6fe58 41 2 --prepare --hscatter --packing > /app/work/X4f6fe58/gallop41.log 2>&1
+python /app/work/import_gallop.py X4f6fe58 41 > /app/work/X4f6fe58/import_g41.log 2>&1
+python /app/work/refine_obj.py X4f6fe58 g41 /app/work/X4f6fe58/search_g41/best.xml --scale --tight --stol=.38 > /app/work/X4f6fe58/refine_g41.log 2>&1
+python /app/work/submit.py X4f6fe58 /app/work/X4f6fe58/refined_g41.cif --check > /app/work/X4f6fe58/check_g41.log 2>&1
+====LOGS
+-rw-r--r-- 1 root root      0 Sep  6 08:26 /app/work/queue_fcj_index8.log
+-rw-r--r-- 1 root root      0 Sep  6 08:24 /app/work/queue_gallop_D8.log
+-rw-r--r-- 1 root root      0 Sep  6 08:18 /app/work/queue_edd_low.log
+-rw-r--r-- 1 root root      0 Sep  6 08:15 /app/work/queue_bfee_po.log
+-rw-r--r-- 1 root root    204 Sep  6 08:07 /app/work/queue_subother7.log
+-rw-r--r-- 1 root root      0 Sep  6 08:05 /app/work/queue_axis_emg8.log
+-rw-r--r-- 1 root root      0 Sep  6 08:04 /app/work/queue_heavy_anchor4.log
+-rw-r--r-- 1 root root      0 Sep  6 07:57 /app/work/queue_warm3f_restart.log
+-rw-r--r-- 1 root root      0 Sep  6 07:49 /app/work/refine_bep50_control.log
+-rw-r--r-- 1 root root      0 Sep  6 07:46 /app/work/queue_edd51.log
+-rw-r--r-- 1 root root      0 Sep  6 07:38 /app/work/queue_index_emg8.log
+-rw-r--r-- 1 root root      0 Sep  6 07:38 /app/work/queue_guided_acm.log
+-rw-r--r-- 1 root root      0 Sep  6 07:31 /app/work/queue_gallop_D7.log
+-rw-r--r-- 1 root root      0 Sep  6 07:29 /app/work/queue_triwide8fit.log
+-rw-r--r-- 1 root root      0 Sep  6 07:27 /app/work/queue_gallop_A5.log
+-rw-r--r-- 1 root root      0 Sep  6 07:21 /app/work/queue_synthon_acm.log
+-rw-r--r-- 1 root root      0 Sep  6 07:12 /app/work/refine_bep51_chem.log
+-rw-r--r-- 1 root root      0 Sep  6 07:10 /app/work/queue_gallop_B5.log
+-rw-r--r-- 1 root root      0 Sep  6 07:00 /app/work/test_lsq_packing.log
+-rw-r--r-- 1 root root      0 Sep  6 06:55 /app/work/queue_warm3f.log
+-rw-r--r-- 1 root root   6978 Sep  6 06:51 /app/work/po_scan.log
+-rw-r--r-- 1 root root      0 Sep  6 06:49 /app/work/queue_tc2_fit8.log
+-rw-r--r-- 1 root root      0 Sep  6 06:37 /app/work/hard7.log
+-rw-r--r-- 1 root root      0 Sep  6 06:33 /app/work/queue_acm_warm.log
+-rw-r--r-- 1 root root      0 Sep  6 06:30 /app/work/queue_heavy4.log

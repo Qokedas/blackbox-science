@@ -1,0 +1,204 @@
+import sys,numpy as np,networkx as nx
+from pymatgen.io.cif import CifParser
+from rdkit import Chem
+s=CifParser(sys.argv[1]).parse_structures(primitive=False)[0];s.remove_species(['H'])
+D=s.distance_matrix;rad=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);A=(D>.3)&(D<(rad[:,None]+rad[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print('Cell',s.lattice.parameters,'n',len(s),'components',[len(c) for c in cs]);comp={i:k for k,c in enumerate(cs) for i in c}
+pairs=sorted((D[i,j],i,j) for i in range(len(s)) for j in range(i+1,len(s)) if comp[i]!=comp[j]);unique=set()
+for d,i,j in pairs:
+ sig=tuple(sorted([s[i].label,s[j].label]));sig=sig+(round(d,3),)
+ if sig in unique:continue
+ unique.add(sig);print('%.4f'%d,i,s[i].label,s[i].specie.symbol,comp[i],j,s[j].label,s[j].specie.symbol,comp[j]);
+ if len(unique)>=25:break
+-rw-r--r-- 1 root root    750 Sep  6 10:41 /app/work/X14a2b08/check_ring94c0.log
+-rw-r--r-- 1 root root    749 Sep  6 10:46 /app/work/X14a2b08/check_ring94c1.log
+-rw-r--r-- 1 root root    749 Sep  6 10:37 /app/work/X14a2b08/check_ring94c2.log
+-rw-r--r-- 1 root root    750 Sep  6 10:34 /app/work/X14a2b08/check_ring94c3.log
+-rw-r--r-- 1 root root    749 Sep  6 10:48 /app/work/X14a2b08/check_ring94c4.log
+-rw-r--r-- 1 root root 685800 Sep  6 10:38 /app/work/X14a2b08/extended_ring94c0.xye
+-rw-r--r-- 1 root root 685800 Sep  6 10:43 /app/work/X14a2b08/extended_ring94c1.xye
+-rw-r--r-- 1 root root 685800 Sep  6 10:34 /app/work/X14a2b08/extended_ring94c2.xye
+-rw-r--r-- 1 root root 685800 Sep  6 10:31 /app/work/X14a2b08/extended_ring94c3.xye
+-rw-r--r-- 1 root root 685800 Sep  6 10:46 /app/work/X14a2b08/extended_ring94c4.xye
+-rw-r--r-- 1 root root 685800 Sep  6 10:41 /app/work/X14a2b08/extended_ring94c5.xye
+-rw-r--r-- 1 root root   1884 Sep  6 10:40 /app/work/X14a2b08/refine_ring94c0.log
+-rw-r--r-- 1 root root   3770 Sep  6 10:38 /app/work/X14a2b08/refine_ring94c0_stage0.cif
+-rw-r--r-- 1 root root 400457 Sep  6 10:38 /app/work/X14a2b08/refine_ring94c0_stage0.xml
+-rw-r--r-- 1 root root   3770 Sep  6 10:38 /app/work/X14a2b08/refine_ring94c0_stage1.cif
+-rw-r--r-- 1 root root 400464 Sep  6 10:38 /app/work/X14a2b08/refine_ring94c0_stage1.xml
+-rw-r--r-- 1 root root   3770 Sep  6 10:39 /app/work/X14a2b08/refine_ring94c0_stage2.cif
+-rw-r--r-- 1 root root 400466 Sep  6 10:39 /app/work/X14a2b08/refine_ring94c0_stage2.xml
+-rw-r--r-- 1 root root   3770 Sep  6 10:40 /app/work/X14a2b08/refine_ring94c0_stage3.cif
+-rw-r--r-- 1 root root 400464 Sep  6 10:40 /app/work/X14a2b08/refine_ring94c0_stage3.xml
+-rw-r--r-- 1 root root   1886 Sep  6 10:46 /app/work/X14a2b08/refine_ring94c1.log
+-rw-r--r-- 1 root root   3770 Sep  6 10:43 /app/work/X14a2b08/refine_ring94c1_stage0.cif
+-rw-r--r-- 1 root root 400546 Sep  6 10:43 /app/work/X14a2b08/refine_ring94c1_stage0.xml
+-rw-r--r-- 1 root root   3770 Sep  6 10:44 /app/work/X14a2b08/refine_ring94c1_stage1.cif
+-rw-r--r-- 1 root root 400556 Sep  6 10:44 /app/work/X14a2b08/refine_ring94c1_stage1.xml
+-rw-r--r-- 1 root root   3770 Sep  6 10:45 /app/work/X14a2b08/refine_ring94c1_stage2.cif
+-rw-r--r-- 1 root root 400544 Sep  6 10:45 /app/work/X14a2b08/refine_ring94c1_stage2.xml
+-rw-r--r-- 1 root root   3770 Sep  6 10:46 /app/work/X14a2b08/refine_ring94c1_stage3.cif
+-rw-r--r-- 1 root root 400537 Sep  6 10:46 /app/work/X14a2b08/refine_ring94c1_stage3.xml
+-rw-r--r-- 1 root root   1879 Sep  6 10:37 /app/work/X14a2b08/refine_ring94c2.log
+-rw-r--r-- 1 root root   3770 Sep  6 10:34 /app/work/X14a2b08/refine_ring94c2_stage0.cif
+-rw-r--r-- 1 root root 400528 Sep  6 10:34 /app/work/X14a2b08/refine_ring94c2_stage0.xml
+-rw-r--r-- 1 root root   3770 Sep  6 10:35 /app/work/X14a2b08/refine_ring94c2_stage1.cif
+-rw-r--r-- 1 root root 400538 Sep  6 10:35 /app/work/X14a2b08/refine_ring94c2_stage1.xml
+-rw-r--r-- 1 root root   3777 Sep  6 10:36 /app/work/X14a2b08/refine_ring94c2_stage2.cif
+-rw-r--r-- 1 root root 400530 Sep  6 10:36 /app/work/X14a2b08/refine_ring94c2_stage2.xml
+-rw-r--r-- 1 root root   3770 Sep  6 10:37 /app/work/X14a2b08/refine_ring94c2_stage3.cif
+-rw-r--r-- 1 root root 400525 Sep  6 10:37 /app/work/X14a2b08/refine_ring94c2_stage3.xml
+-rw-r--r-- 1 root root   1881 Sep  6 10:34 /app/work/X14a2b08/refine_ring94c3.log
+-rw-r--r-- 1 root root   3770 Sep  6 10:31 /app/work/X14a2b08/refine_ring94c3_stage0.cif
+-rw-r--r-- 1 root root 400051 Sep  6 10:31 /app/work/X14a2b08/refine_ring94c3_stage0.xml
+-rw-r--r-- 1 root root   3770 Sep  6 10:32 /app/work/X14a2b08/refine_ring94c3_stage1.cif
+-rw-r--r-- 1 root root 400042 Sep  6 10:32 /app/work/X14a2b08/refine_ring94c3_stage1.xml
+-rw-r--r-- 1 root root   3770 Sep  6 10:33 /app/work/X14a2b08/refine_ring94c3_stage2.cif
+-rw-r--r-- 1 root root 400043 Sep  6 10:33 /app/work/X14a2b08/refine_ring94c3_stage2.xml
+-rw-r--r-- 1 root root   3777 Sep  6 10:34 /app/work/X14a2b08/refine_ring94c3_stage3.cif
+-rw-r--r-- 1 root root 400040 Sep  6 10:34 /app/work/X14a2b08/refine_ring94c3_stage3.xml
+-rw-r--r-- 1 root root   1888 Sep  6 10:48 /app/work/X14a2b08/refine_ring94c4.log
+-rw-r--r-- 1 root root   3770 Sep  6 10:46 /app/work/X14a2b08/refine_ring94c4_stage0.cif
+-rw-r--r-- 1 root root 400074 Sep  6 10:46 /app/work/X14a2b08/refine_ring94c4_stage0.xml
+-rw-r--r-- 1 root root   3770 Sep  6 10:46 /app/work/X14a2b08/refine_ring94c4_stage1.cif
+-rw-r--r-- 1 root root 400071 Sep  6 10:46 /app/work/X14a2b08/refine_ring94c4_stage1.xml
+-rw-r--r-- 1 root root   3777 Sep  6 10:47 /app/work/X14a2b08/refine_ring94c4_stage2.cif
+-rw-r--r-- 1 root root 400057 Sep  6 10:47 /app/work/X14a2b08/refine_ring94c4_stage2.xml
+-rw-r--r-- 1 root root   3770 Sep  6 10:48 /app/work/X14a2b08/refine_ring94c4_stage3.cif
+-rw-r--r-- 1 root root 400077 Sep  6 10:48 /app/work/X14a2b08/refine_ring94c4_stage3.xml
+-rw-r--r-- 1 root root   1884 Sep  6 10:43 /app/work/X14a2b08/refine_ring94c5.log
+-rw-r--r-- 1 root root   3770 Sep  6 10:41 /app/work/X14a2b08/refine_ring94c5_stage0.cif
+-rw-r--r-- 1 root root 400535 Sep  6 10:41 /app/work/X14a2b08/refine_ring94c5_stage0.xml
+-rw-r--r-- 1 root root   3770 Sep  6 10:41 /app/work/X14a2b08/refine_ring94c5_stage1.cif
+-rw-r--r-- 1 root root 400536 Sep  6 10:41 /app/work/X14a2b08/refine_ring94c5_stage1.xml
+-rw-r--r-- 1 root root   3770 Sep  6 10:42 /app/work/X14a2b08/refine_ring94c5_stage2.cif
+-rw-r--r-- 1 root root 400526 Sep  6 10:42 /app/work/X14a2b08/refine_ring94c5_stage2.xml
+-rw-r--r-- 1 root root   3768 Sep  6 10:43 /app/work/X14a2b08/refine_ring94c5_stage3.cif
+-rw-r--r-- 1 root root 400524 Sep  6 10:43 /app/work/X14a2b08/refine_ring94c5_stage3.xml
+-rw-r--r-- 1 root root   3770 Sep  6 10:40 /app/work/X14a2b08/refined_ring94c0.cif
+-rw-r--r-- 1 root root     58 Sep  6 10:40 /app/work/X14a2b08/refined_ring94c0.json
+-rw-r--r-- 1 root root  98322 Sep  6 10:40 /app/work/X14a2b08/refined_ring94c0.png
+-rw-r--r-- 1 root root 400464 Sep  6 10:40 /app/work/X14a2b08/refined_ring94c0.xml
+-rw-r--r-- 1 root root   3770 Sep  6 10:46 /app/work/X14a2b08/refined_ring94c1.cif
+-rw-r--r-- 1 root root     58 Sep  6 10:46 /app/work/X14a2b08/refined_ring94c1.json
+-rw-r--r-- 1 root root  97524 Sep  6 10:46 /app/work/X14a2b08/refined_ring94c1.png
+-rw-r--r-- 1 root root 400537 Sep  6 10:46 /app/work/X14a2b08/refined_ring94c1.xml
+-rw-r--r-- 1 root root   3770 Sep  6 10:37 /app/work/X14a2b08/refined_ring94c2.cif
+-rw-r--r-- 1 root root     58 Sep  6 10:37 /app/work/X14a2b08/refined_ring94c2.json
+-rw-r--r-- 1 root root  98266 Sep  6 10:37 /app/work/X14a2b08/refined_ring94c2.png
+-rw-r--r-- 1 root root 400525 Sep  6 10:37 /app/work/X14a2b08/refined_ring94c2.xml
+-rw-r--r-- 1 root root   3777 Sep  6 10:34 /app/work/X14a2b08/refined_ring94c3.cif
+-rw-r--r-- 1 root root     58 Sep  6 10:34 /app/work/X14a2b08/refined_ring94c3.json
+-rw-r--r-- 1 root root  97740 Sep  6 10:34 /app/work/X14a2b08/refined_ring94c3.png
+-rw-r--r-- 1 root root 400040 Sep  6 10:34 /app/work/X14a2b08/refined_ring94c3.xml
+-rw-r--r-- 1 root root   3770 Sep  6 10:48 /app/work/X14a2b08/refined_ring94c4.cif
+-rw-r--r-- 1 root root     59 Sep  6 10:48 /app/work/X14a2b08/refined_ring94c4.json
+-rw-r--r-- 1 root root  98519 Sep  6 10:48 /app/work/X14a2b08/refined_ring94c4.png
+-rw-r--r-- 1 root root 400077 Sep  6 10:48 /app/work/X14a2b08/refined_ring94c4.xml
+-rw-r--r-- 1 root root   3768 Sep  6 10:43 /app/work/X14a2b08/refined_ring94c5.cif
+-rw-r--r-- 1 root root     58 Sep  6 10:43 /app/work/X14a2b08/refined_ring94c5.json
+-rw-r--r-- 1 root root  97514 Sep  6 10:43 /app/work/X14a2b08/refined_ring94c5.png
+-rw-r--r-- 1 root root 400524 Sep  6 10:43 /app/work/X14a2b08/refined_ring94c5.xml
+-rw-r--r-- 1 root root    750 Sep  6 10:31 /app/work/X14a2b08/ring94_choices.json
+-rw-r--r-- 1 root root    256 Sep  6 10:01 /app/work/X14a2b08/ring94test_choices.json
+-rw-r--r-- 1 root root    890 Sep  6 10:49 /app/work/X4f6fe58/conditional101.log
+-rw-r--r-- 1 root root   1060 Sep  6 09:33 /app/work/X4f6fe58/conditional83.log
+
+/app/work/X14a2b08/search_ring94c0:
+total 388
+-rw-r--r-- 1 root root   2320 Sep  6 10:31 best.cif
+-rw-r--r-- 1 root root 388181 Sep  6 10:31 best.xml
+-rw-r--r-- 1 root root   3621 Sep  6 10:31 model.json
+
+/app/work/X14a2b08/search_ring94c1:
+total 388
+-rw-r--r-- 1 root root   2320 Sep  6 10:31 best.cif
+-rw-r--r-- 1 root root 388180 Sep  6 10:31 best.xml
+-rw-r--r-- 1 root root   3621 Sep  6 10:31 model.json
+
+/app/work/X14a2b08/search_ring94c2:
+total 388
+-rw-r--r-- 1 root root   2320 Sep  6 10:31 best.cif
+-rw-r--r-- 1 root root 388174 Sep  6 10:31 best.xml
+-rw-r--r-- 1 root root   3615 Sep  6 10:31 model.json
+
+/app/work/X14a2b08/search_ring94c3:
+total 388
+-rw-r--r-- 1 root root   2320 Sep  6 10:31 best.cif
+-rw-r--r-- 1 root root 388178 Sep  6 10:31 best.xml
+-rw-r--r-- 1 root root   3613 Sep  6 10:31 model.json
+
+/app/work/X14a2b08/search_ring94c4:
+total 388
+-rw-r--r-- 1 root root   2320 Sep  6 10:31 best.cif
+-rw-r--r-- 1 root root 388178 Sep  6 10:31 best.xml
+-rw-r--r-- 1 root root   3616 Sep  6 10:31 model.json
+
+/app/work/X14a2b08/search_ring94c5:
+total 388
+-rw-r--r-- 1 root root   2320 Sep  6 10:31 best.cif
+-rw-r--r-- 1 root root 388174 Sep  6 10:31 best.xml
+-rw-r--r-- 1 root root   3616 Sep  6 10:31 model.json
+
+/app/work/X14a2b08/search_ring94testc0:
+total 388
+-rw-r--r-- 1 root root   2318 Sep  6 10:01 best.cif
+-rw-r--r-- 1 root root 388366 Sep  6 10:01 best.xml
+-rw-r--r-- 1 root root   3623 Sep  6 10:01 model.json
+
+/app/work/X14a2b08/search_ring94testc1:
+total 388
+-rw-r--r-- 1 root root   2318 Sep  6 10:01 best.cif
+-rw-r--r-- 1 root root 388364 Sep  6 10:01 best.xml
+-rw-r--r-- 1 root root   3623 Sep  6 10:01 model.json
+caprolactam94_queue.log
+conformer_variants.py
+queue_caprolactam94.sh
+queue_caprolactam95_typed.sh
+import json,os,glob,warnings,numpy as np,networkx as nx,gemmi,runpy,sys,contextlib,io
+from pymatgen.io.cif import CifParser
+from rdkit import Chem
+warnings.filterwarnings('ignore')
+R='/app/results/submission';report=[]
+for p in sorted(glob.glob(R+'/*.json')):
+ sid=os.path.basename(p)[:-5];j=json.load(open(p));sg=gemmi.find_spacegroup_by_name(j['space_group']);rec={'id':sid,'json_sg':sg.xhm() if sg else None,'json_sg_num':sg.number if sg else None};assert sg and sg.number==j.get('space_group_number',sg.number)
+ fn=R+'/'+sid+'.cif'
+ if os.path.exists(fn):
+  blocks=gemmi.cif.read_file(fn);assert len(blocks)==1;b=blocks.sole_block();g2=gemmi.find_spacegroup_by_name(gemmi.cif.as_string(b.find_value('_space_group_name_H-M_alt')));assert g2
+  cp=[float(b.find_value('_cell_'+v)) for v in ['length_a','length_b','length_c','angle_alpha','angle_beta','angle_gamma']];jp=[j['cell'][k] for k in ['a','b','c','alpha','beta','gamma']];rec['cell_agrees']=bool(np.allclose(cp,jp,atol=.00005));rec['sg_agrees']=g2.number==sg.number
+  assert rec['cell_agrees'] and rec['sg_agrees']
+  assert all(abs(float(v)-1)<1.e-5 for v in b.find_values('_atom_site_occupancy'))
+  s=CifParser(fn).parse_structures(primitive=False)[0];s.remove_species(['H']);rec['nheavy']=len(s);rad=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<1.2*(rad[:,None]+rad[None,:]));g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));rec['sizes']=sorted(map(len,cs))
+  for i in g:g.nodes[i]['el']=s[i].specie.symbol
+  matched=set();ratios=[]
+  for co in json.load(open('/app/data/instances/'+sid+'/composition.json'))['components']:
+   r=Chem.MolFromSmiles(co['smiles']);rg=nx.Graph();rg.add_nodes_from((a.GetIdx(),{'el':a.GetSymbol()}) for a in r.GetAtoms());rg.add_edges_from((bo.GetBeginAtomIdx(),bo.GetEndAtomIdx()) for bo in r.GetBonds());ms=[i for i,c in enumerate(cs) if nx.is_isomorphic(g.subgraph(c),rg,node_match=lambda a,b:a['el']==b['el'])];matched.update(ms);ratios.append(len(ms)/co['count'])
+  rec['graph_ok']=len(matched)==len(cs) and min(ratios)>0 and max(ratios)==min(ratios);rec['Z']=ratios[0];assert rec['graph_ok']
+  out=io.StringIO();sys.argv=['/app/work/check_stereo.py',sid,fn]
+  with contextlib.redirect_stdout(out):runpy.run_path('/app/work/check_stereo.py',run_name='__main__')
+  rec['stereochemistry']=out.getvalue().strip();assert 'OK False' not in rec['stereochemistry'];print(sid,'CIF graph/stereo/cell/SG validated','Nat',len(s),flush=True)
+ else:print(sid,'JSON only',sg.xhm(),flush=True)
+ report.append(rec)
+json.dump(report,open('/app/work/submission_audit.json','w'),indent=1)
+print('DONE',len(report),'instances',sum('nheavy' in x for x in report),'CIFs',flush=True)
+ZM C[S+](C)[O-] n 4 torsions 0 max_distance_error 1.305566321718743e-09
+Total degrees of freedom: 29
+Total external degrees of freedom: 21 (pos: 9 rot: 12 )
+Total internal degrees of freedom: 8
+PREPARED X019b9a4 Nref 183 PawleyRw 0.04457996894951537 SG P -1
+ATTACHED_H_SCATTERING 48 heavy atoms 36 H atoms
+PACKING_ENABLED 48 atoms 3253 pair terms coefficient 50.0 active_only True
+HBOND_PRIOR 6 donors 9 acceptors coefficient 10.0 directional False
+  0%|          | 0/5 [00:00<?, ?it/s]100%|██████████| 5/5 [00:00<00:00, 271.58it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 100 seconds 273.80527663230896 best 276.93082 q25 417.24286 median 455.38684 total 273.8321633338928
+GALLOP 1 Nref 122 seconds 245.41908478736877 best 253.04839 q25 347.96634 median 426.92908 total 519.4278690814972
+GALLOP 2 Nref 143 seconds 229.00086092948914 best 222.75778 q25 374.57135 median 424.77115 total 748.6208715438843
+GALLOP 3 Nref 162 seconds 241.60343718528748 best 181.36533 q25 325.64523 median 412.70343 total 990.3950750827789
+GALLOP 4 Nref 183 seconds 237.12601161003113 best 179.65047 q25 340.25146 median 390.6053 total 1227.719312429428
+GALLOP 5 Nref 183 seconds 212.68321895599365 best 178.30695 q25 347.25128 median 407.33673 total 1440.4909188747406
+FINISHED X019b9a4 178.30694580078125
+/app/work/X019b9a4/refine_g12.log
+Sun Sep  6 10:50:27 UTC 2026

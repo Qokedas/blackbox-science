@@ -1,0 +1,15 @@
+378.8554021492995
+0" Max="1" Name="z">0.1</Par>
+    <Par Refined="0" Limited="1" Min="0.01" Max="1" Name="Occup">1</Par>
+  </Atom>
+
+    <AntiBumpDistance ScattPow1="O" ScattPow2="O" AllowMerge="0">2.5</AntiBumpDistance>
+    <AntiBumpScale>1</AntiBumpScale>
+</Crystal>
+
+XML: Loading Crystal:
+XML: Loading Crystal:(spg:P 1)
+Input ScatteringPowerAtom:O(O)
+XML: Loading Atom:A
+XML: Loading Atom:B
+3788.5531264079254

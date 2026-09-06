@@ -1,0 +1,201 @@
+{
+ "radiation": {
+  "type": "CuK1",
+  "wavelength_A": 1.54059,
+  "wavelengths_A": [
+   1.54059
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 295.0,
+ "two_theta_range_deg": [
+  5.0,
+  80.0
+ ],
+ "n_points": 7501,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}import numpy as np, gemmi, json, types, os
+from rdkit import Chem
+
+def enable_hydrogen_prefix(s, model):
+    """Spherical attached-H scattering, without adding search degrees of freedom.
+    The radial average is sin(2 pi g r)/(2 pi g r), with g=2 sin(theta)/lambda.
+    """
+    metadata=json.load(open(model)) if isinstance(model,str) else model
+    elements=[];counts=[];radii=[];bs=[]
+    for md in metadata:
+        r=Chem.MolFromSmiles(md['smiles'])
+        for i in md['order']:
+            bs.append(float(md['biso_by_atom'][i]) if md.get('biso_by_atom') is not None else np.nan)
+            a=r.GetAtomWithIdx(i);elements.append(a.GetSymbol());counts.append(a.GetTotalNumHs(includeNeighbors=True));radii.append({'C':1.09,'N':1.01,'O':.98,'S':1.34}.get(a.GetSymbol(),1.09))
+    elements=np.array(elements);counts=np.array(counts);radii=np.array(radii)
+    hweight=float(os.environ.get('H_SCATTER_WEIGHT','1.0'))
+    def prefix(self,debye_waller_factors=None,just_asymmetric=False,from_cif=False):
+        if from_cif:raise ValueError('Attached-H prefix is for molecular search models, not CIFs')
+        ss=np.sqrt(np.sum((self.hkl@self.lattice.reciprocal_lattice_crystallographic.matrix)**2,axis=1))/2
+        sf=np.array([[gemmi.Element(str(el)).it92.calculate_sf(float(x*x)) for el in elements] for x in ss])
+        hf=np.array([gemmi.Element('H').it92.calculate_sf(float(x*x)) for x in ss])
+        sf+=hweight*hf[:,None]*counts[None,:]*np.sinc(4*ss[:,None]*radii[None,:])
+        dw=debye_waller_factors or {};B=np.array([dw.get(str(el),3.0) for el in elements]);B=np.where(np.isfinite(bs),bs,B);sf*=np.exp(-ss[:,None]**2*B[None,:])
+        self.fs=sf;self.prefix=sf
+        return sf if just_asymmetric else np.tile(sf,(1,len(self.affine_matrices)))
+    s.generate_intensity_calculation_prefix=types.MethodType(prefix,s)
+    print('ATTACHED_H_SCATTERING',len(elements),'heavy atoms',int(counts.sum()),'H atoms',flush=True)
+import os,json,itertools,numpy as np,torch
+from rdkit import Chem
+from gallop import chi2,zm_to_cart,intensities
+
+def enable_packing(s,model_path,coefficient=None):
+ """Differentiable minimum-image heavy-atom steric screening in an ASU.
+ Excludes fixed-topology 1-2/1-3/1-4 intramolecular contacts. The cutoff is
+ deliberately softer than a van der Waals sum, allowing hydrogen bonds.
+ """
+ mods=json.load(open(model_path));n=sum(len(m['order']) for m in mods);els=[];charges=[];exclude=np.eye(n,dtype=bool);off=0
+ for m in mods:
+  r=Chem.MolFromSmiles(m['smiles']);order=m['order'];N=len(order);dm=Chem.GetDistanceMatrix(r)[np.ix_(order,order)];exclude[off:off+N,off:off+N]=(dm<=3);els.extend([r.GetAtomWithIdx(i).GetSymbol() for i in order]);charges.extend([r.GetAtomWithIdx(i).GetFormalCharge() for i in order]);off+=N
+ radii={'C':1.48,'N':1.35,'O':1.28,'F':1.32,'S':1.55,'P':1.52,'Cl':1.58,'Br':1.67,'I':1.78}
+ ii=[];jj=[];rr=[];tr=[];lim=[];weights=[];all_r=[];all_t=[]
+ for oi,op in enumerate(s.space_group.symmetry_ops):
+  rot=op.rotation_matrix;trans=op.translation_vector;all_r.append(rot);all_t.append(trans);ident=np.allclose(rot,np.eye(3)) and np.allclose(trans%1,0)
+  for i in range(n):
+   for j in range(n):
+    if ident and (i>=j or exclude[i,j]):continue
+    limit=radii.get(els[i],1.4)+radii.get(els[j],1.4)
+    if set([els[i],els[j]])<=set(['N','O']):limit-=.10
+    if els[i]==els[j]=='N' and charges[i]>0 and charges[j]>0:limit=max(limit,float(os.getenv('CHARGED_N_MIN','0')))
+    ii.append(i);jj.append(oi*n+j);lim.append(limit);weights.append(1 if ident else .5)
+ ii=torch.tensor(ii,dtype=torch.long);jj=torch.tensor(jj,dtype=torch.long);rr=torch.tensor(np.array(all_r),dtype=torch.float32);tr=torch.tensor(np.array(all_t),dtype=torch.float32);lim=torch.tensor(lim,dtype=torch.float32);weights=torch.tensor(weights,dtype=torch.float32);lm=torch.tensor(s.lattice.matrix,dtype=torch.float32)
+ cf=float(coefficient if coefficient is not None else os.environ.get('BUMP_COEFF','50'))
+ exact=os.environ.get('EXACT_BUMP_IMAGES','1' if n<30 and (min(s.lattice.angles)<75 or max(s.lattice.angles)>105) else '0')=='1'
+ shifts=torch.tensor(np.array(list(itertools.product([-1,0,1],repeat=3)))@s.lattice.matrix,dtype=torch.float32);shift2=(shifts*shifts).sum(-1)
+ diagonal=bool(np.allclose(np.array(all_r),np.array([np.diag(np.diag(r)) for r in all_r])))
+ rdiag=torch.diagonal(rr,dim1=1,dim2=2)
+ active_only=os.getenv('PACKING_ACTIVE_ONLY','1')=='1'
+ def penalty(fr):
+  # Distances outside the steric support have identically zero derivatives.
+  # Identify their support without building a backward graph, then only retain
+  # active contacts in the differentiated expression. This is exactly the
+  # same piecewise-quadratic objective, not a neighbour-list approximation.
+  if active_only:
+   with torch.no_grad():
+    if diagonal:full=fr[:,None,:,:]*rdiag[None,:,None,:]+tr[None,:,None,:]
+    else:full=torch.einsum('nki,oji->nokj',fr,rr)+tr[None,:,None,:]
+    dd=fr[:,ii,:]-full.reshape(len(fr),-1,3)[:,jj,:];rnd=torch.round(dd);cart=(dd-rnd)@lm
+    if exact:
+     sid=(2*(cart@shifts.T)+shift2).argmin(-1);correction=shifts[sid];cart+=correction
+    use=((cart*cart).sum(-1)<lim*lim).nonzero(as_tuple=False)
+    ib=use[:,0];ip=use[:,1];ja=jj[ip]%n;jo=jj[ip]//n;imcorr=rnd[ib,ip]
+    if exact:cc=correction[ib,ip]
+   if len(use)==0:return fr.sum(dim=(1,2))*0
+   if diagonal:right=fr[ib,ja]*rdiag[jo]+tr[jo]
+   else:right=torch.einsum('ki,kji->kj',fr[ib,ja],rr[jo])+tr[jo]
+   cart=(fr[ib,ii[ip]]-right-imcorr)@lm
+   if exact:cart=cart+cc
+   dist=torch.sqrt((cart*cart).sum(-1)+1e-8)
+   terms=cf*(torch.clamp(lim[ip]-dist,min=0)**2)*weights[ip]
+   return torch.zeros(len(fr),dtype=fr.dtype,device=fr.device).index_add(0,ib,terms)
+  if diagonal:full=fr[:,None,:,:]*rdiag[None,:,None,:]+tr[None,:,None,:]
+  else:full=torch.einsum('nki,oji->nokj',fr,rr)+tr[None,:,None,:]
+  right=full.reshape(len(fr),-1,3)[:,jj,:]
+  delta=fr[:,ii,:]-right;delta=delta-torch.round(delta).detach();cart=delta@lm
+  if exact:
+   with torch.no_grad():
+    sid=(2*(cart.detach()@shifts.T)+shift2).argmin(-1);correction=shifts[sid]
+   cart=cart+correction
+  dist=torch.sqrt((cart*cart).sum(-1)+1e-8)
+  return cf*(torch.clamp(lim-dist,min=0)**2*weights).sum(-1)
+ def calc(zm,int_tensors,chisqd_tensors,profile=None):
+  fr=zm_to_cart.get_asymmetric_coords(**zm);f=intensities.calculate_intensities(fr,**int_tensors)
+  val=chi2.calc_int_chisqd(f,**chisqd_tensors) if profile is None else chi2.calc_prof_chisqd(f,**profile)
+  return val+penalty(fr)
+ s.packing_penalty=penalty;s.diffraction_get_chi_2=chi2.get_chi_2;chi2.get_chi_2=calc
+ print('PACKING_ENABLED',n,'atoms',len(ii),'pair terms','coefficient',cf,'active_only',active_only,flush=True)
+ return penalty
+import sys,os,time,json,numpy as np,torch,gemmi
+from gallop.structure import Structure
+from gallop.optim import local
+from gallop.optim.swarm import Swarm
+from gallop import tensor_prep,zm_to_cart,chi2
+from gallop_prepare import prepare
+from gallop_io import load_structure
+sid=sys.argv[1];run=int(sys.argv[2]) if len(sys.argv)>2 else 1;zp=int(sys.argv[3]) if len(sys.argv)>3 else 1
+W='/app/work/'+sid;G=W+'/gallop_'+str(run);torch.set_num_threads(int(os.environ.get('TORCH_THREADS',1)));torch.set_num_interop_threads(1)
+if os.path.exists('/app/work/gallop_config.json'):
+ for key,val in json.load(open('/app/work/gallop_config.json')).get(sid+':'+str(run),{}).items():os.environ.setdefault(key,str(val))
+if not os.path.exists(G+'/structure.json') or '--prepare' in sys.argv:
+ mp=next((v.split('=',1)[1] for v in sys.argv if v.startswith('--model=')),os.getenv('MODEL_JSON'));s,G=prepare(sid,run,zp,rigid='--rigid' in sys.argv,model_path=mp,stolmax=float(os.environ.get('GALLOP_STOL','.21')))
+else:s=load_structure(G+'/structure.json')
+from gallop_fast_symmetry import enable_fast_symmetry
+enable_fast_symmetry(s)
+if '--hscatter' in sys.argv:
+ from hydrogen_prefix import enable_hydrogen_prefix
+ enable_hydrogen_prefix(s,G+'/model.json')
+if '--packing' in sys.argv or os.getenv('ENABLE_PACKING','0')=='1':
+ from gallop_packing import enable_packing
+ enable_packing(s,G+'/model.json')
+if float(os.getenv('HBOND_COEFF','0'))>0:
+ from gallop_hbond import enable_hbonds
+ enable_hbonds(s,G+'/model.json')
+if 'HEAVY_ANCHOR' in os.environ:
+ from gallop_heavy_anchor import enable_heavy_anchor
+ enable_heavy_anchor(s,os.environ['HEAVY_ANCHOR'])
+np.random.seed((int(time.time())+run)%1000000);NP=int(os.environ.get('PARTICLES','128'));IT=int(os.environ.get('ITERATIONS','450'));ns=max(1,NP//32);max_time=float(os.environ.get('SEARCH_TIME',1800));best=1e100;elite_e=None;elite_i=None;t0=time.time();i=0
+
+def save_result(result,i):
+ global best,elite_e,elite_i
+ mn=float(result['chi_2'].min());ix=int(result['chi_2'].argmin())
+ if mn>=best:return
+ best=float(mn);elite_e=result['external'][ix].copy();elite_i=result['internal'][ix].copy()
+ np.savez_compressed(G+'/best.npz',external=result['external'][ix:ix+1],internal=result['internal'][ix:ix+1],chi2=mn)
+ t=tensor_prep.get_all_required_tensors(s,external=result['external'][ix:ix+1],internal=result['internal'][ix:ix+1],requires_grad=False,device=torch.device('cpu'),verbose=False)
+ with torch.no_grad():frac=zm_to_cart.get_asymmetric_coords(**t['zm']).detach().numpy()[0]
+ np.save(G+'/best_frac.npy',frac)
+ sg=gemmi.find_spacegroup_by_name(s.space_group.symbol);text='data_solution\n'
+ for name,v in zip(['length_a','length_b','length_c','angle_alpha','angle_beta','angle_gamma'],s.lattice.parameters):text+=f'_cell_{name} {v:.9f}\n'
+ text+=f"_space_group_name_H-M_alt '{sg.xhm()}'\n_space_group_IT_number {sg.number}\nloop_\n_space_group_symop_id\n_space_group_symop_operation_xyz\n"
+ for j,op in enumerate(sg.operations()):text+=f"{j+1} '{op.triplet()}'\n"
+ text+='loop_\n_atom_site_label\n_atom_site_type_symbol\n_atom_site_fract_x\n_atom_site_fract_y\n_atom_site_fract_z\n_atom_site_occupancy\n'
+ els=[el for z in s.zmatrices for el in z.elements_no_H]
+ for j,(el,v) in enumerate(zip(els,frac)):text+=f'{el}{j+1} {el} {v[0]%1:.9f} {v[1]%1:.9f} {v[2]%1:.9f} 1\n'
+ open(G+'/best.cif','w').write(text);json.dump({'chi2':float(mn),'Rint':float(np.sqrt(mn/1000)),'iteration':i,'elapsed':time.time()-t0},open(G+'/best.json','w'),indent=1)
+
+while time.time()-t0<max_time and not os.path.exists(G+'/STOP'):
+ if i%12==0:
+  swarm=Swarm(s,n_particles=NP,n_swarms=ns,global_update=True,global_update_freq=5);ext,intr=swarm.get_initial_positions()
+  if 'HEAVY_POOL' in os.environ:
+   from gallop_moves import heavy_initialise
+   ext,intr=heavy_initialise(s,ext,intr,os.environ['HEAVY_POOL'])
+  # Optional warm-start around a chemically sensible best particle.
+  if 'START_NPZ' in os.environ:
+   warm=np.load(os.environ['START_NPZ']);nn=NP//2;ext[:nn]=warm['external'][0]+np.random.normal(size=ext[:nn].shape)*float(os.environ.get('START_JITTER','.15'));intr[:nn]=warm['internal'][0]+np.random.normal(size=intr[:nn].shape)*float(os.environ.get('START_TOR_JITTER','.4'))
+ # Retain a small elite cloud across PSO and reset boundaries.
+ if elite_e is not None:
+  ne=max(1,int(NP*float(os.environ.get('ELITE_FRAC','.10'))));ext[:ne]=elite_e+np.random.normal(size=ext[:ne].shape)*float(os.environ.get('ELITE_JITTER','.045'));intr[:ne]=elite_i+np.random.normal(size=intr[:ne].shape)*float(os.environ.get('ELITE_TOR_JITTER','.12'));ext[0]=elite_e;intr[0]=elite_i
+  nm=max(0,int(NP*float(os.environ.get('MACRO_ELITE_FRAC','.20'))))
+  if nm:
+   from gallop_moves import macro_mutations
+   me,mi=macro_mutations(s,elite_e,elite_i,nm);ext[ne:ne+nm]=me;intr[ne:ne+nm]=mi
+ ti=time.time()
+ nref=min(len(s.hkl),int(os.environ.get('START_REFL',str(len(s.hkl))))+int(os.environ.get('RAMP_REF_STEP','40'))*(i//int(os.environ.get('RAMP_REF_EVERY','12'))))
+ if 'START_REFL' in os.environ and os.getenv('TIME_RAMP','1')=='1':
+  nr0=int(os.environ['START_REFL']);nref=max(nref,min(len(s.hkl),int(nr0+(len(s.hkl)-nr0)*(time.time()-t0)/max_time/float(os.getenv('FULL_REF_TIME_FRACTION','.55')))))
+ result=local.minimise(s,external=ext,internal=intr,n_reflections=nref,n_iterations=IT,n_cooldown=IT//4,learning_rate=.04,device=torch.device('cpu'),loss='sum',use_progress_bar=False,save_CIF=False,run=i,verbose=False,check_min=25)
+ if nref<len(s.hkl):
+  ft=tensor_prep.get_all_required_tensors(s,external=result['external'],internal=result['internal'],requires_grad=False,device=torch.device('cpu'),verbose=False)
+  with torch.no_grad():full_chi=chi2.get_chi_2(ft['zm'],ft['int_tensors'],ft['chisqd_tensors']).numpy()
+  result['low_chi_2']=result['chi_2'].copy();result['chi_2']=full_chi
+ print('GALLOP',i,'Nref',nref,'seconds',time.time()-ti,'best',result['chi_2'].min(),'q25',np.quantile(result['chi_2'],.25),'median',np.median(result['chi_2']),'total',time.time()-t0,flush=True)
+ save_result(result,i)
+ if 'low_chi_2' in result:result['chi_2']=result['low_chi_2']
+ ext,intr=swarm.update_position(result=result,verbose=False)
+ np.savez_compressed(G+'/last_population.npz',external=result['external'],internal=result['internal'],chi2=result['chi_2'])
+ i+=1
+ if '--test' in sys.argv or best<float(os.environ.get('TARGET_CHI','2.0')):break
+print('FINISHED',sid,best,flush=True)

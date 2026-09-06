@@ -1,0 +1,148 @@
+{
+ "llk": 216490.14841959183,
+ "Rw": 0.2395222753534438,
+ "elapsed": 1024.3685250282288,
+ "run": 8
+}      * Atoms which are considered "equivalent" (ie currently with the same Z number)
+      * and which are overlapping see their Dynamical occupancy changed so that when they
+      * fully overlap, they are equivalent to 1 atom.
+      *
+      * The Dynamical Occupancy correction will be performed in
+      * Crystal::GetScatteringComponentList() automatically.
+      *
+      * This \e seriously affects the speed of the calculation, since computing
+      * interatomic distances is lenghty.
+      * \param use set to 1 to use, 0 not to use it.
+      */
+      void SetUseDynPopCorr(const int use);
+      /** Get dynamical population correction setting.
+      * See SetUseDynPopCorr.
+      */
+      int GetUseDynPopCorr() const;
+      /** Get the Anti-bumping/pro-Merging cost function. Only works (ie returnes a non-null
+      * value) if you have added antibump distances using Crystal::SetBumpMergeDistance().
+      *
+      */
+      REAL GetBumpMergeCost() const;
+      /** Set the Anti-bumping distance between two scattering types
+      *
+      */
+      void SetBumpMergeDistance(const ScatteringPower &scatt1,
+                                const ScatteringPower &scatt2, const REAL dist=1.5);
+      /// Set the Anti-bumping distance between two scattering types.
+      void SetBumpMergeDistance(const ScatteringPower &scatt1,
+                                const ScatteringPower &scatt2, const REAL dist,
+                                const bool allowMerge);
+
+      /// Remove an Anti-bumping distance between two scattering types.
+      void RemoveBumpMergeDistance(const ScatteringPower &scatt1,
+                                   const ScatteringPower &scatt2);
+
+      /// Storage for anti-bump/merge parameters
+      struct BumpMergePar
+      {
+         BumpMergePar();
+         /** Constructor
+         *
+         * \param dist: the bump/merge distance in Angstroems
+         */
+         BumpMergePar(const REAL dist, const bool canOverlap=false);
+         /// The squared antibump interatomic distance
+         REAL mDist2;
+         /// Can the two atoms completely overlap ?
+         bool mCanOverlap;
+      };
+
+      /// Anti-bump parameters. Each atom type (ScatteringPower is referenced
+      /// using a reference number)
+      typedef std::map<pair<const ScatteringPower*, const ScatteringPower*>,Crystal::BumpMergePar > VBumpMergePar;
+      const VBumpMergePar& GetBumpMergeParList()const;
+      VBumpMergePar& GetBumpMergeParList();
+
+
+      struct DistTableInternalPosition
+      {
+            DistTableInternalPosition(const long atomIndex, const int sym,
+                                        const REAL x,const REAL y,const REAL z);
+import os,sys,json,numpy as np,gemmi
+import matplotlib
+matplotlib.use('Agg')
+from pyobjcryst.crystal import Crystal
+from pyobjcryst.powderpattern import PowderPattern,ReflectionProfileType
+from pyobjcryst.io import xml_cryst_file_save_global
+sid=sys.argv[1];tag=sys.argv[2];sg=sys.argv[3];W='/app/work/'+sid
+j=json.load(open(W+'/fit_'+tag+'.json'));cp=j['cell'];ins=json.load(open('/app/data/instances/'+sid+'/instrument.json'));wl=ins['radiation']['wavelength_A'];rad=ins['radiation']
+c=Crystal(*cp[:3],*np.deg2rad(cp[3:]),sg);c.SetName(sid)
+data=np.loadtxt('/app/data/instances/'+sid+'/pattern.xye');peaks=json.load(open(W+'/peaks.json'));mh=max(p['height'] for p in peaks);valid=[p for p in peaks if p['height']>.015*mh];xmin=max(data[0,0],min(p['two_theta'] for p in valid)-.5*wl/1.54)
+if os.path.exists(W+'/peak_select.json'):xmin=max(xmin,json.load(open(W+'/peak_select.json')).get('min_two_theta',xmin))
+stol=float(os.environ.get('MAX_STOL','.25'));data=data[(data[:,0]>=xmin)&(data[:,0]<np.rad2deg(2*np.arcsin(stol*wl)))]
+if len(data)>12000:
+ n=len(data)//2*2;data=np.column_stack([data[:n,0].reshape(-1,2).mean(1),data[:n,1].reshape(-1,2).mean(1),np.sqrt((data[:n,2]**2).reshape(-1,2).sum(1))/2])
+# A constant uncertainty rescaling preserves all diffraction relative weights and prevents disproportionate molecular restraint weighting.
+scale=max(1.,np.median(np.sqrt(np.clip(data[:,1],1,None))/data[:,2]));data[:,2]*=scale
+np.savetxt(W+'/base_profile.xye',data)
+p=PowderPattern();p.SetName(sid);p.ImportPowderPattern2ThetaObsSigma(W+'/base_profile.xye');p.SetWavelength(wl);p.SetMaxSinThetaOvLambda(stol)
+if len(rad.get('wavelengths_A') or [])>1:p.SetWavelength('Mo' if wl<1 else 'Cu')
+d=p.AddPowderPatternDiffraction(c)
+wid=np.median([v['fwhm'] for v in sorted(valid,key=lambda z:-z['height'])[:25]])
+d.SetReflectionProfilePar(ReflectionProfileType.PROFILE_PSEUDO_VOIGT,np.deg2rad(wid)**2,0,0,.5,0)
+b=p.AddPowderPatternBackground();nbkg=max(20,int((data[-1,0]-data[0,0])/(1.2*wl/1.54)));bx=np.linspace(np.deg2rad(data[0,0]),np.deg2rad(data[-1,0]),nbkg);raw=np.load(W+'/processed.npz');by=np.interp(np.rad2deg(bx),raw['x'],raw['background']);b.SetInterpPoints(bx,by)
+p.Prepare();p.quick_fit_profile(pdiff=d,auto_background=False,init_profile=False,plot=False,asym=True,verbose=False);p.FitScaleFactorForRw()
+print('FRESH_BASE',sid,sg,p.GetRw(),p.GetChi2(),flush=True)
+# Save the actual optimum reached. Excessive multiplicative Le Bail cycles can destabilize heavily overlapped lines.
+scale2=max(1.,np.sqrt(p.GetChi2()/len(data)));data[:,2]*=scale2;np.savetxt(W+'/base_profile.xye',data);p.ImportPowderPattern2ThetaObsSigma(W+'/base_profile.xye');p.Prepare();p.FitScaleFactorForRw()
+print('SCALED',scale*scale2,'Rw',p.GetRw(),'Chi2',p.GetChi2(),flush=True)
+cell={n:float(c.GetPar(n).GetHumanValue()) for n in ['a','b','c','alpha','beta','gamma']};out={'cell':cell,'space_group':sg,'space_group_number':gemmi.find_spacegroup_by_name(sg).number}
+json.dump(out,open(W+'/lattice.json','w'),indent=1)
+if '--submit' in sys.argv:json.dump(out,open('/app/results/submission/'+sid+'.json','w'),indent=1)
+xml_cryst_file_save_global(W+'/base.xml');np.savez_compressed(W+'/lebail.npz',h=d.GetH(),k=d.GetK(),l=d.GetL(),stol=d.GetSinThetaOverLambda(),f2=d.GetFhklObsSq(),x=p.GetPowderPatternX(),obs=p.GetPowderPatternObs(),calc=p.GetPowderPatternCalc())
+p.plot(diff=True,hkl=False);p.figure.savefig(W+'/base.png',dpi=140)
+import sys,os,time,json,numpy as np,torch,gemmi
+from gallop.structure import Structure
+from gallop.optim import local
+from gallop.optim.swarm import Swarm
+from gallop import tensor_prep,zm_to_cart,chi2
+from gallop_prepare import prepare
+sid=sys.argv[1];run=int(sys.argv[2]) if len(sys.argv)>2 else 1;zp=int(sys.argv[3]) if len(sys.argv)>3 else 1
+W='/app/work/'+sid;G=W+'/gallop_'+str(run);torch.set_num_threads(int(os.environ.get('TORCH_THREADS',1)));torch.set_num_interop_threads(1)
+if not os.path.exists(G+'/structure.json') or '--prepare' in sys.argv:
+ mp=next((v.split('=',1)[1] for v in sys.argv if v.startswith('--model=')),None);s,G=prepare(sid,run,zp,rigid='--rigid' in sys.argv,model_path=mp,stolmax=float(os.environ.get('GALLOP_STOL','.21')))
+else:s=Structure();s.from_json(open(G+'/structure.json').read())
+np.random.seed((int(time.time())+run)%1000000);NP=int(os.environ.get('PARTICLES','128'));IT=int(os.environ.get('ITERATIONS','450'));ns=max(1,NP//32);max_time=float(os.environ.get('SEARCH_TIME',1800));best=1e100;t0=time.time();i=0
+
+def save_result(result,i):
+ global best
+ mn=result['chi_2'].min();ix=int(result['chi_2'].argmin())
+ if mn>=best:return
+ best=float(mn)
+ np.savez_compressed(G+'/best.npz',external=result['external'][ix:ix+1],internal=result['internal'][ix:ix+1],chi2=mn)
+ t=tensor_prep.get_all_required_tensors(s,external=result['external'][ix:ix+1],internal=result['internal'][ix:ix+1],requires_grad=False,device=torch.device('cpu'),verbose=False)
+ with torch.no_grad():frac=zm_to_cart.get_asymmetric_coords(**t['zm']).detach().numpy()[0]
+ np.save(G+'/best_frac.npy',frac)
+ sg=gemmi.find_spacegroup_by_name(s.space_group.symbol);text='data_solution\n'
+ for name,v in zip(['length_a','length_b','length_c','angle_alpha','angle_beta','angle_gamma'],s.lattice.parameters):text+=f'_cell_{name} {v:.9f}\n'
+ text+=f"_space_group_name_H-M_alt '{sg.xhm()}'\n_space_group_IT_number {sg.number}\nloop_\n_space_group_symop_id\n_space_group_symop_operation_xyz\n"
+ for j,op in enumerate(sg.operations()):text+=f"{j+1} '{op.triplet()}'\n"
+ text+='loop_\n_atom_site_label\n_atom_site_type_symbol\n_atom_site_fract_x\n_atom_site_fract_y\n_atom_site_fract_z\n_atom_site_occupancy\n'
+ els=[el for z in s.zmatrices for el in z.elements_no_H]
+ for j,(el,v) in enumerate(zip(els,frac)):text+=f'{el}{j+1} {el} {v[0]%1:.9f} {v[1]%1:.9f} {v[2]%1:.9f} 1\n'
+ open(G+'/best.cif','w').write(text);json.dump({'chi2':float(mn),'Rint':float(np.sqrt(mn/1000)),'iteration':i,'elapsed':time.time()-t0},open(G+'/best.json','w'),indent=1)
+
+while time.time()-t0<max_time and not os.path.exists(G+'/STOP'):
+ if i%12==0:
+  swarm=Swarm(s,n_particles=NP,n_swarms=ns,global_update=True,global_update_freq=5);ext,intr=swarm.get_initial_positions()
+ ti=time.time()
+ nref=min(len(s.hkl),int(os.environ.get('START_REFL',str(len(s.hkl))))+40*(i//12))
+ result=local.minimise(s,external=ext,internal=intr,n_reflections=nref,n_iterations=IT,n_cooldown=IT//4,learning_rate=.04,device=torch.device('cpu'),loss='sum',use_progress_bar=False,save_CIF=False,run=i,verbose=False,check_min=25)
+ if nref<len(s.hkl):
+  ft=tensor_prep.get_all_required_tensors(s,external=result['external'],internal=result['internal'],requires_grad=False,device=torch.device('cpu'),verbose=False)
+  with torch.no_grad():full_chi=chi2.get_chi_2(ft['zm'],ft['int_tensors'],ft['chisqd_tensors']).numpy()
+  result['low_chi_2']=result['chi_2'].copy();result['chi_2']=full_chi
+ print('GALLOP',i,'Nref',nref,'seconds',time.time()-ti,'best',result['chi_2'].min(),'q25',np.quantile(result['chi_2'],.25),'median',np.median(result['chi_2']),'total',time.time()-t0,flush=True)
+ save_result(result,i)
+ if 'low_chi_2' in result:result['chi_2']=result['low_chi_2']
+ ext,intr=swarm.update_position(result=result,verbose=False)
+ np.savez_compressed(G+'/last_population.npz',external=result['external'],internal=result['internal'],chi2=result['chi_2'])
+ i+=1
+ if '--test' in sys.argv or best<float(os.environ.get('TARGET_CHI','2.0')):break
+print('FINISHED',sid,best,flush=True)

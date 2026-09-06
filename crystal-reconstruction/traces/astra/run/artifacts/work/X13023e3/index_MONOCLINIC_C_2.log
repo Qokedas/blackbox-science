@@ -1,0 +1,42 @@
+X13023e3 MONOCLINIC C 2 peaks [4.47912, 5.97411, 6.94383, 6.971, 7.02382, 7.18273, 7.47072, 7.70586, 8.06047, 8.12532, 8.32126, 8.47015, 8.78611, 8.91681, 8.9676, 9.40937, 9.6363, 9.92688, 10.26824, 10.32207, 10.48001, 10.58823] V 1518.352783203125 3456 Lmax 42.33334727646773
+3->42.3333,1.57334,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+1518.35->3456,484.424,3.9999
+Starting: V=1518.35->2002.78
+    a=12.03-12.09 b= 5.85- 5.92 c=28.20-28.26 alpha= 90.00- 90.00 beta= 98.88- 99.02 gamma= 90.00- 90.00 V=1963.03-1996.36level=4, indexed=1(0 sol.)
+    a=0.08410-0.08374 b=0.17082-0.16905 c=0.03589-0.03583 alpha=0.15441-0.15680 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(0 sol.)
+ Solution ? a= 11.950 b=  5.821 c= 28.088 alpha= 90.000 beta= 98.948 gamma= 90.000 V= 1930.07 score=  5.41 #   0
+    a=12.02-12.08 b= 5.77- 5.83 c=28.90-28.96 alpha= 90.00- 90.00 beta=105.05-105.20 gamma= 90.00- 90.00 V=1933.92-1967.31level=4, indexed=1(1 sol.)
+    a=0.08614-0.08577 b=0.17345-0.17165 c=0.03584-0.03578 alpha=0.25974-0.26213 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(1 sol.)
+ Solution ? a= 12.043 b=  5.819 c= 28.995 alpha= 90.000 beta=105.081 gamma= 90.000 V= 1961.84 score=  7.95 #   1
+    a=12.04-12.10 b= 5.77- 5.83 c=28.94-29.00 alpha= 90.00- 90.00 beta=105.34-105.48 gamma= 90.00- 90.00 V=1936.53-1969.99level=4, indexed=1(2 sol.)
+    a=0.08614-0.08577 b=0.17345-0.17165 c=0.03584-0.03578 alpha=0.26453-0.26692 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(2 sol.)
+ Solution ? a= 12.073 b=  5.812 c= 29.065 alpha= 90.000 beta=105.167 gamma= 90.000 V= 1968.47 score=  6.78 #   2
+Finished: V=1518.35->2002.78 A^3, 30542 unit cells tested, 613330 tests/s,   Elapsed time=0.049805s
+Starting: V=2002.78->2487.2
+    a=12.02-12.08 b= 5.77- 5.83 c=28.90-28.96 alpha= 90.00- 90.00 beta=105.05-105.20 gamma= 90.00- 90.00 V=1933.92-1967.31level=4, indexed=1(4 sol.)
+    a=0.08614-0.08577 b=0.17345-0.17165 c=0.03584-0.03578 alpha=0.25974-0.26213 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(4 sol.)
+ Solution ? a= 12.043 b=  5.819 c= 28.995 alpha= 90.000 beta=105.081 gamma= 90.000 V= 1961.84 score=  7.95 #   4
+    a=12.04-12.10 b= 5.77- 5.83 c=28.94-29.00 alpha= 90.00- 90.00 beta=105.34-105.48 gamma= 90.00- 90.00 V=1936.53-1969.99level=4, indexed=1(5 sol.)
+    a=0.08614-0.08577 b=0.17345-0.17165 c=0.03584-0.03578 alpha=0.26453-0.26692 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(5 sol.)
+ Solution ? a= 12.073 b=  5.812 c= 29.065 alpha= 90.000 beta=105.167 gamma= 90.000 V= 1968.47 score=  6.78 #   5
+Finished: V=2002.78->2487.2 A^3, 95519 unit cells tested, 747591 tests/s,   Elapsed time=0.127777s
+Starting: V=2487.2->2971.62
+Finished: V=2487.2->2971.62 A^3, 197988 unit cells tested, 843504 tests/s,   Elapsed time=0.23473s
+Starting: V=2971.62->3456
+    a=24.04-24.10 b= 5.43- 5.48 c=28.90-28.96 alpha= 90.00- 90.00 beta=105.05-105.20 gamma= 90.00- 90.00 V=3641.03-3692.94level=4, indexed=1(6 sol.)
+    a=0.04308-0.04299 b=0.18423-0.18244 c=0.03584-0.03578 alpha=0.25974-0.26213 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(6 sol.)
+ Solution ? a= 24.185 b=  5.437 c= 28.959 alpha= 90.000 beta=105.129 gamma= 90.000 V= 3675.72 score=  5.58 #   6
+    a=20.33-20.41 b= 6.28- 6.33 c=31.92-32.02 alpha= 90.00- 90.00 beta=119.00-119.15 gamma= 90.00- 90.00 V=3563.46-3609.97level=4, indexed=1(7 sol.)
+    a=0.05625-0.05610 b=0.15927-0.15810 c=0.03582-0.03576 alpha=0.48477-0.48716 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(7 sol.)
+ Solution ? a= 20.364 b=  6.309 c= 31.939 alpha= 90.000 beta=118.976 gamma= 90.000 V= 3589.58 score=  4.94 #   7
+Finished: V=2971.62->3456 A^3, 362051 unit cells tested, 937800 tests/s,   Elapsed time=0.386073s
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=12.0429, b=5.81864, c=28.9955, alpha=90, beta=105.081, gamma=90, V=1961.84, score=7.95314
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=12.073, b=5.81215, c=29.0653, alpha=90, beta=105.167, gamma=90, V=1968.47, score=6.77685
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=24.1853, b=5.4365, c=28.9595, alpha=90, beta=105.129, gamma=90, V=3675.72, score=5.58264
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=11.95, b=5.82112, c=28.0878, alpha=90, beta=98.9477, gamma=90, V=1930.07, score=5.41161
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=20.3637, b=6.30869, c=31.9393, alpha=90, beta=118.976, gamma=90, V=3589.58, score=4.9353
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=23.8618, b=5.27234, c=32.5105, alpha=90, beta=120.498, gamma=90, V=3524.19, score=3.20933
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2609 BEST ? a=12.0429, b=5.81864, c=28.9955, alpha=90, beta=105.081, gamma=90, V=1961.84, score=7.95314
+362051unit cells tested, 936762 tests/s,   Elapsed time=0.386498s
+DONE X13023e3 MONOCLINIC C 6 0.3868229389190674 [{'cell': [12.042943954467773, 5.818636894226074, 28.995450973510742, 90.00000250447816, 105.0806093993811, 90.00000250447816], 'volume': 1961.8389892578125, 'score': 7.953141212463379, 'system': 'MONOCLINIC', 'centering': 'C', 'mode': 2}, {'cell': [12.072972297668457, 5.81214714050293, 29.065322875976562, 90.00000250447816, 105.16732548108358, 90.00000250447816], 'volume': 1968.4659423828125, 'score': 6.776847839355469, 'system': 'MONOCLINIC', 'centering': 'C', 'mode': 2}, {'cell': [24.185285568237305, 5.436502933502197, 28.9594783782959, 90.00000250447816, 105.12916521419072, 90.00000250447816], 'volume': 3675.71533203125, 'score': 5.582641124725342, 'system': 'MONOCLINIC', 'centering': 'C', 'mode': 2}, {'cell': [11.949950218200684, 5.821117877960205, 28.087833404541016, 90.00000250447816, 98.94767326059993, 90.00000250447816], 'volume': 1930.0709228515625, 'score': 5.411613464355469, 'system': 'MONOCLINIC', 'centering': 'C', 'mode': 2}, {'cell': [20.363679885864258, 6.308694839477539, 31.939300537109375, 90.00000250447816, 118.97551594493733, 90.00000250447816], 'volume': 3589.5771484375, 'score': 4.93529748916626, 'system': 'MONOCLINIC', 'centering': 'C', 'mode': 2}]

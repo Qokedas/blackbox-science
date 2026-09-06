@@ -1,0 +1,9 @@
+Imported powder pattern: 5577 points, 2theta=  5.350 ->  61.110, step= 0.010
+STARTFIT Xebbd488 axial5 Rw 0.082864086594632
+ERRORSG I 1 21 1 Space group symbol 'I 1 21 1' not recognized
+ERRORSG C 1 21 1 Space group symbol 'C 1 21 1' not recognized
+ERRORSG B 1 2 1 Space group symbol 'B 1 2 1' not recognized
+ERRORSG B 1 21 1 Space group symbol 'B 1 21 1' not recognized
+ERRORSG F 1 2 1 Space group symbol 'F 1 2 1' not recognized
+GROUPS [{"sg": "C 1 2 1", "number": 5, "Rw": 7.952222598277647, "GoF": 3977.8132332050777, "nGoF": 0.0, "mult": 4}, {"sg": "P 1 21 1", "number": 4, "Rw": 8.269202349329781, "GoF": 4970.194582241912, "nGoF": 0.0, "mult": 2}, {"sg": "P 1 2 1", "number": 3, "Rw": 8.275280698978941, "GoF": 4981.084976013478, "nGoF": 0.0, "mult": 2}, {"sg": "I 1 2 1", "number": 5, "Rw": 9.974343678584823, "GoF": 6312.992852585927, "nGoF": 0.0, "mult": 4}, {"sg": "A 1 2 1", "number": 5, "Rw": 20.29763288090342, "GoF": 26001.68889045134, "nGoF": 0.0, "mult": 4}]
+DONE Xebbd488 axial5 0.07315950944772696 [26.652816002924737, 12.393121632949034, 16.592613090306084, 90.0, 106.56245798418037, 90.0]

@@ -1,0 +1,15 @@
+X13023e3 TETRAGONAL P 0 peaks [3.47265, 4.47912, 5.97411, 6.94383, 6.971, 7.02382, 7.18273, 7.41019, 7.47072, 7.70586, 8.06047, 8.12532, 8.32126, 8.47015, 8.78611, 8.91681, 8.9676, 9.18709, 9.40937, 9.6363, 9.92688, 10.26824] V 1886.598388671875 4320 Lmax 45.60221595879442
+3->45.6022,1.7041,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+1886.6->4320,486.69,4.9999
+Starting: V=1886.6->2373.29
+Finished: V=1886.6->2373.29 A^3, 74 unit cells tested, 151639 tests/s,   Elapsed time=0.000494s
+Starting: V=2373.29->2859.98
+Finished: V=2373.29->2859.98 A^3, 165 unit cells tested, 164506 tests/s,   Elapsed time=0.001009s
+Starting: V=2859.98->3346.67
+Finished: V=2859.98->3346.67 A^3, 256 unit cells tested, 160502 tests/s,   Elapsed time=0.0016s
+Starting: V=3346.67->3833.36
+Finished: V=3346.67->3833.36 A^3, 348 unit cells tested, 158326 tests/s,   Elapsed time=0.002203s
+Starting: V=3833.36->4320
+Finished: V=3833.36->4320 A^3, 486 unit cells tested, 166838 tests/s,   Elapsed time=0.002918s
+DONE X13023e3 TETRAGONAL P 0 0.003034353256225586 []

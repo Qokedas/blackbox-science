@@ -1,0 +1,291 @@
+===X4f6fe58
+{
+ "components": [
+  {
+   "smiles": "O=C1CN=C(c2ccccc2Cl)c2cc(Br)ccc2N1",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}{
+ "cell": {
+  "a": 7.553764404302974,
+  "b": 13.050444865569036,
+  "c": 15.402697704645078,
+  "alpha": 72.3553374936446,
+  "beta": 83.50290749144928,
+  "gamma": 77.69114674074814
+ },
+ "space_group": "P -1",
+ "space_group_number": 2
+}===Xd4c1a35
+{
+ "components": [
+  {
+   "smiles": "COC1=CC(=O)C[C@@H](C)[C@]12Oc1c(Cl)c(OC)cc(OC)c1C2=O",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}{
+ "cell": {
+  "a": 11.76244564,
+  "b": 12.00347176,
+  "c": 24.27768131,
+  "alpha": 90.0,
+  "beta": 90.0,
+  "gamma": 90.0
+ },
+ "space_group": "P 21 21 21",
+ "space_group_number": 19
+}===X9af54a2
+{
+ "components": [
+  {
+   "smiles": "COc1ccc(OC)c([C@H](O)CNC(=O)C[NH3+])c1",
+   "count": 1,
+   "charge": 1
+  },
+  {
+   "smiles": "[Cl-]",
+   "count": 1,
+   "charge": -1
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}{
+ "cell": {
+  "a": 5.178728935315927,
+  "b": 8.253763769789536,
+  "c": 32.95138585905239,
+  "alpha": 90.0,
+  "beta": 92.75227709009262,
+  "gamma": 90.0
+ },
+ "space_group": "P 1 21 1",
+ "space_group_number": 4
+}===Xedd9c7b
+{
+ "components": [
+  {
+   "smiles": "C[NH+](C)CCc1c[nH]c2cccc(OP(=O)([O-])O)c12",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}{
+ "cell": {
+  "a": 10.3779432409722,
+  "b": 15.458141140128017,
+  "c": 17.161796396761616,
+  "alpha": 90.0,
+  "beta": 95.65390425106375,
+  "gamma": 90.0
+ },
+ "space_group": "P 1 21/a 1",
+ "space_group_number": 14
+}===Xebbd488
+{
+ "components": [
+  {
+   "smiles": "COc1ccccc1OCC[NH2+]C[C@H](O)COc1cccc2[nH]c3ccccc3c12",
+   "count": 2,
+   "charge": 1
+  },
+  {
+   "smiles": "O=P([O-])(O)O",
+   "count": 2,
+   "charge": -1
+  },
+  {
+   "smiles": "O",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}{
+ "cell": {
+  "a": 26.65439158599948,
+  "b": 12.391931489039752,
+  "c": 16.589886637301905,
+  "alpha": 90.0,
+  "beta": 106.57330959124567,
+  "gamma": 90.0
+ },
+ "space_group": "C 1 2 1",
+ "space_group_number": 5
+}===X8a6f5a8
+{
+ "components": [
+  {
+   "smiles": "COc1ccccc1OCC[NH2+]C[C@@H](O)COc1cccc2[nH]c3ccccc3c12",
+   "count": 1,
+   "charge": 1
+  },
+  {
+   "smiles": "O=P([O-])(O)O",
+   "count": 1,
+   "charge": -1
+  },
+  {
+   "smiles": "CC(C)O",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}{
+ "cell": {
+  "a": 16.86422000406547,
+  "b": 17.99627235535582,
+  "c": 22.606412956143604,
+  "alpha": 90.0,
+  "beta": 110.72979744121672,
+  "gamma": 90.0
+ },
+ "space_group": "P 1 21 1",
+ "space_group_number": 4
+}===X7e382cb
+{
+ "components": [
+  {
+   "smiles": "O=C([O-])c1ccc(-c2ccc(C(=O)[O-])cc2)cc1",
+   "count": 1,
+   "charge": -2
+  },
+  {
+   "smiles": "[NH4+]",
+   "count": 2,
+   "charge": 1
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}{
+ "cell": {
+  "a": 6.950883561252238,
+  "b": 6.9714360090474425,
+  "c": 15.760000618785241,
+  "alpha": 65.620071071758,
+  "beta": 82.98049443060587,
+  "gamma": 67.39068753201737
+ },
+ "space_group": "P -1",
+ "space_group_number": 2
+}===Xeb393f9
+{
+ "components": [
+  {
+   "smiles": "O=C(O)CCC[NH+]1CCC(O[C@@H](c2ccc(Cl)cc2)c2ccccn2)CC1",
+   "count": 1,
+   "charge": 1
+  },
+  {
+   "smiles": "O=S(=O)([O-])c1ccccc1",
+   "count": 1,
+   "charge": -1
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}{
+ "cell": {
+  "a": 8.01391786,
+  "b": 9.8153862,
+  "c": 10.23389852,
+  "alpha": 74.86735326,
+  "beta": 68.95624428,
+  "gamma": 65.93144925
+ },
+ "space_group": "P 1",
+ "space_group_number": 1
+}===Xbfeeda9
+{
+ "components": [
+  {
+   "smiles": "CN(C)C(=O)C(CC[NH+]1CCC(O)(c2ccc(Cl)cc2)CC1)(c1ccccc1)c1ccccc1",
+   "count": 1,
+   "charge": 1
+  },
+  {
+   "smiles": "[Cl-]",
+   "count": 1,
+   "charge": -1
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}{
+ "cell": {
+  "a": 13.202926946633223,
+  "b": 12.367019901476281,
+  "c": 16.69423334559393,
+  "alpha": 90.0,
+  "beta": 101.65834198660818,
+  "gamma": 90.0
+ },
+ "space_group": "P 1 21/a 1",
+ "space_group_number": 14
+}===Xd8634a2
+{
+ "components": [
+  {
+   "smiles": "CNS(=O)(=O)Nc1nccc(Cc2c(C)c3ccc(Oc4ncccn4)cc3oc2=O)c1F",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}{
+ "cell": {
+  "a": 8.910169100782866,
+  "b": 9.47845325451745,
+  "c": 13.245308707674797,
+  "alpha": 83.98286911524386,
+  "beta": 81.77580180151384,
+  "gamma": 66.67862762269598
+ },
+ "space_group": "P -1",
+ "space_group_number": 2
+}CYCLE 1 2 Rw 0.06334579957124402 chi2 2199.216117834305 geom 8.964757278781027 LSQ 2272.8906331837206
+CYCLE 2 0 Rw 0.0634264288734447 chi2 2204.8181976342466 geom 6.495074459582416 LSQ 2267.822271031987
+CYCLE 2 1 Rw 0.06336060238754342 chi2 2200.2440753669944 geom 6.412779099026526 LSQ 2263.2288842824087
+CYCLE 2 2 Rw 0.06333527232714038 chi2 2198.4852166123674 geom 6.253346975206364 LSQ 2260.650467030686
+CYCLE 3 0 Rw 0.06288520224737294 chi2 2167.350693626225 geom 3.17212743082903 LSQ 2243.7917936070803
+CYCLE 3 1 Rw 0.06248498880959796 chi2 2139.8516101443515 geom 3.376365651875533 LSQ 2190.80007501201
+CYCLE 3 2 Rw 0.06237589959128132 chi2 2132.3864261614635 geom 3.416527909234135 LSQ 2183.411052319333
+FINISHED X13023e3 0.06237589959128132
+{
+ "chi2": 2.823369264602661,
+ "Rint": 0.05313538618098734,
+ "iteration": 33,
+ "elapsed": 1129.5690157413483
+}GALLOP 29 Nref 122 seconds 54.653077125549316 best 3.5404472 q25 8.584182 median 24.729565 total 908.5442028045654
+GALLOP 30 Nref 122 seconds 61.79410099983215 best 2.9254684 q25 9.619066 median 22.628828 total 970.3429620265961
+GALLOP 31 Nref 122 seconds 60.20396399497986 best 2.8241265 q25 12.821206 median 22.555048 total 1030.5726408958435
+GALLOP 32 Nref 122 seconds 52.097519874572754 best 2.8235338 q25 8.6866865 median 21.45766 total 1082.6967017650604
+GALLOP 33 Nref 122 seconds 46.78615212440491 best 2.8233693 q25 10.458639 median 21.301125 total 1129.5453956127167
+GALLOP 34 Nref 122 seconds 43.00663447380066 best 2.823632 q25 3.5938642 median 19.097317 total 1172.580461025238
+GALLOP 35 Nref 122 seconds 28.8142831325531 best 2.8238451 q25 12.437424 median 20.880268 total 1201.3988337516785
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 2032.86it/s]

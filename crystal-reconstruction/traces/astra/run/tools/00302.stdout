@@ -1,0 +1,100 @@
+def get_dw_factors(Structure):
+    """
+    Get the Debye-Waller factors for inclusion in the intensity calculations
+
+    Args:
+        Structure (class): GALLOP structure object
+
+    Returns:
+        dict: Debye-Waller factors for each atom in a ZM.
+    """
+    dw_factors = {}
+    for zm in Structure.zmatrices:
+        dw_factors.update(zm.dw_factors)
+    return dw_factors
+
+SCALED_SIGMA 1.4570517825599651 4184.999999999984
+TIGHT_RESTRAINTS
+CYCLE 0 0 Rw 0.09528840441246278 chi2 2483.237413553842 geom 0.0 LSQ 2653.1668559752507
+CYCLE 0 1 Rw 0.09170872996259864 chi2 2300.1676517544547 geom 0.0 LSQ 2404.5307568470666
+CYCLE 0 2 Rw 0.0912163446837263 chi2 2275.534701246208 geom 0.0 LSQ 2344.633293644195
+ScatteringPowerAtom (O,O   ) :    3.0000
+Traceback (most recent call last):
+  File "/app/work/refine_obj.py", line 107, in <module>
+    xml_cryst_file_save_global(W+'/refine_'+run+'_stage'+str(stage)+'.xml')
+  File "/opt/conda/lib/python3.11/site-packages/pyobjcryst/io.py", line 88, in xml_cryst_file_save_global
+    XMLCrystFileSaveGlobal_orig(open(file, "w"))
+pyobjcryst.ObjCrystException: RefinableObj::GetPar(): cannot find parameter: ML Error in object:O
+==fit2d==
+fit_2d0.json
+{
+  "cell": [
+    11.859878191858613,
+    5.01369621206577,
+    21.734570616650437,
+    90,
+    86.05010540353668,
+    90
+  ],
+  "Rw": 0.0744753038416127,
+  "sgstart": "P 1 2/m 1"
+}
+fit_2d1.json
+{
+  "cell": [
+    5.0091383238525715,
+    11.848563275546834,
+    21.71794934646855,
+    86.05896163393095,
+    89.84305466129743,
+    89.82859972805159
+  ],
+  "Rw": 0.06761190137761997,
+  "sgstart": "P -1"
+}
+fit_2d0.json
+{
+  "cell": [
+    5.168081796919279,
+    11.774032272134292,
+    20.578208007735785,
+    83.70467012412843,
+    89.48710206740166,
+    86.84525987225098
+  ],
+  "Rw": 0.052466707116289216,
+  "sgstart": "P -1"
+}
+fit_2d1.json
+{
+  "cell": [
+    5.044422557768453,
+    11.848941884713998,
+    20.59692959659865,
+    83.59548723655392,
+    88.72700033470083,
+    83.07149308903249
+  ],
+  "Rw": 0.06928141912258506,
+  "sgstart": "P -1"
+}
+fit_2d0.json
+{
+  "cell": [
+    5.099233155897173,
+    11.933363082484687,
+    21.28089984235171,
+    85.26468213047598,
+    87.6298640248392,
+    87.0022814473193
+  ],
+  "Rw": 0.08589325950492847,
+  "sgstart": "P -1"
+}
+--X130gl11--
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 122 seconds 41.88945293426514 best 9.038936 q25 16.52958 median 22.851212 total 41.89392924308777
+/app/work/search_gallop.py:17: RuntimeWarning: overflow encountered in cast
+  if mn>=best:return
+GALLOP 1 Nref 122 seconds 43.193594455718994 best 6.8534346 q25 14.906826 median 21.438194 total 85.13192796707153
+GALLOP 2 Nref 122 seconds 38.60990834236145 best 7.34395 q25 15.229885 median 22.228085 total 123.83582496643066

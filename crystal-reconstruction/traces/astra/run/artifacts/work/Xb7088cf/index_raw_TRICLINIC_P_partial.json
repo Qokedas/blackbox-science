@@ -1,0 +1,602 @@
+[
+ {
+  "cell": [
+   9.652,
+   10.249,
+   10.076,
+   113.155,
+   97.815,
+   88.804
+  ],
+  "volume": 907.33,
+  "score": 19.44,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   9.653,
+   10.256,
+   10.097,
+   113.253,
+   97.755,
+   88.829
+  ],
+  "volume": 909.41,
+  "score": 12.75,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   9.845,
+   9.64,
+   9.224,
+   102.383,
+   75.782,
+   93.684
+  ],
+  "volume": 828.81,
+  "score": 12.36,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   9.951,
+   9.58,
+   8.79,
+   117.892,
+   73.21,
+   99.851
+  ],
+  "volume": 708.38,
+  "score": 12.1,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   10.05,
+   9.536,
+   8.977,
+   113.435,
+   71.148,
+   101.673
+  ],
+  "volume": 744.29,
+  "score": 10.58,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   10.051,
+   9.537,
+   8.977,
+   113.447,
+   71.154,
+   101.675
+  ],
+  "volume": 744.33,
+  "score": 10.44,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   10.049,
+   9.535,
+   8.974,
+   113.442,
+   71.163,
+   101.667
+  ],
+  "volume": 743.92,
+  "score": 10.41,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   10.047,
+   9.533,
+   8.97,
+   113.434,
+   71.168,
+   101.659
+  ],
+  "volume": 743.41,
+  "score": 10.33,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   10.048,
+   9.534,
+   8.97,
+   113.436,
+   71.171,
+   101.654
+  ],
+  "volume": 743.54,
+  "score": 10.24,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   10.059,
+   9.536,
+   8.983,
+   113.353,
+   71.184,
+   101.753
+  ],
+  "volume": 745.94,
+  "score": 9.18,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   10.057,
+   9.534,
+   8.972,
+   113.357,
+   71.236,
+   101.708
+  ],
+  "volume": 744.96,
+  "score": 8.83,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   10.049,
+   9.529,
+   8.953,
+   113.444,
+   71.248,
+   101.752
+  ],
+  "volume": 741.9,
+  "score": 8.72,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   10.563,
+   10.865,
+   7.341,
+   111.416,
+   84.046,
+   115.299
+  ],
+  "volume": 707.78,
+  "score": 5.0,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   10.572,
+   10.873,
+   7.344,
+   111.466,
+   83.967,
+   115.354
+  ],
+  "volume": 708.61,
+  "score": 4.88,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   10.57,
+   10.873,
+   7.343,
+   111.457,
+   83.99,
+   115.34
+  ],
+  "volume": 708.45,
+  "score": 4.84,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   10.626,
+   10.898,
+   7.308,
+   111.639,
+   83.784,
+   115.387
+  ],
+  "volume": 709.39,
+  "score": 4.75,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   10.635,
+   10.902,
+   7.311,
+   111.633,
+   83.749,
+   115.391
+  ],
+  "volume": 710.63,
+  "score": 4.38,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   10.631,
+   10.897,
+   7.308,
+   111.709,
+   83.789,
+   115.33
+  ],
+  "volume": 709.69,
+  "score": 4.36,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   10.614,
+   10.897,
+   7.32,
+   111.617,
+   83.803,
+   115.377
+  ],
+  "volume": 709.81,
+  "score": 4.34,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   10.608,
+   10.863,
+   7.349,
+   111.533,
+   83.89,
+   115.277
+  ],
+  "volume": 711.1,
+  "score": 4.33,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   10.63,
+   10.922,
+   7.316,
+   111.667,
+   83.706,
+   115.534
+  ],
+  "volume": 711.03,
+  "score": 4.27,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   10.605,
+   10.864,
+   7.353,
+   111.494,
+   83.905,
+   115.26
+  ],
+  "volume": 711.65,
+  "score": 4.26,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   10.571,
+   10.855,
+   7.357,
+   111.455,
+   83.971,
+   115.318
+  ],
+  "volume": 708.92,
+  "score": 4.25,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   10.615,
+   10.876,
+   7.343,
+   111.514,
+   83.884,
+   115.241
+  ],
+  "volume": 712.2,
+  "score": 4.22,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   10.627,
+   10.894,
+   7.322,
+   111.608,
+   83.77,
+   115.346
+  ],
+  "volume": 711.02,
+  "score": 4.13,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   10.619,
+   10.891,
+   7.303,
+   111.701,
+   83.715,
+   115.386
+  ],
+  "volume": 707.67,
+  "score": 4.12,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   10.614,
+   10.86,
+   7.348,
+   111.549,
+   83.91,
+   115.214
+  ],
+  "volume": 711.5,
+  "score": 4.04,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   10.501,
+   10.87,
+   7.323,
+   111.723,
+   83.894,
+   115.32
+  ],
+  "volume": 700.61,
+  "score": 3.78,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   10.603,
+   10.907,
+   7.328,
+   111.547,
+   83.785,
+   115.583
+  ],
+  "volume": 709.66,
+  "score": 3.77,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   10.648,
+   10.907,
+   7.304,
+   111.57,
+   83.632,
+   115.537
+  ],
+  "volume": 710.62,
+  "score": 3.67,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   10.656,
+   10.905,
+   7.291,
+   111.589,
+   83.563,
+   115.553
+  ],
+  "volume": 709.66,
+  "score": 3.65,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   10.667,
+   10.929,
+   7.303,
+   111.821,
+   83.655,
+   115.432
+  ],
+  "volume": 712.6,
+  "score": 3.49,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   10.651,
+   10.91,
+   7.307,
+   111.731,
+   83.736,
+   115.345
+  ],
+  "volume": 711.52,
+  "score": 3.41,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   10.644,
+   10.898,
+   7.306,
+   111.737,
+   83.69,
+   115.328
+  ],
+  "volume": 710.39,
+  "score": 3.37,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   11.035,
+   10.908,
+   7.024,
+   106.02,
+   78.602,
+   119.749
+  ],
+  "volume": 703.73,
+  "score": 3.03,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   10.67,
+   10.9,
+   7.307,
+   111.757,
+   83.768,
+   115.241
+  ],
+  "volume": 712.74,
+  "score": 3.03,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   10.695,
+   10.902,
+   7.303,
+   111.739,
+   83.671,
+   115.248
+  ],
+  "volume": 714.26,
+  "score": 2.97,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   11.104,
+   10.92,
+   6.999,
+   105.828,
+   78.637,
+   120.216
+  ],
+  "volume": 703.65,
+  "score": 2.77,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   11.066,
+   10.932,
+   7.004,
+   105.813,
+   78.65,
+   119.805
+  ],
+  "volume": 705.49,
+  "score": 2.63,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   10.635,
+   11.044,
+   7.087,
+   108.992,
+   85.369,
+   115.971
+  ],
+  "volume": 705.8,
+  "score": 2.49,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ }
+]

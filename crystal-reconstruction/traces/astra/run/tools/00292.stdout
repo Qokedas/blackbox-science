@@ -1,0 +1,9 @@
+QUEUEPID=10527
+Xfca9f3c Nat 52 molecule sizes [26, 26]
+  component CCCCCCCCCCCCCCCC[C@@H](C)CCCCCCCC matches 2
+  bond range 1.5200033258750183 1.574719716383478
+  min intermolecular distance 3.689110460117006
+Xdcc971e Nat 60 molecule sizes [30, 30]
+  component CCCCCCCCCCCCCCCC[C@@H](C)CCCCCCCCCCCC matches 2
+  bond range 1.507437647104438 1.5997390546905637
+  min intermolecular distance 3.1571897274961453

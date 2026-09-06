@@ -1,0 +1,5 @@
+Sun Sep  6 07:32:40 UTC 2026
+Xe3a2935/solve_x2.log:run 0: cost=44811.3 Rwp=0.1812 chi2=50301.1 t=1940s
+Xe3a2935/solve_x2.log:polish: Rwp 0.1809 -> 0.1470 (accepted) restraint cost=0.00
+X3c176e2/inos_p19x_a.log:run 0: cost=547073.5 Rwp=0.2932 chi2=616980.6 t=1312s
+X3c176e2/inos_p19x_a.log:ISO 8 P 21 21 21 Zp=2: 0.2932

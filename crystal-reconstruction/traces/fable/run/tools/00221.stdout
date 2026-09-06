@@ -1,0 +1,15 @@
+kill 6008: python solve.py Xd8634a2 8.9099 9.4782 13.2450 96.0172 98.2243 66.6787 P -1 --ns
+kill 6009: python solve.py Xd8634a2 8.9099 9.4782 13.2450 96.0172 98.2243 66.6787 P -1 --ns
+python inositol_scan.py P c a b 1 0,1,2,3,4,5,8 800000 1 pcab 
+s = open('solve.py').read()
+open('solve.py','w').write(s)
+s = open('inositol_scan.py').read()
+assert old in s; s = s.replace(old, new); open('inositol_scan.py','w').write(s)
+s = open('solve.py').read()
+open('solve.py','w').write(s)
+s = open('inositol_scan.py').read()
+assert old in s; s = s.replace(old, new); open('inositol_scan.py','w').write(s)
+s = open('solve.py').read()
+open('solve.py','w').write(s)
+s = open('inositol_scan.py').read()
+assert old in s; s = s.replace(old, new); open('inositol_scan.py','w').write(s)

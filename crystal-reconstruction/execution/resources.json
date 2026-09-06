@@ -1,0 +1,41 @@
+{
+  "campaign": "pxrd-20260906",
+  "project": "project-1b2e5a52-4a49-4aa5-863",
+  "zone": "us-central1-a",
+  "jobs": [
+    {
+      "name": "qkd-0906-pxrd-fable",
+      "short": "fable",
+      "provider": "anthropic",
+      "model": "claude-fable-5-1",
+      "state": "created",
+      "resource": [
+        {
+          "creationTimestamp": "2026-09-05T19:42:37.255-07:00",
+          "id": "6410611048787832306",
+          "machineType": "https://www.googleapis.com/compute/v1/projects/project-1b2e5a52-4a49-4aa5-863/zones/us-central1-a/machineTypes/e2-standard-8",
+          "name": "qkd-0906-pxrd-fable",
+          "status": "RUNNING"
+        }
+      ],
+      "created_utc": "2026-09-06T02:42:44.764278+00:00"
+    },
+    {
+      "name": "qkd-0906-pxrd-astra",
+      "short": "astra",
+      "provider": "openai",
+      "model": "gpt-6-astra",
+      "state": "created",
+      "resource": [
+        {
+          "creationTimestamp": "2026-09-05T19:42:46.893-07:00",
+          "id": "10309393412353481",
+          "machineType": "https://www.googleapis.com/compute/v1/projects/project-1b2e5a52-4a49-4aa5-863/zones/us-central1-a/machineTypes/e2-standard-8",
+          "name": "qkd-0906-pxrd-astra",
+          "status": "RUNNING"
+        }
+      ],
+      "created_utc": "2026-09-06T02:42:54.185532+00:00"
+    }
+  ]
+}

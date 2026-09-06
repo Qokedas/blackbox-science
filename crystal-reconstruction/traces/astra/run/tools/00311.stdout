@@ -1,0 +1,147 @@
+import os,sys,json,numpy as np
+from scipy.ndimage import gaussian_filter1d
+from scipy.signal import find_peaks,peak_widths
+from scipy.optimize import least_squares
+import matplotlib;matplotlib.use('Agg');import matplotlib.pyplot as plt
+for sid in sys.argv[1:]:
+ W='/app/work/'+sid;ins=json.load(open('/app/data/instances/'+sid+'/instrument.json'));rad=ins['radiation'];wl=rad['wavelength_A'];x,y,sig=np.loadtxt('/app/data/instances/'+sid+'/pattern.xye').T;dx=np.median(np.diff(x));noise=np.median(np.abs(np.diff(y,2)))/1.65
+ ys=gaussian_filter1d(y,max(.65,.004*wl/1.54/dx));prom=max(noise*4,np.ptp(y)*.0025);idx,pp=find_peaks(ys,prominence=prom,distance=max(2,int(.025*wl/1.54/dx)))
+ ww=peak_widths(ys,idx,rel_height=.5);wid=ww[0]*dx
+ result=[]
+ for k,i in enumerate(idx):
+  if wid[k]>1.0*wl/1.54 or wid[k]<dx*1.2:continue
+  if x[i]<x[0]+.05:continue
+  half=max(wid[k]*1.7,dx*6);halfL=half;halfR=half
+  if k>0:halfL=min(halfL,(x[i]-x[idx[k-1]])*.48)
+  if k+1<len(idx):halfR=min(halfR,(x[idx[k+1]]-x[i])*.48)
+  mask=(x>=x[i]-halfL)&(x<=x[i]+halfR);xx=x[mask];yy=y[mask];ss=np.maximum(sig[mask],noise)
+  if len(xx)<6:continue
+  double=len(rad.get('wavelengths_A') or [])>1
+  ratio=rad['wavelengths_A'][1]/rad['wavelengths_A'][0] if double else 1.
+  wt=(rad.get('wavelength_weights') or [1,.5])[1] if double else 0.
+  wlft=max(dx,(i-ww[2][k])*2*dx);wrgt=max(dx,(ww[3][k]-i)*2*dx)
+  def func(v):
+   pos,h,w1,w2,eta,b,sl=v
+   def peak(p):
+    z=(xx-p)/np.where(xx<p,w1,w1 if double else w2)
+    return ((1-eta)*np.exp(-4*np.log(2)*z*z)+eta/(1+4*z*z))
+   pos2=np.rad2deg(2*np.arcsin(ratio*np.sin(np.deg2rad(pos/2))))
+   return h*(peak(pos)+wt*peak(pos2))+b+sl*(xx-x[i])
+  start=[x[i]-(np.rad2deg(2*np.arcsin(ratio*np.sin(np.deg2rad(x[i]/2))))-x[i])*wt/(1+wt),pp['prominences'][k],min(wlft,half*2),min(wrgt,half*2),.5,min(yy),0.]
+  lower=[x[i]-max(dx*3,wid[k]*.5),0,dx*.5,dx*.5,0,min(yy)-np.ptp(yy),-np.inf]
+  upper=[x[i]+max(dx*3,wid[k]*.5),np.ptp(yy)*4+pp['prominences'][k],max(wid[k]*4,dx*8),max(wid[k]*4,dx*8),1,max(yy),np.inf]
+  try:
+   fit=least_squares(lambda v:(func(v)-yy)/ss,start,bounds=(lower,upper),max_nfev=200)
+   pos,h,w1,w2,eta,b,sl=fit.x;err=np.sqrt(max(0,np.linalg.pinv(fit.jac.T@fit.jac)[0,0]))*max(1,np.sqrt(np.mean(fit.fun**2)));rw=np.sqrt(np.mean(fit.fun**2))
+  except:pos,h,w1,w2,eta,b,sl=start;err=dx;rw=0.
+  if double:w2=w1
+  if h<prom*.7:continue
+  # eliminate a resolved Ka2 peak with its stronger matching Ka1 line
+  if double:
+   p1=np.rad2deg(2*np.arcsin(np.sin(np.deg2rad(pos/2))/ratio))
+   if any(abs(z['two_theta']-p1)<max(dx*1.8,w1*.2) and .12<h/z['height']<.9 for z in result):continue
+  result.append(dict(two_theta=float(pos),height=float(h),fwhm=float((w1+w2)/2),eta=float(eta),error=float(err),d=float(wl/(2*np.sin(np.deg2rad(pos/2)))),area=float(h*(w1+w2)/2),peak_max=float(x[i]),widthL=float(w1),widthR=float(w2),fit_chi=float(rw)))
+ json.dump(result,open(W+'/peaks_raw.json','w'),indent=1)
+ fig,axs=plt.subplots(2,1,figsize=(15,8));xxmax=min(x[-1],np.rad2deg(2*np.arcsin(wl*.18)))
+ for ax in axs:ax.plot(x,y,lw=.6);ax.set_xlim(x[0],xxmax)
+ axs[1].set_ylim(np.percentile(y,10)-noise, np.percentile(y,10)+.14*np.ptp(y))
+ for j,z in enumerate(result):
+  if z['two_theta']>xxmax:continue
+  for ax in axs:
+   ax.axvline(z['two_theta'],color='r',lw=.4);ax.text(z['two_theta'],np.interp(z['two_theta'],x,y),str(j+1),fontsize=7)
+ axs[0].set_title(sid+' raw-maximum / asymmetric-profile peaks');fig.tight_layout();fig.savefig(W+'/peaks_raw.png',dpi=125);plt.close(fig)
+ print(sid,len(result),[(j+1,round(z['two_theta'],4),round(z['height'])) for j,z in enumerate(result[:25])],flush=True)
+import os,sys,time,json,numpy as np
+from pyobjcryst.io import xml_cryst_file_load_all_object,xml_cryst_file_save_global
+from pyobjcryst.globaloptim import MonteCarlo,AnnealingSchedule
+from pyobjcryst.refinableobj import refpartype_scatt_occup,refpartype_scattpow_temperature
+from obj_model import add_component,export_cif
+sid=sys.argv[1];run=int(sys.argv[2]) if len(sys.argv)>2 else 0;zprime=int(sys.argv[3]) if len(sys.argv)>3 else 1
+W='/app/work/'+sid;R=W+'/search_'+str(run);os.makedirs(R,exist_ok=True);seed=int(time.time())%100000+run;np.random.seed(seed)
+base_path=next((a.split('=',1)[1] for a in sys.argv if a.startswith('--base=')),W+'/base.xml')
+objs=xml_cryst_file_load_all_object(base_path);c=[x for x in objs if x.GetClassName()=='Crystal'][0];p=[x for x in objs if x.GetClassName()=='PowderPattern'][0];d=[p.GetPowderPatternComponent(i) for i in range(p.GetNbPowderPatternComponent()) if p.GetPowderPatternComponent(i).GetClassName()=='PowderPatternDiffraction'][0]
+comp=json.load(open('/app/data/instances/'+sid+'/composition.json'))
+model_path=next((a.split('=',1)[1] for a in sys.argv if a.startswith('--model=')),W+'/model_smiles.json')
+if os.path.exists(model_path):comp=json.load(open(model_path))
+models=[]
+for z in range(zprime):
+ for ic,co in enumerate(comp['components']):
+  for j in range(co['count']):
+   m,md=add_component(c,co['smiles'],f'm{z}_{ic}_{j}',seed=seed+ic*21+z,conf_rank=run,rigid='--rigid' in sys.argv,hydrogen='--hydrogen' in sys.argv,coords_override=co.get('coords'),unique_sp='--fullbump' in sys.argv);models.append(md)
+json.dump(models,open(R+'/model.json','w'),indent=1)
+if '--bump' in sys.argv or '--fullbump' in sys.argv:
+ from antibump import add_antibump
+ add_antibump(c,models,full='--fullbump' in sys.argv,scale=float(os.environ.get('BUMP_SCALE','10')))
+c.GetOption(1).SetChoice(0) # no dynamical occupancy correction
+c.SetParIsFixed(refpartype_scattpow_temperature,True);c.SetParIsFixed(refpartype_scatt_occup,True)
+# Older bases may have disproportionate experimental errors. Rescale by the base Le Bail chi-squared.
+if '--rescale' in sys.argv:
+ d.SetExtractionMode(True,False);p.Prepare()
+ n=len(p.GetLSQWeight(0));scale=max(1.,np.sqrt(p.GetChi2()/n))
+ xx=np.rad2deg(p.GetPowderPatternX())[:n];yy=np.array(p.GetPowderPatternObs())[:n];ss=1/np.sqrt(np.maximum(p.GetLSQWeight(0),1e-20))*scale
+ np.savetxt(R+'/scaled.xye',np.column_stack([xx,yy,ss]));p.ImportPowderPattern2ThetaObsSigma(R+'/scaled.xye');p.Prepare()
+ print('RESCALED_BASE',scale,p.GetRw(),p.GetChi2(),flush=True)
+d.SetExtractionMode(False)
+p.SetMaxSinThetaOvLambda(.20 if '--lowres' in sys.argv else .25)
+if '--profile' in sys.argv:p.GetOption(0).SetChoice(1)
+# Remove the continuous origin freedom from polar groups.
+import gemmi
+sgnum=gemmi.find_spacegroup_by_name(c.GetSpaceGroup().GetName()).number
+if c.GetNbScatterer()>0 and sgnum in [1,3,4,5]:
+ origin=c.GetScatterer(0)
+ for name in (['x','y','z'] if sgnum==1 else ['y']):
+  try:origin.SetParIsFixed(name,True)
+  except:pass
+p.Prepare();p.FitScaleFactorForRw()
+mc=MonteCarlo(sid+'_'+str(run));mc.AddRefinableObj(p);mc.AddRefinableObj(c);mc.SetParIsFixed(refpartype_scatt_occup,True);mc.SetParIsFixed(refpartype_scattpow_temperature,True)
+initial=mc.GetLogLikelihood();print('INITIAL',sid,run,'Rw',p.GetRw(),'LLK',initial,'Integrated',p.GetIntegratedChi2(),'DOF',c.GetNbParNotFixed(),flush=True)
+mc.SetAlgorithmParallTempering(AnnealingSchedule.EXPONENTIAL,max(100,initial*float(os.environ.get('TEMP_MAX_FRAC','.04'))),max(.005,initial*float(os.environ.get('TEMP_MIN_FRAC','.000005'))),AnnealingSchedule.SMART,float(os.environ.get('MUT_MAX','16')),float(os.environ.get('MUT_MIN','.08')))
+if '--lsq' in sys.argv:mc.GetOption(5).SetChoice(int(os.environ.get('MC_LSQ','0')))
+best=1e100;t0=time.time();nrun=0
+while time.time()-t0<float(os.environ.get("SEARCH_TIME",3600)) and not os.path.exists(R+'/STOP'):
+ # Each independent tempering run starts randomised; initial conformer retained in molecule geometry restraints.
+ if nrun:mc.RandomizeStartingConfig()
+ t1=time.time();mc.Optimize(int(os.environ.get('MC_STEPS','1000000')) if nrun else 100000, max_time=float(os.environ.get('MC_RUN_TIME','600')))
+ mc.RestoreBestConfiguration();cost=mc.GetLogLikelihood();rw=p.GetRw()
+ print('RUN',nrun,'steps',int(os.environ.get('MC_STEPS','1000000')) if nrun else 100000,'time',time.time()-t1,'total',time.time()-t0,'LLK',cost,'Rw',rw,'Integrated',p.GetIntegratedChi2(),flush=True)
+ if cost<best:
+  best=cost;export_cif(c,R+'/best.cif');xml_cryst_file_save_global(R+'/best.xml');json.dump({'llk':cost,'Rw':rw,'elapsed':time.time()-t0,'run':nrun},open(R+'/best.json','w'),indent=1)
+ nrun+=1
+ if '--test' in sys.argv:break
+ if rw<float(os.environ.get('TARGET_RW',.09)):break
+print('FINISHED',best,flush=True)
+Traceback (most recent call last):
+  File "/app/work/refine_obj.py", line 12, in <module>
+    objs=xml_cryst_file_load_all_object(src);c=[o for o in objs if o.GetClassName()=='Crystal'][0];p=[o for o in objs if o.GetClassName()=='PowderPattern'][0]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.11/site-packages/pyobjcryst/io.py", line 62, in xml_cryst_file_load_all_object
+    XMLCrystFileLoadAllObject_orig(open(file, "rb"), verbose=verbose)
+                                   ^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/app/work/X7e382cb/search_g21/best.xml'
+SCALED_SIGMA 2.139587995132528 3062.9999999999645
+TIGHT_RESTRAINTS
+FLEXIBLE_RINGS
+CYCLE 0 0 Rw 0.1741919074480005 chi2 2298.9364223695884 geom 1235.8800253923614 LSQ 3862.6566165640224
+CYCLE 0 1 Rw 0.17113303469636684 chi2 2218.9050305382616 geom 1235.8800253923614 LSQ 3785.026785094259
+CYCLE 0 2 Rw 0.17058978434124653 chi2 2204.8398597320383 geom 1235.8800253923614 LSQ 3769.4710668836256
+CYCLE 1 0 Rw 0.15159387526795148 chi2 1741.1425207451953 geom 118.75110710765469 LSQ 2031.081045520225
+CYCLE 1 1 Rw 0.142997033651858 chi2 1549.2627118590005 geom 11.109937785875417 LSQ 1692.2869060680125
+CYCLE 1 2 Rw 0.1376709396526674 chi2 1436.0037186244758 geom 7.700482204482084 LSQ 1558.279572256774
+CYCLE 2 0 Rw 0.1362669699152424 chi2 1406.8642991565166 geom 4.595209444149086 LSQ 1487.0701467551087
+index notes
+Xb7088cf TRICLINIC P 4 peaks [2.09477, 4.22703, 6.02921, 8.65317, 8.86206, 9.14982, 9.33713, 9.62143, 10.10308, 10.56719, 11.10774, 11.74545, 12.50147, 12.91946, 13.2967, 13.99531, 14.5362, 15.22469] V 700.0 3200.0 Lmax 40.0
+3->40,1.48001,24.9999
+1.5708->2.35619,0.0785683,0.707107,9.99638
+700->3200,500.01,4.9999
+Starting: V=700->1200.01
+      a=10.99-11.06 b=10.81-10.89 c= 6.97- 7.01 alpha=105.50-105.85 beta= 78.70- 78.57 gamma=119.34-119.79 V=693.23-702.99level=6, indexed=1(0 sol.)
+      a=0.01096-0.01091 b=0.01174-0.01168 c=0.02231-0.02214 alpha=0.01051-0.01060 beta=0.00649-0.00660 gamma=-0.00242--0.00232level=6, indexed=1(0 sol.)
+ Solution ? a= 11.066 b= 10.932 c=  7.004 alpha=105.813 beta= 78.650 gamma=119.805 V=  705.49 score=  2.63 #   0
+Xedd9c7b TRICLINIC P 4 peaks [11.10742, 11.81985, 12.52948, 14.26583, 14.8881, 15.39919, 17.12935, 17.38853, 19.31913, 19.98573, 20.61934, 21.50266, 22.228, 23.87816, 24.33548, 25.23826, 26.49338, 28.19291] V 400.0 2600.0 Lmax 40.0
+3->40,1.48001,24.9999
+1.5708->2.35619,0.0785683,0.707107,9.99638
+400->2600,440.009,4.9999
+Starting: V=400->840.009
+    a= 8.50- 8.59 b= 7.67- 7.74 c= 7.20- 7.30 alpha=101.69-102.18 beta=108.51-109.07 gamma= 94.97- 95.18 V=430.65-442.28level=4, indexed=1(0 sol.)
+    a=0.01579-0.01563 b=0.01818-0.01798 c=0.02280-0.02245 alpha=0.00551-0.00578 beta=0.00992-0.01027 gamma=0.01303-0.01330level=4, indexed=1(0 sol.)
+ Solution ? a=  8.539 b=  7.685 c=  7.206 alpha=102.047 beta=109.118 gamma= 95.078 V=  430.60 score=  5.01 #   0

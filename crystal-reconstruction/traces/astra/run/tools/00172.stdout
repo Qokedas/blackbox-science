@@ -1,0 +1,138 @@
+<ObjCryst Date="2026-09-06T04:11:00GMT" Revision="2024001">
+  <Crystal Name="X3c176e2" SpaceGroup="P 21 21 21">
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="a">9.3319</Par>
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="b">11.038</Par>
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="c">14.0152</Par>
+    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="alpha">90</Par>
+    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="beta">90</Par>
+    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="gamma">90</Par>
+    <Option Name="Constrain Lattice to SpaceGroup Symmetry" Choice="0" ChoiceName="Yes (Default)"/>
+
+    <Option Name="Use Dynamical Occupancy Correction" Choice="0" ChoiceName="No"/>
+
+    <Option Name="Display Enantiomer" Choice="0" ChoiceName="No"/>
+
+    <ScatteringPowerAtom Name="O" Symbol="O">
+      <Par Refined="0" Limited="1" Min="0.3" Max="10" Name="Biso">3.66132</Par>
+      <Par Refined="0" Limited="0" Min="0" Max="1" Name="ML Error">0</Par>
+      <Par Refined="0" Limited="1" Min="0" Max="10" Name="ML-NbGhost">0</Par>
+      <Par Refined="0" Limited="1" Min="-10" Max="10" Name="Formal Charge">0</Par>
+      <RGBColour>1 0.051 0.051</RGBColour>
+    </ScatteringPowerAtom>
+    <ScatteringPowerAtom Name="C" Symbol="C">
+      <Par Refined="0" Limited="1" Min="0.3" Max="10" Name="Biso">0.887418</Par>
+      <Par Refined="0" Limited="0" Min="0" Max="1" Name="ML Error">0</Par>
+      <Par Refined="0" Limited="1" Min="0" Max="10" Name="ML-NbGhost">0</Par>
+      <Par Refined="0" Limited="1" Min="-10" Max="10" Name="Formal Charge">0</Par>
+      <RGBColour>0.565 0.565 0.565</RGBColour>
+    </ScatteringPowerAtom>
+    <ScatteringPowerAtom Name="H" Symbol="H">
+      <Par Refined="0" Limited="1" Min="0.3" Max="10" Name="Biso">3.8736</Par>
+      <Par Refined="0" Limited="0" Min="0" Max="1" Name="ML Error">0</Par>
+      <Par Refined="0" Limited="1" Min="0" Max="10" Name="ML-NbGhost">0</Par>
+      <Par Refined="0" Limited="1" Min="-10" Max="10" Name="Formal Charge">0</Par>
+      <RGBColour>1 1 1</RGBColour>
+    </ScatteringPowerAtom>
+
+    <Molecule Name="m0_0_0" MDMoveFreq="0" MDMoveEnergy="40" LogLikelihoodScale="1">
+      <Quaternion Q0="-0.287485" Q1="-0.760524" Q2="-0.197159" Q3="0.547799" IsUnitQuaternion="1"/>
+      <Par Refined="1" Limited="0" Min="0" Max="1" Name="x">0.506567</Par>
+      <Par Refined="1" Limited="0" Min="0" Max="1" Name="y">0.66464</Par>
+      <Par Refined="1" Limited="0" Min="0" Max="1" Name="z">0.359597</Par>
+      <Par Refined="0" Limited="1" Min="0" Max="1" Name="Occup">1</Par>
+
+      <Option Name="Flexibility Model" Choice="1" ChoiceName="Rigid Body"/>
+      <Option Name="Enable Flipping" Choice="1" ChoiceName="No"/>
+      <Option Name="Auto Optimize Starting Conformation" Choice="1" ChoiceName="No"/>
+      <Option Name="Optimize Orientation" Choice="0" ChoiceName="Yes"/>
+      <Option Name="Rotation Center" Choice="0" ChoiceName="Geometrical center (recommended)"/>
+
+      <Atom Name="m0_0_0_O1" ScattPow="O" x="1.57539e+09" y="7.46982e+09" z="-1.39918e+07" Occup="1"/>
+      <Atom Name="m0_0_0_C2" ScattPow="C" x="1.57539e+09" y="7.46982e+09" z="-1.39918e+07" Occup="1"/>
+      <Atom Name="m0_0_0_C3" ScattPow="C" x="1.57539e+09" y="7.46982e+09" z="-1.39918e+07" Occup="1"/>
+      <Atom Name="m0_0_0_O4" ScattPow="O" x="1.57539e+09" y="7.46982e+09" z="-1.39918e+07" Occup="1"/>
+      <Atom Name="m0_0_0_C5" ScattPow="C" x="1.57539e+09" y="7.46982e+09" z="-1.39918e+07" Occup="1"/>
+      <Atom Name="m0_0_0_O6" ScattPow="O" x="1.57539e+09" y="7.46982e+09" z="-1.39918e+07" Occup="1"/>
+      <Atom Name="m0_0_0_C7" ScattPow="C" x="1.57539e+09" y="7.46982e+09" z="-1.39918e+07" Occup="1"/>
+      <Atom Name="m0_0_0_O8" ScattPow="O" x="1.57539e+09" y="7.46982e+09" z="-1.39918e+07" Occup="1"/>
+      <Atom Name="m0_0_0_C9" ScattPow="C" x="1.57539e+09" y="7.46982e+09" z="-1.39918e+07" Occup="1"/>
+      <Atom Name="m0_0_0_O10" ScattPow="O" x="1.57539e+09" y="7.46982e+09" z="-1.39918e+07" Occup="1"/>
+      <Atom Name="m0_0_0_C11" ScattPow="C" x="1.57539e+09" y="7.46982e+09" z="-1.39918e+07" Occup="1"/>
+      <Atom Name="m0_0_0_O12" ScattPow="O" x="1.57539e+09" y="7.46982e+09" z="-1.39918e+07" Occup="1"/>
+      <Atom Name="m0_0_0_H13" ScattPow="H" x="1.57539e+09" y="7.46982e+09" z="-1.39918e+07" Occup="1"/>
+      <Atom Name="m0_0_0_H14" ScattPow="H" x="1.57539e+09" y="7.46982e+09" z="-1.39918e+07" Occup="1"/>
+      <Atom Name="m0_0_0_H15" ScattPow="H" x="1.57539e+09" y="7.46982e+09" z="-1.39918e+07" Occup="1"/>
+      <Atom Name="m0_0_0_H16" ScattPow="H" x="1.57539e+09" y="7.46982e+09" z="-1.39918e+07" Occup="1"/>
+      <Atom Name="m0_0_0_H17" ScattPow="H" x="1.57539e+09" y="7.46982e+09" z="-1.39918e+07" Occup="1"/>
+      <Atom Name="m0_0_0_H18" ScattPow="H" x="1.57539e+09" y="7.46982e+09" z="-1.39918e+07" Occup="1"/>
+      <Atom Name="m0_0_0_H19" ScattPow="H" x="1.57539e+09" y="7.46982e+09" z="-1.39918e+07" Occup="1"/>
+      <Atom Name="m0_0_0_H20" ScattPow="H" x="1.57539e+09" y="7.46982e+09" z="-1.39918e+07" Occup="1"/>
+      <Atom Name="m0_0_0_H21" ScattPow="H" x="1.57539e+09" y="7.46982e+09" z="-1.39918e+07" Occup="1"/>
+      <Atom Name="m0_0_0_H22" ScattPow="H" x="1.57539e+09" y="7.46982e+09" z="-1.39918e+07" Occup="1"/>
+      <Atom Name="m0_0_0_H23" ScattPow="H" x="1.57539e+09" y="7.46982e+09" z="-1.39918e+07" Occup="1"/>
+      <Atom Name="m0_0_0_H24" ScattPow="H" x="1.57539e+09" y="7.46982e+09" z="-1.39918e+07" Occup="1"/>
+      <Bond Atom1="m0_0_0_O1" Atom2="m0_0_0_C2" Length="1.43666" Delta="0.025" Sigma="0.02" BondOrder="1" FreeTorsion="0"/>
+      <Bond Atom1="m0_0_0_C2" Atom2="m0_0_0_C3" Length="1.53655" Delta="0.025" Sigma="0.02" BondOrder="1" FreeTorsion="0"/>
+      <Bond Atom1="m0_0_0_C3" Atom2="m0_0_0_O4" Length="1.43677" Delta="0.025" Sigma="0.02" BondOrder="1" FreeTorsion="0"/>
+      <Bond Atom1="m0_0_0_C3" Atom2="m0_0_0_C5" Length="1.53375" Delta="0.025" Sigma="0.02" BondOrder="1" FreeTorsion="0"/>
+      <Bond Atom1="m0_0_0_C5" Atom2="m0_0_0_O6" Length="1.43666" Delta="0.025" Sigma="0.02" BondOrder="1" FreeTorsion="0"/>
+      <Bond Atom1="m0_0_0_C5" Atom2="m0_0_0_C7" Length="1.53654" Delta="0.025" Sigma="0.02" BondOrder="1" FreeTorsion="0"/>
+      <Bond Atom1="m0_0_0_C7" Atom2="m0_0_0_O8" Length="1.43677" Delta="0.025" Sigma="0.02" BondOrder="1" FreeTorsion="0"/>
+137-      <BondAngle Atom1="m0_0_0_H23" Atom2="m0_0_0_C11" Atom3="m0_0_0_O12" Angle="112.048" Delta="2" Sigma="2"/>
+138-      <BondAngle Atom1="m0_0_0_H23" Atom2="m0_0_0_C11" Atom3="m0_0_0_C2" Angle="106.409" Delta="2" Sigma="2"/>
+139-      <BondAngle Atom1="m0_0_0_H24" Atom2="m0_0_0_O12" Atom3="m0_0_0_C11" Angle="109.471" Delta="2" Sigma="2"/>
+140:      <RigidGroup Atom0="m0_0_0_H19" Atom1="m0_0_0_H18" Atom2="m0_0_0_O1" Atom3="m0_0_0_C2" Atom4="m0_0_0_O4" Atom5="m0_0_0_O6" Atom6="m0_0_0_C7" Atom7="m0_0_0_C3" Atom8="m0_0_0_C5" Atom9="m0_0_0_O8" Atom10="m0_0_0_C9" Atom11="m0_0_0_O10" Atom12="m0_0_0_C11" Atom13="m0_0_0_O12" Atom14="m0_0_0_H17" Atom15="m0_0_0_H16" Atom16="m0_0_0_H15" Atom17="m0_0_0_H14" Atom18="m0_0_0_H13" Atom19="m0_0_0_H20" Atom20="m0_0_0_H21" Atom21="m0_0_0_H22" Atom22="m0_0_0_H23" Atom23="m0_0_0_H24"/>
+141-    </Molecule>
+142-    <Molecule Name="m1_0_0" MDMoveFreq="0" MDMoveEnergy="40" LogLikelihoodScale="1">
+143-      <Quaternion Q0="-0.0582741" Q1="-0.885227" Q2="0.105768" Q3="0.44921" IsUnitQuaternion="1"/>
+144-      <Par Refined="1" Limited="0" Min="0" Max="1" Name="x">0.959693</Par>
+145-      <Par Refined="1" Limited="0" Min="0" Max="1" Name="y">0.810375</Par>
+146-      <Par Refined="1" Limited="0" Min="0" Max="1" Name="z">0.120617</Par>
+147-      <Par Refined="0" Limited="1" Min="0" Max="1" Name="Occup">1</Par>
+148-
+149-      <Option Name="Flexibility Model" Choice="1" ChoiceName="Rigid Body"/>
+150-      <Option Name="Enable Flipping" Choice="1" ChoiceName="No"/>
+151-      <Option Name="Auto Optimize Starting Conformation" Choice="1" ChoiceName="No"/>
+152-      <Option Name="Optimize Orientation" Choice="0" ChoiceName="Yes"/>
+--
+242-      <BondAngle Atom1="m1_0_0_H23" Atom2="m1_0_0_C11" Atom3="m1_0_0_O12" Angle="108.747" Delta="2" Sigma="2"/>
+243-      <BondAngle Atom1="m1_0_0_H23" Atom2="m1_0_0_C11" Atom3="m1_0_0_C2" Angle="106.421" Delta="2" Sigma="2"/>
+244-      <BondAngle Atom1="m1_0_0_H24" Atom2="m1_0_0_O12" Atom3="m1_0_0_C11" Angle="109.471" Delta="2" Sigma="2"/>
+245:      <RigidGroup Atom0="m1_0_0_H20" Atom1="m1_0_0_O1" Atom2="m1_0_0_C2" Atom3="m1_0_0_O4" Atom4="m1_0_0_O10" Atom5="m1_0_0_C11" Atom6="m1_0_0_C3" Atom7="m1_0_0_C5" Atom8="m1_0_0_O6" Atom9="m1_0_0_C7" Atom10="m1_0_0_O8" Atom11="m1_0_0_C9" Atom12="m1_0_0_O12" Atom13="m1_0_0_H21" Atom14="m1_0_0_H24" Atom15="m1_0_0_H22" Atom16="m1_0_0_H17" Atom17="m1_0_0_H18" Atom18="m1_0_0_H19" Atom19="m1_0_0_H15" Atom20="m1_0_0_H14" Atom21="m1_0_0_H13" Atom22="m1_0_0_H23" Atom23="m1_0_0_H16"/>
+246-    </Molecule>
+247-
+248-  </Crystal>
+249-  <PowderPattern Name="X3c176e2">
+250-    <Par Refined="0" Limited="1" Min="-2.86479" Max="2.86479" Name="Zero">-0.0127147</Par>
+251-    <Par Refined="0" Limited="1" Min="-2.86479" Max="2.86479" Name="2ThetaDisplacement">0</Par>
+252-    <Par Refined="0" Limited="1" Min="-2.86479" Max="2.86479" Name="2ThetaTransparency">0</Par>
+253-    <Option Name="Use Integrated Profiles" Choice="1" ChoiceName="No"/>
+254-
+255-    <Radiation>
+256-      <Option Name="Radiation" Choice="1" ChoiceName="X-Ray"/>
+257-      <Option Name="Spectrum" Choice="0" ChoiceName="Monochromatic"/>
+data_solution
+_cell_length_a 9.33190487
+_cell_length_b 11.03796501
+_cell_length_c 14.01519140
+_cell_angle_alpha 90.00000000
+_cell_angle_beta 90.00000000
+_cell_angle_gamma 90.00000000
+_space_group_name_H-M_alt 'P 21 21 21'
+_space_group_IT_number 19
+loop_
+_space_group_symop_id
+_space_group_symop_operation_xyz
+1 'x,y,z'
+2 '-x+1/2,-y,z+1/2'
+3 'x+1/2,-y+1/2,-z'
+4 '-x,y+1/2,-z+1/2'
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+_atom_site_B_iso_or_equiv
+O1 O 0.58981645 0.78897834 0.47594578 1.0 3.6613

@@ -1,0 +1,83 @@
+X1db5091 TRICLINIC P 3 peaks [4.21075, 7.21405, 8.12471, 8.56623, 9.43718, 12.88362, 13.9, 14.07521, 14.55706, 15.32607, 16.36086, 17.26318, 17.62729, 18.61135, 19.04102, 19.47008, 20.97467, 21.40196] V 444.6 1752.7689208984375 Lmax 33.75977830294289
+3->33.7598,1.2304,24.9999
+1.5708->2.35619,0.0785683,0.707107,9.99638
+444.6->1752.77,436.071,2.9999
+{
+ "radiation": {
+  "type": "CuK1",
+  "wavelength_A": 1.54059,
+  "wavelengths_A": [
+   1.54059
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": "Fine focus X-ray tube"
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 298.0,
+ "two_theta_range_deg": [
+  3.0,
+  75.0
+ ],
+ "n_points": 7201,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}{
+ "radiation": {
+  "type": "CuK",
+  "wavelength_A": 1.5418,
+  "wavelengths_A": [
+   1.5418
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": "Fine focus X-ray tube"
+ },
+ "geometry": "reflection (flat plate / Bragg-Brentano)",
+ "geometry_source_text": null,
+ "temperature_K": 298.0,
+ "two_theta_range_deg": [
+  3.001,
+  80.011
+ ],
+ "n_points": 4531,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": [
+  "the depositors recorded Cu K-alpha as a single wavelength 1.5418 A (the K-alpha1/K-alpha2 weighted mean); whether the K-alpha2 component is present in the data is not stated"
+ ]
+}X14a2b08 TRICLINIC P 3 peaks [4.14163, 7.36177, 8.19233, 8.75645, 10.67163, 11.55567, 12.46509, 14.00244, 15.03325, 15.75575, 16.44591, 17.69189, 18.00862, 18.55837, 18.99712, 19.31202, 19.57009, 20.22737] V 519.3095703125 2077.23828125 Lmax 35.72619825031028
+3->35.7262,1.30905,24.9999
+{
+ "radiation": {
+  "type": "Synchrotron ID31 at ESRF",
+  "wavelength_A": 0.80105,
+  "wavelengths_A": [
+   0.80105
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "not stated",
+ "geometry_source_text": null,
+ "temperature_K": 100.0,
+ "two_theta_range_deg": [
+  1.5,
+  39.999
+ ],
+ "n_points": 12834,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}{
+ "chi2": 275.18121337890625,
+ "Rint": 0.5245771408081055,
+ "iteration": 8,
+ "elapsed": 141.72239804267883
+}

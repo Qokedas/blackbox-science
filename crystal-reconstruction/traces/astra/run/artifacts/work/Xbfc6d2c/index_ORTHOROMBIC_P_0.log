@@ -1,0 +1,17 @@
+Xbfc6d2c ORTHOROMBIC P 0 peaks [9.756, 12.0609, 13.45576, 13.82057, 14.32462, 15.40134, 16.559, 17.07429, 17.37045, 17.89088, 19.75396, 20.78301, 21.84725, 23.31829, 23.91566, 24.22891, 25.02998, 25.76444, 26.36503, 27.18286, 28.70526, 29.20633] V 457.9537353515625 3240 Lmax 41.432362848751886
+3->41.4324,1.5373,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+457.954->3240,463.682,5.9999
+Starting: V=457.954->921.636
+Finished: V=457.954->921.636 A^3, 507 unit cells tested, 267970 tests/s,   Elapsed time=0.001899s
+Starting: V=921.636->1385.32
+Finished: V=921.636->1385.32 A^3, 1697 unit cells tested, 324971 tests/s,   Elapsed time=0.005229s
+Starting: V=1385.32->1849
+Finished: V=1385.32->1849 A^3, 3688 unit cells tested, 317138 tests/s,   Elapsed time=0.011637s
+Starting: V=1849->2312.68
+Finished: V=1849->2312.68 A^3, 6872 unit cells tested, 375827 tests/s,   Elapsed time=0.0183s
+Starting: V=2312.68->2776.36
+Finished: V=2312.68->2776.36 A^3, 11573 unit cells tested, 423594 tests/s,   Elapsed time=0.02733s
+Starting: V=2776.36->3240
+Finished: V=2776.36->3240 A^3, 17309 unit cells tested, 461623 tests/s,   Elapsed time=0.037507s
+DONE Xbfc6d2c ORTHOROMBIC P 0 0.037662506103515625 []

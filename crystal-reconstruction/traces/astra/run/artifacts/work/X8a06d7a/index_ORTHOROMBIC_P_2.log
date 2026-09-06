@@ -1,0 +1,25 @@
+X8a06d7a ORTHOROMBIC P 2 peaks [7.45112, 8.23776, 10.65382, 11.43233, 12.23635, 13.88398, 14.78558, 15.24455, 16.55686, 17.58171, 18.15563, 19.22465, 19.55147, 20.03816, 20.47173, 21.49676, 22.55843, 23.20939, 23.81188, 24.19796, 25.03788, 25.69971] V 668.031494140625 6183.89013671875 Lmax 51.39394472632975
+3->51.3939,1.93577,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+668.031->6183.89,551.641,9.999
+Starting: V=668.031->1219.67
+Finished: V=668.031->1219.67 A^3, 257 unit cells tested, 160525 tests/s,   Elapsed time=0.001608s
+Starting: V=1219.67->1771.31
+Finished: V=1219.67->1771.31 A^3, 655 unit cells tested, 158981 tests/s,   Elapsed time=0.004127s
+Starting: V=1771.31->2322.95
+Finished: V=1771.31->2322.95 A^3, 1366 unit cells tested, 174882 tests/s,   Elapsed time=0.007818s
+Starting: V=2322.95->2874.6
+Finished: V=2322.95->2874.6 A^3, 2514 unit cells tested, 203135 tests/s,   Elapsed time=0.012383s
+Starting: V=2874.6->3426.24
+Finished: V=2874.6->3426.24 A^3, 4052 unit cells tested, 222198 tests/s,   Elapsed time=0.018244s
+Starting: V=3426.24->3977.88
+Finished: V=3426.24->3977.88 A^3, 6042 unit cells tested, 240506 tests/s,   Elapsed time=0.025129s
+Starting: V=3977.88->4529.52
+Finished: V=3977.88->4529.52 A^3, 8932 unit cells tested, 267185 tests/s,   Elapsed time=0.033438s
+Starting: V=4529.52->5081.16
+Finished: V=4529.52->5081.16 A^3, 12339 unit cells tested, 286321 tests/s,   Elapsed time=0.043104s
+Starting: V=5081.16->5632.8
+Finished: V=5081.16->5632.8 A^3, 16653 unit cells tested, 312797 tests/s,   Elapsed time=0.053247s
+Starting: V=5632.8->6183.89
+Finished: V=5632.8->6183.89 A^3, 22297 unit cells tested, 344808 tests/s,   Elapsed time=0.064672s
+DONE X8a06d7a ORTHOROMBIC P 0 0.06484413146972656 []

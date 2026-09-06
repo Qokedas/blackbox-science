@@ -1,0 +1,7 @@
+CONFORMERS 50 distinct 6 anchors [0, 1, 7]
+{'tag': 'ring94c0', 'energy': -21.21360077473178, 'index': 1, 'reflected': False, 'Rw': 0.15480967793765749}
+{'tag': 'ring94c1', 'energy': -21.21360077473178, 'index': 1, 'reflected': True, 'Rw': 0.16513348294731306}
+{'tag': 'ring94c2', 'energy': -17.318796409335484, 'index': 16, 'reflected': False, 'Rw': 0.14022937796327217}
+{'tag': 'ring94c3', 'energy': -17.318796409335484, 'index': 16, 'reflected': True, 'Rw': 0.1360870763526071}
+{'tag': 'ring94c4', 'energy': -15.144157628113595, 'index': 38, 'reflected': False, 'Rw': 0.17601793919797923}
+{'tag': 'ring94c5', 'energy': -15.144157628113595, 'index': 38, 'reflected': True, 'Rw': 0.16483099572685872}

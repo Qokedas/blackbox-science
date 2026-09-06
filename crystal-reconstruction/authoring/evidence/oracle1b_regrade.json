@@ -1,0 +1,21 @@
+[
+ {
+  "id": "Xe3a2935",
+  "dof": 9.0,
+  "zprime": 1.0,
+  "radiation": "synchrotron",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "identity check failed"
+  },
+  "minutes": 41.3,
+  "trials_total": 3000000,
+  "runs_done": 2,
+  "best_rw": 0.22939971427673989,
+  "solved_seconds_inrun": null
+ }
+]

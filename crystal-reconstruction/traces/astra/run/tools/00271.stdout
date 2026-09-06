@@ -1,0 +1,13 @@
+400000 100000
+0-7
+902643712
+17179869184
+5531 R 1516.7 nice 0 Threads:	1 VmRSS:	  115788 kB python /app/work/search_obj.py X35b7fbc 2 1 --rescale --model=/app/work/X35b7fbc/cis.json 
+7274 R 876.9 nice 0 Threads:	1 VmRSS:	  114596 kB python /app/work/search_obj.py Xd4c1a35 2 2 --rescale --profile 
+8405 R 550.7 nice 8 Threads:	4 VmRSS:	  317808 kB python /app/work/solve_de.py Xdcc971e de11 --model=/app/work/Xdcc971e/alltrans.json --hydrogen 
+8580 R 170.1 nice 0 Threads:	1 VmRSS:	   84728 kB python /app/work/index_one.py Xedd9c7b TRICLINIC P 4 400 2600 
+8971 R 78.0 nice 0 Threads:	1 VmRSS:	  114860 kB python /app/work/search_obj.py Xe1fb77b 2 1 --rescale --lsq --bump 
+9003 R 70.0 nice 6 Threads:	1 VmRSS:	  175624 kB python /app/work/refine_obj.py Xdcc971e 10h /app/work/Xdcc971e/refined_10.xml --scale --stol=.38 
+9004 R 4.8 nice 12 Threads:	1 VmRSS:	  100944 kB python /app/work/fit_candidate.py Xebbd488 1 .27 
+9203 R 45.2 nice 7 Threads:	4 VmRSS:	  319544 kB python /app/work/solve_de.py Xdcc971e deaxis --axis=-1,0,2 --model=/app/work/Xdcc971e/alltrans.json --hydrogen 
+9313 R 1.4 nice 10 Threads:	1 VmRSS:	  136208 kB python /app/work/solve_de.py Xfca9f3c decheck2 --model=/app/work/Xfca9f3c/alltrans.json --hydrogen --seed-xml=/app/work/Xfca9f3c/refined_10.xml 

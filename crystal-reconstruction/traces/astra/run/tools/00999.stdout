@@ -1,0 +1,197 @@
+import sys,os,time,json,itertools,numpy as np
+import matplotlib
+matplotlib.use('Agg')
+from rdkit import Chem
+from pyobjcryst.io import xml_cryst_file_load_all_object,xml_cryst_file_save_global
+from pyobjcryst._pyobjcryst import LSQ
+from pyobjcryst.scatteringpower import ScatteringPowerAtom
+from pyobjcryst.refinableobj import *
+from obj_model import export_cif,recenter_molecules,add_aromatic_planarity
+sid=sys.argv[1];run=sys.argv[2] if len(sys.argv)>2 else '1';W='/app/work/'+sid
+src=W+'/search_'+run+'/best.xml' if len(sys.argv)<4 else sys.argv[3]
+objs=xml_cryst_file_load_all_object(src);c=[o for o in objs if o.GetClassName()=='Crystal'][0];p=[o for o in objs if o.GetClassName()=='PowderPattern'][0]
+d=[p.GetPowderPatternComponent(i) for i in range(p.GetNbPowderPatternComponent()) if p.GetPowderPatternComponent(i).GetClassName()=='PowderPatternDiffraction'][0]
+mods=json.load(open(W+'/search_'+run+'/model.json'));mols=[c.GetScatterer(i) for i in range(c.GetNbScatterer())]
+p.Prepare()
+print('START',p.GetRw(),p.GetChi2(),flush=True)
+# Add geometrically generated hydrogens to the molecular model, keeping all heavy-atom positions unchanged.
+if '--noH' not in sys.argv:
+ try:hs=c.GetScatteringPower('H')
+ except:hs=ScatteringPowerAtom('H','H',4.0);c.AddScatteringPower(hs)
+ for m,md in zip(mols,mods):
+  if m.GetClassName()!='Molecule':continue
+  r=Chem.MolFromSmiles(md['smiles']);n=r.GetNumAtoms()
+  ac=m.GetScatteringComponentList()[0];old_xyz=np.array([ac.X,ac.Y,ac.Z])
+  if m.GetNbAtoms()!=n:continue
+  cf=Chem.Conformer(n)
+  for i in range(n):
+   a=m.GetAtom(i);cf.SetAtomPosition(i,(a.X,a.Y,a.Z))
+  r.AddConformer(cf);rh=Chem.AddHs(r,addCoords=True);xyz=rh.GetConformer().GetPositions()
+  for i in range(n,rh.GetNumAtoms()):
+   h=m.AddAtom(*xyz[i],hs,m.GetName()+'_H'+str(i+1),False)
+   j=rh.GetAtomWithIdx(i).GetNeighbors()[0].GetIdx();parent=m.GetAtom(j);bl=float(np.linalg.norm(xyz[i]-xyz[j]));m.AddBond(parent,h,bl,.02,.015,1,False)
+   for nb in rh.GetAtomWithIdx(j).GetNeighbors():
+    k=nb.GetIdx()
+    if k==i or k>=i:continue
+    v1=xyz[i]-xyz[j];v2=xyz[k]-xyz[j];ang=np.arccos(np.clip(v1@v2/np.linalg.norm(v1)/np.linalg.norm(v2),-1,1));m.AddBondAngle(h,parent,m.GetAtom(k),ang,np.deg2rad(2),np.deg2rad(2),False)
+   for rg in range(m.GetNbRigidGroups()):
+    group=m.GetRigidGroupList()[rg]
+    if parent in group:group.add(h)
+   # Aromatic atoms and nitrile terminal atoms require no additional torsions.
+  ac=m.GetScatteringComponentList()[0];new_xyz=np.array([ac.X,ac.Y,ac.Z]);delta=old_xyz-new_xyz
+  m.X+=delta[0];m.Y+=delta[1];m.Z+=delta[2]
+ c.SetParIsFixed(refpartype_scattpow_temperature,True)
+# Optional extension to higher-angle observations for a final coordinate refinement.
+new_stol=next((float(a.split('=',1)[1]) for a in sys.argv if a.startswith('--stol=')),None)
+if new_stol is not None:
+ ins=json.load(open('/app/data/instances/'+sid+'/instrument.json'));wl=ins['radiation']['wavelength_A'];raw=np.loadtxt('/app/data/instances/'+sid+'/pattern.xye')
+ lo=np.rad2deg(p.GetPowderPatternX()[0]);hi=np.rad2deg(2*np.arcsin(new_stol*wl));raw=raw[(raw[:,0]>=lo)&(raw[:,0]<hi)]
+ nbin=max(1,int(np.ceil(len(raw)/12000)))
+ if nbin>1:
+  n=len(raw)//nbin*nbin;raw=np.column_stack([raw[:n,0].reshape(-1,nbin).mean(1),raw[:n,1].reshape(-1,nbin).mean(1),np.sqrt((raw[:n,2]**2).reshape(-1,nbin).sum(1))/nbin])
+ data0=np.load(W+'/processed.npz');b=[p.GetPowderPatternComponent(i) for i in range(p.GetNbPowderPatternComponent()) if p.GetPowderPatternComponent(i).GetClassName()=='PowderPatternBackground'][0]
+ bx0=np.array(b.GetInterpPointsX());by0=np.array(b.GetInterpPointsY());step=np.median(np.diff(bx0));extra=np.arange(bx0[-1]+step,np.deg2rad(raw[-1,0])+step,step)
+ byextra=np.interp(np.rad2deg(extra),data0['x'],data0['background']);b.SetInterpPoints(np.r_[bx0,extra],np.r_[by0,byextra])
+ np.savetxt(W+'/extended_'+run+'.xye',raw);p.ImportPowderPattern2ThetaObsSigma(W+'/extended_'+run+'.xye');p.SetMaxSinThetaOvLambda(new_stol);p.Prepare()
+ print('EXTENDED',new_stol,len(raw),'Rw',p.GetRw(),flush=True)
+p.GetOption(0).SetChoice(1) # use the point-by-point profile for Rietveld refinement
+p.Prepare();p.FitScaleFactorForRw()
+print('WITH_H',p.GetRw(),p.GetChi2(),flush=True)
+if '--scale' in sys.argv:
+ wgt=np.array(p.GetLSQWeight(0));xx=np.rad2deg(p.GetPowderPatternX());yy=np.array(p.GetPowderPatternObs())
+ n=min(len(xx),len(wgt));scale=np.sqrt(max(1.,p.GetChi2()/n))
+ ss=1/np.sqrt(np.maximum(wgt[:n],1e-20))*scale
+ np.savetxt(W+'/scaled_refine.xye',np.column_stack([xx[:n],yy[:n],ss]));p.ImportPowderPattern2ThetaObsSigma(W+'/scaled_refine.xye');p.Prepare()
+ print('SCALED_SIGMA',scale,p.GetChi2(),flush=True)
+
+if '--tight' in sys.argv:
+ for m in mols:
+  if m.GetClassName()!='Molecule':continue
+  for bo in m.GetBondList():
+   if bo.GetAtom1().GetScatteringPower().GetSymbol()!='H' and bo.GetAtom2().GetScatteringPower().GetSymbol()!='H':bo.SetLengthSigma(float(os.getenv('BOND_SIGMA','.006')));bo.SetLengthDelta(float(os.getenv('BOND_DELTA','.008')))
+  for an in m.GetBondAngleList():
+   if all(a.GetScatteringPower().GetSymbol()!='H' for a in [an.GetAtom1(),an.GetAtom2(),an.GetAtom3()]):an.SetAngleSigma(np.deg2rad(float(os.getenv('ANGLE_SIGMA','.8'))));an.SetAngleDelta(np.deg2rad(float(os.getenv('ANGLE_DELTA','1.'))))
+ print('TIGHT_RESTRAINTS',flush=True)
+if '--keep-rigid' not in sys.argv:
+ for m in mols:
+  if m.GetClassName()=='Molecule':
+   for rg in list(m.GetRigidGroupList()):m.RemoveRigidGroup(rg)
+ print('FLEXIBLE_RINGS',flush=True)
+if '--no-planarity' not in sys.argv:
+ nplan=0
+ for m,md in zip(mols,mods):
+  if m.GetClassName()=='Molecule':nplan+=add_aromatic_planarity(m,md['smiles'],md.get('rdkit_coords'),sigma=float(os.getenv('PLANARITY_SIGMA','1.0')),delta=float(os.getenv('PLANARITY_DELTA','1.0')))
+ print('AROMATIC_PLANARITY',nplan,flush=True)
+packing_restraint=None
+if '--no-packing' not in sys.argv:
+ import lsq_packing
+ packing_restraint=lsq_packing.attach_packing(p,c,mods)
+lsq=LSQ();lsq.SetRefinedObj(p,0,True,True);lsq.PrepareRefParList(True);ref=lsq.GetCompiledRefinedObj();ref.FixAllPar()
+if new_stol is not None:
+ lsq.SetParIsFixed(refpartype_scattdata_background,False)
+ for i in range(2):
+  try:lsq.SafeRefine(nbCycle=5,useLevenbergMarquardt=True,silent=True)
+  except:break
+  p.FitScaleFactorForRw()
+ print('EXTENDED_BACKGROUND',p.GetRw(),flush=True)
+lsq.SetParIsFixed(refpartype_scatt_transl,False);lsq.SetParIsFixed(refpartype_scatt_orient,False)
+if '--free-march' in sys.argv:
+ for i in range(ref.GetNbPar()):
+  par=ref.GetPar(i)
+  if par.GetName().startswith('MarchCoeff_'):
+   par.SetIsFixed(False);par.SetLimitsAbsolute(.4,2.5);print('FREE_MARCH',par.GetName(),par.GetHumanValue(),flush=True)
+
+# Begin with positions and orientations only, then allow restrained intramolecular relaxation.
+for stage in range(4):
+ if stage==1:
+  lsq.SetParIsFixed(refpartype_scatt_conform,False)
+ if stage==2 and '--fixB' not in sys.argv:
+  lsq.SetParIsFixed(refpartype_scattpow_temperature,False)
+  # H displacement parameters have limited information; keep at chemically reasonable bounds.
+  for i in range(len(c.GetScatteringPowerRegistry())):
+   sp=c.GetScatteringPowerRegistry().GetObj(i);sp.SetLimitsAbsolute('Biso',.3,10.)
+ if stage==3:
+  for n in ['a','b','c','alpha','beta','gamma','Zero','U','V','W','Eta0','Eta1']:
+   try:lsq.SetParIsFixed(n,False)
+   except:pass
+ for j in range(3):
+  try:lsq.SafeRefine(nbCycle=10,useLevenbergMarquardt=True,silent=True)
+  except Exception as e:print('REFINE_ERROR',e,flush=True);break
+  recenter_molecules(c);p.FitScaleFactorForRw();print('CYCLE',stage,j,'Rw',p.GetRw(),'chi2',p.GetChi2(),'geom',sum(m.GetLogLikelihood() for m in mols),'LSQ',lsq.ChiSquare(),flush=True)
+ if packing_restraint is not None:print('PACKING_STAGE',stage,lsq_packing.cost(packing_restraint),flush=True)
+ export_cif(c,W+'/refine_'+run+'_stage'+str(stage)+'.cif')
+ xml_cryst_file_save_global(W+'/refine_'+run+'_stage'+str(stage)+'.xml')
+# Final pattern and parameters
+export_cif(c,W+'/refined_'+run+'.cif');xml_cryst_file_save_global(W+'/refined_'+run+'.xml')
+json.dump({'Rw':p.GetRw(),'chi2':p.GetChi2()},open(W+'/refined_'+run+'.json','w'),indent=1)
+import matplotlib.pyplot as plt
+x=np.rad2deg(p.GetPowderPatternX());y=p.GetPowderPatternObs();yc=p.GetPowderPatternCalc();fig,ax=plt.subplots(figsize=(14,6));ax.plot(x,y,'k',lw=.6,label='Observed');ax.plot(x,yc,'r',lw=.6,label='Rietveld');ax.plot(x,y-yc-y.max()*.13,'b',lw=.4,label='Difference');ax.legend();ax.set_title(sid+' Rwp %.4f'%p.GetRw());fig.tight_layout();fig.savefig(W+'/refined_'+run+'.png',dpi=130)
+print('FINISHED',sid,p.GetRw(),flush=True)
+
+if packing_restraint is not None:lsq_packing.detach(p,packing_restraint)
+import os,sys,json,shutil,numpy as np,networkx as nx,gemmi
+from pymatgen.io.cif import CifParser
+from rdkit import Chem
+sid=sys.argv[1];f=sys.argv[2]
+s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+for i in g:g.nodes[i]['el']=s[i].specie.symbol
+matched=set();ratios=[]
+for comp in json.load(open('/app/data/instances/'+sid+'/composition.json'))['components']:
+ rm=Chem.MolFromSmiles(comp['smiles']);rg=nx.Graph();rg.add_nodes_from((a.GetIdx(),{'el':a.GetSymbol()}) for a in rm.GetAtoms());rg.add_edges_from((b.GetBeginAtomIdx(),b.GetEndAtomIdx()) for b in rm.GetBonds());matches=[j for j,co in enumerate(cs) if nx.is_isomorphic(g.subgraph(co),rg,node_match=lambda a,b:a['el']==b['el'])];matched|=set(matches);ratios.append(len(matches)/comp['count']);print('  component',comp['smiles'],'matches',len(matches))
+valid=len(matched)==len(cs) and min(ratios)>0 and max(ratios)==min(ratios)
+if not valid:raise Exception('Connectivity validation failed')
+print('  bond range',np.min(D[A]),np.max(D[A]) if A.any() else None)
+print('  min intermolecular distance',min((D[i,j] for ii,co in enumerate(cs) for co2 in cs[ii+1:] for i in co for j in co2),default=0))
+if '--check' in sys.argv:sys.exit(0)
+b=gemmi.cif.read_file(f).sole_block();keys=['a','b','c','alpha','beta','gamma'];ct=['length_a','length_b','length_c','angle_alpha','angle_beta','angle_gamma'];out={'cell':{k:float(b.find_value('_cell_'+v)) for k,v in zip(keys,ct)},'space_group':gemmi.cif.as_string(b.find_value('_space_group_name_H-M_alt')),'space_group_number':int(b.find_value('_space_group_IT_number'))}
+shutil.copyfile(f,'/app/results/submission/'+sid+'.cif');json.dump(out,open('/app/results/submission/'+sid+'.json','w'),indent=1)
+print('SUBMITTED',sid)
+set -e
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 HBOND_DIRECTIONAL=1 HBOND_ANGLE_WEIGHT=3
+while [[ -r /proc/55226/status ]] && ! grep -q '^State:.*Z' /proc/55226/status;do sleep 5;done
+id=X1a56c78
+for pair in '90 chair84m00' '91 chair84m10';do
+ set -- $pair;run=$1;tag=$2
+ GALLOP_STOL=.29 python /app/work/warm_gallop.py $id $run /app/work/$id/refined_$tag.xml /app/work/$id/search_$tag/model.json > /app/work/$id/warm$run.log 2>&1
+ SEARCH_TIME=800 PARTICLES=128 ITERATIONS=350 BUMP_COEFF=80 HBOND_COEFF=15 MACRO_ELITE_FRAC=.4 START_NPZ=/app/work/$id/gallop_$run/warm.npz START_JITTER=.1 START_TOR_JITTER=.4 python /app/work/search_gallop.py $id $run 1 --hscatter --packing > /app/work/$id/gallop$run.log 2>&1
+ python /app/work/import_gallop.py $id $run > /app/work/$id/import_g$run.log 2>&1
+ python /app/work/refine_obj.py $id g$run /app/work/$id/search_g$run/best.xml --scale --tight --stol=.4 > /app/work/$id/refine_g$run.log 2>&1
+ python /app/work/submit.py $id /app/work/$id/refined_g$run.cif --check > /app/work/$id/check_g$run.log 2>&1
+ python /app/work/check_stereo.py $id /app/work/$id/refined_g$run.cif >> /app/work/$id/check_g$run.log 2>&1
+done
+set -e
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+id=X14a2b08
+while [[ ! -f /app/work/$id/refined_g50.json ]] || ! grep -q 'FINISHED' /app/work/$id/refine_g50.log;do sleep 10;done
+MAX_CONFORMERS=12 python /app/work/conformer_variants.py $id /app/work/$id/refined_g50.xml /app/work/$id/search_g50/model.json ring94 1 > /app/work/$id/conformers94.log 2>&1
+choices=$(python - <<'PY'
+import json
+x=json.load(open('/app/work/X14a2b08/ring94_choices.json'));print(' '.join(a['tag'] for a in sorted(x,key=lambda a:a['Rw'])[:6]))
+PY
+)
+for tag in $choices;do
+ python /app/work/refine_obj.py $id $tag /app/work/$id/search_$tag/best.xml --scale --tight --stol=.4 > /app/work/$id/refine_$tag.log 2>&1
+ python /app/work/submit.py $id /app/work/$id/refined_$tag.cif --check > /app/work/$id/check_$tag.log 2>&1
+done
+best=$(python - <<'PY'
+import glob,os,json
+W='/app/work/X14a2b08';x=glob.glob(W+'/refined_ring94c*.json')+[W+'/refined_g50.json'];b=min(x,key=lambda p:json.load(open(p))['Rw']);print(os.path.basename(b)[8:-5])
+PY
+)
+GALLOP_STOL=.29 python /app/work/warm_gallop.py $id 94 /app/work/$id/refined_$best.xml /app/work/$id/search_$best/model.json > /app/work/$id/warm94.log 2>&1
+BUMP_COEFF=80 HBOND_COEFF=30 PARTICLES=128 ITERATIONS=350 FREE_SCHEDULE='1;0;1' python /app/work/search_conditional.py $id 94 95 > /app/work/$id/conditional95.log 2>&1
+python /app/work/import_gallop.py $id 95 > /app/work/$id/import_g95.log 2>&1
+python /app/work/refine_obj.py $id g95 /app/work/$id/search_g95/best.xml --scale --tight --stol=.4 > /app/work/$id/refine_g95.log 2>&1
+python /app/work/submit.py $id /app/work/$id/refined_g95.cif --check > /app/work/$id/check_g95.log 2>&1
+set -e
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/52928/status ]] && ! grep -q '^State:.*Z' /proc/52928/status;do sleep 5;done
+id=X3f4781b
+python /app/work/invert_ammonium.py $id /app/work/$id/refined_g83.xml /app/work/$id/search_g83/model.json ninv94 > /app/work/$id/ninv94.log 2>&1
+for bits in 00 01 10 11;do
+ tag=ninv94m$bits
+ python /app/work/check_stereo.py $id /app/work/$id/search_$tag/best.cif > /app/work/$id/stereoseed_$tag.log 2>&1 || true
+ python /app/work/refine_obj.py $id $tag /app/work/$id/search_$tag/best.xml --scale --tight --stol=.4 > /app/work/$id/refine_$tag.log 2>&1
+ python /app/work/submit.py $id /app/work/$id/refined_$tag.cif --check > /app/work/$id/check_$tag.log 2>&1 || true
+ python /app/work/check_stereo.py $id /app/work/$id/refined_$tag.cif >> /app/work/$id/check_$tag.log 2>&1 || true
+done

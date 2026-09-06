@@ -1,0 +1,115 @@
+Xfca9f3c Nat 52 molecule sizes [26, 26]
+  component CCCCCCCCCCCCCCCC[C@@H](C)CCCCCCCC matches 2
+  bond range 1.5200033258750183 1.574719716383478
+  min intermolecular distance 3.689110460117006
+SUBMITTED Xfca9f3c
+Xdcc971e Nat 60 molecule sizes [30, 30]
+  component CCCCCCCCCCCCCCCC[C@@H](C)CCCCCCCCCCCC matches 2
+  bond range 1.507437647104438 1.5997390546905637
+  min intermolecular distance 3.1571897274961453
+SUBMITTED Xdcc971e
+X2327841 Nat 64 molecule sizes [32, 32]
+  component CCCCCCCCCCCCCCCCCCCCCC[C@@H](C)CCCCCCCC matches 2
+  bond range 1.5263236705252883 1.5740760463375496
+  min intermolecular distance 3.6940684311824223
+SUBMITTED X2327841
+--Xe1fb77b
+--Xeb393f9
+#  2:ScatteringPowerAtom(N)
+#  3:ScatteringPowerAtom(Cl)
+Imported powder pattern: 7578 points, 2theta=  4.678 ->  23.621, step= 0.002
+RESCALED_BASE 1.0004644785769743 0.046395222945572724 7577.999999999983
+INITIAL Xeb393f9 1 Rw 0.2688026345500707 LLK 186500.52827408884 Integrated 185153.28212240367 DOF -1
+RUN 0 steps 100000 time 29.4878511428833 total 29.487924814224243 LLK 37728.519233669984 Rw 0.1369213554625328 Integrated 36290.14913488902
+--Xbfeeda9
+#  3:ScatteringPowerAtom(Cl)
+ANTIBUMP 5 Scale 10.0 Initial cost 3951.290161268634
+Imported powder pattern: 4041 points, 2theta=  4.850 ->  45.251, step= 0.010
+RESCALED_BASE 2.2519343277139 0.0464910011027389 4040.999999999988
+INITIAL Xbfeeda9 1 Rw 0.4758924869647883 LLK 299928.47530277877 Integrated 294450.45788102126 DOF -1
+RUN 0 steps 100000 time 224.03500199317932 total 224.03508639335632 LLK 115530.38822475183 Rw 0.27262385070481876 Integrated 113045.05589373872
+X130
+BEFORE_EXTRACTION 0.23280617038043666
+BASE X13023e3 P 1 21 1 Rw 0.2323835551698219 chi2 3600102927343.0127
+{
+ "Rw": 0.08357517579574282,
+ "chi2": 1910.2610950888243
+}Xd4
+CYCLE 1 2 Rw 0.11263011307322476 chi2 961.1253930152099
+CYCLE 2 0 Rw 0.11795896958108285 chi2 1054.224127775036
+CYCLE 2 1 Rw 0.12027524032411581 chi2 1096.032615448593
+CYCLE 2 2 Rw 0.1228483343455485 chi2 1143.4299303895411
+CYCLE 3 0 Rw 0.1047103925370445 chi2 830.7121961101558
+CYCLE 3 1 Rw 0.10349894156127301 chi2 811.6014760644243
+CYCLE 3 2 Rw 0.10300958372096428 chi2 803.9448833217843
+FINISHED Xd4c1a35 0.10300958372096432
+X7
+{
+ "cell": [
+  6.950883561252238,
+  6.9714360090474425,
+  15.760000618785241,
+  65.620071071758,
+  82.98049443060587,
+  67.39068753201737
+ ],
+ "volume": 647.2495595622713,
+ "score": 77.87,
+ "system": "TRICLINIC",
+ "centering": "P",
+ "mode": 9,
+ "source": "doublec_fit0",
+ "sg": "P -1",
+ "sgstart": "P -1",
+ "Rw": 0.034961766101973206,
+ "groups": [
+  {
+   "sg": "P 1",
+   "number": 1,
+   "Rw": 4.05634287476456,
+   "GoF": 9.221592321633876,
+   "nGoF": 2.638392983510142,
+   "mult": 1
+  },
+  {
+   "sg": "P -1",
+   "number": 2,
+   "Rw": 4.05634287476456,
+   "GoF": 9.221592321633876,
+   "nGoF": 2.638392983510143,
+   "mult": 2
+  }
+ ],
+ "stol": 0.32,
+ "p_pars": {
+  "Zero": -0.020591785845689447,
+  "2ThetaDispl": 0.0,
+  "2ThetaTransp": 0.0,
+  "DIFC": 48277.14,
+  "DIFA": -6.7,
+  "MuR": 0.0,
+  "Scale_": 0.00015134670845511351
+ },
+ "d_pars": {
+  "Global Biso": 0.0
+ }
+}import sys,os,json,numpy as np
+from pyobjcryst.io import xml_cryst_file_load_all_object,xml_cryst_file_save_global
+from pyobjcryst.refinableobj import refpartype_scattpow_temperature,refpartype_scatt_occup
+from obj_model import add_component,export_cif
+sid=sys.argv[1];run=sys.argv[2];W='/app/work/'+sid;G=W+'/gallop_'+run;R=W+'/search_g'+run;os.makedirs(R,exist_ok=True)
+objs=xml_cryst_file_load_all_object(W+'/base.xml');c=[o for o in objs if o.GetClassName()=='Crystal'][0];p=[o for o in objs if o.GetClassName()=='PowderPattern'][0];d=p.GetPowderPatternComponent(0)
+meta=json.load(open(G+'/model.json'));frac=np.load(G+'/best_frac.npy');offset=0;models=[]
+for j,md in enumerate(meta):
+ n=len(md['order']);xyz=np.zeros((n,3));f=frac[offset:offset+n];offset+=n
+ for i,old in enumerate(md['order']):xyz[old]=c.FractionalToOrthonormalCoords(*map(float,f[i]))
+ m,newmd=add_component(c,md['smiles'],'m'+str(j),coords_override=md['rdkit_coords'])
+ if m.GetClassName()=='Molecule':
+  center=xyz.mean(axis=0);xyz-=center
+  for i,v in enumerate(xyz):a=m.GetAtom(i);a.X,a.Y,a.Z=v
+  m.Q0,m.Q1,m.Q2,m.Q3=1.,0.,0.,0.;m.X,m.Y,m.Z=c.OrthonormalToFractionalCoords(*center)
+ else:m.X,m.Y,m.Z=f[0]
+ models.append(newmd)
+c.GetOption(1).SetChoice(0);c.SetParIsFixed(refpartype_scattpow_temperature,True);c.SetParIsFixed(refpartype_scatt_occup,True)
+d.SetExtractionMode(False);p.Prepare();p.FitScaleFactorForRw();print('IMPORTED',sid,run,'Rw',p.GetRw(),'Chi2',p.GetChi2(),flush=True)
+json.dump(models,open(R+'/model.json','w'),indent=1);export_cif(c,R+'/best.cif');xml_cryst_file_save_global(R+'/best.xml');json.dump({'Rw':p.GetRw()},open(R+'/best.json','w'))

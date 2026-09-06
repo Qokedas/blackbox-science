@@ -1,0 +1,2 @@
+ mp=next((v.split('=',1)[1] for v in sys.argv if v.startswith('--model=')),os.getenv('MODEL_JSON'));s,G=prepare(sid,run,zp,rigid='--rigid' in sys.argv,model_path=mp,stolmax=float(os.environ.get('GALLOP_STOL','.21')))
+ if 'START_REFL' in os.environ and os.getenv('TIME_RAMP','1')=='1':

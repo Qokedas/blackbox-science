@@ -1,0 +1,56 @@
+STARTS 420
+AT 0
+AT 30
+AT 60
+AT 90
+AT 120
+AT 150
+AT 180
+/app/work/X8a6f5a8/fcj_global.log
+/app/work/X8a6f5a8/fcj_refine_cells.log
+/app/work/X8a6f5a8/index_fcj19.log
+/app/work/X8a6f5a8/index_fcj4z2.log
+/app/work/X8a6f5a8/index_fcj4z4.log
+/app/work/X8a6f5a8/index_fcjnative_TRICLINIC_P_3.log
+/app/work/X8a6f5a8/index_fcjplanes.log
+/app/work/X8a6f5a8/native_fcj_MONOCLINIC_C_2100.log
+/app/work/X8a6f5a8/native_fcj_MONOCLINIC_P_1000.log
+/app/work/X8a6f5a8/native_fcj_MONOCLINIC_P_2100.log
+/app/work/X8a6f5a8/native_fcj_ORTHOROMBIC_P_2000.log
+/app/work/X8a6f5a8/native_fcj_TRICLINIC_P_600.log
+set -e
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+python /app/work/fcj_refine_cells.py > /app/work/X8a6f5a8/fcj_refine_cells.log 2>&1
+export PEAK_FILE=peaks_fcj.json SELECT_FILE=/app/work/X8a6f5a8/peak_select_fcj.json NPEAK=23 NSPUR=1 TTHERR=.015 TRIALS=120 INDEX_TIME=450 VTARGET=1500 AMAX=45 ZEROMAX=.08
+VMIN=1000 VMAX=2100 SG_FILTER='P 1 21 1' INDEX_TAG=fcj4z2 python /app/work/index_metric.py X8a6f5a8 MONOCLINIC P > /app/work/X8a6f5a8/index_fcj4z2.log 2>&1
+VMIN=2100 VMAX=3800 SG_FILTER='P 1 21 1' INDEX_TAG=fcj4z4 python /app/work/index_metric.py X8a6f5a8 MONOCLINIC P > /app/work/X8a6f5a8/index_fcj4z4.log 2>&1
+VMIN=2000 VMAX=4100 SG_FILTER='P 21 21 21' INDEX_TAG=fcj19 python /app/work/index_metric.py X8a6f5a8 ORTHOROMBIC P > /app/work/X8a6f5a8/index_fcj19.log 2>&1
+[
+ {
+  "cell": [
+   23.544848384247683,
+   17.02949593403846,
+   7.828716253748659,
+   80.89365487806401,
+   73.58372276884285,
+   67.63834353927614
+  ],
+  "system": "TRICLINIC",
+  "centering": "P",
+  "sg": "P 1",
+  "volume": 2780.0278331689515,
+  "zero": -0.0013250075008419532,
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 409 seconds 222.4976680278778 best 103.35097 q25 345.8469 median 441.23944 total 222.50522685050964
+GALLOP 1 Nref 409 seconds 205.4007203578949 best 103.0253 q25 327.623 median 465.01886 total 428.1203353404999
+GALLOP 2 Nref 409 seconds 214.73724508285522 best 103.00182 q25 325.35846 median 434.74915 total 643.1213910579681
+GALLOP 3 Nref 409 seconds 230.90524649620056 best 103.00144 q25 345.7233 median 448.71222 total 874.2292268276215
+GALLOP 4 Nref 409 seconds 201.90984654426575 best 103.00185 q25 300.5567 median 426.9541 total 1076.3930368423462
+GALLOP 3 Nref 335 seconds 295.84385323524475 best 156.5667 q25 198.43433 median 245.82903 total 1213.1042203903198
+GALLOP 4 Nref 335 seconds 269.79336380958557 best 153.31502 q25 190.59727 median 233.05116 total 1483.1554608345032
+GALLOP 5 Nref 335 seconds 266.8806006908417 best 152.16408 q25 204.72087 median 248.50528 total 1750.1822397708893
+GALLOP 6 Nref 335 seconds 287.8897964954376 best 152.15736 q25 185.67065 median 240.35178 total 2038.2774240970612
+GALLOP 7 Nref 335 seconds 272.5870683193207 best 152.04619 q25 178.34225 median 239.02652 total 2311.0701241493225

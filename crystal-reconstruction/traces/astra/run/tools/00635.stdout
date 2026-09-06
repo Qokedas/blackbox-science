@@ -1,0 +1,46 @@
+{
+ "cell": {
+  "a": 5.90627278679979,
+  "b": 11.253950622962217,
+  "c": 30.08996977329099,
+  "alpha": 90.0,
+  "beta": 90.0,
+  "gamma": 90.0
+ },
+ "space_group": "P 2 2 21",
+ "space_group_number": 17
+}{
+ "radiation": {
+  "type": "Cu K",
+  "wavelength_A": 1.5418,
+  "wavelengths_A": [
+   1.5418
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "reflection (flat plate / Bragg-Brentano)",
+ "geometry_source_text": null,
+ "temperature_K": 298.0,
+ "two_theta_range_deg": [
+  5.0,
+  104.86
+ ],
+ "n_points": 4994,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "sqrt(max(I,1)); counting statistics assumed",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": [
+  "the depositors recorded Cu K-alpha as a single wavelength 1.5418 A (the K-alpha1/K-alpha2 weighted mean); whether the K-alpha2 component is present in the data is not stated"
+ ]
+}GALLOP 16 Nref 221 seconds 113.29361534118652 best 201.22507 q25 283.82983 median 325.2774 total 1653.4196741580963
+GALLOP 17 Nref 221 seconds 90.5600357055664 best 201.22435 q25 282.7567 median 329.00476 total 1744.0099401474
+GALLOP 18 Nref 221 seconds 81.40576839447021 best 201.22464 q25 284.5453 median 322.3259 total 1825.4353411197662
+GALLOP 19 Nref 221 seconds 95.74615597724915 best 197.18904 q25 267.45706 median 313.48633 total 1921.207840204239
+GALLOP 20 Nref 221 seconds 91.44992518424988 best 194.7499 q25 272.95618 median 326.1727 total 2012.7047657966614
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 140 seconds 151.63868260383606 best 316.79633 q25 451.95987 median 508.97006 total 151.64467692375183
+GALLOP 1 Nref 140 seconds 140.87383913993835 best 282.07028 q25 399.4549 median 461.6739 total 292.6521656513214
+GALLOP 2 Nref 140 seconds 105.31600093841553 best 279.952 q25 387.38293 median 457.61688 total 398.09851717948914
+GALLOP 3 Nref 140 seconds 147.31586241722107 best 279.28406 q25 361.1376 median 448.10315 total 545.5612545013428

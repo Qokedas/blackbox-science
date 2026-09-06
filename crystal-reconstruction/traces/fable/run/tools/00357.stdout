@@ -1,0 +1,19 @@
+/app/work/finalize.py:57: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s = CifParser(f'{outdir}/{iid}.cif').parse_structures(primitive=False)[0]
+Xd8634a2: wrote CIF with 33 asym atoms -> 66 atoms in cell; spg P -1 (2); formula C42 S2 N10 O10 F2
+/app/work/check_structure.py:40: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s = CifParser(cif).parse_structures(primitive=False)[0]
+Xd8634a2: 66 atoms in cell; fragments=2; matched counts=[2] (expected ratio [1]); unmatched=0; OK=True
+   min interatomic distance in cell: 1.21 A
+{
+ "cell": {
+  "a": 8.90993,
+  "b": 9.47823,
+  "c": 13.24501,
+  "alpha": 96.017,
+  "beta": 98.224,
+  "gamma": 66.679
+ },
+ "space_group": "P -1",
+ "space_group_number": 2
+}

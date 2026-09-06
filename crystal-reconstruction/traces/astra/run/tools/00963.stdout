@@ -1,0 +1,45 @@
+refined_chair84m00.json 0.1312585095608887
+refined_chair84m01.json 0.18778482592036194
+refined_chair84m10.json 0.14524132185751779
+refined_g11.json 0.2652716553646449
+refined_g18.json 0.19071146168060674
+refined_g83.json 0.13992212909239227
+/app/work/X1a56c78/candidates_sg18.json
+/app/work/X1a56c78/fit_sg18.json
+/app/work/X1a56c78/fit_sg18.log
+/app/work/X1a56c78/fit_sg18.png
+/app/work/X1a56c78/fit_sg18.xml
+/app/work/X1a56c78/fit_sg18.xye
+/app/work/X1a56c78/fit_sg18doublet.json
+/app/work/X1a56c78/fit_sg18doublet.xml
+/app/work/X1a56c78/fit_sg18mono.json
+/app/work/X1a56c78/fit_sg18mono.png
+/app/work/X1a56c78/fit_sg18mono.xml
+/app/work/X1a56c78/pre_scan_sg18.xml
+/app/work/X1a56c78/submission_before_sgaudit.json
+{
+ "radiation": {
+  "type": "Cu K",
+  "wavelength_A": 1.5418,
+  "wavelengths_A": [
+   1.5418
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "reflection (flat plate / Bragg-Brentano)",
+ "geometry_source_text": null,
+ "temperature_K": 298.0,
+ "two_theta_range_deg": [
+  5.0,
+  104.86
+ ],
+ "n_points": 4994,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "sqrt(max(I,1)); counting statistics assumed",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": [
+  "the depositors recorded Cu K-alpha as a single wavelength 1.5418 A (the K-alpha1/K-alpha2 weighted mean); whether the K-alpha2 component is present in the data is not stated"
+ ]
+}

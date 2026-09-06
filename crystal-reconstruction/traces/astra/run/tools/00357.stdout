@@ -1,0 +1,42 @@
+ERRORSG F 1 2 1 Space group symbol 'F 1 2 1' not recognized
+ERRORSG F 1 m 1 Space group symbol 'F 1 m 1' not recognized
+ERRORSG F 1 d 1 Space group symbol 'F 1 d 1' not recognized
+ERRORSG F 1 2/m 1 Space group symbol 'F 1 2/m 1' not recognized
+GROUPS [{"sg": "P 1 2 1", "number": 3, "Rw": 6.580737735412197, "GoF": 1893.9016351377497, "nGoF": 0.0, "mult": 2}, {"sg": "P 1 m 1", "number": 6, "Rw": 6.580737735412197, "GoF": 1893.9016351377497, "nGoF": 0.0, "mult": 2}, {"sg": "P 1 2/m 1", "number": 10, "Rw": 6.580737735412197, "GoF": 1893.9016351377497, "nGoF": 0.0, "mult": 4}, {"sg": "P 1 a 1", "number": 7, "Rw": 6.606859832967832, "GoF": 1901.272453585614, "nGoF": 0.0, "mult": 2}, {"sg": "P 1 2/a 1", "number": 13, "Rw": 6.606859832967832, "GoF": 1901.272453585614, "nGoF": 0.0, "mult": 4}, {"sg": "P 1 c 1", "number": 7, "Rw": 6.631768015137227, "GoF": 1916.3374680328782, "nGoF": 0.0, "mult": 2}, {"sg": "P 1 2/c 1", "number": 13, "Rw": 6.631768015137227, "GoF": 1916.3374680328782, "nGoF": 0.0, "mult": 4}, {"sg": "P 1 21 1", "number": 4, "Rw": 6.687361769323578, "GoF": 1950.746493018778, "nGoF": 0.0, "mult": 2}, {"sg": "P 1 21/m 1", "number": 11, "Rw": 6.687361769323578, "GoF": 1950.746493018778, "nGoF": 0.0, "mult": 4}, {"sg": "P 1 21/a 1", "number": 14, "Rw": 6.712983808921915, "GoF": 1957.8202297976513, "nGoF": 0.0, "mult": 4}, {"sg": "P 1 21/c 1", "number": 14, "Rw": 6.739085278222226, "GoF": 1973.7960649770755, "nGoF": 0.0, "mult": 4}, {"sg": "P 1 n 1", "number": 7, "Rw": 6.792629301993673, "GoF": 2008.9581360910872, "nGoF": 0.0, "mult": 2}, {"sg": "P 1 2/n 1", "number": 13, "Rw": 6.792629301993673, "GoF": 2008.9581360910872, "nGoF": 0.0, "mult": 4}, {"sg": "P 1 21/n 1", "number": 14, "Rw": 6.897293611568396, "GoF": 2066.0476601057376, "nGoF": 0.0, "mult": 4}, {"sg": "A 1 2 1", "number": 5, "Rw": 10.569453973877838, "GoF": 4525.10535722128, "nGoF": 0.0, "mult": 4}, {"sg": "A 1 m 1", "number": 8, "Rw": 10.569453973877838, "GoF": 4525.10535722128, "nGoF": 0.0, "mult": 4}, {"sg": "A 1 2/m 1", "number": 12, "Rw": 10.569453973877838, "GoF": 4525.10535722128, "nGoF": 0.0, "mult": 8}, {"sg": "A 1 n 1", "number": 9, "Rw": 10.698517190014108, "GoF": 4626.045057318536, "nGoF": 0.0, "mult": 4}, {"sg": "A 1 a 1", "number": 9, "Rw": 10.698517190014108, "GoF": 4626.045057318536, "nGoF": 0.0, "mult": 4}, {"sg": "A 1 2/n 1", "number": 15, "Rw": 10.698517190014108, "GoF": 4626.045057318536, "nGoF": 0.0, "mult": 8}, {"sg": "A 1 2/a 1", "number": 15, "Rw": 10.698517190014108, "GoF": 4626.045057318536, "nGoF": 0.0, "mult": 8}, {"sg": "I 1 2 1", "number": 5, "Rw": 12.255490873077715, "GoF": 6087.052732276694, "nGoF": 0.0, "mult": 4}, {"sg": "I 1 m 1", "number": 8, "Rw": 12.255490873077715, "GoF": 6087.052732276694, "nGoF": 0.0, "mult": 4}, {"sg": "I 1 2/m 1", "number": 12, "Rw": 12.255490873077715, "GoF": 6087.052732276694, "nGoF": 0.0, "mult": 8}, {"sg": "I 1 a 1", "number": 9, "Rw": 12.770940241679524, "GoF": 6595.230617351392, "nGoF": 0.0, "mult": 4}, {"sg": "I 1 2/a 1", "number": 15, "Rw": 12.770940241679524, "GoF": 6595.230617351392, "nGoF": 0.0, "mult": 8}, {"sg": "I 1 c 1", "number": 9, "Rw": 12.770940241679533, "GoF": 6595.230617351405, "nGoF": 0.0, "mult": 4}, {"sg": "I 1 2/c 1", "number": 15, "Rw": 12.770940241679533, "GoF": 6595.230617351405, "nGoF": 0.0, "mult": 8}, {"sg": "C 1 2 1", "number": 5, "Rw": 12.956718446938458, "GoF": 6793.129176245947, "nGoF": 0.0, "mult": 4}, {"sg": "C 1 m 1", "number": 8, "Rw": 12.956718446938458, "GoF": 6793.129176245947, "nGoF": 0.0, "mult": 4}, {"sg": "C 1 2/m 1", "number": 12, "Rw": 12.956718446938458, "GoF": 6793.129176245947, "nGoF": 0.0, "mult": 8}, {"sg": "C 1 c 1", "number": 9, "Rw": 13.166425734503182, "GoF": 7001.695681732236, "nGoF": 0.0, "mult": 4}, {"sg": "C 1 n 1", "number": 9, "Rw": 13.166425734503182, "GoF": 7001.695681732236, "nGoF": 0.0, "mult": 4}, {"sg": "C 1 2/c 1", "number": 15, "Rw": 13.166425734503182, "GoF": 7001.695681732236, "nGoF": 0.0, "mult": 8}, {"sg": "C 1 2/n 1", "number": 15, "Rw": 13.166425734503182, "GoF": 7001.695681732236, "nGoF": 0.0, "mult": 8}]
+DONE X1db5091 plane0 0.05840021374433379 [4.889544682099897, 40.84611453692309, 12.864831101969099, 90.0, 79.62762978446524, 90.0]
+Name:	bash
+State:	Z (zombie)
+Tgid:	8838
+13341 -rw-r--r-- 1 root root 0 Sep  6 05:32 /app/work/Xedd9c7b/metric_ORTHOROMBIC.log
+Total external degrees of freedom: 7 (pos: 3 rot: 4 )
+Total internal degrees of freedom: 7
+PREPARED Xd8634a2 Nref 266 PawleyRw 0.08384177108697105 SG P -1
+ATTACHED_H_SCATTERING 33 heavy atoms 18 H atoms
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1578.44it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 266 seconds 46.58451008796692 best 483.76123 q25 579.0052 median 624.40814 total 46.590912103652954
+/app/work/search_gallop.py:20: RuntimeWarning: overflow encountered in cast
+  if mn>=best:return
+EXACT_PAWLEY nref 266 rank 265 cond 58.824376622533926 chi2 10503.019300057733 netRwp 0.11167412941664165
+ZM CNS(=O)(=O)Nc1nccc(Cc2c(C)c3ccc(Oc4ncccn4)cc3oc2=O)c1F n 33 torsions 7 max_distance_error 1.6134077185370188e-08
+Total degrees of freedom: 14
+Total external degrees of freedom: 7 (pos: 3 rot: 4 )
+Total internal degrees of freedom: 7
+PREPARED Xd8634a2 Nref 266 PawleyRw 0.08384177108697105 SG P -1
+ATTACHED_H_SCATTERING 33 heavy atoms 18 H atoms
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1578.44it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 266 seconds 46.58451008796692 best 483.76123 q25 579.0052 median 624.40814 total 46.590912103652954
+/app/work/search_gallop.py:20: RuntimeWarning: overflow encountered in cast
+  if mn>=best:return
+GALLOP 37 Nref 122 seconds 28.512085437774658 best 6.9361463 q25 14.822849 median 21.699692 total 1253.3088047504425
+GALLOP 38 Nref 122 seconds 23.301382303237915 best 6.544779 q25 14.647645 median 20.780848 total 1276.6170341968536
+GALLOP 39 Nref 122 seconds 23.98229432106018 best 6.529657 q25 12.91105 median 18.955826 total 1300.6022322177887
+GALLOP 40 Nref 122 seconds 32.3074734210968 best 8.48967 q25 15.011224 median 20.243286 total 1332.9162187576294
+GALLOP 41 Nref 122 seconds 36.0042884349823 best 8.425233 q25 14.426317 median 20.489973 total 1368.9252927303314

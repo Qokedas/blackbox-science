@@ -1,0 +1,15 @@
+ObjRegistry<T>::Find(ion_C): Not found !!
+List of Crystal ScatteringPowers :0 object registered:
+ORIGINAL 0.07614288969931514
+DOUBLETFIXED 0.07459878359506503
+DOUBLETFIT 0.06040959312639936
+ObjRegistry<T>::Find(ion_C): Not found !!
+List of Crystal ScatteringPowers :0 object registered:
+ORIGINAL 0.06717434189019397
+DOUBLETFIXED 0.06686122560872593
+DOUBLETFIT 0.05386345276409063
+/app/work/X8a06d7a/fit_mono_single.json
+{"cell": {"a": 11.859563357758516, "b": 5.013711644565529, "c": 21.741082729427056, "alpha": 90.0, "beta": 86.03951892080974, "gamma": 90.0}, "Rw": 0.06040959312639936}/app/work/X8a06d7a/fit_mono_doublet.json
+{"cell": {"a": 11.855890239741614, "b": 5.012235681115707, "c": 21.73378060364063, "alpha": 90.0, "beta": 86.04486356709752, "gamma": 90.0}, "Rw": 0.0578818752931114}/app/work/X8a06d7a/fit_tri_single.json
+{"cell": {"a": 5.009678810479823, "b": 11.851085567667866, "c": 21.724536919626313, "alpha": 86.0586132485918, "beta": 89.87347918094748, "gamma": 89.84390125377209}, "Rw": 0.05386345276409063}/app/work/X8a06d7a/fit_tri_doublet.json
+{"cell": {"a": 5.010784557167513, "b": 11.853516223865478, "c": 21.724760869901235, "alpha": 86.06271171566947, "beta": 89.95164904091557, "gamma": 89.82883203834051}, "Rw": 0.05558881695156366}Sun Sep  6 09:31:06 UTC 2026

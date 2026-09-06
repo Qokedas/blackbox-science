@@ -1,0 +1,189 @@
+LATEST
+==X14a2b08/gallop50.log
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 470 seconds 219.7923686504364 best 61.217808 q25 63.3435 median 237.255 total 219.8115692138672
+GALLOP 1 Nref 470 seconds 172.01301407814026 best 61.218513 q25 109.60196 median 236.323 total 392.10888957977295
+==X4f6fe58/gallop84.log
+GALLOP 2 Nref 523 seconds 231.9182858467102 best 116.840775 q25 176.32886 median 435.188 total 706.4477610588074
+GALLOP 3 Nref 523 seconds 230.07588505744934 best 116.840576 q25 176.32863 median 430.33368 total 936.6148085594177
+GALLOP 4 Nref 523 seconds 244.8270149230957 best 116.84052 q25 231.4297 median 456.7666 total 1181.7446484565735
+GALLOP 5 Nref 523 seconds 249.72082567214966 best 116.84057 q25 176.32874 median 420.34967 total 1431.825442790985
+GALLOP 6 Nref 523 seconds 246.79009437561035 best 116.84071 q25 306.23245 median 431.3949 total 1678.7208664417267
+FINISHED X4f6fe58 116.84052276611328
+==X4f6fe58/refine_g84.log
+==X3f4781b/refine_ninv94m00.log
+CYCLE 0 0 Rw 0.09330869537189991 chi2 6915.824618879342 geom 53.89660370068567 LSQ 7187.233214610245
+CYCLE 0 1 Rw 0.09308946345111778 chi2 6883.364870872008 geom 53.89660370068567 LSQ 7156.194744083321
+CYCLE 0 2 Rw 0.09305333680699146 chi2 6878.023243350878 geom 53.89660370068567 LSQ 7150.978454253514
+PACKING_STAGE 0 21.80615961251401
+CYCLE 1 0 Rw 0.08921844148533153 chi2 6322.793553224388 geom 185.2926417573115 LSQ 6928.587180067782
+CYCLE 1 1 Rw 0.08851293195307805 chi2 6223.191860395957 geom 220.23763926745033 LSQ 6885.488103016224
+==X9af54a2/conditional87.log
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X9af54a2 326.9161376953125
+CONDITIONAL 0 [1, 3] best 324.48846435546875 q25 324.48865 sec 309.603640794754
+CONDITIONAL 1 [0] best 293.8894348144531 q25 477.7957 sec 546.3388516902924
+CONDITIONAL 2 [2] best 285.2137451171875 q25 489.59564 sec 789.9161124229431
+==X019b9a4/refine_g11.log
+==Xb7088cf/gallop31.log
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 90 seconds 154.6047763824463 best 153.79314 q25 251.24031 median 291.34866 total 154.61129426956177
+GALLOP 1 Nref 103 seconds 161.98654651641846 best 153.57498 q25 206.03577 median 248.76505 total 316.7047097682953
+GALLOP 2 Nref 117 seconds 223.86588430404663 best 153.45544 q25 203.20212 median 246.01881 total 540.7862339019775
+GALLOP 3 Nref 136 seconds 140.8122043609619 best 147.80911 q25 172.35698 median 226.99985 total 681.6949200630188
+GALLOP 4 Nref 149 seconds 152.2041335105896 best 147.05147 q25 157.40784 median 213.9906 total 833.9956352710724
+{
+ "components": [
+  {
+   "smiles": "COc1ccc(OC)c([C@H](O)CNC(=O)C[NH3+])c1",
+   "count": 1,
+   "charge": 1
+  },
+  {
+   "smiles": "[Cl-]",
+   "count": 1,
+   "charge": -1
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}set -e
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 CHARGED_N_MIN=3.15 HBOND_DIRECTIONAL=1 HBOND_ANGLE_WEIGHT=4 HBOND_MULTIPLE=1
+while [[ -r /proc/56091/status ]] && ! grep -q '^State:.*Z' /proc/56091/status;do sleep 5;done
+for id in X9af54a2 X35b7fbc;do
+ mkdir -p /app/work/$id/search_chem86
+ cp /app/work/$id/search_g11/model.json /app/work/$id/search_chem86/model.json
+ python /app/work/refine_obj.py $id chem86 /app/work/$id/refined_g11.xml --scale --tight --stol=.4 > /app/work/$id/refine_chem86.log 2>&1
+ GALLOP_STOL=.28 python /app/work/warm_gallop.py $id 86 /app/work/$id/refined_chem86.xml /app/work/$id/search_chem86/model.json > /app/work/$id/warm86.log 2>&1
+ schedule='1,3;0;2;1,3;0;2'; [[ $id == X35b7fbc ]] && schedule='1;0;1;0'
+ BUMP_COEFF=90 HBOND_COEFF=20 PARTICLES=128 ITERATIONS=400 FREE_SCHEDULE=$schedule python /app/work/search_conditional.py $id 86 87 > /app/work/$id/conditional87.log 2>&1
+ python /app/work/import_gallop.py $id 87 > /app/work/$id/import_g87.log 2>&1
+ python /app/work/refine_obj.py $id g87 /app/work/$id/search_g87/best.xml --scale --tight --stol=.4 > /app/work/$id/refine_g87.log 2>&1
+ python /app/work/submit.py $id /app/work/$id/refined_g87.cif --check > /app/work/$id/check_g87.log 2>&1
+ python /app/work/check_stereo.py $id /app/work/$id/refined_g87.cif >> /app/work/$id/check_g87.log 2>&1
+done
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/17408/status ]] && ! grep -q '^State:.*Z' /proc/17408/status; do sleep 5;done
+# Independently test the two-screw orthorhombic group: 100 observed; 010 and 003 absent for X1a.
+python - <<'PY'
+import json
+W='/app/work/X1a56c78';j=json.load(open(W+'/fit_1.json'));j['sg']='P 2 21 21';json.dump([j],open(W+'/candidates_sg18.json','w'))
+PY
+SG_SCAN=0 CANDIDATE_FILE=/app/work/X1a56c78/candidates_sg18.json CANDIDATE_INDEX=0 python /app/work/fit_candidate.py X1a56c78 sg18 .30 > /app/work/X1a56c78/fit_sg18.log 2>&1
+mkdir -p /app/work/X1a56c78/gallop_18; cp /app/work/X1a56c78/fit_sg18.xml /app/work/X1a56c78/gallop_18/base.xml
+BASE_XML=/app/work/X1a56c78/gallop_18/base.xml SEARCH_TIME=1700 PARTICLES=128 ITERATIONS=400 GALLOP_STOL=.24 CONF_RANK=1 python /app/work/search_gallop.py X1a56c78 18 1 --prepare --hscatter --packing > /app/work/X1a56c78/gallop18.log 2>&1
+python /app/work/import_gallop.py X1a56c78 18 > /app/work/X1a56c78/import_g18.log 2>&1
+python /app/work/refine_obj.py X1a56c78 g18 /app/work/X1a56c78/search_g18/best.xml --scale --tight > /app/work/X1a56c78/refine_g18.log 2>&1
+# Independent centrosymmetric hypothesis for the nearly-monoclinic acemetacin/picolinamide lattice.
+mkdir -p /app/work/X8a06d7a/gallop_12
+python /app/work/extend_low_base.py X8a06d7a /app/work/X8a06d7a/fit_2d1.xml /app/work/X8a06d7a/gallop_12/base.xml > /app/work/X8a06d7a/extend_low12.log 2>&1
+BASE_XML=/app/work/X8a06d7a/gallop_12/base.xml HBOND_COEFF=12 BUMP_COEFF=60 START_REFL=100 SEARCH_TIME=1800 PARTICLES=128 ITERATIONS=400 GALLOP_STOL=.25 CONF_RANK=1 python /app/work/search_gallop.py X8a06d7a 12 1 --prepare --hscatter --packing > /app/work/X8a06d7a/gallop12.log 2>&1
+python /app/work/import_gallop.py X8a06d7a 12 > /app/work/X8a06d7a/import_g12.log 2>&1
+python /app/work/refine_obj.py X8a06d7a g12 /app/work/X8a06d7a/search_g12/best.xml --scale --tight --stol=.38 > /app/work/X8a06d7a/refine_g12.log 2>&1
+for id in Xd8634a2 Xb7088cf; do
+ START_REFL=90 RAMP_REF_EVERY=5 RAMP_REF_STEP=40 SEARCH_TIME=1700 PARTICLES=128 ITERATIONS=400 GALLOP_STOL=.25 CONF_RANK=4 python /app/work/search_gallop.py $id 31 1 --prepare --hscatter --packing > /app/work/$id/gallop31.log 2>&1
+ python /app/work/import_gallop.py $id 31 > /app/work/$id/import_g31.log 2>&1
+ python /app/work/refine_obj.py $id g31 /app/work/$id/search_g31/best.xml --scale --tight > /app/work/$id/refine_g31.log 2>&1
+ done
+"""Heavy-atom steric lower bounds as genuine ObjCryst least-squares residuals.
+Topology-preserving 1-2/1-3/1-4 pairs are excluded; 27 lattice images are
+checked for all contacts.  Crystal anti-bump itself is not an LSQ function.
+"""
+import ctypes,os,numpy as np,gemmi
+from rdkit import Chem
+from rdkit.Chem import Lipinski
+lib=ctypes.CDLL('/app/work/liblsq_packing.so')
+lib.packing_attach.argtypes=[ctypes.c_void_p,ctypes.c_void_p,ctypes.c_long]+[ctypes.c_void_p]*6
+lib.packing_attach.restype=ctypes.c_void_p
+lib.packing_cost.argtypes=[ctypes.c_void_p];lib.packing_cost.restype=ctypes.c_double
+lib.packing_detach.argtypes=[ctypes.c_void_p,ctypes.c_void_p]
+def attach_packing(p,c,mods,sigma=None):
+ sigma=float(os.getenv('PACKING_SIGMA','.01')) if sigma is None else sigma
+ els=[];charges=[];carbonyl=[];acceptor0=[];index=[];groups=[];local=[];dm=[];off=0
+ for k,md in enumerate(mods):
+  m=c.GetScatterer(k);r=Chem.MolFromSmiles(md['smiles']);n=r.GetNumAtoms();acc={a[0] for a in Lipinski._HAcceptors(r)};dm.append(Chem.GetDistanceMatrix(r))
+  for i,a in enumerate(r.GetAtoms()):
+   els.append(a.GetSymbol());charges.append(a.GetFormalCharge());acceptor0.append(i in acc and a.GetSymbol() in ['N','O'] and a.GetTotalNumHs()==0);carbonyl.append(a.GetSymbol()=='O' and any(b.GetBondTypeAsDouble()==2 and b.GetOtherAtom(a).GetSymbol()=='C' for b in a.GetBonds()));index.append(off+i);groups.append(k);local.append(i)
+  off+=len(list(m.GetScatteringComponentList()))
+ radii={'C':1.48,'N':1.35,'O':1.28,'F':1.32,'S':1.55,'P':1.52,'Cl':1.58,'Br':1.67,'I':1.78}
+ ii=[];jj=[];rots=[];trans=[];limits=[];weights=[];sg=gemmi.find_spacegroup_by_name(c.GetSpaceGroup().GetName());N=len(index)
+ for op in sg.operations():
+  R=np.asarray(op.rot)/op.DEN;T=np.asarray(op.tran)/op.DEN;ident=np.allclose(R,np.eye(3)) and np.allclose(T%1,0)
+  for i in range(N):
+   for j in range(N):
+    if ident and (i>=j or (groups[i]==groups[j] and dm[groups[i]][local[i],local[j]]<=3)):continue
+    limit=radii.get(els[i],1.4)+radii.get(els[j],1.4)
+    if els[i] in ['N','O'] and els[j] in ['N','O']:limit-=.10
+    if els[i]==els[j]=='N' and charges[i]>0 and charges[j]>0:limit=max(limit,float(os.getenv('CHARGED_N_MIN','0')))
+    if (els[i]=='N' and charges[i]>0 and els[j]=='O') or (els[j]=='N' and charges[j]>0 and els[i]=='O'):limit=max(limit,float(os.getenv('CHARGED_NO_MIN','0')))
+    if carbonyl[i] and carbonyl[j]:limit=max(limit,float(os.getenv('CARBONYL_OO_MIN','0')))
+    if acceptor0[i] and acceptor0[j]:limit=max(limit,float(os.getenv('ACCEPTOR_NO_MIN','0')))
+    ii.append(index[i]);jj.append(index[j]);rots.append(R);trans.append(T);limits.append(limit);weights.append((1. if ident else .5)/sigma**2)
+ arrays=[np.ascontiguousarray(ii,dtype=np.int64),np.ascontiguousarray(jj,dtype=np.int64),np.ascontiguousarray(rots,dtype=np.float64),np.ascontiguousarray(trans,dtype=np.float64),np.ascontiguousarray(limits,dtype=np.float64),np.ascontiguousarray(weights,dtype=np.float64)]
+ obj=lib.packing_attach(p.int_ptr(),c.int_ptr(),len(ii),*[a.ctypes.data for a in arrays])
+ if not obj:raise RuntimeError('Packing attachment failed')
+ print('LSQ_PACKING',N,'atoms',len(ii),'terms','sigma',sigma,'cost',lib.packing_cost(obj),flush=True)
+ return obj
+
+def cost(obj):return lib.packing_cost(obj)
+def detach(p,obj):lib.packing_detach(p.int_ptr(),obj)
+"""Optional soft donor/acceptor proximity prior for ionic and H-bonded solids.
+This does not prescribe a particular intermolecular synthon: each donor may
+choose any chemically possible acceptor, including a distant topological
+intramolecular acceptor. Steric lower bounds are supplied separately.
+"""
+import os,json,itertools,numpy as np,torch
+from rdkit import Chem
+from rdkit.Chem import Lipinski
+from gallop import chi2,zm_to_cart
+
+def enable_hbonds(s,model_path,coefficient=None):
+ mods=json.load(open(model_path));donor_neighbours={};donors=[];donor_counts={};acceptors=[];groups=[];ids=[];dm=[];off=0;els=[]
+ for k,m in enumerate(mods):
+  r=Chem.MolFromSmiles(m['smiles']);order=m['order'];inv={j:i for i,j in enumerate(order)};dm.append(Chem.GetDistanceMatrix(r))
+  for a in Lipinski._HDonors(r):
+   ix=off+inv[a[0]];donors.append(ix);atom=r.GetAtomWithIdx(a[0]);donor_counts[ix]=min(3,atom.GetTotalNumHs()) if os.getenv('HBOND_MULTIPLE','0')=='1' else 1
+  for ix in donors:
+   if ix<off:continue
+   atom=r.GetAtomWithIdx(order[ix-off]);nb=[a.GetIdx() for a in atom.GetNeighbors() if a.GetAtomicNum()>1]
+   if atom.GetSymbol()=='N' and atom.GetTotalNumHs()==1 and len(nb) in [2,3]:donor_neighbours[ix]=torch.tensor([off+inv[j] for j in nb],dtype=torch.long)
+  for a in Lipinski._HAcceptors(r):acceptors.append(off+inv[a[0]])
+  for a in r.GetAtoms():
+   if a.GetSymbol() in ['Cl','Br'] and a.GetFormalCharge()<0:acceptors.append(off+inv[a.GetIdx()])
+  groups.extend([k]*len(order));ids.extend(order);els.extend([r.GetAtomWithIdx(i).GetSymbol() for i in order]);off+=len(order)
+ if not donors or not acceptors:return
+ LM=torch.tensor(s.lattice.matrix,dtype=torch.float32);shifts=torch.tensor(np.array(list(itertools.product([-1,0,1],repeat=3)))@s.lattice.matrix,dtype=torch.float32);ss=(shifts*shifts).sum(-1)
+ tensors=[]
+ for i in donors:
+  jj=[];rt=[];tr=[];target=[]
+  for op in s.space_group.symmetry_ops:
+   R=op.rotation_matrix;T=op.translation_vector;ident=np.allclose(R,np.eye(3)) and np.allclose(T%1,0)
+   for j in acceptors:
+    if ident and groups[i]==groups[j] and dm[groups[i]][ids[i],ids[j]]<=3:continue
+    jj.append(j);rt.append(R);tr.append(T);target.append(3.25 if els[j] in ['Cl','Br'] else 3.05)
+  tensors.append((i,torch.tensor(jj,dtype=torch.long),torch.tensor(np.array(rt),dtype=torch.float32),torch.tensor(np.array(tr),dtype=torch.float32),torch.tensor(target,dtype=torch.float32)))
+ cf=float(coefficient if coefficient is not None else os.getenv('HBOND_COEFF','20'));directional=os.getenv('HBOND_DIRECTIONAL','0')=='1';angle_weight=float(os.getenv('HBOND_ANGLE_WEIGHT','4'))
+ def penalty(fr):
+  val=torch.zeros(len(fr),device=fr.device)
+  for i,jj,rr,tt,target in tensors:
+   right=torch.einsum('nki,kji->nkj',fr[:,jj,:],rr)+tt;dd=fr[:,i,None]-right;dd=dd-torch.round(dd).detach();cart=dd@LM
+   with torch.no_grad():corr=shifts[(2*(cart.detach()@shifts.T)+ss).argmin(-1)]
+   cart=cart+corr;dist=torch.sqrt((cart**2).sum(-1)+1e-8)
+   pair_cost=torch.clamp(dist-target,min=0)**2
+   if directional and i in donor_neighbours:
+    nb=donor_neighbours[i];vv=(fr[:,nb]-fr[:,i,None])@LM;vv=vv/torch.linalg.norm(vv,dim=-1,keepdim=True).clamp(min=1.e-7);hh=-vv.sum(1);hh=hh/torch.linalg.norm(hh,dim=-1,keepdim=True).clamp(min=1.e-7)
+    cosine=(-(cart*hh[:,None]).sum(-1)/dist).clamp(-1,1);pair_cost+=angle_weight*torch.clamp(.82-cosine,min=0)**2
+   near=torch.topk(pair_cost,k=min(donor_counts[i],len(jj)),dim=-1,largest=False).values;val+=near.sum(-1)
+  return cf*val
+ old=chi2.get_chi_2
+ def calc(zm,int_tensors,chisqd_tensors,profile=None):
+  fr=zm_to_cart.get_asymmetric_coords(**zm)
+  return old(zm,int_tensors,chisqd_tensors,profile=profile)+penalty(fr)
+ chi2.get_chi_2=calc;s.hbond_penalty=penalty
+ print('HBOND_PRIOR',len(donors),'donors',len(acceptors),'acceptors','coefficient',cf,'directional',directional,flush=True)
+ return penalty

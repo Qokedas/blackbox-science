@@ -1,0 +1,6 @@
+fit: False
+rms(normalized), max: None
+run 0: cost=573628.6 Rwp=0.2556 chi2=576048.5 t=416s
+run 1: cost=570030.6 Rwp=0.2483 chi2=544465.2 t=505s
+ISO 0 P 21 21 21 Zp=2: 0.2556 0.2483
+Xf8ac963/solve_b.log:run 0: cost=295482.2 Rwp=0.4411 chi2=429345.8 t=718s

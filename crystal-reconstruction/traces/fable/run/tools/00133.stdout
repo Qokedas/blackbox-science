@@ -1,0 +1,25 @@
+done ('X263b09a', 'monoC', 90)
+== Xeb393f9
+Xeb393f9: nheavy=37 fwhm=0.048 npk=30
+M20=   5.4 Nc=  9 Monoclinic-P     a=  7.5328 b=  4.5451 c=  6.9178 al= 90.000 be=115.798 ga= 90.000 V=   213.2 Z~ 0.32 | idx 5/30 Ncalc=  15 M(30)= 104.7
+M20=   4.5 Nc= 15 Monoclinic-P     a=  8.8839 b=  4.8390 c=  8.1253 al= 90.000 be= 91.947 ga= 90.000 V=   349.1 Z~ 0.52 | idx 7/30 Ncalc=  25 M(30)=  71.0
+M20=   9.0 Nc= 17 Monoclinic-P     a=  7.1744 b= 12.1842 c=  6.9346 al= 90.000 be=101.999 ga= 90.000 V=   592.9 Z~ 0.89 | idx 11/30 Ncalc=  37 M(30)=  40.2
+M20=   6.7 Nc= 11 Monoclinic-P     a=  6.5871 b=  8.8900 c=  6.5372 al= 90.000 be=112.388 ga= 90.000 V=   354.0 Z~ 0.53 | idx 6/30 Ncalc=  23 M(30)=  40.3
+== X8a6f5a8
+X8a6f5a8: nheavy=39 fwhm=0.229 npk=30
+M20=  15.1 Nc= 83 Monoclinic-P     a= 25.1482 b= 15.9166 c= 11.2340 al= 90.000 be= 99.332 ga= 90.000 V=  4437.1 Z~ 6.32 | idx 29/30 Ncalc= 220 M(30)=   2.8
+M20=  13.3 Nc= 91 Monoclinic-P     a= 15.9552 b= 43.8160 c=  7.8645 al= 90.000 be= 93.885 ga= 90.000 V=  5485.4 Z~ 7.81 | idx 28/30 Ncalc= 262 M(30)=   2.7
+M20=  10.1 Nc= 81 Monoclinic-P     a= 17.4540 b= 10.7822 c= 23.0613 al= 90.000 be=109.627 ga= 90.000 V=  4087.8 Z~ 5.82 | idx 28/30 Ncalc= 212 M(30)=   2.6
+M20=  17.0 Nc= 92 Monoclinic-P     a= 11.5741 b= 15.9214 c= 27.0504 al= 90.000 be= 92.122 ga= 90.000 V=  4981.3 Z~ 7.10 | idx 29/30 Ncalc= 246 M(30)=   2.6
+== Xbfeeda9
+Xbfeeda9: nheavy=35 fwhm=0.143 npk=30
+M20=  19.5 Nc= 97 Monoclinic-P     a= 16.7689 b=  8.9483 c= 29.1463 al= 90.000 be= 99.897 ga= 90.000 V=  4308.4 Z~ 6.84 | idx 27/30 Ncalc= 162 M(30)=   4.8
+M20=  17.7 Nc= 92 Monoclinic-P     a=  6.7511 b= 18.5637 c= 36.8180 al= 90.000 be= 93.547 ga= 90.000 V=  4605.4 Z~ 7.31 | idx 27/30 Ncalc= 147 M(30)=   4.2
+M20=  21.4 Nc=102 Monoclinic-P     a= 49.6035 b=  9.1366 c=  9.3894 al= 90.000 be= 90.641 ga= 90.000 V=  4255.1 Z~ 6.75 | idx 28/30 Ncalc= 151 M(30)=   3.6
+M20=  18.5 Nc= 95 Monoclinic-P     a= 21.9671 b= 12.3945 c= 16.5554 al= 90.000 be= 92.275 ga= 90.000 V=  4504.0 Z~ 7.15 | idx 27/30 Ncalc= 156 M(30)=   3.2
+== Xdcc971e
+Xdcc971e: nheavy=30 fwhm=0.085 npk=30
+M20=  52.3 Nc= 45 Monoclinic-P     a= 23.4048 b=  7.1860 c= 11.0358 al= 90.000 be=129.445 ga= 90.000 V=  1433.3 Z~ 2.65 | idx 28/29 Ncalc= 837 M(30)=   9.9
+M20=  55.3 Nc= 88 Monoclinic-P     a= 22.0720 b=  7.1866 c= 19.4555 al= 90.000 be=111.726 ga= 90.000 V=  2866.9 Z~ 5.31 | idx 29/29 Ncalc=1651 M(30)=   5.2
+M20=  55.4 Nc= 87 Monoclinic-P     a= 11.0354 b=  7.1860 c= 40.7249 al= 90.000 be=117.362 ga= 90.000 V=  2868.2 Z~ 5.31 | idx 29/29 Ncalc=1659 M(30)=   3.6
+M20=  52.3 Nc= 77 Monoclinic-P     a= 11.0358 b= 10.1625 c= 18.4762 al= 90.000 be=101.977 ga= 90.000 V=  2027.0 Z~ 3.75 | idx 20/29 Ncalc=1131 M(30)=   5.4

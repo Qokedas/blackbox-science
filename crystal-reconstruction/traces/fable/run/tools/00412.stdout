@@ -1,0 +1,6 @@
+P212121_run0_lsq_rw0.167.cif
+P212121_run0_rw0.202.cif
+fit: False
+rms(normalized), max: None
+best mean dev 1.48 A, max 2.89 A x,y,z (0, 0, 0)
+[np.float64(2.9), np.float64(1.9), np.float64(0.2), np.float64(1.7), np.float64(2.6), np.float64(0.1), np.float64(2.2), np.float64(1.4), np.float64(1.9), np.float64(0.4), np.float64(0.6), np.float64(2.4), np.float64(1.8), np.float64(0.3), np.float64(0.2), np.float64(1.6), np.float64(2.1), np.float64(1.9), np.float64(1.2), np.float64(2.6), np.float64(0.6), np.float64(0.9), np.float64(2.7), np.float64(0.9), np.float64(2.2), np.float64(1.9), np.float64(1.3), np.float64(1.5), np.float64(1.2), np.float64(1.0), np.float64(1.3), np.float64(0.5), np.float64(2.7)]

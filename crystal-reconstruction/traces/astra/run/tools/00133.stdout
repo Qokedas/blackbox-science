@@ -1,0 +1,100 @@
+_ZN8ObjCryst26gpRefParTypeScattDataScaleE
+_ZNK8ObjCryst7Crystal29isScattererInInterMolDistListERNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE
+_ZNK8ObjCryst7Crystal32isScattererInInterMolDistListAt1ERNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE
+_ZNK8ObjCryst7Crystal32isScattererInInterMolDistListAt2ERNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE
+_ZN8ObjCryst7Crystal12BumpMergeParC2Ev
+_ZN8ObjCryst7Crystal12BumpMergeParC1Ev
+_ZN8ObjCryst7Crystal12BumpMergeParC2Edb
+_ZN8ObjCryst7Crystal12BumpMergeParC1Edb
+_ZN8ObjCryst7Crystal20SetBumpMergeDistanceERKNS_15ScatteringPowerES3_db
+_ZN8ObjCryst7Crystal20SetBumpMergeDistanceERKNS_15ScatteringPowerES3_d
+_ZN8ObjCryst7Crystal23RemoveBumpMergeDistanceERKNS_15ScatteringPowerES3_
+_ZNK8ObjCryst7Crystal19GetBumpMergeParListEv
+_ZN8ObjCryst7Crystal19GetBumpMergeParListEv
+_ZN8ObjCryst7Crystal15InterMolDistParC2Ev
+_ZN8ObjCryst7Crystal15InterMolDistParC1Ev
+_ZN8ObjCryst7Crystal15InterMolDistPar12get_list_At1B5cxx11Ev
+_ZN8ObjCryst7Crystal15InterMolDistPar12get_list_At2B5cxx11Ev
+_ZNK8ObjCryst7Crystal21printInterMolDistListEv
+_ZN8ObjCryst7Crystal15InterMolDistParC2ESt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS8_EESA_dddd
+_ZN8ObjCryst7Crystal15InterMolDistParC1ESt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS8_EESA_dddd
+_ZN8ObjCryst7Crystal15InterMolDistPar7set_At2ENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE
+_ZNK8ObjCryst7Crystal26InitializeInterMolDistListEv
+_ZNSt6vectorIN8ObjCryst7Crystal15InterMolDistParESaIS2_EE17_M_realloc_insertIJS2_EEEvN9__gnu_cxx17__normal_iteratorIPS2_S4_EEDpOT_
+_ZNK8ObjCryst7Crystal18SetNewInterMolDistESt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS7_EES9_ddd
+_ZNK8ObjCryst7Crystal32CalcDistTableForInterMolDistCostEv
+_ZNK8ObjCryst7Crystal19GetInterMolDistCostEv
+_ZNK8ObjCryst7Crystal16GetBumpMergeCostEv
+_ZNK8ObjCryst28DiffractionDataSingleCrystal19FitScaleFactorForRwEv
+_ZNK8ObjCryst28DiffractionDataSingleCrystal18FitScaleFactorForREv
+_ZNK8ObjCryst28DiffractionDataSingleCrystal14GetScaleFactorEv
+_ZNK8ObjCryst13PowderPattern14GetScaleFactorEi
+_ZNK8ObjCryst13PowderPattern14GetScaleFactorERKNS_22PowderPatternComponentE
+_ZN8ObjCryst13PowderPattern14SetScaleFactorEid
+_ZN8ObjCryst13PowderPattern14SetScaleFactorERKNS_22PowderPatternComponentEd
+_ZNK8ObjCryst13PowderPattern14GetScaleFactorEv
+_ZN8ObjCryst13PowderPattern14GetScaleFactorEv
+_ZNK8ObjCryst13PowderPattern18FitScaleFactorForREv
+_ZNK8ObjCryst13PowderPattern19FitScaleFactorForRwEv
+_ZNK8ObjCryst13PowderPattern28FitScaleFactorForIntegratedREv
+_ZNK8ObjCryst13PowderPattern29FitScaleFactorForIntegratedRwEv
+_ZNK8ObjCryst12RefinablePar13GetHumanScaleEv
+_ZN8ObjCryst12RefinablePar13SetHumanScaleEd
+_ZN12MatrixRowCol9AddScaledERKS_d
+_ZNK12ScaledMatrix9bandwidthEv
+_ZN12ScaledMatrix8EvaluateE10MatrixType
+_ZTS12ScaledMatrix
+_ZTI12ScaledMatrix
+_ZTV12ScaledMatrix
+Scale FaH
+Scale faH
+Scale fa1
+AntiBumpH3Q
+Printing mInterMolDistList:
+ Scale Factor : 
+AntiBumpDistance
+AntiBumpScale
+BondValenceCostScale
+InterMolDistScale
+Scale factor
+InterMolecularDistRestr
+378.8554021492999 378.8554021492999
+<ObjCryst Date="2026-09-06T04:04:01GMT" Revision="2024001">
+  <Crystal Name="" SpaceGroup="P 1">
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="a">10</Par>
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="b">10</Par>
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="c">10</Par>
+    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="alpha">90</Par>
+    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="beta">90</Par>
+    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="gamma">90</Par>
+    <Option Name="Constrain Lattice to SpaceGroup Symmetry" Choice="0" ChoiceName="Yes (Default)"/>
+
+    <Option Name="Use Dynamical Occupancy Correction" Choice="1" ChoiceName="Yes"/>
+
+    <Option Name="Display Enantiomer" Choice="0" ChoiceName="No"/>
+
+    <ScatteringPowerAtom Name="O" Symbol="O">
+      <Par Refined="0" Limited="1" Min="0.1" Max="5" Name="Biso">1</Par>
+      <Par Refined="0" Limited="0" Min="0" Max="1" Name="ML Error">0</Par>
+      <Par Refined="0" Limited="1" Min="0" Max="10" Name="ML-NbGhost">0</Par>
+      <Par Refined="0" Limited="1" Min="-10" Max="10" Name="Formal Charge">0</Par>
+      <RGBColour>1 0.051 0.051</RGBColour>
+    </ScatteringPowerAtom>
+
+    <Atom Name="a" ScattPow="O">
+      <Par Refined="1" Limited="0" Min="0" Max="1" Name="x">0.1</Par>
+      <Par Refined="1" Limited="0" Min="0" Max="1" Name="y">0.1</Par>
+      <Par Refined="1" Limited="0" Min="0" Max="1" Name="z">0.1</Par>
+      <Par Refined="0" Limited="1" Min="0.01" Max="1" Name="Occup">1</Par>
+    </Atom>
+    <Atom Name="b" ScattPow="O">
+      <Par Refined="1" Limited="0" Min="0" Max="1" Name="x">0.2</Par>
+      <Par Refined="1" Limited="0" Min="0" Max="1" Name="y">0.1</Par>
+      <Par Refined="1" Limited="0" Min="0" Max="1" Name="z">0.1</Par>
+      <Par Refined="0" Limited="1" Min="0.01" Max="1" Name="Occup">1</Par>
+    </Atom>
+
+      <AntiBumpDistance ScattPow1="O" ScattPow2="O" AllowMerge="0">2.5</AntiBumpDistance>
+      <AntiBumpScale>1</AntiBumpScale>
+  </Crystal>
+</ObjCryst>

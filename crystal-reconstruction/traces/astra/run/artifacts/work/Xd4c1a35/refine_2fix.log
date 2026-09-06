@@ -1,0 +1,20 @@
+START 0.20685075623206065 14051.046882011615
+ObjRegistry<T>::Find(H): Not found !!
+List of Crystal ScatteringPowers :3 object registered:
+#  0:ScatteringPowerAtom(C)
+#  1:ScatteringPowerAtom(O)
+#  2:ScatteringPowerAtom(Cl)
+WITH_H 0.20106570119774625 14021.914084447355
+Imported powder pattern: 3063 points, 2theta=  5.450 ->  36.080, step= 0.010
+SCALED_SIGMA 2.139587995132528 3062.9999999999645
+TIGHT_RESTRAINTS
+CYCLE 0 0 Rw 0.1710666740109394 chi2 2217.1845034686476 geom 0.0 LSQ 2347.9235395201868
+CYCLE 0 1 Rw 0.16222524895824433 chi2 1993.9208279299166 geom 0.0 LSQ 2071.5848930979323
+CYCLE 0 2 Rw 0.15622458905762146 chi2 1849.139999759782 geom 0.0 LSQ 1924.6156823060744
+ScatteringPowerAtom (O,O   ) :    3.0000
+Traceback (most recent call last):
+  File "/app/work/refine_obj.py", line 107, in <module>
+    xml_cryst_file_save_global(W+'/refine_'+run+'_stage'+str(stage)+'.xml')
+  File "/opt/conda/lib/python3.11/site-packages/pyobjcryst/io.py", line 88, in xml_cryst_file_save_global
+    XMLCrystFileSaveGlobal_orig(open(file, "w"))
+pyobjcryst.ObjCrystException: RefinableObj::GetPar(): cannot find parameter: ML Error in object:O

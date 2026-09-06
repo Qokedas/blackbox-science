@@ -1,0 +1,87 @@
+import sys,json,numpy as np,networkx as nx
+from pymatgen.io.cif import CifParser
+from rdkit import Chem
+sid=sys.argv[1];fn=sys.argv[2] if len(sys.argv)>2 else '/app/results/submission/'+sid+'.cif'
+s=CifParser(fn).parse_structures(primitive=False)[0];s.remove_species(['H']);rad=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<1.2*(rad[:,None]+rad[None,:]));g=nx.from_numpy_array(A)
+for i in g:g.nodes[i]['el']=s[i].specie.symbol
+comps=list(nx.connected_components(g));cell=s.lattice
+for md in json.load(open('/app/data/instances/'+sid+'/composition.json'))['components']:
+ r=Chem.MolFromSmiles(md['smiles']);Chem.AssignStereochemistry(r,cleanIt=True,force=True);expected={a.GetIdx():a.GetProp('_CIPCode') for a in r.GetAtoms() if a.HasProp('_CIPCode')}
+ if not expected:continue
+ rg=nx.Graph();rg.add_nodes_from((a.GetIdx(),{'el':a.GetSymbol()}) for a in r.GetAtoms());rg.add_edges_from((b.GetBeginAtomIdx(),b.GetEndAtomIdx()) for b in r.GetBonds())
+ for co in comps:
+  mt=nx.isomorphism.GraphMatcher(rg,g.subgraph(co),node_match=lambda x,y:x['el']==y['el'])
+  if not mt.is_isomorphic():continue
+  mp=next(mt.isomorphisms_iter());root=mp[0];f={root:s[root].frac_coords.copy()}
+  for a,b in nx.bfs_edges(g.subgraph(co),root):
+   dist,img=cell.get_distance_and_image(s[a].frac_coords,s[b].frac_coords);f[b]=f[a]+s[b].frac_coords+img-s[a].frac_coords
+  rr=Chem.Mol(r);cf=Chem.Conformer(r.GetNumAtoms());rr.RemoveAllConformers()
+  for a in rr.GetAtoms():a.SetChiralTag(Chem.ChiralType.CHI_UNSPECIFIED)
+  for i in range(rr.GetNumAtoms()):cf.SetAtomPosition(i,f[mp[i]]@cell.matrix)
+  rr.AddConformer(cf);Chem.AssignStereochemistryFrom3D(rr,replaceExistingTags=True);Chem.AssignStereochemistry(rr,cleanIt=True,force=True)
+  got={i:rr.GetAtomWithIdx(i).GetProp('_CIPCode') if rr.GetAtomWithIdx(i).HasProp('_CIPCode') else None for i in expected}
+  print(sid,'root',root,'expected',expected,'actual',got,'OK',expected==got)
+import sys,numpy as np,networkx as nx
+from pymatgen.io.cif import CifParser
+from rdkit import Chem
+s=CifParser(sys.argv[1]).parse_structures(primitive=False)[0];s.remove_species(['H'])
+D=s.distance_matrix;rad=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);A=(D>.3)&(D<(rad[:,None]+rad[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print('Cell',s.lattice.parameters,'n',len(s),'components',[len(c) for c in cs]);comp={i:k for k,c in enumerate(cs) for i in c}
+pairs=sorted((D[i,j],i,j) for i in range(len(s)) for j in range(i+1,len(s)) if comp[i]!=comp[j]);unique=set()
+for d,i,j in pairs:
+ sig=tuple(sorted([s[i].label,s[j].label]));sig=sig+(round(d,3),)
+ if sig in unique:continue
+ unique.add(sig);print('%.4f'%d,i,s[i].label,s[i].specie.symbol,comp[i],j,s[j].label,s[j].specie.symbol,comp[j]);
+ if len(unique)>=25:break
+[
+ {
+  "smiles": "O=C(O)CCC[NH+]1CCC(O[C@@H](c2ccc(Cl)cc2)c2ccccn2)CC1",
+  "elements": [
+   "O",
+   "C",
+   "O",
+   "C",
+   "C",
+   "C",
+   "N",
+   "C",
+   "C",
+   "C",
+   "O",
+[
+ {
+  "smiles": "O=C(O)CCC[NH+]1CCC(O[C@@H](c2ccc(Cl)cc2)c2ccccn2)CC1",
+  "elements": [
+   "O",
+   "C",
+   "O",
+   "C",
+   "C",
+   "C",
+   "N",
+   "C",
+   "C",
+   "C",
+   "O",
+/app/work/submit.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+X4f6fe58 Nat 80 molecule sizes [20, 20, 20, 20]
+  component O=C1CN=C(c2ccccc2Cl)c2cc(Br)ccc2N1 matches 4
+  bond range 1.2282472253459986 1.8903150277915026
+  min intermolecular distance 2.741481224886389
+CYCLE 1 0 Rw 0.06094971246973736 chi2 3675.633257405682 geom 931.3407413705652 LSQ 4947.923463306011
+CYCLE 1 1 Rw 0.05800854351511173 chi2 3329.452111085521 geom 49.575245863396404 LSQ 3582.9296048384076
+CYCLE 1 2 Rw 0.057109833524112946 chi2 3227.08673695737 geom 38.3963003123301 LSQ 3415.216061477033
+PACKING_STAGE 1 21.247626662870257
+CYCLE 2 0 Rw 0.05676015243279562 chi2 3187.6890916465477 geom 5.968819934485663 LSQ 3316.747271343598
+CYCLE 2 1 Rw 0.056683113708069416 chi2 3179.041868689238 geom 5.678389683753814 LSQ 3301.9265815518856
+HBOND_PRIOR 2 donors 8 acceptors coefficient 12.0
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1397.17it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+Sun Sep  6 09:05:59 UTC 2026

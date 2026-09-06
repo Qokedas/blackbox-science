@@ -1,0 +1,13 @@
+Xe3a2935 RHOMBOEDRAL P 0 peaks [0.555, 0.62, 0.66506, 0.739, 0.83457, 0.89963, 1.54642, 1.84351, 2.68655, 2.93516, 3.74625, 4.69594, 4.8025, 4.88503, 5.22169, 5.41076, 5.61361, 5.87383, 5.98041, 6.19031, 6.48384, 6.65521] V 2019.2003173828125 3780 Lmax 43.616950455549265
+3->43.617,1.62468,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+2019.2->3780,440.211,3.9999
+Starting: V=2019.2->2459.41
+Finished: V=2019.2->2459.41 A^3, 0 unit cells tested, 0 tests/s,   Elapsed time=4.8e-05s
+Starting: V=2459.41->2899.62
+Finished: V=2459.41->2899.62 A^3, 0 unit cells tested, 0 tests/s,   Elapsed time=9.8e-05s
+Starting: V=2899.62->3339.83
+Finished: V=2899.62->3339.83 A^3, 0 unit cells tested, 0 tests/s,   Elapsed time=0.000148s
+Starting: V=3339.83->3780
+Finished: V=3339.83->3780 A^3, 0 unit cells tested, 0 tests/s,   Elapsed time=0.000198s
+DONE Xe3a2935 RHOMBOEDRAL P 0 0.000301361083984375 []

@@ -1,0 +1,553 @@
+[
+ {
+  "id": "X019b9a4",
+  "dof": 26.0,
+  "zprime": 1.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "identity check failed"
+  },
+  "minutes": 47.2,
+  "trials_total": 2000000,
+  "runs_done": 1,
+  "best_rw": 0.2579670816217278,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X07806d9",
+  "dof": 13.0,
+  "zprime": 1.0,
+  "radiation": "synchrotron",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": true,
+   "rmsd": 0.109,
+   "dmax": 0.1775,
+   "reason": null
+  },
+  "minutes": 33.5,
+  "trials_total": 3000000,
+  "runs_done": 2,
+  "best_rw": 0.19739651316764248,
+  "solved_seconds_inrun": 213.17799973487854
+ },
+ {
+  "id": "X13023e3",
+  "dof": 17.0,
+  "zprime": 1.0,
+  "radiation": "synchrotron",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "identity check failed"
+  },
+  "minutes": 46.4,
+  "trials_total": 3000000,
+  "runs_done": 2,
+  "best_rw": 0.3699037950756336,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X14a2b08",
+  "dof": 18.0,
+  "zprime": 1.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "identity check failed"
+  },
+  "minutes": 45.9,
+  "trials_total": 2200000,
+  "runs_done": 1,
+  "best_rw": 0.4105421287753664,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X1a56c78",
+  "dof": 14.0,
+  "zprime": 1.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "identity check failed"
+  },
+  "minutes": 48.0,
+  "trials_total": 3000000,
+  "runs_done": 1,
+  "best_rw": 0.2912818354580897,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X1db5091",
+  "dof": 19.0,
+  "zprime": 1.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "no periodic mapping within matcher tolerance"
+  },
+  "minutes": 46.9,
+  "trials_total": 2000000,
+  "runs_done": 1,
+  "best_rw": 0.30427639004042256,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X2327841",
+  "dof": 34.0,
+  "zprime": 1.0,
+  "radiation": "synchrotron",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": 1.6557,
+   "dmax": 3.1555,
+   "reason": "displacements exceed tolerance"
+  },
+  "minutes": 47.7,
+  "trials_total": 2600000,
+  "runs_done": 1,
+  "best_rw": 0.3490183521452092,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X238783d",
+  "dof": 14.0,
+  "zprime": 1.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "identity check failed"
+  },
+  "minutes": 51.3,
+  "trials_total": 1000000,
+  "runs_done": 1,
+  "best_rw": 0.22331017118319293,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X263b09a",
+  "dof": 18.0,
+  "zprime": 1.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "no periodic mapping within matcher tolerance"
+  },
+  "minutes": 47.9,
+  "trials_total": 2400000,
+  "runs_done": 1,
+  "best_rw": 0.3402046843605652,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X35b7fbc",
+  "dof": 18.0,
+  "zprime": 1.0,
+  "radiation": "synchrotron",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "identity check failed"
+  },
+  "minutes": 46.8,
+  "trials_total": 2200000,
+  "runs_done": 1,
+  "best_rw": 0.3152422419136411,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X3c176e2",
+  "dof": 12.0,
+  "zprime": 2.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "atom count 48 vs reference 96 after primitive reduction"
+  },
+  "minutes": 31.7,
+  "trials_total": 3000000,
+  "runs_done": 2,
+  "best_rw": 0.530245200329399,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X3f4781b",
+  "dof": 30.0,
+  "zprime": 2.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "atom count 52 vs reference 104 after primitive reduction"
+  },
+  "minutes": 45.0,
+  "trials_total": 3000000,
+  "runs_done": 2,
+  "best_rw": 0.3687304283410839,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X4f6fe58",
+  "dof": 7.0,
+  "zprime": 1.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": true,
+   "rmsd": 0.1918,
+   "dmax": 0.3834,
+   "reason": null
+  },
+  "minutes": 45.8,
+  "trials_total": 3000000,
+  "runs_done": 2,
+  "best_rw": 0.10868392829549345,
+  "solved_seconds_inrun": 2063.1825020313263
+ },
+ {
+  "id": "X7e382cb",
+  "dof": 15.0,
+  "zprime": 2.0,
+  "radiation": "lab_Mo",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "identity check failed"
+  },
+  "minutes": 40.4,
+  "trials_total": 3000000,
+  "runs_done": 2,
+  "best_rw": 0.09645903145622939,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X8a06d7a",
+  "dof": 19.0,
+  "zprime": 1.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "identity check failed"
+  },
+  "minutes": 46.2,
+  "trials_total": 2000000,
+  "runs_done": 1,
+  "best_rw": 0.30796544050608693,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X8a6f5a8",
+  "dof": 28.0,
+  "zprime": 1.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "no periodic mapping within matcher tolerance"
+  },
+  "minutes": 46.6,
+  "trials_total": 2800000,
+  "runs_done": 1,
+  "best_rw": 0.31052291156390527,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X9af54a2",
+  "dof": 15.0,
+  "zprime": 1.0,
+  "radiation": "synchrotron",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": 1.4919,
+   "dmax": 2.6043,
+   "reason": "displacements exceed tolerance"
+  },
+  "minutes": 45.5,
+  "trials_total": 3000000,
+  "runs_done": 2,
+  "best_rw": 0.34193054924974126,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "Xb7088cf",
+  "dof": 12.0,
+  "zprime": 1.0,
+  "radiation": "lab_Mo",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "no periodic mapping within matcher tolerance"
+  },
+  "minutes": 46.0,
+  "trials_total": 2200000,
+  "runs_done": 1,
+  "best_rw": 0.08544514807888015,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "Xbfc6d2c",
+  "dof": 7.0,
+  "zprime": 1.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": "best_run1.cif",
+   "L": true,
+   "S": true,
+   "rmsd": 0.1223,
+   "dmax": 0.2049,
+   "reason": null
+  },
+  "minutes": 45.8,
+  "trials_total": 3000000,
+  "runs_done": 2,
+  "best_rw": 0.07446274714385338,
+  "solved_seconds_inrun": 120.91709852218628
+ },
+ {
+  "id": "Xbfeeda9",
+  "dof": 16.0,
+  "zprime": 1.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "identity check failed"
+  },
+  "minutes": 46.8,
+  "trials_total": 2000000,
+  "runs_done": 1,
+  "best_rw": 0.245583418161894,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "Xd4c1a35",
+  "dof": 18.0,
+  "zprime": 2.0,
+  "radiation": "synchrotron",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "atom count 96 vs reference 192 after primitive reduction"
+  },
+  "minutes": 46.6,
+  "trials_total": 3000000,
+  "runs_done": 2,
+  "best_rw": 0.8333220118265976,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "Xd8634a2",
+  "dof": 13.0,
+  "zprime": 1.0,
+  "radiation": "synchrotron",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "identity check failed"
+  },
+  "minutes": 45.6,
+  "trials_total": 3000000,
+  "runs_done": 1,
+  "best_rw": 0.4896784796460442,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "Xdcc971e",
+  "dof": 32.0,
+  "zprime": 1.0,
+  "radiation": "synchrotron",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": 1.2207,
+   "dmax": 4.1423,
+   "reason": "displacements exceed tolerance"
+  },
+  "minutes": 46.6,
+  "trials_total": 3000000,
+  "runs_done": 2,
+  "best_rw": 0.3583643888710191,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "Xe1fb77b",
+  "dof": 16.0,
+  "zprime": 1.0,
+  "radiation": "synchrotron",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "identity check failed"
+  },
+  "minutes": 46.7,
+  "trials_total": 2400000,
+  "runs_done": 1,
+  "best_rw": 0.3035722461505279,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "Xeb393f9",
+  "dof": 21.0,
+  "zprime": 1.0,
+  "radiation": "synchrotron",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "no periodic mapping within matcher tolerance"
+  },
+  "minutes": 45.4,
+  "trials_total": 3000000,
+  "runs_done": 2,
+  "best_rw": 0.17791502157814043,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "Xebbd488",
+  "dof": 23.5,
+  "zprime": 1.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "identity check failed"
+  },
+  "minutes": 46.5,
+  "trials_total": 400000,
+  "runs_done": 1,
+  "best_rw": 0.25955137940598233,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "Xedd9c7b",
+  "dof": 22.0,
+  "zprime": 2.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "atom count 76 vs reference 152 after primitive reduction"
+  },
+  "minutes": 27.5,
+  "trials_total": 3000000,
+  "runs_done": 2,
+  "best_rw": 0.273541812351753,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "Xf8ac963",
+  "dof": 10.0,
+  "zprime": 1.0,
+  "radiation": "synchrotron",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": true,
+   "rmsd": 0.2935,
+   "dmax": 0.7146,
+   "reason": null
+  },
+  "minutes": 45.8,
+  "trials_total": 3000000,
+  "runs_done": 2,
+  "best_rw": 0.23254439897601267,
+  "solved_seconds_inrun": 1269.6673560142517
+ },
+ {
+  "id": "Xfca9f3c",
+  "dof": 28.0,
+  "zprime": 1.0,
+  "radiation": "synchrotron",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": 0.9235,
+   "dmax": 2.1785,
+   "reason": "displacements exceed tolerance"
+  },
+  "minutes": 46.4,
+  "trials_total": 3000000,
+  "runs_done": 2,
+  "best_rw": 0.1712687252524325,
+  "solved_seconds_inrun": null
+ }
+]

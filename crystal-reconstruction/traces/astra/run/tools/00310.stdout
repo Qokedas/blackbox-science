@@ -1,0 +1,296 @@
+
+ Xedd9c7b {'radiation': {'type': 'Cu Kalpha1 (laboratory, monochromatic per the paper: Bruker D8 Advance, LynxEye)', 'wavelength_A': 1.540598, 'wavelengths_A': [1.540598], 'wavelength_weights': None, 'monochromator': 'monochromatic incident beam (paper)', 'source': 'sealed X-ray tube'}, 'geometry': 'reflection (flat plate / Bragg-Brentano)', 'geometry_source_text': None, 'temperature_K': 300.0, 'two_theta_range_deg': [3.0066, 39.9938], 'n_points': 2818, 'intensity_column': 'observed total intensity', 'sigma_column': '1/sqrt(_pd_proc_ls_weight)', 'pattern_units': 'two_theta_deg intensity sigma', 'notes': ['depositors tagged the radiation K-alpha1,2; the paper states monochromatic 1.5406 A and the deposited profile is consistent with a single wavelength']}
+1 11.1074 395.0803 0.1187
+2 11.8199 901.9553 0.1524
+3 12.5295 121.6509 0.1011
+4 14.2658 743.4257 0.1181
+5 14.8881 462.2057 0.124
+6 15.3992 207.7991 0.1128
+7 17.1293 391.4043 0.126
+8 17.3885 1006.2383 0.1413
+9 17.8838 78.5422 0.718
+10 19.3191 396.3006 0.1832
+11 19.6552 71.5066 0.0396
+12 19.9857 767.1609 0.1786
+13 20.6193 482.8845 0.158
+14 21.5027 175.1423 0.1186
+15 22.228 424.4883 0.195
+16 22.9871 52.5206 0.0681
+17 23.8782 166.3365 0.1633
+18 24.3355 128.7481 0.1632
+19 24.9097 67.0747 0.1432
+20 25.2383 389.008 0.1722
+21 25.6784 125.6417 0.631
+22 26.4934 96.5095 0.2052
+23 27.5376 46.1304 0.0459
+24 28.1929 105.6193 0.3076
+25 28.8054 173.6951 0.1886
+26 29.3035 79.8622 0.1572
+27 31.2544 67.7414 0.3044
+28 32.1605 134.5467 0.9519
+29 37.2239 46.3465 0.2323
+
+ Xb7088cf {'radiation': {'type': 'Mo Kalpha1,2 (laboratory sealed tube)', 'wavelength_A': 0.709319, 'wavelengths_A': [0.709319, 0.713609], 'wavelength_weights': [1.0, 0.5], 'monochromator': None, 'source': 'sealed X-ray tube'}, 'geometry': 'transmission (capillary / Debye-Scherrer)', 'geometry_source_text': None, 'temperature_K': 300.0, 'two_theta_range_deg': [1.0067, 49.9958], 'n_points': 5864, 'intensity_column': 'observed total intensity', 'sigma_column': 'sqrt(max(I,1)); counting statistics assumed', 'pattern_units': 'two_theta_deg intensity sigma', 'notes': ['Kalpha2 weight 0.5 is the standard ratio; the depositors state only Kalpha1,2']}
+1 2.0948 350.3513 0.1032
+2 4.227 986.7519 0.0821
+3 4.762 103.029 0.028
+4 5.3445 113.0201 0.0811
+5 6.0292 267.127 0.0846
+6 8.2921 188.0649 0.0404
+7 8.6532 1795.1791 0.0893
+8 8.8621 506.0581 0.0568
+9 9.1498 718.1487 0.1031
+10 9.3371 1404.3537 0.0673
+11 9.6214 3278.6784 0.1116
+12 10.1031 1076.6832 0.2095
+13 10.2063 170.067 0.1032
+14 10.5672 606.3264 0.2
+15 11.1077 279.9946 0.1107
+16 11.7455 885.4964 0.1345
+17 12.191 269.0194 0.0711
+18 12.5015 1008.8744 0.1155
+19 12.9195 632.9014 0.0977
+20 13.2967 254.0583 0.1032
+21 13.9953 212.131 0.1015
+22 14.5362 131.1014 0.1195
+23 14.8343 190.5734 0.1648
+24 15.2247 195.9817 0.0802
+25 15.8724 204.6992 0.1844
+26 16.5976 243.7117 0.1997
+27 16.8564 130.0974 0.0242
+28 17.4563 213.3486 0.2452
+29 18.026 161.0695 0.1173
+30 18.9911 174.8576 0.0823
+31 19.7731 113.6484 0.1005
+32 20.6125 100.7425 0.0914
+33 22.0159 86.4079 0.0813
+34 22.9941 113.9108 0.1861
+35 25.0529 147.8369 0.0554
+SELECTION {'indices': [1, 2, 3, 5, 6, 7, 8, 9, 10, 12, 13, 14, 16, 17, 18, 19, 20, 22, 23, 24, 25]}
+
+ X1db5091 {'radiation': {'type': 'CuK1', 'wavelength_A': 1.54059, 'wavelengths_A': [1.54059], 'wavelength_weights': None, 'monochromator': None, 'source': 'Fine focus X-ray tube'}, 'geometry': 'transmission (capillary / Debye-Scherrer)', 'geometry_source_text': None, 'temperature_K': 298.0, 'two_theta_range_deg': [3.0, 75.0], 'n_points': 7201, 'intensity_column': 'observed net intensity (instrument background subtracted by the depositors)', 'sigma_column': '1/sqrt(_pd_proc_ls_weight)', 'pattern_units': 'two_theta_deg intensity sigma', 'notes': []}
+1 3.1957 113.9028 0.0125
+2 3.537 111.9021 0.1097
+3 3.9385 138.9859 0.0438
+4 4.2791 257.924 0.415
+5 4.7152 102.9821 0.1632
+6 5.05 137.6691 0.005
+7 5.3064 87.1589 0.0394
+8 6.1072 129.8717 0.0364
+9 6.5845 184.0783 0.0164
+10 7.2547 1146.3646 0.1747
+11 8.143 3069.6242 0.1902
+12 8.5683 424.7369 0.1566
+13 9.4714 5677.0085 0.2158
+14 10.4261 109.0414 0.0298
+15 10.6411 123.6823 0.0979
+16 10.9484 360.7518 0.8739
+17 12.9213 3017.5625 0.2133
+18 13.9032 6501.8974 0.1998
+19 14.0751 4133.0322 0.1145
+20 14.5618 3058.4047 0.1806
+21 15.3497 5156.189 0.1855
+22 16.3862 2717.9557 0.2069
+23 17.2734 3255.7136 0.2219
+24 17.6268 1158.3212 0.1428
+25 18.6216 4920.6338 0.2985
+26 19.054 2970.4296 0.1493
+27 19.4746 7919.7775 0.2705
+28 20.9806 10939.2284 0.1948
+29 21.4105 12176.5687 0.1875
+30 21.9526 3091.4229 0.1672
+31 22.537 7828.3341 0.3498
+32 23.61 486.9471 0.1664
+33 23.8886 5736.3298 0.2892
+34 24.7359 3578.0297 0.2191
+35 25.3421 6247.0292 0.244
+36 26.0077 10359.4322 0.5294
+37 27.3074 7548.9574 0.4594
+38 28.5704 6155.8754 0.3013
+39 29.6868 679.4314 0.2176
+40 30.8614 2281.8958 0.3465
+
+ X8a6f5a8 {'radiation': {'type': 'CuK1', 'wavelength_A': 1.54059, 'wavelengths_A': [1.54059], 'wavelength_weights': None, 'monochromator': None, 'source': None}, 'geometry': 'transmission (capillary / Debye-Scherrer)', 'geometry_source_text': None, 'temperature_K': 295.0, 'two_theta_range_deg': [3.5, 85.0], 'n_points': 8151, 'intensity_column': 'observed net intensity (instrument background subtracted by the depositors)', 'sigma_column': '1/sqrt(_pd_proc_ls_weight)', 'pattern_units': 'two_theta_deg intensity sigma', 'notes': []}
+1 3.8932 222.9019 0.0359
+2 5.6109 34033.2586 0.1762
+3 6.3617 99.8124 0.0508
+4 6.8283 277.8164 0.186
+5 7.2342 115.5056 0.0183
+6 8.2559 6396.0431 0.1834
+7 8.6436 145.6226 0.0378
+8 8.971 121.9795 0.0238
+9 11.2215 5412.7413 0.2096
+10 11.5816 32421.0653 0.1346
+11 11.9763 190.421 0.0092
+12 12.2496 2470.4233 0.2414
+13 13.3044 2781.4918 0.1444
+14 13.5437 2191.6278 0.1272
+15 14.2686 2508.3607 0.1805
+16 15.3447 6131.0546 0.2013
+17 15.9526 9590.6406 0.2631
+18 16.2257 4535.0944 0.126
+19 16.5263 9640.9081 0.158
+20 16.888 4209.565 0.1774
+21 17.08 2275.8685 0.1261
+22 18.3509 38156.0824 0.2063
+23 18.782 4729.1106 0.1477
+24 19.279 2837.8699 0.1582
+25 19.6938 21602.4684 0.1866
+26 20.3034 12088.3636 0.1759
+27 20.7701 8479.696 0.2207
+28 21.0439 2339.5676 0.1491
+29 21.3752 1121.7764 0.1255
+30 21.7222 6130.1432 0.1575
+31 22.2177 5228.4811 0.2181
+32 22.5887 837.4269 0.0925
+33 23.0119 18100.5959 0.1484
+34 23.359 24707.9719 0.2856
+35 24.4149 15407.7854 0.4617
+36 25.1053 5990.4351 0.1883
+37 25.4225 12262.8084 0.3148
+38 26.8262 32793.9643 0.282
+39 27.4477 2399.4368 0.2409
+40 28.0981 2380.2384 0.3003
+SELECTION {'min_two_theta': 5.0}
+
+ Xebbd488 {'radiation': {'type': 'CuK1', 'wavelength_A': 1.54059, 'wavelengths_A': [1.54059], 'wavelength_weights': None, 'monochromator': None, 'source': None}, 'geometry': 'transmission (capillary / Debye-Scherrer)', 'geometry_source_text': None, 'temperature_K': 295.0, 'two_theta_range_deg': [5.0, 75.0], 'n_points': 7001, 'intensity_column': 'observed net intensity (instrument background subtracted by the depositors)', 'sigma_column': '1/sqrt(_pd_proc_ls_weight)', 'pattern_units': 'two_theta_deg intensity sigma', 'notes': []}
+1 5.8363 1401.6914 0.0906
+2 6.9811 24375.9324 0.2059
+3 7.7401 1345.0982 0.109
+4 7.9684 9968.4059 0.1523
+5 9.1606 15486.1096 0.169
+6 9.7869 181.2109 0.0176
+7 11.2077 3291.2322 0.1089
+8 11.3693 15641.3288 0.2166
+9 12.5636 3308.8155 0.2052
+10 12.913 917.5622 0.1343
+11 13.9197 8110.5594 0.1706
+12 14.3339 1171.6504 0.1244
+13 14.7987 4984.6543 0.1415
+14 15.3928 9009.3266 0.1601
+15 15.9412 17263.1485 0.202
+16 16.2447 1762.2024 0.1302
+17 16.7465 269.6097 0.0284
+18 16.8898 201.364 0.1758
+19 17.2216 265.7805 0.018
+20 17.5517 705.1805 0.1492
+21 18.2405 15766.8137 0.2185
+22 18.8574 21900.0449 0.2014
+23 19.6996 6508.437 0.2201
+24 20.6416 42188.7145 0.189
+25 21.8076 1632.8179 0.4012
+26 22.1842 8339.3386 0.3476
+27 22.813 20246.7443 0.1738
+28 23.4149 1436.9857 0.1353
+29 23.9806 4639.3217 0.2025
+30 24.6969 3555.3494 0.2026
+31 25.0805 2877.8944 0.1192
+32 25.4014 7883.1423 0.2236
+33 25.9676 2316.8709 0.1958
+34 26.7754 282.7648 0.0401
+35 27.0499 2104.2552 0.2033
+36 27.3914 1578.0194 0.1622
+37 27.8367 1517.3473 0.4781
+38 28.3822 4909.9306 0.3715
+39 29.1139 1567.6789 0.1534
+40 29.4832 1014.6581 0.2434
+import sys,re,json,os
+sid=sys.argv[1];tag=sys.argv[2] if len(sys.argv)>2 else 'TRICLINIC_P_3';W='/app/work/'+sid
+text=open(W+'/index_'+tag+'.log').read();pat=r'Solution\s*\?\s*a=\s*([\d.]+),?\s*b=\s*([\d.]+),?\s*c=\s*([\d.]+),?\s*alpha=\s*([\d.]+),?\s*beta=\s*([\d.]+),?\s*gamma=\s*([\d.]+),?\s*V=\s*([\d.]+),?\s*score=\s*([\d.]+)';rows=[]
+tokens=tag.split('_');ks=next(i for i,t in enumerate(tokens) if t in ['TRICLINIC','MONOCLINIC','ORTHOROMBIC','TETRAGONAL','HEXAGONAL','CUBIC','RHOMBOEDRAL']);system=tokens[ks];centering=tokens[ks+1];mode=next((int(t) for t in tokens[ks+2:] if t.isdigit()),9)
+for ma in re.finditer(pat,text):
+ v=list(map(float,ma.groups()));rows.append({'cell':v[:6],'volume':v[6],'score':v[7],'system':system,'centering':centering,'mode':mode})
+rows.sort(key=lambda s:-s['score']);out=[];seen=set()
+for r in rows:
+ key=tuple(round(x,2) for x in r['cell'])
+ if key in seen:continue
+ seen.add(key);out.append(r)
+ if len(out)>=100:break
+json.dump(out,open(W+'/index_'+tag+'_partial.json','w'),indent=1)
+print(sid,len(out),out[:4])
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 PEAK_FILE=peaks_raw.json NPEAK=18 NSPUR=1 INDEX_SCORE=60 INDEX_DEPTH=6 LMAX=40 TTHERR=.025 MAXERR=.06 INDEX_TAG=zeroscan
+while [[ -r /proc/8306/status ]] && ! grep -q '^State:.*Z' /proc/8306/status; do sleep 5; done
+for shift in -0.2 -0.1 0.1 0.2; do
+ for system in ORTHOROMBIC MONOCLINIC; do
+  for center in P C; do
+   TTHSHIFT=$shift timeout 90 python /app/work/index_one.py Xedd9c7b $system $center 4 450 2800 > /app/work/Xedd9c7b/index_zero_${shift}_${system}_${center}.log 2>&1
+  done
+ done
+done
+for id in Xedd9c7b Xb7088cf; do
+ for tag in raw_TRICLINIC_P raw_MONOCLINIC_P; do python /app/work/parse_index_log.py $id $tag; done
+ python /app/work/collect_candidates.py $id
+ for idx in 0 1 2 3; do python /app/work/fit_candidate.py $id $idx .3 > /app/work/$id/fit_$idx.log 2>&1; done
+done
+import os,sys,time,json,io
+import numpy as np
+from pyobjcryst.indexing import *
+from rdkit import Chem
+sid=sys.argv[1]; system=sys.argv[2] if len(sys.argv)>2 else 'MONOCLINIC'; center=sys.argv[3] if len(sys.argv)>3 else 'P'
+mode=int(sys.argv[4]) if len(sys.argv)>4 else 0
+W='/app/work/'+sid
+ins=json.load(open('/app/data/instances/'+sid+'/instrument.json'));comp=json.load(open('/app/data/instances/'+sid+'/composition.json'));wl=ins['radiation']['wavelength_A']
+peakfile=os.environ.get('PEAK_FILE','peaks.json');peaks=json.load(open(W+'/'+peakfile));data=np.load(W+'/processed.npz');x=data['x'];dx=np.median(np.diff(x))
+maxh=max(p['height'] for p in peaks); medwid=np.median([p['fwhm'] for p in sorted(peaks,key=lambda p:-p['height'])[:25]])
+# strict suppression of baseline artifacts and short single-point spikes
+peaks=[p for p in peaks if p['height']>maxh*(.003 if mode<2 else .007) and p['fwhm']>max(dx*1.5,medwid*.3) and p['fwhm']<max(medwid*3,.055*wl/1.54) and p['two_theta']>x[0]+max(.08*wl/1.54,dx*4)]
+# remove user-marked impurity / blended lines (1-based original peak list indices)
+selectfile='peak_select_raw.json' if peakfile!='peaks.json' and os.path.exists(W+'/peak_select_raw.json') else 'peak_select.json'
+if os.path.exists(W+'/'+selectfile):
+ sel=json.load(open(W+'/'+selectfile)); orig=json.load(open(W+'/'+peakfile))
+ if 'indices' in sel and (peakfile=='peaks.json' or selectfile=='peak_select_raw.json'): peaks=[orig[i-1] for i in sel['indices']]
+ else: peaks=[p for p in peaks if p['two_theta']>=sel.get('min_two_theta',0) and all(abs(p['two_theta']-xx)>.01 for xx in sel.get('exclude',[]))]
+# For indexing low-lying broad peaks in otherwise fine data are suspect
+npeak=int(os.environ.get('NPEAK',22 if mode not in [3,4] else 18))
+peaks=peaks[int(os.environ.get('PEAK_SKIP','0')):][:npeak]
+if len(peaks)<10: sys.exit(1)
+ns=int(os.environ.get('NSPUR',1 if mode in [1,4] else 0))
+# deviations incorporate peak-profile asymmetry and blended maxima
+base_err=(.012 if wl>1.3 else .003 if wl>.65 else .0015)*(2 if mode>=2 else 1)
+base_err=float(os.environ.get('TTHERR',base_err))
+ss=''
+for p in peaks:
+ theta=p['two_theta']-float(os.environ.get('TTHSHIFT',0)); d=wl/(2*np.sin(np.deg2rad(theta/2)));terr=min(float(os.environ.get('MAXERR','100')),max(base_err,p['error']*2,min(p['fwhm']*.15,base_err*2)))
+ dsig=d/np.tan(np.deg2rad(theta/2))*np.deg2rad(terr/2)*2
+ ss+=f"{d:.9f} {dsig:.9f} {p['height']:.3f}\n"
+pl=PeakList();pl.ImportDhklDSigmaIntensity(io.BytesIO(ss.encode()))
+cs=getattr(CrystalSystem,system);cen=getattr(CrystalCentering,'LATTICE_'+center)
+heavy=sum(Chem.MolFromSmiles(c['smiles']).GetNumHeavyAtoms()*c['count'] for c in comp['components'])
+v1=heavy*18
+lo=EstimateCellVolume(1/peaks[-1]['d'],1/(peaks[0]['d']*4),len(peaks),cs,cen,1.4)
+hi=EstimateCellVolume(1/peaks[-1]['d'],1/(peaks[0]['d']*4),len(peaks),cs,cen,.20 if system!='TRICLINIC' else .35)
+lo=max(lo, v1*.65,80);hi=min(hi,v1*(10 if system not in ['MONOCLINIC','TRICLINIC'] else 8 if system=='MONOCLINIC' else 4),15000)
+if hi<lo:hi=lo*1.1
+if len(sys.argv)>5:lo=float(sys.argv[5]);hi=float(sys.argv[6])
+lmax=max(25,min(60,2.8*hi**(1/3)))
+if heavy>25 and all(set(c['smiles'])<=set('C[]@H()') for c in comp['components']): lmax=100
+lmax=float(os.environ.get('LMAX',lmax))
+if system=='TRICLINIC':lmax=min(lmax,float(os.environ.get('LMAX_TRI','40')))
+ex=CellExplorer(pl,cs,ns);ex.SetCrystalCentering(cen);ex.SetLengthMinMax(3,lmax);ex.SetAngleMinMax(np.deg2rad(90),np.deg2rad(135 if system=='TRICLINIC' else 140));ex.SetVolumeMinMax(lo,hi);ex.SetD2Error(0)
+print(sid,system,center,mode,'peaks',[round(p['two_theta'],5) for p in peaks], 'V',lo,hi, 'Lmax',lmax,flush=True)
+start=time.time();ex.DicVol(8,4,float(os.environ.get("INDEX_SCORE",80)),int(os.environ.get("INDEX_DEPTH",7)),True);ex.ReduceSolutions()
+sols=[]
+for cell,score in ex.GetSolutions():
+ c=cell.DirectUnitCell(False,True)
+ if all(np.isfinite(c)):
+  sols.append(dict(cell=list(c[:6]),volume=c[6],score=score,system=cell.lattice.name,centering=cell.centering.name.replace('LATTICE_',''),mode=mode))
+print('DONE',sid,system,center,len(sols),time.time()-start,sols[:5],flush=True)
+tag=system+'_'+center+'_'+str(mode)
+if len(sys.argv)>5:tag+='_'+sys.argv[5]+'_'+sys.argv[6]
+if 'TTHSHIFT' in os.environ:tag+='_z'+os.environ['TTHSHIFT']
+if 'INDEX_TAG' in os.environ:tag+='_'+os.environ['INDEX_TAG']
+if peakfile!='peaks.json':tag+='_'+peakfile.replace('.json','')
+json.dump(sols,open(W+'/index_'+tag+'.json','w'),indent=1)
+X4f MC
+/app/work/X4f6fe58/search2.log
+/app/work/X4f6fe58/search_long.log
+
+/app/work/X4f6fe58/search_1:
+STOP
+best.cif
+best.json
+best.xml
+model.json
+
+/app/work/X4f6fe58/search_2:
+model.json

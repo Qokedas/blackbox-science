@@ -1,0 +1,9 @@
+  self.symmetry_operations = self.get_symops(data)  # type:ignore[assignment]
+Skipping relative stoichiometry check because CIF does not contain formula keys.
+  return parser.parse_structures(primitive=primitive)[0]
+X07806d9/sol_a/Pbca_run0_rw0.145.cif C40 N8 Cl8 O24 (16.85574, 8.20685, 11.21976)
+X07806d9/sol_a/Pbca_run1_rw0.145.cif C40 N8 Cl8 O24 (16.85574, 8.20685, 11.21976)
+X07806d9/sol_a/Pbca_run2_rw0.144.cif C40 N8 Cl8 O24 (16.85574, 8.20685, 11.21976)
+0 1 True (np.float64(0.031243919552718512), np.float64(0.054460394313766085))
+0 2 True (np.float64(0.03076997401735451), np.float64(0.0636360883594418))
+1 2 True (np.float64(0.019340259119998638), np.float64(0.025259622232327545))

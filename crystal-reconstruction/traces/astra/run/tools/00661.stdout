@@ -1,0 +1,202 @@
+(Structure, external=None, internal=None, n_samples=10000, n_iterations=500, n_cooldown=100, device=None, dtype=torch.float32, n_reflections=None, learning_rate_schedule='1cycle', b_bounds_1_cycle=None, check_min=1, optimizer='Adam', verbose=False, print_every=10, learning_rate=0.03, betas=None, eps=1e-08, loss='sum', start_time=None, run=1, torsion_shadowing=False, Z_prime=1, mapping=False, save_trajectories=False, save_grad=False, save_loss=False, include_dw_factors=True, chi2_solved=None, use_progress_bar=True, save_CIF=True, streamlit=False, use_restraints=False, restraint_weight_type='min_chi2', include_PO=False, PO_axis=(0, 0, 1), notebook=False, profile=False, step=1)
+def minimise(Structure, external=None, internal=None, n_samples=10000,
+    n_iterations=500, n_cooldown=100, device=None, dtype=torch.float32,
+    n_reflections=None, learning_rate_schedule="1cycle",
+    b_bounds_1_cycle=None, check_min=1, optimizer="Adam", verbose=False,
+    print_every=10, learning_rate=3e-2, betas=None, eps=1e-8, loss="sum",
+    start_time=None, run=1, torsion_shadowing=False, Z_prime=1, mapping=False,
+    save_trajectories=False, save_grad=False, save_loss=False,
+    include_dw_factors=True, chi2_solved=None, use_progress_bar=True,
+    save_CIF=True, streamlit=False, use_restraints=False,
+    restraint_weight_type="min_chi2", include_PO=False, PO_axis=(0, 0, 1),
+    notebook=False, profile=False, step=1):
+    """
+    Main minimiser function used by GALLOP. Take a set of input external and
+    internal degrees of freedom (as numpy arrays) together with the observed
+    intensities and inverse covariance matrix, and optimise the chi-squared
+    factor of agreement between the calculated and observed intensities.
+
+    This forms one part of the GALLOP algorithm, the other part is a particle
+    swarm optimisation step which is used to generate the starting positions
+    that are passed to this minimisation function.
+
+    Args:
+        Structure (Structure object):   Contains all of the information about
+            the crystal structure including PXRD data, Z-matrices, unit cell etc
+        external (Numpy array, optional):   The external degrees of freedom for
+            n_samples. Defaults to None. If None, then these will be randomly
+            generated.
+        internal (Numpy array, optional):   The internal degrees of freedom for
+            n_samples. Defaults to None. If None, then these will be randomly
+            generated.
+        n_samples (int, optional):  If the external/internal DoFs are None,
+            how many samples to generate. Defaults to 10000.
+        n_iterations (int, optional): Total number of iterations to run the
+            local-optimisation algorithm. Defaults to 500.
+        n_cooldown (int, optional): Used in the 1-cycle learning rate policy.
+            The number of iterations at the end of a local optimisation run with
+            a low learning rate. Defaults to 100.
+        device (torch.device, optional):    Where to run the calculations. If
+            None, then check to see if a GPU exists and use it by default.
+        dtype (torch datatype, optional): What datatype to use. Defaults to
+            torch.float32.
+        n_reflections (int, optional): The number of reflections to use for the
+            chi_2 calculation. If None, use all available.
+        learning_rate_schedule (str, optional): How to modify the learning rate
+            during the optimisation process.
+            One of: "1cycle", "sqrt", "constant", "array".
+            "1cycle"    -   rapidly increase then decrease the learning rate,
+                            before a "cooldown" period with a lower learning
+                            rates. See this link for more details:
+                            https://sgugger.github.io/the-1cycle-policy.html
+            "sqrt"      -   decay the learning rate after each iteration
+                            according to:
+                                lr = learning_rate * 1/np.sqrt((iteration)+1.)
+            "constant"  -   constant learning rate
+            "array"     -   read the learning rate at each iteration from an
+                            array
+            Defaults to "1cycle".
+        learning_rate (Float or array, optional):   Depends on
+            learning_rate_schedule. If float, then this is the initial learning
+            rate used with the decay schedule. If an array, then the learing
+            rate will be read from the array at each iteration.
+            Defaults to 3e-2.
+        b_bounds_1_cycle (dict, optional): Used in the 1cycle learning rate
+            policy to set the upper and lower beta values. If set to None,
+            then the following values will be used:
+            {"upperb1":0.95, "lowb1":0.85, "upperb2":0.9, "lowb2":0.9}
+        check_min (int, optional):  The number of iterations after which the
+            best value of chi2 obtained so far is checked. Defaults to 1.
+        optimizer (str or torch-compatible optimizer): Either a string or a
+            torch-compatible optimizer. The only strings currently used are
+            "Adam", "DiffGrad" and "Yogi".
+        verbose (bool, optional): Print out information during the run.
+            Defaults to False.
+        print_every (int, optional):    If verbose is True, then how frequently
+            to print out the information on the run progress. Also controls
+            how often the best chi2 value is updated for the progress-bar.
+        betas (list, optional): beta1 and beta2 values to use in Adam. Defaults
+            to [0.9, 0.9] (if None set) which is equivalent to
+            [beta1=0.9, beta2=0.9]
+        eps (float, optional): Epsilon value to use in Adam or Adam derived
+            optimizers. Defaults to 1e-8.
+        loss (str or function, optional):   Pytorch requires a scalar to
+            determine the gradients so the series of chi2 values obtained from
+            the n_samples must be combined through some function before the
+            gradient is determined. Different functions can be used to scaled
+            the gradients in different ways. This may be advantageous if there
+            is a significant difference in the magnitude of the gradient when
+            chi2 is large vs when it is small. If string, must be one of:
+            sum, sse, xlogx
+                sum     -   add all the chi2 values together. The gradient for
+                            each independent run will be the derivative of chi2
+                            with respect to the degrees of freedom.
+                sse     -   sum(chi2^2) (sum of squared errors). The gradient
+                            for each independent run will be the derivative of
+                            chi2 (wrt DoF) multiplied by 2*chi2.
+                xlogx   -   sum(chi2 * log(chi2)). The gradient for each
+                            independent run will be the derivative of chi2 (wrt
+                            DoF) multiplied by log(chi2) + 1.
+            If a function, this function must must take as input a pytorch
+            tensor and return a scalar.
+            Defaults to "sum".
+        start_time (time.time(), optional): The start time of a run or set of
+            runs. Useful in full GALLOP runs, but if set to None then the start
+            time will automatically be determined.
+        run (int, optional): If a set of runs are being performed, then the run
+            number can be passed for printing. Defaults to 1.
+        torsion_shadowing (bool, optional) : Pin the torsion angles for Z'>1
+            structures so that all fragments have the same torsion angles. This
+            can result in faster solutions, and once a "good" result is found,
+            this can be set to False to allow each fragment to refine freely.
+            Defaults to False
+        Z_prime (int, optional): If using torsion_shadowing, this is the Z' for
+            the current unit cell. Defaults to 1.
+        mapping (bool, optional): If using torsion shadowing, this will toggle
+            permuting the mapped torsions by factors of + and -1 for all of the
+            different fragments. This is automatically used for structures in
+            non-centrosymmetric space groups.
+        save_trajectories (bool, optional): Store the DoF, chi_2 and loss value
+            after every iteration. This will be slow, as it requires transfer
+            from the GPU to CPU. Defaults to False.
+        save_grad (bool, optional): Store the gradients of the internal and
+            external DoF with respect to the chi_2 / loss values after every
+            iteration. This will be slow, as it requires transfer from the GPU
+            to CPU. Defaults to False.
+        save_loss (bool, optional) : Save the value of the loss at each
+            iteration. Used by find_learning_rate. Defaults to False.
+        include_dw_factors (bool, optional): Include Debye-Waller factors in
+            the intensity calculations. Defaults to True.
+        chi2_solved (float, optional):  The value below which a structure is
+            considered solved (if known). Used for some printed information.
+            If None, then this is ignored. Defaults to None.
+        use_progress_bar (bool, optional): Use a progress bar to provide visual
+            feedback on run progress. Defaults to True.
+        save_CIF (bool, optional): Save a CIF of the best structure found
+            after optimising. Defaults to True.
+        streamlit (bool, optional): If using the streamlit webapp interface,
+            this is set to True to enable a progress bar etc. Defaults to False
+        use_restraints (bool, optional): Use distance-based restraints as an
+            additional penalty term in the loss function. Must be added to the
+            Structure object via Structure.add_restraint() before use. Defaults
+            to False.
+        restraint_weight_type (str, optional): One of chi2, min_chi2, constant.
+            If constant, then then instead of weighting the restraints relative
+            to the chi2 value (or minimum of all chi2 values), the weights
+            supplied are used as constant weighting factors. Defaults to min_chi2.
+        include_PO (bool, optional): Include a preferred orientation correction
+            to the intensities during optimization. Defaults to False.
+        PO_axis (tuple, optional): The axis along which to apply the
+            March-Dollase PO correction. Defaults to (0, 0, 1).
+        notebook (bool, optional): If the code is running in a Jupyter notebook,
+            use the tqdm notebook progress bars instead. Defaults to False.
+        profile (bool, optional): If set to True, the profile chisquared will be
+            used instead of intensity chisquared. Defaults to False.
+        step (int, optional): If using profile chisquared, step is the step size
+            of points to include in the calculation. 1 uses the full profile, 2
+            would use every other point, 3 every third point etc. Defaults to 1.
+
+    Returns:
+        dictionary: A dictionary containing the optimised external and internal
+            degrees of freedom and their associated chi_2 values.
+            If save_trajectories is True then this also contains the
+            trajectories of the particles, the chi_2 values and loss values
+            at each iteration.
+    """
+    if device is None:
+        device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    if dtype is None:
+        dtype = torch.float32
+    if b_bounds_1_cycle is None:
+        b_bounds_1_cycle = {"upperb1":0.95, "lowb1":0.85, "upperb2":0.9,
+                            "lowb2":0.9}
+    if betas is None:
+        betas = [0.9,0.9]
+    if streamlit:
+        import streamlit as st
+    trajectories = []
+    gradients = []
+    losses = []
+
+    if torsion_shadowing:
+        # Only pay attention to the first block of torsions accounting for Z'>1.
+        # This assumes that all of the fragments have similar torsion angles.
+        # This can significantly speed up solving Z'>1 structures where this
+        # assumption is valid.
+        # To use this, the ZMs supplied must be in blocks that correspond to the
+        # unique fragments in Z', for example, a structure with two flexible
+        # fragments and two ions would need to be entered into the structure as
+        # ion1 fragment1 ion2 fragment2
+        # This is different to the way DASH converts ZMs by default, where ions
+        # tend to come as zm1 and zm2, then the flex fragments as zm3 and zm4.
+        if internal is not None:
+            t_permutations = np.ones((internal.shape[0],Z_prime))
+        else:
+            raise RuntimeError ("You must supply the internal coordinates if "
+                                "using torsion shadowing")
+        if not Structure.centrosymmetric or mapping:
+            for i in range(Z_prime-1):
+                for j in range(2**i):
+                    t_permutations[j+(2**i)::2**(i+1),-i-1] *= -1
+        t_permutations = torch.from_numpy(t_permutations).type(dtype).to(device)
+        internal = internal[:,:int(internal.shape[1] / Z_prime)]

@@ -1,0 +1,253 @@
+['add_restraint']
+    def add_restraint(self, restraint, indexing=1):
+        """
+        Add a restraint to use during the local optimisation that adds a penalty
+        when distances, angles or torsions deviate from a specified value.
+        The atoms involved can be from the same or from different z-matrices.
+        The associated ZMs can be supplied as integers referencing the index of
+        the zmatrix in the Structure.zmatrices list, or can be the filenames of
+        the zmatrices of interest.
+        Alternatively, if all of the atoms in the structure have unique atom
+        labels, then the zmatrix labels are not needed.
+
+        e.g. a distance restraint for atom4 in zmatrix_1.zmatrix and atom8 in
+            zmatrix_3.zmatrix, with a distance of 3.0 A and weighting of 50 %
+            (i.e. 0.5) can be added via:
+                Structure.add_restraint({"type" : "distance",
+                                        "zm1":"zmatrix_1.zmatrix", "atom1":4,
+                                        "zm2":"zmatrix_2.zmatrix", "atom2":8,
+                                        "value":3, "weight":0.5})
+            Or, assuming that the zmatrices were added sequentially starting
+            with zmatrix_1.zmatrix:
+                Structure.add_restraint({"type":"distance", "zm1":1, "atom1":4,
+                                        "zm2":3, "atom2":8,"value":3.0,
+                                        "weight":0.5})
+
+        Alternative and recommended method:
+
+            If all of the atoms have unique labels, and assuming atom1 = N1 and
+            atom2 = Cl1, then the following is sufficient:
+                Structure.add_restraint("type":"distance", "atom1":"N1",
+                                        "atom2":"Cl1", "value":3.0, "weight":0.5)
+
+        Users can change between 0- and 1-indexing. Default is 1-index to match
+        the indexing given in the z-matrices.
+
+
+        Args:
+            restraint (dict): dictionary to specify the type of restraint to add
+                as well as the atoms involved, zmatrices (as described above),
+                the value of the restraint - if distance, should be in Angstroms,
+                if angle or torsion, should be in degrees, and the weight to
+                apply to this restraint, expressed as a percentage.
+                Required keys:
+                    "type" - can be one of distance, angle or torsion
+                    "value" - the numerical value of the expected restraint
+                    "weight" - the weight to assign to this restraint
+                    "atom1" - the first atom involved
+                    "atom2" - the second atom involved
+                Other keys that may be needed:
+                    "atom3" - if specifying an angle or torsion restraint
+                    "atom4" - if specifying an angle or torsion restraint
+                    "zm1" to "zm4" - if specifying the zmatrices to index the
+                                        atoms involved.
+            indexing (int, optional): Use python 0-indexing (i.e. first atom in
+                zmatrix = 0) or normal 1-indexing (i.e. first atom in zmatrix
+                has index 1). Defaults to 1.
+
+        """
+        assert "type" in restraint.keys(), "You must supply a restraint type"
+        assert restraint["type"] in ["distance", "angle", "torsion"],(
+            "Restraint type must be \"distance\", \"angle\" or \"torsion\"")
+        assert "value" in restraint.keys(), "You must supply a restraint value"
+        restraint_type = restraint["type"]
+        restraint_value = restraint["value"]
+        restraint_weight = restraint["weight"]
+        n_atoms = {"distance" : 2, "angle" : 4,
+                    "torsion" : 4}[restraint_type.lower()]
+        # Now check to see if the ZMs have been specified or if we should use
+        # the atom labels to work out which atoms the restraint should be
+        # applied to. If no ZM names are specified, then append True to zm_check
+        # If names are supplied, they are converted to integer indices for the
+        # ZMs.
+        zm_check = []
+        zms = []
+        for i in range(n_atoms):
+            value = False
+            if "zm"+str(i+1) in restraint.keys():
+                zm = restraint["zm"+str(i+1)]
+                if not isinstance(zm, int):
+                    assert isinstance(zm, str), "zm1 must be integer or string"
+                    if len(zm) != 0:
+                        for j, zmat in enumerate(self.zmatrices):
+                            if zm in zmat.filename:
+                                zm = j + indexing
+                                zms.append(zm)
+                                break
+                    else:
+                        value = True
+            else:
+                value = True
+            zm_check.append(value)
+        assert (all(zm_check) or not(any(zm_check))), ("You must either specify"
+                                                    " a Z-matrix for all atoms"
+                                                    " or no atoms.")
+        if all(zm_check):
+            all_atom_names = []
+            all_atom_names_no_H = []
+            for zmat in self.zmatrices:
+                all_atom_names += zmat.atom_names
+                all_atom_names_no_H += zmat.atom_names_no_H
+            assert len(set(all_atom_names)) == len(all_atom_names), ("Not all "
+                "atoms have unique names! Rename atom labels in Z-matrices to "
+                "use atom-name-only indexing")
+            atom_idx = []
+            atom_idx_no_H = []
+            for i in range(n_atoms):
+                atom = restraint["atom"+str(i+1)]
+                atom_idx.append(all_atom_names.index(atom))
+                atom_idx_no_H.append(all_atom_names_no_H.index(atom))
+        else:
+            # Now correct to get python zero-indexes if using 1-indexing
+            zms = [x - indexing for x in zms]
+            atoms = []
+            for i, zm in enumerate(zms):
+                assert isinstance(self.zmatrices[i][restraint["atom"+str(i+1)]],
+                        int), "If ZM is supplied, atoms must be integer indices"
+                atoms.append(restraint["atom"+str(i+1)] - indexing)
+
+            elements = {}
+            elements_no_H = {}
+            n_atoms = {}
+            all_elements = []
+            all_elements_no_H = []
+            for i, zmat in enumerate(self.zmatrices):
+                elements[i] = zmat.elements
+                elements_no_H[i] = zmat.elements_no_H
+                n_atoms[i] = len(zmat.elements)
+
+                all_elements += zmat.elements
+                all_elements_no_H += zmat.elements_no_H
+
+            atom_idx = []
+            atom_idx_no_H = []
+            for zmat, atom in zip([zms, atoms]):
+                prev_atoms = 0
+                prev_atoms_no_H = 0
+                for i in range(zmat):
+                    prev_atoms += len(elements[i])
+                    prev_atoms_no_H += len(elements_no_H[i])
+
+                atom_no_H = atom - elements[zmat][:atom].count("H")
+                atom += prev_atoms
+                atom_no_H += prev_atoms_no_H
+
+                atom_idx.append(atom)
+                atom_idx_no_H.append(atom_no_H)
+
+        atom_idx += [restraint_value, restraint_weight]
+        atom_idx_no_H += [restraint_value, restraint_weight]
+
+        if restraint_type.lower() == "distance":
+            self.distance_restraints.append(atom_idx)
+            self.distance_restraints_no_H.append(atom_idx_no_H)
+        elif restraint_type.lower() == "angle":
+            self.angle_restraints.append(atom_idx)
+            self.angle_restraints_no_H.append(atom_idx_no_H)
+        else:
+            self.torsion_restraints.append(atom_idx)
+            self.torsion_restraints_no_H.append(atom_idx_no_H)
+
+(Structure, external=None, internal=None, n_samples=10000, n_iterations=500, n_cooldown=100, device=None, dtype=torch.float32, n_reflections=None, learning_rate_schedule='1cycle', b_bounds_1_cycle=None, check_min=1, optimizer='Adam', verbose=False, print_every=10, learning_rate=0.03, betas=None, eps=1e-08, loss='sum', start_time=None, run=1, torsion_shadowing=False, Z_prime=1, mapping=False, save_trajectories=False, save_grad=False, save_loss=False, include_dw_factors=True, chi2_solved=None, use_progress_bar=True, save_CIF=True, streamlit=False, use_restraints=False, restraint_weight_type='min_chi2', include_PO=False, PO_axis=(0, 0, 1), notebook=False, profile=False, step=1)
+/app/work/X8a06d7a/de_ext.log
+ -1.18e-02 -7.00e-03 -4.70e-03 -9.50e-03 -9.70e-03 -1.18e-02  2.00e-02
+  7.39e-02 -2.10e-03 -1.63e-02 -1.36e-02 -4.00e-04  9.30e-03  2.60e-03
+  1.34e-02  1.70e-03  5.00e-04 -3.90e-03] bestcost 0.05732401225683994
+/app/work/X263b09a/de_ext.log
+  0.0066 -0.0103  0.0019  0.0004  0.002  -0.0075 -0.0407 -0.0073 -0.0019
+  0.0021 -0.0011 -0.0101 -0.0099  0.0033  0.0025 -0.0465  0.003  -0.0032
+  0.012   0.0132 -0.0033  0.0106 -0.0046  0.0059  0.0087  0.0034] bestcost 0.03427373083418504
+/app/work/X1db5091/de_ext.log
+INDEX_DE X1db5091 [7.254743968012524, 8.143017317930369, 8.568279189206713, 9.471402091710166, 12.921347359968404, 13.903177183206715, 14.075129812772358, 14.561771135087692, 15.349745589053027, 16.38624992610683, 17.273445072004794, 17.626754157786365, 18.62156983392243, 19.05397410284524, 19.474581085489167, 20.98063870290937, 21.410517679144846, 21.952646185146563, 22.536986950702673, 23.888646236909892, 24.73591027040345, 25.34210988623535, 28.57037731161938, 29.686799672246607, 30.861371136833988, 32.07260422324953, 34.44825481065948, 35.61806634746581, 36.64941060824525] bounds [(0.09090909090909091, 0.2), (0.05555555555555555, 0.125), (0.037037037037037035, 0.08333333333333333), (-0.5, 0.5), (-0.5, 0.5), (-0.5, 0.5), (-0.08, 0.08)]
+base.log
+base.png
+base.xml
+candidates.json
+fit_0.json
+fit_0.log
+fit_0.png
+fit_0.xml
+fit_0.xye
+gallop_1
+gallop_2
+gallop_search.log
+gallop_search2.log
+import_g2.log
+index_CUBIC_F_0.json
+index_CUBIC_F_0.log
+index_CUBIC_I_0.json
+index_CUBIC_I_0.log
+index_CUBIC_P_0.json
+index_CUBIC_P_0.log
+index_HEXAGONAL_P_0.json
+index_HEXAGONAL_P_0.log
+index_MONOCLINIC_C_0.json
+index_MONOCLINIC_C_0.log
+index_MONOCLINIC_C_2.json
+index_MONOCLINIC_C_2.log
+index_MONOCLINIC_P_0.json
+index_MONOCLINIC_P_0.log
+index_MONOCLINIC_P_2.json
+index_MONOCLINIC_P_2.log
+index_ORTHOROMBIC_C_0.json
+index_ORTHOROMBIC_C_0.log
+index_ORTHOROMBIC_I_0.json
+index_ORTHOROMBIC_I_0.log
+index_ORTHOROMBIC_P_0.json
+index_ORTHOROMBIC_P_0.log
+index_ORTHOROMBIC_P_2.json
+index_ORTHOROMBIC_P_2.log
+index_RHOMBOEDRAL_P_0.json
+index_RHOMBOEDRAL_P_0.log
+index_TETRAGONAL_I_0.json
+index_TETRAGONAL_I_0.log
+index_TETRAGONAL_P_0.json
+index_TETRAGONAL_P_0.log
+index_TRICLINIC_P_3.json
+index_TRICLINIC_P_3.log
+lattice.json
+lebail.npz
+peak_select.json
+peaks.json
+peaks.png
+processed.npz
+refine_1.log
+refine_1_stage0.cif
+refine_1_stage0.xml
+refine_1_stage1.cif
+refine_1_stage1.xml
+refine_1_stage2.cif
+refine_1_stage2.xml
+refine_1_stage3.cif
+refine_1_stage3.xml
+refine_g2.log
+refine_g2_stage0.cif
+refine_g2_stage0.xml
+refine_g2_stage1.cif
+refine_g2_stage1.xml
+refine_g2_stage2.cif
+refine_g2_stage2.xml
+refine_g2_stage3.cif
+refine_g2_stage3.xml
+refined_1.cif
+refined_1.json
+refined_1.png
+refined_1.xml
+refined_g2.cif
+refined_g2.json
+refined_g2.png
+refined_g2.xml
+scaled_refine.xye
+search_1
+search_g2
+search_long.log

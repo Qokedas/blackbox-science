@@ -1,0 +1,32 @@
+  0%|          | 0/5 [00:00<?, ?it/s]100%|██████████| 5/5 [00:00<00:00, 1650.91it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 15 Nref 165 seconds 66.51307487487793 best 129.53183 q25 213.8154 median 292.8698 total 1022.5327785015106
+GALLOP 16 Nref 165 seconds 55.88005971908569 best 129.53185 q25 211.8228 median 295.66766 total 1078.4339654445648
+GALLOP 17 Nref 165 seconds 50.10041880607605 best 129.53183 q25 192.9862 median 306.93085 total 1128.545776605606
+GALLOP 18 Nref 165 seconds 62.54175043106079 best 129.53195 q25 219.25693 median 300.34662 total 1191.136969089508
+GALLOP 19 Nref 165 seconds 68.75465393066406 best 129.53186 q25 185.73537 median 265.4382 total 1259.9086246490479
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 258 seconds 289.330260515213 best 156.84973 q25 229.23752 median 264.09723 total 289.33667850494385
+GALLOP 1 Nref 258 seconds 290.4711470603943 best 143.52464 q25 201.20781 median 271.7748 total 579.8950345516205
+GALLOP 2 Nref 258 seconds 277.29493522644043 best 143.52423 q25 199.49522 median 261.5844 total 857.2395694255829
+GALLOP 3 Nref 258 seconds 252.59543299674988 best 139.68709 q25 202.38239 median 250.9611 total 1109.9299383163452
+GALLOP 29 Nref 333 seconds 80.12707996368408 best 87.11363 q25 89.23677 median 216.58698 total 1913.7026624679565
+GALLOP 30 Nref 333 seconds 77.40488266944885 best 87.11347 q25 87.51575 median 191.98203 total 1991.13716173172
+GALLOP 31 Nref 333 seconds 53.789910316467285 best 87.1134 q25 87.1874 median 161.18784 total 2044.9759149551392
+GALLOP 32 Nref 333 seconds 66.48466229438782 best 84.78317 q25 87.15518 median 105.93666 total 2111.486198425293
+GALLOP 33 Nref 333 seconds 66.15522289276123 best 84.38112 q25 87.11435 median 155.42265 total 2177.692310333252
+GALLOP 2 Nref 140 seconds 105.31600093841553 best 279.952 q25 387.38293 median 457.61688 total 398.09851717948914
+GALLOP 3 Nref 140 seconds 147.31586241722107 best 279.28406 q25 361.1376 median 448.10315 total 545.5612545013428
+GALLOP 4 Nref 190 seconds 152.89187026023865 best 262.4567 q25 364.19092 median 450.58044 total 698.6538169384003
+GALLOP 5 Nref 190 seconds 95.19720792770386 best 262.79254 q25 352.61606 median 454.1307 total 793.9879965782166
+GALLOP 6 Nref 190 seconds 87.8917338848114 best 262.31882 q25 350.28564 median 455.22906 total 881.9437861442566
+27484 1342.35 120.54 python /app/work/search_gallop.py X263b09a 11 1 --prepare --hscatter 
+30840 696.58 130.6 python /app/work/search_gallop.py X1a56c78 11 1 --prepare --hscatter 
+30904 632.02 192.04 python /app/work/search_gallop.py Xedd9c7b 50 1 --hscatter --packing 
+31941 601.51 1.18 python /app/work/search_gallop.py X263b09a 70 1 --prepare --hscatter --packing --model=/app/work/X263b09a/synthon.json 
+32736 324.78 30.62 python /app/work/search_gallop.py X4f6fe58 40 2 --prepare --hscatter 
+34128 105.55 4.37 python /app/work/search_gallop.py Xbfeeda9 11 1 --prepare --hscatter 
+34483 54.94 5.0 python /app/work/emg_global8.py 

@@ -1,0 +1,89 @@
+Sun Sep  6 09:32:06 UTC 2026
+==== X4f6fe58/conditional83
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X4f6fe58 164.42037963867188
+CONDITIONAL 0 [0] best 161.30221557617188 q25 439.87305 sec 194.72371339797974
+CONDITIONAL 1 [1] best 151.372314453125 q25 455.48807 sec 415.999653339386
+CONDITIONAL 2 [0] best 149.7827606201172 q25 374.9851 sec 622.2934896945953
+==== X1db5091/conditional91
+INITIAL X1db5091 165.75013732910156
+CONDITIONAL 0 [1] best 163.57705688476562 q25 180.29877 sec 174.9730508327484
+CONDITIONAL 1 [1] best 163.5774688720703 q25 173.80092 sec 357.3564784526825
+CONDITIONAL 2 [1] best 163.5772705078125 q25 178.05235 sec 538.489503622055
+FINISHED X1db5091 163.57705688476562
+==== X1db5091/refine_g91
+PACKING_STAGE 1 11.36369037353088
+CYCLE 2 0 Rw 0.11724056325362187 chi2 1618.681551523106 geom 0.0051901642573410995 LSQ 1666.7066091155962
+CYCLE 2 1 Rw 0.11475696816717185 chi2 1550.8284380478572 geom 0.007150056110186856 LSQ 1605.5650438392095
+CYCLE 2 2 Rw 0.11354312795319967 chi2 1518.1942178013594 geom 0.0 LSQ 1562.4607496357048
+PACKING_STAGE 2 7.093942928080375
+==== X14a2b08/gallop73
+GALLOP 0 Nref 427 seconds 150.5018653869629 best 164.78278 q25 205.4889 median 292.41843 total 150.54779291152954
+GALLOP 1 Nref 427 seconds 164.1642575263977 best 164.74203 q25 205.22011 median 289.15744 total 314.8462293148041
+GALLOP 2 Nref 427 seconds 209.9242353439331 best 162.51817 q25 194.98083 median 282.85986 total 524.9767940044403
+GALLOP 3 Nref 427 seconds 215.93280744552612 best 149.84236 q25 178.16629 median 253.95651 total 741.1825435161591
+GALLOP 4 Nref 427 seconds 232.60551381111145 best 149.84232 q25 179.77048 median 248.48178 total 974.0730621814728
+==== Xb7088cf/gallop50
+GALLOP 2 Nref 211 seconds 149.20572519302368 best 99.64931 q25 152.52448 median 195.99094 total 603.7232489585876
+GALLOP 3 Nref 211 seconds 133.6086301803589 best 97.03676 q25 151.81163 median 210.7332 total 737.3863160610199
+GALLOP 4 Nref 211 seconds 212.86195826530457 best 92.55747 q25 138.16043 median 198.39209 total 950.3652412891388
+GALLOP 5 Nref 211 seconds 230.7916820049286 best 92.48815 q25 177.73361 median 206.42007 total 1181.28719830513
+GALLOP 6 Nref 211 seconds 238.28244709968567 best 92.48051 q25 155.66946 median 206.36229 total 1419.6974234580994
+==== X7e382cb/gallop41
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 259 seconds 214.3479790687561 best 56.670815 q25 80.9508 median 224.02286 total 214.35779857635498
+GALLOP 1 Nref 259 seconds 226.91054677963257 best 56.6708 q25 58.51201 median 140.92369 total 441.4646825790405
+GALLOP 2 Nref 259 seconds 233.58859205245972 best 56.34568 q25 76.44482 median 145.07407 total 675.2482352256775
+==== X8a06d7a/gallop12
+GALLOP 9 Nref 341 seconds 147.30201983451843 best 136.5008 q25 140.01196 median 212.78827 total 1175.6190898418427
+GALLOP 10 Nref 341 seconds 148.72308135032654 best 136.5008 q25 147.16461 median 383.13828 total 1324.5307874679565
+GALLOP 11 Nref 341 seconds 155.79530477523804 best 136.50111 q25 137.79361 median 326.6977 total 1480.406646490097
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 917.89it/s]
+GALLOP 12 Nref 341 seconds 154.01382112503052 best 136.50137 q25 326.9337 median 417.73474 total 1634.51668715477
+==== X8a06d7a/refine_g12
+==== Xe1fb77b/gallop11
+GALLOP 5 Nref 149 seconds 154.25762271881104 best 196.22888 q25 260.15778 median 403.87292 total 1097.9699721336365
+GALLOP 6 Nref 149 seconds 178.8965368270874 best 196.22833 q25 250.72018 median 404.59418 total 1276.9798061847687
+GALLOP 7 Nref 149 seconds 193.48492050170898 best 196.22836 q25 255.403 median 362.31378 total 1470.573749780655
+GALLOP 8 Nref 149 seconds 202.14294505119324 best 196.22835 q25 235.65845 median 365.3617 total 1672.7975525856018
+GALLOP 9 Nref 149 seconds 209.48693108558655 best 178.93597 q25 237.38109 median 344.83398 total 1882.368889093399
+==== X238783d/gallop25
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 100 seconds 340.5074944496155 best 279.19736 q25 397.62335 median 472.732 total 340.51409244537354
+GALLOP 1 Nref 161 seconds 398.78701972961426 best 252.97206 q25 302.494 median 400.24094 total 739.5212860107422
+GALLOP 2 Nref 234 seconds 326.42501282691956 best 239.44437 q25 296.30804 median 361.01166 total 1066.1480038166046
+GALLOP 3 Nref 280 seconds 517.7038688659668 best 233.7084 q25 298.9871 median 360.69977 total 1584.0443432331085
+{
+ "radiation": {
+  "type": "Mo Kalpha1,2 (laboratory sealed tube)",
+  "wavelength_A": 0.709319,
+  "wavelengths_A": [
+   0.709319,
+   0.713609
+  ],
+  "wavelength_weights": [
+   1.0,
+   0.5
+  ],
+  "monochromator": null,
+  "source": "sealed X-ray tube"
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 300.0,
+ "two_theta_range_deg": [
+  1.0125,
+  49.987
+ ],
+ "n_points": 5862,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "sqrt(max(I,1)); counting statistics assumed",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": [
+  "Kalpha2 weight 0.5 is the standard ratio; the depositors state only Kalpha1,2"
+ ]
+}gallop_fast_symmetry.py
+gallop_fast_symmetry_v1.py
+solve_half_biphenyl.py
+solve_half_biphenyl_v1.py

@@ -1,0 +1,16 @@
+Total internal degrees of freedom: 7
+PREPARED Xd8634a2 Nref 155 PawleyRw 0.08384177112927271 SG P -1
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1632.34it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 seconds 35.86118984222412 best 479.79407 q25 580.447 median 615.8491 total 35.86723232269287
+/app/work/search_gallop.py:17: RuntimeWarning: overflow encountered in cast
+  if mn>=best:return
+STARTFIT X263b09a 0 Rw 0.0857693849885212
+DONE X263b09a 0 0.0816133602950632 [5.436492278324897, 11.707516503636475, 20.7019031451029, 83.62365296849632, 84.23779272726699, 89.05822925481775]
+STARTFIT X263b09a 1 Rw 0.1339299695508801
+DONE X263b09a 1 0.13342840629686373 [5.023017817013244, 11.783993280381427, 20.628068668708845, 96.13142978508581, 91.85052463737077, 94.75076560648203]
+1147 solutions ! Redparing...
+-> 100 remaining

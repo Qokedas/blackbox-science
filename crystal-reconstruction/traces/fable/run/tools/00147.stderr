@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/app/work/rank.py", line 101, in <module>
+    print(f"M20={c['M20']:6.1f} Nc={c['Nc']:3d} {c['brav']:16s} a={a:8.4f} b={b:8.4f} c={cc:8.4f} al={al:7.3f} be={be:7.3f} ga={ga:7.3f} V={c['V']:8.1f} Z~{c['zest']:5.2f} | idx {c['nidx']}/{c['nobs']} Ncalc={c['ncalc']:4d} M({npk})={c['MN']:6.1f}")
+BrokenPipeError: [Errno 32] Broken pipe

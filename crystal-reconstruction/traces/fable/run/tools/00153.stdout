@@ -1,0 +1,6 @@
+  single atom Cl
+  molecule mol0_0: 21 atoms, 22 bonds, 29 angles, 30 dihedral restraints, 2 free torsions
+78 X3c176e2/sgscan_ortho.log
+M20=  478.0 X20=13 Nc= 11 Triclinic        a=  6.7794 b=  7.1046 c=  8.8675 al= 88.239 be= 78.881 ga= 68.138 V=   388.5 Z~0.65
+M20=  478.0 X20=13 Nc= 11 Triclinic        a=  6.7794 b=  7.1046 c=  8.8675 al= 91.761 be=101.119 ga= 68.138 V=   388.5 Z~0.65
+M20=  216.6 X20= 0 Nc= 34 Triclinic        a=  8.9103 b=  9.4781 c= 13.2452 al= 96.028 be= 98.217 ga= 66.677 V=  1015.2 Z~1.71

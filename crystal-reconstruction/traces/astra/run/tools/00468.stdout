@@ -1,0 +1,132 @@
+[
+ {
+  "id": "X019b9a4",
+  "wl": 1.54056,
+  "heavy": 48,
+  "rotors": 8,
+  "mw": 676.7560000000001,
+  "npeaks": 40,
+  "noise": 36.96969696969697,
+  "chiral": false
+ },
+ {
+  "id": "X07806d9",
+  "wl": 0.81933,
+  "heavy": 10,
+  "rotors": 4,
+  "mw": 167.592,
+  "npeaks": 177,
+  "noise": 9.187878787877597,
+  "chiral": false
+ },
+ {
+  "id": "X13023e3",
+  "wl": 0.728302,
+  "heavy": 24,
+  "rotors": 5,
+  "mw": 328.4119999999999,
+  "npeaks": 106,
+  "noise": 23.636363636363637,
+  "chiral": true
+ },
+ {
+  "id": "X14a2b08",
+  "wl": 1.5418,
+  "heavy": 37,
+  "rotors": 6,
+  "mw": 528.989,
+  "npeaks": 75,
+  "noise": 7.272727272727273,
+  "chiral": false
+ },
+ {
+  "id": "X1a56c78",
+  "wl": 1.5418,
+  "heavy": 23,
+  "rotors": 5,
+  "mw": 337.9350000000002,
+  "npeaks": 65,
+  "noise": 107.87878787878789,
+  "chiral": true
+ },
+ {
+  "id": "X1db5091",
+  "wl": 1.54059,
+  "heavy": 38,
+  "rotors": 7,
+  "mw": 537.956,
+  "npeaks": 56,
+  "noise": 30.90909090909091,
+  "chiral": false
+ },
+ {
+  "id": "X2327841",
+  "wl": 0.80105,
+  "heavy": 32,
+  "rotors": 28,
+  "mw": 450.8800000000004,
+  "npeaks": 68,
+  "noise": 0.07909090909096808,
+  "chiral": true
+ },
+ {
+  "id": "X238783d",
+  "wl": 1.54056,
+  "heavy": 52,
+  "rotors": 8,
+  "mw": 747.9640000000002,
+  "npeaks": 65,
+  "noise": 41.21212121212121,
+  "chiral": true
+ },
+ {
+  "id": "X263b09a",
+  "wl": 1.54059,
+  "heavy": 36,
+  "rotors": 6,
+  "mw": 514.9620000000001,
+  "npeaks": 71,
+  "noise": 24.242424242424242,
+  "chiral": false
+ },
+ {
+  "id": "X35b7fbc",
+  "wl": 0.6996,
+  "heavy": 33,
+  "rotors": 6,
+  "mw": 455.51100000000014,
+  "npeaks": 152,
+  "noise": 30.303030303030305,
+  "chiral": true
+import os,sys,json,shutil,numpy as np,networkx as nx,gemmi
+from pymatgen.io.cif import CifParser
+from rdkit import Chem
+sid=sys.argv[1];f=sys.argv[2]
+s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+for i in g:g.nodes[i]['el']=s[i].specie.symbol
+matched=set();ratios=[]
+for comp in json.load(open('/app/data/instances/'+sid+'/composition.json'))['components']:
+ rm=Chem.MolFromSmiles(comp['smiles']);rg=nx.Graph();rg.add_nodes_from((a.GetIdx(),{'el':a.GetSymbol()}) for a in rm.GetAtoms());rg.add_edges_from((b.GetBeginAtomIdx(),b.GetEndAtomIdx()) for b in rm.GetBonds());matches=[j for j,co in enumerate(cs) if nx.is_isomorphic(g.subgraph(co),rg,node_match=lambda a,b:a['el']==b['el'])];matched|=set(matches);ratios.append(len(matches)/comp['count']);print('  component',comp['smiles'],'matches',len(matches))
+valid=len(matched)==len(cs) and min(ratios)>0 and max(ratios)==min(ratios)
+if not valid:raise Exception('Connectivity validation failed')
+print('  bond range',np.min(D[A]),np.max(D[A]) if A.any() else None)
+print('  min intermolecular distance',min((D[i,j] for ii,co in enumerate(cs) for co2 in cs[ii+1:] for i in co for j in co2),default=0))
+if '--check' in sys.argv:sys.exit(0)
+b=gemmi.cif.read_file(f).sole_block();keys=['a','b','c','alpha','beta','gamma'];ct=['length_a','length_b','length_c','angle_alpha','angle_beta','angle_gamma'];out={'cell':{k:float(b.find_value('_cell_'+v)) for k,v in zip(keys,ct)},'space_group':gemmi.cif.as_string(b.find_value('_space_group_name_H-M_alt')),'space_group_number':int(b.find_value('_space_group_IT_number'))}
+shutil.copyfile(f,'/app/results/submission/'+sid+'.cif');json.dump(out,open('/app/results/submission/'+sid+'.json','w'),indent=1)
+print('SUBMITTED',sid)
+import sys,numpy as np,networkx as nx
+from pymatgen.io.cif import CifParser
+from rdkit import Chem
+s=CifParser(sys.argv[1]).parse_structures(primitive=False)[0];s.remove_species(['H'])
+D=s.distance_matrix;rad=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);A=(D>.3)&(D<(rad[:,None]+rad[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print('Cell',s.lattice.parameters,'n',len(s),'components',[len(c) for c in cs]);comp={i:k for k,c in enumerate(cs) for i in c}
+pairs=sorted((D[i,j],i,j) for i in range(len(s)) for j in range(i+1,len(s)) if comp[i]!=comp[j]);unique=set()
+for d,i,j in pairs:
+ sig=tuple(sorted([s[i].label,s[j].label]));sig=sig+(round(d,3),)
+ if sig in unique:continue
+ unique.add(sig);print('%.4f'%d,i,s[i].label,s[i].specie.symbol,comp[i],j,s[j].label,s[j].specie.symbol,comp[j]);
+ if len(unique)>=25:break
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 SELECT_FILE=/app/work/X8a6f5a8/peak_select_ext2.json NPEAK=30 NSPUR=1 TTHERR=.035 TRIALS=160 INDEX_TIME=650 VMIN=2200 VMAX=7400 VTARGET=4700
+while [[ -r /proc/17735/status ]] && ! grep -q '^State:.*Z' /proc/17735/status; do sleep 5; done
+SG_FILTER='P 1 21 1' INDEX_TAG=wide21 python /app/work/index_metric.py X8a6f5a8 MONOCLINIC P > /app/work/X8a6f5a8/metric_wide21.log 2>&1
+SG_FILTER='C 1 2 1' INDEX_TAG=wide5 python /app/work/index_metric.py X8a6f5a8 MONOCLINIC C > /app/work/X8a6f5a8/metric_wide5.log 2>&1

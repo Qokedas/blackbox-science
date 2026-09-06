@@ -1,0 +1,10 @@
+43321
+FCJ 10 cost 3116196.5046685445 SHL 0.10994188826294425 time 35.91827917098999
+FCJ 20 cost 1697887.286066108 SHL 0.11226279582852663 time 71.41712617874146
+FCJ 30 cost 1380773.3998358157 SHL 0.11137575434811728 time 107.10612654685974
+FCJ 40 cost 1367426.5149824088 SHL 0.11143010169208531 time 137.60483860969543
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+Sun Sep  6 08:24:33 UTC 2026

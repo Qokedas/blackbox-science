@@ -1,0 +1,30 @@
+X1db5091 {'U': -0.273189, 'V': -0.0303449, 'W': 0.0984976, 'Eta0': 0.402027, 'Eta1': -1.0, 'Asym0': 1.07991, 'Asym1': 0.0514302, 'Asym2': 0.0}
+X263b09a {'U': 0.688143, 'V': -0.20841, 'W': 0.0565571, 'Eta0': 1.0, 'Eta1': -0.846293, 'Asym0': 0.01, 'Asym1': 0.810769, 'Asym2': 0.0}
+X4f6fe58 {'U': 1.0, 'V': -0.475418, 'W': 0.139615, 'Eta0': 0.0, 'Eta1': -1.0, 'Asym0': 1.1739, 'Asym1': 0.102587, 'Asym2': 0.0}
+Xb7088cf {'U': 1.0, 'V': -0.143781, 'W': 0.0155802, 'Eta0': 0.43091, 'Eta1': -0.843485, 'Asym0': 1.38511, 'Asym1': 0.0356746, 'Asym2': 0.0}
+X1a56c78 {'U': 0.311368, 'V': 0.0472507, 'W': 0.0127565, 'Eta0': 0.644195, 'Eta1': -1.0, 'Asym0': 1.17493, 'Asym1': 0.165704, 'Asym2': 0.0}
+Total degrees of freedom: 15
+Total external degrees of freedom: 10 (pos: 6 rot: 4 )
+Total internal degrees of freedom: 5
+PREPARED X1a56c78 Nref 252 PawleyRw 0.07197708854366519 SG P 2 21 21
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+RESTART_ERROR max/rms 1.4569850909372543e-06 7.33317580954205e-07
+WARM_READY /app/work/X1a56c78/gallop_82
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X1a56c78 103.96112060546875
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X4f6fe58 164.42037963867188
+CONDITIONAL 0 [0] best 161.30221557617188 q25 439.87305 sec 194.72371339797974
+CONDITIONAL 1 [1] best 151.372314453125 q25 455.48807 sec 415.999653339386
+CONDITIONAL 2 [0] best 149.7827606201172 q25 374.9851 sec 622.2934896945953
+GALLOP 0 Nref 427 seconds 150.5018653869629 best 164.78278 q25 205.4889 median 292.41843 total 150.54779291152954
+GALLOP 1 Nref 427 seconds 164.1642575263977 best 164.74203 q25 205.22011 median 289.15744 total 314.8462293148041
+GALLOP 2 Nref 427 seconds 209.9242353439331 best 162.51817 q25 194.98083 median 282.85986 total 524.9767940044403
+GALLOP 3 Nref 427 seconds 215.93280744552612 best 149.84236 q25 178.16629 median 253.95651 total 741.1825435161591
+GALLOP 4 Nref 427 seconds 232.60551381111145 best 149.84232 q25 179.77048 median 248.48178 total 974.0730621814728

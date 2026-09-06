@@ -1,0 +1,30 @@
+1376
+ObjRegistry<T>::Find(C): Not found !!
+List of Crystal ScatteringPowers :0 object registered:
+ObjRegistry<T>::Find(O): Not found !!
+List of Crystal ScatteringPowers :1 object registered:
+#  0:ScatteringPowerAtom(C)
+ObjRegistry<T>::Find(N): Not found !!
+List of Crystal ScatteringPowers :2 object registered:
+#  0:ScatteringPowerAtom(C)
+#  1:ScatteringPowerAtom(O)
+INITIAL Xf8ac963 0 Rw 0.7329042544804008 LLK 862677.9576987781 Integrated 862025.1686407184 DOF -1
+RUN 0 steps 100000 time 8.208647727966309 total 8.20865273475647 LLK 156367.81274775357 Rw 0.3998935330825501 Integrated 155669.61368436666
+FINISHED 156367.81274775357
+#  0:ScatteringPowerAtom(N)
+#  1:ScatteringPowerAtom(C)
+ObjRegistry<T>::Find(Cl): Not found !!
+List of Crystal ScatteringPowers :3 object registered:
+#  0:ScatteringPowerAtom(N)
+#  1:ScatteringPowerAtom(C)
+#  2:ScatteringPowerAtom(O)
+INITIAL X07806d9 0 Rw 0.6192023138353646 LLK 38966149.70505048 Integrated 38965488.81579139 DOF -1
+RUN 0 steps 100000 time 3.533320903778076 total 3.5333251953125 LLK 6575573.011723155 Rw 0.2745191697768208 Integrated 6574909.911881493
+FINISHED 6575573.011723155
+ObjRegistry<T>::Find(C): Not found !!
+List of Crystal ScatteringPowers :0 object registered:
+ObjRegistry<T>::Find(N): Not found !!
+List of Crystal ScatteringPowers :1 object registered:
+#  0:ScatteringPowerAtom(C)
+INITIAL Xbfc6d2c 0 Rw 0.35816462224534273 LLK 1115388.9522519854 Integrated 1114725.556780783 DOF -1
+total 0

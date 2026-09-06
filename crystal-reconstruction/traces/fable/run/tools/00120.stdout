@@ -1,0 +1,15 @@
+X35b7fbc {'cell': {'a': 5.7074, 'b': 33.1312, 'c': 12.7644, 'alpha': 90.0, 'beta': 90.0, 'gamma': 90.0}, 'space_group': 'P 21 21 21', 'space_group_number': 19}
+{
+ "cell": {
+  "a": 5.7074,
+  "b": 33.1312,
+  "c": 12.7644,
+  "alpha": 90.0,
+  "beta": 90.0,
+  "gamma": 90.0
+ },
+ "space_group": "P 21 21 21",
+ "space_group_number": 19
+}done ('Xd8634a2', 'monoP', 180)
+done ('Xdcc971e', 'monoP', 180)
+done ('Xe1fb77b', 'monoP', 180)

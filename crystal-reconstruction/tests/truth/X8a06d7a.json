@@ -1,0 +1,26 @@
+{
+ "id": "X8a06d7a",
+ "reference_cif": "data_ref\nloop_\n_atom_type_symbol\n_atom_type_description\n_atom_type_scat_dispersion_real\n_atom_type_scat_dispersion_imag\n_atom_type_scat_source\n'Cl' 'Cl' 0.3639 0.7018 'International Tables Vol C Tables 4.2.6.8 and 6.1.1.4'\n'O' 'O' 0.0492 0.0322 'International Tables Vol C Tables 4.2.6.8 and 6.1.1.4'\n'N' 'N' 0.0311 0.0180 'International Tables Vol C Tables 4.2.6.8 and 6.1.1.4'\n'C' 'C' 0.0181 0.0091 'International Tables Vol C Tables 4.2.6.8 and 6.1.1.4'\n'H' 'H' 0.0000 0.0000 'International Tables Vol C Tables 4.2.6.8 and 6.1.1.4'\n\n_symmetry_cell_setting monoclinic\n_symmetry_space_group_name_H-M 'P 21'\n_symmetry_space_group_name_Hall 'P 2yb'\n\nloop_\n_symmetry_equiv_pos_as_xyz\n'x, y, z'\n'-x, y+1/2, -z'\n\n_cell_length_a 21.7202(15)\n_cell_length_b 5.0077(14)\n_cell_length_c 11.8457(17)\n_cell_angle_alpha 90.00\n_cell_angle_beta 93.954(13)\n_cell_angle_gamma 90.00\n_cell_volume 1285.4(4)\n_cell_formula_units_Z 2\n\nloop_\n_atom_site_label\n_atom_site_type_symbol\n_atom_site_fract_x\n_atom_site_fract_y\n_atom_site_fract_z\n_atom_site_U_iso_or_equiv\n_atom_site_adp_type\n_atom_site_occupancy\n_atom_site_symmetry_multiplicity\n_atom_site_calc_flag\n_atom_site_disorder_assembly\n_atom_site_disorder_group\nCl1 Cl 0.56380(13) 0.8295(12) 0.4633(2) 0.097(5) Uiso 1 1 d . .\nO1 O 0.8551(3) 0.413(3) 0.4592(5) 0.097(5) Uiso 1 1 d . .\nO2 O 0.7945(3) 0.303(3) 0.9746(5) 0.097(5) Uiso 1 1 d . .\nO3 O 0.8254(3) 0.516(2) 1.1328(5) 0.097(5) Uiso 1 1 d . .\nO4 O 0.6834(3) 0.301(3) 1.2370(5) 0.097(5) Uiso 1 1 d . .\nH4 H 0.6487 0.3665 1.2347 0.146 Uiso 1 1 calc . .\nO5 O 0.7083(3) 0.665(3) 1.1405(5) 0.097(5) Uiso 1 1 d . .\nO6 O 1.0351(3) -0.289(3) 0.8211(5) 0.097(5) Uiso 1 1 d . .\nN1 N 0.8502(3) 0.367(3) 0.6459(6) 0.097(5) Uiso 1 1 d . .\nC1 C 0.6376(4) 0.700(4) 0.4857(8) 0.097(5) Uiso 1 1 d . .\nC2 C 0.6859(4) 0.815(5) 0.4295(7) 0.097(5) Uiso 1 1 d . .\nH2 H 0.6783 0.9552 0.3789 0.117 Uiso 1 1 calc . .\nC3 C 0.7447(4) 0.717(4) 0.4507(8) 0.097(5) Uiso 1 1 d . .\nH3 H 0.7773 0.8011 0.4184 0.116 Uiso 1 1 calc . .\nC4 C 0.7568(4) 0.493(4) 0.5193(7) 0.097(5) Uiso 1 1 d . .\nC5 C 0.7098(5) 0.379(4) 0.5778(8) 0.097(5) Uiso 1 1 d . .\nH5 H 0.7180 0.2389 0.6281 0.116 Uiso 1 1 calc . .\nC6 C 0.6488(4) 0.483(4) 0.5586(8) 0.097(5) Uiso 1 1 d . .\nH6 H 0.6164 0.4056 0.5945 0.116 Uiso 1 1 calc . .\nC7 C 0.8210(5) 0.392(4) 0.5367(8) 0.097(5) Uiso 1 1 d . .\nC8 C 0.8361(5) 0.506(4) 0.7451(9) 0.097(5) Uiso 1 1 d . .\nC9 C 0.7897(4) 0.717(4) 0.7508(7) 0.097(5) Uiso 1 1 d . .\nH9A H 0.7659 0.7284 0.6796 0.146 Uiso 1 1 calc . .\nH9B H 0.8099 0.8846 0.7669 0.146 Uiso 1 1 calc . .\nH9C H 0.7629 0.6761 0.8096 0.146 Uiso 1 1 calc . .\nC10 C 0.8789(5) 0.432(4) 0.8319(9) 0.097(5) Uiso 1 1 d . .\nC11 C 0.9155(4) 0.217(4) 0.7887(8) 0.097(5) Uiso 1 1 d . .\nC12 C 0.8974(5) 0.185(4) 0.6741(8) 0.097(5) Uiso 1 1 d . .\nC13 C 0.9264(4) -0.006(4) 0.6092(8) 0.097(5) Uiso 1 1 d . .\nH13 H 0.9140 -0.0273 0.5330 0.116 Uiso 1 1 calc . .\nC14 C 0.9740(5) -0.165(5) 0.6589(8) 0.097(5) Uiso 1 1 d . .\nH14 H 0.9927 -0.2939 0.6165 0.116 Uiso 1 1 calc . .\nC15 C 0.9930(4) -0.126(4) 0.7728(8) 0.097(5) Uiso 1 1 d . .\nC16 C 0.9639(4) 0.061(4) 0.8380(8) 0.097(5) Uiso 1 1 d . .\nH16 H 0.9765 0.0820 0.9141 0.116 Uiso 1 1 calc . .\nC17 C 1.0624(5) -0.473(4) 0.7506(8) 0.097(5) Uiso 1 1 d . .\nH17A H 1.0919 -0.5793 0.7948 0.146 Uiso 1 1 calc . .\nH17B H 1.0828 -0.3792 0.6932 0.146 Uiso 1 1 calc . .\nH17C H 1.0311 -0.5873 0.7155 0.146 Uiso 1 1 calc . .\nC18 C 0.8830(5) 0.534(4) 0.9528(8) 0.097(5) Uiso 1 1 d . .\nH18A H 0.8842 0.7273 0.9507 0.117 Uiso 1 1 calc . .\nH18B H 0.9218 0.4735 0.9896 0.117 Uiso 1 1 calc . .\nC19 C 0.8314(5) 0.450(4) 1.0253(9) 0.097(5) Uiso 1 1 d . .\nC20 C 0.7843(4) 0.336(5) 1.1860(8) 0.097(5) Uiso 1 1 d . .\nH20A H 0.7995 0.3050 1.2639 0.116 Uiso 1 1 calc . .\nH20B H 0.7832 0.1655 1.1469 0.116 Uiso 1 1 calc . .\nC21 C 0.7192(5) 0.453(4) 1.1832(8) 0.097(5) Uiso 1 1 d . .\nO7 O 0.5716(3) 0.438(3) 1.2288(5) 0.115(6) Uiso 1 1 d . .\nN2 N 0.5803(4) 0.809(4) 1.1242(7) 0.115(6) Uiso 1 1 d . .\nH2A H 0.6198 0.8102 1.1354 0.138 Uiso 1 1 calc . .\nH2B H 0.5619 0.9305 1.0835 0.138 Uiso 1 1 calc . .\nN3 N 0.4553(4) 0.854(4) 1.0955(7) 0.115(6) Uiso 1 1 d . .\nC22 C 0.5481(5) 0.620(4) 1.1692(8) 0.115(6) Uiso 1 1 d . .\nC23 C 0.4788(5) 0.658(4) 1.1617(9) 0.115(6) Uiso 1 1 d . .\nC24 C 0.4433(5) 0.485(4) 1.2210(9) 0.115(6) Uiso 1 1 d . .\nH24 H 0.4612 0.3504 1.2660 0.138 Uiso 1 1 calc . .\nC25 C 0.3791(4) 0.522(4) 1.2106(8) 0.115(6) Uiso 1 1 d . .\nH25 H 0.3535 0.4159 1.2516 0.138 Uiso 1 1 calc . .\nC26 C 0.3548(4) 0.715(4) 1.1397(8) 0.115(6) Uiso 1 1 d . .\nH26 H 0.3123 0.7332 1.1279 0.138 Uiso 1 1 calc . .\nC27 C 0.3935(5) 0.881(5) 1.0857(8) 0.115(6) Uiso 1 1 d . .\nH27 H 0.3764 1.0182 1.0407 0.138 Uiso 1 1 calc . .\n",
+ "space_group_number": 4,
+ "space_group_symbol": "P 21",
+ "centring": "P",
+ "sohncke": true,
+ "chiral": false,
+ "L_graded": true,
+ "dof": 19.0,
+ "dof_bin": "mid_15_25",
+ "zprime": 1.0,
+ "n_heavy_asym": 38.0,
+ "components": [
+  {
+   "smiles": "COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1",
+   "count": 1
+  },
+  {
+   "smiles": "NC(=O)c1ccccn1",
+   "count": 1
+  }
+ ],
+ "radiation_class": "lab_Cu",
+ "candidate_name": "Acemetacin cocrystals and salts: structure solution from pow"
+}

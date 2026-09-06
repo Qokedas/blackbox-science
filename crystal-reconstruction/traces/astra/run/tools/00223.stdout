@@ -1,0 +1,19 @@
+Sun Sep  6 04:36:09 UTC 2026
+/proc/5531: python /app/work/search_obj.py X35b7fbc 2 1 --rescale --model=/app/work/X35b7fbc/cis.json
+/proc/6101: python /app/work/search_obj.py Xdcc971e 10 1 --rigid --hydrogen --model=/app/work/Xdcc971e/alltrans.json --rescale --lsq
+/proc/6402: timeout 420 python /app/work/index_one.py X7e382cb TRICLINIC P 4 250 1800
+/proc/6403: python /app/work/index_one.py X7e382cb TRICLINIC P 4 250 1800
+/proc/6839: python /app/work/index_de.py X1db5091 --fixed-c
+/proc/6853: python /app/work/search_obj.py Xd4c1a35 1 2 --rescale --lsq
+/proc/7027: timeout --signal=TERM --kill-after=5s 60 bash -lc date -u; for p in /proc/[0-9]*/cmdline; do x=$(tr '\0' ' ' <$p 2>/dev/null); cas
+/proc/7033: bash -lc date -u; for p in /proc/[0-9]*/cmdline; do x=$(tr '\0' ' ' <$p 2>/dev/null); case "$x" in *'python /app/work/'*) echo ${p
+/proc/7049: bash -lc date -u; for p in /proc/[0-9]*/cmdline; do x=$(tr '\0' ' ' <$p 2>/dev/null); case "$x" in *'python /app/work/'*) echo ${p
+   "sg": "P 21 21 21",
+   "number": 19,
+   "Rw": 15.799254874576915,
+   "GoF": 927316.7146059236,
+   "nGoF": 0.0,
+   "mult": 4
+RUN 8 steps 1000000 time 133.28524374961853 total 1161.8875014781952 LLK 9029.376949103638 Rw 0.21438315476891168 Integrated 531.9128981222186
+RUN 9 steps 1000000 time 171.2124593257904 total 1333.1003370285034 LLK 54996.880165893555 Rw 0.2113137086984411 Integrated 350.60318322843784
+FINISHED 5436.695968637989

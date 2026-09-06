@@ -1,0 +1,22 @@
+/opt/g2/GSAS-II/backcompat/GSASIIindex.py
+/opt/g2/GSAS-II/GSASII/GSASIIindex.py
+      a=13.28-13.31 b= 9.45- 9.49 c= 8.89- 8.93 alpha=113.10-113.43 beta= 81.66- 81.67 gamma= 95.92- 96.07 V=1014.14-1023.08level=6, indexed=1(73 sol.)
+      a=0.00581-0.00579 b=0.01328-0.01322 c=0.01514-0.01507 alpha=0.00089-0.00093 beta=0.01088-0.01097 gamma=-0.00214--0.00211level=6, indexed=1(73 sol.)
+ Solution ? a= 13.247 b=  9.479 c=  8.911 alpha=113.323 beta= 81.770 gamma= 96.024 V= 1015.41 score=316.57 #  73
+      a=13.22-13.25 b= 9.46- 9.51 c= 8.90- 8.94 alpha=113.27-113.59 beta= 82.03- 82.03 gamma= 95.79- 95.94 V=1011.23-1020.16level=6, indexed=1(167 sol.)
+      a=0.00585-0.00583 b=0.01328-0.01322 c=0.01514-0.01507 alpha=0.00089-0.00093 beta=0.01097-0.01106 gamma=-0.00203--0.00200level=6, indexed=1(167 sol.)
+ Solution ? a= 13.247 b=  9.479 c=  8.911 alpha=113.323 beta= 81.770 gamma= 96.024 V= 1015.41 score=316.59 # 167
+Finished: V=905.508->1358.27 A^3, 35472446 unit cells tested, 2.75778e+06 tests/s,   Elapsed time=12.8627s
+Starting: V=1358.27->1810.99
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=14.7772, b=10.3057, c=6.90286, alpha=93.4616, beta=91.4963, gamma=91.621, V=1048.48, score=3.88371
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=16.2492, b=10.6191, c=9.39435, alpha=113.583, beta=69.5202, gamma=110.003, V=1352.63, score=3.70087
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=16.2338, b=10.6368, c=9.40484, alpha=113.637, beta=69.5934, gamma=109.99, V=1355.21, score=3.51364
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2609 BEST ? a=15.4613, b=13.1186, c=7.56396, alpha=102.5, beta=83.3546, gamma=107.965, V=1422.83, score=13.4565
+28230626unit cells tested, 1.91715e+06 tests/s,   Elapsed time=14.7254s
+DONE X4f6fe58 TRICLINIC P 25 14.726052284240723 [{'cell': [15.461310386657715, 13.118569374084473, 7.563961029052734, 102.50036200643622, 83.35455629113592, 107.96464311604065], 'volume': 1422.8258056640625, 'score': 13.456541061401367, 'system': 'TRICLINIC', 'centering': 'P', 'mode': 3}, {'cell': [15.472616195678711, 13.121030807495117, 7.549579620361328, 102.48472087323688, 83.4105706725192, 108.00995459099451], 'volume': 1421.230224609375, 'score': 11.579842567443848, 'system': 'TRICLINIC', 'centering': 'P', 'mode': 3}, {'cell': [15.45785140991211, 13.108701705932617, 7.547740936279297, 102.58052793672465, 83.4054685212092, 108.02169568617776], 'volume': 1417.607177734375, 'score': 10.816740036010742, 'system': 'TRICLINIC', 'centering': 'P', 'mode': 3}, {'cell': [15.48849868774414, 13.116496086120605, 7.560735702514648, 102.4729661176753, 83.46045837421697, 107.93047167962307], 'volume': 1425.04736328125, 'score': 9.853328704833984, 'system': 'TRICLINIC', 'centering': 'P', 'mode': 3}, {'cell': [15.49419116973877, 13.135428428649902, 7.548113822937012, 102.44651279501983, 83.4127563330536, 107.96898711635278], 'volume': 1425.0146484375, 'score': 9.771800994873047, 'system': 'TRICLINIC', 'centering': 'P', 'mode': 3}]
+      a=18.46-18.48 b=10.89-10.92 c= 8.40- 8.43 alpha=106.13-106.36 beta= 93.89- 93.94 gamma= 90.20- 90.23 V=1617.16-1629.55level=6, indexed=1(349 sol.)
+      a=0.00295-0.00294 b=0.00915-0.00911 c=0.01545-0.01535 alpha=0.00024-0.00025 beta=0.00662-0.00668 gamma=0.00097-0.00098level=6, indexed=1(349 sol.)
+ Solution ? a= 18.427 b= 10.908 c=  8.434 alpha=106.203 beta= 94.028 gamma= 90.277 V= 1623.20 score= 35.12 # 349
+Finished: V=1400.43->1819.85 A^3, 19849577 unit cells tested, 1.79414e+06 tests/s,   Elapsed time=11.0635s
+Starting: V=1819.85->2239.22
+-rw-r--r-- 1 root root 6.8K Sep  6 03:39 /app/work/X4f6fe58/index_TRICLINIC_P_3.json

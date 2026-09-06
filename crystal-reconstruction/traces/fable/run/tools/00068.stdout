@@ -1,0 +1,13 @@
+kill 1506: /opt/g2/bin/python /app/work/g2index.py X1db5091 20 monoP 240 
+kill 1574: /opt/g2/bin/python /app/work/g2index.py X2327841 20 monoP 240 
+kill 1675: /opt/g2/bin/python /app/work/g2index.py X2327841 20 monoC 120 
+kill 1599: python idx_test2.py 
+
+1649 bash -lc cd /app/work && nohup python solve.py X07806d9 16.8866 8.2184 11.2380 90 90 90 "P b c a" --
+1651 python solve.py X07806d9 16.8866 8.2184 11.2380 90 90 90 P b c a --nsteps 1000000 --nruns 3 --ttmax 
+1733 timeout --signal=TERM --kill-after=5s 60 bash -lc cat > /app/work/killpy.sh <<'EOF'
+#!/bin/bash
+# ki
+1739 bash -lc cat > /app/work/killpy.sh <<'EOF'
+#!/bin/bash
+# kill python processes (argv0 is python) who

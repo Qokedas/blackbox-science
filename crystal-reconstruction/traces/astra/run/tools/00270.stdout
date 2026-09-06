@@ -1,0 +1,18 @@
+EXACT_PAWLEY nref 178 rank 154 cond 922.2641721590995 chi2 8366.512901701974 netRwp 0.050161067968764565
+DE_SETUP Xdcc971e atoms 92 nref 178 ndof 3
+DE Xdcc971e 0 cost 465.6398867008222 elapsed 49.093464374542236
+EXACT_PAWLEY nref 178 rank 154 cond 922.2641721590995 chi2 8366.512901701974 netRwp 0.050161067968764565
+DE_SETUP Xdcc971e atoms 92 nref 178 ndof 5
+DE Xdcc971e 0 cost 490.65953206231404 elapsed 134.39791321754456
+DE Xdcc971e 1 cost 463.90147035406403 elapsed 388.62994503974915
+Lookup of '' symbol failed, trying as Hall symbol.
+Could not interpret Spacegroup Symbol:
+ERRORSG I 1 Space group symbol '' not recognized
+GROUPS [{"sg": "P 1", "number": 1, "Rw": 9.581894540529664, "GoF": 6518.6939823611865, "nGoF": 1959.651659191486, "mult": 1}]
+DONE Xebbd488 0 0.09060179921681831 [10.13922875872552, 13.806655444879459, 14.772248158984135, 74.29717577604818, 89.16560361966587, 74.39055887319685]
+      a=0.00760-0.00756 b=0.01589-0.01580 c=0.01967-0.01958 alpha=0.00541-0.00545 beta=0.01530-0.01546 gamma=-0.00120--0.00114level=6, indexed=1(1470 sol.)
+ Solution ? a= 12.042 b=  9.241 c=  8.049 alpha=117.503 beta= 79.808 gamma=107.190 V=  758.11 score= 16.75 #1470
+2216 solutions ! Redparing...
+CellExplorer::ReduceSolutions(): update threshold for report from 8.34145 to 9.17459
+-> 100 remaining
+-rw-r--r-- 1 root root 0 Sep  6 04:58 /app/work/Xfca9f3c/decheck2.log

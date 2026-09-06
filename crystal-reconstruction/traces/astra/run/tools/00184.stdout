@@ -1,0 +1,86 @@
+total 128
+drwxr-xr-x 1 root root 4096 Sep  6 04:22 .
+drwxr-xr-x 1 root root 4096 Sep  6 02:59 ..
+-rw-r--r-- 1 root root  235 Sep  6 03:46 X019b9a4.json
+-rw-r--r-- 1 root root 1599 Sep  6 04:17 X07806d9.cif
+-rw-r--r-- 1 root root  179 Sep  6 04:17 X07806d9.json
+-rw-r--r-- 1 root root  210 Sep  6 03:49 X13023e3.json
+-rw-r--r-- 1 root root  234 Sep  6 04:18 X14a2b08.json
+-rw-r--r-- 1 root root  199 Sep  6 04:01 X1a56c78.json
+-rw-r--r-- 1 root root  213 Sep  6 03:47 X2327841.json
+-rw-r--r-- 1 root root  202 Sep  6 03:43 X238783d.json
+-rw-r--r-- 1 root root  233 Sep  6 03:57 X263b09a.json
+-rw-r--r-- 1 root root  203 Sep  6 03:45 X35b7fbc.json
+-rw-r--r-- 1 root root 2920 Sep  6 04:19 X3c176e2.cif
+-rw-r--r-- 1 root root  181 Sep  6 04:19 X3c176e2.json
+-rw-r--r-- 1 root root  215 Sep  6 03:56 X3f4781b.json
+-rw-r--r-- 1 root root  235 Sep  6 03:58 X4f6fe58.json
+-rw-r--r-- 1 root root  234 Sep  6 04:18 X8a06d7a.json
+-rw-r--r-- 1 root root  211 Sep  6 03:43 X9af54a2.json
+-rw-r--r-- 1 root root 2013 Sep  6 04:17 Xbfc6d2c.cif
+-rw-r--r-- 1 root root  190 Sep  6 04:17 Xbfc6d2c.json
+-rw-r--r-- 1 root root  217 Sep  6 03:43 Xbfeeda9.json
+-rw-r--r-- 1 root root  203 Sep  6 03:46 Xd4c1a35.json
+-rw-r--r-- 1 root root  233 Sep  6 03:43 Xd8634a2.json
+-rw-r--r-- 1 root root  214 Sep  6 03:46 Xdcc971e.json
+-rw-r--r-- 1 root root  213 Sep  6 03:48 Xe1fb77b.json
+-rw-r--r-- 1 root root 2170 Sep  6 04:17 Xe3a2935.cif
+-rw-r--r-- 1 root root  182 Sep  6 04:17 Xe3a2935.json
+-rw-r--r-- 1 root root  233 Sep  6 04:22 Xeb393f9.json
+-rw-r--r-- 1 root root 2920 Sep  6 04:17 Xf8ac963.cif
+-rw-r--r-- 1 root root  182 Sep  6 04:17 Xf8ac963.json
+-rw-r--r-- 1 root root  211 Sep  6 04:06 Xfca9f3c.json
+# Tools available in this container (offline)
+
+No network. 4 CPUs, no GPU. Everything below is installed; nothing else can be downloaded.
+
+## Python (default `python`, conda-forge, Python 3.11)
+- numpy, scipy, pandas, matplotlib (Agg backend; save figures to files and view them with `view_image`), sympy, numba, lmfit, scikit-learn, networkx, h5py
+- **pymatgen** (structures, lattices, `Lattice.get_niggli_reduced_lattice`, `SpacegroupAnalyzer`, CIF read/write, `StructureMatcher`)
+- **spglib**, **gemmi** (CIF parsing, space-group tables: `gemmi.find_spacegroup_by_name`), **ase**
+- **RDKit** (SMILES to 3D conformers: `AllChem.EmbedMolecule`, `ETKDG`, MMFF/UFF), **openbabel**
+- **xtb** (command line `xtb`, GFN2-xTB / GFN-FF for conformer optimisation)
+- **pyobjcryst** (Python bindings to ObjCryst++, the engine behind FOX): `pyobjcryst.crystal.Crystal`, `pyobjcryst.molecule.Molecule`, `pyobjcryst.powderpattern.PowderPattern`, `pyobjcryst.globaloptim.MonteCarloObj`, `pyobjcryst.indexing` (peak-list indexing, `CellExplorer`), `pyobjcryst.zscatterer` (Z-matrix). Use `help(pyobjcryst.<module>)` for the API; the FOX manual concepts (direct-space Monte-Carlo / parallel tempering against a powder pattern, anti-bump, dynamical occupancy correction) map one-to-one.
+- **gallop** (GALLOP: GPU-accelerated direct-space solver, here on CPU via torch; `gallop.structure.Structure`, `gallop.optim.local`, `gallop.z_matrix`; needs Pawley-extracted intensities and covariance, e.g. from GSAS-II or DASH-style hkl files; see the package's `example_data` directory under `site-packages/gallop` if present)
+- **torch** (CPU), **diffpy.structure**
+
+## GSAS-II
+Installed in its own environment. Run it with
+```
+PYTHONPATH=/opt/g2/GSAS-II /opt/g2/bin/python your_script.py
+```
+and `import GSASII.GSASIIscriptable as G2` (the scriptable API: create a project, add a powder histogram from an .xye file with an instrument-parameter file, add phases from CIF, Pawley refinement, Rietveld refinement, restraints, `G2.G2Project(...)`, `hist.set_refinements`, `phase.set_refinements`, export CIF). Indexing (`GSASIIindex`), peak fitting and Le Bail / Pawley are all reachable through the scriptable API or by importing the GSASII modules directly. An instrument-parameter file is a short text file; the `.xye` reader accepts three columns (2theta, intensity, sigma).
+
+## Shell utilities
+bash, coreutils, ripgrep (`rg`), jq, less, vim-tiny, gfortran/gcc (compile your own Fortran or C if you want, e.g. an indexing program you write yourself).
+
+## Notes
+- `view_image` renders PNG/JPEG files you write (max 1568 px on a side); use it to look at patterns, difference plots and packing diagrams.
+- CPU time is the scarce resource: 4 cores for the whole run. Run long searches in the background (`nohup ... &`) and poll; set `OMP_NUM_THREADS` sensibly.
+- Write final answers only under `/app/results/submission/` (see the instruction). If you export a CIF from pyobjcryst (`Crystal.CIFOutput`), note that ObjCryst writes dynamical-occupancy values below 1 for atoms it considers overlapping; the evaluator requires every site fully occupied (occupancy 1), so fix the occupancy column (and merge or remove genuinely duplicated atoms) before submitting.
+Sun Sep  6 04:25:55 UTC 2026
+====PID5191
+Name:	bash
+Umask:	0022
+State:	S (sleeping)
+====PID4263
+Name:	bash
+Umask:	0022
+State:	S (sleeping)
+====PID4266
+Name:	bash
+Umask:	0022
+State:	S (sleeping)
+====PID5100
+Name:	bash
+Umask:	0022
+State:	S (sleeping)
+====PID5335
+Name:	bash
+Umask:	0022
+State:	S (sleeping)
+====PID5333
+Name:	python
+State:	Z (zombie)
+Tgid:	5333
+/app/work/raw_index_queue.sh: line 3:  5134 Killed                  timeout 420 python /app/work/index_one.py $id TRICLINIC P 4 $vol > /app/work/$id/index_raw_TRICLINIC_P.log 2>&1

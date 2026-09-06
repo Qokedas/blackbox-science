@@ -1,0 +1,42 @@
+{
+  "schema": "qokedas.host_trial.v1",
+  "author": "Qokedas",
+  "trial_id": "qkd-0906-pxrd-astra",
+  "mode": "scientific_trial",
+  "execution_status": "running",
+  "provider": "openai",
+  "model": "gpt-6-astra",
+  "reasoning_effort": "max",
+  "max_output_tokens": 64000,
+  "budget_seconds": 28800.0,
+  "scientific_score": null,
+  "grading_performed": false,
+  "instruction_sha256": "1483be36414f3d1183a1ef775e82058de5767bde8936305a59517fe48798d919",
+  "system_prompt_sha256": "2686dfe7bf34e09d73cd682f3acf772bddb7f7ccdcc86ffeb521b188bbfabb16",
+  "tool_definitions_sha256": "d8ccbd7196b2fd6d12a229b706a65bdd5d940ee39ba235bbf65a0e1537974b4d",
+  "harness_source_sha256": {
+    "container_tools.py": "f2d7bc4a84fe14b6579fbb4ff7cd7eb9352d571e13447132778ab87dbaebdbb8",
+    "deadline_guard.py": "031298e66c900fb04e52732bbe23b65c0006da4dd5a4339c37292f6f6e624e84",
+    "docker_integration.py": "7080ccedebe545d6d9daec65936afb69020f2d475b2053fdc9d4c01d929970b6",
+    "docker_missing_path_integration.py": "b76b9b7b7c0b5a3e13e12ccd034ef3bd4fd59a115c05caf62768c8e0e87c63bf",
+    "protocol.py": "eeb073bb0991712dfefffcce58e4c84e4588c83427a1a79db0208b6c24f48c69",
+    "run_agent.py": "1b6508e8a37da8b9f55b70efae4eb9c5af9a1d1067c23f7125cb606d2cbf5c27",
+    "test_harness.py": "1679d1173acdfadedb9154321596401222693a7b1c97a8883db772cb993c565c",
+    "test_recovery.py": "89e1a1500bec7c2296c9891fd21a5af6c78f5b1547472b7d49d4aad19f0f2f47"
+  },
+  "input_provenance_sha256": "24a5789fce53f929f7fa1646d8a831b3e46712bd46b1dd41a1f35c14176963de",
+  "docker_image_id": "sha256:ee92f204fb8c1223ce5897544e6d9332af75193eef710328efe4da1aa4d00df5",
+  "container_id": "8cf8605dc874edbf81ada18a117fea6af66ade987bb96594e9b3c94a2b9c32fa",
+  "cpus": 4.0,
+  "memory": "16g",
+  "network": "none",
+  "started_epoch": 1788665064.4177644,
+  "deadline_epoch": 1788693864.4177644,
+  "effective_budget_seconds": 28800.0,
+  "expected_submissions": [
+    {
+      "container_path": "/app/results/submission",
+      "artifact_path": "artifacts/results/submission"
+    }
+  ]
+}

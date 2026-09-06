@@ -1,0 +1,22 @@
+[]
+['GetClassName', 'GetClientRegistry', 'GetClockMaster', 'GetClockNbReflBelowMaxSinThetaOvLambda', 'GetClockTheta', 'GetCrystal', 'GetExtractionMode', 'GetFhklCalcImag', 'GetFhklCalcReal', 'GetFhklCalcSq', 'GetFhklObsSq', 'GetGeneGroup', 'GetH', 'GetH2Pi', 'GetK', 'GetK2Pi', 'GetL', 'GetL2Pi', 'GetLSQCalc', 'GetLSQDeriv', 'GetLSQObs', 'GetLSQWeight', 'GetLogLikelihood', 'GetMaxSinThetaOvLambda', 'GetName', 'GetNbLSQFunction', 'GetNbOption', 'GetNbPar', 'GetNbParNotFixed', 'GetNbRefl', 'GetNbReflBelowMaxSinThetaOvLambda', 'GetOption', 'GetOptionList', 'GetPar', 'GetParNotFixed', 'GetParamSet', 'GetParamSetName', 'GetParamSet_ParNotFixedHumanValue', 'GetParentPowderPattern', 'GetPowderPatternCalc', 'GetProfile', 'GetRadiation', 'GetRadiationType', 'GetRefParListClock', 'GetReflX', 'GetReflY', 'GetReflZ', 'GetRestraintCost', 'GetScatteringFactor', 'GetSinThetaOverLambda', 'GetSubObjRegistry', 'GetTheta', 'GetWavelength']
+/app/work/X35b7fbc/search2.log
+/app/work/X13023e3/search2.log
+RUN 0 steps 100000 time 8.243419170379639 total 8.243496417999268 LLK 29789.981105425944 Rw 0.2328567931741872 Integrated 681.6905276021217
+RUN 1 steps 1000000 time 174.72498655319214 total 183.01064729690552 LLK 13090.754589644603 Rw 0.1896736748040253 Integrated 1338.8438597643267
+RUN 2 steps 1000000 time 145.8339958190918 total 328.9045977592468 LLK 8351.929643690664 Rw 0.22025584136493037 Integrated 383.53627257699
+RUN 3 steps 1000000 time 145.93001461029053 total 474.9002454280853 LLK 10688.026551158733 Rw 0.24820608330485333 Integrated 582.6306827719
+RUN 4 steps 1000000 time 149.63948488235474 total 624.5401554107666 LLK 13983.988718053788 Rw 0.21370912319628635 Integrated 314.3290290628575
+/app/work/Xfca9f3c/alltrans_search.log
+Imported powder pattern: 7041 points, 2theta=  1.956 ->  23.076, step= 0.003
+RESCALED_BASE 1.0004855341445278 0.039754261519721154 7041.0000000000255
+INITIAL Xfca9f3c 10 Rw 0.38323619458375335 LLK 591929.3554402896 Integrated 590856.4725829696 DOF -1
+RUN 0 steps 100000 time 18.19563364982605 total 18.195693016052246 LLK 39177.67519793709 Rw 0.12818016239121097 Integrated 38104.79234061706
+RUN 1 steps 1000000 time 202.73842883110046 total 221.0039360523224 LLK 39223.25839288996 Rw 0.12802291832659815 Integrated 38150.37553556993
+/app/work/X8a6f5a8/index_raw_MONOCLINIC_P.log
+/app/work/Xebbd488/index_raw_MONOCLINIC_P.log
+Starting: V=4910.37->5440.42
+Finished: V=4910.37->5440.42 A^3, 14045579 unit cells tested, 251448 tests/s,   Elapsed time=55.8587s
+Starting: V=5440.42->5970.48
+Finished: V=5440.42->5970.48 A^3, 24122296 unit cells tested, 214084 tests/s,   Elapsed time=112.677s
+Starting: V=5970.48->6500

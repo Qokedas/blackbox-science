@@ -1,0 +1,294 @@
+import os,json
+import numpy as np
+from scipy.ndimage import percentile_filter, gaussian_filter1d
+from scipy.signal import find_peaks,peak_widths
+from scipy.optimize import least_squares
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+from rdkit import Chem
+from rdkit.Chem import Descriptors,rdMolDescriptors
+ROOT='/app/data/instances'; WORK='/app/work'
+ids=json.load(open('/app/data/instances.json'))['ids']
+summary=[]
+for sid in ids:
+ p=ROOT+'/'+sid; w=WORK+'/'+sid; os.makedirs(w,exist_ok=True)
+ ins=json.load(open(p+'/instrument.json'));comp=json.load(open(p+'/composition.json'))
+ wl=ins['radiation']['wavelength_A']; data=np.loadtxt(p+'/pattern.xye');x,y,sig=data.T; dx=np.median(np.diff(x))
+ # background width scales with wavelength; low-percentile baseline
+ back=gaussian_filter1d(percentile_filter(y,percentile=20,size=max(11,int(1.0*wl/1.54/dx)//2*2+1)),max(1,int(.10*wl/1.54/dx)))
+ net=y-back
+ smooth=gaussian_filter1d(net, max(.65,.005*wl/1.54/dx))
+ # robust point-to-point noise estimate
+ noise=np.median(np.abs(np.diff(y,2)))/1.65
+ # sigma column can be artificially small in rescaled intensities, use empirical noise
+ thr=max(np.max(smooth)*.0015,noise*5)
+ peaks,props=find_peaks(smooth,prominence=thr,distance=max(2,int(.030*wl/1.54/dx)))
+ widths=peak_widths(smooth,peaks,rel_height=.5)[0]*dx
+ valid=(widths<.65*wl/1.54)&(widths>dx*1.1)&(smooth[peaks]>thr*1.2)
+ peaks=peaks[valid];widths=widths[valid]
+ result=[]
+ for ip,(i,fwhm) in enumerate(zip(peaks,widths)):
+  half=max(fwhm*2.2,dx*5)
+  if ip>0: half=min(half,(x[i]-x[peaks[ip-1]])*.46)
+  if ip+1<len(peaks): half=min(half,(x[peaks[ip+1]]-x[i])*.46)
+  half=max(half,dx*2.1)
+  mask=(x>x[i]-half)&(x<x[i]+half); xx=x[mask]; yy=y[mask]; ss=np.maximum(sig[mask],noise)
+  if len(xx)<5:continue
+  def model(v):
+   pos,h,wid,eta,b,s=v
+   z=(xx-pos)/wid
+   return h*((1-eta)*np.exp(-4*np.log(2)*z*z)+eta/(1+4*z*z))+b+s*(xx-x[i])
+  v=[x[i], max(smooth[i],1e-4),max(fwhm,dx*2),.5,back[i],0]
+  lb=[x[i]-half/2,0,dx*.6,0, min(yy)-np.ptp(yy),-np.inf]
+  ub=[x[i]+half/2,np.ptp(yy)*3+abs(v[1]),max(fwhm*4,dx*6),1,max(yy),np.inf]
+  try:
+   fit=least_squares(lambda v:(model(v)-yy)/ss,v,bounds=(lb,ub),max_nfev=100)
+   pos,h,wid,eta,b,s=fit.x
+   err=np.sqrt(np.linalg.pinv(fit.jac.T@fit.jac)[0,0])*max(1,np.sqrt(np.mean(fit.fun**2)))
+  except Exception:
+   pos,h,wid,eta,b,s=v;err=dx
+  if h< thr*.7:continue
+  # remove resolved second members of K-alpha doublets using known ratio and position
+  rad=ins['radiation']; second=False
+  if len(rad.get('wavelengths_A') or [])>1:
+   rat=rad['wavelengths_A'][1]/rad['wavelengths_A'][0]
+   p1=np.rad2deg(2*np.arcsin(np.sin(np.deg2rad(pos/2))/rat))
+   for pk in result:
+    if abs(pk['two_theta']-p1)<max(dx*2,wid*.28) and .12<h/pk['height']<.9:
+     second=True;break
+  if not second:
+   result.append(dict(two_theta=float(pos),height=float(h),fwhm=float(wid),eta=float(eta),error=float(err),d=float(wl/(2*np.sin(np.deg2rad(pos/2)))),area=float(h*wid*(eta*np.pi/2+(1-eta)*np.sqrt(np.pi/(4*np.log(2)))))))
+ json.dump(result,open(w+'/peaks.json','w'),indent=1)
+ np.savez_compressed(w+'/processed.npz',x=x,y=y,sigma=sig,background=back)
+ nn=sum(Chem.MolFromSmiles(c['smiles']).GetNumHeavyAtoms()*c['count'] for c in comp['components'])
+ rot=sum(rdMolDescriptors.CalcNumRotatableBonds(Chem.MolFromSmiles(c['smiles']))*c['count'] for c in comp['components'])
+ mw=sum(Descriptors.MolWt(Chem.MolFromSmiles(c['smiles']))*c['count'] for c in comp['components'])
+ summary.append(dict(id=sid,wl=wl,heavy=nn,rotors=rot,mw=mw,npeaks=len(result),noise=float(noise),chiral=any('@' in c['smiles'] for c in comp['components'])))
+ # low-angle peak plot
+ xmax=min(x[-1], np.rad2deg(2*np.arcsin(wl/6.0)))
+ fig,axs=plt.subplots(2,1,figsize=(14,7))
+ axs[0].plot(x,y,lw=.6);axs[0].plot(x,back,lw=.6);axs[0].set_xlim(x[0],xmax)
+ axs[1].plot(x,np.maximum(net,0)**.5,lw=.65);axs[1].set_xlim(x[0],xmax)
+ for j,pk in enumerate(result):
+  if pk['two_theta']>xmax: break
+  if j<65:
+   axs[1].axvline(pk['two_theta'],color='r',lw=.4,alpha=.5)
+   axs[1].text(pk['two_theta'], np.interp(pk['two_theta'],x,np.maximum(net,0)**.5)+np.sqrt(max(net))*.02,str(j+1),fontsize=7,rotation=90)
+ axs[0].set_title(sid+'; '+str(nn)+' atoms; '+str(rot)+' rotors; '+str(len(result))+' peaks')
+ fig.tight_layout();fig.savefig(w+'/peaks.png',dpi=130);plt.close(fig)
+ print(sid,nn,rot,len(result),'first',[round(pk['two_theta'],4) for pk in result[:22]],flush=True)
+json.dump(summary,open(WORK+'/summary.json','w'),indent=1)
+# all low-angle overview
+for page in range(3):
+ fig,axs=plt.subplots(5,2,figsize=(15,13))
+ for ax,sid in zip(axs.flat,ids[10*page:10*page+10]):
+  dat=np.load(WORK+'/'+sid+'/processed.npz');x=dat['x'];y=dat['y']-dat['background'];wl=summary[ids.index(sid)]['wl']
+  q=2*np.sin(np.deg2rad(x/2))/wl
+  ax.plot(q,np.sqrt(np.maximum(y,0)),lw=.7);ax.set_xlim(0,.32);ax.set_title(sid)
+ fig.tight_layout();fig.savefig(WORK+'/overview%d.png'%page,dpi=120);plt.close(fig)
+import os,sys,json,numpy as np
+from scipy.ndimage import gaussian_filter1d
+from scipy.signal import find_peaks,peak_widths
+from scipy.optimize import least_squares
+import matplotlib;matplotlib.use('Agg');import matplotlib.pyplot as plt
+for sid in sys.argv[1:]:
+ W='/app/work/'+sid;ins=json.load(open('/app/data/instances/'+sid+'/instrument.json'));rad=ins['radiation'];wl=rad['wavelength_A'];x,y,sig=np.loadtxt('/app/data/instances/'+sid+'/pattern.xye').T;dx=np.median(np.diff(x));noise=np.median(np.abs(np.diff(y,2)))/1.65
+ ys=gaussian_filter1d(y,max(.65,.004*wl/1.54/dx));prom=max(noise*4,np.ptp(y)*.0025);idx,pp=find_peaks(ys,prominence=prom,distance=max(2,int(.025*wl/1.54/dx)))
+ ww=peak_widths(ys,idx,rel_height=.5);wid=ww[0]*dx
+ result=[]
+ for k,i in enumerate(idx):
+  if wid[k]>1.0*wl/1.54 or wid[k]<dx*1.2:continue
+  if x[i]<x[0]+.05:continue
+  half=max(wid[k]*1.7,dx*6);halfL=half;halfR=half
+  if k>0:halfL=min(halfL,(x[i]-x[idx[k-1]])*.48)
+  if k+1<len(idx):halfR=min(halfR,(x[idx[k+1]]-x[i])*.48)
+  mask=(x>=x[i]-halfL)&(x<=x[i]+halfR);xx=x[mask];yy=y[mask];ss=np.maximum(sig[mask],noise)
+  if len(xx)<6:continue
+  double=len(rad.get('wavelengths_A') or [])>1
+  ratio=rad['wavelengths_A'][1]/rad['wavelengths_A'][0] if double else 1.
+  wt=(rad.get('wavelength_weights') or [1,.5])[1] if double else 0.
+  wlft=max(dx,(i-ww[2][k])*2*dx);wrgt=max(dx,(ww[3][k]-i)*2*dx)
+  def func(v):
+   pos,h,w1,w2,eta,b,sl=v
+   def peak(p):
+    z=(xx-p)/np.where(xx<p,w1,w1 if double else w2)
+    return ((1-eta)*np.exp(-4*np.log(2)*z*z)+eta/(1+4*z*z))
+   pos2=np.rad2deg(2*np.arcsin(ratio*np.sin(np.deg2rad(pos/2))))
+   return h*(peak(pos)+wt*peak(pos2))+b+sl*(xx-x[i])
+  start=[x[i]-(np.rad2deg(2*np.arcsin(ratio*np.sin(np.deg2rad(x[i]/2))))-x[i])*wt/(1+wt),pp['prominences'][k],min(wlft,half*2),min(wrgt,half*2),.5,min(yy),0.]
+  lower=[x[i]-max(dx*3,wid[k]*.5),0,dx*.5,dx*.5,0,min(yy)-np.ptp(yy),-np.inf]
+  upper=[x[i]+max(dx*3,wid[k]*.5),np.ptp(yy)*4+pp['prominences'][k],max(wid[k]*4,dx*8),max(wid[k]*4,dx*8),1,max(yy),np.inf]
+  try:
+   fit=least_squares(lambda v:(func(v)-yy)/ss,start,bounds=(lower,upper),max_nfev=200)
+   pos,h,w1,w2,eta,b,sl=fit.x;err=np.sqrt(max(0,np.linalg.pinv(fit.jac.T@fit.jac)[0,0]))*max(1,np.sqrt(np.mean(fit.fun**2)));rw=np.sqrt(np.mean(fit.fun**2))
+  except:pos,h,w1,w2,eta,b,sl=start;err=dx;rw=0.
+  if double:w2=w1
+  if h<prom*.7:continue
+  # eliminate a resolved Ka2 peak with its stronger matching Ka1 line
+  if double:
+   p1=np.rad2deg(2*np.arcsin(np.sin(np.deg2rad(pos/2))/ratio))
+   if any(abs(z['two_theta']-p1)<max(dx*1.8,w1*.2) and .12<h/z['height']<.9 for z in result):continue
+  result.append(dict(two_theta=float(pos),height=float(h),fwhm=float((w1+w2)/2),eta=float(eta),error=float(err),d=float(wl/(2*np.sin(np.deg2rad(pos/2)))),area=float(h*(w1+w2)/2),peak_max=float(x[i]),widthL=float(w1),widthR=float(w2),fit_chi=float(rw)))
+ json.dump(result,open(W+'/peaks_raw.json','w'),indent=1)
+ fig,axs=plt.subplots(2,1,figsize=(15,8));xxmax=min(x[-1],np.rad2deg(2*np.arcsin(wl*.18)))
+ for ax in axs:ax.plot(x,y,lw=.6);ax.set_xlim(x[0],xxmax)
+ axs[1].set_ylim(np.percentile(y,10)-noise, np.percentile(y,10)+.14*np.ptp(y))
+ for j,z in enumerate(result):
+  if z['two_theta']>xxmax:continue
+  for ax in axs:
+   ax.axvline(z['two_theta'],color='r',lw=.4);ax.text(z['two_theta'],np.interp(z['two_theta'],x,y),str(j+1),fontsize=7)
+ axs[0].set_title(sid+' raw-maximum / asymmetric-profile peaks');fig.tight_layout();fig.savefig(W+'/peaks_raw.png',dpi=125);plt.close(fig)
+ print(sid,len(result),[(j+1,round(z['two_theta'],4),round(z['height'])) for j,z in enumerate(result[:25])],flush=True)
+candidates.json
+index_CUBIC_F_0.json
+index_CUBIC_F_0.log
+index_CUBIC_I_0.json
+index_CUBIC_I_0.log
+index_CUBIC_P_0.json
+index_CUBIC_P_0.log
+index_HEXAGONAL_P_0.json
+index_HEXAGONAL_P_0.log
+index_MONOCLINIC_C_0.json
+index_MONOCLINIC_C_0.log
+index_MONOCLINIC_C_2.json
+index_MONOCLINIC_C_2.log
+index_MONOCLINIC_C_4_1000_5500_z0_peaks_raw.json
+index_MONOCLINIC_P_0.json
+index_MONOCLINIC_P_0.log
+index_MONOCLINIC_P_2.json
+index_MONOCLINIC_P_2.log
+index_ORTHOROMBIC_C_0.json
+index_ORTHOROMBIC_C_0.log
+index_ORTHOROMBIC_C_4_1000_5500_z0_peaks_raw.json
+index_ORTHOROMBIC_I_0.json
+index_ORTHOROMBIC_I_0.log
+index_ORTHOROMBIC_P_0.json
+index_ORTHOROMBIC_P_0.log
+index_ORTHOROMBIC_P_2.json
+index_ORTHOROMBIC_P_2.log
+index_ORTHOROMBIC_P_4_1000_5500_z0_peaks_raw.json
+index_RHOMBOEDRAL_P_0.json
+index_RHOMBOEDRAL_P_0.log
+index_TETRAGONAL_I_0.json
+index_TETRAGONAL_I_0.log
+index_TETRAGONAL_P_0.json
+index_TETRAGONAL_P_0.log
+index_TRICLINIC_P_3.json
+index_TRICLINIC_P_3.log
+index_raw_MONOCLINIC_C.log
+index_raw_MONOCLINIC_P.log
+index_raw_ORTHOROMBIC_C.log
+index_raw_ORTHOROMBIC_P.log
+peak_select.json
+peak_select_raw.json
+peaks.json
+peaks.png
+peaks_raw.json
+peaks_raw.png
+processed.npz
+---X8a6f5a8
+{
+ "radiation": {
+  "type": "CuK1",
+  "wavelength_A": 1.54059,
+  "wavelengths_A": [
+   1.54059
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 295.0,
+ "two_theta_range_deg": [
+  3.5,
+  85.0
+ ],
+ "n_points": 8151,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}---Xebbd488
+{
+ "radiation": {
+  "type": "CuK1",
+  "wavelength_A": 1.54059,
+  "wavelengths_A": [
+   1.54059
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 295.0,
+ "two_theta_range_deg": [
+  5.0,
+  75.0
+ ],
+ "n_points": 7001,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}---Xb7088cf
+{
+ "radiation": {
+  "type": "Mo Kalpha1,2 (laboratory sealed tube)",
+  "wavelength_A": 0.709319,
+  "wavelengths_A": [
+   0.709319,
+   0.713609
+  ],
+  "wavelength_weights": [
+   1.0,
+   0.5
+  ],
+  "monochromator": null,
+  "source": "sealed X-ray tube"
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 300.0,
+ "two_theta_range_deg": [
+  1.0067,
+  49.9958
+ ],
+ "n_points": 5864,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "sqrt(max(I,1)); counting statistics assumed",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": [
+  "Kalpha2 weight 0.5 is the standard ratio; the depositors state only Kalpha1,2"
+ ]
+}---Xedd9c7b
+{
+ "radiation": {
+  "type": "Cu Kalpha1 (laboratory, monochromatic per the paper: Bruker D8 Advance, LynxEye)",
+  "wavelength_A": 1.540598,
+  "wavelengths_A": [
+   1.540598
+  ],
+  "wavelength_weights": null,
+  "monochromator": "monochromatic incident beam (paper)",
+  "source": "sealed X-ray tube"
+ },
+ "geometry": "reflection (flat plate / Bragg-Brentano)",
+ "geometry_source_text": null,
+ "temperature_K": 300.0,
+ "two_theta_range_deg": [
+  3.0066,
+  39.9938
+ ],
+ "n_points": 2818,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": [
+  "depositors tagged the radiation K-alpha1,2; the paper states monochromatic 1.5406 A and the deposited profile is consistent with a single wavelength"
+ ]
+}

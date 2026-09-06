@@ -1,0 +1,236 @@
+"""Generate the two axial/equatorial choices for each monosubstituted chair.
+A 180-degree rotation about the bisector of the two ring bonds at the attachment
+atom exchanges the two neighbouring C sites while turning over the remote ring.
+The substituent and attachment atom remain fixed. This is only a search move.
+"""
+import sys,os,json,numpy as np,itertools
+from rdkit import Chem
+from pyobjcryst.io import xml_cryst_file_load_all_object,xml_cryst_file_save_global
+from obj_model import export_cif
+sid,src,modelp,tag=sys.argv[1:5];W='/app/work/'+sid;O=xml_cryst_file_load_all_object(src);c=next(o for o in O if o.GetClassName()=='Crystal');p=next(o for o in O if o.GetClassName()=='PowderPattern');d=p.GetPowderPatternComponent(0);mods=json.load(open(modelp));moves=[];orig=[];mols=[];originalpos=[];anchors=[]
+for mi,md in enumerate(mods):
+ m=c.GetScatterer(mi);mols.append(m);originalpos.append([m.X,m.Y,m.Z])
+ if m.GetClassName()!='Molecule':orig.append(None);anchors.append(None);continue
+ r=Chem.MolFromSmiles(md['smiles']);N=r.GetNumAtoms();coords=np.array([[m.GetAtom(i).X,m.GetAtom(i).Y,m.GetAtom(i).Z] for i in range(m.GetNbAtoms())]);orig.append(coords);rh=Chem.AddHs(r)
+ nameindex={m.GetAtom(i).GetName():i for i in range(m.GetNbAtoms())};bonds=[]
+ for bo in m.GetBondList():bonds.append((nameindex[bo.GetAtom1().GetName()],nameindex[bo.GetAtom2().GetName()]))
+ for ring in r.GetRingInfo().AtomRings():
+  rs=set(ring)
+  if len(rs)!=6 or any(r.GetAtomWithIdx(i).GetIsAromatic() for i in rs):continue
+  external=[(i,a.GetIdx()) for i in rs for a in r.GetAtomWithIdx(i).GetNeighbors() if a.GetIdx() not in rs]
+  if len(external)!=1:continue
+  center,parent=external[0]
+  if r.GetAtomWithIdx(center).GetChiralTag()!=Chem.ChiralType.CHI_UNSPECIFIED:continue
+  nb=[a.GetIdx() for a in r.GetAtomWithIdx(center).GetNeighbors() if a.GetIdx() in rs]
+  moved=rs-{center}
+  for i,j in bonds:
+   if i in moved and j>=N:moved.add(j)
+   if j in moved and i>=N:moved.add(i)
+  moves.append((mi,center,nb,sorted(moved)))
+ a=m.GetScatteringComponentList()[0];anchors.append(np.array([a.X,a.Y,a.Z]))
+print('CHAIR_MOVES',moves,flush=True)
+res=[]
+for mask in itertools.product([0,1],repeat=len(moves)):
+ xyz=[None if a is None else a.copy() for a in orig]
+ for bit,(mi,center,nb,moved) in zip(mask,moves):
+  if not bit:continue
+  aa=xyz[mi];v=aa[nb]-aa[center];v/=np.linalg.norm(v,axis=1,keepdims=True);axis=v.sum(0);axis/=np.linalg.norm(axis);z=aa[moved]-aa[center];aa[moved]=aa[center]+2*(z@axis)[:,None]*axis-z
+ for mi,m in enumerate(mols):
+  if xyz[mi] is None:continue
+  m.X,m.Y,m.Z=map(float,originalpos[mi])
+  for i,v in enumerate(xyz[mi]):a=m.GetAtom(i);a.X,a.Y,a.Z=map(float,v)
+  a=m.GetScatteringComponentList()[0];df=anchors[mi]-np.array([a.X,a.Y,a.Z]);m.X+=df[0];m.Y+=df[1];m.Z+=df[2]
+ d.SetExtractionMode(False);p.Prepare();p.FitScaleFactorForRw();name=tag+'m'+''.join(map(str,mask));R=W+'/search_'+name;os.makedirs(R,exist_ok=True);json.dump(mods,open(R+'/model.json','w'),indent=1);export_cif(c,R+'/best.cif');xml_cryst_file_save_global(R+'/best.xml');res.append({'tag':name,'mask':mask,'Rw':p.GetRw()});print(res[-1],flush=True)
+json.dump(res,open(W+'/'+tag+'_choices.json','w'),indent=1)
+set -e
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 ACCEPTOR_NO_MIN=2.85 HBOND_DIRECTIONAL=1 HBOND_ANGLE_WEIGHT=4
+while [[ -r /proc/52927/status ]] && ! grep -q '^State:.*Z' /proc/52927/status;do sleep 5;done
+id=Xb7088cf
+for bit in 0 1;do
+ tag=pyr51m$bit
+ python /app/work/refine_obj.py $id $tag /app/work/$id/search_$tag/best.xml --scale --tight --stol=.4 > /app/work/$id/refine_$tag.log 2>&1
+done
+best=$(python - <<'PY'
+import json
+W='/app/work/Xb7088cf';print(min(['pyr51m0','pyr51m1'],key=lambda x:json.load(open(W+'/refined_'+x+'.json'))['Rw']))
+PY
+)
+GALLOP_STOL=.28 python /app/work/warm_gallop.py $id 51 /app/work/$id/refined_$best.xml /app/work/$id/search_$best/model.json > /app/work/$id/warm51.log 2>&1
+SEARCH_TIME=1400 PARTICLES=128 ITERATIONS=400 BUMP_COEFF=90 HBOND_COEFF=20 START_NPZ=/app/work/$id/gallop_51/warm.npz START_JITTER=.1 START_TOR_JITTER=.5 MACRO_ELITE_FRAC=.4 python /app/work/search_gallop.py $id 51 1 --hscatter --packing > /app/work/$id/gallop51.log 2>&1
+python /app/work/import_gallop.py $id 51 > /app/work/$id/import_g51.log 2>&1
+python /app/work/refine_obj.py $id g51 /app/work/$id/search_g51/best.xml --scale --tight --stol=.4 > /app/work/$id/refine_g51.log 2>&1
+python /app/work/submit.py $id /app/work/$id/refined_g51.cif --check > /app/work/$id/check_g51.log 2>&1
+set -e
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 CHARGED_N_MIN=3.15
+while [[ -r /proc/47634/status ]] && ! grep -q '^State:.*Z' /proc/47634/status;do sleep 5;done
+id=X7e382cb
+python /app/work/add_ammonium_h.py $id g41 ionH41 > /app/work/$id/addH41.log 2>&1
+python /app/work/refine_obj.py $id ionH41 /app/work/$id/search_ionH41/best.xml --scale --tight --stol=.4 > /app/work/$id/refine_ionH41.log 2>&1
+GALLOP_STOL=.29 python /app/work/warm_gallop.py $id 84 /app/work/$id/refined_ionH41.xml /app/work/$id/search_ionH41/model.json > /app/work/$id/warm84.log 2>&1
+EXACT_BUMP_IMAGES=1 HBOND_MULTIPLE=1 BUMP_COEFF=150 HBOND_COEFF=20 PARTICLES=128 ITERATIONS=350 FREE_SCHEDULE='1,2,4,5;0;3;1,2,4,5;0;3' python /app/work/search_conditional.py $id 84 85 > /app/work/$id/conditional85.log 2>&1
+python /app/work/import_gallop.py $id 85 > /app/work/$id/import_g85.log 2>&1
+python /app/work/add_ammonium_h.py $id g85 ionH85 /app/work/$id/search_g85/best.xml > /app/work/$id/addH85.log 2>&1
+python /app/work/refine_obj.py $id ionH85 /app/work/$id/search_ionH85/best.xml --scale --tight --stol=.4 > /app/work/$id/refine_ionH85.log 2>&1
+python /app/work/submit.py $id /app/work/$id/refined_ionH85.cif --check > /app/work/$id/check_ionH85.log 2>&1
+set -e
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 CARBONYL_OO_MIN=2.85 HBOND_DIRECTIONAL=1 HBOND_ANGLE_WEIGHT=4
+while [[ -r /proc/51579/status ]] && ! grep -q '^State:.*Z' /proc/51579/status;do sleep 5;done
+id=X4f6fe58
+mkdir -p /app/work/$id/search_chem83
+cp /app/work/$id/search_g83/model.json /app/work/$id/search_chem83/model.json
+python /app/work/refine_obj.py $id chem83 /app/work/$id/refined_g83.xml --scale --tight --stol=.4 > /app/work/$id/refine_chem83.log 2>&1
+GALLOP_STOL=.28 python /app/work/warm_gallop.py $id 84 /app/work/$id/refined_chem83.xml /app/work/$id/search_chem83/model.json > /app/work/$id/warm84.log 2>&1
+SEARCH_TIME=1600 BUMP_COEFF=80 HBOND_COEFF=15 PARTICLES=128 ITERATIONS=400 START_NPZ=/app/work/$id/gallop_84/warm.npz START_JITTER=.12 START_TOR_JITTER=.4 MACRO_ELITE_FRAC=.5 python /app/work/search_gallop.py $id 84 1 --hscatter --packing > /app/work/$id/gallop84.log 2>&1
+python /app/work/import_gallop.py $id 84 > /app/work/$id/import_g84.log 2>&1
+python /app/work/refine_obj.py $id g84 /app/work/$id/search_g84/best.xml --scale --tight --stol=.4 > /app/work/$id/refine_g84.log 2>&1
+python /app/work/submit.py $id /app/work/$id/refined_g84.cif --check > /app/work/$id/check_g84.log 2>&1
+import sys,os,time,json,itertools,numpy as np
+import matplotlib
+matplotlib.use('Agg')
+from rdkit import Chem
+from pyobjcryst.io import xml_cryst_file_load_all_object,xml_cryst_file_save_global
+from pyobjcryst._pyobjcryst import LSQ
+from pyobjcryst.scatteringpower import ScatteringPowerAtom
+from pyobjcryst.refinableobj import *
+from obj_model import export_cif,recenter_molecules,add_aromatic_planarity
+sid=sys.argv[1];run=sys.argv[2] if len(sys.argv)>2 else '1';W='/app/work/'+sid
+src=W+'/search_'+run+'/best.xml' if len(sys.argv)<4 else sys.argv[3]
+objs=xml_cryst_file_load_all_object(src);c=[o for o in objs if o.GetClassName()=='Crystal'][0];p=[o for o in objs if o.GetClassName()=='PowderPattern'][0]
+d=[p.GetPowderPatternComponent(i) for i in range(p.GetNbPowderPatternComponent()) if p.GetPowderPatternComponent(i).GetClassName()=='PowderPatternDiffraction'][0]
+mods=json.load(open(W+'/search_'+run+'/model.json'));mols=[c.GetScatterer(i) for i in range(c.GetNbScatterer())]
+p.Prepare()
+print('START',p.GetRw(),p.GetChi2(),flush=True)
+# Add geometrically generated hydrogens to the molecular model, keeping all heavy-atom positions unchanged.
+if '--noH' not in sys.argv:
+ try:hs=c.GetScatteringPower('H')
+ except:hs=ScatteringPowerAtom('H','H',4.0);c.AddScatteringPower(hs)
+ for m,md in zip(mols,mods):
+  if m.GetClassName()!='Molecule':continue
+  r=Chem.MolFromSmiles(md['smiles']);n=r.GetNumAtoms()
+  ac=m.GetScatteringComponentList()[0];old_xyz=np.array([ac.X,ac.Y,ac.Z])
+  if m.GetNbAtoms()!=n:continue
+  cf=Chem.Conformer(n)
+  for i in range(n):
+   a=m.GetAtom(i);cf.SetAtomPosition(i,(a.X,a.Y,a.Z))
+  r.AddConformer(cf);rh=Chem.AddHs(r,addCoords=True);xyz=rh.GetConformer().GetPositions()
+  for i in range(n,rh.GetNumAtoms()):
+   h=m.AddAtom(*xyz[i],hs,m.GetName()+'_H'+str(i+1),False)
+   j=rh.GetAtomWithIdx(i).GetNeighbors()[0].GetIdx();parent=m.GetAtom(j);bl=float(np.linalg.norm(xyz[i]-xyz[j]));m.AddBond(parent,h,bl,.02,.015,1,False)
+   for nb in rh.GetAtomWithIdx(j).GetNeighbors():
+    k=nb.GetIdx()
+    if k==i or k>=i:continue
+    v1=xyz[i]-xyz[j];v2=xyz[k]-xyz[j];ang=np.arccos(np.clip(v1@v2/np.linalg.norm(v1)/np.linalg.norm(v2),-1,1));m.AddBondAngle(h,parent,m.GetAtom(k),ang,np.deg2rad(2),np.deg2rad(2),False)
+   for rg in range(m.GetNbRigidGroups()):
+    group=m.GetRigidGroupList()[rg]
+    if parent in group:group.add(h)
+   # Aromatic atoms and nitrile terminal atoms require no additional torsions.
+  ac=m.GetScatteringComponentList()[0];new_xyz=np.array([ac.X,ac.Y,ac.Z]);delta=old_xyz-new_xyz
+  m.X+=delta[0];m.Y+=delta[1];m.Z+=delta[2]
+ c.SetParIsFixed(refpartype_scattpow_temperature,True)
+# Optional extension to higher-angle observations for a final coordinate refinement.
+new_stol=next((float(a.split('=',1)[1]) for a in sys.argv if a.startswith('--stol=')),None)
+if new_stol is not None:
+ ins=json.load(open('/app/data/instances/'+sid+'/instrument.json'));wl=ins['radiation']['wavelength_A'];raw=np.loadtxt('/app/data/instances/'+sid+'/pattern.xye')
+ lo=np.rad2deg(p.GetPowderPatternX()[0]);hi=np.rad2deg(2*np.arcsin(new_stol*wl));raw=raw[(raw[:,0]>=lo)&(raw[:,0]<hi)]
+ nbin=max(1,int(np.ceil(len(raw)/12000)))
+ if nbin>1:
+  n=len(raw)//nbin*nbin;raw=np.column_stack([raw[:n,0].reshape(-1,nbin).mean(1),raw[:n,1].reshape(-1,nbin).mean(1),np.sqrt((raw[:n,2]**2).reshape(-1,nbin).sum(1))/nbin])
+ data0=np.load(W+'/processed.npz');b=[p.GetPowderPatternComponent(i) for i in range(p.GetNbPowderPatternComponent()) if p.GetPowderPatternComponent(i).GetClassName()=='PowderPatternBackground'][0]
+ bx0=np.array(b.GetInterpPointsX());by0=np.array(b.GetInterpPointsY());step=np.median(np.diff(bx0));extra=np.arange(bx0[-1]+step,np.deg2rad(raw[-1,0])+step,step)
+ byextra=np.interp(np.rad2deg(extra),data0['x'],data0['background']);b.SetInterpPoints(np.r_[bx0,extra],np.r_[by0,byextra])
+ np.savetxt(W+'/extended_'+run+'.xye',raw);p.ImportPowderPattern2ThetaObsSigma(W+'/extended_'+run+'.xye');p.SetMaxSinThetaOvLambda(new_stol);p.Prepare()
+ print('EXTENDED',new_stol,len(raw),'Rw',p.GetRw(),flush=True)
+p.GetOption(0).SetChoice(1) # use the point-by-point profile for Rietveld refinement
+p.Prepare();p.FitScaleFactorForRw()
+print('WITH_H',p.GetRw(),p.GetChi2(),flush=True)
+if '--scale' in sys.argv:
+ wgt=np.array(p.GetLSQWeight(0));xx=np.rad2deg(p.GetPowderPatternX());yy=np.array(p.GetPowderPatternObs())
+ n=min(len(xx),len(wgt));scale=np.sqrt(max(1.,p.GetChi2()/n))
+ ss=1/np.sqrt(np.maximum(wgt[:n],1e-20))*scale
+ np.savetxt(W+'/scaled_refine.xye',np.column_stack([xx[:n],yy[:n],ss]));p.ImportPowderPattern2ThetaObsSigma(W+'/scaled_refine.xye');p.Prepare()
+ print('SCALED_SIGMA',scale,p.GetChi2(),flush=True)
+
+if '--tight' in sys.argv:
+ for m in mols:
+  if m.GetClassName()!='Molecule':continue
+  for bo in m.GetBondList():
+   if bo.GetAtom1().GetScatteringPower().GetSymbol()!='H' and bo.GetAtom2().GetScatteringPower().GetSymbol()!='H':bo.SetLengthSigma(.006);bo.SetLengthDelta(.008)
+  for an in m.GetBondAngleList():
+   if all(a.GetScatteringPower().GetSymbol()!='H' for a in [an.GetAtom1(),an.GetAtom2(),an.GetAtom3()]):an.SetAngleSigma(np.deg2rad(.8));an.SetAngleDelta(np.deg2rad(1.))
+ print('TIGHT_RESTRAINTS',flush=True)
+if '--keep-rigid' not in sys.argv:
+ for m in mols:
+  if m.GetClassName()=='Molecule':
+   for rg in list(m.GetRigidGroupList()):m.RemoveRigidGroup(rg)
+ print('FLEXIBLE_RINGS',flush=True)
+if '--no-planarity' not in sys.argv:
+ nplan=0
+ for m,md in zip(mols,mods):
+  if m.GetClassName()=='Molecule':nplan+=add_aromatic_planarity(m,md['smiles'],md.get('rdkit_coords'))
+ print('AROMATIC_PLANARITY',nplan,flush=True)
+packing_restraint=None
+if '--no-packing' not in sys.argv:
+ import lsq_packing
+ packing_restraint=lsq_packing.attach_packing(p,c,mods)
+lsq=LSQ();lsq.SetRefinedObj(p,0,True,True);lsq.PrepareRefParList(True);ref=lsq.GetCompiledRefinedObj();ref.FixAllPar()
+if new_stol is not None:
+ lsq.SetParIsFixed(refpartype_scattdata_background,False)
+ for i in range(2):
+  try:lsq.SafeRefine(nbCycle=5,useLevenbergMarquardt=True,silent=True)
+  except:break
+  p.FitScaleFactorForRw()
+ print('EXTENDED_BACKGROUND',p.GetRw(),flush=True)
+lsq.SetParIsFixed(refpartype_scatt_transl,False);lsq.SetParIsFixed(refpartype_scatt_orient,False)
+if '--free-march' in sys.argv:
+ for i in range(ref.GetNbPar()):
+  par=ref.GetPar(i)
+  if par.GetName().startswith('MarchCoeff_'):
+   par.SetIsFixed(False);par.SetLimitsAbsolute(.4,2.5);print('FREE_MARCH',par.GetName(),par.GetHumanValue(),flush=True)
+
+# Begin with positions and orientations only, then allow restrained intramolecular relaxation.
+for stage in range(4):
+ if stage==1:
+  lsq.SetParIsFixed(refpartype_scatt_conform,False)
+ if stage==2 and '--fixB' not in sys.argv:
+  lsq.SetParIsFixed(refpartype_scattpow_temperature,False)
+  # H displacement parameters have limited information; keep at chemically reasonable bounds.
+  for i in range(len(c.GetScatteringPowerRegistry())):
+   sp=c.GetScatteringPowerRegistry().GetObj(i);sp.SetLimitsAbsolute('Biso',.3,10.)
+ if stage==3:
+  for n in ['a','b','c','alpha','beta','gamma','Zero','U','V','W','Eta0','Eta1']:
+   try:lsq.SetParIsFixed(n,False)
+   except:pass
+ for j in range(3):
+  try:lsq.SafeRefine(nbCycle=10,useLevenbergMarquardt=True,silent=True)
+  except Exception as e:print('REFINE_ERROR',e,flush=True);break
+  recenter_molecules(c);p.FitScaleFactorForRw();print('CYCLE',stage,j,'Rw',p.GetRw(),'chi2',p.GetChi2(),'geom',sum(m.GetLogLikelihood() for m in mols),'LSQ',lsq.ChiSquare(),flush=True)
+ if packing_restraint is not None:print('PACKING_STAGE',stage,lsq_packing.cost(packing_restraint),flush=True)
+ export_cif(c,W+'/refine_'+run+'_stage'+str(stage)+'.cif')
+ xml_cryst_file_save_global(W+'/refine_'+run+'_stage'+str(stage)+'.xml')
+# Final pattern and parameters
+export_cif(c,W+'/refined_'+run+'.cif');xml_cryst_file_save_global(W+'/refined_'+run+'.xml')
+json.dump({'Rw':p.GetRw(),'chi2':p.GetChi2()},open(W+'/refined_'+run+'.json','w'),indent=1)
+import matplotlib.pyplot as plt
+x=np.rad2deg(p.GetPowderPatternX());y=p.GetPowderPatternObs();yc=p.GetPowderPatternCalc();fig,ax=plt.subplots(figsize=(14,6));ax.plot(x,y,'k',lw=.6,label='Observed');ax.plot(x,yc,'r',lw=.6,label='Rietveld');ax.plot(x,y-yc-y.max()*.13,'b',lw=.4,label='Difference');ax.legend();ax.set_title(sid+' Rwp %.4f'%p.GetRw());fig.tight_layout();fig.savefig(W+'/refined_'+run+'.png',dpi=130)
+print('FINISHED',sid,p.GetRw(),flush=True)
+
+if packing_restraint is not None:lsq_packing.detach(p,packing_restraint)
+16777 bash /app/work/queue_gallop_A4.sh 
+32867 bash /app/work/queue_gallop_A5.sh 
+43321 bash /app/work/queue_gallop_D8.sh 
+47634 bash /app/work/queue_x7ion.sh 
+51094 bash /app/work/queue_acm_warm.sh 
+51425 python /app/work/search_gallop.py X7e382cb 41 1 --hscatter --packing 
+51579 bash /app/work/queue_eddconditional.sh 
+52928 bash /app/work/queue_clopidogrel_cond.sh 
+54015 python /app/work/search_conditional.py Xedd9c7b 84 85 
+54140 bash /app/work/queue_x7_explicit.sh 
+54301 python /app/work/search_gallop.py Xd8634a2 31 1 --prepare --hscatter --packing 
+54759 bash /app/work/queue_br84.sh 
+55005 python /app/work/search_gallop.py X019b9a4 11 1 --prepare --hscatter 
+55083 bash /app/work/queue_b708_typed.sh 
+55226 bash /app/work/queue_pic74.sh 
+55298 python /app/work/search_gallop.py X8a06d7a 74 1 --hscatter --packing 
+55349 python /app/work/search_conditional.py X3f4781b 82 83 
+55416 python /app/work/search_gallop.py X263b09a 50 1 --hscatter --packing 
+55777 python /app/work/search_gallop.py Xb7088cf 51 1 --hscatter --packing 

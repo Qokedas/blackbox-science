@@ -1,0 +1,95 @@
+    global TestData
+    TestData = [14, [7.,8.70,10.86,90.,102.95,90.], [7.76006,8.706215,10.865679,90.,102.947,90.],3,
+        [[2.176562137832974, 761.60902227696033, True, True, 0, 0, 1, 10.591300714328161, 10.589436], 
+        [3.0477561489789498, 4087.2956049071572, True, True, 1, 0, 0, 7.564238997554908, 7.562777], 
+        [3.3254921120068524, 1707.0253890991009, True, True, 1, 0, -1, 6.932650301411212, 6.932718], 
+        [3.428121546163426, 2777.5082170150563, True, True, 0, 1, 1, 6.725163158013632, 6.725106], 
+        [4.0379791325512118, 1598.4321673135987, True, True, 1, 1, 0, 5.709789097440156, 5.70946], 
+        [4.2511182350743937, 473.10955149057577, True, True, 1, 1, -1, 5.423637972781876, 5.42333], 
+        [4.354684330373451, 569.88528280256071, True, True, 0, 0, 2, 5.2947091882172534, 5.294718],
+        [4.723324574319177, 342.73882372499997, True, True, 1, 0, -2, 4.881681587039431, 4.881592], 
+        [4.9014773581253994, 5886.3516356615492, True, True, 1, 1, 1, 4.704350709093183, 4.70413], 
+def calc_M20(peaks,HKL,ifX20=True):
+    'needs a doc string'
+    diff = 0
+    X20 = 0
+    for Nobs20,peak in enumerate(peaks):
+        if peak[3]:
+            Qobs = 1.0/peak[7]**2
+            Qcalc = 1.0/peak[8]**2
+            diff += abs(Qobs-Qcalc)
+        elif peak[2]:
+            X20 += 1
+        if Nobs20 == 19: 
+            d20 = peak[7]
+            break
+    else:
+        d20 = peak[7]
+        Nobs20 = len(peaks)
+    for N20,hkl in enumerate(HKL):
+        if hkl[3] < d20:
+            break                
+    Q20 = 1.0/d20**2
+    if diff:
+        M20 = Q20/(2.0*diff)
+    else:
+        M20 = 0
+    if ifX20:
+        M20 /= (1.+X20)
+    return M20,X20
+    
+def calc_M20SS(peaks,HKL):
+def findBestCell(dlg,ncMax,A,Ntries,ibrav,peaks,V1,ifX20=True,cctbx_args=None):
+    'needs a doc string'
+# dlg & ncMax are used for wx progress bar 
+# A != 0 find the best A near input A,
+# A = 0 for random cell, volume normalized to V1;
+# returns number of generated hkls, M20, X20 & A for best found
+    mHKL = [3,3,3, 5,5, 5,5, 7,7,7,7,7,7, 9,9,9,9, 10]
+    dmin = getDmin(peaks)-0.05
+    amin = 2.5
+    amax = 5.*getDmax(peaks)
+    Asave = []
+    GoOn = True
+    Skip = False
+    if A:
+        HKL = G2lat.GenHBravais(dmin,ibrav,A[:])
+        if len(HKL) > mHKL[ibrav]:
+            peaks = IndexPeaks(peaks,HKL)[1]
+            Asave.append([calc_M20(peaks,HKL,ifX20),A[:]])
+    tries = 0
+    while tries < Ntries and GoOn:
+        if A:
+            Abeg = ranAbyR(ibrav,A,tries+1,Ntries,ran2axis)
+            if ibrav > 12:         #monoclinic & triclinic
+                Abeg = ranAbyR(ibrav,A,tries/10+1,Ntries,ran2axis)
+        else:
+            Abeg = ranAbyV(ibrav,amin,amax,V1)
+        HKL = G2lat.GenHBravais(dmin,ibrav,Abeg)
+        Nc = len(HKL)
+        if Nc >= ncMax:
+            GoOn = False
+        else:
+            if dlg:
+                dlg.Raise()
+                GoOn = dlg.Update(100*Nc//ncMax)[0]
+                if Skip or not GoOn:
+                    GoOn = False
+                    break
+        
+        if IndexPeaks(peaks,HKL)[0] and len(HKL) > mHKL[ibrav]:
+            Lhkl,M20,X20,Aref = refinePeaks(peaks,ibrav,Abeg,ifX20,cctbx_args=cctbx_args)
+            Asave.append([calc_M20(peaks,HKL,ifX20),Aref[:]])
+        else:
+            break
+        Nc = len(HKL)
+        tries += 1
+    X = sortM20(Asave)
+    if X:
+        Lhkl,M20,X20,A = refinePeaks(peaks,ibrav,X[0][1],ifX20,cctbx_args=cctbx_args)
+        return GoOn,Skip,Lhkl,M20,X20,A        
+    else:
+        return GoOn,Skip,0,0,0,0
+        
+def monoCellReduce(ibrav,A):
+X4f6fe58: 20 peaks, d range 3.112-14.849

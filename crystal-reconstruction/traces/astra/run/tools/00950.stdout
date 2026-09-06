@@ -1,0 +1,101 @@
+{
+ "components": [
+  {
+   "smiles": "O=C(O)CCC[NH+]1CCC(O[C@@H](c2ccc(Cl)cc2)c2ccccn2)CC1",
+   "count": 1,
+   "charge": 1
+  },
+  {
+   "smiles": "O=S(=O)([O-])c1ccccc1",
+   "count": 1,
+   "charge": -1
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}{
+ "Rw": 0.059328247101192076,
+ "chi2": 6521.507640543694
+}16:Xeb393f9 triclinic cell V~682, M72.29, whole-profile Lebail.0454. Enantiopure one FU has density1.33 with Z1, thus P1 plausible; freshbase/JSON submitted. Candidate reducedcell8.014,9.816,10.233 angles74.871,68.959,65.931.
+29:Xeb393f9 P1 MC/refine1 solved to Rwp.0616327; graph37=27+10 and chiralityS good; minimum contact2.70A. Submitted both CIF+JSON. Now11CIFs.
+33:Xebbd488 C2 a26.65439,b12.39193,c16.58989,beta106.5733,V~5250; directed axial enumerator widerV found it, wholefit.07316 freshbase .08327. Correct volume for one listed71-heavy FU perASU (=2cations+2phos+water),C2Z4. Two weaklow lines5.836/7.740 off~.15deg but bulkpatternexcellent.
+35:Aromatic planarity fixed: obj_model.add_aromatic_planarity constrains every quadruplet across aromatic bond (including first substituent atoms), sigma1°delta1°, deduplicated by names. refine_obj automatically adds/restores these before LSQ. Saturated rings untouched. Backups obj_model_v2.py/refine_obj_v5.py. Planarity X130g41plan rings .0013Å; Xebplan .007/.006/.005Å vs previous .09/.18/.08. Xeb planar model shifts RMS.204,max.473 from old, highres and pyridine180flip tests pending queue_bep_plan parent20084.
+37:Current context changes: Xbfc/Xe3/Xf8 submissions replaced by refined_plan.cif with aromatic planarity; graph/stereo validated. Xeb two pyridine180flip models high-resolution .38 refined_pyrm0 Rwp.0610301 and pyrm1 .0610419; neither submitted (old .06163 remains). Both physicalgraphs but there is intramolecular C18-C25 contact~2.47Å. A further GALLOP packing restart from each Rietveld model is queued after X8 wide indexing; parent21574 queue_bep_packing.sh. New warm_gallop.py makes GALLOP geometry matching any Rietveld model with Procrustes quat/translation (tested max1.6e-6Å). Stores independent base.xml in G; prepare respects BASE_XML env; import uses G/base.xml if present. Propagates refined per-element B factors. This makes near-basin global repacking possible. Xeb50 warm prepared but queue will rebuild to include B factors.
+44:Continuation: X8a06d7a mono lattice fit_force_mono (P21 a11.8385,b5.00407,c21.6943,beta86.0682,Rwp.096) materially better than tentative P-1 model; older fit_2d0 mono .0745. Config now runs upcoming G11 against independent G11/base.xml from fit_force_mono; HBOND15/coarsefine enabled. JSON remainsP-1 pending solution. X7 P1 symmetry release built via expand_p1.py: P1test heavygraph2x18+4N, oldRwp.07383. New B5 queue replaced B4 wait: afterXb708G11 => Xeddwarm50 packing/Hbond20,1700sec; X7P1warm40 packing80,Hbond10,1500sec; X238runs20&25 only1800sec each. All otherqueueparents unchanged. Xeb51 config HBOND25 fixed before start.
+47:XeddG11chi48.346refine.093874 butsevereoverlapsN...O2.05,C...C2.13,graph4x19+2x38: NEVERsubmit. Xb708G11.062213graph4x28butC...O2.14andC...C2.16: NEVERsubmit. Xeddwarm50underwaywithpacking/HB20. Xeb51HBpriorplateau47.502, fullgraphvalid andN+...pyridineN3.21vsunflipped>5A; postrefinechem51queuedwithPACKING_SIGMA.01highstol.40.
+48:Xeb393f9 chem51 audit: intramolecular C25...C18 now2.92084A vs2.5858old; periodic piperidiniumN6...pyridineN24=3.2748A, valid27+10graph/Sstereo. Rwp.059328/stol.40. SUBMITTED refined_chem51 replacingold1. A5queue launchedparent32867. TriwideX8P1fits0,1,2,5startedparent33127.
+54:Xebchem51periodicN+...Npyr3.2748 hasN-Halignmentdeviation51deg (=bentN-H...N112deg): weakratherthanstrongHbondevidence; unflippednoacceptorcloser4A. Independentchem50strongpackingstol.40controlrunningparent36667 tocomparelikeforlikediffractionmodel. Currentchem51submissionunchanged.
+59:Xebchem50controlvalidatedgraph/stereo; Rwp.059397vschem51.059328, retainchem51submission.
+data_solution
+_cell_length_a 8.01393102
+_cell_length_b 9.81544991
+_cell_length_c 10.23349856
+_cell_angle_alpha 74.86888031
+_cell_angle_beta 68.95753743
+_cell_angle_gamma 65.93179477
+_space_group_name_H-M_alt 'P 1'
+_space_group_IT_number 1
+loop_
+_space_group_symop_id
+_space_group_symop_operation_xyz
+1 'x,y,z'
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+_atom_site_B_iso_or_equiv
+O1 O 0.46791009 0.11801225 0.84759114 1.0 5.3618
+C2 C 0.53309305 0.98009976 0.87104704 1.0 2.4300
+O3 O 0.71730662 0.90070348 0.81630861 1.0 5.3618
+C4 C 0.44601091 0.88772346 0.99640318 1.0 2.4300
+C5 C 0.55942124 0.71802689 0.00012161 1.0 2.4300
+C6 C 0.46891663 0.62239864 0.12953511 1.0 2.4300
+N7 N 0.55304124 0.45256569 0.13272464 1.0 10.0000
+C8 C 0.71466953 0.38535922 0.00718124 1.0 2.4300
+C9 C 0.89084696 0.26612158 0.04561521 1.0 2.4300
+/app/work/Xeb393f9/refined_1.json
+/app/work/Xeb393f9/refined_chem0.json
+/app/work/Xeb393f9/refined_chem50.json
+/app/work/Xeb393f9/refined_chem51.json
+/app/work/Xeb393f9/refined_g50.json
+/app/work/Xeb393f9/refined_g51.json
+/app/work/Xeb393f9/refined_plan.json
+/app/work/Xeb393f9/refined_pyrm0.json
+/app/work/Xeb393f9/refined_pyrm1.json
+{
+ "components": [
+  {
+   "smiles": "CC(C)Cc1ccc([C@@H](C)C(=O)O)cc1",
+   "count": 1,
+   "charge": 0
+  },
+  {
+   "smiles": "NC(=O)c1cccnc1",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}{
+ "components": [
+  {
+   "smiles": "[NH3+]CC(=O)CCC(=O)O",
+   "count": 1,
+   "charge": 1
+  },
+  {
+   "smiles": "[Cl-]",
+   "count": 1,
+   "charge": -1
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}

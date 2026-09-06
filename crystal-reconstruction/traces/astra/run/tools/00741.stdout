@@ -1,0 +1,12 @@
+{
+ "Rw": 0.0383449779978826,
+ "chi2": 741.3859904040255
+}42
+Sun Sep  6 08:18:58 UTC 2026
+35189 python /app/work/search_gallop.py X14a2b08 11 1 --prepare --hscatter 
+37166 python /app/work/search_gallop.py X8a06d7a 11 1 --prepare --hscatter 
+38246 python /app/work/search_gallop.py X3f4781b 50 2 --hscatter --packing 
+39022 python /app/work/search_gallop.py Xedd9c7b 51 1 --hscatter --packing 
+40652 python /app/work/search_gallop.py X263b09a 71 1 --hscatter --packing 
+41048 python /app/work/search_gallop.py X238783d 20 1 --prepare --hscatter 
+41285 python /app/work/search_gallop.py X35b7fbc 11 1 --prepare --hscatter --model=/app/work/X35b7fbc/cis.json 

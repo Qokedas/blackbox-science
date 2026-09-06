@@ -1,0 +1,6 @@
+Xe3a2935 {'cell': {'a': 10.29176, 'b': 6.88129, 'c': 19.99016, 'alpha': 90.0, 'beta': 90.0, 'gamma': 90.0}, 'space_group': 'P 21 21 21', 'space_group_number': 19}
+[0.51, 49.995] 49486
+LeBail Rwp=0.0830 chi2=11344.4 cell= 10.292331720345892 6.880438350742982 19.98978161170324 90.0
+  molecule mol0_0: 21 atoms, 22 bonds, 29 angles, 36 dihedral restraints, 0 free torsions
+  molecule mol0_0: 18 atoms, 18 bonds, 23 angles, 15 dihedral restraints, 6 free torsions
+  single atom Cl

@@ -1,0 +1,9 @@
+  0%|          | 0/2 [00:00<?, ?it/s]100%|██████████| 2/2 [00:00<00:00, 1516.65it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 seconds 25.87220025062561 best 259.70734 q25 455.45886 median 482.2624 total 25.876957654953003
+/app/work/search_gallop.py:17: RuntimeWarning: overflow encountered in cast
+  if mn>=best:return
+FINISHED Xf8ac963 259.70733642578125

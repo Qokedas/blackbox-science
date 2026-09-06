@@ -1,0 +1,99 @@
+Sun Sep  6 10:33:02 UTC 2026
+==== X14a2b08/refine_ring94c3.log
+CYCLE 0 1 Rw 0.114310340502418 chi2 8172.556093325641 geom 261.0159655316003 LSQ 8868.63429750715
+CYCLE 0 2 Rw 0.11423817056940659 chi2 8162.23985012708 geom 261.0159655316003 LSQ 8863.58266393415
+PACKING_STAGE 0 117.87419231422577
+CYCLE 1 0 Rw 0.1101771766511295 chi2 7592.2439048132555 geom 331.03015299472185 LSQ 8412.64991607327
+CYCLE 1 1 Rw 0.10799133227772237 chi2 7293.981733750976 geom 414.37825728009494 LSQ 8276.060761231394
+CYCLE 1 2 Rw 0.1076047962569917 chi2 7241.860126110864 geom 311.8048937298054 LSQ 8082.808165932411
+PACKING_STAGE 1 59.13365893206025
+CYCLE 2 0 Rw 0.10745004220129774 chi2 7221.045043881442 geom 314.58090696368936 LSQ 8061.192999522523
+==== X1db5091/gallop50.log
+ATTACHED_H_SCATTERING 38 heavy atoms 24 H atoms
+PACKING_ENABLED 38 atoms 4884 pair terms coefficient 70.0 active_only True
+HBOND_PRIOR 2 donors 8 acceptors coefficient 15.0 directional False
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1418.31it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+==== X1a56c78/warm91.log
+Total internal degrees of freedom: 5
+PREPARED X1a56c78 Nref 279 PawleyRw 0.07014806858022408 SG P 2 21 21
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+RESTART_ERROR max/rms 1.197489227923712e-06 7.131040119136422e-07
+WARM_READY /app/work/X1a56c78/gallop_91
+==== X1a56c78/gallop91.log
+/opt/conda/lib/python3.11/site-packages/monty/design_patterns.py:76: UserWarning: Full symbol not available, falling back to short Hermann Mauguin symbol P22_12_1 instead
+  orig_init(instance, *args, **kwargs)
+FAST_SYMMETRY P 2 21 21 222gen max_relative_error 1.8153436940337997e-06
+ATTACHED_H_SCATTERING 23 heavy atoms 32 H atoms
+PACKING_ENABLED 23 atoms 1751 pair terms coefficient 80.0 active_only True
+HBOND_PRIOR 2 donors 2 acceptors coefficient 15.0 directional True
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1461.43it/s]
+==== X3f4781b/refine_ninv94m01.log
+CYCLE 1 0 Rw 0.08809973596007009 chi2 5703.440704350679 geom 616.9241406939327 LSQ 6925.238961599667
+CYCLE 1 1 Rw 0.0872234621892267 chi2 5590.54773044022 geom 494.2701636525004 LSQ 6641.811517840555
+CYCLE 1 2 Rw 0.08655912521231131 chi2 5505.711297043815 geom 486.27793490169216 LSQ 6551.035841301541
+PACKING_STAGE 1 28.02495516191777
+CYCLE 2 0 Rw 0.08662437930153948 chi2 5514.015576837971 geom 482.0038212954678 LSQ 6542.839054464566
+CYCLE 2 1 Rw 0.08653300470244589 chi2 5502.388937045547 geom 481.7177120511716 LSQ 6528.783121879545
+CYCLE 2 2 Rw 0.08645748603181021 chi2 5492.78909064608 geom 481.74998928233373 LSQ 6519.441619556359
+PACKING_STAGE 2 21.80809960152966
+==== X7e382cb/gallop88.log
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 90 seconds 107.06359839439392 best 167.72588 q25 424.58945 median 635.2606 total 107.07051968574524
+GALLOP 1 Nref 111 seconds 103.60648107528687 best 166.66914 q25 179.45056 median 359.02222 total 210.7929265499115
+GALLOP 2 Nref 132 seconds 103.7869553565979 best 161.03862 q25 166.50514 median 234.17719 total 314.6757068634033
+GALLOP 3 Nref 153 seconds 105.08427023887634 best 160.35634 q25 164.85545 median 231.79909 total 419.8724892139435
+GALLOP 4 Nref 174 seconds 141.2825219631195 best 159.86702 q25 163.61574 median 219.65245 total 561.2701635360718
+GALLOP 5 Nref 202 seconds 121.82206678390503 best 159.1852 q25 162.16577 median 355.34674 total 683.2041771411896
+GALLOP 6 Nref 227 seconds 120.00628447532654 best 159.01613 q25 161.77257 median 238.15176 total 803.31507563591
+==== X9af54a2/conditional87.log
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X9af54a2 326.9161376953125
+CONDITIONAL 0 [1, 3] best 324.48846435546875 q25 324.48865 sec 309.603640794754
+CONDITIONAL 1 [0] best 293.8894348144531 q25 477.7957 sec 546.3388516902924
+CONDITIONAL 2 [2] best 285.2137451171875 q25 489.59564 sec 789.9161124229431
+CONDITIONAL 3 [1, 3] best 284.8248291015625 q25 284.825 sec 1016.1163430213928
+CONDITIONAL 4 [0] best 283.693603515625 q25 483.47522 sec 1294.810930967331
+==== X019b9a4/gallop12.log
+PACKING_ENABLED 48 atoms 3253 pair terms coefficient 50.0 active_only True
+HBOND_PRIOR 6 donors 9 acceptors coefficient 10.0 directional False
+  0%|          | 0/5 [00:00<?, ?it/s]100%|██████████| 5/5 [00:00<00:00, 271.58it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 100 seconds 273.80527663230896 best 276.93082 q25 417.24286 median 455.38684 total 273.8321633338928
+==== Xb7088cf/gallop31.log
+GALLOP 0 Nref 90 seconds 154.6047763824463 best 153.79314 q25 251.24031 median 291.34866 total 154.61129426956177
+GALLOP 1 Nref 103 seconds 161.98654651641846 best 153.57498 q25 206.03577 median 248.76505 total 316.7047097682953
+GALLOP 2 Nref 117 seconds 223.86588430404663 best 153.45544 q25 203.20212 median 246.01881 total 540.7862339019775
+GALLOP 3 Nref 136 seconds 140.8122043609619 best 147.80911 q25 172.35698 median 226.99985 total 681.6949200630188
+GALLOP 4 Nref 149 seconds 152.2041335105896 best 147.05147 q25 157.40784 median 213.9906 total 833.9956352710724
+GALLOP 5 Nref 162 seconds 155.31511306762695 best 147.80896 q25 184.65681 median 257.4535 total 989.4098908901215
+GALLOP 6 Nref 171 seconds 210.00547099113464 best 145.14874 q25 162.2511 median 243.4436 total 1199.4955432415009
+GALLOP 7 Nref 171 seconds 169.9012966156006 best 141.27132 q25 185.60599 median 236.50626 total 1369.501053571701
+==== Xeb393f9/conditional90.log
+PACKING_ENABLED 37 atoms 527 pair terms coefficient 90.0 active_only True
+HBOND_PRIOR 2 donors 6 acceptors coefficient 30.0 directional True
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL Xeb393f9 50.29778289794922
+CONDITIONAL 0 [1] best 49.374855041503906 q25 49.375423 sec 169.518709897995
+58591 R 573.38 python /app/work/search_conditional.py X9af54a2 86 87 
+58715 R 573.57 python /app/work/search_gallop.py Xb7088cf 31 1 --prepare --hscatter --packing 
+60012 R 367.55 python /app/work/search_gallop.py X7e382cb 88 1 --prepare --hscatter --packing 
+61146 R 168.76 python /app/work/search_gallop.py X019b9a4 12 1 --prepare --hscatter 
+61298 R 128.02 python /app/work/search_conditional.py Xeb393f9 89 90 
+61404 R 112.71 python /app/work/refine_obj.py X3f4781b ninv94m01 /app/work/X3f4781b/search_ninv94m01/best.xml --scale --tight --stol=.4 
+61631 R 28.84 python /app/work/refine_obj.py X14a2b08 ring94c3 /app/work/X14a2b08/search_ring94c3/best.xml --scale --tight --stol=.4 
+61745 R 12.18 python /app/work/search_gallop.py X1db5091 50 1 --hscatter --packing 
+61773 R 8.08 python /app/work/search_gallop.py X1a56c78 91 1 --hscatter --packing 

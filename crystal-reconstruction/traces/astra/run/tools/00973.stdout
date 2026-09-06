@@ -1,0 +1,12 @@
+/opt/conda/include/ObjCryst/CrystVector/CrystVector.h:40:#define CrystVector_REAL Array<REAL,1>
+/opt/conda/include/ObjCryst/CrystVector/CrystVector.h:47:#define CrystMatrix_REAL Array<REAL,2>
+/opt/conda/include/ObjCryst/CrystVector/CrystVector.h:65:#define CrystVector_REAL CrystVector<REAL>
+/opt/conda/include/ObjCryst/CrystVector/CrystVector.h:73:#define CrystMatrix_REAL CrystMatrix<REAL>
+/opt/conda/include/ObjCryst/CrystVector/CrystVector.h:81:#define CrystArray3D_REAL CrystArray3D<REAL>
+/opt/conda/include/ObjCryst/ObjCryst/General.h:84:#define REAL float
+00000000001e6560 T ObjCryst::ReflectionProfilePseudoVoigtAnisotropic::SetProfilePar(double, double, double, double, double, double, double, double, double, double, double, double, double, double, double, double, double)
+00000000001e9480 T ObjCryst::ReflectionProfilePseudoVoigtAnisotropic::ReflectionProfilePseudoVoigtAnisotropic(ObjCryst::ReflectionProfilePseudoVoigtAnisotropic const&)
+00000000001e93e0 T ObjCryst::ReflectionProfilePseudoVoigtAnisotropic::ReflectionProfilePseudoVoigtAnisotropic()
+00000000001e9480 T ObjCryst::ReflectionProfilePseudoVoigtAnisotropic::ReflectionProfilePseudoVoigtAnisotropic(ObjCryst::ReflectionProfilePseudoVoigtAnisotropic const&)
+00000000001e93e0 T ObjCryst::ReflectionProfilePseudoVoigtAnisotropic::ReflectionProfilePseudoVoigtAnisotropic()
+                 U ObjCryst::ScatteringData::SetFhklObsSq(CrystVector<double> const&)

@@ -1,0 +1,15 @@
+X2327841 TETRAGONAL I 0 peaks [1.82423, 3.66421, 3.70315, 4.10862, 4.15527, 5.17502, 6.58986, 7.6123, 8.2263, 9.17461, 9.49183, 9.84949, 10.01165, 10.19446, 10.51162, 10.66279, 10.8224, 11.4177, 11.57628, 11.72515, 11.86975, 12.06993] V 3645.958251953125 5760 Lmax 50.19173316144023
+3->50.1917,1.88768,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+3645.96->5760,422.817,4.9999
+Starting: V=3645.96->4068.78
+Finished: V=3645.96->4068.78 A^3, 48 unit cells tested, 150470 tests/s,   Elapsed time=0.000327s
+Starting: V=4068.78->4491.59
+Finished: V=4068.78->4491.59 A^3, 99 unit cells tested, 140825 tests/s,   Elapsed time=0.000714s
+Starting: V=4491.59->4914.41
+Finished: V=4491.59->4914.41 A^3, 149 unit cells tested, 137327 tests/s,   Elapsed time=0.00109s
+Starting: V=4914.41->5337.23
+Finished: V=4914.41->5337.23 A^3, 200 unit cells tested, 117786 tests/s,   Elapsed time=0.001708s
+Starting: V=5337.23->5760
+Finished: V=5337.23->5760 A^3, 251 unit cells tested, 109225 tests/s,   Elapsed time=0.002304s
+DONE X2327841 TETRAGONAL I 0 0.0024318695068359375 []

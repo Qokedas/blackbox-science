@@ -1,0 +1,19 @@
+seed 1973636258
+down-weighting 7.795-7.835 deg (39 points) by sigma x10.0
+Imported powder pattern: 14001 points, 2theta=  2.000 ->  16.000, step= 0.001
+step ['Zero'] Rwp=0.2931
+step ['W'] Rwp=0.1736
+step ['a', 'b', 'c', 'alpha', 'beta', 'gamma'] Rwp=0.1570
+step ['U', 'V'] Rwp=0.1383
+step ['Eta0'] Rwp=0.0910
+step ['Eta1'] Rwp=0.0900
+step ['background'] Rwp=0.0816
+step ['Zero', 'W', 'U', 'V', 'Eta0', 'background', 'a', 'b', 'c', 'alpha', 'beta', 'gamma'] Rwp=0.0805
+LeBail Rwp=0.0799 chi2=10453.8 cell= 10.29285983351056 6.880464732561897 19.99102951238001 90.0
+  conformers: 4 distinct; energies [131.7, 132.2, 135.9, 136.2]; using rank 2 (E=135.9)
+  molecule mol0_0: 21 atoms, 22 bonds, 29 angles, 30 dihedral restraints, 2 free torsions
+run 0: cost=50213.7 Rwp=0.1789 chi2=52674.3 t=1753s
+polish: Rwp 0.1787 -> 0.1506 (accepted) restraint cost=0.00
+run 1: cost=32399.7 Rwp=0.1505 chi2=37008.6 t=1530s
+polish: Rwp 0.1498 -> 0.1457 (accepted) restraint cost=0.00
+RESULTS Xe3a2935 P 21 21 21 [(50213.74457948965, 0.178867013029745, 52674.2947874815), (32399.7234809522, 0.15046263802019047, 37008.62465175904)]

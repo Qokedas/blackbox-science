@@ -1,0 +1,121 @@
+262 solve.py
+import sys, os, json, time, argparse, numpy as np
+sys.path.insert(0, '/app/work')
+import warnings; warnings.filterwarnings('ignore')
+from rdkit import Chem
+from rdkit.Chem import AllChem
+import pyobjcryst
+from pyobjcryst.crystal import Crystal
+from pyobjcryst.molecule import Molecule
+from pyobjcryst.atom import Atom
+from pyobjcryst.scatteringpower import ScatteringPowerAtom
+from pyobjcryst.globaloptim import MonteCarlo, AnnealingSchedule
+from pyobjcryst.powderpattern import ReflectionProfileType
+from lebail import make_pattern, add_crystal, fit_sequence
+from pyobjcryst.lsq import LSQ
+
+def embed(smiles, seed=42, nconf=30):
+    mol = Chem.AddHs(Chem.MolFromSmiles(smiles))
+    ps = AllChem.ETKDGv3(); ps.randomSeed = seed
+    cids = AllChem.EmbedMultipleConfs(mol, nconf, ps)
+    if len(cids) == 0:
+        ps.useRandomCoords = True
+        cids = AllChem.EmbedMultipleConfs(mol, nconf, ps)
+    res = AllChem.MMFFOptimizeMoleculeConfs(mol, maxIters=2000)
+    energies = [e for (c, e) in res]
+    best = int(np.argmin(energies))
+    return mol, best, energies
+
+def classify_bonds(mol):
+    """Return set of bond indices whose torsion should be restrained (kept as in conformer).
+    Fixed: ring bonds, multiple bonds, terminal bonds, amide/ester/thioester C(=O)-X (X=N,O,S) and
+    conjugated C(=O)-C=C / N-N=C hydrazone / C=C-C=C (planar). Everything else (biaryl, aryl-N, aryl-O, sp3) is free."""
+    fixed = set()
+    dbl_nb = lambda y: any(mol.GetBondBetweenAtoms(y.GetIdx(), nb.GetIdx()).GetBondType() == Chem.BondType.DOUBLE for nb in y.GetNeighbors())
+    is_carbonyl = lambda y: y.GetAtomicNum() == 6 and any(nb.GetAtomicNum() in (8, 16) and mol.GetBondBetweenAtoms(y.GetIdx(), nb.GetIdx()).GetBondType() == Chem.BondType.DOUBLE for nb in y.GetNeighbors())
+    for b in mol.GetBonds():
+        a1, a2 = b.GetBeginAtom(), b.GetEndAtom()
+        if a1.GetAtomicNum() == 1 or a2.GetAtomicNum() == 1:
+            continue
+        if b.IsInRing():
+            fixed.add(b.GetIdx()); continue
+        if b.GetBondType() != Chem.BondType.SINGLE:
+            fixed.add(b.GetIdx()); continue
+        hd1 = sum(1 for n in a1.GetNeighbors() if n.GetAtomicNum() > 1)
+        hd2 = sum(1 for n in a2.GetNeighbors() if n.GetAtomicNum() > 1)
+        if hd1 < 2 or hd2 < 2:
+            fixed.add(b.GetIdx()); continue  # terminal: no torsion needed
+        if a1.GetHybridization() == Chem.HybridizationType.SP or a2.GetHybridization() == Chem.HybridizationType.SP:
+            fixed.add(b.GetIdx()); continue  # linear: rotation meaningless
+        for x, y in ((a1, a2), (a2, a1)):
+            # amide / ester / thioester / carbamate: X-C(=O) with X = N, O, S  (planar)
+            if x.GetAtomicNum() in (7, 8, 16) and is_carbonyl(y):
+                fixed.add(b.GetIdx())
+            # acyclic conjugated: C(=O)-C=C (enone), C=C-C=C (diene), N-N=C hydrazone/azine: both atoms carry a double bond and are not aromatic
+            elif (not x.GetIsAromatic()) and (not y.GetIsAromatic()) and dbl_nb(x) and dbl_nb(y) and x.GetAtomicNum() == 6 and y.GetAtomicNum() == 6:
+                fixed.add(b.GetIdx())
+            elif x.GetAtomicNum() == 7 and y.GetAtomicNum() == 7 and (dbl_nb(x) or dbl_nb(y)):
+                fixed.add(b.GetIdx())  # hydrazone N-N
+    return fixed
+
+def add_molecule(cr, mol, confid, name, sps, allH=False):
+    m = Molecule(cr, name)
+    conf = mol.GetConformer(confid)
+    heavy = [a.GetIdx() for a in mol.GetAtoms() if a.GetAtomicNum() > 1 or allH]
+    pos = np.array([list(conf.GetAtomPosition(i)) for i in heavy])
+    pos -= pos.mean(axis=0)
+    idxmap = {}
+    counts = {}
+    for k, i in enumerate(heavy):
+        a = mol.GetAtomWithIdx(i)
+        sym = a.GetSymbol()
+        counts[sym] = counts.get(sym, 0) + 1
+        if sym not in sps:
+            sp = ScatteringPowerAtom(sym, sym)
+            cr.AddScatteringPower(sp)
+            sps[sym] = sp
+        at = m.AddAtom(pos[k,0], pos[k,1], pos[k,2], sps[sym], f'{sym}{counts[sym]}')
+        idxmap[i] = m.GetNbAtoms() - 1
+    getat = lambda i: m.GetAtom(idxmap[i])
+    fixed = classify_bonds(mol)
+    # bonds
+    for b in mol.GetBonds():
+        i, j = b.GetBeginAtomIdx(), b.GetEndAtomIdx()
+        if i in idxmap and j in idxmap:
+            d = np.linalg.norm(pos[heavy.index(i)] - pos[heavy.index(j)])
+            m.AddBond(getat(i), getat(j), d, 0.01, 0.02)
+    # angles
+    from rdkit.Chem import rdMolTransforms as T
+    for a in mol.GetAtoms():
+        if a.GetIdx() not in idxmap: continue
+        nbs = [n.GetIdx() for n in a.GetNeighbors() if n.GetIdx() in idxmap]
+        for x in range(len(nbs)):
+            for y in range(x+1, len(nbs)):
+                ang = T.GetAngleRad(conf, nbs[x], a.GetIdx(), nbs[y])
+                m.AddBondAngle(getat(nbs[x]), getat(a.GetIdx()), getat(nbs[y]), ang, 0.01, 0.02)
+    # dihedrals for fixed bonds
+    ndih = 0; nfree = 0
+    for b in mol.GetBonds():
+        i, j = b.GetBeginAtomIdx(), b.GetEndAtomIdx()
+        if i not in idxmap or j not in idxmap: continue
+        ni = [n.GetIdx() for n in mol.GetAtomWithIdx(i).GetNeighbors() if n.GetIdx() in idxmap and n.GetIdx() != j]
+        nj = [n.GetIdx() for n in mol.GetAtomWithIdx(j).GetNeighbors() if n.GetIdx() in idxmap and n.GetIdx() != i]
+        if not ni or not nj: continue
+        if b.GetIdx() in fixed:
+            # restrain all dihedrals around this bond (one is enough with angles, but add all for robustness)
+            for p in ni:
+                for q in nj:
+                    ang = T.GetDihedralRad(conf, p, i, j, q)
+                    m.AddDihedralAngle(getat(p), getat(i), getat(j), getat(q), ang, 0.02, 0.05)
+                    ndih += 1
+        else:
+            nfree += 1
+    cr.AddScatterer(m)
+    print(f'  molecule {name}: {len(heavy)} atoms, {m.GetNbBonds()} bonds, {m.GetNbBondAngles()} angles, {ndih} dihedral restraints, {nfree} free torsions', flush=True)
+    return m
+
+def setup(iid, cell, spg, ttmax=None, components=None, verbose=True, nbg=24, lebail_first=True, asym=False):
+    comp = json.load(open(f'/app/data/instances/{iid}/composition.json'))
+    p, ins = make_pattern(iid, tt_max=ttmax, nbg=nbg)
+    cr, pd = add_crystal(p, cell, spg)
+    pd.SetReflectionProfilePar(ReflectionProfileType.PROFILE_PSEUDO_VOIGT, 1e-7)

@@ -1,0 +1,5 @@
+ZM COc1ccc(NC(=O)[C@@H]2C[C@H](C)CC[C@H]2C(C)C)cc1 n 21 torsions 4 max_distance_error 1.1266165778067716e-08
+Total degrees of freedom: 11
+Total external degrees of freedom: 7 (pos: 3 rot: 4 )
+Total internal degrees of freedom: 4
+PREPARED Xf8ac963 Nref 93 PawleyRw 0.7513336768132616 SG P 21 21 21

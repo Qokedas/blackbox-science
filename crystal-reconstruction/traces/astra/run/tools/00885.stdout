@@ -1,0 +1,47 @@
+ObjRegistry<T>::Find(ion_C): Not found !!
+List of Crystal ScatteringPowers :0 object registered:
+ORIGINAL 0.07038968132416873
+DOUBLETFIXED 0.07667223953246592
+DOUBLETFIT 0.06357042323160327
+Traceback (most recent call last):
+  File "/app/work/test_doublet.py", line 15, in <module>
+    p.plot(diff=True,hkl=False);p.figure.savefig(W+'/'+tag+'.png')
+                                ^^^^^^^^
+AttributeError: 'PowderPattern' object has no attribute 'figure'
+Sun Sep  6 09:27:52 UTC 2026
+====
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X4f6fe58 164.42037963867188
+CONDITIONAL 0 [0] best 161.30221557617188 q25 439.87305 sec 194.72371339797974
+CONDITIONAL 1 [1] best 151.372314453125 q25 455.48807 sec 415.999653339386
+====
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X1db5091 165.75013732910156
+CONDITIONAL 0 [1] best 163.57705688476562 q25 180.29877 sec 174.9730508327484
+CONDITIONAL 1 [1] best 163.5774688720703 q25 173.80092 sec 357.3564784526825
+====
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 427 seconds 150.5018653869629 best 164.78278 q25 205.4889 median 292.41843 total 150.54779291152954
+GALLOP 1 Nref 427 seconds 164.1642575263977 best 164.74203 q25 205.22011 median 289.15744 total 314.8462293148041
+GALLOP 2 Nref 427 seconds 209.9242353439331 best 162.51817 q25 194.98083 median 282.85986 total 524.9767940044403
+GALLOP 3 Nref 427 seconds 215.93280744552612 best 149.84236 q25 178.16629 median 253.95651 total 741.1825435161591
+====
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 259 seconds 214.3479790687561 best 56.670815 q25 80.9508 median 224.02286 total 214.35779857635498
+GALLOP 1 Nref 259 seconds 226.91054677963257 best 56.6708 q25 58.51201 median 140.92369 total 441.4646825790405
+====
+GALLOP 6 Nref 274 seconds 64.09757232666016 best 137.67874 q25 173.2028 median 350.59705 total 781.0239901542664
+GALLOP 7 Nref 290 seconds 109.47559237480164 best 137.26276 q25 158.19891 median 286.80078 total 890.5277469158173
+GALLOP 8 Nref 316 seconds 137.40892696380615 best 136.78413 q25 149.51927 median 260.99835 total 1028.1305289268494
+GALLOP 9 Nref 341 seconds 147.30201983451843 best 136.5008 q25 140.01196 median 212.78827 total 1175.6190898418427
+GALLOP 10 Nref 341 seconds 148.72308135032654 best 136.5008 q25 147.16461 median 383.13828 total 1324.5307874679565
+====
+GALLOP 1 Nref 211 seconds 214.2991418838501 best 99.649055 q25 165.23811 median 221.0964 total 454.400057554245
+GALLOP 2 Nref 211 seconds 149.20572519302368 best 99.64931 q25 152.52448 median 195.99094 total 603.7232489585876
+GALLOP 3 Nref 211 seconds 133.6086301803589 best 97.03676 q25 151.81163 median 210.7332 total 737.3863160610199
+GALLOP 4 Nref 211 seconds 212.86195826530457 best 92.55747 q25 138.16043 median 198.39209 total 950.3652412891388
+GALLOP 5 Nref 211 seconds 230.7916820049286 best 92.48815 q25 177.73361 median 206.42007 total 1181.28719830513

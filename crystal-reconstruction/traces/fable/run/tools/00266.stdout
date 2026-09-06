@@ -1,0 +1,6 @@
+X3f4781b {'cell': {'a': 12.6031, 'b': 15.3169, 'c': 10.4195, 'alpha': 90.0, 'beta': 113.3343, 'gamma': 90.0}, 'space_group': 'P 1 21 1', 'space_group_number': 4}
+X2327841 {'cell': {'a': 25.06, 'b': 4.93, 'c': 12.39, 'alpha': 90.0, 'beta': 90.78, 'gamma': 90.0}, 'space_group': 'P 1 21 1', 'space_group_number': 4}
+Xdcc971e {'cell': {'a': 23.4, 'b': 7.19, 'c': 11.04, 'alpha': 90.0, 'beta': 129.4, 'gamma': 90.0}, 'space_group': 'P 1 21 1', 'space_group_number': 4}
+Xe3a2935/solve_c2b.log:run 0: cost=50090.1 Rwp=0.1848 chi2=57264.8 t=1104s
+ISO 8 P 21 21 21 Zp=2: 0.3504
+Sun Sep  6 06:43:02 UTC 2026

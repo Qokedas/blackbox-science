@@ -1,0 +1,176 @@
+        if use_restraints:
+            restraint_penalty = restraints.get_restraint_penalties(
+                                asymmetric_frac_coords, **restraint_tensors)
+        else:
+            restraint_penalty = 0
+
+        L = get_loss(chi_2, restraint_penalty, loss, restraint_weight_type)
+
+        # Backward pass to calculate gradients
+        L.backward()
+        if save_loss:
+            losses.append(L.detach().cpu().numpy())
+        if i == 0:
+            best = torch.min(chi_2).item()
+            best_iteration = 1
+        else:
+            if i % check_min == 0:
+                if torch.min(chi_2).item() < best:
+                    best = torch.min(chi_2).item()
+                    best_iteration = i
+        i+=1
+        if verbose:
+            if i % print_every == 0 or i == 1:
+                detached_chi2 = chi_2.detach().cpu().numpy()
+                if chi2_solved is not None:
+                    n_solved = detached_chi2[detached_chi2 < chi2_solved]
+                    printstring = (
+                        "GALLOP iter {:04d} | LO iter {:04d} | lr {:.3f} ||",
+                        "max/mean/min chi^2 {:.1f} / {:.1f} / {:.1f} ||",
+                        "Time {:.1f} (s) / {:.1f} (min) || Best {:.1f}",
+                        "in iter {:04d} || n<{:.1f}: {:05d}")
+                    print("".join(printstring).format(
+                            run+1, i, lr,
+                            chi_2.max().item(), chi_2.mean().item(),
+                            chi_2.min().item(), time.time() - t1,
+                            (time.time() - t1)/60, best, best_iteration,
+                            chi2_solved, n_solved.shape[0]))
+                else:
+                    printstring = (
+                        "GALLOP iter {:04d} | LO iter {:04d} | lr {:.3f} ||",
+                        "max/mean/min chi^2 {:.1f} / {:.1f} / {:.1f} ||",
+                        "Time {:.1f} (s) / {:.1f} (min) || Best {:.1f}"
+                        "in iter {:04d}")
+                    print("".join(printstring).format(
+                            run+1, i, lr,
+                            chi_2.max().item(), chi_2.mean().item(),
+                            chi_2.min().item(), time.time() - t1,
+                            (time.time() - t1)/60, best,
+                            best_iteration))
+        elif use_progress_bar and not streamlit:
+            if i % print_every == 0 or i == 1:
+                iters.set_description(
+                    "GALLOP iter {:04d} LO iter {:04d} min chi2 {:.1f}".format(
+                        run+1, i, chi_2.min().item()))
+        if save_trajectories:
+            trajectories.append(
+                    [tensors["zm"]["external"].detach().cpu().numpy(),
+                    tensors["zm"]["internal"].detach().cpu().numpy(),
+                    chi_2.detach().cpu().numpy(),
+                    L.detach().cpu().numpy()])
+        if save_grad:
+            gradients.append(
+                [tensors["zm"]["external"].grad.detach().cpu().numpy(),
+                tensors["zm"]["internal"].grad.detach().cpu().numpy()])
+        if i != n_iterations:
+            optimizer.step()
+        if streamlit:
+            #prog_bar.progress(i/n_iterations)
+            #with col1:
+            prog_bar.progress(i/n_iterations)
+            #with col2:
+            if i % print_every == 0 or i == 1:
+                with chi2_result:
+                    st.write(str(chi_2.min().item())[:6])
+    result = {
+            "external"     : tensors["zm"]["external"].detach().cpu().numpy(),
+            "internal"     : tensors["zm"]["internal"].detach().cpu().numpy(),
+            "chi_2"        : chi_2.detach().cpu().numpy(),
+            "GALLOP Iter"  : run
+            }
+
+    if torsion_shadowing:
+        ##torsions = result["internal"]
+        #torsions = torsions[:,:int(torsions.shape[1] / Z_prime)]
+        #torsions = np.tile(torsions, (1,Z_prime))
+        #result["internal"] = torsions
+        result["internal"] = all_tors.detach().cpu().numpy()
+
+
+    # Now calculate the intensities with H-atoms included and use them to get a
+    # profile chi2 estimate. If Structure.ignore_H_atoms is True, also calculate
+    # the intensity chi2 with H-atoms included and add to the results dict.
+    # This will also use the full data range even if n_reflections is set to a
+    # subset of the available reflections.
+    ignore_H_setting = Structure.ignore_H_atoms
+    Structure.ignore_H_atoms = False
+    best = result["chi_2"] == result["chi_2"].min()
+    # Create tensors on CPU as it will be faster for a single data point.
+    if best.sum() > 1:
+        best_tensors = tensor_prep.get_all_required_tensors(Structure,
+            external=result["external"][best][0].reshape(1,-1),
+            internal=result["internal"][best][0].reshape(1,-1),
+            requires_grad=False, device=torch.device("cpu"), verbose=False)
+    else:
+        best_tensors = tensor_prep.get_all_required_tensors(Structure,
+            external=result["external"][best].reshape(1,-1),
+            internal=result["internal"][best].reshape(1,-1),
+            requires_grad=False, device=torch.device("cpu"), verbose=False)
+    # Restore the Structure.ignore_H_atoms setting
+    Structure.ignore_H_atoms = ignore_H_setting
+
+    with torch.no_grad():
+        best_asym = zm_to_cart.get_asymmetric_coords(**best_tensors["zm"])
+
+        best_intensities = intensities.calculate_intensities(best_asym,
+                                                **best_tensors["int_tensors"])
+        if include_PO:
+            best_intensities = intensities.apply_MD_PO_correction(
+                best_intensities, cosP.cpu(), sinP.cpu(),
+                factor[best][0].cpu().reshape(1,1))
+
+    if ignore_H_setting:
+        chi_2_H = chi2.calc_int_chisqd(best_intensities,
+                                            **best_tensors["chisqd_tensors"])
+
+        result["best_chi_2_with_H"] = chi_2_H.detach().cpu().numpy()[0]
+    else:
+        result["best_chi_2_with_H"] = result["chi_2"].min()
+
+    # Now get the profile chi2 if using DASH data
+    if Structure.source.lower() == "dash":
+        calc_profile = (best_intensities.detach().cpu().numpy().reshape(
+                        max(best_intensities.shape),1)
+                    * Structure.baseline_peaks[:max(best.shape)]).sum(axis=0)
+        sum1 = calc_profile[Structure.n_contributing_peaks != 0].sum()
+        sum2 = Structure.profile[:,1][Structure.n_contributing_peaks != 0].sum()
+        rescale = sum2/sum1
+        subset = Structure.n_contributing_peaks != 0
+        profchi2 = (((Structure.profile[:,2]**(-2))
+            *(rescale*calc_profile - Structure.profile[:,1])**2)[subset].sum()
+            / (subset.sum() - 2))
+        result["prof_chi_2"] = profchi2
+        result["calc_profile"] = rescale*calc_profile
+
+    if save_trajectories:
+        result["trajectories"] = trajectories
+
+    if save_loss:
+        result["losses"] = np.array(losses)
+
+    if save_grad:
+        result["gradients"] = gradients
+
+    if include_PO:
+        result["MD_factor"] = factor.detach().cpu().numpy()**2
+        result["PO_axis"] = PO_axis
+        del factor
+        del cosP
+        del sinP
+
+    if save_CIF:
+        files.save_CIF_of_best_result(Structure, result, start_time,
+                                        n_reflections)
+
+    # Now delete tensors to clear GPU memory for the next iteration
+    if torsion_shadowing:
+        del t_permutations
+
+    if use_restraints:
+        del restraint_tensors
+
+    if profile:
+        del profile_tensors
+
+    del tensors
+    return result

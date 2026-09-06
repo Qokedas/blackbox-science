@@ -1,0 +1,300 @@
+# Tools available in this container (offline)
+
+No network. 4 CPUs, no GPU. Everything below is installed; nothing else can be downloaded.
+
+## Python (default `python`, conda-forge, Python 3.11)
+- numpy, scipy, pandas, matplotlib (Agg backend; save figures to files and view them with `view_image`), sympy, numba, lmfit, scikit-learn, networkx, h5py
+- **pymatgen** (structures, lattices, `Lattice.get_niggli_reduced_lattice`, `SpacegroupAnalyzer`, CIF read/write, `StructureMatcher`)
+- **spglib**, **gemmi** (CIF parsing, space-group tables: `gemmi.find_spacegroup_by_name`), **ase**
+- **RDKit** (SMILES to 3D conformers: `AllChem.EmbedMolecule`, `ETKDG`, MMFF/UFF), **openbabel**
+- **xtb** (command line `xtb`, GFN2-xTB / GFN-FF for conformer optimisation)
+- **pyobjcryst** (Python bindings to ObjCryst++, the engine behind FOX): `pyobjcryst.crystal.Crystal`, `pyobjcryst.molecule.Molecule`, `pyobjcryst.powderpattern.PowderPattern`, `pyobjcryst.globaloptim.MonteCarloObj`, `pyobjcryst.indexing` (peak-list indexing, `CellExplorer`), `pyobjcryst.zscatterer` (Z-matrix). Use `help(pyobjcryst.<module>)` for the API; the FOX manual concepts (direct-space Monte-Carlo / parallel tempering against a powder pattern, anti-bump, dynamical occupancy correction) map one-to-one.
+- **gallop** (GALLOP: GPU-accelerated direct-space solver, here on CPU via torch; `gallop.structure.Structure`, `gallop.optim.local`, `gallop.z_matrix`; needs Pawley-extracted intensities and covariance, e.g. from GSAS-II or DASH-style hkl files; see the package's `example_data` directory under `site-packages/gallop` if present)
+- **torch** (CPU), **diffpy.structure**
+
+## GSAS-II
+Installed in its own environment. Run it with
+```
+PYTHONPATH=/opt/g2/GSAS-II /opt/g2/bin/python your_script.py
+```
+and `import GSASII.GSASIIscriptable as G2` (the scriptable API: create a project, add a powder histogram from an .xye file with an instrument-parameter file, add phases from CIF, Pawley refinement, Rietveld refinement, restraints, `G2.G2Project(...)`, `hist.set_refinements`, `phase.set_refinements`, export CIF). Indexing (`GSASIIindex`), peak fitting and Le Bail / Pawley are all reachable through the scriptable API or by importing the GSASII modules directly. An instrument-parameter file is a short text file; the `.xye` reader accepts three columns (2theta, intensity, sigma).
+
+## Shell utilities
+bash, coreutils, ripgrep (`rg`), jq, less, vim-tiny, gfortran/gcc (compile your own Fortran or C if you want, e.g. an indexing program you write yourself).
+
+## Notes
+- `view_image` renders PNG/JPEG files you write (max 1568 px on a side); use it to look at patterns, difference plots and packing diagrams.
+- CPU time is the scarce resource: 4 cores for the whole run. Run long searches in the background (`nohup ... &`) and poll; set `OMP_NUM_THREADS` sensibly.
+- Write final answers only under `/app/results/submission/` (see the instruction). If you export a CIF from pyobjcryst (`Crystal.CIFOutput`), note that ObjCryst writes dynamical-occupancy values below 1 for atoms it considers overlapping; the evaluator requires every site fully occupied (occupancy 1), so fix the occupancy column (and merge or remove genuinely duplicated atoms) before submitting.
+-----
+total 2248
+drwxr-xr-x  2 root root   4096 Sep  6 03:46 X019b9a4
+drwxr-xr-x  5 root root   4096 Sep  6 04:15 X07806d9
+drwxr-xr-x  7 root root   4096 Sep  6 05:02 X13023e3
+drwxr-xr-x  2 root root   4096 Sep  6 05:05 X14a2b08
+drwxr-xr-x  2 root root   4096 Sep  6 04:01 X1a56c78
+drwxr-xr-x  2 root root   4096 Sep  6 05:01 X1db5091
+drwxr-xr-x  4 root root   4096 Sep  6 05:07 X2327841
+drwxr-xr-x  2 root root   4096 Sep  6 03:43 X238783d
+drwxr-xr-x  2 root root   4096 Sep  6 05:06 X263b09a
+drwxr-xr-x  4 root root   4096 Sep  6 05:05 X35b7fbc
+drwxr-xr-x 12 root root   4096 Sep  6 04:17 X3c176e2
+drwxr-xr-x  3 root root   4096 Sep  6 03:58 X3f4781b
+drwxr-xr-x  4 root root   4096 Sep  6 04:12 X4f6fe58
+drwxr-xr-x  4 root root   4096 Sep  6 05:00 X7e382cb
+drwxr-xr-x  2 root root   4096 Sep  6 05:06 X8a06d7a
+drwxr-xr-x  2 root root   4096 Sep  6 04:53 X8a6f5a8
+drwxr-xr-x  2 root root   4096 Sep  6 03:43 X9af54a2
+drwxr-xr-x  2 root root   4096 Sep  6 04:43 Xb7088cf
+drwxr-xr-x  5 root root   4096 Sep  6 04:15 Xbfc6d2c
+drwxr-xr-x  3 root root   4096 Sep  6 05:05 Xbfeeda9
+drwxr-xr-x  4 root root   4096 Sep  6 05:08 Xd4c1a35
+drwxr-xr-x  6 root root   4096 Sep  6 04:23 Xd8634a2
+drwxr-xr-x  8 root root   4096 Sep  6 05:06 Xdcc971e
+drwxr-xr-x  4 root root   4096 Sep  6 04:56 Xe1fb77b
+drwxr-xr-x  4 root root   4096 Sep  6 04:14 Xe3a2935
+drwxr-xr-x  3 root root   4096 Sep  6 05:01 Xeb393f9
+drwxr-xr-x  2 root root   4096 Sep  6 05:00 Xebbd488
+drwxr-xr-x  2 root root   4096 Sep  6 04:53 Xedd9c7b
+drwxr-xr-x  6 root root   4096 Sep  6 04:14 Xf8ac963
+drwxr-xr-x  7 root root   4096 Sep  6 05:03 Xfca9f3c
+-rw-r--r--  1 root root   4352 Sep  6 04:54 Zprime_notes.txt
+drwxr-xr-x  2 root root   4096 Sep  6 04:56 __pycache__
+-rw-r--r--  1 root root      0 Sep  6 04:01 alkane_fits.log
+-rw-r--r--  1 root root   1165 Sep  6 04:08 alkane_models.py
+-rw-r--r--  1 root root      0 Sep  6 03:59 alkane_reindex.log
+-rw-r--r--  1 root root   2640 Sep  6 03:44 analyze_lattice.py
+-rw-r--r--  1 root root   1324 Sep  6 04:30 antibump.py
+-rw-r--r--  1 root root   1303 Sep  6 04:30 antibump_v1.py
+-rw-r--r--  1 root root   1723 Sep  6 03:42 collect_candidates.py
+-rw-r--r--  1 root root   5436 Sep  6 05:04 complete_2d.py
+-rw-r--r--  1 root root   3417 Sep  6 03:49 create_base.py
+-rw-r--r--  1 root root   1949 Sep  6 04:48 eval_cif.py
+-rw-r--r--  1 root root   5069 Sep  6 04:46 fit_candidate.py
+-rw-r--r--  1 root root    512 Sep  6 03:35 fits2.log
+-rw-r--r--  1 root root    224 Sep  6 03:30 fits_batch.log
+-rw-r--r--  1 root root      0 Sep  6 03:49 fresh.log
+-rw-r--r--  1 root root   7721 Sep  6 04:30 gallop_prepare.py
+-rw-r--r--  1 root root   7926 Sep  6 04:30 gallop_prepare_v1.py
+-rw-r--r--  1 root root      0 Sep  6 04:13 highres.log
+-rw-r--r--  1 root root   1766 Sep  6 04:52 import_de.py
+-rw-r--r--  1 root root   1642 Sep  6 04:21 import_gallop.py
+-rw-r--r--  1 root root   1021 Sep  6 04:49 index1db_raw_strict.sh
+-rw-r--r--  1 root root  14935 Sep  6 03:27 index_batch.log
+-rw-r--r--  1 root root   4654 Sep  6 04:55 index_de.py
+-rw-r--r--  1 root root   4245 Sep  6 04:55 index_de_v1.py
+-rw-r--r--  1 root root   4466 Sep  6 04:39 index_one.py
+-rw-r--r--  1 root root    419 Sep  6 05:01 indexstrict.log
+-rwxr-xr-x  1 root root  40752 Sep  6 04:28 libobj_bridge.so
+-rw-r--r--  1 root root   1944 Sep  6 03:48 make_base.py
+-rw-r--r--  1 root root      0 Sep  6 04:11 moretrifits.log
+-rw-r--r--  1 root root      0 Sep  6 03:43 newbases.log
+-rw-r--r--  1 root root      0 Sep  6 03:42 newfits.log
+-rw-r--r--  1 root root      0 Sep  6 04:18 newrepeaks.log
+-rw-r--r--  1 root root      0 Sep  6 03:47 newtasks.log
+-rw-r--r--  1 root root     22 Sep  6 04:11 newtris.log
+-rw-r--r--  1 root root      0 Sep  6 04:01 nextindexes.log
+-rw-r--r--  1 root root      0 Sep  6 04:01 nextstructures.log
+-rw-r--r--  1 root root      0 Sep  6 03:55 nowfits.log
+-rw-r--r--  1 root root   2132 Sep  6 04:28 obj_bridge.cpp
+-rw-r--r--  1 root root   2915 Sep  6 04:29 obj_bridge.py
+-rw-r--r--  1 root root   6894 Sep  6 04:30 obj_model.py
+-rw-r--r--  1 root root   5718 Sep  6 04:08 obj_model_v1.py
+-rw-r--r--  1 root root 387416 Sep  6 03:26 overview0.png
+-rw-r--r--  1 root root 374086 Sep  6 03:26 overview1.png
+-rw-r--r--  1 root root 358515 Sep  6 03:26 overview2.png
+-rw-r--r--  1 root root   1052 Sep  6 04:39 parse_index_log.py
+-rw-r--r--  1 root root 159458 Sep  6 04:13 peak_details.png
+-rw-r--r--  1 root root   6231 Sep  6 03:26 preprocess.log
+-rw-r--r--  1 root root   4954 Sep  6 03:25 preprocess.py
+-rw-r--r--  1 root root    242 Sep  6 04:12 queue_A.log
+-rw-r--r--  1 root root      0 Sep  6 04:21 queue_A2.log
+-rw-r--r--  1 root root      0 Sep  6 04:10 queue_B.log
+-rw-r--r--  1 root root      0 Sep  6 04:10 queue_C.log
+-rw-r--r--  1 root root      0 Sep  6 04:30 queue_C2.log
+-rw-r--r--  1 root root      0 Sep  6 04:36 queue_C_new.log
+-rw-r--r--  1 root root      0 Sep  6 04:58 queue_axis.log
+-rw-r--r--  1 root root    626 Sep  6 04:58 queue_axis.sh
+-rw-r--r--  1 root root      0 Sep  6 05:05 queue_complete2d.log
+-rw-r--r--  1 root root    373 Sep  6 05:05 queue_complete2d.sh
+-rw-r--r--  1 root root      0 Sep  6 04:34 queue_de.log
+-rw-r--r--  1 root root      0 Sep  6 04:39 queue_de2.log
+-rw-r--r--  1 root root      0 Sep  6 04:55 queue_dealk.log
+-rw-r--r--  1 root root    797 Sep  6 04:55 queue_dealk.sh
+-rw-r--r--  1 root root      0 Sep  6 04:46 queue_fit_de.log
+-rw-r--r--  1 root root    278 Sep  6 04:46 queue_fit_de.sh
+-rw-r--r--  1 root root      0 Sep  6 04:55 queue_highfit.log
+-rw-r--r--  1 root root    544 Sep  6 04:55 queue_highfit.sh
+-rw-r--r--  1 root root    509 Sep  6 04:13 queue_highres.sh
+-rw-r--r--  1 root root    473 Sep  6 04:34 queue_index_de.sh
+-rw-r--r--  1 root root    491 Sep  6 04:39 queue_index_de2.sh
+-rw-r--r--  1 root root      0 Sep  6 04:55 queue_index_ext.log
+-rw-r--r--  1 root root    566 Sep  6 04:55 queue_index_ext.sh
+-rw-r--r--  1 root root      0 Sep  6 04:50 queue_missing_fits.log
+-rw-r--r--  1 root root    530 Sep  6 04:50 queue_missing_fits.sh
+-rw-r--r--  1 root root      0 Sep  6 05:05 queue_moreindex.log
+-rw-r--r--  1 root root    840 Sep  6 05:05 queue_moreindex.sh
+-rw-r--r--  1 root root      0 Sep  6 04:52 queue_next_small.log
+-rw-r--r--  1 root root    521 Sep  6 04:52 queue_next_small.sh
+-rw-r--r--  1 root root      0 Sep  6 04:46 queue_small7.log
+-rw-r--r--  1 root root    744 Sep  6 04:46 queue_small7.sh
+-rw-r--r--  1 root root    977 Sep  6 04:10 queue_structures_A.sh
+-rw-r--r--  1 root root   1012 Sep  6 04:21 queue_structures_A2.sh
+-rw-r--r--  1 root root    997 Sep  6 04:10 queue_structures_B.sh
+-rw-r--r--  1 root root    686 Sep  6 04:10 queue_structures_C.sh
+-rw-r--r--  1 root root   1073 Sep  6 04:30 queue_structures_C2.sh
+-rw-r--r--  1 root root   1254 Sep  6 04:36 queue_structures_C_new.sh
+-rw-r--r--  1 root root      0 Sep  6 05:01 queue_tight.log
+-rw-r--r--  1 root root    763 Sep  6 05:01 queue_tight.sh
+-rw-r--r--  1 root root   1150 Sep  6 04:19 raw_index_queue.sh
+-rw-r--r--  1 root root    180 Sep  6 04:21 rawindex.log
+-rw-r--r--  1 root root      0 Sep  6 04:58 refine_g12.log
+-rw-r--r--  1 root root    386 Sep  6 04:58 refine_g12.sh
+-rw-r--r--  1 root root   7538 Sep  6 05:01 refine_obj.py
+-rw-r--r--  1 root root   5097 Sep  6 04:13 refine_obj_v1.py
+-rw-r--r--  1 root root   6839 Sep  6 05:01 refine_obj_v2.py
+-rw-r--r--  1 root root   1886 Sep  6 03:31 reindex_batch.log
+-rw-r--r--  1 root root    947 Sep  6 03:30 reindex_batch.py
+-rw-r--r--  1 root root   4308 Sep  6 04:16 repick.log
+-rw-r--r--  1 root root   3616 Sep  6 04:14 repick.py
+-rw-r--r--  1 root root   1315 Sep  6 04:18 repick2.log
+-rw-r--r--  1 root root   1993 Sep  6 04:17 restore_cif.py
+-rw-r--r--  1 root root      0 Sep  6 03:48 restorefit.log
+-rw-r--r--  1 root root    676 Sep  6 03:30 run_fits.py
+-rw-r--r--  1 root root    593 Sep  6 03:34 run_fits2.py
+-rw-r--r--  1 root root   1419 Sep  6 03:26 run_index_batch.py
+-rw-r--r--  1 root root   4015 Sep  6 04:02 search_gallop.py
+-rw-r--r--  1 root root   4766 Sep  6 04:21 search_obj.py
+-rw-r--r--  1 root root   3227 Sep  6 04:08 search_obj_v1.py
+-rw-r--r--  1 root root   8497 Sep  6 04:58 solve_de.py
+-rw-r--r--  1 root root   4271 Sep  6 04:46 solve_half_biphenyl.py
+-rw-r--r--  1 root root   4031 Sep  6 04:46 solve_half_biphenyl_v1.py
+-rw-r--r--  1 root root      0 Sep  6 03:45 subcells.log
+-rw-r--r--  1 root root   2006 Sep  6 04:23 submit.py
+-rw-r--r--  1 root root   4854 Sep  6 03:26 summary.json
+-rw-r--r--  1 root root      0 Sep  6 03:43 task_3f478.log
+-rw-r--r--  1 root root      0 Sep  6 03:43 task_d863.log
+-rw-r--r--  1 root root      0 Sep  6 03:43 task_e1.log
+-rw-r--r--  1 root root   2046 Sep  6 04:04 test_bump.xml
+-rw-r--r--  1 root root 433639 Sep  6 03:27 test_fit.log
+-rw-r--r--  1 root root   1726 Sep  6 03:27 test_fit.py
+--results--
+X019b9a4.json
+X07806d9.cif
+X07806d9.json
+X13023e3.json
+X14a2b08.json
+X1a56c78.json
+X2327841.cif
+X2327841.json
+X238783d.json
+X263b09a.json
+X35b7fbc.json
+X3c176e2.cif
+X3c176e2.json
+X3f4781b.json
+X4f6fe58.json
+X7e382cb.json
+X8a06d7a.json
+X9af54a2.json
+Xbfc6d2c.cif
+Xbfc6d2c.json
+Xbfeeda9.json
+Xd4c1a35.json
+Xd8634a2.json
+Xdcc971e.cif
+Xdcc971e.json
+Xe1fb77b.json
+Xe3a2935.cif
+Xe3a2935.json
+Xeb393f9.json
+Xf8ac963.cif
+Xf8ac963.json
+Xfca9f3c.cif
+Xfca9f3c.json
+--procs--
+10072 python State:	R (running) python /app/work/refine_obj.py X2327841 10t /app/work/X2327841/refined_10.xml --scale --tight --stol=.38 
+10105 python State:	R (running) python /app/work/refine_obj.py Xd4c1a35 2 /app/work/Xd4c1a35/search_2/best.xml --scale 
+10122 bash State:	S (sleeping) bash -lc cat /app/TOOLS.md; echo '-----'; ls -l /app/work; echo '--results--'; ls /app/results/submission; echo '--procs--'; for p in /proc/[0-9]*; do [[ -r "$p/comm" ]] || continue; read c < "$p/comm"; case "$c" in python*|bash|index*) s=$(grep '^State:' "$p/status"); printf '%s %s %s ' "${p##*/}" "$c" "$s"; tr '\0' ' ' < "$p/cmdline"; echo;; esac; done 
+1088 python State:	Z (zombie) 
+1165 python State:	Z (zombie) 
+1353 python State:	Z (zombie) 
+1354 python State:	Z (zombie) 
+1376 python State:	Z (zombie) 
+1401 python State:	Z (zombie) 
+1402 python State:	Z (zombie) 
+1403 python State:	Z (zombie) 
+142 python State:	Z (zombie) 
+1426 python State:	Z (zombie) 
+1625 python State:	Z (zombie) 
+1907 python State:	Z (zombie) 
+1908 bash State:	Z (zombie) 
+1909 bash State:	Z (zombie) 
+1956 bash State:	Z (zombie) 
+2017 python State:	Z (zombie) 
+2099 bash State:	Z (zombie) 
+2100 bash State:	Z (zombie) 
+2101 bash State:	Z (zombie) 
+2247 bash State:	Z (zombie) 
+2425 bash State:	Z (zombie) 
+2600 bash State:	Z (zombie) 
+2665 bash State:	Z (zombie) 
+2920 python State:	Z (zombie) 
+3081 python State:	Z (zombie) 
+3082 bash State:	Z (zombie) 
+3246 python State:	Z (zombie) 
+3250 bash State:	Z (zombie) 
+3366 bash State:	Z (zombie) 
+338 python State:	Z (zombie) 
+3401 bash State:	Z (zombie) 
+3433 bash State:	Z (zombie) 
+3434 bash State:	Z (zombie) 
+3477 python State:	Z (zombie) 
+3511 python State:	Z (zombie) 
+4260 bash State:	Z (zombie) 
+4261 python State:	Z (zombie) 
+4263 bash State:	S (sleeping) bash /app/work/queue_structures_B.sh 
+4266 bash State:	Z (zombie) 
+4561 bash State:	Z (zombie) 
+4659 python State:	Z (zombie) 
+4690 bash State:	Z (zombie) 
+4794 python State:	Z (zombie) 
+5009 python State:	Z (zombie) 
+5056 bash State:	Z (zombie) 
+5100 bash State:	Z (zombie) 
+5104 python State:	Z (zombie) 
+5191 bash State:	S (sleeping) bash /app/work/queue_structures_A2.sh 
+5333 python State:	Z (zombie) 
+5335 bash State:	Z (zombie) 
+6259 bash State:	Z (zombie) 
+6837 bash State:	Z (zombie) 
+6853 python State:	Z (zombie) 
+7272 bash State:	S (sleeping) bash /app/work/queue_structures_C_new.sh 
+7412 bash State:	Z (zombie) 
+7600 python State:	Z (zombie) 
+7958 bash State:	Z (zombie) 
+7989 bash State:	Z (zombie) 
+8281 python State:	Z (zombie) 
+8306 bash State:	S (sleeping) bash /app/work/index1db_raw_strict.sh 
+8405 python State:	Z (zombie) 
+8407 bash State:	Z (zombie) 
+8543 python State:	Z (zombie) 
+8545 bash State:	S (sleeping) bash /app/work/queue_next_small.sh 
+8730 bash State:	Z (zombie) 
+8732 bash State:	Z (zombie) 
+8838 bash State:	S (sleeping) bash /app/work/queue_index_ext.sh 
+8931 python State:	Z (zombie) 
+8932 python State:	Z (zombie) 
+8971 python State:	R (running) python /app/work/search_obj.py Xe1fb77b 2 1 --rescale --lsq --bump 
+9197 bash State:	Z (zombie) 
+9203 python State:	Z (zombie) 
+9288 bash State:	Z (zombie) 
+9313 python State:	Z (zombie) 
+9561 python State:	R (running) python /app/work/search_gallop.py X7e382cb 21 1 --prepare 
+9620 python State:	Z (zombie) 
+9670 python State:	R (running) python /app/work/search_obj.py Xeb393f9 1 1 --rescale 
+9704 bash State:	S (sleeping) bash /app/work/queue_tight.sh 
+9909 python State:	R (running) python /app/work/index_de.py X8a06d7a 
+9937 bash State:	Z (zombie) 
+9939 bash State:	S (sleeping) bash /app/work/queue_moreindex.sh 
+9976 python State:	R (running) python /app/work/search_obj.py Xbfeeda9 1 1 --rescale --bump 

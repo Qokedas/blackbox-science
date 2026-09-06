@@ -1,0 +1,12 @@
+/app/work/import_graph_cif.py:10: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(fn).parse_structures(primitive=False)[0];s.remove_species(['H']);rad=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<1.2*(rad[:,None]+rad[None,:]));g=nx.from_numpy_array(A)
+ObjRegistry<T>::Find(O): Not found !!
+List of Crystal ScatteringPowers :0 object registered:
+ObjRegistry<T>::Find(C): Not found !!
+List of Crystal ScatteringPowers :1 object registered:
+#  0:ScatteringPowerAtom(O)
+ObjRegistry<T>::Find(ion_N): Not found !!
+List of Crystal ScatteringPowers :2 object registered:
+#  0:ScatteringPowerAtom(O)
+#  1:ScatteringPowerAtom(C)
+GRAPH_IMPORTED X7e382cb p1tc103 6 Rw 0.08618996321497456

@@ -1,0 +1,9 @@
+STOPPED 65038 bash /app/work/queue_clop_chemH116.sh 
+STOPPED 65041 python /app/work/refine_obj.py X3f4781b chemH116 /app/work/X3f4781b/search_chemH116/best.xml --scale --tight --stol=.4 
+RESTART_PID=65063
+Sun Sep  6 11:21:46 UTC 2026
+['m2_H37', 'm2_C21', 'm2_N13'] 108.074 -> 109.4712206345
+['m2_H38', 'm2_C21', 'm2_C20'] 106.233 -> 109.4712206345
+['m2_H38', 'm2_C21', 'm2_N13'] 106.233 -> 109.4712206345
+['m2_H38', 'm2_C21', 'm2_H37'] 113.389 -> 109.4712206345
+RETARGETED 56

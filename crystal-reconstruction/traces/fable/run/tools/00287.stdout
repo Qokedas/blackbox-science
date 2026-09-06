@@ -1,0 +1,108 @@
+def setup(iid, cell, spg, ttmax=None, components=None, verbose=True, nbg=24, lebail_first=True, asym=False):
+    comp = json.load(open(f'/app/data/instances/{iid}/composition.json'))
+    p, ins = make_pattern(iid, tt_max=ttmax, nbg=nbg)
+    cr, pd = add_crystal(p, cell, spg)
+    pd.SetReflectionProfilePar(ReflectionProfileType.PROFILE_PSEUDO_VOIGT, 1e-7)
+    steps = [['Zero'], ['W'], ['a', 'b', 'c', 'alpha', 'beta', 'gamma'], ['U', 'V'], ['Eta0'], ['Eta1'], ['background']]
+    if asym: steps.append(['Asym0', 'Asym1'])
+    steps.append(['Zero', 'W', 'U', 'V', 'Eta0', 'background', 'a', 'b', 'c', 'alpha', 'beta', 'gamma'])
+    lsq = fit_sequence(p, pd, steps, verbose=verbose)
+    print(f'LeBail Rwp={p.GetRw():.4f} chi2={p.GetChi2():.1f} cell=', cr.a, cr.b, cr.c, np.degrees(cr.beta), flush=True)
+    pd.SetExtractionMode(False)
+    sps = {}
+    mols = []
+    comps = comp['components'] if components is None else components
+    for ci, c in enumerate(comps):
+        smi = c['smiles']
+        n = c['count']
+        molr = Chem.MolFromSmiles(smi)
+        nheavy = molr.GetNumHeavyAtoms()
+        for k in range(n):
+            if nheavy == 1:
+                sym = molr.GetAtomWithIdx(0).GetSymbol()
+                if sym not in sps:
+                    sp = ScatteringPowerAtom(sym, sym); cr.AddScatteringPower(sp); sps[sym] = sp
+                at = Atom(np.random.rand(), np.random.rand(), np.random.rand(), f'{sym}_{ci}_{k}', sps[sym])
+                cr.AddScatterer(at)
+                mols.append(at)
+                print(f'  single atom {sym}', flush=True)
+            else:
+                mol, best, en = embed(smi, seed=42+k)
+                m = add_molecule(cr, mol, best, f'mol{ci}_{k}', sps)
+                m._crystal = cr
+                mols.append(m)
+    cr.SetUseDynPopCorr(1)
+    return p, cr, pd, mols, lsq
+
+def polish(p, cr, ncycle=20, verbose=True):
+    """restrained LSQ (Rietveld-like) refinement of molecule position/orientation/geometry + profile + background"""
+    rw0 = p.GetRw()
+    # disable 'Auto Optimize Starting Conformation' (it re-randomises free torsions on BeginOptimization)
+    for i in range(cr.GetNbScatterer()):
+        sc = cr.GetScatt(i)
+        if hasattr(sc, 'GetNbOption'):
+            for k in range(sc.GetNbOption()):
+                o = sc.GetOption(k)
+                if 'Auto Optimize' in o.GetName(): o.SetChoice(1)
+    lsq = LSQ()
+    lsq.SetRefinedObj(p, 0, True, True)
+    lsq.PrepareRefParList(True)
+    lsqr = lsq.GetCompiledRefinedObj()
+    lsqr.UnFixAllPar()
+    # fix Biso, occupancies, and anything exotic
+    import re
+    atomcoord = re.compile(r'^[A-Z][a-z]?\d+_[xyz]$')
+    for i in range(lsqr.GetNbPar()):
+        par = lsqr.GetPar(i)
+        n = par.GetName()
+        if (n.startswith('Biso') or 'ccup' in n or n.startswith('Asym') or n in ('Eta1', 'Zero', 'a', 'b', 'c', 'alpha', 'beta', 'gamma') or n.startswith('ML')
+                or atomcoord.match(n) or n.startswith('Global') or n.startswith('B1') or n.startswith('B2') or n.startswith('B3') or n.startswith('Formal')):
+            par.SetIsFixed(True)
+    sid = lsqr.CreateParamSet('prepolish')
+    lsqr.SaveParamSet(sid)
+    ok = False
+    try:
+        lsq.Refine(ncycle, True, True, False)
+        rw1 = p.GetRw()
+        if np.isfinite(rw1) and rw1 < rw0:
+            ok = True
+        else:
+            lsqr.RestoreParamSet(sid)
+    except Exception as e:
+        if verbose: print('polish failed', e, flush=True)
+        lsqr.RestoreParamSet(sid)
+    if verbose: print(f'polish: Rwp {rw0:.4f} -> {p.GetRw():.4f} ({"accepted" if ok else "rejected"}) restraint cost={cr.GetRestraintCost():.2f}', flush=True)
+    return ok
+
+def optimize(p, cr, nsteps=1e6, nruns=1, seed=None, maxtime=-1, save_prefix=None, do_polish=True):
+    mc = MonteCarlo()
+    mc.AddRefinableObj(cr)
+    mc.AddRefinableObj(p)
+    mc.SetAlgorithmParallTempering(AnnealingSchedule.SMART, 0.1, 0.01, AnnealingSchedule.EXPONENTIAL, 16, 0.125) if False else None
+    results = []
+    for r in range(nruns):
+        t0 = time.time()
+        mc.RandomizeStartingConfig() if r > 0 or True else None
+        mc.Optimize(int(nsteps), 0, maxtime)
+        cost = mc.GetLogLikelihood()
+        rw = p.GetRw()
+        chi2 = p.GetChi2()
+        print(f'run {r}: cost={cost:.1f} Rwp={rw:.4f} chi2={chi2:.1f} t={time.time()-t0:.0f}s', flush=True)
+        if save_prefix:
+            write_cif(cr, f'{save_prefix}_run{r}_rw{rw:.3f}.cif')
+        if do_polish:
+            try:
+                sid = cr.CreateParamSet('mc_best'); cr.SaveParamSet(sid)
+                ok = polish(p, cr)
+                if ok and save_prefix:
+                    write_cif(cr, f'{save_prefix}_run{r}_lsq_rw{p.GetRw():.3f}.cif')
+                cr.RestoreParamSet(sid)  # continue next run from MC state (randomized anyway)
+            except Exception as e:
+                print('polish error', e, flush=True)
+        results.append((cost, rw, chi2))
+    return mc, results
+
+def restore_from_cif(cr, mols, ciffile):
+    """Place molecules/atoms at positions read from an ObjCryst-written CIF with the same atom naming/order."""
+    import gemmi
+    doc = gemmi.cif.read(ciffile); blk = doc.sole_block()

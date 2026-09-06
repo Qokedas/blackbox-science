@@ -1,0 +1,168 @@
+---X7e382cb
+{
+ "radiation": {
+  "type": "Mo Kalpha1,2 (laboratory sealed tube)",
+  "wavelength_A": 0.709319,
+  "wavelengths_A": [
+   0.709319,
+   0.713609
+  ],
+  "wavelength_weights": [
+   1.0,
+   0.5
+  ],
+  "monochromator": null,
+  "source": "sealed X-ray tube"
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 300.0,
+ "two_theta_range_deg": [
+  1.0125,
+  49.987
+ ],
+ "n_points": 5862,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "sqrt(max(I,1)); counting statistics assumed",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": [
+  "Kalpha2 weight 0.5 is the standard ratio; the depositors state only Kalpha1,2"
+ ]
+}[]---Xb7088cf
+{
+ "radiation": {
+  "type": "Mo Kalpha1,2 (laboratory sealed tube)",
+  "wavelength_A": 0.709319,
+  "wavelengths_A": [
+   0.709319,
+   0.713609
+  ],
+  "wavelength_weights": [
+   1.0,
+   0.5
+  ],
+  "monochromator": null,
+  "source": "sealed X-ray tube"
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 300.0,
+ "two_theta_range_deg": [
+  1.0067,
+  49.9958
+ ],
+ "n_points": 5864,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "sqrt(max(I,1)); counting statistics assumed",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": [
+  "Kalpha2 weight 0.5 is the standard ratio; the depositors state only Kalpha1,2"
+ ]
+}[]---Xedd9c7b
+{
+ "radiation": {
+  "type": "Cu Kalpha1 (laboratory, monochromatic per the paper: Bruker D8 Advance, LynxEye)",
+  "wavelength_A": 1.540598,
+  "wavelengths_A": [
+   1.540598
+  ],
+  "wavelength_weights": null,
+  "monochromator": "monochromatic incident beam (paper)",
+  "source": "sealed X-ray tube"
+ },
+ "geometry": "reflection (flat plate / Bragg-Brentano)",
+ "geometry_source_text": null,
+ "temperature_K": 300.0,
+ "two_theta_range_deg": [
+  3.0066,
+  39.9938
+ ],
+ "n_points": 2818,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": [
+  "depositors tagged the radiation K-alpha1,2; the paper states monochromatic 1.5406 A and the deposited profile is consistent with a single wavelength"
+ ]
+}[]---Xeb393f9
+{
+ "radiation": {
+  "type": "synchrotron",
+  "wavelength_A": 0.81933,
+  "wavelengths_A": [
+   0.81933
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 298.0,
+ "two_theta_range_deg": [
+  0.5008,
+  75.0383
+ ],
+ "n_points": 29816,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "sqrt(max(I,1)); counting statistics assumed",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}[]---Xebbd488
+{
+ "radiation": {
+  "type": "CuK1",
+  "wavelength_A": 1.54059,
+  "wavelengths_A": [
+   1.54059
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 295.0,
+ "two_theta_range_deg": [
+  5.0,
+  75.0
+ ],
+ "n_points": 7001,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}[]---X8a6f5a8
+{
+ "radiation": {
+  "type": "CuK1",
+  "wavelength_A": 1.54059,
+  "wavelengths_A": [
+   1.54059
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 295.0,
+ "two_theta_range_deg": [
+  3.5,
+  85.0
+ ],
+ "n_points": 8151,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}[]Imported powder pattern: 3443 points, 2theta= 10.860 ->  45.280, step= 0.010
+SCALED_SIGMA 4.109324965697957 3442.999999999986
+CYCLE 0 0 Rw 0.08477475933340567 chi2 3107.710563065258
+CYCLE 0 1 Rw 0.08474827793346128 chi2 3105.769332601235
+CYCLE 0 2 Rw 0.08474721988536098 chi2 3105.6917845280655
+CYCLE 1 0 Rw 0.050254371700455915 chi2 1092.0816961379862
+CYCLE 1 1 Rw 0.04588732807870227 chi2 910.5273042840624
+CYCLE 1 2 Rw 0.04484374253909159 chi2 869.5831861954267
+CYCLE 2 0 Rw 0.043382090770380084 chi2 813.820059338856
+CYCLE 2 1 Rw 0.04291168669659728 chi2 796.2667911830794

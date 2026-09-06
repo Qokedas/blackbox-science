@@ -1,0 +1,34 @@
+X13023e3 Nat 48 molecule sizes [15, 15, 9, 9]
+  component CC(C)Cc1ccc([C@@H](C)C(=O)O)cc1 matches 2
+  component NC(=O)c1cccnc1 matches 2
+  bond range 1.2219217296978127 1.5422809908902801
+  min intermolecular distance 2.6119553605751733
+SUBMITTED X13023e3
+X13023e3 root 0 expected {8: 'R'} actual {8: 'R'} OK True
+X13023e3 root 1 expected {8: 'R'} actual {8: 'R'} OK True
+Cell (6.022459300000001, 5.52853855, 28.00099427, 90.0, 93.11794732, 90.0) n 48 components [15, 15, 9, 9]
+2.6120 41 N41 N 3 43 O12 O 1
+2.6144 36 C42 C 2 44 O13 O 0
+2.7383 38 N34 N 2 47 O36 O 3
+3.1225 41 N41 N 3 45 O13 O 1
+3.1613 36 C42 C 2 42 O12 O 0
+3.1888 28 C37 C 2 39 N34 N 3
+3.1987 32 C39 C 2 39 N34 N 3
+3.2581 21 C11 C 1 41 N41 N 3
+3.2978 38 N34 N 2 39 N34 N 3
+3.2997 37 C42 C 3 38 N34 N 2
+3.3106 20 C11 C 0 36 C42 C 2
+3.3109 30 C38 C 2 39 N34 N 3
+3.3492 26 C35 C 2 39 N34 N 3
+PACKING_ENABLED 20 atoms 519 pair terms coefficient 12.0
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 2094.27it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+CYCLE 0 0 Rw 0.051650526976144855 chi2 4987.834265698261 geom 0.7130688759765964 LSQ 5068.679151358892
+CYCLE 0 1 Rw 0.04949353260367786 chi2 4579.935967394984 geom 0.7130688759765964 LSQ 4626.0984545139045
+CYCLE 0 2 Rw 0.049251099912388324 chi2 4535.178327137027 geom 0.7130688759765964 LSQ 4578.890018087637
+CYCLE 1 0 Rw 0.04686045109210077 chi2 4105.588616664804 geom 50.15293825528306 LSQ 4347.503515044002
+CYCLE 1 1 Rw 0.04651211432087122 chi2 4044.77776106358 geom 52.852566145343076 LSQ 4288.940654717997
+CYCLE 1 2 Rw 0.0463570343693967 chi2 4017.850658680369 geom 58.88472117574842 LSQ 4270.018541209796

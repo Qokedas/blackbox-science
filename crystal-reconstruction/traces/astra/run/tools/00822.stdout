@@ -1,0 +1,74 @@
+Sun Sep  6 08:59:34 UTC 2026
+# Tools available in this container (offline)
+
+No network. 4 CPUs, no GPU. Everything below is installed; nothing else can be downloaded.
+
+## Python (default `python`, conda-forge, Python 3.11)
+- numpy, scipy, pandas, matplotlib (Agg backend; save figures to files and view them with `view_image`), sympy, numba, lmfit, scikit-learn, networkx, h5py
+- **pymatgen** (structures, lattices, `Lattice.get_niggli_reduced_lattice`, `SpacegroupAnalyzer`, CIF read/write, `StructureMatcher`)
+- **spglib**, **gemmi** (CIF parsing, space-group tables: `gemmi.find_spacegroup_by_name`), **ase**
+- **RDKit** (SMILES to 3D conformers: `AllChem.EmbedMolecule`, `ETKDG`, MMFF/UFF), **openbabel**
+- **xtb** (command line `xtb`, GFN2-xTB / GFN-FF for conformer optimisation)
+- **pyobjcryst** (Python bindings to ObjCryst++, the engine behind FOX): `pyobjcryst.crystal.Crystal`, `pyobjcryst.molecule.Molecule`, `pyobjcryst.powderpattern.PowderPattern`, `pyobjcryst.globaloptim.MonteCarloObj`, `pyobjcryst.indexing` (peak-list indexing, `CellExplorer`), `pyobjcryst.zscatterer` (Z-matrix). Use `help(pyobjcryst.<module>)` for the API; the FOX manual concepts (direct-space Monte-Carlo / parallel tempering against a powder pattern, anti-bump, dynamical occupancy correction) map one-to-one.
+- **gallop** (GALLOP: GPU-accelerated direct-space solver, here on CPU via torch; `gallop.structure.Structure`, `gallop.optim.local`, `gallop.z_matrix`; needs Pawley-extracted intensities and covariance, e.g. from GSAS-II or DASH-style hkl files; see the package's `example_data` directory under `site-packages/gallop` if present)
+- **torch** (CPU), **diffpy.structure**
+
+## GSAS-II
+Installed in its own environment. Run it with
+```
+PYTHONPATH=/opt/g2/GSAS-II /opt/g2/bin/python your_script.py
+```
+and `import GSASII.GSASIIscriptable as G2` (the scriptable API: create a project, add a powder histogram from an .xye file with an instrument-parameter file, add phases from CIF, Pawley refinement, Rietveld refinement, restraints, `G2.G2Project(...)`, `hist.set_refinements`, `phase.set_refinements`, export CIF). Indexing (`GSASIIindex`), peak fitting and Le Bail / Pawley are all reachable through the scriptable API or by importing the GSASII modules directly. An instrument-parameter file is a short text file; the `.xye` reader accepts three columns (2theta, intensity, sigma).
+
+## Shell utilities
+bash, coreutils, ripgrep (`rg`), jq, less, vim-tiny, gfortran/gcc (compile your own Fortran or C if you want, e.g. an indexing program you write yourself).
+
+## Notes
+- `view_image` renders PNG/JPEG files you write (max 1568 px on a side); use it to look at patterns, difference plots and packing diagrams.
+- CPU time is the scarce resource: 4 cores for the whole run. Run long searches in the background (`nohup ... &`) and poll; set `OMP_NUM_THREADS` sensibly.
+- Write final answers only under `/app/results/submission/` (see the instruction). If you export a CIF from pyobjcryst (`Crystal.CIFOutput`), note that ObjCryst writes dynamical-occupancy values below 1 for atoms it considers overlapping; the evaluator requires every site fully occupied (occupancy 1), so fix the occupancy column (and merge or remove genuinely duplicated atoms) before submitting.
+total 196
+drwxr-xr-x 1 root root 4096 Sep  6 08:18 .
+drwxr-xr-x 1 root root 4096 Sep  6 02:59 ..
+-rw-r--r-- 1 root root  235 Sep  6 03:46 X019b9a4.json
+-rw-r--r-- 1 root root 1599 Sep  6 05:59 X07806d9.cif
+-rw-r--r-- 1 root root  179 Sep  6 05:59 X07806d9.json
+-rw-r--r-- 1 root root 2872 Sep  6 06:30 X13023e3.cif
+-rw-r--r-- 1 root root  185 Sep  6 06:30 X13023e3.json
+-rw-r--r-- 1 root root  236 Sep  6 05:47 X14a2b08.json
+-rw-r--r-- 1 root root  200 Sep  6 08:04 X1a56c78.json
+-rw-r--r-- 1 root root  216 Sep  6 08:23 X1db5091.json
+-rw-r--r-- 1 root root 5373 Sep  6 05:10 X2327841.cif
+-rw-r--r-- 1 root root  185 Sep  6 05:10 X2327841.json
+-rw-r--r-- 1 root root  202 Sep  6 03:43 X238783d.json
+-rw-r--r-- 1 root root  233 Sep  6 05:20 X263b09a.json
+-rw-r--r-- 1 root root  203 Sep  6 03:45 X35b7fbc.json
+-rw-r--r-- 1 root root 2920 Sep  6 05:59 X3c176e2.cif
+-rw-r--r-- 1 root root  182 Sep  6 05:59 X3c176e2.json
+-rw-r--r-- 1 root root  214 Sep  6 05:46 X3f4781b.json
+-rw-r--r-- 1 root root  234 Sep  6 05:44 X4f6fe58.json
+-rw-r--r-- 1 root root  233 Sep  6 04:54 X7e382cb.json
+-rw-r--r-- 1 root root  212 Sep  6 08:04 X8a06d7a.json
+-rw-r--r-- 1 root root  213 Sep  6 06:03 X8a6f5a8.json
+-rw-r--r-- 1 root root  211 Sep  6 03:43 X9af54a2.json
+-rw-r--r-- 1 root root  202 Sep  6 05:20 Xb7088cf.json
+-rw-r--r-- 1 root root 2013 Sep  6 06:24 Xbfc6d2c.cif
+-rw-r--r-- 1 root root  190 Sep  6 06:24 Xbfc6d2c.json
+-rw-r--r-- 1 root root 3968 Sep  6 08:42 Xbfeeda9.cif
+-rw-r--r-- 1 root root  191 Sep  6 08:42 Xbfeeda9.json
+-rw-r--r-- 1 root root 4625 Sep  6 06:51 Xd4c1a35.cif
+-rw-r--r-- 1 root root  183 Sep  6 06:51 Xd4c1a35.json
+-rw-r--r-- 1 root root  233 Sep  6 03:43 Xd8634a2.json
+-rw-r--r-- 1 root root 5074 Sep  6 05:10 Xdcc971e.cif
+-rw-r--r-- 1 root root  186 Sep  6 05:10 Xdcc971e.json
+-rw-r--r-- 1 root root  213 Sep  6 03:48 Xe1fb77b.json
+-rw-r--r-- 1 root root 2170 Sep  6 06:24 Xe3a2935.cif
+-rw-r--r-- 1 root root  182 Sep  6 06:24 Xe3a2935.json
+-rw-r--r-- 1 root root 3856 Sep  6 07:28 Xeb393f9.cif
+-rw-r--r-- 1 root root  194 Sep  6 07:28 Xeb393f9.json
+-rw-r--r-- 1 root root  213 Sep  6 06:01 Xebbd488.json
+-rw-r--r-- 1 root root  215 Sep  6 06:01 Xedd9c7b.json
+-rw-r--r-- 1 root root 2920 Sep  6 06:25 Xf8ac963.cif
+-rw-r--r-- 1 root root  182 Sep  6 06:25 Xf8ac963.json
+-rw-r--r-- 1 root root 4474 Sep  6 05:10 Xfca9f3c.cif
+-rw-r--r-- 1 root root  187 Sep  6 05:10 Xfca9f3c.json

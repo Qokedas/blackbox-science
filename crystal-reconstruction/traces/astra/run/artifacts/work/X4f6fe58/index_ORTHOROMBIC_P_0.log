@@ -1,0 +1,17 @@
+X4f6fe58 ORTHOROMBIC P 0 peaks [5.96476, 10.60037, 11.94569, 12.83632, 13.92251, 15.1214, 16.26958, 16.89549, 17.18998, 18.42582, 19.36, 19.55, 19.78922, 20.3318, 20.96698, 21.65464, 22.21993, 22.75842, 23.53255, 24.47856, 24.87422, 25.38865] V 690.06201171875 3600 Lmax 42.91332821403896
+3->42.9133,1.59654,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+690.062->3600,484.998,5.9999
+Starting: V=690.062->1175.06
+Finished: V=690.062->1175.06 A^3, 331 unit cells tested, 184401 tests/s,   Elapsed time=0.001801s
+Starting: V=1175.06->1660.06
+Finished: V=1175.06->1660.06 A^3, 892 unit cells tested, 199463 tests/s,   Elapsed time=0.004478s
+Starting: V=1660.06->2145.06
+Finished: V=1660.06->2145.06 A^3, 1770 unit cells tested, 216381 tests/s,   Elapsed time=0.008186s
+Starting: V=2145.06->2630.05
+Finished: V=2145.06->2630.05 A^3, 2778 unit cells tested, 214451 tests/s,   Elapsed time=0.012962s
+Starting: V=2630.05->3115.05
+Finished: V=2630.05->3115.05 A^3, 4305 unit cells tested, 233878 tests/s,   Elapsed time=0.018413s
+Starting: V=3115.05->3600
+Finished: V=3115.05->3600 A^3, 6741 unit cells tested, 269134 tests/s,   Elapsed time=0.025053s
+DONE X4f6fe58 ORTHOROMBIC P 0 0.025172948837280273 []

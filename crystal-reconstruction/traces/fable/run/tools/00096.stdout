@@ -1,0 +1,54 @@
+import sys, json, numpy as np, time, os
+sys.path.insert(0, '/app/work')
+from lebail import *
+
+def lebail_intensities(iid, cell, spg, ttmax=None, verbose=False):
+    p, ins = make_pattern(iid, tt_max=ttmax)
+    cr, pd = add_crystal(p, cell, spg)
+    pd.SetReflectionProfilePar(ReflectionProfileType.PROFILE_PSEUDO_VOIGT, 1e-7)
+    steps = [['Zero'], ['W'], ['a', 'b', 'c', 'alpha', 'beta', 'gamma'], ['U', 'V'], ['Eta0'], ['Eta1'], ['background'],
+             ['Zero', 'W', 'U', 'V', 'Eta0', 'background', 'a', 'b', 'c', 'alpha', 'beta', 'gamma']]
+    lsq = fit_sequence(p, pd, steps, verbose=verbose)
+    for i in range(3):
+        pd.ExtractLeBail(30)
+    h = np.array(pd.GetH(), dtype=int); k = np.array(pd.GetK(), dtype=int); l = np.array(pd.GetL(), dtype=int)
+    I = np.array(pd.GetFhklObsSq())
+    n = pd.GetNbReflBelowMaxSinThetaOvLambda()
+    # multiplicity? GetFhklObsSq are |F|^2 per unique reflection
+    stol = np.array(pd.GetSinThetaOverLambda())
+    return p, cr, pd, h[:n], k[:n], l[:n], I[:n], stol[:n]
+
+def analyse(h, k, l, I, stol, dmin_frac=0.6, label=''):
+    # restrict to lower-angle part where overlap is less severe
+    smax = stol.max()*dmin_frac
+    m = stol <= smax
+    h, k, l, I = h[m], k[m], l[m], I[m]
+    tot_mean = I.mean()
+    lines = []
+    def cls(name, sel, cond):
+        s = sel & (h != 0) | sel  # dummy
+        sub = sel
+        if sub.sum() < 3:
+            return
+        absent = sub & cond
+        present = sub & ~cond
+        if absent.sum() == 0 or present.sum() == 0:
+            return
+        ra = I[absent].mean()/tot_mean
+        rp = I[present].mean()/tot_mean
+        lines.append((name, int(absent.sum()), ra, int(present.sum()), rp, ra/max(rp, 1e-9)))
+    odd = lambda x: (x % 2) != 0
+    zero = lambda x: x == 0
+    cls('h00: h odd (2_1 a)', zero(k) & zero(l), odd(h))
+    cls('0k0: k odd (2_1 b)', zero(h) & zero(l), odd(k))
+    cls('00l: l odd (2_1 c)', zero(h) & zero(k), odd(l))
+    cls('0kl: k odd (b_a)', zero(h), odd(k))
+    cls('0kl: l odd (c_a)', zero(h), odd(l))
+    cls('0kl: k+l odd (n_a)', zero(h), odd(k+l))
+    cls('h0l: h odd (a_b)', zero(k), odd(h))
+    cls('h0l: l odd (c_b)', zero(k), odd(l))
+    cls('h0l: h+l odd (n_b)', zero(k), odd(h+l))
+66:    iid = sys.argv[1]
+67:    cell = [float(v) for v in sys.argv[2:8]]
+68:    spg = sys.argv[8]
+69:    ttmax = float(sys.argv[9]) if len(sys.argv) > 9 else None

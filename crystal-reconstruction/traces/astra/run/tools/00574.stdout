@@ -1,0 +1,601 @@
+X019b9a4
+X07806d9
+X13023e3
+X14a2b08
+X1a56c78
+X1db5091
+X2327841
+X238783d
+X263b09a
+X35b7fbc
+X3c176e2
+X3f4781b
+X4f6fe58
+X7e382cb
+X8a06d7a
+X8a6f5a8
+X9af54a2
+Xb7088cf
+Xbfc6d2c
+Xbfeeda9
+Xd4c1a35
+Xd8634a2
+Xdcc971e
+Xe1fb77b
+Xe3a2935
+Xeb393f9
+Xebbd488
+Xedd9c7b
+Xf8ac963
+Xfca9f3c
+Zprime_notes.txt
+__pycache__
+adopt_fit.py
+alkane_fits.log
+alkane_models.py
+alkane_reindex.log
+analyze_lattice.py
+analyze_po.py
+antibump.py
+antibump_v1.py
+audit_base.py
+audit_bases.log
+audit_zm.py
+check_stereo.py
+check_zmat.py
+collect_candidates.py
+complete_2d.py
+complete_2d_general.py
+complete_mono_axis.py
+complete_plane_mono.py
+contacts.py
+create_base.py
+create_stable_base.py
+enumerate_methoxy.py
+enumerate_methoxy_v1.py
+enumerate_rotations.py
+enumerate_rotations_v1.py
+eval_cif.py
+extend_low_base.py
+find_zones.py
+find_zones_v1.py
+fit_candidate.py
+fits2.log
+fits_batch.log
+fresh.log
+gallop_config.json
+gallop_hbond.py
+gallop_io.py
+gallop_moves.py
+gallop_packing.py
+gallop_packing_v1.py
+gallop_prepare.py
+gallop_prepare_v1.py
+gallop_prepare_v2.py
+gallop_prepare_v3.py
+gsas_index.py
+hard7.log
+hard7.sh
+highres.log
+hydrogen_prefix.py
+import_de.py
+import_gallop.py
+import_gallop_v1.py
+index1db_raw_strict.sh
+index_axial.py
+index_batch.log
+index_de.py
+index_de_v1.py
+index_metric.py
+index_metric_v1.py
+index_one.py
+indexstrict.log
+liblsq_packing.so
+libobj_bridge.so
+lsq_packing.cpp
+lsq_packing.py
+make_base.py
+moretrifits.log
+newbases.log
+newfits.log
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/15174/status ]] && ! grep -q '^State:.*Z' /proc/15174/status; do sleep 5; done
+for id in Xbfeeda9 X35b7fbc Xe1fb77b X019b9a4; do
+ model=; secs=2300; [[ $id == X35b7fbc ]] && model=--model=/app/work/X35b7fbc/cis.json
+ SEARCH_TIME=$secs PARTICLES=160 ITERATIONS=450 GALLOP_STOL=.24 CONF_RANK=0 python /app/work/search_gallop.py $id 11 1 --prepare --hscatter $model > /app/work/$id/gallop11.log 2>&1
+ python /app/work/import_gallop.py $id 11 > /app/work/$id/import_g11.log 2>&1
+ python /app/work/refine_obj.py $id g11 /app/work/$id/search_g11/best.xml --scale --tight > /app/work/$id/refine_g11.log 2>&1
+done
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/12401/status ]] && ! grep -q '^State:.*Z' /proc/12401/status; do sleep 5; done
+for r in 0 5 12; do
+ run=$((20+r))
+ SEARCH_TIME=2300 PARTICLES=128 ITERATIONS=450 GALLOP_STOL=.23 CONF_RANK=$r python /app/work/search_gallop.py X238783d $run 1 --prepare --hscatter > /app/work/X238783d/gallop${run}.log 2>&1
+ python /app/work/import_gallop.py X238783d $run > /app/work/X238783d/import_g${run}.log 2>&1
+ python /app/work/refine_obj.py X238783d g$run /app/work/X238783d/search_g$run/best.xml --scale --tight > /app/work/X238783d/refine_g${run}.log 2>&1
+done
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/7272/status ]] && ! grep -q '^State:.*Z' /proc/7272/status; do sleep 5; done
+for id in X263b09a X14a2b08; do
+ SEARCH_TIME=2400 PARTICLES=160 ITERATIONS=450 GALLOP_STOL=.25 CONF_RANK=0 python /app/work/search_gallop.py $id 11 1 --prepare --hscatter > /app/work/$id/gallop11.log 2>&1
+ python /app/work/import_gallop.py $id 11 > /app/work/$id/import_g11.log 2>&1
+ python /app/work/refine_obj.py $id g11 /app/work/$id/search_g11/best.xml --scale --tight > /app/work/$id/refine_g11.log 2>&1
+done
+MAX_STOL=.32 python /app/work/create_stable_base.py X1db5091 final2 'P 1 21/c 1' --submit > /app/work/X1db5091/basefresh.log 2>&1
+SEARCH_TIME=2800 PARTICLES=160 ITERATIONS=450 GALLOP_STOL=.25 CONF_RANK=0 python /app/work/search_gallop.py X1db5091 11 1 --prepare --hscatter > /app/work/X1db5091/gallop11.log 2>&1
+python /app/work/import_gallop.py X1db5091 11 > /app/work/X1db5091/import_g11.log 2>&1
+python /app/work/refine_obj.py X1db5091 g11 /app/work/X1db5091/search_g11/best.xml --scale --tight > /app/work/X1db5091/refine_g11.log 2>&1
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/16582/status ]] && ! grep -q '^State:.*Z' /proc/16582/status; do sleep 5; done
+python /app/work/import_gallop.py X13023e3 31 > /app/work/X13023e3/import_g31.log 2>&1
+python /app/work/refine_obj.py X13023e3 g31 /app/work/X13023e3/search_g31/best.xml --scale --tight > /app/work/X13023e3/refine_g31.log 2>&1
+cp -r /app/work/X7e382cb/gallop_22 /app/work/X7e382cb/gallop_31
+rm -f /app/work/X7e382cb/gallop_31/STOP
+EXACT_BUMP_IMAGES=1 SEARCH_TIME=1800 PARTICLES=128 ITERATIONS=400 START_NPZ=/app/work/X7e382cb/gallop_22/best.npz START_JITTER=.18 START_TOR_JITTER=.5 python /app/work/search_gallop.py X7e382cb 31 1 --packing --hscatter > /app/work/X7e382cb/gallop31.log 2>&1
+python /app/work/import_gallop.py X7e382cb 31 > /app/work/X7e382cb/import_g31.log 2>&1
+python /app/work/refine_obj.py X7e382cb g31 /app/work/X7e382cb/search_g31/best.xml --scale --tight > /app/work/X7e382cb/refine_g31.log 2>&1
+SEARCH_TIME=2200 PARTICLES=160 ITERATIONS=450 GALLOP_STOL=.23 CONF_RANK=0 python /app/work/search_gallop.py Xedd9c7b 11 2 --prepare --hscatter > /app/work/Xedd9c7b/gallop11.log 2>&1
+python /app/work/import_gallop.py Xedd9c7b 11 > /app/work/Xedd9c7b/import_g11.log 2>&1
+python /app/work/refine_obj.py Xedd9c7b g11 /app/work/Xedd9c7b/search_g11/best.xml --scale --tight > /app/work/Xedd9c7b/refine_g11.log 2>&1
+for id in X1a56c78 X8a06d7a; do
+ SEARCH_TIME=2200 PARTICLES=128 ITERATIONS=400 GALLOP_STOL=.24 CONF_RANK=0 python /app/work/search_gallop.py $id 11 1 --prepare --hscatter > /app/work/$id/gallop11.log 2>&1
+ python /app/work/import_gallop.py $id 11 > /app/work/$id/import_g11.log 2>&1
+ python /app/work/refine_obj.py $id g11 /app/work/$id/search_g11/best.xml --scale --tight > /app/work/$id/refine_g11.log 2>&1
+done
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/17408/status ]] && ! grep -q '^State:.*Z' /proc/17408/status; do sleep 5;done
+# Independently test the higher-prior orthorhombic screw-axis group for X1a.
+python - <<'PY'
+import json
+W='/app/work/X1a56c78';j=json.load(open(W+'/fit_1.json'));j['sg']='P 21 21 21';json.dump([j],open(W+'/candidates_sg19.json','w'))
+PY
+SG_SCAN=0 CANDIDATE_FILE=/app/work/X1a56c78/candidates_sg19.json CANDIDATE_INDEX=0 python /app/work/fit_candidate.py X1a56c78 sg19 .30 > /app/work/X1a56c78/fit_sg19.log 2>&1
+mkdir -p /app/work/X1a56c78/gallop_19; cp /app/work/X1a56c78/fit_sg19.xml /app/work/X1a56c78/gallop_19/base.xml
+BASE_XML=/app/work/X1a56c78/gallop_19/base.xml SEARCH_TIME=1700 PARTICLES=128 ITERATIONS=400 GALLOP_STOL=.24 CONF_RANK=1 python /app/work/search_gallop.py X1a56c78 19 1 --prepare --hscatter --packing > /app/work/X1a56c78/gallop19.log 2>&1
+python /app/work/import_gallop.py X1a56c78 19 > /app/work/X1a56c78/import_g19.log 2>&1
+python /app/work/refine_obj.py X1a56c78 g19 /app/work/X1a56c78/search_g19/best.xml --scale --tight > /app/work/X1a56c78/refine_g19.log 2>&1
+for id in Xd8634a2 Xb7088cf; do
+ START_REFL=90 RAMP_REF_EVERY=5 RAMP_REF_STEP=40 SEARCH_TIME=1700 PARTICLES=128 ITERATIONS=400 GALLOP_STOL=.25 CONF_RANK=4 python /app/work/search_gallop.py $id 31 1 --prepare --hscatter --packing > /app/work/$id/gallop31.log 2>&1
+ python /app/work/import_gallop.py $id 31 > /app/work/$id/import_g31.log 2>&1
+ python /app/work/refine_obj.py $id g31 /app/work/$id/search_g31/best.xml --scale --tight > /app/work/$id/refine_g31.log 2>&1
+ done
+import sys,os,time,json,numpy as np,torch,gemmi
+from gallop.structure import Structure
+from gallop.optim import local
+from gallop.optim.swarm import Swarm
+from gallop import tensor_prep,zm_to_cart,chi2
+from gallop_prepare import prepare
+from gallop_io import load_structure
+sid=sys.argv[1];run=int(sys.argv[2]) if len(sys.argv)>2 else 1;zp=int(sys.argv[3]) if len(sys.argv)>3 else 1
+W='/app/work/'+sid;G=W+'/gallop_'+str(run);torch.set_num_threads(int(os.environ.get('TORCH_THREADS',1)));torch.set_num_interop_threads(1)
+if os.path.exists('/app/work/gallop_config.json'):
+ for key,val in json.load(open('/app/work/gallop_config.json')).get(sid+':'+str(run),{}).items():os.environ.setdefault(key,str(val))
+if not os.path.exists(G+'/structure.json') or '--prepare' in sys.argv:
+ mp=next((v.split('=',1)[1] for v in sys.argv if v.startswith('--model=')),None);s,G=prepare(sid,run,zp,rigid='--rigid' in sys.argv,model_path=mp,stolmax=float(os.environ.get('GALLOP_STOL','.21')))
+else:s=load_structure(G+'/structure.json')
+if '--hscatter' in sys.argv:
+ from hydrogen_prefix import enable_hydrogen_prefix
+ enable_hydrogen_prefix(s,G+'/model.json')
+if '--packing' in sys.argv:
+ from gallop_packing import enable_packing
+ enable_packing(s,G+'/model.json')
+if float(os.getenv('HBOND_COEFF','0'))>0:
+ from gallop_hbond import enable_hbonds
+ enable_hbonds(s,G+'/model.json')
+np.random.seed((int(time.time())+run)%1000000);NP=int(os.environ.get('PARTICLES','128'));IT=int(os.environ.get('ITERATIONS','450'));ns=max(1,NP//32);max_time=float(os.environ.get('SEARCH_TIME',1800));best=1e100;elite_e=None;elite_i=None;t0=time.time();i=0
+
+def save_result(result,i):
+ global best,elite_e,elite_i
+ mn=float(result['chi_2'].min());ix=int(result['chi_2'].argmin())
+ if mn>=best:return
+ best=float(mn);elite_e=result['external'][ix].copy();elite_i=result['internal'][ix].copy()
+ np.savez_compressed(G+'/best.npz',external=result['external'][ix:ix+1],internal=result['internal'][ix:ix+1],chi2=mn)
+ t=tensor_prep.get_all_required_tensors(s,external=result['external'][ix:ix+1],internal=result['internal'][ix:ix+1],requires_grad=False,device=torch.device('cpu'),verbose=False)
+ with torch.no_grad():frac=zm_to_cart.get_asymmetric_coords(**t['zm']).detach().numpy()[0]
+ np.save(G+'/best_frac.npy',frac)
+ sg=gemmi.find_spacegroup_by_name(s.space_group.symbol);text='data_solution\n'
+ for name,v in zip(['length_a','length_b','length_c','angle_alpha','angle_beta','angle_gamma'],s.lattice.parameters):text+=f'_cell_{name} {v:.9f}\n'
+ text+=f"_space_group_name_H-M_alt '{sg.xhm()}'\n_space_group_IT_number {sg.number}\nloop_\n_space_group_symop_id\n_space_group_symop_operation_xyz\n"
+ for j,op in enumerate(sg.operations()):text+=f"{j+1} '{op.triplet()}'\n"
+ text+='loop_\n_atom_site_label\n_atom_site_type_symbol\n_atom_site_fract_x\n_atom_site_fract_y\n_atom_site_fract_z\n_atom_site_occupancy\n'
+ els=[el for z in s.zmatrices for el in z.elements_no_H]
+ for j,(el,v) in enumerate(zip(els,frac)):text+=f'{el}{j+1} {el} {v[0]%1:.9f} {v[1]%1:.9f} {v[2]%1:.9f} 1\n'
+ open(G+'/best.cif','w').write(text);json.dump({'chi2':float(mn),'Rint':float(np.sqrt(mn/1000)),'iteration':i,'elapsed':time.time()-t0},open(G+'/best.json','w'),indent=1)
+
+while time.time()-t0<max_time and not os.path.exists(G+'/STOP'):
+ if i%12==0:
+  swarm=Swarm(s,n_particles=NP,n_swarms=ns,global_update=True,global_update_freq=5);ext,intr=swarm.get_initial_positions()
+  if 'HEAVY_POOL' in os.environ:
+   from gallop_moves import heavy_initialise
+   ext,intr=heavy_initialise(s,ext,intr,os.environ['HEAVY_POOL'])
+  # Optional warm-start around a chemically sensible best particle.
+  if 'START_NPZ' in os.environ:
+   warm=np.load(os.environ['START_NPZ']);nn=NP//2;ext[:nn]=warm['external'][0]+np.random.normal(size=ext[:nn].shape)*float(os.environ.get('START_JITTER','.15'));intr[:nn]=warm['internal'][0]+np.random.normal(size=intr[:nn].shape)*float(os.environ.get('START_TOR_JITTER','.4'))
+ # Retain a small elite cloud across PSO and reset boundaries.
+ if elite_e is not None:
+  ne=max(1,int(NP*float(os.environ.get('ELITE_FRAC','.10'))));ext[:ne]=elite_e+np.random.normal(size=ext[:ne].shape)*float(os.environ.get('ELITE_JITTER','.045'));intr[:ne]=elite_i+np.random.normal(size=intr[:ne].shape)*float(os.environ.get('ELITE_TOR_JITTER','.12'));ext[0]=elite_e;intr[0]=elite_i
+  nm=max(0,int(NP*float(os.environ.get('MACRO_ELITE_FRAC','.20'))))
+  if nm:
+   from gallop_moves import macro_mutations
+   me,mi=macro_mutations(s,elite_e,elite_i,nm);ext[ne:ne+nm]=me;intr[ne:ne+nm]=mi
+ ti=time.time()
+ nref=min(len(s.hkl),int(os.environ.get('START_REFL',str(len(s.hkl))))+int(os.environ.get('RAMP_REF_STEP','40'))*(i//int(os.environ.get('RAMP_REF_EVERY','12'))))
+ result=local.minimise(s,external=ext,internal=intr,n_reflections=nref,n_iterations=IT,n_cooldown=IT//4,learning_rate=.04,device=torch.device('cpu'),loss='sum',use_progress_bar=False,save_CIF=False,run=i,verbose=False,check_min=25)
+ if nref<len(s.hkl):
+  ft=tensor_prep.get_all_required_tensors(s,external=result['external'],internal=result['internal'],requires_grad=False,device=torch.device('cpu'),verbose=False)
+  with torch.no_grad():full_chi=chi2.get_chi_2(ft['zm'],ft['int_tensors'],ft['chisqd_tensors']).numpy()
+  result['low_chi_2']=result['chi_2'].copy();result['chi_2']=full_chi
+ print('GALLOP',i,'Nref',nref,'seconds',time.time()-ti,'best',result['chi_2'].min(),'q25',np.quantile(result['chi_2'],.25),'median',np.median(result['chi_2']),'total',time.time()-t0,flush=True)
+ save_result(result,i)
+ if 'low_chi_2' in result:result['chi_2']=result['low_chi_2']
+ ext,intr=swarm.update_position(result=result,verbose=False)
+ np.savez_compressed(G+'/last_population.npz',external=result['external'],internal=result['internal'],chi2=result['chi_2'])
+ i+=1
+ if '--test' in sys.argv or best<float(os.environ.get('TARGET_CHI','2.0')):break
+print('FINISHED',sid,best,flush=True)
+{
+ "ids": [
+  "X019b9a4",
+  "X07806d9",
+  "X13023e3",
+  "X14a2b08",
+  "X1a56c78",
+  "X1db5091",
+  "X2327841",
+  "X238783d",
+  "X263b09a",
+  "X35b7fbc",
+  "X3c176e2",
+  "X3f4781b",
+  "X4f6fe58",
+  "X7e382cb",
+  "X8a06d7a",
+  "X8a6f5a8",
+  "X9af54a2",
+  "Xb7088cf",
+  "Xbfc6d2c",
+  "Xbfeeda9",
+  "Xd4c1a35",
+  "Xd8634a2",
+  "Xdcc971e",
+  "Xe1fb77b",
+  "Xe3a2935",
+  "Xeb393f9",
+  "Xebbd488",
+  "Xedd9c7b",
+  "Xf8ac963",
+  "Xfca9f3c"
+ ],
+ "n": 30,
+ "instances": [
+  {
+   "id": "X019b9a4",
+   "n_points": 1550,
+   "two_theta_range_deg": [
+    3.0,
+    33.98
+   ],
+   "n_components": 3,
+   "heavy_atoms_per_formula_unit": 48
+  },
+  {
+   "id": "X07806d9",
+   "n_points": 29816,
+   "two_theta_range_deg": [
+    0.5008,
+    75.0383
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 10
+  },
+  {
+   "id": "X13023e3",
+   "n_points": 9572,
+   "two_theta_range_deg": [
+    2.015,
+    40.299
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 24
+  },
+  {
+   "id": "X14a2b08",
+   "n_points": 9626,
+   "two_theta_range_deg": [
+    3.0,
+    80.0
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 37
+  },
+  {
+   "id": "X1a56c78",
+   "n_points": 4994,
+   "two_theta_range_deg": [
+    5.0,
+    104.86
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 23
+  },
+  {
+   "id": "X1db5091",
+   "n_points": 7201,
+   "two_theta_range_deg": [
+    3.0,
+    75.0
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 38
+  },
+  {
+   "id": "X2327841",
+   "n_points": 12834,
+   "two_theta_range_deg": [
+    1.5,
+    39.999
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 32
+  },
+  {
+   "id": "X238783d",
+   "n_points": 6701,
+   "two_theta_range_deg": [
+    2.0,
+    69.0
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 52
+  },
+  {
+   "id": "X263b09a",
+   "n_points": 7201,
+   "two_theta_range_deg": [
+    3.0,
+    75.0
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 36
+  },
+  {
+   "id": "X35b7fbc",
+   "n_points": 11591,
+   "two_theta_range_deg": [
+    0.515,
+    29.49
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 33
+  },
+  {
+   "id": "X3c176e2",
+   "n_points": 7800,
+   "two_theta_range_deg": [
+    2.0,
+    79.99
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 12
+  },
+  {
+   "id": "X3f4781b",
+   "n_points": 8601,
+   "two_theta_range_deg": [
+    4.0,
+    90.0
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 26
+  },
+  {
+   "id": "X4f6fe58",
+   "n_points": 7501,
+   "two_theta_range_deg": [
+    5.0,
+    80.0
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 20
+  },
+  {
+   "id": "X7e382cb",
+   "n_points": 5862,
+   "two_theta_range_deg": [
+    1.0125,
+    49.987
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 20
+  },
+  {
+   "id": "X8a06d7a",
+   "n_points": 4531,
+   "two_theta_range_deg": [
+    3.001,
+    80.011
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 38
+  },
+  {
+   "id": "X8a6f5a8",
+   "n_points": 8151,
+   "two_theta_range_deg": [
+    3.5,
+    85.0
+   ],
+   "n_components": 3,
+   "heavy_atoms_per_formula_unit": 39
+  },
+  {
+   "id": "X9af54a2",
+   "n_points": 49486,
+   "two_theta_range_deg": [
+    0.51,
+    49.995
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 19
+  },
+  {
+   "id": "Xb7088cf",
+   "n_points": 5864,
+   "two_theta_range_deg": [
+    1.0067,
+    49.9958
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 28
+  },
+  {
+   "id": "Xbfc6d2c",
+   "n_points": 4250,
+   "two_theta_range_deg": [
+    5.0,
+    89.98
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 18
+  },
+  {
+   "id": "Xbfeeda9",
+   "n_points": 9820,
+   "two_theta_range_deg": [
+    2.0,
+    100.19
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 35
+  },
+  {
+   "id": "Xd4c1a35",
+   "n_points": 5499,
+   "two_theta_range_deg": [
+    5.05,
+    60.04
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 24
+  },
+  {
+   "id": "Xd8634a2",
+   "n_points": 49486,
+   "two_theta_range_deg": [
+    0.51,
+    49.995
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 33
+  },
+  {
+   "id": "Xdcc971e",
+   "n_points": 12667,
+   "two_theta_range_deg": [
+    2.001,
+    39.999
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 30
+  },
+  {
+   "id": "Xe1fb77b",
+   "n_points": 49575,
+   "two_theta_range_deg": [
+    0.5,
+    49.9965
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 38
+  },
+  {
+   "id": "Xe3a2935",
+   "n_points": 49486,
+   "two_theta_range_deg": [
+    0.51,
+    49.995
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 21
+  },
+  {
+   "id": "Xeb393f9",
+   "n_points": 29816,
+   "two_theta_range_deg": [
+    0.5008,
+    75.0383
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 37
+  },
+  {
+   "id": "Xebbd488",
+   "n_points": 7001,
+   "two_theta_range_deg": [
+    5.0,
+    75.0
+   ],
+   "n_components": 3,
+   "heavy_atoms_per_formula_unit": 71
+  },
+  {
+   "id": "Xedd9c7b",
+   "n_points": 2818,
+   "two_theta_range_deg": [
+    3.0066,
+    39.9938
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 19
+  },
+  {
+   "id": "Xf8ac963",
+   "n_points": 49486,
+   "two_theta_range_deg": [
+    0.51,
+    49.995
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 21
+  },
+  {
+   "id": "Xfca9f3c",
+   "n_points": 12834,
+   "two_theta_range_deg": [
+    1.5,
+    39.999
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 26
+  }
+ ]
+}X019b9a4 --- {"components": [{"smiles": "CC(=O)C(=NNc1ccc(C(=O)Nc2ccc(C(N)=O)cc2)cc1)C(=O)Nc1ccc2[nH]c(=O)[nH]c2c1", "count": 1, "charge": 0}, {"smiles": "CN1CCCC1=O", "count": 1, "charge": 0}, {"smiles": "C[S+](C)[O-]", "count": 1, "charge": 0}], "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)", "stereochemistry_note": "achiral components; no stereodescriptors.", "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"}
+X07806d9 CIF {"components": [{"smiles": "[NH3+]CC(=O)CCC(=O)O", "count": 1, "charge": 1}, {"smiles": "[Cl-]", "count": 1, "charge": -1}], "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)", "stereochemistry_note": "achiral components; no stereodescriptors.", "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"}
+X13023e3 CIF {"components": [{"smiles": "CC(C)Cc1ccc([C@@H](C)C(=O)O)cc1", "count": 1, "charge": 0}, {"smiles": "NC(=O)c1cccnc1", "count": 1, "charge": 0}], "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)", "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.", "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"}
+X14a2b08 --- {"components": [{"smiles": "COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1", "count": 1, "charge": 0}, {"smiles": "O=C1CCCCCN1", "count": 1, "charge": 0}], "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)", "stereochemistry_note": "achiral components; no stereodescriptors.", "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"}
+X1a56c78 --- {"components": [{"smiles": "O[C@](CC[NH+]1CCCCC1)(c1ccccc1)C1CCCCC1", "count": 1, "charge": 1}, {"smiles": "[Cl-]", "count": 1, "charge": -1}], "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)", "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.", "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"}
+X1db5091 --- {"components": [{"smiles": "COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1", "count": 1, "charge": 0}, {"smiles": "NC(=O)c1cccnc1", "count": 1, "charge": 0}], "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)", "stereochemistry_note": "achiral components; no stereodescriptors.", "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"}
+X2327841 CIF {"components": [{"smiles": "CCCCCCCCCCCCCCCCCCCCCC[C@@H](C)CCCCCCCC", "count": 1, "charge": 0}], "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)", "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.", "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"}
+X238783d --- {"components": [{"smiles": "CC[C@H]1OC(=O)[C@H](C)[C@@H](O[C@H]2C[C@@](C)(OC)[C@@H](O)[C@H](C)O2)[C@H](C)[C@@H](O[C@@H]2O[C@H](C)C[C@H](N(C)C)[C@H]2O)[C@](C)(OC)C[C@@H](C)C(=O)[C@H](C)[C@@H](O)[C@]1(C)O", "count": 1, "charge": 0}], "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)", "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.", "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"}
+X263b09a --- {"components": [{"smiles": "COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1", "count": 1, "charge": 0}, {"smiles": "O=C1CCCCN1", "count": 1, "charge": 0}], "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)", "stereochemistry_note": "achiral components; no stereodescriptors.", "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"}
+X35b7fbc --- {"components": [{"smiles": "CC[C@@H](CO)NC(=O)[C@@H]1C=C2c3cccc4[nH]cc(c34)C[C@H]2[NH+](C)C1", "count": 1, "charge": 1}, {"smiles": "O=C([O-])C=CC(=O)O", "count": 1, "charge": -1}], "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)", "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.", "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"}
+X3c176e2 CIF {"components": [{"smiles": "OC1C(O)C(O)C(O)C(O)C1O", "count": 1, "charge": 0}], "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)", "stereochemistry_note": "achiral components; no stereodescriptors.", "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"}
+X3f4781b --- {"components": [{"smiles": "COC(=O)[C@H](c1ccccc1Cl)[NH+]1CCc2sccc2C1", "count": 1, "charge": 1}, {"smiles": "O=S(=O)([O-])O", "count": 1, "charge": -1}], "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)", "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.", "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"}
+X4f6fe58 --- {"components": [{"smiles": "O=C1CN=C(c2ccccc2Cl)c2cc(Br)ccc2N1", "count": 1, "charge": 0}], "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)", "stereochemistry_note": "achiral components; no stereodescriptors.", "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"}
+X7e382cb --- {"components": [{"smiles": "O=C([O-])c1ccc(-c2ccc(C(=O)[O-])cc2)cc1", "count": 1, "charge": -2}, {"smiles": "[NH4+]", "count": 2, "charge": 1}], "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)", "stereochemistry_note": "achiral components; no stereodescriptors.", "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"}
+X8a06d7a --- {"components": [{"smiles": "COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1", "count": 1, "charge": 0}, {"smiles": "NC(=O)c1ccccn1", "count": 1, "charge": 0}], "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)", "stereochemistry_note": "achiral components; no stereodescriptors.", "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"}
+X8a6f5a8 --- {"components": [{"smiles": "COc1ccccc1OCC[NH2+]C[C@@H](O)COc1cccc2[nH]c3ccccc3c12", "count": 1, "charge": 1}, {"smiles": "O=P([O-])(O)O", "count": 1, "charge": -1}, {"smiles": "CC(C)O", "count": 1, "charge": 0}], "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)", "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.", "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"}
+X9af54a2 --- {"components": [{"smiles": "COc1ccc(OC)c([C@H](O)CNC(=O)C[NH3+])c1", "count": 1, "charge": 1}, {"smiles": "[Cl-]", "count": 1, "charge": -1}], "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)", "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.", "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"}
+Xb7088cf --- {"components": [{"smiles": "Nc1ccccc1NC(=O)c1ccc(CNC(=O)OCc2cccnc2)cc1", "count": 1, "charge": 0}], "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)", "stereochemistry_note": "achiral components; no stereodescriptors.", "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"}
+Xbfc6d2c CIF {"components": [{"smiles": "[C-]#[N+]c1ccc(-c2ccc([N+]#[C-])c(C)c2)cc1C", "count": 1, "charge": 0}], "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)", "stereochemistry_note": "achiral components; no stereodescriptors.", "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"}
+Xbfeeda9 --- {"components": [{"smiles": "CN(C)C(=O)C(CC[NH+]1CCC(O)(c2ccc(Cl)cc2)CC1)(c1ccccc1)c1ccccc1", "count": 1, "charge": 1}, {"smiles": "[Cl-]", "count": 1, "charge": -1}], "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)", "stereochemistry_note": "achiral components; no stereodescriptors.", "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"}
+Xd4c1a35 CIF {"components": [{"smiles": "COC1=CC(=O)C[C@@H](C)[C@]12Oc1c(Cl)c(OC)cc(OC)c1C2=O", "count": 1, "charge": 0}], "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)", "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.", "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"}
+Xd8634a2 --- {"components": [{"smiles": "CNS(=O)(=O)Nc1nccc(Cc2c(C)c3ccc(Oc4ncccn4)cc3oc2=O)c1F", "count": 1, "charge": 0}], "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)", "stereochemistry_note": "achiral components; no stereodescriptors.", "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"}
+Xdcc971e CIF {"components": [{"smiles": "CCCCCCCCCCCCCCCC[C@@H](C)CCCCCCCCCCCC", "count": 1, "charge": 0}], "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)", "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.", "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"}
+Xe1fb77b --- {"components": [{"smiles": "O=C(/C=C/c1ccc(O)c(O)c1)O[C@@H]1C[C@@](OC(=O)/C=C/c2ccc(O)c(O)c2)(C(=O)O)C[C@@H](O)[C@@H]1O", "count": 1, "charge": 0}, {"smiles": "O", "count": 1, "charge": 0}], "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)", "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.", "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"}
+Xe3a2935 CIF {"components": [{"smiles": "C[C@@H]1CC(=O)NN=C1c1ccc(NN=C(C#N)C#N)cc1", "count": 1, "charge": 0}], "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)", "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.", "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"}
+Xeb393f9 CIF {"components": [{"smiles": "O=C(O)CCC[NH+]1CCC(O[C@@H](c2ccc(Cl)cc2)c2ccccn2)CC1", "count": 1, "charge": 1}, {"smiles": "O=S(=O)([O-])c1ccccc1", "count": 1, "charge": -1}], "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)", "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.", "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"}
+Xebbd488 --- {"components": [{"smiles": "COc1ccccc1OCC[NH2+]C[C@H](O)COc1cccc2[nH]c3ccccc3c12", "count": 2, "charge": 1}, {"smiles": "O=P([O-])(O)O", "count": 2, "charge": -1}, {"smiles": "O", "count": 1, "charge": 0}], "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)", "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.", "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"}
+Xedd9c7b --- {"components": [{"smiles": "C[NH+](C)CCc1c[nH]c2cccc(OP(=O)([O-])O)c12", "count": 1, "charge": 0}], "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)", "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.", "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"}
+Xf8ac963 CIF {"components": [{"smiles": "COc1ccc(NC(=O)[C@@H]2C[C@H](C)CC[C@H]2C(C)C)cc1", "count": 1, "charge": 0}], "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)", "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.", "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"}
+Xfca9f3c CIF {"components": [{"smiles": "CCCCCCCCCCCCCCCC[C@@H](C)CCCCCCCC", "count": 1, "charge": 0}], "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)", "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.", "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"}

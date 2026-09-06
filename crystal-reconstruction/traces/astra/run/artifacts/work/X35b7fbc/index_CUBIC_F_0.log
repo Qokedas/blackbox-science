@@ -1,0 +1,26 @@
+X35b7fbc CUBIC F 0 peaks [0.7025, 0.77, 0.83152, 0.845, 0.88, 1.1475, 2.41209, 3.35784, 3.9574, 4.79351, 5.76488, 6.27629, 6.72785, 6.81333, 7.12348, 7.25458, 7.4258, 7.69062, 7.78591, 7.90558, 8.06365, 8.50689] V 31046.767578125 34151.4443359375 Lmax 60
+3->60,2.28001,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+31046.8->34151.4,443.532,6.9999
+Starting: V=31046.8->31490.3
+60,3,2.28009
+Finished: V=31046.8->31490.3 A^3, 1 unit cells tested, 16129 tests/s,   Elapsed time=6.7e-05s
+Starting: V=31490.3->31933.8
+60,3,2.28009
+Finished: V=31490.3->31933.8 A^3, 2 unit cells tested, 16000 tests/s,   Elapsed time=0.000131s
+Starting: V=31933.8->32377.4
+60,3,2.28009
+Finished: V=31933.8->32377.4 A^3, 3 unit cells tested, 16042.8 tests/s,   Elapsed time=0.000192s
+Starting: V=32377.4->32820.9
+60,3,2.28009
+Finished: V=32377.4->32820.9 A^3, 4 unit cells tested, 16260.2 tests/s,   Elapsed time=0.000251s
+Starting: V=32820.9->33264.4
+60,3,2.28009
+Finished: V=32820.9->33264.4 A^3, 5 unit cells tested, 15384.6 tests/s,   Elapsed time=0.00033s
+Starting: V=33264.4->33708
+60,3,2.28009
+Finished: V=33264.4->33708 A^3, 6 unit cells tested, 15584.4 tests/s,   Elapsed time=0.000397s
+Starting: V=33708->34151.4
+60,3,2.28009
+Finished: V=33708->34151.4 A^3, 7 unit cells tested, 15486.7 tests/s,   Elapsed time=0.000457s
+DONE X35b7fbc CUBIC F 0 0.0005605220794677734 []

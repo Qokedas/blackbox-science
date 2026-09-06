@@ -1,0 +1,6 @@
+ObjRegistry<T>::Find(ion_C): Not found !!
+List of Crystal ScatteringPowers :0 object registered:
+ORIGINAL 0.07038968132416873
+DOUBLETFIXED 0.07032376603288155
+DOUBLETFIT 0.063143761217445
+{"cell": {"a": 5.905209241516185, "b": 11.254495875626558, "c": 30.084401103625222, "alpha": 90.0, "beta": 90.0, "gamma": 90.0}, "Rw": 0.06357042323160327}

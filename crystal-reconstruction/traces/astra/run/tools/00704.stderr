@@ -1,0 +1,4 @@
+<stdin>:8: RuntimeWarning: invalid value encountered in arcsin
+Traceback (most recent call last):
+  File "<stdin>", line 15, in <module>
+ValueError: max() arg is an empty sequence

@@ -1,0 +1,11 @@
+{
+  "trial_id": "qkd-0906-pxrd-fable",
+  "provider": "anthropic",
+  "model": "claude-fable-5-1",
+  "kind": "scientific_trial",
+  "image_id": "sha256:ee92f204fb8c1223ce5897544e6d9332af75193eef710328efe4da1aa4d00df5",
+  "instruction_relative": "instruction.md",
+  "budget_seconds": 28800,
+  "cpus": 4,
+  "memory": "16g"
+}

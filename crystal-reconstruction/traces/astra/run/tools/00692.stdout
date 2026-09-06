@@ -1,0 +1,133 @@
+STARTS 325
+Traceback (most recent call last):
+  File "/app/work/emg_refine_cells.py", line 45, in <module>
+    d,ind=assign(v,T,q,fac)
+          ^^^^^^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.11/site-packages/numba/core/dispatcher.py", line 422, in _compile_for_args
+    error_rewrite(e, 'typing')
+  File "/opt/conda/lib/python3.11/site-packages/numba/core/dispatcher.py", line 363, in error_rewrite
+    raise e.with_traceback(None)
+numba.core.errors.TypingError: Failed in nopython mode pipeline (step: nopython frontend)
+No implementation of function Function(<built-in function abs>) found for signature:
+ 
+ >>> abs(array(float64, 1d, C))
+ 
+There are 6 candidate implementations:
+ - Of which 4 did not match due to:
+ Overload of function 'abs': File: <numerous>: Line N/A.
+   With argument(s): '(array(float64, 1d, C))':
+  No match.
+ - Of which 2 did not match due to:
+ Type Restricted Function in function 'abs': File: unknown: Line unknown.
+   With argument(s): '(array(float64, 1d, C))':
+  No match for registered cases:
+   * (int8,) -> int8
+   * (int16,) -> int16
+   * (int32,) -> int32
+   * (int64,) -> int64
+   * (uint8,) -> uint8
+   * (uint16,) -> uint16
+   * (uint32,) -> uint32
+   * (uint64,) -> uint64
+   * (float32,) -> float32
+   * (float64,) -> float64
+   * (complex64,) -> float32
+   * (complex128,) -> float64
+
+During: resolving callee type: Function(<built-in function abs>)
+During: typing of call at /app/work/emg_refine_cells.py (14)
+
+File "work/emg_refine_cells.py", line 14:
+def assign(v,T,q,fac):
+    <source elided>
+ for i in range(len(q)):
+  delta=(qc-q[i])*fac[i]+v[-1];j=np.argmin(abs(delta));d[i]=delta[j];ind[i]=j
+  ^
+
+During: Pass nopython_type_inference
+        # C2/m
+        hl = 2 * pi * (torch.einsum("i,jk->jik", hkl[0], asymmetric_frac_coords[:,:,0])
+                        + torch.einsum("i,jk->jik", hkl[2], asymmetric_frac_coords[:,:,2]))
+        ky = 2 * pi * (torch.einsum("i,jk->jik", hkl[1], asymmetric_frac_coords[:,:,1]))
+        hk = (2 * pi * (hkl[0] + hkl[1])/4).view(1,peaks,1)
+        c_sqd_hk = torch.cos(hk)**2
+        A = 8 * c_sqd_hk * torch.cos(hl) * torch.cos(ky)
+        intensities = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,A).sum(dim=2)**2
+
+    elif space_group_number == 13:
+        # P2/c
+        hl = 2 * pi * (torch.einsum("i,jk->jik", hkl[0], asymmetric_frac_coords[:,:,0])
+                        + torch.einsum("i,jk->jik", hkl[2], asymmetric_frac_coords[:,:,2])
+                        + hkl[2].view(1,peaks,1)/4)
+        ky = 2 * pi * (torch.einsum("i,jk->jik", hkl[1], asymmetric_frac_coords[:,:,1])
+                        - hkl[2].view(1,peaks,1)/4)
+        A = 4 * torch.cos(hl) * torch.cos(ky)
+        intensities = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,A).sum(dim=2)**2
+
+    elif space_group_number == 14:
+        # P21/c
+        hl = 2 * pi * (torch.einsum("i,jk->jik", hkl[0], asymmetric_frac_coords[:,:,0])
+                        + torch.einsum("i,jk->jik", hkl[2], asymmetric_frac_coords[:,:,2])
+                        + (hkl[1] + hkl[2]).view(1,peaks,1)/4)
+        ky = 2 * pi * (torch.einsum("i,jk->jik", hkl[1], asymmetric_frac_coords[:,:,1])
+                        - (hkl[1] + hkl[2]).view(1,peaks,1)/4)
+        A = 4 * torch.cos(hl) * torch.cos(ky)
+        intensities = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,A).sum(dim=2)**2
+
+    elif space_group_number == 15:
+        # C2/c
+        hl = 2 * pi * (torch.einsum("i,jk->jik", hkl[0], asymmetric_frac_coords[:,:,0])
+                        + torch.einsum("i,jk->jik", hkl[2], asymmetric_frac_coords[:,:,2])
+                        + hkl[2].view(1,peaks,1)/4)
+        ky = 2 * pi * (torch.einsum("i,jk->jik", hkl[1], asymmetric_frac_coords[:,:,1])
+                        - hkl[2].view(1,peaks,1)/4)
+        # The initial term involving only h and k could be calculated in advance.
+        A = 8 * (((torch.cos((2 * pi * (hkl[0] + hkl[1]))/4))**2).view(1,peaks,1)
+                    * torch.cos(hl) * torch.cos(ky))
+
+        intensities = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,A).sum(dim=2)**2
+
+    elif space_group_number == 18:
+        # P21212
+        hx = 2 * pi * (torch.einsum("i,jk->jik", hkl[0], asymmetric_frac_coords[:,:,0])
+                        + (hkl[0] + hkl[1]).view(1,peaks,1)/4)
+        ky = 2 * pi * (torch.einsum("i,jk->jik", hkl[1], asymmetric_frac_coords[:,:,1])
+                        - (hkl[0] + hkl[1]).view(1,peaks,1)/4)
+        lz = 2 * pi * torch.einsum("i,jk->jik", hkl[2], asymmetric_frac_coords[:,:,2])
+
+        chx = torch.cos(hx)
+        cky = torch.cos(ky)
+        clz = torch.cos(lz)
+
+        shx = torch.sin(hx)
+        sky = torch.sin(ky)
+        slz = torch.sin(lz)
+
+        A =  4 * chx * cky * clz
+        B = -4 * shx * sky * slz
+
+        Asqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,A).sum(dim=2)**2
+        Bsqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,B).sum(dim=2)**2
+        intensities = Asqd + Bsqd
+
+    elif space_group_number == 19:
+        # P212121
+        hx = 2 * pi * (torch.einsum("i,jk->jik", hkl[0], asymmetric_frac_coords[:,:,0])
+                        - (hkl[0] - hkl[1]).view(1,peaks,1)/4)
+        ky = 2 * pi * (torch.einsum("i,jk->jik", hkl[1], asymmetric_frac_coords[:,:,1])
+                        - (hkl[1] - hkl[2]).view(1,peaks,1)/4)
+        lz = 2 * pi * (torch.einsum("i,jk->jik", hkl[2], asymmetric_frac_coords[:,:,2])
+                        - (hkl[2] - hkl[0]).view(1,peaks,1)/4)
+
+        chx = torch.cos(hx)
+        cky = torch.cos(ky)
+        clz = torch.cos(lz)
+
+        shx = torch.sin(hx)
+        sky = torch.sin(ky)
+        slz = torch.sin(lz)
+
+        A =  4 * chx * cky * clz
+        B = -4 * shx * sky * slz
+
+        Asqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,A).sum(dim=2)**2

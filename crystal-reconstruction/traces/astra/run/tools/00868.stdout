@@ -1,0 +1,177 @@
+{
+ "radiation": {
+  "type": "Cu K",
+  "wavelength_A": 1.5418,
+  "wavelengths_A": [
+   1.5418
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "reflection (flat plate / Bragg-Brentano)",
+ "geometry_source_text": null,
+ "temperature_K": 298.0,
+ "two_theta_range_deg": [
+  5.0,
+  104.86
+ ],
+ "n_points": 4994,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "sqrt(max(I,1)); counting statistics assumed",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": [
+  "the depositors recorded Cu K-alpha as a single wavelength 1.5418 A (the K-alpha1/K-alpha2 weighted mean); whether the K-alpha2 component is present in the data is not stated"
+ ]
+}{
+ "radiation": {
+  "type": "synchrotron",
+  "wavelength_A": 0.6996,
+  "wavelengths_A": [
+   0.6996
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 293.0,
+ "two_theta_range_deg": [
+  0.515,
+  29.49
+ ],
+ "n_points": 11591,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "sqrt(max(I,1)); counting statistics assumed",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}/app/work/X1a56c78/candidates.json
+/app/work/X1a56c78/candidates_sg18.json
+/app/work/X1a56c78/fit_0.json
+/app/work/X1a56c78/fit_1.json
+/app/work/X1a56c78/fit_sg18.json
+/app/work/X1a56c78/index_CUBIC_F_0.json
+/app/work/X1a56c78/index_CUBIC_I_0.json
+/app/work/X1a56c78/index_CUBIC_P_0.json
+/app/work/X1a56c78/index_HEXAGONAL_P_0.json
+/app/work/X1a56c78/index_MONOCLINIC_C_0.json
+/app/work/X1a56c78/index_MONOCLINIC_P_0.json
+/app/work/X1a56c78/index_ORTHOROMBIC_C_0.json
+/app/work/X1a56c78/index_ORTHOROMBIC_I_0.json
+/app/work/X1a56c78/index_ORTHOROMBIC_P_0.json
+/app/work/X1a56c78/index_RHOMBOEDRAL_P_0.json
+/app/work/X1a56c78/index_TETRAGONAL_I_0.json
+/app/work/X1a56c78/index_TETRAGONAL_P_0.json
+/app/work/X1a56c78/lattice.json
+/app/work/X1a56c78/peaks.json
+/app/work/X1a56c78/refined_g11.json
+/app/work/X1a56c78/refined_g18.json
+/app/work/X1a56c78/submission_before_sgaudit.json
+/app/work/X1a56c78/translations_1.json
+{
+ "cell": [
+  5.709693288866435,
+  12.76769071336346,
+  33.141927408324,
+  90.0,
+  90.0,
+  90.0
+ ],
+ "volume": 2417.1668596260106,
+ "score": 170.78665161132812,
+ "system": "ORTHOROMBIC",
+ "centering": "P",
+ "mode": 2,
+ "source": "index_ORTHOROMBIC_P_2.json",
+ "sg": "Pmmm",
+ "sgstart": "Pmmm",
+ "Rw": 0.07523139293336908,
+ "groups": [
+  {
+   "sg": "P 21 21 21",
+   "number": 19,
+   "Rw": 8.041218323823978,
+   "GoF": 18.672027642267864,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 2 21 21",
+   "number": 18,
+   "Rw": 8.044340255590832,
+   "GoF": 18.689253336263224,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 21 2 21",
+   "number": 18,
+   "Rw": 8.046402168769953,
+   "GoF": 18.70156193933733,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 2 2 21",
+   "number": 17,
+   "Rw": 8.049520131580985,
+   "GoF": 18.718787856199867,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 21 21 2",
+   "number": 18,
+   "Rw": 8.182981098227849,
+   "GoF": 19.35593942410824,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 2 21 2",
+   "number": 17,
+   "Rw": 8.18604410170475,
+   "GoF": 19.373259504975895,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 21 2 2",
+   "number": 17,
+   "Rw": 8.18751236751017,
+   "GoF": 19.383038598776906,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 2 2 2",
+   "number": 16,
+   "Rw": 8.190571981194491,
+   "GoF": 19.400359661885993,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "A 21 2 2",
+   "number": 20,
+   "Rw": 46.34499611608282,
+   "GoF": 617.2616732719312,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "A 2 2 2",
+   "number": 21,
+   "Rw": 46.35231305999405,
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X4f6fe58 164.42037963867188
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X1db5091 165.75013732910156
+Sun Sep  6 09:21:36 UTC 2026

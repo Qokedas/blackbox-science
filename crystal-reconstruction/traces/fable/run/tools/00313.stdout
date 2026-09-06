@@ -1,0 +1,37 @@
+P m n m Rwp 0.569 tot max 2128 at 10.16 obs max 45974 diff-calc argmax at 10.16 tot-min 807
+    2th 16.05 obs 6413 tot 1269
+    2th 17.75 obs 38262 tot 1252
+    2th 19.02 obs 15880 tot 1289
+    2th 9.48 obs 1244 tot 1363
+    2th 10.20 obs 1479 tot 1928
+P m n m Rwp 0.569 tot max 1821 at 10.16 obs max 45974 diff-calc argmax at 10.16 tot-min 807
+    2th 16.05 obs 6413 tot 1274
+    2th 17.75 obs 38262 tot 1217
+    2th 19.02 obs 15880 tot 1279
+    2th 9.48 obs 1244 tot 1666
+    2th 10.20 obs 1479 tot 1687
+P m n m Rwp 0.569 tot max 2020 at 10.16 obs max 45974 diff-calc argmax at 10.16 tot-min 806
+    2th 16.05 obs 6413 tot 1269
+    2th 17.75 obs 38262 tot 1243
+    2th 19.02 obs 15880 tot 1278
+    2th 9.48 obs 1244 tot 1570
+    2th 10.20 obs 1479 tot 1843
+--
+P c a b Rwp 0.573 tot max 1957 at 12.59 obs max 45974 diff-calc argmax at 12.59 tot-min 793
+    2th 16.05 obs 6413 tot 1318
+    2th 17.75 obs 38262 tot 1098
+    2th 19.02 obs 15880 tot 1185
+    2th 9.48 obs 1244 tot 1261
+    2th 10.20 obs 1479 tot 1322
+P c a b Rwp 0.573 tot max 2094 at 12.59 obs max 45974 diff-calc argmax at 12.59 tot-min 795
+    2th 16.05 obs 6413 tot 1316
+    2th 17.75 obs 38262 tot 1103
+    2th 19.02 obs 15880 tot 1195
+    2th 9.48 obs 1244 tot 1261
+    2th 10.20 obs 1479 tot 1322
+P c a b Rwp 0.573 tot max 1944 at 14.93 obs max 45974 diff-calc argmax at 14.93 tot-min 798
+    2th 16.05 obs 6413 tot 1307
+    2th 17.75 obs 38262 tot 1098
+    2th 19.02 obs 15880 tot 1195
+    2th 9.48 obs 1244 tot 1261
+    2th 10.20 obs 1479 tot 1322

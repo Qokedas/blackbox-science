@@ -1,0 +1,121 @@
+EXACT_PAWLEY nref 169 rank 159 cond 678.8512065931568 chi2 14384.021202666845 netRwp 0.16434987457697728
+TWO_CENTRES [6.95088005065918, 6.971439838409424, 15.760000228881836, 65.62010192871094, 82.98049926757812, 67.39070129394531] Nref 169 Nparticle 224
+BATCH 0 best 122.2587661743164 diffraction 120.46295166015625 p25 353.4835205078125 seconds 25.24208688735962 centre [0.  0.5 0.5]
+BATCH 1 best 122.25855255126953 diffraction 120.4627685546875 p25 338.66949462890625 seconds 44.82248258590698 centre [0.  0.5 0.5]
+BATCH 2 best 122.25856018066406 diffraction 120.4627685546875 p25 318.1592712402344 seconds 73.12491631507874 centre [0.  0.5 0.5]
+BATCH 3 best 122.25863647460938 diffraction 120.46282958984375 p25 332.45477294921875 seconds 98.43769264221191 centre [0.  0.5 0.5]
+BATCH 4 best 122.2585678100586 diffraction 120.4627685546875 p25 275.8479919433594 seconds 122.20046734809875 centre [0.  0.5 0.5]
+BATCH 5 best 144.02459716796875 diffraction 143.06378173828125 p25 366.165771484375 seconds 156.98967695236206 centre [0.  0.5 0.5]
+BATCH 6 best 122.25858306884766 diffraction 120.4627685546875 p25 319.9562683105469 seconds 189.30524849891663 centre [0.  0.5 0.5]
+BATCH 7 best 122.25865936279297 diffraction 120.46282958984375 p25 343.10137939453125 seconds 217.92314505577087 centre [0.  0.5 0.5]
+BATCH 8 best 122.25857543945312 diffraction 120.4627685546875 p25 311.2524719238281 seconds 244.58409237861633 centre [0.  0.5 0.5]
+BATCH 9 best 122.25847625732422 diffraction 120.46270751953125 p25 313.7315368652344 seconds 271.391375541687 centre [0.  0.5 0.5]
+BATCH 10 best 141.5489044189453 diffraction 135.81793212890625 p25 368.9066467285156 seconds 298.9206280708313 centre [0.  0.5 0.5]
+BATCH 11 best 122.25849151611328 diffraction 120.46270751953125 p25 332.8132019042969 seconds 322.43927025794983 centre [0.  0.5 0.5]
+BATCH 12 best 122.258544921875 diffraction 120.4627685546875 p25 315.5198974609375 seconds 343.5368685722351 centre [0.  0.5 0.5]
+GALLOP 4 Nref 169 seconds 21.06670570373535 best 108.4754 q25 126.380585 median 149.26657 total 130.99762535095215
+GALLOP 5 Nref 169 seconds 17.122493028640747 best 108.475426 q25 149.57642 median 406.6662 total 148.13762187957764
+GALLOP 6 Nref 169 seconds 23.56465220451355 best 108.47545 q25 145.35834 median 223.97302 total 171.7054979801178
+GALLOP 7 Nref 169 seconds 25.40384078025818 best 108.4754 q25 127.19947 median 212.4599 total 197.11304831504822
+GALLOP 8 Nref 169 seconds 23.108042001724243 best 108.475395 q25 111.30692 median 146.87996 total 220.22497582435608
+GALLOP 9 Nref 169 seconds 19.189797163009644 best 108.47538 q25 111.51039 median 141.31152 total 239.43995642662048
+GALLOP 10 Nref 169 seconds 18.480941772460938 best 108.47533 q25 141.31232 median 228.0306 total 257.936883687973
+FINISHED X7e382cb 108.47532653808594
+Imported powder pattern: 2205 points, 2theta=  2.007 ->  20.423, step= 0.008
+FRESH_BASE X7e382cb P -1 0.04932708278851508 28788.678141668952
+Imported powder pattern: 2205 points, 2theta=  2.007 ->  20.423, step= 0.008
+SCALED 3.6133211675918493 Rw 0.04930685999160735 Chi2 2203.1923874657755
+{
+ "radiation": {
+  "type": "Mo Kalpha1,2 (laboratory sealed tube)",
+  "wavelength_A": 0.709319,
+  "wavelengths_A": [
+   0.709319,
+   0.713609
+  ],
+  "wavelength_weights": [
+   1.0,
+   0.5
+  ],
+  "monochromator": null,
+  "source": "sealed X-ray tube"
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 300.0,
+ "two_theta_range_deg": [
+  1.0125,
+  49.987
+ ],
+ "n_points": 5862,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "sqrt(max(I,1)); counting statistics assumed",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": [
+  "Kalpha2 weight 0.5 is the standard ratio; the depositors state only Kalpha1,2"
+ ]
+}import ctypes, numpy as np
+_lib=ctypes.CDLL('/app/work/libobj_bridge.so')
+_lib.bridge_matrix.argtypes=[ctypes.c_void_p,ctypes.c_void_p,ctypes.c_long,ctypes.c_long]
+_lib.bridge_setobs.argtypes=[ctypes.c_void_p,ctypes.c_void_p,ctypes.c_long]
+_lib.bridge_march.argtypes=[ctypes.c_void_p]+[ctypes.c_double]*5
+_lib.bridge_bumpscale.argtypes=[ctypes.c_void_p,ctypes.c_double]
+def profile_matrix(p,d,nref=None):
+ p.Prepare();d.GetPowderPatternCalc()
+ if nref is None:nref=len(d.GetFhklObsSq())
+ a=np.zeros((len(p.GetPowderPatternX()),nref),dtype=np.float64)
+ ret=_lib.bridge_matrix(d.int_ptr(),a.ctypes.data,*a.shape)
+ if ret<0:raise RuntimeError('Profile matrix failed '+str(ret))
+ return a
+def set_obs(d,values):
+ v=np.ascontiguousarray(values,dtype=np.float64);_lib.bridge_setobs(d.int_ptr(),v.ctypes.data,len(v))
+def add_march(d,fraction,coeff,h,k,l):
+ _lib.bridge_march(d.int_ptr(),float(fraction),float(coeff),float(h),float(k),float(l))
+def set_bump_scale(c,scale):
+ _lib.bridge_bumpscale(c.int_ptr(),float(scale))
+
+def exact_pawley(p,d,stolmax=None,rcond=1e-4):
+ # Exact linear design matrix at fixed profile, lattice, and background.
+ # Retain all overlap couplings; truncate only near-null singular directions.
+ d.SetExtractionMode(True,False);p.Prepare();p.FitScaleFactorForRw()
+ mat=profile_matrix(p,d);f0=np.asarray(d.GetFhklObsSq())
+ # A loaded Le Bail cache can still point at calculated rather than extracted
+ # intensities. Verify the actual fixed-profile bridge before using its covariance.
+ for check in range(3):
+  cp=np.asarray(d.GetPowderPatternCalc());ratio=np.linalg.norm(mat[:,:len(f0)]@f0-cp)/max(np.linalg.norm(cp),1e-30)
+  if np.isfinite(ratio) and ratio<.005:break
+  print('PAWLEY_CACHE_REPAIR',check,ratio,p.GetRw(),flush=True)
+  d.ExtractLeBail(10);p.Prepare();p.FitScaleFactorForRw();mat=profile_matrix(p,d);f0=np.asarray(d.GetFhklObsSq())
+ x=np.asarray(p.GetPowderPatternX());weight=np.asarray(p.GetLSQWeight(0));obs=np.asarray(p.GetPowderPatternObs());calc=np.asarray(p.GetPowderPatternCalc());compcalc=np.asarray(d.GetPowderPatternCalc());scale=np.dot(calc-p.GetPowderPatternComponent(1).GetPowderPatternCalc(),compcalc)/np.dot(compcalc,compcalc)
+ background=calc-compcalc*scale
+ n=min(len(weight),len(x));sel=np.arange(len(f0))
+ if stolmax is not None:
+  stol=np.asarray(d.GetSinThetaOverLambda())[:len(f0)];sel=sel[stol<=stolmax]
+  n=min(n,int(np.searchsorted(x,2*np.arcsin(stolmax*p.GetWavelength())+np.deg2rad(p.GetPar('Zero').GetHumanValue()))))
+ a=mat[:n,sel]*scale;target=obs[:n]-background[:n]
+ excluded=np.setdiff1d(np.arange(len(f0)),sel)
+ if len(excluded):target-=mat[:n,excluded]@f0[excluded]*scale
+ sw=np.sqrt(weight[:n]);aw=a*sw[:,None];yw=target*sw
+ # Scale columns for numerical stability. Use Le Bail distribution in null modes.
+ cs=np.linalg.norm(aw,axis=0);cs=np.maximum(cs,np.max(cs)*1e-9);an=aw/cs
+ u,sv,vt=np.linalg.svd(an,full_matrices=False);keep=sv>sv[0]*rcond
+ corr=(vt[keep].T@((u[:,keep].T@(yw-aw@f0[sel]))/sv[keep]))/cs
+ f=f0[sel]+corr
+ # Filter near-null modes also from normal matrix, keeping a PSD covariance.
+ av=(vt[keep]*sv[keep,None])*cs[None,:];normal=av.T@av
+ chi=np.sum((yw-aw@f)**2);var=float(f@normal@f)
+ print('EXACT_PAWLEY','nref',len(sel),'rank',int(keep.sum()),'cond',sv[0]/sv[keep][-1], 'chi2',chi,'netRwp',np.sqrt(chi/max(np.dot(yw,yw),1e-30)),flush=True)
+ return dict(matrix=a,normal=normal,obs=f,sel=sel,x=x[:n],weights=weight[:n],profile=target,chi2=chi,var=var)
+import os,sys,json,numpy as np,torch
+from rdkit import Chem
+from gallop.structure import Structure
+from gallop import tensor_prep,zm_to_cart
+for D in sys.argv[1:]:
+ s=Structure();s.from_json(open(D+'/structure.json').read());md=json.load(open(D+'/model.json'));t=tensor_prep.get_all_required_tensors(s,n_samples=50,requires_grad=False,device=torch.device('cpu'),verbose=False)
+ with torch.no_grad():frac=zm_to_cart.get_asymmetric_coords(**t['zm']).numpy();xyz=frac@s.lattice.matrix
+ off=0
+ for m in md:
+  r=Chem.MolFromSmiles(m['smiles']);order=m['order'];idx={v:i for i,v in enumerate(order)};ref=np.array(m['rdkit_coords']);err=[]
+  for b in r.GetBonds():
+   i=b.GetBeginAtomIdx();j=b.GetEndAtomIdx();dd=np.linalg.norm(xyz[:,off+idx[i]]-xyz[:,off+idx[j]],axis=-1);err.append(max(abs(dd-np.linalg.norm(ref[i]-ref[j]))))
+  print(D,m['smiles'],'maxbondError',max(err,default=0),flush=True);off+=len(order)

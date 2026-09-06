@@ -1,0 +1,148 @@
+"""Make a chemically restrained GALLOP restart from a Rietveld XML snapshot.
+Existing Cartesian molecular geometry is maintained exactly.  The molecular
+coordinate and quaternion gauge is solved and checked by proper Procrustes.
+"""
+import os,sys,json,numpy as np,torch,xml.etree.ElementTree as ET
+from scipy.spatial.transform import Rotation
+from pyobjcryst.io import xml_cryst_file_load_all_object
+from gallop_prepare import prepare
+from gallop import tensor_prep,zm_to_cart
+from pymatgen.core import Lattice
+from rdkit import Chem
+sid=sys.argv[1];run=int(sys.argv[2]);src=sys.argv[3];model_path=sys.argv[4];W='/app/work/'+sid;G=W+'/gallop_'+str(run);os.makedirs(G,exist_ok=True)
+objs=xml_cryst_file_load_all_object(src);c=next(o for o in objs if o.GetClassName()=='Crystal');mods=json.load(open(model_path));cp=[c.GetPar(n).GetHumanValue() for n in ['a','b','c','alpha','beta','gamma']];lat=Lattice.from_parameters(*cp);newmods=[];target=[]
+for i,md in enumerate(mods):
+ m=c.GetScatterer(i);N=Chem.MolFromSmiles(md['smiles']).GetNumAtoms();sc=list(m.GetScatteringComponentList());f=np.array([[a.X,a.Y,a.Z] for a in sc[:N]]);xyz=f@lat.matrix;target.append(xyz);newmods.append(dict(smiles=md['smiles'],count=1,charge=0,coords=xyz.tolist()))
+biso={}
+for i in range(c.GetNbScatteringPower() if hasattr(c,'GetNbScatteringPower') else len(c.GetScatteringPowerRegistry())):
+ sp=c.GetScatteringPowerRegistry().GetObj(i);biso[sp.GetSymbol()]=float(sp.GetBiso())
+# An independent atomless Le Bail base, retaining the refined lattice/profile.
+tree=ET.parse(src);root=tree.getroot()
+for cr in root.findall('Crystal'):
+ for el in list(cr):
+  if el.tag in ['Molecule','Atom','ZScatterer']:cr.remove(el)
+tree.write(G+'/base.xml',encoding='utf-8')
+json.dump({'components':newmods},open(G+'/restart_model.json','w'),indent=1)
+os.environ['BASE_XML']=G+'/base.xml'
+s,_=prepare(sid,run,1,model_path=G+'/restart_model.json',stolmax=float(os.environ.get('GALLOP_STOL','.30')))
+meta0=json.load(open(G+'/model.json'))
+for mi,mo in zip(meta0,mods):mi['restraint_coords']=mo.get('restraint_coords',mo.get('rdkit_coords',mi['rdkit_coords']))
+json.dump(meta0,open(G+'/model.json','w'),indent=1)
+for zm in s.zmatrices:zm.dw_factors.update({k:v for k,v in biso.items() if k in zm.dw_factors})
+open(G+'/structure.json','w').write(s.to_json())
+s.get_total_degrees_of_freedom(verbose=False);zmt=tensor_prep.get_zm_related_tensors(s,1,torch.float32,torch.device('cpu'))
+e=np.zeros((1,s.total_external_degrees_of_freedom));t=np.zeros((1,s.total_internal_degrees_of_freedom))
+for j,z in enumerate(s.zmatrices):
+ if len(s.rotation_indices[j]):e[0,s.rotation_indices[j]]=[1,0,0,0]
+ if len(s.torsion_indices[j]):t[0,s.torsion_indices[j]]=z.coords_radians_no_H[z.torsion_refinable_indices_no_H,2]
+def frac(e,t):
+ ts=tensor_prep.get_all_required_tensors(s,external=e,internal=t,requires_grad=False,device=torch.device('cpu'),verbose=False)
+ with torch.no_grad():return zm_to_cart.get_asymmetric_coords(**ts['zm']).numpy()[0]
+f=frac(e,t);offset=0;meta=json.load(open(G+'/model.json'));dest=[]
+for j,md in enumerate(meta):
+ N=len(md['order']);X=f[offset:offset+N]@s.lattice.matrix;Y=target[j][md['order']];dest.extend(Y);offset+=N
+ if len(s.rotation_indices[j]):
+  U,sv,Vt=np.linalg.svd((X-X.mean(0)).T@(Y-Y.mean(0)));D=np.eye(3);D[-1,-1]=np.linalg.det(U@Vt);R=U@D@Vt;q=Rotation.from_matrix(R.T).as_quat();e[0,s.rotation_indices[j]]=q[[3,0,1,2]]
+ else:R=np.eye(3)
+ e[0,s.position_indices[j]]=(Y.mean(0)-X.mean(0)@R)@np.linalg.inv(s.lattice.matrix)
+out=frac(e,t)@s.lattice.matrix;err=np.linalg.norm(out-np.array(dest),axis=1);print('RESTART_ERROR max/rms',err.max(),np.sqrt(np.mean(err**2)),flush=True)
+if err.max()>.005:raise Exception('Restart alignment failed')
+np.savez_compressed(G+'/warm.npz',external=e,internal=t,chi2=0.)
+np.save(G+'/warm_frac.npy',frac(e,t))
+print('WARM_READY',G,flush=True)
+import sys,os,json,numpy as np
+from pyobjcryst.io import xml_cryst_file_load_all_object,xml_cryst_file_save_global
+from pyobjcryst.refinableobj import refpartype_scattpow_temperature,refpartype_scatt_occup
+from obj_model import add_component,export_cif
+sid=sys.argv[1];run=sys.argv[2];W='/app/work/'+sid;G=W+'/gallop_'+run;R=W+'/search_g'+run;os.makedirs(R,exist_ok=True)
+objs=xml_cryst_file_load_all_object(G+'/base.xml' if os.path.exists(G+'/base.xml') else W+'/base.xml');c=[o for o in objs if o.GetClassName()=='Crystal'][0];p=[o for o in objs if o.GetClassName()=='PowderPattern'][0];d=p.GetPowderPatternComponent(0)
+meta=json.load(open(G+'/model.json'));frac=np.load(G+'/best_frac.npy');offset=0;models=[]
+for j,md in enumerate(meta):
+ n=len(md['order']);xyz=np.zeros((n,3));f=frac[offset:offset+n];offset+=n
+ for i,old in enumerate(md['order']):xyz[old]=c.FractionalToOrthonormalCoords(*map(float,f[i]))
+ m,newmd=add_component(c,md['smiles'],'m'+str(j),coords_override=md.get('restraint_coords',md['rdkit_coords']))
+ if m.GetClassName()=='Molecule':
+  center=xyz.mean(axis=0);xyz-=center
+  for i,v in enumerate(xyz):a=m.GetAtom(i);a.X,a.Y,a.Z=v
+  m.Q0,m.Q1,m.Q2,m.Q3=1.,0.,0.,0.;m.X,m.Y,m.Z=c.OrthonormalToFractionalCoords(*center)
+ else:m.X,m.Y,m.Z=map(float,f[0])
+ models.append(newmd)
+c.GetOption(1).SetChoice(0);c.SetParIsFixed(refpartype_scattpow_temperature,True);c.SetParIsFixed(refpartype_scatt_occup,True)
+d.SetExtractionMode(False);p.Prepare();p.FitScaleFactorForRw();print('IMPORTED',sid,run,'Rw',p.GetRw(),'Chi2',p.GetChi2(),flush=True)
+json.dump(models,open(R+'/model.json','w'),indent=1);export_cif(c,R+'/best.cif');xml_cryst_file_save_global(R+'/best.xml');json.dump({'Rw':p.GetRw()},open(R+'/best.json','w'))
+import ctypes, numpy as np
+_lib=ctypes.CDLL('/app/work/libobj_bridge.so')
+_lib.bridge_matrix.argtypes=[ctypes.c_void_p,ctypes.c_void_p,ctypes.c_long,ctypes.c_long]
+_lib.bridge_setobs.argtypes=[ctypes.c_void_p,ctypes.c_void_p,ctypes.c_long]
+_lib.bridge_march.argtypes=[ctypes.c_void_p]+[ctypes.c_double]*5
+_lib.bridge_bumpscale.argtypes=[ctypes.c_void_p,ctypes.c_double]
+def profile_matrix(p,d,nref=None):
+ p.Prepare();d.GetPowderPatternCalc()
+ if nref is None:nref=len(d.GetFhklObsSq())
+ a=np.zeros((len(p.GetPowderPatternX()),nref),dtype=np.float64)
+ ret=_lib.bridge_matrix(d.int_ptr(),a.ctypes.data,*a.shape)
+ if ret<0:raise RuntimeError('Profile matrix failed '+str(ret))
+ return a
+def set_obs(d,values):
+ v=np.ascontiguousarray(values,dtype=np.float64);_lib.bridge_setobs(d.int_ptr(),v.ctypes.data,len(v))
+def add_march(d,fraction,coeff,h,k,l):
+ _lib.bridge_march(d.int_ptr(),float(fraction),float(coeff),float(h),float(k),float(l))
+def set_bump_scale(c,scale):
+ _lib.bridge_bumpscale(c.int_ptr(),float(scale))
+
+def exact_pawley(p,d,stolmax=None,rcond=1e-4):
+ # Exact linear design matrix at fixed profile, lattice, and background.
+ # Retain all overlap couplings; truncate only near-null singular directions.
+ d.SetExtractionMode(True,False);p.Prepare();p.FitScaleFactorForRw()
+ mat=profile_matrix(p,d);f0=np.asarray(d.GetFhklObsSq())
+ # A loaded Le Bail cache can still point at calculated rather than extracted
+ # intensities. Verify the actual fixed-profile bridge before using its covariance.
+ for check in range(3):
+  cp=np.asarray(d.GetPowderPatternCalc());ratio=np.linalg.norm(mat[:,:len(f0)]@f0-cp)/max(np.linalg.norm(cp),1e-30)
+  if np.isfinite(ratio) and ratio<.005:break
+  print('PAWLEY_CACHE_REPAIR',check,ratio,p.GetRw(),flush=True)
+  d.ExtractLeBail(10);p.Prepare();p.FitScaleFactorForRw();mat=profile_matrix(p,d);f0=np.asarray(d.GetFhklObsSq())
+ x=np.asarray(p.GetPowderPatternX());weight=np.asarray(p.GetLSQWeight(0));obs=np.asarray(p.GetPowderPatternObs());calc=np.asarray(p.GetPowderPatternCalc());compcalc=np.asarray(d.GetPowderPatternCalc());scale=np.dot(calc-p.GetPowderPatternComponent(1).GetPowderPatternCalc(),compcalc)/np.dot(compcalc,compcalc)
+ background=calc-compcalc*scale
+ n=min(len(weight),len(x));sel=np.arange(len(f0))
+ if stolmax is not None:
+  stol=np.asarray(d.GetSinThetaOverLambda())[:len(f0)];sel=sel[stol<=stolmax]
+  n=min(n,int(np.searchsorted(x,2*np.arcsin(stolmax*p.GetWavelength())+np.deg2rad(p.GetPar('Zero').GetHumanValue()))))
+ a=mat[:n,sel]*scale;target=obs[:n]-background[:n]
+ excluded=np.setdiff1d(np.arange(len(f0)),sel)
+ if len(excluded):target-=mat[:n,excluded]@f0[excluded]*scale
+ sw=np.sqrt(weight[:n]);aw=a*sw[:,None];yw=target*sw
+ # Scale columns for numerical stability. Use Le Bail distribution in null modes.
+ cs=np.linalg.norm(aw,axis=0);cs=np.maximum(cs,np.max(cs)*1e-9);an=aw/cs
+ u,sv,vt=np.linalg.svd(an,full_matrices=False);keep=sv>sv[0]*rcond
+ corr=(vt[keep].T@((u[:,keep].T@(yw-aw@f0[sel]))/sv[keep]))/cs
+ f=f0[sel]+corr
+ # Filter near-null modes also from normal matrix, keeping a PSD covariance.
+ av=(vt[keep]*sv[keep,None])*cs[None,:];normal=av.T@av
+ chi=np.sum((yw-aw@f)**2);var=float(f@normal@f)
+ print('EXACT_PAWLEY','nref',len(sel),'rank',int(keep.sum()),'cond',sv[0]/sv[keep][-1], 'chi2',chi,'netRwp',np.sqrt(chi/max(np.dot(yw,yw),1e-30)),flush=True)
+ return dict(matrix=a,normal=normal,obs=f,sel=sel,x=x[:n],weights=weight[:n],profile=target,chi2=chi,var=var)
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 368 seconds 66.01811218261719 best 444.8624 q25 540.11835 median 586.45996 total 66.31630373001099
+GALLOP 1 Nref 368 seconds 61.20075798034668 best 380.82193 q25 464.82376 median 520.45325 total 127.60679292678833
+GALLOP 2 Nref 368 seconds 70.45149946212769 best 380.82214 q25 467.5188 median 531.53534 total 198.25524854660034
+GALLOP 3 Nref 368 seconds 74.00540614128113 best 363.85596 q25 410.60104 median 496.22937 total 272.3251738548279
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1592.67it/s]
+GALLOP 12 Nref 165 seconds 61.054697036743164 best 129.53178 q25 224.21484 median 308.97418 total 806.5043694972992
+GALLOP 13 Nref 165 seconds 80.75427412986755 best 129.5318 q25 218.60483 median 296.5014 total 887.3028454780579
+GALLOP 14 Nref 165 seconds 68.67449927330017 best 129.53194 q25 207.92012 median 287.46738 total 955.9985253810883
+GALLOP 15 Nref 165 seconds 66.51307487487793 best 129.53183 q25 213.8154 median 292.8698 total 1022.5327785015106
+GALLOP 17 Nref 221 seconds 90.5600357055664 best 201.22435 q25 282.7567 median 329.00476 total 1744.0099401474
+GALLOP 18 Nref 221 seconds 81.40576839447021 best 201.22464 q25 284.5453 median 322.3259 total 1825.4353411197662
+GALLOP 19 Nref 221 seconds 95.74615597724915 best 197.18904 q25 267.45706 median 313.48633 total 1921.207840204239
+GALLOP 20 Nref 221 seconds 91.44992518424988 best 194.7499 q25 272.95618 median 326.1727 total 2012.7047657966614
+GALLOP 21 Nref 221 seconds 101.29471969604492 best 192.60054 q25 265.4621 median 318.53387 total 2114.1131525039673
+  0%|          | 0/5 [00:00<?, ?it/s]100%|██████████| 5/5 [00:00<00:00, 2442.81it/s]
+GALLOP 24 Nref 333 seconds 74.48140978813171 best 87.11334 q25 212.67863 median 307.86688 total 1563.6766226291656
+GALLOP 25 Nref 333 seconds 67.41137051582336 best 87.11347 q25 170.49565 median 290.09088 total 1631.121379852295
+GALLOP 26 Nref 333 seconds 60.80160307884216 best 87.113594 q25 193.13489 median 282.96313 total 1691.9844269752502
+GALLOP 27 Nref 333 seconds 58.883052110672 best 87.1135 q25 129.25113 median 280.74545 total 1750.8914637565613
+GALLOP 28 Nref 333 seconds 82.58952617645264 best 87.11363 q25 90.94242 median 223.81873 total 1833.5079164505005
+GALLOP 29 Nref 333 seconds 80.12707996368408 best 87.11363 q25 89.23677 median 216.58698 total 1913.7026624679565
+GALLOP 30 Nref 333 seconds 77.40488266944885 best 87.11347 q25 87.51575 median 191.98203 total 1991.13716173172

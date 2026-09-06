@@ -1,0 +1,10 @@
+50732 python /app/work/search_gallop.py X14a2b08 72 1 --hscatter --packing 
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+BEST 1.3349304770336834 20 P 1 2 1 [34.11237  8.09145 11.59989 90.      67.04606 90.     ] -0.015662844529788812 index_fcjplanes.json:8 [-1.580e-02 -1.530e-02 -8.700e-03  6.660e-02 -1.500e-03 -4.900e-03
+  2.290e-02  1.310e-02  2.090e-02  5.900e-03  1.300e-03  1.312e-01
+ -1.100e-03  1.050e-02 -2.490e-02 -2.000e-04 -1.628e-01  1.000e-04
+ -1.830e-02  2.000e-03  6.700e-03  5.000e-04 -2.390e-02]
+Sun Sep  6 09:14:13 UTC 2026

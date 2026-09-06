@@ -1,0 +1,8 @@
+patched
+275:    ap.add_argument('--restore-sa', default=None, help='CIF from a previous run: restore, then SA without initial randomization (run 0), then polish')
+291:    if a.restore:
+292:        restore_from_cif(cr, mols, a.restore)
+294:        print(f'restored from {a.restore}: Rwp={p.GetRw():.4f} restraint cost={cr.GetRestraintCost():.2f}', flush=True)
+301:    if a.restore_sa:
+302:        restore_from_cif(cr, mols, a.restore_sa)
+304:        print(f'restored from {a.restore_sa}: Rwp={p.GetRw():.4f} restraint cost={cr.GetRestraintCost():.2f}', flush=True)

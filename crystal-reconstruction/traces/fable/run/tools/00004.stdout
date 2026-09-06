@@ -1,0 +1,150 @@
+2025.1.0
+['CellExplorer', 'CrystalCentering', 'CrystalSystem', 'EstimateCellVolume', 'PeakList', 'PeakList_hkl', 'PeakList_hkl0', 'RecUnitCell', '__all__', '__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__spec__', 'deg2rad', 'quick_index', 'time']
+Help on class CellExplorer in module pyobjcryst._pyobjcryst:
+
+class CellExplorer(RefinableObj)
+ |  Method resolution order:
+ |      CellExplorer
+ |      RefinableObj
+ |      Boost.Python.instance
+ |      builtins.object
+ |  
+ |  Static methods defined here:
+ |  
+ |  DicVol(...)
+ |      DicVol( (CellExplorer)arg1 [, (float)minScore=10 [, (int)minScore=10 [, (float)stopOnScore=50 [, (int)stopOnDepth=6 [, (bool)verbose=True]]]]]) -> None :
+ |      
+ |          C++ signature :
+ |              void DicVol(ObjCryst::CellExplorer {lvalue} [,float=10 [,unsigned int=10 [,float=50 [,unsigned int=6 [,bool=True]]]]])
+ |  
+ |  GetBestScore(...)
+ |      GetBestScore( (CellExplorer)arg1) -> float :
+ |      
+ |          C++ signature :
+ |              float GetBestScore(ObjCryst::CellExplorer {lvalue})
+ |  
+ |  GetSolutions(...)
+ |      GetSolutions( (CellExplorer)arg1) -> list :
+ |      
+ |          C++ signature :
+ |              boost::python::list GetSolutions(ObjCryst::CellExplorer {lvalue})
+ |  
+ |  Print(...)
+ |      Print( (CellExplorer)arg1) -> None :
+ |      
+ |          C++ signature :
+ |              void Print(ObjCryst::CellExplorer {lvalue})
+ |  
+ |  ReduceSolutions(...)
+ |      ReduceSolutions( (CellExplorer)arg1 [, (bool)updateReportThreshold=False]) -> None :
+ |      
+ |          C++ signature :
+ |              void ReduceSolutions(ObjCryst::CellExplorer {lvalue} [,bool=False])
+ |  
+ |  SetAngleMinMax(...)
+ |      SetAngleMinMax( (CellExplorer)arg1, (float)arg2, (float)arg3) -> None :
+ |      
+ |          C++ signature :
+ |              void SetAngleMinMax(ObjCryst::CellExplorer {lvalue},float,float)
+ |  
+ |  SetCrystalCentering(...)
+ |      SetCrystalCentering( (CellExplorer)arg1, (CrystalCentering)arg2) -> None :
+ |      
+ |          C++ signature :
+ |              void SetCrystalCentering(ObjCryst::CellExplorer {lvalue},ObjCryst::CrystalCentering)
+ |  
+ |  SetCrystalSystem(...)
+ |      SetCrystalSystem( (CellExplorer)arg1, (CrystalSystem)arg2) -> None :
+ |      
+ |          C++ signature :
+ |              void SetCrystalSystem(ObjCryst::CellExplorer {lvalue},ObjCryst::CrystalSystem)
+ |  
+ |  SetD2Error(...)
+ |      SetD2Error( (CellExplorer)arg1, (float)arg2) -> None :
+ |      
+ |          C++ signature :
+ |              void SetD2Error(ObjCryst::CellExplorer {lvalue},float)
+ |  
+ |  SetLengthMinMax(...)
+ |      SetLengthMinMax( (CellExplorer)arg1, (float)arg2, (float)arg3) -> None :
+ |      
+ |          C++ signature :
+ |              void SetLengthMinMax(ObjCryst::CellExplorer {lvalue},float,float)
+ |  
+ |  SetMinMaxZeroShift(...)
+ |      SetMinMaxZeroShift( (CellExplorer)arg1, (float)arg2, (float)arg3) -> None :
+ |      
+ |          C++ signature :
+ |              void SetMinMaxZeroShift(ObjCryst::CellExplorer {lvalue},float,float)
+ |  
+ |  SetNbSpurious(...)
+ |      SetNbSpurious( (CellExplorer)arg1, (int)arg2) -> None :
+ |      
+ |          C++ signature :
+ |              void SetNbSpurious(ObjCryst::CellExplorer {lvalue},unsigned int)
+ |  
+ |  SetVolumeMinMax(...)
+ |      SetVolumeMinMax( (CellExplorer)arg1, (float)arg2, (float)arg3) -> None :
+ |      
+ |          C++ signature :
+ |              void SetVolumeMinMax(ObjCryst::CellExplorer {lvalue},float,float)
+ |  
+ |  __init__(...)
+ |      __init__( (object)arg1, (PeakList)dhkl, (CrystalSystem)lattice [, (int)nbSpurious=0]) -> None :
+ |      
+ |          C++ signature :
+ |              void __init__(_object*,ObjCryst::PeakList,ObjCryst::CrystalSystem [,unsigned int=0])
+ |  
+ |  __iter__(...)
+ |      __iter__( (CellExplorer)arg1) -> object :
+ |      
+ |          C++ signature :
+ |              boost::python::objects::iterator_range<boost::python::return_value_policy<boost::python::reference_existing_object, boost::python::default_call_policies>, std::_List_const_iterator<std::pair<ObjCryst::RecUnitCell, float> > > __iter__(boost::python::back_reference<ObjCryst::CellExplorer const&>)
+ |  
+ |  __reduce__ = <unnamed Boost.Python function>(...)
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data and other attributes defined here:
+ |  
+ |  __instance_size__ = 3272
+ |  
+ |  ----------------------------------------------------------------------
+ |  Static methods inherited from RefinableObj:
+ |  
+ |  AddPar(...)
+ |      AddPar( (RefinableObj)arg1, (_RefinablePar)par) -> None :
+ |      
+ |          C++ signature :
+ |              void AddPar(ObjCryst::RefinableObj {lvalue},ObjCryst::RefinablePar*)
+ |      
+ |      AddPar( (RefinableObj)arg1, (RefinableObj)newRefParList [, (bool)copyParam=False]) -> None :
+ |      
+ |          C++ signature :
+ |              void AddPar(ObjCryst::RefinableObj {lvalue},ObjCryst::RefinableObj {lvalue} [,bool=False])
+ |  
+ |  AddRestraint(...)
+ |      AddRestraint( (RefinableObj)arg1, (Restraint)arg2) -> None :
+ |      
+ |          C++ signature :
+ |              void AddRestraint(ObjCryst::RefinableObj {lvalue},ObjCryst::Restraint*)
+ |  
+ |  BeginGlobalOptRandomMove(...)
+ |      BeginGlobalOptRandomMove( (RefinableObj)arg1) -> None :
+ |      
+ |          C++ signature :
+ |              void BeginGlobalOptRandomMove(ObjCryst::RefinableObj {lvalue})
+ |  
+ |  BeginOptimization(...)
+ |      BeginOptimization( (RefinableObj)arg1 [, (bool)allowApproximations=False [, (bool)enableRestraints=False]]) -> None :
+ |      
+ |          C++ signature :
+ |              void BeginOptimization(ObjCryst::RefinableObj {lvalue} [,bool=False [,bool=False]])
+ |      
+ |      BeginOptimization( (RefinableObj)arg1 [, (bool)allowApproximations=False [, (bool)enableRestraints=False]]) -> None :
+ |      
+ |          C++ signature :
+ |              void BeginOptimization((anonymous namespace)::RefinableObjWrap {lvalue} [,bool=False [,bool=False]])
+ |  
+ |  ClearParamSet(...)
+ |      ClearParamSet( (RefinableObj)arg1, (int)arg2) -> None :
+ |      

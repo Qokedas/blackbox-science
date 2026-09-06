@@ -1,0 +1,4 @@
+C[C@@H]1CC(=O)NN=C1c1ccc(NN=C(C#N)C#N)cc1 free: [('C7', 'C8'), ('C11', 'N12'), ('C14', 'C15'), ('C14', 'C17')]
+COc1ccc(OC)c([C@H](O)CNC(=O)C[NH3+])c1 free: [('O1', 'C2'), ('C5', 'O6'), ('C8', 'C9'), ('C9', 'C11'), ('C11', 'N12'), ('C13', 'C15')]
+O=C(/C=C/c1ccc(O)c(O)c1)OC free: [('C3', 'C4')]
+COc1ccc(NC(=O)[C@@H]2C[C@H](C)CC[C@H]2C(C)C)cc1 free: [('O1', 'C2'), ('C5', 'N6'), ('C7', 'C9'), ('C15', 'C16')]

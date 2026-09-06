@@ -1,0 +1,23 @@
+37166 R CPU 1183.4s python /app/work/search_gallop.py X8a06d7a 11 1 --prepare --hscatter 
+38246 R CPU 1025.1s python /app/work/search_gallop.py X3f4781b 50 2 --hscatter --packing 
+40652 R CPU 536.5s python /app/work/search_gallop.py X263b09a 71 1 --hscatter --packing 
+41048 R CPU 491.0s python /app/work/search_gallop.py X238783d 20 1 --prepare --hscatter 
+41285 R CPU 443.7s python /app/work/search_gallop.py X35b7fbc 11 1 --prepare --hscatter --model=/app/work/X35b7fbc/cis.json 
+43088 R CPU 193.5s python /app/work/search_gallop.py X1db5091 11 1 --prepare --hscatter 
+43974 R CPU 46.5s python /app/work/index_metric.py X8a6f5a8 MONOCLINIC P 
+44157 R CPU 19.2s python /app/work/search_gallop.py Xbfeeda9 60 1 --hscatter --packing 
+HBOND_PRIOR 2 donors 3 acceptors coefficient 12.0
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1181.00it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 10 Nref 200 seconds 170.3039882183075 best 142.6563 q25 144.76926 median 241.95813 total 1565.2211680412292
+GALLOP 11 Nref 200 seconds 150.9125461578369 best 142.65155 q25 144.29935 median 171.56183 total 1716.300458908081
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 996.63it/s]
+GALLOP 12 Nref 200 seconds 177.60449862480164 best 142.65065 q25 300.52844 median 386.9665 total 1894.0330398082733
+GALLOP 13 Nref 200 seconds 161.6967535018921 best 142.65071 q25 248.9802 median 391.70215 total 2055.911632299423
+TRIAL 7 sec 70.80290341377258 cost 1.3598464077001886 score 3.3060410450272513 vol 1058.0609714132993 cell [31.995   3.5617  9.4243 90.     99.8718 90.    ] zero 0.026012281166982787 best 1.3252254153686365 diff [ 6.300e-03  1.649e-01 -6.400e-03 -1.600e-03 -3.942e-01  1.221e-01
+ -2.179e-01  2.269e-01 -8.700e-03  3.274e-01 -1.640e-02 -4.920e-02
+  3.520e-02  4.300e-03  7.370e-02  9.000e-03 -2.700e-03 -1.600e-03
+ -7.440e-02  3.700e-03 -1.000e-04 -3.020e-02  7.800e-03]

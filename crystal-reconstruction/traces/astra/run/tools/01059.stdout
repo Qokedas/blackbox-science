@@ -1,0 +1,121 @@
+X7PID=63353
+{
+ "Rw": 0.13467100546051483,
+ "chi2": 2652.023455097862
+}Traceback (most recent call last):
+  File "/app/work/x1a_subgroup.py", line 23, in <module>
+    actual=np.array([c.FractionalToOrthonormalCoords(a.X,a.Y,a.Z) for a in list(m.GetScatteringComponentList())[:len(dest)]]);assert np.max(np.abs(actual-dest))<1e-6
+                                                                                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+Xeb393f9 Nat 37 molecule sizes [27, 10]
+  component O=C(O)CCC[NH+]1CCC(O[C@@H](c2ccc(Cl)cc2)c2ccccn2)CC1 matches 1
+  component O=S(=O)([O-])c1ccccc1 matches 1
+  bond range 1.2270725526458874 1.8386341567901239
+  min intermolecular distance 2.7220112376004386
+Xeb393f9 root 31 expected {11: 'S'} actual {11: 'S'} OK True
+ATTACHED_H_SCATTERING 52 heavy atoms 36 H atoms
+PACKING_ENABLED 52 atoms 3834 pair terms coefficient 80.0 active_only True
+HBOND_PRIOR 4 donors 12 acceptors coefficient 20.0 directional False
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X3f4781b 40.86460876464844
+PACKING_ENABLED 37 atoms 1887 pair terms coefficient 100.0 active_only True
+HBOND_PRIOR 2 donors 7 acceptors coefficient 30.0 directional True
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X14a2b08 53.008026123046875
+===
+/app/work/refine_bep51_chem.sh
+/app/work/refine_g12.log
+/app/work/refine_g12.sh
+/app/work/refine_obj.py
+/app/work/refine_obj_before_tightenv.py
+/app/work/refine_obj_v1.py
+/app/work/refine_obj_v2.py
+/app/work/refine_obj_v3.py
+/app/work/refine_obj_v4.py
+/app/work/refine_obj_v5.py
+/app/work/refine_obj_v6.py
+/app/work/refine_obj_v7.py
+/app/work/refine_obj_v8.py
+/app/work/refine_snapshot130.log
+/app/work/refine_snapshot130.sh
+/app/work/refine_stable.py
+/app/work/reindex_batch.log
+/app/work/reindex_batch.py
+/app/work/repick.log
+/app/work/repick.py
+/app/work/repick2.log
+/app/work/restore_cif.py
+/app/work/restore_structure_mode.py
+/app/work/restorefit.log
+/app/work/restraint_report.py
+/app/work/run_fits.py
+/app/work/run_fits2.py
+/app/work/run_index_batch.py
+/app/work/salt86_queue.log
+/app/work/scan_po.py
+/app/work/search_coformer.py
+/app/work/search_conditional.py
+/app/work/search_gallop.py
+/app/work/search_gallop_v1.py
+/app/work/search_gallop_v10.py
+/app/work/search_gallop_v11.py
+/app/work/search_gallop_v2.py
+/app/work/search_gallop_v3.py
+/app/work/search_gallop_v4.py
+/app/work/search_gallop_v5.py
+/app/work/search_gallop_v6.py
+/app/work/search_gallop_v7.py
+/app/work/search_gallop_v8.py
+/app/work/search_gallop_v9.py
+/app/work/search_obj.py
+/app/work/search_obj_v1.py
+/app/work/sg19test_queue.log
+/app/work/sg_transfer_scan.py
+/app/work/solve_de.py
+/app/work/solve_half_biphenyl.py
+/app/work/solve_half_biphenyl_v1.py
+/app/work/solve_heavy.py
+/app/work/solve_twocentres.py
+/app/work/solve_twocentres_v1.py
+/app/work/split_synthon.py
+/app/work/subcells.log
+/app/work/submission_audit.json
+/app/work/submission_audit.log
+/app/work/submit.py
+/app/work/summary.json
+/app/work/synthon_model.py
+/app/work/task_3f478.log
+/app/work/task_d863.log
+/app/work/task_e1.log
+/app/work/test_222_fast.py
+/app/work/test_bump.xml
+/app/work/test_doublet.py
+/app/work/test_emg8.py
+/app/work/test_fit.log
+/app/work/test_fit.py
+/app/work/test_lsq_packing.log
+/app/work/test_lsq_packing.sh
+/app/work/test_macro4.log
+/app/work/test_macro4.sh
+/app/work/transfer_acm.py
+/app/work/transfer_acm_v2.py
+/app/work/update_transfer72.log
+/app/work/update_transfer72.sh
+/app/work/warm_gallop.py
+/app/work/warm_gallop_v3.py
+/app/work/warm_gallop_v4.py
+/app/work/x1a90_queue.log
+/app/work/x1a_sub101_queue.log
+/app/work/x1a_subgroup.py
+/app/work/x7_centro101_queue.log
+/app/work/x7_explicit.log
+/app/work/x7_symmetrise.py
+/app/work/x7_symmetrise_v0.py
+/app/work/x7centros88_queue.log
+/app/work/zmcheck.log

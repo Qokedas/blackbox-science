@@ -1,0 +1,15 @@
+Xf8ac963 RHOMBOEDRAL P 0 peaks [2.87883, 3.32181, 3.72358, 4.05855, 4.07376, 4.38414, 4.71616, 4.97863, 4.99742, 5.48885, 5.73348, 5.76493, 5.99757, 6.20019, 6.22962, 6.44391, 6.60931, 6.64592, 7.05257, 7.21148, 7.26749, 7.42667] V 1463.23193359375 3780 Lmax 43.616950455549265
+3->43.617,1.62468,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+1463.23->3780,463.363,4.9999
+Starting: V=1463.23->1926.59
+Finished: V=1463.23->1926.59 A^3, 0 unit cells tested, 0 tests/s,   Elapsed time=4.8e-05s
+Starting: V=1926.59->2389.96
+Finished: V=1926.59->2389.96 A^3, 0 unit cells tested, 0 tests/s,   Elapsed time=0.000118s
+Starting: V=2389.96->2853.32
+Finished: V=2389.96->2853.32 A^3, 0 unit cells tested, 0 tests/s,   Elapsed time=0.000167s
+Starting: V=2853.32->3316.68
+Finished: V=2853.32->3316.68 A^3, 0 unit cells tested, 0 tests/s,   Elapsed time=0.000217s
+Starting: V=3316.68->3780
+Finished: V=3316.68->3780 A^3, 0 unit cells tested, 0 tests/s,   Elapsed time=0.000266s
+DONE Xf8ac963 RHOMBOEDRAL P 0 0.0003666877746582031 []

@@ -1,0 +1,40 @@
+/app/work/submit.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+X13023e3 Nat 48 molecule sizes [15, 15, 3, 3, 6, 6]
+  component CC(C)Cc1ccc([C@@H](C)C(=O)O)cc1 matches 2
+  component NC(=O)c1cccnc1 matches 0
+Traceback (most recent call last):
+  File "/app/work/submit.py", line 11, in <module>
+    if not valid:raise Exception('Connectivity validation failed')
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Exception: Connectivity validation failed
+EXACT_PAWLEY nref 169 rank 163 cond 505.0644711082851 chi2 3820.918760546855 netRwp 0.07479860697731368
+DE_SETUP Xfca9f3c atoms 80 nref 169 ndof 5
+SEED_RMSD 0 0.32842608522106453
+SEED_COST 107.66122314668269 [ 0.00504298  0.62838367 -1.59867555  0.609147   -1.18910304]
+SEED_LOCAL 92.2254670545201
+CYCLE 3 1 Rw 0.05878344141061497 chi2 3641.4267025400327
+CYCLE 3 2 Rw 0.05814316269898729 chi2 3562.532706111484
+FINISHED Xdcc971e 0.05814316269898729
+#  1:ScatteringPowerAtom(C)
+ANTIBUMP 3 Scale 10.0 Initial cost 0.0
+Imported powder pattern: 11370 points, 2theta=  1.801 ->  13.152, step= 0.001
+RESCALED_BASE 1.4627227046877824 0.07040823664357759 11369.999999999949
+INITIAL Xe1fb77b 2 Rw 0.5989750625271313 LLK 657585.6897973643 Integrated 656704.6631084775 DOF -1
+RUN 0 steps 100000 time 209.78746509552002 total 209.78754663467407 LLK 232011.76959382676 Rw 0.3818387882183914 Integrated 229416.284933597
+CellExplorer::ReduceSolutions(): update threshold for report from 9.17459 to 9.46885
+-> 100 remaining
+1853 solutions ! Redparing...
+CellExplorer::ReduceSolutions(): update threshold for report from 9.46885 to 9.64901
+-> 100 remaining
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 PEAK_FILE=peaks_raw.json NPEAK=18 NSPUR=0 INDEX_SCORE=55 INDEX_DEPTH=6 LMAX=34 TTHERR=.025 MAXERR=.06 INDEX_TAG=strict
+while [[ -r /proc/5100/status ]] && ! grep -q '^State:.*Z' /proc/5100/status; do sleep 5; done
+for shift in 0 0.02 -0.02; do
+ PEAK_SKIP=1 NPEAK=20 TTHSHIFT=$shift timeout 500 python /app/work/index_one.py X1db5091 TRICLINIC P 3 1000 1800 > /app/work/X1db5091/index_raw_strict_$shift.log 2>&1
+done
+for center in P C; do
+ PEAK_SKIP=1 NPEAK=20 TTHSHIFT=0 timeout 220 python /app/work/index_one.py X1db5091 MONOCLINIC $center 3 1800 6000 > /app/work/X1db5091/index_raw_large_MONOCLINIC_$center.log 2>&1
+done
+python /app/work/collect_candidates.py X1db5091 X8a6f5a8 Xebbd488 Xb7088cf Xedd9c7b
+SEARCH_TIME=2600 MC_STEPS=4000000 TARGET_RW=.07 python /app/work/search_obj.py Xeb393f9 1 1 --rescale > /app/work/Xeb393f9/search1.log 2>&1
+python /app/work/refine_obj.py Xeb393f9 1 /app/work/Xeb393f9/search_1/best.xml --scale > /app/work/Xeb393f9/refine_1.log 2>&1

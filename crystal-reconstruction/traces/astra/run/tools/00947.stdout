@@ -1,0 +1,26 @@
+(0.4859211662031262, '54301', 506.67, 1042.7000000000007, 'python /app/work/search_gallop.py Xd8634a2 31 1 --prepare --hscatter --packing ')
+(0.4793414746763898, '55416', 301.06, 628.0699999999997, 'python /app/work/search_gallop.py X263b09a 50 1 --hscatter --packing ')
+(0.4788759879012512, '56544', 49.08, 102.4900000000016, 'python /app/work/refine_obj.py X1a56c78 chair84m01 /app/work/X1a56c78/search_chair84m01/best.xml --scale --tight --stol=.4 ')
+(0.4727066699662657, '55005', 362.93, 767.7700000000004, 'python /app/work/search_gallop.py X019b9a4 11 1 --prepare --hscatter ')
+(0.4711706726095214, '55298', 315.02, 668.5900000000001, 'python /app/work/search_gallop.py X8a06d7a 74 1 --hscatter --packing ')
+(0.46708201599404886, '55777', 200.92, 430.15999999999985, 'python /app/work/search_gallop.py Xb7088cf 51 1 --hscatter --packing ')
+(0.46691463470634065, '55349', 305.04, 653.3100000000013, 'python /app/work/search_conditional.py X3f4781b 82 83 ')
+(0.4311224489795172, '56757', 5.07, 11.760000000002037, 'python /app/work/search_conditional.py X7e382cb 84 85 ')
+(0.294749403341253, '56767', 2.47, 8.380000000001019, 'python /app/work/search_gallop.py X4f6fe58 84 1 --hscatter --packing ')
+  bond range 1.3880578644629382 1.5810224108969984
+  min intermolecular distance 3.137134436120898
+/app/work/check_stereo.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(fn).parse_structures(primitive=False)[0];s.remove_species(['H']);rad=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<1.2*(rad[:,None]+rad[None,:]));g=nx.from_numpy_array(A)
+X1a56c78 root 88 expected {1: 'S'} actual {1: 'S'} OK True
+X1a56c78 root 89 expected {1: 'S'} actual {1: 'S'} OK True
+X1a56c78 root 90 expected {1: 'S'} actual {1: 'S'} OK True
+X1a56c78 root 91 expected {1: 'S'} actual {1: 'S'} OK True
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+RESTART_ERROR max/rms 2.065009119245303e-06 9.149576704870142e-07
+WARM_READY /app/work/X4f6fe58/gallop_84
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X3f4781b 120.62457275390625
+CONDITIONAL 0 [1, 3] best 115.91807556152344 q25 120.81404 sec 291.4120674133301
+CONDITIONAL 1 [0] best 114.73590087890625 q25 366.09924 sec 617.8997204303741

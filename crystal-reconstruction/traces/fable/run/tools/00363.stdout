@@ -1,0 +1,9 @@
+restored_check.cif
+restored_lsq_rw0.145.cif
+23:    res = AllChem.MMFFOptimizeMoleculeConfs(mol, maxIters=2000)
+167:    # disable 'Auto Optimize Starting Conformation' (it re-randomises free torsions on BeginOptimization)
+173:                if 'Auto Optimize' in o.GetName(): o.SetChoice(1)
+208:    mc.SetAlgorithmParallTempering(AnnealingSchedule.SMART, 0.1, 0.01, AnnealingSchedule.EXPONENTIAL, 16, 0.125) if False else None
+212:        if not (norand and r == 0): mc.RandomizeStartingConfig()
+213:        mc.Optimize(int(nsteps), 0, maxtime)
+310:                    if 'Auto Optimize' in o.GetName(): o.SetChoice(1)

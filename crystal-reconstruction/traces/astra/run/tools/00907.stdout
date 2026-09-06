@@ -1,0 +1,16 @@
+x7=54140
+Br=54141
+/app/work/submit.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+X4f6fe58 Nat 80 molecule sizes [20, 20, 20, 20]
+  component O=C1CN=C(c2ccccc2Cl)c2cc(Br)ccc2N1 matches 4
+  bond range 1.2172704754783477 1.8964631665155092
+  min intermolecular distance 2.4450598662395646
+PACKING_ENABLED 38 atoms 4887 pair terms coefficient 80.0 active_only True
+HBOND_PRIOR 6 donors 6 acceptors coefficient 15.0
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL Xedd9c7b 26.511154174804688
+Sun Sep  6 09:37:12 UTC 2026

@@ -1,0 +1,35 @@
+[{'smiles': 'COC(=O)[C@H](c1ccccc1Cl)[NH+]1CCc2sccc2C1', 'count': 1, 'charge': 1}, {'smiles': 'O=S(=O)([O-])O', 'count': 1, 'charge': -1}]
+[(0, 'C'), (1, 'O'), (2, 'C'), (3, 'O'), (4, 'C'), (5, 'C'), (6, 'C'), (7, 'C'), (8, 'C'), (9, 'C'), (10, 'C'), (11, 'Cl'), (12, 'N'), (13, 'C'), (14, 'C'), (15, 'C'), (16, 'S'), (17, 'C'), (18, 'C'), (19, 'C'), (20, 'C')]
+RINGS ((6, 7, 8, 9, 10, 5), (13, 14, 15, 19, 20, 12), (16, 15, 19, 18, 17))
+MODELS [(0, 'COC(=O)[C@H](c1ccccc1Cl)[NH+]1CCc2sccc2C1'), (1, 'O=S(=O)([O-])O'), (2, 'COC(=O)[C@H](c1ccccc1Cl)[NH+]1CCc2sccc2C1'), (3, 'O=S(=O)([O-])O')]
+"""Conditional one-axis March-Dollase test against the exact native profile matrix.
+No intensity extraction; only a scale is fitted at each trial texture coefficient.
+"""
+import os,sys,json,itertools,numpy as np
+from scipy.optimize import minimize_scalar
+from pymatgen.core import Lattice
+from pyobjcryst.io import xml_cryst_file_load_all_object
+from obj_bridge import profile_matrix
+src,out=sys.argv[1:3];objs=xml_cryst_file_load_all_object(src);p=next(o for o in objs if o.GetClassName()=='PowderPattern');c=next(o for o in objs if o.GetClassName()=='Crystal');d=p.GetPowderPatternComponent(0);p.Prepare();p.FitScaleFactorForRw();f=np.asarray(d.GetFhklCalcSq());M=profile_matrix(p,d,len(f));cp=np.asarray(d.GetPowderPatternCalc());print('MATRIX_ERROR',np.linalg.norm(M@f-cp)/np.linalg.norm(cp),flush=True)
+x=np.asarray(p.GetPowderPatternX());w=np.asarray(p.GetLSQWeight(0));obs=np.asarray(p.GetPowderPatternObs());calc=np.asarray(p.GetPowderPatternCalc());bg=np.asarray(p.GetPowderPatternComponent(1).GetPowderPatternCalc());scale=np.dot(calc-bg,cp)/np.dot(cp,cp);bg=calc-scale*cp
+n=min(len(w),len(obs));w=w[:n];A=M[:n]*np.sqrt(w)[:,None];t=(obs-bg)[:n]*np.sqrt(w);normal=A.T@A;rhs=A.T@t;tt=t@t;denom=obs[:n]@(w*obs[:n]);nf=len(f)
+hkl=np.asarray([d.GetH(),d.GetK(),d.GetL()]).T[:nf];lat=Lattice.from_parameters(*[c.GetPar(n).GetHumanValue() for n in ['a','b','c','alpha','beta','gamma']]);B=lat.reciprocal_lattice_crystallographic.matrix;g=hkl@B;gn=np.linalg.norm(g,axis=1)
+def chi(v):return float(tt-max(v@rhs,0)**2/max(v@normal@v,1e-30))
+baseline=chi(f);res=[]
+for axis in itertools.product(range(-1,2),repeat=3):
+ if not any(axis) or next(v for v in axis if v)!=1:continue
+ u=np.asarray(axis)@B;co=((g@u)/(gn*np.linalg.norm(u)))**2
+ def fun(lr):
+  r=np.exp(lr);md=(r*r*co+(1-co)/r)**-1.5;return chi(f*md)
+ fit=minimize_scalar(fun,bounds=(np.log(.4),np.log(2.5)),method='bounded');res.append(dict(axis=axis,MD=float(np.exp(fit.x)),chi2=float(fit.fun),Rw=float(np.sqrt(max(0,fit.fun)/denom))))
+res.sort(key=lambda x:x['chi2']);print('BASELINE',p.GetRw(),np.sqrt(baseline/denom),baseline,flush=True)
+for r in res[:5]:print(r,flush=True)
+json.dump(dict(baseline_Rw=float(p.GetRw()),baseline_chi2=baseline,scan=res),open(out,'w'),indent=1)
+GALLOP 0 Nref 523 seconds 241.89472556114197 best 116.84064 q25 403.62494 median 489.0633 total 241.9100866317749
+GALLOP 1 Nref 523 seconds 232.22311210632324 best 116.840775 q25 369.25964 median 446.20044 total 474.4332284927368
+GALLOP 2 Nref 523 seconds 231.9182858467102 best 116.840775 q25 176.32886 median 435.188 total 706.4477610588074
+GALLOP 3 Nref 523 seconds 230.07588505744934 best 116.840576 q25 176.32863 median 430.33368 total 936.6148085594177
+{
+ "Rw": 0.15779251073523817,
+ "chi2": 1924.5251634405247
+}Sun Sep  6 10:12:16 UTC 2026

@@ -1,0 +1,10 @@
+{
+  "author": "Qokedas",
+  "container_id": "5586ecec2c04f57382eebea634788250faca8892c8c95b6e0c449d4e522ddeb1",
+  "trial_id": "qkd-0906-pxrd-fable",
+  "deadline_epoch": 1788693859.859262,
+  "pid": 9927,
+  "armed_epoch": 1788665059.913475,
+  "status": "cancelled_after_parent_freeze",
+  "finished_epoch": 1788691169.059799
+}

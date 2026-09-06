@@ -1,0 +1,4 @@
+INTERNAL 0 rms 0.020299755610198155 centre_frac [0.97766381 0.07969752 0.99947382] perm [np.int64(12), np.int64(11), np.int64(13), np.int64(10), np.int64(14), np.int64(15), np.int64(7), np.int64(6), np.int64(16), np.int64(17), np.int64(3), np.int64(1), np.int64(0), np.int64(2), np.int64(4), np.int64(5), np.int64(8), np.int64(9)]
+INTERNAL 1 rms 0.016704765765640978 centre_frac [0.99812767 0.49635802 0.49508371] perm [np.int64(12), np.int64(11), np.int64(13), np.int64(10), np.int64(14), np.int64(15), np.int64(7), np.int64(6), np.int64(16), np.int64(17), np.int64(3), np.int64(1), np.int64(0), np.int64(2), np.int64(4), np.int64(5), np.int64(8), np.int64(9)]
+centred_diff [ 0.02046386  0.4166605  -0.5043901 ]
+nitrogens [array([0.70775577, 0.60496782, 0.29592281]), array([0.31399881, 0.38658214, 0.70510701]), array([0.05787467, 0.28121873, 0.21744422]), array([0.94155091, 0.7078503 , 0.77632306])]

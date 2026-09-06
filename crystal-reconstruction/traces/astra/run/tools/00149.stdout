@@ -1,0 +1,27 @@
+0 Save Best Config Regularly 6 ['No', 'Every day', 'Every hour', 'Every 10mn', 'Every new best config (a lot ! Not Recommended !)', 'Every Run (Recommended)']
+1 Algorithm 2 ['Simulated Annealing', 'Parallel Tempering']
+2 Temperature Schedule 6 ['Constant', 'Boltzmann', 'Cauchy', 'Exponential', 'Smart', 'Gamma']
+3 Displacement Amplitude Schedule 6 ['Constant', 'Boltzmann', 'Cauchy', 'Exponential', 'Smart', 'Gamma']
+4 Save Tracked Data 2 ['No (recommended!)', 'Yes (for tests ONLY)']
+5 Automatic Least Squares Refinement 3 ['Never', 'At the end of each run', 'Every 150000 trials, and at the end of each run']
+/app/work/X4f6fe58/search_long.log
+RUN 1 steps 1000000 time 95.42674922943115 total 109.29201316833496 LLK 65810846.75504489 Rw 0.13828443825052208 Integrated 65809856.81014199
+RUN 2 steps 1000000 time 96.17569589614868 total 205.5096230506897 LLK 70936717.3541786 Rw 0.14538455158610974 Integrated 70935750.52333073
+RUN 3 steps 1000000 time 90.71047782897949 total 296.22042322158813 LLK 65535702.31303717 Rw 0.13577488442043298 Integrated 65534757.87250723
+RUN 4 steps 1000000 time 93.22591209411621 total 389.48884320259094 LLK 67082916.05731387 Rw 0.1369709558701413 Integrated 67081968.249573536
+RUN 5 steps 1000000 time 87.90859889984131 total 477.39775109291077 LLK 68040722.97582474 Rw 0.14316520412439476 Integrated 68039765.11307813
+RUN 6 steps 1000000 time 90.48598051071167 total 567.884040594101 LLK 65679660.27200643 Rw 0.13964727423736942 Integrated 65678662.59455245
+/app/work/X3c176e2/isomer_search_1.log
+ObjRegistry<T>::Find(C): Not found !!
+List of Crystal ScatteringPowers :1 object registered:
+#  0:ScatteringPowerAtom(O)
+INITIAL X3c176e2 11 Rw 0.5702368126615593 LLK 2127535.27068484 Integrated 2126930.573137507 DOF -1
+RUN 0 steps 100000 time 7.362663269042969 total 7.362727165222168 LLK 338583.23384681036 Rw 0.24584837074329288 Integrated 337978.53629947687
+RUN 1 steps 1000000 time 73.27493715286255 total 80.67330551147461 LLK 241715.61001338589 Rw 0.2153082599300062 Integrated 241110.91246605237
+/app/work/Xd8634a2/gallop_search2.log
+GALLOP 14 Nref 95 seconds 16.975125312805176 best 441.9164 q25 553.2587 median 604.89636 total 239.34242224693298
+GALLOP 15 Nref 95 seconds 16.993196725845337 best 381.43817 q25 569.16223 median 612.3368 total 256.3383948802948
+GALLOP 16 Nref 95 seconds 16.721839904785156 best 324.90775 q25 564.97095 median 612.6247 total 273.0634534358978
+GALLOP 17 Nref 95 seconds 16.865047693252563 best 423.60446 q25 565.81384 median 602.4042 total 289.93157625198364
+GALLOP 18 Nref 95 seconds 16.77027177810669 best 284.17432 q25 557.266 median 603.8662 total 306.7050256729126
+GALLOP 19 Nref 95 seconds 17.434511184692383 best 263.13263 q25 560.2091 median 595.15906 total 324.14271783828735

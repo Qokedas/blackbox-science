@@ -1,0 +1,44 @@
+data_structure
+_cell_length_a 5.17785
+_cell_length_b 8.25222
+_cell_length_c 32.94593
+_cell_angle_alpha 90.0000
+_cell_angle_beta 92.7510
+_cell_angle_gamma 90.0000
+_space_group_name_H-M_alt 'P 1 21/c 1'
+_symmetry_space_group_name_H-M 'P 1 21/c 1'
+_space_group_IT_number 14
+_symmetry_Int_Tables_number 14
+loop_
+_space_group_symop_id
+_space_group_symop_operation_xyz
+1 'x,y,z'
+2 '-x,y+1/2,-z+1/2'
+3 '-x,-y,-z'
+4 'x,-y+1/2,z+1/2'
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+C1 C 0.99401 -0.14455 0.34789 1.0
+O1 O 0.83819 -0.11683 0.31171 1.0
+C2 C 0.65855 0.00863 0.31381 1.0
+C3 C 0.49474 0.05463 0.28119 1.0
+C4 C 0.32183 0.18277 0.28527 1.0
+C5 C 0.31542 0.27109 0.32170 1.0
+O2 O 0.14715 0.39935 0.32774 1.0
+C6 C -0.01646 0.44761 0.29434 1.0
+C7 C 0.48212 0.22785 0.35478 1.0
+C8 C 0.48055 0.32654 0.39380 1.0
+O3 O 0.58923 0.23043 0.42625 1.0
+C9 C 0.63931 0.48069 0.38897 1.0
+N1 N 0.59900 0.59808 0.42022 1.0
+C10 C 0.78794 0.61266 0.45168 1.0
+O4 O 1.00706 0.55501 0.45130 1.0
+C11 C 0.71025 0.70060 0.48935 1.0
+N2 N 0.95157 0.75847 0.51265 1.0
+C12 C 0.65770 0.09562 0.34984 1.0
+Cl_1_0 Cl 0.77671 0.05346 0.55787 1.0

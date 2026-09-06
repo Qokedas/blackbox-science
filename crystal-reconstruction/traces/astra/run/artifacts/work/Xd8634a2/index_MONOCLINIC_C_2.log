@@ -1,0 +1,28 @@
+Xd8634a2 MONOCLINIC C 2 peaks [3.08993, 3.30288, 3.54384, 3.61752, 3.81974, 4.07805, 4.35359, 4.97449, 5.00496, 5.63492, 5.77355, 5.81196, 5.88929, 6.11713, 6.1588, 6.18269, 6.35627, 6.41053, 6.60134, 6.62971, 6.66957, 6.69939] V 1594.7259521484375 4752 Lmax 47.0742607550105
+3->47.0743,1.76298,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+1594.73->4752,451.046,6.9999
+Starting: V=1594.73->2045.77
+Finished: V=1594.73->2045.77 A^3, 12149 unit cells tested, 331261 tests/s,   Elapsed time=0.036687s
+Starting: V=2045.77->2496.82
+Finished: V=2045.77->2496.82 A^3, 39802 unit cells tested, 442505 tests/s,   Elapsed time=0.089956s
+Starting: V=2496.82->2947.86
+Finished: V=2496.82->2947.86 A^3, 86022 unit cells tested, 527966 tests/s,   Elapsed time=0.16294s
+Starting: V=2947.86->3398.91
+Finished: V=2947.86->3398.91 A^3, 156101 unit cells tested, 604183 tests/s,   Elapsed time=0.258375s
+Starting: V=3398.91->3849.95
+Finished: V=3398.91->3849.95 A^3, 258342 unit cells tested, 684457 tests/s,   Elapsed time=0.37745s
+Starting: V=3849.95->4301
+Finished: V=3849.95->4301 A^3, 396640 unit cells tested, 756841 tests/s,   Elapsed time=0.524082s
+Starting: V=4301->4752
+    a=17.55-17.60 b= 9.20- 9.25 c=30.63-30.70 alpha= 90.00- 90.00 beta= 97.77- 97.91 gamma= 90.00- 90.00 V=4897.62-4953.08level=4, indexed=1(0 sol.)
+    a=0.05752-0.05735 b=0.10873-0.10806 c=0.03295-0.03289 alpha=0.13526-0.13765 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(0 sol.)
+ Solution ? a= 17.547 b=  9.208 c= 30.511 alpha= 90.000 beta= 97.948 gamma= 90.000 V= 4882.46 score=  6.05 #   0
+    a=17.56-17.62 b= 9.20- 9.25 c=30.65-30.72 alpha= 90.00- 90.00 beta= 98.05- 98.19 gamma= 90.00- 90.00 V=4900.92-4956.46level=4, indexed=1(1 sol.)
+    a=0.05752-0.05735 b=0.10873-0.10806 c=0.03295-0.03289 alpha=0.14004-0.14244 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(1 sol.)
+ Solution ? a= 17.548 b=  9.207 c= 30.506 alpha= 90.000 beta= 97.951 gamma= 90.000 V= 4881.37 score=  6.06 #   1
+Finished: V=4301->4752 A^3, 584414 unit cells tested, 829174 tests/s,   Elapsed time=0.704853s
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=17.5478, b=9.20728, c=30.5058, alpha=90, beta=97.951, gamma=90, V=4881.37, score=6.05744
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2609 BEST ? a=17.5478, b=9.20728, c=30.5058, alpha=90, beta=97.951, gamma=90, V=4881.37, score=6.05744
+584414unit cells tested, 828957 tests/s,   Elapsed time=0.705005s
+DONE Xd8634a2 MONOCLINIC C 1 0.7055425643920898 [{'cell': [17.547834396362305, 9.207275390625, 30.505765914916992, 90.00000250447816, 97.95101888710084, 90.00000250447816], 'volume': 4881.3662109375, 'score': 6.057438850402832, 'system': 'MONOCLINIC', 'centering': 'C', 'mode': 2}]

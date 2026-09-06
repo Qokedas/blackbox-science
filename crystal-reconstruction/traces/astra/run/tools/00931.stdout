@@ -1,0 +1,380 @@
+{
+ "cell": {
+  "a": 6.950883561252238,
+  "b": 6.9714360090474425,
+  "c": 15.760000618785241,
+  "alpha": 65.620071071758,
+  "beta": 82.98049443060587,
+  "gamma": 67.39068753201737
+ },
+ "space_group": "P -1",
+ "space_group_number": 2
+}data_solution
+_cell_length_a 6.95865722
+_cell_length_b 7.00357894
+_cell_length_c 15.76689098
+_cell_angle_alpha 65.75697573
+_cell_angle_beta 83.05824461
+_cell_angle_gamma 67.34340812
+_space_group_name_H-M_alt 'P 1'
+_space_group_IT_number 1
+loop_
+_space_group_symop_id
+_space_group_symop_operation_xyz
+1 'x,y,z'
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+_atom_site_B_iso_or_equiv
+O1 O 0.88093055 0.42605950 0.81058163 1.0 6.8850
+C2 C 0.83091591 0.25360161 0.84450469 1.0 4.4052
+O3 O 0.75345227 0.19062637 0.92395884 1.0 6.8850
+C4 C 0.94607120 0.07317020 0.80708780 1.0 4.4052
+C5 C 0.02781483 0.13042691 0.71834104 1.0 4.4052
+C6 C 0.13923709 0.96629010 0.68300067 1.0 4.4052
+C7 C 0.17317505 0.73729714 0.73552440 1.0 4.4052
+C8 C 0.29192794 0.56149470 0.69945585 1.0 4.4052
+C9 C 0.37501032 0.61216041 0.61033207 1.0 4.4052
+C10 C 0.48569390 0.44176353 0.57802033 1.0 4.4052
+C11 C 0.51760556 0.21507908 0.63362356 1.0 4.4052
+C12 C 0.63408329 0.02769251 0.60040591 1.0 4.4052
+O13 O 0.59334387 0.84942820 0.63852872 1.0 6.8850
+O14 O 0.77406357 0.05430501 0.54188684 1.0 6.8850
+C15 C 0.43608934 0.16498727 0.72220049 1.0 4.4052
+C16 C 0.32546961 0.33419976 0.75459288 1.0 4.4052
+C17 C 0.08976428 0.68021862 0.82453330 1.0 4.4052
+C18 C 0.97866487 0.84486815 0.85972811 1.0 4.4052
+H19 H 0.01687655 0.30532038 0.67852766 1.0 4.1254
+set -e
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 CHARGED_N_MIN=3.15
+while [[ -r /proc/41900/status ]] && ! grep -q '^State:.*Z' /proc/41900/status;do sleep 5;done
+id=X7e382cb
+GALLOP_STOL=.29 python /app/work/warm_gallop.py $id 41 /app/work/$id/refined_g40.xml /app/work/$id/search_g40/model.json > /app/work/$id/warm41.log 2>&1
+EXACT_BUMP_IMAGES=1 HBOND_MULTIPLE=1 HBOND_COEFF=20 BUMP_COEFF=150 SEARCH_TIME=1800 PARTICLES=128 ITERATIONS=450 START_NPZ=/app/work/$id/gallop_41/warm.npz START_JITTER=.10 START_TOR_JITTER=.45 MACRO_ELITE_FRAC=.45 python /app/work/search_gallop.py $id 41 1 --hscatter --packing > /app/work/$id/gallop41.log 2>&1
+python /app/work/import_gallop.py $id 41 > /app/work/$id/import_g41.log 2>&1
+python /app/work/refine_obj.py $id g41 /app/work/$id/search_g41/best.xml --scale --tight --stol=.4 > /app/work/$id/refine_g41.log 2>&1
+python /app/work/submit.py $id /app/work/$id/refined_g41.cif --check > /app/work/$id/check_g41.log 2>&1
+import os,sys,time,json,itertools,numpy as np,torch,gemmi
+from scipy.spatial.transform import Rotation
+from pyobjcryst.io import xml_cryst_file_load_all_object
+from obj_bridge import exact_pawley
+from obj_model import make_rdkit
+from pymatgen.core import Lattice
+from rdkit import Chem
+sid='X7e382cb';W='/app/work/'+sid;run=sys.argv[1] if len(sys.argv)>1 else 'twocentre1';out=W+'/'+run;os.makedirs(out,exist_ok=True)
+torch.set_num_threads(1);torch.set_num_interop_threads(1)
+O=xml_cryst_file_load_all_object(W+'/base.xml');p=next(o for o in O if o.GetClassName()=='PowderPattern');c=next(o for o in O if o.GetClassName()=='Crystal');d=p.GetPowderPatternComponent(0)
+
+from obj_model import add_component
+if c.GetNbScatterer()==0:dummy,_=add_component(c,'C','dummy_pawley')
+d.SetExtractionMode(True,False);p.Prepare();d.ExtractLeBail(20);p.Prepare();p.FitScaleFactorForRw()
+print('LEBAIL_RW',p.GetRw(),flush=True)
+pw=exact_pawley(p,d,stolmax=float(os.environ.get('STOL','.25')),rcond=.001);sel=pw['sel'];hkl=np.array([d.GetH(),d.GetK(),d.GetL()]).T[sel];stol=np.asarray(d.GetSinThetaOverLambda())[sel]
+cp=[c.GetPar(n).GetHumanValue() for n in ['a','b','c','alpha','beta','gamma']];lat=Lattice.from_parameters(*cp)
+r,xyz,en=make_rdkit('O=C([O-])c1ccccc1',seed=143,hydrogen=False)
+axis=xyz[6]-(xyz[5]+xyz[7])/2;axis/=np.linalg.norm(axis);center=xyz[6]+axis*.745;xyz=xyz-center
+axis=xyz[1]-xyz[3];axis/=np.linalg.norm(axis);point=xyz[3].copy();delta=xyz[[0,2]]-point
+els=[a.GetSymbol() for a in r.GetAtoms()]*2+['N','N'];counts=[a.GetTotalNumHs() for a in r.GetAtoms()];counts[6]=0;counts=counts*2+[4,4];rad=[.98 if el=='O' else 1.01 if el=='N' else 1.09 for el in els]
+sf=np.array([[gemmi.Element(el).it92.calculate_sf(float(s*s))+counts[i]*gemmi.Element('H').it92.calculate_sf(float(s*s))*np.sinc(4*s*rad[i]) for i,el in enumerate(els)] for s in stol])*2*np.exp(-3*stol[:,None]**2)
+T=lambda a:torch.tensor(a,dtype=torch.float32)
+li=T(np.linalg.inv(lat.matrix));lm=T(lat.matrix);sf=T(sf);hk=T(hkl);xy0=T(xyz);dv=T(delta);ax=T(axis);pt=T(point);nm=T(pw['normal']*1000/pw['var']);obs=T(pw['obs']);no=nm@obs;oo=obs@no
+N=int(os.environ.get('PARTICLES','256'));IT=int(os.environ.get('ITERATIONS','500'));BATCH=int(os.environ.get('BATCHES','40'));MAX=float(os.environ.get('SEARCH_TIME','1200'));centres=np.array([[0,0,.5],[0,.5,0],[.5,0,0],[0,.5,.5],[.5,0,.5],[.5,.5,0],[.5,.5,.5]])
+if 'CENTRE' in os.environ:centres=np.array([[float(x) for x in os.environ['CENTRE'].split(',')]])
+ids=np.arange(N)%len(centres);cnt=T(centres[ids]);best=1.e20;t0=time.time();bestpars=None;bestctr=None
+
+def coords(q,phi,pos):
+    q=q/torch.linalg.norm(q,dim=-1,keepdim=True);x,y,z,w=q.unbind(-1)
+    rr=torch.stack([1-2*y*y-2*z*z,2*x*y-2*z*w,2*x*z+2*y*w,2*x*y+2*z*w,1-2*x*x-2*z*z,2*y*z-2*x*w,2*x*z-2*y*w,2*y*z+2*x*w,1-2*x*x-2*y*y],-1).reshape(-1,2,3,3)
+    ca=torch.cos(phi)[...,None,None];sa=torch.sin(phi)[...,None,None]
+    mov=pt+dv*ca+torch.linalg.cross(ax.expand_as(dv),dv)*sa+ax*(dv@ax)[...,None]*(1-ca)
+    xy=xy0.repeat(len(q),2,1,1);xy[:,:,0]=mov[:,:,0];xy[:,:,2]=mov[:,:,1]
+    fr=(xy@rr.transpose(-1,-2))@li;fr[:,1]=fr[:,1]+cnt[:len(q),None,:]
+    return torch.cat([fr.reshape(-1,18,3),pos],1)
+
+# Covalent connectivity of each inversion-centred biphenyl excludes the
+# central bond and its 1-3/1-4 neighbours, without suppressing true contacts.
+rad0=[1.28 if e=='O' else 1.35 if e=='N' else 1.48 for e in els]
+dm=Chem.GetDistanceMatrix(r);ii=[];jj=[];signs=[];limits=[];weights=[]
+for sign in [1.,-1.]:
+ for i in range(20):
+  for j in range(20):
+   same_half=i<18 and j<18 and i//9==j//9
+   if sign==1 and (i>=j or (same_half and dm[i%9,j%9]<=3)):continue
+   if sign==-1 and same_half and dm[i%9,6]+1+dm[6,j%9]<=3:continue
+   ii.append(i);jj.append(j);signs.append(sign);limits.append(rad0[i]+rad0[j]-(.10 if els[i] in ['N','O'] and els[j] in ['N','O'] else 0.));weights.append(1. if sign==1 else .5)
+ii=torch.tensor(ii);jj=torch.tensor(jj);sgn=T(signs);limits=T(limits);weights=T(weights)
+shifts=T(np.array(list(itertools.product([-1,0,1],repeat=3)))@lat.matrix);shifts2=(shifts*shifts).sum(-1);coef=float(os.getenv('BUMP_COEFF','150'))
+def pack(fr):
+ dd=fr[:,ii]-fr[:,jj]*sgn[None,:,None];dd=dd-torch.round(dd).detach();cart=dd@lm
+ with torch.no_grad():correct=shifts[(2*(cart.detach()@shifts.T)+shifts2).argmin(-1)]
+ dist=torch.sqrt(((cart+correct)**2).sum(-1)+1e-8)
+ return coef*((torch.clamp(limits-dist,min=0)**2)*weights).sum(-1)
+
+def calc(q,phi,pos):
+    fr=coords(q,phi,pos);f=((torch.cos(2*np.pi*(fr@hk.T)))*sf.T).sum(1)**2
+    nf=f@nm;of=f@no;ff=(f*nf).sum(1);cost=oo-torch.clamp(of,min=0)**2/ff.clamp(min=1e-20)
+    penalty=pack(fr)
+    return cost,penalty,fr
+
+def save(q,ph,po,ctr,cost,batch):
+    global cnt
+    savecnt=cnt;cnt=T(np.array([ctr]));fr=coords(T(q[None]),T(ph[None]),T(po[None]))[0].detach().numpy();cnt=savecnt
+    text='data_solution\n'
+    for k,v in zip(['length_a','length_b','length_c','angle_alpha','angle_beta','angle_gamma'],cp):text+=f'_cell_{k} {v:.9f}\n'
+    text+="_space_group_name_H-M_alt 'P -1'\n_space_group_IT_number 2\nloop_\n_space_group_symop_id\n_space_group_symop_operation_xyz\n1 'x,y,z'\n2 '-x,-y,-z'\nloop_\n_atom_site_label\n_atom_site_type_symbol\n_atom_site_fract_x\n_atom_site_fract_y\n_atom_site_fract_z\n_atom_site_occupancy\n"
+    for i,(e,v) in enumerate(zip(els,fr)):text+=f'{e}{i+1} {e} {v[0]%1:.9f} {v[1]%1:.9f} {v[2]%1:.9f} 1\n'
+    open(out+'/best.cif','w').write(text);np.savez_compressed(out+'/best.npz',q=q,phi=ph,pos=po,centre=ctr,frac=fr);json.dump({'cost':float(cost),'batch':batch,'elapsed':time.time()-t0,'centre':list(ctr)},open(out+'/best.json','w'),indent=1)
+
+print('TWO_CENTRES',cp,'Nref',len(hkl),'Nparticle',N,flush=True)
+for batch in range(BATCH):
+    q=T(np.random.normal(size=(N,2,4)));phi=T(np.random.uniform(-np.pi,np.pi,size=(N,2)));pos=T(np.random.rand(N,2,3))
+    if bestpars is not None and batch%5!=0:
+        n=N//2;mask=np.all(centres[ids]==bestctr,axis=1);sel=np.where(mask)[0]
+        for ar,br in zip([q,phi,pos],bestpars):ar[sel]=T(br).unsqueeze(0)+torch.randn_like(ar[sel])*.16
+    for ar in [q,phi,pos]:ar.requires_grad_(True)
+    opt=torch.optim.Adam([q,phi,pos],lr=.035)
+    for it in range(IT):
+        opt.zero_grad();co,pe,fr=calc(q,phi,pos);loss=(co+pe).sum();loss.backward();torch.nn.utils.clip_grad_norm_([q,phi,pos],max_norm=100000);opt.step()
+        if it==IT*3//4:
+            for g in opt.param_groups:g['lr']=.008
+    with torch.no_grad():
+        co,pe,fr=calc(q,phi,pos);score=co+pe;k=int(score.argmin());val=float(score[k]);print('BATCH',batch,'best',val,'diffraction',float(co[k]),'p25',float(torch.quantile(score,.25)),'seconds',time.time()-t0,'centre',centres[ids[k]],flush=True)
+        if val<best:
+            best=val;bestpars=[ar[k].detach().numpy().copy() for ar in [q,phi,pos]];bestctr=centres[ids[k]].copy();save(*bestpars,bestctr,best,batch)
+    if time.time()-t0>MAX or best<3:break
+addH40.log
+base.png
+base.xml
+base_double.log
+base_profile.xye
+basefresh.log
+candidates.json
+candidates_subother.json
+contact_g31.log
+double_candidates.json
+expand_p1test.log
+extended_g40.xye
+fit_0.json
+fit_0.log
+fit_0.png
+fit_0.xml
+fit_0.xye
+fit_double0.json
+fit_double0.log
+fit_double0.png
+fit_double0.xml
+fit_double0.xye
+fit_subother0.log
+fit_subother0.xye
+gallop21.log
+gallop22.log
+gallop31.log
+gallop32.log
+gallop40.log
+gallop41.log
+gallop_21
+gallop_22
+gallop_31
+gallop_32
+gallop_40
+gallop_41
+half30.log
+half30_best.cif
+half30_best.json
+half30_best.npy
+half30_eval.json
+half30_eval.log
+half30_eval.png
+half30_eval.xml
+half_base
+half_best.cif
+half_best.json
+half_best.npy
+half_solve.log
+import_g21.log
+import_g22.log
+import_g31.log
+import_g32.log
+import_g40.log
+index_CUBIC_F_0.json
+index_CUBIC_F_0.log
+index_CUBIC_I_0.json
+index_CUBIC_I_0.log
+index_CUBIC_P_0.json
+index_CUBIC_P_0.log
+index_HEXAGONAL_P_0.json
+index_HEXAGONAL_P_0.log
+index_MONOCLINIC_C_0.json
+index_MONOCLINIC_C_0.log
+index_MONOCLINIC_C_2.json
+index_MONOCLINIC_C_2.log
+index_MONOCLINIC_P_0.json
+index_MONOCLINIC_P_0.log
+index_MONOCLINIC_P_2.json
+index_MONOCLINIC_P_2.log
+index_ORTHOROMBIC_C_0.json
+index_ORTHOROMBIC_C_0.log
+index_ORTHOROMBIC_C_4_250_1800_z-.02_peaks_raw.json
+index_ORTHOROMBIC_I_0.json
+index_ORTHOROMBIC_I_0.log
+index_ORTHOROMBIC_P_0.json
+index_ORTHOROMBIC_P_0.log
+index_ORTHOROMBIC_P_2.json
+index_ORTHOROMBIC_P_2.log
+index_ORTHOROMBIC_P_4_250_1800_z-.02_peaks_raw.json
+index_RHOMBOEDRAL_P_0.json
+index_RHOMBOEDRAL_P_0.log
+index_TETRAGONAL_I_0.json
+index_TETRAGONAL_I_0.log
+index_TETRAGONAL_P_0.json
+index_TETRAGONAL_P_0.log
+index_TRICLINIC_P_4.json
+index_TRICLINIC_P_4.log
+index_raw_MONOCLINIC_C.log
+index_raw_MONOCLINIC_P.log
+index_raw_MONOCLINIC_P_partial.json
+index_raw_ORTHOROMBIC_C.log
+index_raw_ORTHOROMBIC_P.log
+index_raw_TRICLINIC_P.log
+index_raw_TRICLINIC_P_partial.json
+lattice.json
+lebail.npz
+native_po_g40.json
+native_po_g40.log
+peak_select.json
+peak_select_raw.json
+peaks.json
+peaks.png
+peaks_raw.json
+peaks_raw.png
+po41.log
+po_scan_40.log
+pre_scan_0.xml
+pre_scan_double0.xml
+processed.npz
+refine_chem32.log
+refine_chem32_stage0.cif
+refine_chem32_stage0.xml
+refine_chem32_stage1.cif
+refine_chem32_stage1.xml
+refine_chem32_stage2.cif
+refine_chem32_stage2.xml
+refine_chem32_stage3.cif
+refine_chem32_stage3.xml
+refine_g21.log
+refine_g22.log
+refine_g22_stage0.cif
+refine_g22_stage0.xml
+refine_g22_stage1.cif
+refine_g22_stage1.xml
+refine_g22_stage2.cif
+refine_g22_stage2.xml
+refine_g22_stage3.cif
+refine_g22_stage3.xml
+refine_g31.log
+refine_g31_stage0.cif
+refine_g31_stage0.xml
+refine_g31_stage1.cif
+refine_g31_stage1.xml
+refine_g31_stage2.cif
+refine_g31_stage2.xml
+refine_g31_stage3.cif
+refine_g31_stage3.xml
+refine_g32.log
+refine_g32_stage0.cif
+refine_g32_stage0.xml
+refine_g32_stage1.cif
+refine_g32_stage1.xml
+refine_g32_stage2.cif
+refine_g32_stage2.xml
+refine_g32_stage3.cif
+refine_g32_stage3.xml
+refine_g40.log
+refine_g40_stage0.cif
+refine_g40_stage0.xml
+refine_g40_stage1.cif
+refine_g40_stage1.xml
+refine_g40_stage2.cif
+refine_g40_stage2.xml
+refine_g40_stage3.cif
+refine_g40_stage3.xml
+refined_chem32.cif
+refined_chem32.json
+refined_chem32.png
+refined_chem32.xml
+refined_g22.cif
+refined_g22.json
+refined_g22.png
+refined_g22.xml
+refined_g31.cif
+refined_g31.json
+refined_g31.png
+refined_g31.xml
+refined_g32.cif
+refined_g32.json
+refined_g32.png
+refined_g32.xml
+refined_g40.cif
+refined_g40.json
+refined_g40.png
+refined_g40.xml
+scaled_refine.xye
+search_chem32
+search_g21
+search_g22
+search_g31
+search_g32
+search_g40
+search_ionH40
+search_p1test
+tc1
+tc1.log
+tc2
+tc2.log
+warm40.log
+warm41.log
+{
+ "radiation": {
+  "type": "Mo Kalpha1,2 (laboratory sealed tube)",
+  "wavelength_A": 0.709319,
+  "wavelengths_A": [
+   0.709319,
+   0.713609
+  ],
+  "wavelength_weights": [
+   1.0,
+   0.5
+  ],
+  "monochromator": null,
+  "source": "sealed X-ray tube"
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 300.0,
+ "two_theta_range_deg": [
+  1.0125,
+  49.987
+ ],
+ "n_points": 5862,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "sqrt(max(I,1)); counting statistics assumed",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": [
+  "Kalpha2 weight 0.5 is the standard ratio; the depositors state only Kalpha1,2"
+ ]
+}{
+ "components": [
+  {
+   "smiles": "O=C1CN=C(c2ccccc2Cl)c2cc(Br)ccc2N1",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}

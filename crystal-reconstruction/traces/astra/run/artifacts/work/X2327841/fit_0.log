@@ -1,0 +1,9 @@
+Imported powder pattern: 7180 points, 2theta=  1.566 ->  23.103, step= 0.003
+STARTFIT X2327841 0 Rw 0.05329593562472099
+ERRORSG I 1 21 1 Space group symbol 'I 1 21 1' not recognized
+ERRORSG C 1 21 1 Space group symbol 'C 1 21 1' not recognized
+ERRORSG B 1 2 1 Space group symbol 'B 1 2 1' not recognized
+ERRORSG B 1 21 1 Space group symbol 'B 1 21 1' not recognized
+ERRORSG F 1 2 1 Space group symbol 'F 1 2 1' not recognized
+GROUPS [{"sg": "P 1 2 1", "number": 3, "Rw": 6.981598757319471, "GoF": 6.301048185780032, "nGoF": 0.0, "mult": 2}, {"sg": "P 1 21 1", "number": 4, "Rw": 6.981631946933906, "GoF": 6.300131935382047, "nGoF": 0.0, "mult": 2}, {"sg": "A 1 2 1", "number": 5, "Rw": 20.396674841994532, "GoF": 51.06619105334743, "nGoF": 0.0, "mult": 4}, {"sg": "C 1 2 1", "number": 5, "Rw": 23.080489072808952, "GoF": 65.45641727475581, "nGoF": 0.0, "mult": 4}, {"sg": "I 1 2 1", "number": 5, "Rw": 42.54095676307553, "GoF": 222.37026956193304, "nGoF": 0.0, "mult": 4}]
+DONE X2327841 0 0.05249007855671736 [25.052444785550584, 4.934049635401085, 37.1927423316594, 90.0, 90.77645119254571, 90.0]

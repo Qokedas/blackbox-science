@@ -1,0 +1,17 @@
+seed 1977969675
+step ['Zero'] Rwp=0.2880
+step ['W'] Rwp=0.1684
+step ['a', 'b', 'c', 'alpha', 'beta', 'gamma'] Rwp=0.1523
+step ['U', 'V'] Rwp=0.1302
+step ['Eta0'] Rwp=0.0988
+step ['Eta1'] Rwp=0.0955
+step ['background'] Rwp=0.0891
+step ['Zero', 'W', 'U', 'V', 'Eta0', 'background', 'a', 'b', 'c', 'alpha', 'beta', 'gamma'] Rwp=0.0868
+LeBail Rwp=0.0863 chi2=12492.6 cell= 10.29089538333883 6.881051179858904 19.988919605192578 90.0
+  conformers: 4 distinct; energies [131.7, 132.2, 135.9, 136.2]; using rank 0 (E=131.7)
+  molecule mol0_0: 21 atoms, 22 bonds, 29 angles, 30 dihedral restraints, 2 free torsions
+run 0: cost=86086.8 Rwp=0.2152 chi2=77969.8 t=1368s
+polish: Rwp 0.2148 -> 0.1806 (accepted) restraint cost=0.00
+run 1: cost=61557.8 Rwp=0.1757 chi2=52037.9 t=1300s
+polish: Rwp 0.1755 -> 0.1734 (accepted) restraint cost=0.00
+RESULTS Xe3a2935 P 2 21 21 [(86086.81782489637, 0.21522455701065754, 77969.84624929453), (61557.83239806862, 0.17574392585258153, 52037.92248849244)]

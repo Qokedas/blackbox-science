@@ -1,0 +1,31 @@
+BR_CONDITIONAL_PID:51460
+16777 1 1 bash /app/work/queue_gallop_A4.sh 
+29859 1 0 bash /app/work/queue_gallop_B5.sh 
+32867 1 1 bash /app/work/queue_gallop_A5.sh 
+43321 1 0 bash /app/work/queue_gallop_D8.sh 
+45641 1 0 bash /app/work/queue_b708_warm.sh 
+47634 1 0 bash /app/work/queue_x7ion.sh 
+48500 29859 605 python /app/work/search_gallop.py X238783d 25 1 --prepare --hscatter 
+48694 16777 571 python /app/work/search_gallop.py Xe1fb77b 11 1 --prepare --hscatter 
+49576 43321 447 python /app/work/search_gallop.py X8a06d7a 12 1 --prepare --hscatter --packing 
+50027 45641 356 python /app/work/search_gallop.py Xb7088cf 50 1 --hscatter --packing 
+51090 1 0 bash /app/work/queue_acm73.sh 
+51094 1 0 bash /app/work/queue_acm_warm.sh 
+51186 51090 112 python /app/work/search_gallop.py X14a2b08 73 1 --hscatter --packing 
+51425 47634 13 python /app/work/search_gallop.py X7e382cb 41 1 --hscatter --packing 
+51460 51445 0 bash /app/work/queue_brconditional.sh 
+51465 51460 0 python /app/work/refine_obj.py X4f6fe58 chem11 /app/work/X4f6fe58/refined_g11.xml --scale --tight --stol=.38 
+CYCLE 3 0 Rw 0.0802108251302006 chi2 1909.063540374173 geom 9.830077887194612 LSQ 1996.109096730704
+CYCLE 3 1 Rw 0.07989523355186463 chi2 1894.0705732865388 geom 10.913527505859967 LSQ 1984.185924814568
+CYCLE 3 2 Rw 0.07975924415881011 chi2 1887.6282790783218 geom 11.823573333029536 LSQ 1977.222326983297
+PACKING_STAGE 3 6.950385607622413
+FINISHED Xedd9c7b 0.07975924415881011
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 100 seconds 340.5074944496155 best 279.19736 q25 397.62335 median 472.732 total 340.51409244537354
+GALLOP 1 Nref 161 seconds 398.78701972961426 best 252.97206 q25 302.494 median 400.24094 total 739.5212860107422
+GALLOP 2 Nref 149 seconds 197.59516024589539 best 218.77606 q25 291.26743 median 404.05127 total 592.1700778007507
+GALLOP 3 Nref 149 seconds 188.4738802909851 best 218.77596 q25 273.26886 median 381.09616 total 780.7688171863556
+GALLOP 4 Nref 149 seconds 162.73896718025208 best 213.87035 q25 243.80962 median 350.7168 total 943.6155757904053
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 427 seconds 150.5018653869629 best 164.78278 q25 205.4889 median 292.41843 total 150.54779291152954

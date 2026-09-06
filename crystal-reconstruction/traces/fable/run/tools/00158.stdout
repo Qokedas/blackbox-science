@@ -1,0 +1,7 @@
+kill 1923: python batch_index.py X1db5091,X2327841,X238783d,X263b09a,X35b7fbc,X3c176e2,X3f4
+kill 4552: /opt/g2/bin/python /app/work/g2index.py X1db5091 20 ortho 60 
+kill 4561: /opt/g2/bin/python /app/work/g2index.py X2327841 20 ortho 60 
+kill 4597: /opt/g2/bin/python /app/work/g2index.py X238783d 20 ortho 60 
+python solve.py X9af54a2 5.1777 8.2521 32.9450 90 92.7521 90 P 1 21/c 1 --nsteps
+python solve.py Xe3a2935 10.29176 6.88129 19.99016 90 90 90 P 21 21 21 --nsteps 
+python sgscan.py X3c176e2 14.0376 9.3447 11.0572 90 90 90 ortho 45 

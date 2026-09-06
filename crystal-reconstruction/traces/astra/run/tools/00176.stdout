@@ -1,0 +1,58 @@
+0 O [1]
+1 C [0, 2, 3]
+2 O [1]
+3 C [1, 4]
+4 C [3, 5]
+5 C [4, 6, 7]
+6 O [5]
+7 O [5]
+acid torsion -179.9997520675211
+---/app/work/X35b7fbc/search1.log
+#  0:ScatteringPowerAtom(C)
+#  1:ScatteringPowerAtom(O)
+Imported powder pattern: 7136 points, 2theta=  2.300 ->  20.137, step= 0.003
+RESCALED_BASE 3.6418637513412286 0.06912182078479759 7136.00000000004
+INITIAL X35b7fbc 1 Rw 0.697907468403684 LLK 665106.9170748002 Integrated 663767.5834572186 DOF -1
+RUN 0 steps 100000 time 19.270981550216675 total 19.271053552627563 LLK 57881.768873123016 Rw 0.2277145122031384 Integrated 46495.51841494086
+RUN 1 steps 1000000 time 419.0377793312073 total 438.3780269622803 LLK 51487.0786867251 Rw 0.211780393347148 Integrated 43199.68268856584
+---/app/work/Xeb393f9/fit_0.log
+Could not interpret Spacegroup Symbol:
+ERRORSG F 1 Space group symbol '' not recognized
+Lookup of '' symbol failed, trying as Hall symbol.
+Could not interpret Spacegroup Symbol:
+ERRORSG I 1 Space group symbol '' not recognized
+GROUPS [{"sg": "P 1", "number": 1, "Rw": 4.820075326079965, "GoF": 38.06519561637056, "nGoF": 4.39389029317796, "mult": 1}]
+DONE Xeb393f9 0 0.045400599459229404 [8.01414358871129, 9.815831756282991, 10.233476980593416, 74.87128465787096, 68.95940769903211, 65.93082913627804]
+---/app/work/Xd8634a2/import_g2.log
+  File "/app/work/import_gallop.py", line 10, in <module>
+    for i,old in enumerate(md['order']):xyz[old]=c.FractionalToOrthonormalCoords(*f[i])
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    UnitCell.FractionalToOrthonormalCoords(Crystal, numpy.float32, numpy.float32, numpy.float32)
+did not match C++ signature:
+    FractionalToOrthonormalCoords(ObjCryst::UnitCell, double, double, double)
+---/app/work/Xd8634a2/refine_g2.log
+  File "/app/work/refine_obj.py", line 12, in <module>
+    objs=xml_cryst_file_load_all_object(src);c=[o for o in objs if o.GetClassName()=='Crystal'][0];p=[o for o in objs if o.GetClassName()=='PowderPattern'][0]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.11/site-packages/pyobjcryst/io.py", line 62, in xml_cryst_file_load_all_object
+    XMLCrystFileLoadAllObject_orig(open(file, "rb"), verbose=verbose)
+                                   ^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/app/work/Xd8634a2/search_g2/best.xml'
+---/app/work/Xfca9f3c/alltrans_search.log
+ObjRegistry<T>::Find(H): Not found !!
+List of Crystal ScatteringPowers :1 object registered:
+#  0:ScatteringPowerAtom(C)
+Imported powder pattern: 7041 points, 2theta=  1.956 ->  23.076, step= 0.003
+RESCALED_BASE 1.0004855341445278 0.039754261519721154 7041.0000000000255
+INITIAL Xfca9f3c 10 Rw 0.38323619458375335 LLK 591929.3554402896 Integrated 590856.4725829696 DOF -1
+RUN 0 steps 100000 time 18.19563364982605 total 18.195693016052246 LLK 39177.67519793709 Rw 0.12818016239121097 Integrated 38104.79234061706
+---/app/work/X8a06d7a/base4.log
+Imported powder pattern: 2212 points, 2theta=  7.744 ->  45.331, step= 0.017
+FRESH_BASE X8a06d7a P -1 0.1458713423318941 131453.9700966295
+Imported powder pattern: 2212 points, 2theta=  7.744 ->  45.331, step= 0.017
+SCALED 77.0892942951759 Rw 0.14586351477502363 Chi2 2211.7626114771415
+Xedd9c7b 99 [{'cell': [12.059207916259766, 9.22851276397705, 8.054314613342285, 117.51860927421693, 79.80729754568979, 107.28665804845767], 'volume': 758.1997680664062, 'score': 14.74155044555664, 'system': 'TRICLINIC', 'centering': 'P', 'mode': 4}, {'cell': [9.812661170959473, 9.689390182495117, 8.332381248474121, 108.94894850752036, 82.74776911546115, 106.65703755038756], 'volume': 717.3765258789062, 'score': 12.41263198852539, 'system': 'TRICLINIC', 'centering': 'P', 'mode': 4}]
+Xebbd488 82 [{'cell': [14.678791999816895, 13.768106460571289, 10.159420013427734, 106.15753215600618, 88.93883016407914, 105.39009210086355], 'volume': 1897.99462890625, 'score': 13.408711433410645, 'system': 'TRICLINIC', 'centering': 'P', 'mode': 4}, {'cell': [14.693960189819336, 13.794448852539062, 10.174156188964844, 106.13286834291327, 88.89456370806829, 105.46277897401082], 'volume': 1905.9876708984375, 'score': 12.679965019226074, 'system': 'TRICLINIC', 'centering': 'P', 'mode': 4}]
+X7e382cb 100 [{'cell': [14.436251640319824, 4.90826416015625, 3.476099729537964, 91.275458369708, 93.7826363989121, 91.67236749256662], 'volume': 245.59228515625, 'score': 32.83389663696289, 'system': 'TRICLINIC', 'centering': 'P', 'mode': 4}, {'cell': [14.435202598571777, 4.967620849609375, 3.516873598098755, 98.66119463624209, 93.59716944218957, 91.21063987448458], 'volume': 248.70347595214844, 'score': 32.14121627807617, 'system': 'TRICLINIC', 'centering': 'P', 'mode': 4}]
+Xb7088cf 22 [{'cell': [10.032687187194824, 8.584617614746094, 5.652190685272217, 92.19981519084251, 73.63350321529362, 95.65521472214114], 'volume': 464.777099609375, 'score': 12.471327781677246, 'system': 'TRICLINIC', 'centering': 'P', 'mode': 4}, {'cell': [10.06093978881836, 8.583581924438477, 5.654977321624756, 92.17432492486003, 73.54730622796805, 95.81051273329972], 'volume': 465.9329528808594, 'score': 12.378645896911621, 'system': 'TRICLINIC', 'centering': 'P', 'mode': 4}]

@@ -1,0 +1,3 @@
+N 360 VALID 2.6017823566139596e-05
+['GetH', 'GetH2Pi', 'GetK', 'GetK2Pi', 'GetL', 'GetL2Pi', 'GetLSQCalc', 'GetLSQDeriv', 'GetLSQObs', 'GetLSQWeight', 'GetLogLikelihood']
+Rw 0.12363331126206885

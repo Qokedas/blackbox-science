@@ -1,0 +1,177 @@
+BEFORE
+0 _x Translation along X False True
+1 _y Translation along Y False True
+2 _z Translation along Z False True
+3 _Occ Occupancy True True
+4 _Q0 Orientation False True
+5 _Q1 Orientation False True
+6 _Q2 Orientation False True
+7 _Q3 Orientation False True
+8 m1_m1_N1_x Orth. X coordinates False True
+9 m1_m1_N1_y Orth. Y coordinates False True
+10 m1_m1_N1_z Orth. Z coordinates False True
+11 m1_m1_C2_x Orth. X coordinates False True
+12 m1_m1_C2_y Orth. Y coordinates False True
+13 m1_m1_C2_z Orth. Z coordinates False True
+14 m1_m1_O3_x Orth. X coordinates False True
+15 m1_m1_O3_y Orth. Y coordinates False True
+16 m1_m1_O3_z Orth. Z coordinates False True
+17 m1_m1_C4_x Orth. X coordinates False True
+18 m1_m1_C4_y Orth. Y coordinates False True
+19 m1_m1_C4_z Orth. Z coordinates False True
+20 m1_m1_C5_x Orth. X coordinates False True
+21 m1_m1_C5_y Orth. Y coordinates False True
+22 m1_m1_C5_z Orth. Z coordinates False True
+23 m1_m1_C6_x Orth. X coordinates False True
+24 m1_m1_C6_y Orth. Y coordinates False True
+25 m1_m1_C6_z Orth. Z coordinates False True
+26 m1_m1_C7_x Orth. X coordinates False True
+27 m1_m1_C7_y Orth. Y coordinates False True
+28 m1_m1_C7_z Orth. Z coordinates False True
+29 m1_m1_N8_x Orth. X coordinates False True
+30 m1_m1_N8_y Orth. Y coordinates False True
+31 m1_m1_N8_z Orth. Z coordinates False True
+32 m1_m1_C9_x Orth. X coordinates False True
+33 m1_m1_C9_y Orth. Y coordinates False True
+34 m1_m1_C9_z Orth. Z coordinates False True
+35 RigidGroup1_x Orth. X coordinates False True
+36 RigidGroup1_y Orth. Y coordinates False True
+37 RigidGroup1_z Orth. Z coordinates False True
+38 RigidGroup1_Q1 Conformation False True
+39 RigidGroup1_Q2 Conformation False True
+40 RigidGroup1_Q3 Conformation False True
+Flip group from atom m0_C2,exchanging bonds with m0_C1 and m0_C3, resulting in a 180� rotation of atoms : m0_C1  m0_C3  
+Flip group from atom m0_C9,exchanging bonds with m0_C11 and m0_C10, resulting in a 180� rotation of atoms : m0_O13  m0_O12  m0_C11  m0_C10  
+Flip group from atom m0_C11,exchanging bonds with m0_O13 and m0_O12, resulting in a 180� rotation of atoms : m0_O13  m0_O12  
+Found ring:m0_C5 m0_C15 m0_C14 m0_C8 m0_C7 m0_C6 
+Rings found :1, 1 unique.
+List of Bond Length stretch modes
+   Bond:m0_C2-m0_C1, Translated Atoms:  m0_C1, ; restrained to length=1.52917, sigma=0.02, delta=0.025
+       Broken bonds:m0_C1-m0_C2, 
+   Bond:m0_C2-m0_C3, Translated Atoms:  m0_C3, ; restrained to length=1.52918, sigma=0.02, delta=0.025
+       Broken bonds:m0_C2-m0_C3, 
+   Bond:m0_C4-m0_C2, Translated Atoms:  m0_C2,m0_C1,m0_C3, ; restrained to length=1.54309, sigma=0.02, delta=0.025
+       Broken bonds:m0_C2-m0_C4, 
+   Bond:m0_C5-m0_C4, Translated Atoms:  m0_C2,m0_C1,m0_C4,m0_C3, ; restrained to length=1.51005, sigma=0.02, delta=0.025
+       Broken bonds:m0_C4-m0_C5, 
+   Bond:m0_C8-m0_C9, Translated Atoms:  m0_O13,m0_C9,m0_O12,m0_C11,m0_C10, ; restrained to length=1.518, sigma=0.02, delta=0.025
+       Broken bonds:m0_C8-m0_C9, 
+   Bond:m0_C9-m0_C10, Translated Atoms:  m0_C10, ; restrained to length=1.53112, sigma=0.02, delta=0.025
+       Broken bonds:m0_C9-m0_C10, 
+   Bond:m0_C9-m0_C11, Translated Atoms:  m0_O13,m0_O12,m0_C11, ; restrained to length=1.51812, sigma=0.02, delta=0.025
+       Broken bonds:m0_C9-m0_C11, 
+   Bond:m0_C11-m0_O12, Translated Atoms:  m0_O12, ; restrained to length=1.22221, sigma=0.02, delta=0.025
+       Broken bonds:m0_C11-m0_O12, 
+   Bond:m0_C11-m0_O13, Translated Atoms:  m0_O13, ; restrained to length=1.34834, sigma=0.02, delta=0.025
+       Broken bonds:m0_C11-m0_O13, 
+ANGLE :m0_C4-m0_C2-m0_C1:m0_C1,: base rotation=0.974028 free=0
+ANGLE :m0_C3-m0_C2-m0_C1:m0_C1,: base rotation=0.974028 free=0
+ANGLE :m0_C1-m0_C2-m0_C3:m0_C3,: base rotation=0.974028 free=0
+ANGLE :m0_C4-m0_C2-m0_C3:m0_C3,: base rotation=0.974028 free=0
+ANGLE :m0_C5-m0_C4-m0_C2:m0_C2,m0_C1,m0_C3,: base rotation=0.974028 free=0
+ANGLE :m0_C15-m0_C5-m0_C4:m0_C2,m0_C1,m0_C4,m0_C3,: base rotation=0.956904 free=0
+ANGLE :m0_C6-m0_C5-m0_C4:m0_C2,m0_C1,m0_C4,m0_C3,: base rotation=0.939394 free=0
+ANGLE :m0_C7-m0_C8-m0_C9:m0_O13,m0_C9,m0_O12,m0_C11,m0_C10,: base rotation=0.896171 free=0
+ANGLE :m0_C14-m0_C8-m0_C9:m0_O13,m0_C9,m0_O12,m0_C11,m0_C10,: base rotation=0.906619 free=0
+ANGLE :m0_C8-m0_C9-m0_C11:m0_O13,m0_O12,m0_C11,: base rotation=0.974028 free=0
+ANGLE :m0_C8-m0_C9-m0_C10:m0_C10,: base rotation=0.974028 free=0
+ANGLE :m0_C10-m0_C9-m0_C11:m0_O13,m0_O12,m0_C11,: base rotation=0.974028 free=0
+ANGLE :m0_C11-m0_C9-m0_C10:m0_C10,: base rotation=0.974028 free=0
+ANGLE :m0_C9-m0_C11-m0_O13:m0_O13,: base rotation=0.974028 free=0
+ANGLE :m0_O12-m0_C11-m0_O13:m0_O13,: base rotation=0.974028 free=0
+ANGLE :m0_O13-m0_C11-m0_O12:m0_O12,: base rotation=0.974028 free=0
+ANGLE :m0_C9-m0_C11-m0_O12:m0_O12,: base rotation=0.974028 free=0
+TORSION :m0_C2-m0_C4:m0_C1,m0_C3,: base rotation=9.74028 free=1
+TORSION :m0_C4-m0_C5:m0_C2,m0_C1,m0_C3,: base rotation=9.74028 free=1
+TORSION :m0_C7-m0_C8:m0_C14,m0_C2,m0_C1,m0_C15,m0_C5,m0_C6,m0_C4,m0_C3,: base rotation=0.438044 free=0
+TORSION :m0_C8-m0_C9:m0_O13,m0_O12,m0_C11,m0_C10,: base rotation=9.74028 free=1
+TORSION :m0_C9-m0_C11:m0_O13,m0_O12,: base rotation=9.74028 free=1
+TORSION :m0_C8-m0_C14:m0_C7,m0_C2,m0_C1,m0_C15,m0_C5,m0_C6,m0_C4,m0_C3,: base rotation=0.443822 free=0
+TORSION :m0_C1-m0_C2:m0_C3,: base rotation=0.974028 free=0
+TORSION :m0_C2-m0_C3:m0_C1,: base rotation=0.974028 free=0
+TORSION :m0_C2-m0_C4:m0_C1,: base rotation=0.974028 free=0
+TORSION :m0_C2-m0_C4:m0_C3,: base rotation=0.974028 free=0
+TORSION :m0_C5-m0_C6:m0_C2,m0_C1,m0_C4,m0_C3,: base rotation=0.974028 free=0
+TORSION :m0_C7-m0_C8:m0_O13,m0_C9,m0_O12,m0_C11,m0_C10,: base rotation=0.974028 free=0
+TORSION :m0_C8-m0_C9:m0_O13,m0_O12,m0_C11,: base rotation=0.974028 free=0
+TORSION :m0_C8-m0_C9:m0_C10,: base rotation=0.974028 free=0
+TORSION :m0_C9-m0_C10:m0_O13,m0_O12,m0_C11,: base rotation=0.974028 free=0
+TORSION :m0_C9-m0_C11:m0_C10,: base rotation=0.974028 free=0
+TORSION :m0_C9-m0_C11:m0_O13,: base rotation=0.974028 free=0
+TORSION :m0_C9-m0_C11:m0_O12,: base rotation=0.974028 free=0
+TORSION :m0_C11-m0_O12:m0_O13,: base rotation=0.974028 free=0
+TORSION :m0_C11-m0_O13:m0_O12,: base rotation=0.974028 free=0
+TORSION :m0_C8-m0_C14:m0_O13,m0_C9,m0_O12,m0_C11,m0_C10,: base rotation=0.974028 free=0
+TORSION :m0_C15-m0_C5:m0_C2,m0_C1,m0_C4,m0_C3,: base rotation=0.974028 free=0
+Full MD atom group:
+ m0_O13 m0_C2 m0_C1 m0_C9 m0_C4 m0_O12 m0_C3 m0_C11 m0_C10 
+Flip group from atom m1_C2,exchanging bonds with m1_N1 and m1_O3, resulting in a 180� rotation of atoms : m1_N1  m1_O3  
+Found ring:m1_C4 m1_C9 m1_N8 m1_C7 m1_C6 m1_C5 
+Rings found :1, 1 unique.
+List of Bond Length stretch modes
+   Bond:m1_C2-m1_N1, Translated Atoms:  m1_N1, ; restrained to length=1.36793, sigma=0.02, delta=0.025
+       Broken bonds:m1_N1-m1_C2, 
+   Bond:m1_C2-m1_O3, Translated Atoms:  m1_O3, ; restrained to length=1.22417, sigma=0.02, delta=0.025
+       Broken bonds:m1_C2-m1_O3, 
+   Bond:m1_C4-m1_C2, Translated Atoms:  m1_C2,m1_N1,m1_O3, ; restrained to length=1.47979, sigma=0.02, delta=0.025
+       Broken bonds:m1_C2-m1_C4, 
+ANGLE :m1_C4-m1_C2-m1_N1:m1_N1,: base rotation=0.974028 free=0
+ANGLE :m1_O3-m1_C2-m1_N1:m1_N1,: base rotation=0.974028 free=0
+ANGLE :m1_N1-m1_C2-m1_O3:m1_O3,: base rotation=0.974028 free=0
+ANGLE :m1_C4-m1_C2-m1_O3:m1_O3,: base rotation=0.974028 free=0
+ANGLE :m1_C9-m1_C4-m1_C2:m1_C2,m1_N1,m1_O3,: base rotation=0.974028 free=0
+ANGLE :m1_C5-m1_C4-m1_C2:m1_C2,m1_N1,m1_O3,: base rotation=0.974028 free=0
+TORSION :m1_C2-m1_C4:m1_N1,m1_O3,: base rotation=9.74028 free=1
+TORSION :m1_C2-m1_C4:m1_C6,m1_C9,m1_C7,m1_N8,m1_C5,: base rotation=6.37598 free=1
+TORSION :m1_C4-m1_C5:m1_C6,m1_C9,m1_C7,m1_N8,: base rotation=0.710325 free=0
+TORSION :m1_C9-m1_C4:m1_C6,m1_C7,m1_N8,m1_C5,: base rotation=0.729182 free=0
+TORSION :m1_N1-m1_C2:m1_O3,: base rotation=0.974028 free=0
+TORSION :m1_C2-m1_O3:m1_N1,: base rotation=0.974028 free=0
+TORSION :m1_C2-m1_C4:m1_N1,: base rotation=0.974028 free=0
+TORSION :m1_C2-m1_C4:m1_O3,: base rotation=0.974028 free=0
+TORSION :m1_C4-m1_C5:m1_C2,m1_N1,m1_O3,: base rotation=0.974028 free=0
+TORSION :m1_C9-m1_C4:m1_C2,m1_N1,m1_O3,: base rotation=0.974028 free=0
+Full MD atom group:
+ m1_C2 m1_N1 m1_O3 
+AFTER
+0 _x Translation along X False True
+1 _y Translation along Y False True
+2 _z Translation along Z False True
+3 _Occ Occupancy True True
+4 _Q0 Orientation False True
+5 _Q1 Orientation False True
+6 _Q2 Orientation False True
+7 _Q3 Orientation False True
+8 m1_m1_N1_x Orth. X coordinates False True
+9 m1_m1_N1_y Orth. Y coordinates False True
+10 m1_m1_N1_z Orth. Z coordinates False True
+11 m1_m1_C2_x Orth. X coordinates False True
+12 m1_m1_C2_y Orth. Y coordinates False True
+13 m1_m1_C2_z Orth. Z coordinates False True
+14 m1_m1_O3_x Orth. X coordinates False True
+15 m1_m1_O3_y Orth. Y coordinates False True
+16 m1_m1_O3_z Orth. Z coordinates False True
+17 m1_m1_C4_x Orth. X coordinates True True
+18 m1_m1_C4_y Orth. Y coordinates True True
+19 m1_m1_C4_z Orth. Z coordinates True True
+20 m1_m1_C5_x Orth. X coordinates True True
+21 m1_m1_C5_y Orth. Y coordinates True True
+22 m1_m1_C5_z Orth. Z coordinates True True
+23 m1_m1_C6_x Orth. X coordinates True True
+24 m1_m1_C6_y Orth. Y coordinates True True
+25 m1_m1_C6_z Orth. Z coordinates True True
+26 m1_m1_C7_x Orth. X coordinates True True
+27 m1_m1_C7_y Orth. Y coordinates True True
+28 m1_m1_C7_z Orth. Z coordinates True True
+29 m1_m1_N8_x Orth. X coordinates True True
+30 m1_m1_N8_y Orth. Y coordinates True True
+31 m1_m1_N8_z Orth. Z coordinates True True
+32 m1_m1_C9_x Orth. X coordinates True True
+33 m1_m1_C9_y Orth. Y coordinates True True
+34 m1_m1_C9_z Orth. Z coordinates True True
+35 RigidGroup1_x Orth. X coordinates False True
+36 RigidGroup1_y Orth. Y coordinates False True
+37 RigidGroup1_z Orth. Z coordinates False True
+38 RigidGroup1_Q1 Conformation False True
+39 RigidGroup1_Q2 Conformation False True
+40 RigidGroup1_Q3 Conformation False True

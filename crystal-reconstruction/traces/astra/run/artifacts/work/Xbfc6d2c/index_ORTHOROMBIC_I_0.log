@@ -1,0 +1,15 @@
+Xbfc6d2c ORTHOROMBIC I 0 peaks [9.756, 12.0609, 13.45576, 13.82057, 14.32462, 15.40134, 16.559, 17.07429, 17.37045, 17.89088, 19.75396, 20.78301, 21.84725, 23.31829, 23.91566, 24.22891, 25.02998, 25.76444, 26.36503, 27.18286, 28.70526, 29.20633] V 1029.06005859375 3240 Lmax 41.432362848751886
+3->41.4324,1.5373,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+1029.06->3240,442.197,4.9999
+Starting: V=1029.06->1471.26
+Finished: V=1029.06->1471.26 A^3, 297 unit cells tested, 179240 tests/s,   Elapsed time=0.001663s
+Starting: V=1471.26->1913.45
+Finished: V=1471.26->1913.45 A^3, 661 unit cells tested, 170801 tests/s,   Elapsed time=0.003876s
+Starting: V=1913.45->2355.65
+Finished: V=1913.45->2355.65 A^3, 1148 unit cells tested, 169346 tests/s,   Elapsed time=0.006784s
+Starting: V=2355.65->2797.85
+Finished: V=2355.65->2797.85 A^3, 1804 unit cells tested, 171060 tests/s,   Elapsed time=0.010557s
+Starting: V=2797.85->3240
+Finished: V=2797.85->3240 A^3, 2564 unit cells tested, 152121 tests/s,   Elapsed time=0.016865s
+DONE Xbfc6d2c ORTHOROMBIC I 0 0.01701807975769043 []

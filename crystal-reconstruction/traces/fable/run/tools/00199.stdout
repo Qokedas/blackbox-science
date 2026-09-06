@@ -1,0 +1,3 @@
+fit: True
+rms(normalized), max: (np.float64(0.018410898185069212), np.float64(0.03185569517326955))
+approx rms Å = 0.050  max Å = 0.087

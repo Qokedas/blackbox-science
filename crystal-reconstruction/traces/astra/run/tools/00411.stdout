@@ -1,0 +1,336 @@
+X3f4781b clopidogrel bisulfate: cell volume ~1852 A3 with MW420. Z=4 (density1.5), not Z=2 (density0.75). In P21 MUST use Z'=2: two clopidogrel cations and two bisulfates. The first MC trial had Z'=1 and was necessarily incorrect; do not submit its structure.
+X9af54a2 P21 volume1407 Z=4 Z'=2.
+X3c176e2 P212121 volume1444 Z=8 Z'=2.
+Xd4c1a35 P212121 volume3426 Z=8 Z'=2.
+X4f6fe58 P-1 volume1410 Z=4 Z'=2.
+X3c176e2 inositol isomer0 (RDKit enumeration) with Z'=2 P212121 solved, Rwp0.04247, minO-contact2.532 A, bonds1.413-1.563 A; submitted.
+Xe3a2935 final Rwp0.09778 vs Le Bail0.0869; plausible heavy connectivity, 2.80A mincontacts; submitted.
+Xfca9f3c best cell candidate1/P21 newly submitted JSON after freshbase0.03974.
+X8a06d7a partial TRI log gives M47.37 V1300.7 a5.061,b11.862,c21.748,angles93.96,91.916,92.17; fits in progress for five candidates.
+Antibump test: ObjCryst DOES count intramolecular bonds! New script antibump.py assigns topology-aware minima only with separate atom scattering powers (--fullbump), or solvent/ion selective only (--bump). Scale via c.XMLInput(XMLOutput modified AntiBumpScale). Usual scale10; rescale diffraction errors before search (--rescale) for comparable chemical likelihood.
+IMPORTANT: automatic MonteCarlo LSQ after each run was causing very large geometry likelihood and nonphysical high-cost models in X130/X35. Default MC_LSQ now 0 (never); only enable explicitly if useful. Added --profile for full point-by-point MC when integrated-profile objective is suspicious.
+IMPORTANT: Molecule internal-coordinate translation is a gauge mode. Least squares (especially --rigid starting models) can drift its common XYZ center to 1e9 A; CIF calc remains correct but ObjCryst XML six-significant-digit serialization collapses the molecule! Added recenter_molecules() before CIF/XML saving and each refinement cycle. X3c176e2 refined_10.xml was corrupted this way, but original CIF fine; restored via restore_cif.py and highres fit 0.03704, re-submitted.
+IMPORTANT: c.XMLInput on a crystal already containing Python-owned Molecules can abort with invalid pointer. antibump.py now leaves default AntiBumpScale1, does not use XMLInput. --fullbump sameatom SP distances still work without scaling.
+X35b7fbc likely ergometrine maleate. Default unspecified C=C conformer was TRANS, cannot change under rigid double-bond restraint. Now cis.json/trans.json enumerate. Stopped trans search after ~4M; new cis search scheduled.
+Four original submitted structures replaced by higher-resolution dmin1.316A refinements: Xe3 Rwp.07252, Xf8.08811, Xbfc.03502, X078.12342; all connectivity/contact checks passed.
+Xeb393f9 triclinic cell V~682, M72.29, whole-profile Lebail.0454. Enantiopure one FU has density1.33 with Z1, thus P1 plausible; freshbase/JSON submitted. Candidate reducedcell8.014,9.816,10.233 angles74.871,68.959,65.931.
+X14a2b08 candidate4 is markedly better (Lebail.0838 vs .109 others), freshbase/JSON replaces candidate0. X8a06d7a cell4 tentative (best prior.125 but fresh.146); raw-peak reindex needed.
+
+Continuation: ObjCryst bridge compiled in /app/work/libobj_bridge.so with wrapper obj_bridge.py.
+Exact fixed-profile Pawley matrix now implemented and GALLOP preparation uses exact weighted profile overlaps and SVD extraction (old gallop runs remain old).
+Anti-bump scale safely adjustable via bridge (no XMLInput); current antibump.py respects requested scale, default10.
+Aromatic N-aroyl amide torsion restraints disabled in new model generation (e.g. acemetacin) because truly rotatable.
+Xd4 run1 was killed (bad older base Le Bail .228). Fresh base .09397 saved and run2/full-profile started on new CoreC queue.
+X130 run2 refined to .0875 but cocrystal molecules overlap/connect; not submitted.
+Xfca all-trans run10 refined to .04652; validated two26-heavy molecules; submitted six-th CIF. High-resolution refinement planned.
+X7e reconsidered: candidate V324 ignored clearly crystalline first2.808° peak (and5.635°,11.301° harmonics). Doubling c toV647 permits first001, full-profile .03496 vs .04522 half-cell. Half-anion global solver plateau ~202 normalized cost /Rwp.096, likely half-cell is only pseudosubcell. Replaced mainbase with fit_double0.xml (.32, not inferior fresh doublebase), and JSON with doubledcell. Fullanion+2N Zprime1 P-1 GALLOP21 queued. Half oldbase remains half_base/.
+Refinement fix: ObjCryst rigid-group local translations are not properly accounted in cross-group geometrical restraints during LSQ. Copy-par True/False and manual Begin did not fix; removing ALL rigid groups before final Rietveld does. refine_obj.py default now removes rigid groups; --keep-rigid opts back into old behavior. X130 g12free graph valid, Rwp.08133 vs broken g12t. Rings no longer distort or disconnect from substituents. True restraints now work; further tight physical refinements needed.
+New important cache issue: loading some empty Le Bail bases (X4f6, X3f, X14) yielded Rwp .22-.40 despite the saved .03-.10. The exact matrix@Fobs also disagreed (~.995 relative) with the actual component calc. A disposable C atom stabilizes empty-crystal scales, and ExtractLeBail(20) followed by Prepare/FitScale after loading repairs the cache (X3f actual .077 and matrix error1e-4). search_obj --rescale now performs that extraction, gallop_prepare adds disposable C and 20 LB cycles, exact_pawley verifies/repairs matrix bridge. X4 base freshly .032 but old run3 used bad .218; STOP set, GALLOP11 queued ahead of X3f/X9. X3f/X14 bases recreated via create_stable_base but audit is still bad until extraction after load; future searches now patched. New create_stable_base writes named components and strips disposable Atom from XML.
+---processes
+5191 State: Z (zombie) children:
+15174 State: S (sleeping) children:15974
+12401 State: S (sleeping) children:13143
+7272 State: S (sleeping) children:13933
+8306 State: Z (zombie) children:
+9939 State: S (sleeping) children:15998
+14467 State: S (sleeping) children:16025
+12769 State: S (sleeping) children:15791
+15422 State: Z (zombie) children:
+---logs
+/app/work/Xeb393f9/refine_1.log
+CYCLE 3 0 Rw 0.06193242248943112 chi2 3861.849199235682 geom 156.3700631725647 LSQ 4358.022202453392
+CYCLE 3 1 Rw 0.061704367010881576 chi2 3833.46037510647 geom 144.3437584819289 LSQ 4305.094010957935
+CYCLE 3 2 Rw 0.06163271818482109 chi2 3824.5629992898566 geom 140.19088174290357 LSQ 4284.983392705285
+FINISHED Xeb393f9 0.06163271818482109
+/app/work/Xd8634a2/gallop_11/search.log
+/app/work/X4f6fe58/search3.log
+INITIAL X4f6fe58 3 Rw 0.22692746012579085 LLK 254651.88217952673 Integrated 3770.758318089708 DOF -1
+RUN 0 steps 100000 time 168.0830636024475 total 168.08313369750977 LLK 32559.317611797156 Rw 0.15623395948638966 Integrated 1853.8059584078503
+RUN 1 steps 3000000 time 600.247579574585 total 768.4235572814941 LLK 32713.37811390812 Rw 0.1619604530191945 Integrated 1992.263011733783
+FINISHED 32559.317611797156
+/app/work/X263b09a/search1.log
+RESCALED_BASE 1.0 0.05205499189078589 6785.999883885567
+INITIAL X263b09a 1 Rw 0.37274178298676747 LLK 305205.1794084129 Integrated 258602.3102179509 DOF -1
+RUN 0 steps 100000 time 39.54579472541809 total 39.5458767414093 LLK 109115.17805206757 Rw 0.20698222283090326 Integrated 76318.33215754927
+RUN 1 steps 4000000 time 600.0302834510803 total 639.7450065612793 LLK 68696.16988769385 Rw 0.15174037672999569 Integrated 40796.06250023201
+--- X8 fits
+/app/work/X8a6f5a8/fit_metric0.json
+{
+ "cell": [
+  16.727509574845644,
+  6.231368234211029,
+  22.58288802123499,
+  90.0,
+  110.51450887111172,
+  90.0
+ ],
+ "system": "MONOCLINIC",
+ "centering": "P",
+ "volume": 2226.7494710634355,
+ "score": 4.649413821019795,
+ "cost": 0.4309956637654724,
+ "mode": 21,
+ "zero": 0.01890626291264226,
+ "rms": 0.07432128733917415,
+ "maxerr": 0.26347656293000954,
+ "parameters": [
+  0.06343259815691471,
+  0.1608088098875338,
+  0.04707965632677802,
+  0.3542989325324374,
+  0.01890626291264226
+ ],
+ "diff": [
+  0.009402292167267883,
+  -0.01685785446971365,
+  0.013575288650181216,
+  0.0071190683934382135,
+  0.26347656293000954,
+  -0.002559785743536512,
+  -0.006332293890016789,
+  -0.0186281558492548,
+  0.004341662338685055,
+  0.0017513193670467449,
+  -0.015038946991236472,
+  -0.0015540767534289145,
+  -0.010843117004451796,
+  0.007578755885746819,
+  0.04664590960404602,
+  -0.00082811731967216,
+  0.16247750686279006,
+  0.0019156903830314272
+ ],
+ "hkl": [
+  [
+   1,
+   0,
+   0
+  ],
+  [
+   1,
+   0,
+   -2
+  ]
+/app/work/X8a6f5a8/fit_metric1.json
+{
+ "cell": [
+  16.79674057195381,
+  8.989114163404732,
+  22.946796233810375,
+  90.0,
+  112.55798362121187,
+  90.0
+ ],
+ "system": "MONOCLINIC",
+ "centering": "P",
+ "volume": 3207.289460786089,
+ "score": 4.89186527698749,
+ "cost": 0.48397451275669595,
+ "mode": 21,
+ "zero": -0.010981945893655358,
+ "rms": 0.07234313035146932,
+ "maxerr": 0.28025938472137046,
+ "parameters": [
+  0.06435731916742463,
+  0.11106288744148202,
+  0.04725119786938761,
+  0.3843897191405949,
+  -0.010981945893655358
+ ],
+ "diff": [
+  -0.01143292990688595,
+  -0.020708095423153237,
+  0.0018806226144937634,
+  0.011267643459606673,
+  0.28025938472137046,
+  -0.005558382377885683,
+  0.001361117092243706,
+  0.11699782261217337,
+  6.331762623573017e-05,
+  -2.78656230346154e-05,
+  -0.005431723060777745,
+  -0.0017970480948119993,
+  -0.013309189755790266,
+  0.014822771909052443,
+  -0.011988582580185026,
+  0.0046511718400022925,
+  -0.025516853836718617,
+  -0.0009283489920148356
+ ],
+ "hkl": [
+  [
+   1,
+   0,
+   -1
+  ],
+  [
+   1,
+   
+/app/work/X8a6f5a8/fit_metric2.json
+{
+ "cell": [
+  17.605641955694704,
+  7.188567124840918,
+  23.14093271379739,
+  90.0,
+  105.36061507456351,
+  90.0
+ ],
+ "system": "MONOCLINIC",
+ "centering": "P",
+ "volume": 2843.728604597899,
+ "score": 7.491246571584588,
+ "cost": 0.5028430877728389,
+ "mode": 21,
+ "zero": -0.009035146356563394,
+ "rms": 0.025871009900782144,
+ "maxerr": 0.07178968675622624,
+ "parameters": [
+  0.0585637771716944,
+  0.1386317820937377,
+  0.04494078175113918,
+  0.2666870291776186,
+  -0.009035146356563394
+ ],
+ "diff": [
+  -0.0033042940191096272,
+  -0.02422229915490984,
+  0.016250891595957186,
+  0.07178968675622624,
+  0.0016990963819000747,
+  0.0004996854843254649,
+  0.0025559350014392763,
+  0.012046305541827333,
+  0.013869748963981274,
+  -0.0429060279765025,
+  -0.016354380508032403,
+  -0.010877250088769191,
+  0.007362828595119959,
+  -0.024506673289175586,
+  -0.04380970588719611,
+  0.02586999832459937,
+  0.014410934288438815,
+  0.002684245017954159
+ ],
+ "hkl": [
+  [
+   1,
+   0,
+   -1
+  ],
+  [
+   1,
+   0,
+   -2
+/app/work/X8a6f5a8/fit_metric3.json
+{
+ "cell": [
+  33.24334333383083,
+  5.781703335039052,
+  19.45555327735809,
+  90.0,
+  108.67903704608678,
+  90.0
+ ],
+ "system": "MONOCLINIC",
+ "centering": "P",
+ "volume": 3560.632914151589,
+ "score": 3.5352649927318636,
+ "cost": 0.525624809427211,
+ "mode": 21,
+ "zero": 0.036145282970679406,
+ "rms": 0.08312635772065909,
+ "maxerr": 0.34717558923262465,
+ "parameters": [
+  0.031647416218530865,
+  0.17275217313471394,
+  0.054209444269868075,
+  0.31938800772637327,
+  0.036145282970679406
+ ],
+ "diff": [
+  0.014500058357617664,
+  0.004019939936305332,
+  0.006414358938459014,
+  -0.34717558923262465,
+  -0.019196828041662506,
+  0.0012913844496325391,
+  0.01112930240743035,
+  -0.008179472225043602,
+  -0.014443137649457337,
+  0.028186651775051808,
+  0.009910066839886177,
+  0.000101139710073965,
+  -0.030380812221542215,
+  0.004697871982794907,
+  0.020017151683444735,
+  0.019177181197216748,
+  -0.012536972533680815,
+  -0.006960358050731488
+ ],
+ "hkl": [
+  [
+   2,
+   0,
+   0
+  ],
+  [
+   3,
+   0,
+   -
+/app/work/X8a6f5a8/fit_metric4.json
+{
+ "cell": [
+  16.810936481764752,
+  7.714736339491977,
+  22.968651361941358,
+  90.0,
+  112.64683312556497,
+  90.0
+ ],
+ "system": "MONOCLINIC",
+ "centering": "P",
+ "volume": 2760.7471323450795,
+ "score": 3.1375883968766796,
+ "cost": 0.5691781866112622,
+ "mode": 21,
+ "zero": 0.03175764843189206,
+ "rms": 0.10050385211575177,
+ "maxerr": 0.4134388037359165,
+ "parameters": [
+  0.06417755408843076,
+  0.12996676754310074,
+  0.04704211319521452,
+  0.38444610518450806,
+  0.03175764843189206
+ ],
+ "diff": [
+  0.013005916705076927,
+  -0.0060603330671867295,
+  0.007841698853955206,
+  0.0028580643204710043,
+  0.005814594054960272,
+  -0.013292384141423724,
+  0.0019579734147379055,
+  -0.03785255821277973,
+  0.08330913916001326,
+  -0.0013617357753755097,
+  -0.016530653716680027,
+  -0.015781220243745717,
+  -0.026003852494550797,
+  0.009420625955011617,
+  0.4134388037359165,
+  -0.02131316542012105,
+  0.0064645092806689605,
+  0.015444670607536563
+ ],
+ "hkl": [
+  [
+   1,
+   0,
+   -1
+  ],
+  [
+   1,
+   0,
+  

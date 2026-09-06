@@ -1,0 +1,3 @@
+167:    # fix Biso, occupancies, and anything exotic
+173:        if (n.startswith('Biso') or 'ccup' in n or n.startswith('Asym') or n in ('Eta1', 'Zero', 'a', 'b', 'c', 'alpha', 'beta', 'gamma') or n.startswith('ML')
+35:    lines += ['loop_', '_atom_site_label', '_atom_site_type_symbol', '_atom_site_fract_x', '_atom_site_fract_y', '_atom_site_fract_z', '_atom_site_occupancy']

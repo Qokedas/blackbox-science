@@ -1,0 +1,5 @@
+CONFORMERS 24 distinct 4 anchors [12, 13, 14, 16, 17, 18]
+{'tag': 'conf105c0', 'energy': 101.24870219179857, 'index': 13, 'reflected': False, 'Rw': 0.1617822639840144}
+{'tag': 'conf105c1', 'energy': 101.24870219179857, 'index': 13, 'reflected': True, 'Rw': 0.22420305974332602}
+{'tag': 'conf105c2', 'energy': 103.23175079028148, 'index': 12, 'reflected': False, 'Rw': 0.18330645816314317}
+{'tag': 'conf105c3', 'energy': 103.23175079028148, 'index': 12, 'reflected': True, 'Rw': 0.15913922112876913}

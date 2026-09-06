@@ -1,0 +1,44 @@
+['BondOrder', 'GetAtom1', 'GetAtom2', 'GetBondOrder', 'GetLength', 'GetLength0', 'GetLengthDelta', 'GetLengthSigma', 'GetLogLikelihood', 'GetMolecule', 'GetName', 'GetType', 'IsFreeTorsion', 'Length', 'Length0', 'LengthDelta', 'LengthSigma', 'SetAtom1', 'SetAtom2', 'SetBondOrder', 'SetFreeTorsion', 'SetLength0', 'SetLengthDelta', 'SetLengthSigma', 'SetType', 'int_ptr']
+['Angle', 'Angle0', 'AngleDelta', 'AngleSigma', 'GetAngle', 'GetAngle0', 'GetAngleDelta', 'GetAngleSigma', 'GetAtom1', 'GetAtom2', 'GetAtom3', 'GetLogLikelihood', 'GetMolecule', 'GetName', 'GetType', 'SetAngle0', 'SetAngleDelta', 'SetAngleSigma', 'SetAtom1', 'SetAtom2', 'SetAtom3', 'SetType', 'int_ptr']
+['AddBond', 'AddBondAngle', 'AddDihedralAngle', 'AddRigidGroup', 'BondAngleRandomChange', 'BondLengthRandomChange', 'BuildStretchModeBondAngle', 'BuildStretchModeBondLength', 'DihedralAngleRandomChange', 'FindBond', 'FindBondAngle', 'FindDihedralAngle', 'GetBond', 'GetBondAngle', 'GetBondAngleList', 'GetBondList', 'GetBondListClock', 'GetDihedralAngle', 'GetDihedralAngleList', 'GetNbBondAngles', 'GetNbBonds', 'GetNbDihedralAngles', 'GetNbRigidGroups', 'GetRigidGroupClock', 'GetRigidGroupList', 'GetStretchModeBondAngleList', 'GetStretchModeBondLengthList', 'IterBond', 'IterBondAngle', 'IterDihedralAngle', 'RemoveBond', 'RemoveBondAngle', 'RemoveDihedralAngle', 'RemoveRigidGroup', 'RigidifyWithDihedralAngles']
+==> /app/work/X13023e3/import_g12.log <==
+ObjRegistry<T>::Find(O): Not found !!
+List of Crystal ScatteringPowers :1 object registered:
+#  0:ScatteringPowerAtom(C)
+ObjRegistry<T>::Find(N): Not found !!
+List of Crystal ScatteringPowers :2 object registered:
+#  0:ScatteringPowerAtom(C)
+#  1:ScatteringPowerAtom(O)
+IMPORTED X13023e3 12 Rw 0.09498806905646123 Chi2 5238.732522798263
+
+==> /app/work/X13023e3/refine_g12.log <==
+CYCLE 1 2 Rw 0.07641499986438229 chi2 1596.9648845710458
+CYCLE 2 0 Rw 0.08039093896026553 chi2 1767.4711583302626
+CYCLE 2 1 Rw 0.07979186082105878 chi2 1741.2267077307229
+CYCLE 2 2 Rw 0.08012022642655356 chi2 1755.5874565472168
+CYCLE 3 0 Rw 0.0755349672874594 chi2 1560.3938292461328
+CYCLE 3 1 Rw 0.07550645160807123 chi2 1559.2159035031777
+CYCLE 3 2 Rw 0.07553607243406951 chi2 1560.4394895973098
+FINISHED X13023e3 0.07553607243406942
+
+==> /app/work/Xfca9f3c/decheck2.log <==
+CYCLE 0 1 Rw 0.07705547535799455 chi2 6257.034721482094
+CYCLE 0 2 Rw 0.07704993405258768 chi2 6256.1348271273055
+CYCLE 1 0 Rw 0.06622425959895177 chi2 4621.63645290779
+CYCLE 1 1 Rw 0.06372084896423369 chi2 4278.82637078046
+CYCLE 1 2 Rw 0.0630714044517343 chi2 4192.051029775493
+CYCLE 2 0 Rw 0.06116741086028712 chi2 3942.772806367665
+CYCLE 2 1 Rw 0.06067183688942161 chi2 3879.143490507067
+CYCLE 2 2 Rw 0.06041987064438228 chi2 3846.9907256629413
+Imported powder pattern: 3063 points, 2theta=  5.450 ->  36.080, step= 0.010
+RESCALED_BASE 1.00016412081027 0.09397391617283435 3062.9926090577023
+INITIAL Xd4c1a35 2 Rw 0.9090646869521153 LLK 301637.29151112365 Integrated 45077.18382722022 DOF -1
+RUN 0 steps 100000 time 67.56678605079651 total 67.56685376167297 LLK 49892.162525388274 Rw 0.31690239351493027 Integrated 9079.791023903823
+RUN 1 steps 3000000 time 600.0284659862518 total 667.6688556671143 LLK 31942.814759222143 Rw 0.22077755961136825 Integrated 4552.4543434301595
+RUN 2 steps 3000000 time 600.4067842960358 total 1268.188404083252 LLK 29139.604145810543 Rw 0.20127447214039956 Integrated 3675.338834109154
+RESCALED_BASE 3.6418637513412286 0.06912182078479759 7136.00000000004
+INITIAL X35b7fbc 2 Rw 0.6874752172078724 LLK 450528.6739564393 Integrated 449203.8273532785 DOF -1
+RUN 0 steps 100000 time 15.05964207649231 total 15.059704542160034 LLK 129786.86494035748 Rw 0.33936977435798 Integrated 128399.62516818871
+RUN 1 steps 3000000 time 527.2915515899658 total 542.4528856277466 LLK 84205.08226380886 Rw 0.27744827386574217 Integrated 82684.0416052375
+RUN 2 steps 3000000 time 600.0420162677765 total 1142.6003081798553 LLK 67869.43843267138 Rw 0.26066956813582226 Integrated 66408.82767150587
+RUN 3 steps 3000000 time 600.057213306427 total 1742.7265467643738 LLK 83131.17426412921 Rw 0.273114566777833 Integrated 81738.10260837848

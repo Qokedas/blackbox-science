@@ -1,0 +1,206 @@
+def get_asymmetric_coords_from_numpy(Structure, external, internal,
+    n_samples=None, device=None, dtype=torch.float32, verbose=True):
+    """
+    Convenience function used mostly for saving a CIF at the end of a run.
+
+    Args:
+        Structure (class): Structure object
+        external (numpy array): external degrees of freedom
+        internal (numpy array): internal degrees of freedom
+        n_samples (int, optional): The number of samples. Defaults to None,
+            which results in a single set of coordinates
+        device (torch device, optional): If None, will check to see if a GPU
+            is available and run on that if so. Defaults to None.
+        dtype (torch dtype, optional): The datatype to use. Defaults to
+            torch.float32.
+        verbose (bool, optional): Print out information. Defaults to True.
+
+    Returns:
+        numpy array: fractional coordinates of the asymmetric unit
+    """
+    if n_samples is None:
+        n_samples = 1
+
+    # Load the tensors needed
+    tensors = tensor_prep.get_all_required_tensors(
+                    Structure, external=external, internal=internal,
+                    n_samples=n_samples, device=device, dtype=dtype,
+                    verbose=verbose)
+
+    asymmetric_frac_coords = get_asymmetric_coords(**tensors["zm"])
+
+
+    return asymmetric_frac_coords.detach().cpu().numpy()
+
+##
+# TODO:
+# - Update function inputs to accept ["zm"] tensors
+# - Fix issue with lists and type checking if JIT is used
+def get_all_required_tensors(Structure, external=None, internal=None,
+    n_samples=10000, device=None, dtype=None, n_reflections=None, verbose=False,
+    include_dw_factors=True, requires_grad=True, from_CIF=False):
+    """
+    Gather all of the information needed to run calculations on the GPU. This
+    will differ depending on if the input is a set of external/internal degrees
+    of freedom (standard) or if the input is directly from a CIF (used for
+    mostly for debugging and comparison to DASH-derived values)
+
+    Args:
+        Structure (Structure Class): Class containing all of the data and
+            z-matrices
+        external (Numpy array, optional): Either a numpy array of the external
+            DoF or None.
+            If None, then the external DoF will be generated randomly.
+            Defaults to None.
+        internal (Numpy array, optional): Either a numpy array of the internal
+            DoF or None.
+            If None, then the external DoF will be generated randomly.
+            Defaults to None.
+        n_samples (int, optional): If external is None, sets how many samples
+            of external DoF to take. Defaults to 10000.
+        device (torch device, optional): Where to run the code. If None, will
+            check for a GPU and run on that if one is available.
+        n_reflections (int, optional): Number of reflections to consider in
+            chi^2 calculations. If None, will use all available.
+        verbose (bool, optional): Print out some information or not. Defaults
+            to False.
+        include_dw_factors (bool, optional): Include Debye-Waller factors in
+            the intensity calculations. Defaults to True.
+        requires_grad (bool, optional): Gradients are required if parameters
+            (external, internal) need to be optimised. Defaults to True.
+        from_CIF (bool, optional): If reading coordinates from a CIF, need to
+            change which tensors are required. Defaults to False.
+
+    Returns:
+        dict: A dictionary of the required Tensors
+    """
+    assert len(Structure.zmatrices) > 0 or from_CIF, "No Z-matrices have been added!"
+
+    if Structure.total_external_degrees_of_freedom is None:
+        Structure.get_total_degrees_of_freedom()
+
+    if device is None:
+        device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    if dtype is None:
+        dtype = torch.float32
+
+    if external is None:
+        pos = torch.rand(
+                    (n_samples, Structure.total_position_degrees_of_freedom))
+        rot = torch.rand(
+                    (n_samples, Structure.total_rotation_degrees_of_freedom))
+        rot -= 0.5
+        rot *= 2
+        external = torch.cat([pos, rot], dim=1)
+        external = external.type(dtype).to(device)
+        if requires_grad:
+            external.requires_grad = True
+    else:
+        n_samples = external.shape[0]
+        try:
+            external = torch.from_numpy(external).type(dtype).to(device)
+            if requires_grad:
+                external.requires_grad = True
+        except TypeError:
+            print("Can't convert input",external,"to pytorch tensor")
+
+    if internal is None:
+        tor = torch.rand((n_samples,
+                        Structure.total_internal_degrees_of_freedom))
+        tor -= 0.5
+        tor *= 2*np.pi
+        internal = tor.type(dtype).to(device)
+        if requires_grad:
+            internal.requires_grad = True
+    else:
+        error = "external.shape[0] != internal.shape[0]"
+        assert n_samples == internal.shape[0], error
+        try:
+            internal = torch.from_numpy(internal).type(dtype).to(device)
+            if requires_grad:
+                internal.requires_grad = True
+        except TypeError:
+            print("Can't convert input",internal,"to pytorch tensor")
+
+    if include_dw_factors:
+        if from_CIF:
+            dw_factors = Structure.CIF_dw_factors
+        else:
+            dw_factors = get_dw_factors(Structure)
+    else:
+        dw_factors = {}
+
+    intensity_tensors, chi2_tensors = get_data_related_tensors(Structure,
+                                n_reflections, dtype, device, verbose=verbose)
+
+    if from_CIF:
+        if Structure.ignore_H_atoms:
+            n_atoms_asymmetric = Structure.cif_frac_coords_no_H.shape[0]
+            asymmetric_frac_coords = Structure.cif_frac_coords_no_H.reshape(1,
+                                                        n_atoms_asymmetric,3)
+        else:
+            n_atoms_asymmetric = Structure.cif_frac_coords.shape[0]
+            asymmetric_frac_coords = Structure.cif_frac_coords.reshape(1,
+                                                        n_atoms_asymmetric,3)
+        asymmetric_frac_coords = torch.from_numpy(asymmetric_frac_coords)
+        asymmetric_frac_coords = asymmetric_frac_coords.type(dtype).to(device)
+        nsamples_ones = torch.ones(n_samples,
+                                n_atoms_asymmetric,
+                                1).type(dtype).to(device)
+        intensity_tensors["asymmetric_frac_coords"] = asymmetric_frac_coords
+        intensity_tensors["nsamples_ones"] = nsamples_ones
+    else:
+        zm_tensors = {"external" : external, "internal" : internal,
+                **get_zm_related_tensors(Structure, n_samples, dtype, device)}
+    # Calculate terms that are used in the intensity calculations, which include
+    # the atomic scattering factors etc.
+    full_prefix = Structure.generate_intensity_calculation_prefix(
+                        debye_waller_factors=dw_factors, just_asymmetric=False,
+                        from_cif=from_CIF)[:n_reflections]
+    asymm_prefix = Structure.generate_intensity_calculation_prefix(
+                        debye_waller_factors=dw_factors, just_asymmetric=True,
+                        from_cif=from_CIF)[:n_reflections]
+
+    intensity_tensors["intensity_calc_prefix_fs"] = torch.from_numpy(
+                                            full_prefix).type(dtype).to(device)
+    intensity_tensors["intensity_calc_prefix_fs_asymmetric"] = torch.from_numpy(
+                                            asymm_prefix).type(dtype).to(device)
+    intensity_tensors["centrosymmetric"] = Structure.centrosymmetric
+    intensity_tensors["space_group_number"] = Structure.sg_number
+
+    tensors = {}
+    if not from_CIF:
+        zm_tensors["lattice_inv_matrix"] = intensity_tensors.pop(
+                                                        "lattice_inv_matrix")
+        intensity_tensors["nsamples_ones"] = zm_tensors.pop("nsamples_ones")
+        tensors["zm"] = zm_tensors
+    else:
+        del intensity_tensors["lattice_inv_matrix"]
+
+    tensors["int_tensors"] = intensity_tensors
+    tensors["chisqd_tensors"] = chi2_tensors
+    return tensors
+
+import sys,json,numpy as np,networkx as nx
+from pymatgen.io.cif import CifParser
+from rdkit import Chem
+sid=sys.argv[1];fn=sys.argv[2] if len(sys.argv)>2 else '/app/results/submission/'+sid+'.cif'
+s=CifParser(fn).parse_structures(primitive=False)[0];s.remove_species(['H']);rad=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<1.2*(rad[:,None]+rad[None,:]));g=nx.from_numpy_array(A)
+for i in g:g.nodes[i]['el']=s[i].specie.symbol
+comps=list(nx.connected_components(g));cell=s.lattice
+for md in json.load(open('/app/data/instances/'+sid+'/composition.json'))['components']:
+ r=Chem.MolFromSmiles(md['smiles']);Chem.AssignStereochemistry(r,cleanIt=True,force=True);expected={a.GetIdx():a.GetProp('_CIPCode') for a in r.GetAtoms() if a.HasProp('_CIPCode')}
+ if not expected:continue
+ rg=nx.Graph();rg.add_nodes_from((a.GetIdx(),{'el':a.GetSymbol()}) for a in r.GetAtoms());rg.add_edges_from((b.GetBeginAtomIdx(),b.GetEndAtomIdx()) for b in r.GetBonds())
+ for co in comps:
+  mt=nx.isomorphism.GraphMatcher(rg,g.subgraph(co),node_match=lambda x,y:x['el']==y['el'])
+  if not mt.is_isomorphic():continue
+  mp=next(mt.isomorphisms_iter());root=mp[0];f={root:s[root].frac_coords.copy()}
+  for a,b in nx.bfs_edges(g.subgraph(co),root):
+   dist,img=cell.get_distance_and_image(s[a].frac_coords,s[b].frac_coords);f[b]=f[a]+s[b].frac_coords+img-s[a].frac_coords
+  rr=Chem.Mol(r);cf=Chem.Conformer(r.GetNumAtoms());rr.RemoveAllConformers()
+  for a in rr.GetAtoms():a.SetChiralTag(Chem.ChiralType.CHI_UNSPECIFIED)
+  for i in range(rr.GetNumAtoms()):cf.SetAtomPosition(i,f[mp[i]]@cell.matrix)
+  rr.AddConformer(cf);Chem.AssignStereochemistryFrom3D(rr,replaceExistingTags=True);Chem.AssignStereochemistry(rr,cleanIt=True,force=True)
+  got={i:rr.GetAtomWithIdx(i).GetProp('_CIPCode') if rr.GetAtomWithIdx(i).HasProp('_CIPCode') else None for i in expected}
+  print(sid,'root',root,'expected',expected,'actual',got,'OK',expected==got)

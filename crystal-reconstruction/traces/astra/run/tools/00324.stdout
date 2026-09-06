@@ -1,0 +1,50 @@
+X13023e3 root 0 expected {8: 'R'} actual {8: 'R'} OK True
+X13023e3 root 1 expected {8: 'R'} actual {8: 'R'} OK True
+Xfca9f3c root 0 expected {16: 'S'} actual {16: 'S'} OK True
+Xfca9f3c root 1 expected {16: 'S'} actual {16: 'S'} OK True
+X2327841 root 0 expected {22: 'S'} actual {22: 'S'} OK True
+X2327841 root 1 expected {22: 'S'} actual {22: 'S'} OK True
+Xdcc971e root 0 expected {16: 'S'} actual {16: 'S'} OK True
+Xdcc971e root 1 expected {16: 'S'} actual {16: 'S'} OK True
+Xe3a2935 root 0 expected {1: 'R'} actual {1: 'R'} OK True
+Xe3a2935 root 1 expected {1: 'R'} actual {1: 'R'} OK True
+Xe3a2935 root 2 expected {1: 'R'} actual {1: 'R'} OK True
+Xe3a2935 root 3 expected {1: 'R'} actual {1: 'R'} OK True
+Xf8ac963 root 0 expected {9: 'R', 11: 'R', 15: 'S'} actual {9: 'R', 11: 'R', 15: 'S'} OK True
+Xf8ac963 root 1 expected {9: 'R', 11: 'R', 15: 'S'} actual {9: 'R', 11: 'R', 15: 'S'} OK True
+Xf8ac963 root 2 expected {9: 'R', 11: 'R', 15: 'S'} actual {9: 'R', 11: 'R', 15: 'S'} OK True
+Xf8ac963 root 3 expected {9: 'R', 11: 'R', 15: 'S'} actual {9: 'R', 11: 'R', 15: 'S'} OK True
+--Xd4 high--
+TIGHT_RESTRAINTS
+FLEXIBLE_RINGS
+EXTENDED_BACKGROUND 0.11153396209939319
+CYCLE 0 0 Rw 0.10996477630188958 chi2 4098.646040169472 geom 1.1905224942768062 LSQ 4147.4799514265715
+CYCLE 0 1 Rw 0.10993299769932559 chi2 4096.2774558346355 geom 1.1905224942768062 LSQ 4145.152788378513
+CYCLE 0 2 Rw 0.10993044977863493 chi2 4096.087578921338 geom 1.1905224942768062 LSQ 4144.935106665958
+CYCLE 1 0 Rw 0.10310923222336081 chi2 3603.531560159878 geom 43.159411706916536 LSQ 3830.3043731044954
+CYCLE 1 1 Rw 0.10172124041206332 chi2 3507.1675876525273 geom 38.88837766871293 LSQ 3730.755389319578
+CYCLE 1 2 Rw 0.10114780755864933 chi2 3467.7371510166563 geom 39.303158756273255 LSQ 3696.6370157757647
+CYCLE 2 0 Rw 0.10110633669911451 chi2 3464.8941717663456 geom 38.725944288586476 LSQ 3691.1838991860586
+--B708--
+{
+ "cell": {
+  "a": 5.052457881299544,
+  "b": 9.355738049659784,
+  "c": 38.066725954209964,
+  "alpha": 90.0,
+  "beta": 90.0,
+  "gamma": 90.0
+ },
+ "space_group": "P 21 21 21",
+ "space_group_number": 19
+}BATCH 0 best 122.2587661743164 diffraction 120.46295166015625 p25 353.4835205078125 seconds 25.24208688735962 centre [0.  0.5 0.5]
+BATCH 1 best 122.25855255126953 diffraction 120.4627685546875 p25 338.66949462890625 seconds 44.82248258590698 centre [0.  0.5 0.5]
+BATCH 2 best 122.25856018066406 diffraction 120.4627685546875 p25 318.1592712402344 seconds 73.12491631507874 centre [0.  0.5 0.5]
+BATCH 3 best 122.25863647460938 diffraction 120.46282958984375 p25 332.45477294921875 seconds 98.43769264221191 centre [0.  0.5 0.5]
+BATCH 4 best 122.2585678100586 diffraction 120.4627685546875 p25 275.8479919433594 seconds 122.20046734809875 centre [0.  0.5 0.5]
+BATCH 5 best 144.02459716796875 diffraction 143.06378173828125 p25 366.165771484375 seconds 156.98967695236206 centre [0.  0.5 0.5]
+--cpu tasks--
+10494 42187 3867 0 878332
+8971 86858 45 0 801355
+9670 72374 38 0 830623
+9976 58438 49 0 855996

@@ -1,0 +1,6 @@
+Rwp 0.13960938755589844
+['mol0_0_x', 'mol0_0_y', 'mol0_0_z', 'mol0_0_Occ', 'mol0_0_Q0', 'mol0_0_Q1', 'mol0_0_Q2', 'mol0_0_Q3', 'C1_x', 'C1_y', 'C1_z', 'O1_x', 'O1_y', 'O1_z', 'C2_x', 'C2_y', 'C2_z', 'C3_x', 'C3_y', 'C3_z', 'C4_x', 'C4_y', 'C4_z', 'C5_x', 'C5_y', 'C5_z', 'O2_x', 'O2_y', 'O2_z', 'C6_x', 'C6_y', 'C6_z', 'C7_x', 'C7_y', 'C7_z', 'C8_x', 'C8_y', 'C8_z', 'O3_x', 'O3_y', 'O3_z', 'C9_x', 'C9_y', 'C9_z', 'N1_x', 'N1_y', 'N1_z', 'C10_x', 'C10_y', 'C10_z', 'O4_x', 'O4_y', 'O4_z', 'C11_x', 'C11_y', 'C11_z', 'N2_x', 'N2_y', 'N2_z', 'C12_x', 'C12_y', 'C12_z', 'Biso', 'B11', 'B22', 'B33', 'B12', 'B13', 'B23', 'ML Error', 'ML-Nb Ghost Atoms', 'Formal Charge', 'Biso~', 'B11~', 'B22~', 'B33~', 'B12~', 'B13~', 'B23~', 'ML Error~', 'ML-Nb Ghost Atoms~', 'Formal Charge~', 'Biso~~', 'B11~~', 'B22~~', 'B33~~', 'B12~~', 'B13~~', 'B23~~', 'ML Error~~', 'ML-Nb Ghost Atoms~~', 'Formal Charge~~', 'Biso~~~', 'B11~~~', 'B22~~~', 'B33~~~', 'B12~~~', 'B13~~~', 'B23~~~', 'ML Error~~~', 'ML-Nb Ghost Atoms~~~', 'Formal Charge~~~', 'x', 'y', 'z', 'Cl_1_0occup']
+scale+bg 26 Rwp after 0.5798658678250765 restraint 0.0
+mol pos/orient 61 Rwp after 0.5303894020607597 restraint 0.0
+profile+cell 8 Rwp after 0.49323319750021144 restraint 0.0
+atoms 0 Rwp after 0.42894570151845884 restraint 0.0

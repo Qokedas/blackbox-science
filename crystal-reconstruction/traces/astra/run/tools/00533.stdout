@@ -1,0 +1,5 @@
+Xd8634a2 33 max1/2bond_error 4.192726813068148e-06 ix (np.int64(14), np.int64(12), np.int64(29)) i (32, 7)
+X3f4781b 21 max1/2bond_error 2.3356433191956683e-06 ix (np.int64(13), np.int64(12), np.int64(14)) i (32, 8)
+X3f4781b 5 max1/2bond_error 9.380680681125853e-07 ix (np.int64(13), np.int64(3), np.int64(4)) i (32, 8)
+X3f4781b 21 max1/2bond_error 1.9440287271077494e-06 ix (np.int64(3), np.int64(2), np.int64(3)) i (32, 8)
+X3f4781b 5 max1/2bond_error 1.0961248326779582e-06 ix (np.int64(28), np.int64(2), np.int64(4)) i (32, 8)

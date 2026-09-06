@@ -1,0 +1,175 @@
+{
+ "X238783d:25": {
+  "START_REFL": 100,
+  "RAMP_REF_EVERY": 4,
+  "RAMP_REF_STEP": 50,
+  "ENABLE_PACKING": 1,
+  "HBOND_COEFF": 4,
+  "BASE_XML": "/app/work/X238783d/gallop_25/base.xml"
+ },
+ "Xbfeeda9:11": {
+  "START_REFL": 100,
+  "RAMP_REF_EVERY": 5,
+  "RAMP_REF_STEP": 50,
+  "ENABLE_PACKING": 1,
+  "HBOND_COEFF": 10
+ },
+ "X019b9a4:11": {
+  "START_REFL": 100,
+  "RAMP_REF_EVERY": 5,
+  "RAMP_REF_STEP": 50,
+  "ENABLE_PACKING": 1,
+  "HBOND_COEFF": 10,
+  "MODEL_JSON": "/app/work/X019b9a4/isomer0.json"
+ },
+ "Xeb393f9:51": {
+  "HBOND_COEFF": 25
+ },
+ "X8a06d7a:11": {
+  "BASE_XML": "/app/work/X8a06d7a/gallop_11/base.xml",
+  "HBOND_COEFF": 15,
+  "START_REFL": 100,
+  "RAMP_REF_EVERY": 4,
+  "RAMP_REF_STEP": 40,
+  "ENABLE_PACKING": 1
+ },
+ "X14a2b08:11": {
+  "HBOND_COEFF": 12,
+  "ENABLE_PACKING": 1
+ },
+ "X1db5091:11": {
+  "HBOND_COEFF": 12,
+  "ENABLE_PACKING": 1
+ },
+ "X7e382cb:40": {
+  "HBOND_MULTIPLE": 1
+ },
+ "X35b7fbc:11": {
+  "ENABLE_PACKING": 1,
+  "HBOND_COEFF": 10
+ },
+ "Xe1fb77b:11": {
+  "ENABLE_PACKING": 1,
+  "HBOND_COEFF": 10
+ },
+ "X019b9a4:12": {
+  "MODEL_JSON": "/app/work/X019b9a4/isomer1.json",
+  "ENABLE_PACKING": 1,
+  "HBOND_COEFF": 10,
+  "START_REFL": 100,
+  "RAMP_REF_EVERY": 3,
+  "RAMP_REF_STEP": 60
+ },
+ "X1a56c78:18": {
+  "HBOND_COEFF": 15,
+  "START_REFL": 90,
+  "RAMP_REF_EVERY": 4,
+  "RAMP_REF_STEP": 40
+ },
+ "X238783d:20": {
+  "ENABLE_PACKING": 1,
+  "HBOND_COEFF": 4
+ },
+ "Xd8634a2:31": {
+  "HBOND_COEFF": 8
+ },
+ "Xb7088cf:31": {
+  "HBOND_COEFF": 8
+ }
+}START 0.12016067063783442 3881.21010468476
+Imported powder pattern: 6620 points, 2theta=  5.470 ->  71.660, step= 0.010
+EXTENDED 0.38 6620 Rw 0.11320088808762496
+WITH_H 0.11318852016122526 66701568.657792
+Imported powder pattern: 6612 points, 2theta=  5.470 ->  71.580, step= 0.010
+SCALED_SIGMA 100.43881989706863 6611.8127410960615
+TIGHT_RESTRAINTS
+FLEXIBLE_RINGS
+AROMATIC_PLANARITY 0
+LSQ_PACKING 40 atoms 2204 terms sigma 0.01 cost 85599.17635855197
+EXTENDED_BACKGROUND 0.0949425632603181
+CYCLE 0 0 Rw 0.1738872091741839 chi2 15604.985000012708 geom 3.765626670259733 LSQ 88491.40234799538
+CYCLE 0 1 Rw 0.14525564224594434 chi2 10889.153072507654 geom 3.765626670259733 LSQ 26831.711990203992
+CYCLE 0 2 Rw 0.1418225183342293 chi2 10380.50463519353 geom 3.765626670259733 LSQ 21273.789753791236
+PACKING_STAGE 0 10795.640756890938
+CYCLE 1 0 Rw 0.12972949482336688 chi2 8685.714197316734 geom 651.1011757043312 LSQ 10274.780912785454
+CYCLE 1 1 Rw 0.12285404733759844 chi2 7789.4540211551 geom 131.33759902402534 LSQ 9834.683592734227
+CYCLE 1 2 Rw 0.11845574633092446 chi2 7241.696969573485 geom 1684.1984731223606 LSQ 9422.158738265394
+PACKING_STAGE 1 59.208259985401064
+CYCLE 2 0 Rw 0.11864250286592025 chi2 7264.5493915930965 geom 234.30209018639758 LSQ 8103.906871918598
+CYCLE 2 1 Rw 0.11445625912867599 chi2 6760.941463054464 geom 117.77521077073472 LSQ 7597.420422936333
+CYCLE 2 2 Rw 0.1067620139844905 chi2 5882.495405803804 geom 52.316249705864166 LSQ 7080.81127067707
+PACKING_STAGE 2 903.9520970833034
+CYCLE 3 0 Rw 0.10625498781330357 chi2 5826.754666363993 geom 49.971456137456045 LSQ 6310.892645415524
+CYCLE 3 1 Rw 0.10404698050901161 chi2 5587.107706338778 geom 60.1447194214508 LSQ 5993.74584714585
+CYCLE 3 2 Rw 0.10023254228417425 chi2 5184.96193948024 geom 83.25328382692669 LSQ 5571.479779511388
+PACKING_STAGE 3 37.796558383612044
+FINISHED X4f6fe58 0.10023254228417425
+"""Make a chemically restrained GALLOP restart from a Rietveld XML snapshot.
+Existing Cartesian molecular geometry is maintained exactly.  The molecular
+coordinate and quaternion gauge is solved and checked by proper Procrustes.
+"""
+import os,sys,json,numpy as np,torch,xml.etree.ElementTree as ET
+from scipy.spatial.transform import Rotation
+from pyobjcryst.io import xml_cryst_file_load_all_object
+from gallop_prepare import prepare
+from gallop import tensor_prep,zm_to_cart
+from pymatgen.core import Lattice
+from rdkit import Chem
+sid=sys.argv[1];run=int(sys.argv[2]);src=sys.argv[3];model_path=sys.argv[4];W='/app/work/'+sid;G=W+'/gallop_'+str(run);os.makedirs(G,exist_ok=True)
+objs=xml_cryst_file_load_all_object(src);c=next(o for o in objs if o.GetClassName()=='Crystal');mods=json.load(open(model_path));cp=[c.GetPar(n).GetHumanValue() for n in ['a','b','c','alpha','beta','gamma']];lat=Lattice.from_parameters(*cp);newmods=[];target=[]
+for i,md in enumerate(mods):
+ m=c.GetScatterer(i);N=Chem.MolFromSmiles(md['smiles']).GetNumAtoms();sc=list(m.GetScatteringComponentList());f=np.array([[a.X,a.Y,a.Z] for a in sc[:N]]);xyz=f@lat.matrix;target.append(xyz);newmods.append(dict(smiles=md['smiles'],count=1,charge=0,coords=xyz.tolist(),virtual_bonds=md.get('virtual_bonds'),biso_by_atom=[float(m.GetAtom(ii).GetScatteringPower().GetBiso()) for ii in range(N)] if m.GetClassName()=='Molecule' else [float(m.GetScatteringPower().GetBiso())]))
+biso={}
+for i in range(c.GetNbScatteringPower() if hasattr(c,'GetNbScatteringPower') else len(c.GetScatteringPowerRegistry())):
+ sp=c.GetScatteringPowerRegistry().GetObj(i);biso[sp.GetSymbol()]=float(sp.GetBiso())
+# An independent atomless Le Bail base, retaining the refined lattice/profile.
+tree=ET.parse(src);root=tree.getroot()
+for cr in root.findall('Crystal'):
+ for el in list(cr):
+  if el.tag in ['Molecule','Atom','ZScatterer']:cr.remove(el)
+tree.write(G+'/base.xml',encoding='utf-8')
+json.dump({'components':newmods},open(G+'/restart_model.json','w'),indent=1)
+os.environ['BASE_XML']=G+'/base.xml'
+s,_=prepare(sid,run,1,model_path=G+'/restart_model.json',stolmax=float(os.environ.get('GALLOP_STOL','.30')))
+meta0=json.load(open(G+'/model.json'))
+for mi,mo in zip(meta0,mods):mi['restraint_coords']=mo.get('restraint_coords',mo.get('rdkit_coords',mi['rdkit_coords']))
+json.dump(meta0,open(G+'/model.json','w'),indent=1)
+for zm in s.zmatrices:zm.dw_factors.update({k:v for k,v in biso.items() if k in zm.dw_factors})
+open(G+'/structure.json','w').write(s.to_json())
+s.get_total_degrees_of_freedom(verbose=False);zmt=tensor_prep.get_zm_related_tensors(s,1,torch.float32,torch.device('cpu'))
+e=np.zeros((1,s.total_external_degrees_of_freedom));t=np.zeros((1,s.total_internal_degrees_of_freedom))
+for j,z in enumerate(s.zmatrices):
+ if len(s.rotation_indices[j]):e[0,s.rotation_indices[j]]=[1,0,0,0]
+ if len(s.torsion_indices[j]):t[0,s.torsion_indices[j]]=z.coords_radians_no_H[z.torsion_refinable_indices_no_H,2]
+def frac(e,t):
+ ts=tensor_prep.get_all_required_tensors(s,external=e,internal=t,requires_grad=False,device=torch.device('cpu'),verbose=False)
+ with torch.no_grad():return zm_to_cart.get_asymmetric_coords(**ts['zm']).numpy()[0]
+f=frac(e,t);offset=0;meta=json.load(open(G+'/model.json'));dest=[]
+for j,md in enumerate(meta):
+ N=len(md['order']);X=f[offset:offset+N]@s.lattice.matrix;Y=target[j][md['order']];dest.extend(Y);offset+=N
+ if len(s.rotation_indices[j]):
+  U,sv,Vt=np.linalg.svd((X-X.mean(0)).T@(Y-Y.mean(0)));D=np.eye(3);D[-1,-1]=np.linalg.det(U@Vt);R=U@D@Vt;q=Rotation.from_matrix(R.T).as_quat();e[0,s.rotation_indices[j]]=q[[3,0,1,2]]
+ else:R=np.eye(3)
+ e[0,s.position_indices[j]]=(Y.mean(0)-X.mean(0)@R)@np.linalg.inv(s.lattice.matrix)
+out=frac(e,t)@s.lattice.matrix;err=np.linalg.norm(out-np.array(dest),axis=1);print('RESTART_ERROR max/rms',err.max(),np.sqrt(np.mean(err**2)),flush=True)
+if err.max()>.005:raise Exception('Restart alignment failed')
+np.savez_compressed(G+'/warm.npz',external=e,internal=t,chi2=0.)
+np.save(G+'/warm_frac.npy',frac(e,t))
+print('WARM_READY',G,flush=True)
+import os,sys,json,shutil,numpy as np,networkx as nx,gemmi
+from pymatgen.io.cif import CifParser
+from rdkit import Chem
+sid=sys.argv[1];f=sys.argv[2]
+s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+for i in g:g.nodes[i]['el']=s[i].specie.symbol
+matched=set();ratios=[]
+for comp in json.load(open('/app/data/instances/'+sid+'/composition.json'))['components']:
+ rm=Chem.MolFromSmiles(comp['smiles']);rg=nx.Graph();rg.add_nodes_from((a.GetIdx(),{'el':a.GetSymbol()}) for a in rm.GetAtoms());rg.add_edges_from((b.GetBeginAtomIdx(),b.GetEndAtomIdx()) for b in rm.GetBonds());matches=[j for j,co in enumerate(cs) if nx.is_isomorphic(g.subgraph(co),rg,node_match=lambda a,b:a['el']==b['el'])];matched|=set(matches);ratios.append(len(matches)/comp['count']);print('  component',comp['smiles'],'matches',len(matches))
+valid=len(matched)==len(cs) and min(ratios)>0 and max(ratios)==min(ratios)
+if not valid:raise Exception('Connectivity validation failed')
+print('  bond range',np.min(D[A]),np.max(D[A]) if A.any() else None)
+print('  min intermolecular distance',min((D[i,j] for ii,co in enumerate(cs) for co2 in cs[ii+1:] for i in co for j in co2),default=0))
+if '--check' in sys.argv:sys.exit(0)
+b=gemmi.cif.read_file(f).sole_block();keys=['a','b','c','alpha','beta','gamma'];ct=['length_a','length_b','length_c','angle_alpha','angle_beta','angle_gamma'];out={'cell':{k:float(b.find_value('_cell_'+v)) for k,v in zip(keys,ct)},'space_group':gemmi.cif.as_string(b.find_value('_space_group_name_H-M_alt')),'space_group_number':int(b.find_value('_space_group_IT_number'))}
+shutil.copyfile(f,'/app/results/submission/'+sid+'.cif');json.dump(out,open('/app/results/submission/'+sid+'.json','w'),indent=1)
+print('SUBMITTED',sid)

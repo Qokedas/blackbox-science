@@ -1,0 +1,47 @@
+/app/work/X8a6f5a8/fit_0.png
+/app/work/X8a6f5a8/fit_1.png
+/app/work/X8a6f5a8/fit_2.png
+/app/work/X8a6f5a8/fit_3.png
+/app/work/X8a6f5a8/fit_metric0.png
+/app/work/X8a6f5a8/fit_metric1.png
+/app/work/X8a6f5a8/fit_metric2.png
+/app/work/X8a6f5a8/fit_metric3.png
+/app/work/X8a6f5a8/fit_metric4.png
+/app/work/X8a6f5a8/peaks.png
+/app/work/X8a6f5a8/peaks_raw.png
+/app/work/Xebbd488/fit_0.png
+/app/work/Xebbd488/fit_1.png
+/app/work/Xebbd488/fit_2.png
+/app/work/Xebbd488/fit_rawC0.png
+/app/work/Xebbd488/peaks.png
+/app/work/Xebbd488/peaks_raw.png
+/app/work/Xedd9c7b/fit_raw0.png
+/app/work/Xedd9c7b/fit_raw1.png
+/app/work/Xedd9c7b/fit_raw2.png
+/app/work/Xedd9c7b/peaks.png
+/app/work/Xedd9c7b/peaks_raw.png
+ENUM Xedd9c7b P b c a zero -0.08 rows 0 seconds 10.209158420562744
+ENUM Xedd9c7b P b c a zero 0.0 rows 0 seconds 10.211062669754028
+ENUM Xedd9c7b P b c a zero 0.08 rows 0 seconds 10.212835311889648
+DONE Xedd9c7b 10.213120937347412
+  1.020e-02  8.600e-03 -2.120e-02 -8.800e-03 -9.000e-04  1.631e-01
+ -2.000e-04 -1.044e-01]
+TRIAL 58 sec 273.99881315231323 cost 0.8651058126162616 score 3.4641324604185018 vol 2256.475362566152 cell [ 13.8754   3.5033  50.2608  90.     112.544   90.    ] zero 0.09999924415557447 best 0.8228308633085039 diff [-0.0279  0.0115 -0.0273 -0.0443  0.0044 -0.2529  0.159  -0.0161  0.0227
+ -0.0101 -0.0751 -0.0474 -0.0349  0.019   0.0491 -0.0094  0.0457  0.0484
+  0.005  -0.002 ]
+TRIAL 59 sec 278.22010254859924 cost 0.9596347724723135 score 2.4828663892359213 vol 1921.8188379685832 cell [ 13.5788   3.5     43.0808  90.     110.1758  90.    ] zero 0.02149632562644499 best 0.8228308633085039 diff [ 0.7309 -0.0297  0.0049  0.0065 -0.0469 -0.1169 -0.2754  0.0102  0.0165
+ -0.0133  0.1025  0.0106 -0.0454  0.0257  0.2512  0.0011  0.0226 -0.0026
+ -0.0175 -0.0111]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 368 seconds 52.36597561836243 best 442.40778 q25 534.8745 median 574.33954 total 52.37160515785217
+GALLOP 1 Nref 368 seconds 27.594602346420288 best 425.43088 q25 504.1421 median 549.88513 total 80.00502395629883
+--- peaktables
+X8a6f5a8
+[(2, 5.6109, 34033.3), (6, 8.2559, 6396.0), (9, 11.2215, 5412.7), (10, 11.5816, 32421.1), (12, 12.2496, 2470.4), (13, 13.3044, 2781.5), (14, 13.5437, 2191.6), (15, 14.2686, 2508.4), (16, 15.3447, 6131.1), (17, 15.9526, 9590.6), (18, 16.2257, 4535.1), (19, 16.5263, 9640.9), (20, 16.888, 4209.6), (21, 17.08, 2275.9), (22, 18.3509, 38156.1), (23, 18.782, 4729.1), (24, 19.279, 2837.9), (25, 19.6938, 21602.5)]
+Xebbd488
+[(1, 5.8363, 1401.7), (2, 6.9811, 24375.9), (3, 7.7401, 1345.1), (4, 7.9684, 9968.4), (5, 9.1606, 15486.1), (7, 11.2077, 3291.2), (8, 11.3693, 15641.3), (9, 12.5636, 3308.8), (10, 12.913, 917.6), (11, 13.9197, 8110.6), (12, 14.3339, 1171.7), (13, 14.7987, 4984.7), (14, 15.3928, 9009.3), (15, 15.9412, 17263.1), (16, 16.2447, 1762.2), (20, 17.5517, 705.2), (21, 18.2405, 15766.8), (22, 18.8574, 21900.0), (23, 19.6996, 6508.4), (24, 20.6416, 42188.7)]
+Xedd9c7b
+[(1, 11.1074, 395.1), (2, 11.8199, 902.0), (3, 12.5295, 121.7), (4, 14.2658, 743.4), (5, 14.8881, 462.2), (6, 15.3992, 207.8), (7, 17.1293, 391.4), (8, 17.3885, 1006.2), (10, 19.3191, 396.3), (12, 19.9857, 767.2), (13, 20.6193, 482.9), (14, 21.5027, 175.1), (15, 22.228, 424.5), (17, 23.8782, 166.3), (18, 24.3355, 128.7), (20, 25.2383, 389.0), (22, 26.4934, 96.5), (24, 28.1929, 105.6), (25, 28.8054, 173.7)]

@@ -1,0 +1,26 @@
+X019b9a4/:
+total 256
+drwxr-xr-x 2 root root  4096 Sep  6 03:58 .
+drwxr-xr-x 1 root root  4096 Sep  6 03:57 ..
+-rw-r--r-- 1 root root 30540 Sep  6 03:57 g2_monoC.log
+-rw-r--r-- 1 root root 49310 Sep  6 03:58 g2_monoP.log
+-rw-r--r-- 1 root root 60858 Sep  6 03:57 g2_ortho.log
+-rw-r--r-- 1 root root  3826 Sep  6 03:57 g2index_monoC_20.txt
+-rw-r--r-- 1 root root  3810 Sep  6 03:58 g2index_monoP_20.txt
+-rw-r--r-- 1 root root  3840 Sep  6 03:57 g2index_ortho_20.txt
+-rw-r--r-- 1 root root 83181 Sep  6 03:48 peaks.png
+-rw-r--r-- 1 root root  1536 Sep  6 03:48 peaks.txt
+
+X07806d9/:
+total 176
+drwxr-xr-x 2 root root   4096 Sep  6 03:58 .
+drwxr-xr-x 1 root root   4096 Sep  6 03:57 ..
+-rw-r--r-- 1 root root  17786 Sep  6 03:58 g2_monoC.log
+-rw-r--r-- 1 root root  24419 Sep  6 03:58 g2_monoP.log
+-rw-r--r-- 1 root root   6317 Sep  6 03:58 g2_ortho.log
+-rw-r--r-- 1 root root 106795 Sep  6 03:48 peaks.png
+-rw-r--r-- 1 root root   6195 Sep  6 03:48 peaks.txt
+M20=   13.6 X20= 0 Nc= 58 Monoclinic-P     a= 12.7012 b= 15.2003 c= 18.7484 al= 90.000 be=100.666 ga= 90.000 V=  3557.1 Z~4.12
+M20=   13.6 X20= 0 Nc= 58 Monoclinic-P     a= 18.7484 b= 15.2003 c= 12.7012 al= 90.000 be=100.666 ga= 90.000 V=  3557.1 Z~4.12
+M20=   13.6 X20= 0 Nc= 58 Monoclinic-P     a= 20.6078 b= 15.2003 c= 12.7012 al= 90.000 be=116.612 ga= 90.000 V=  3557.1 Z~4.12
+Sun Sep  6 03:58:45 UTC 2026

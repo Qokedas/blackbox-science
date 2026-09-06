@@ -1,0 +1,152 @@
+ObjRegistry<T>::Find(O): Not found !!
+List of Crystal ScatteringPowers :0 object registered:
+ObjRegistry<T>::Find(C): Not found !!
+List of Crystal ScatteringPowers :1 object registered:
+#  0:ScatteringPowerAtom(O)
+ObjRegistry<T>::Find(ion_N): Not found !!
+List of Crystal ScatteringPowers :2 object registered:
+#  0:ScatteringPowerAtom(O)
+#  1:ScatteringPowerAtom(C)
+Traceback (most recent call last):
+  File "/app/work/import_gallop.py", line 16, in <module>
+    else:m.X,m.Y,m.Z=f[0]
+         ^^^
+Boost.Python.ArgumentError: Python argument types in
+    None.None(Atom, numpy.float32)
+did not match C++ signature:
+    None(ObjCryst::Scatterer {lvalue}, double)
+Total internal degrees of freedom: 3
+PREPARED X7e382cb Nref 169 PawleyRw 0.0349602201944722 SG P -1
+ATTACHED_H_SCATTERING 20 heavy atoms 16 H atoms
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1901.10it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 169 seconds 29.39151644706726 best 108.47752 q25 221.8821 median 480.59277 total 29.396601915359497
+/app/work/search_gallop.py:20: RuntimeWarning: overflow encountered in cast
+  if mn>=best:return
+GALLOP 1 Nref 169 seconds 27.39811658859253 best 108.476524 q25 191.90086 median 473.1529 total 56.82820963859558
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/7958/status ]] && ! grep -q '^State:.*Z' /proc/7958/status; do sleep 5; done
+SEARCH_TIME=1800 PARTICLES=128 ITERATIONS=450 GALLOP_STOL=.25 python /app/work/search_gallop.py X7e382cb 21 1 --prepare > /app/work/X7e382cb/gallop21.log 2>&1
+python /app/work/import_gallop.py X7e382cb 21 > /app/work/X7e382cb/import_g21.log 2>&1
+python /app/work/refine_obj.py X7e382cb g21 /app/work/X7e382cb/search_g21/best.xml --scale > /app/work/X7e382cb/refine_g21.log 2>&1
+{
+ "chi2": 116.40280151367188,
+ "Rint": 0.3411785662174225,
+ "iteration": 11,
+ "elapsed": 347.4659912586212
+}total 1420
+-rw-r--r-- 1 root root      0 Sep  6 05:14 STOP
+-rw-r--r-- 1 root root   1325 Sep  6 05:06 best.cif
+-rw-r--r-- 1 root root    109 Sep  6 05:06 best.json
+-rw-r--r-- 1 root root    653 Sep  6 05:06 best.npz
+-rw-r--r-- 1 root root    368 Sep  6 05:06 best_frac.npy
+-rw-r--r-- 1 root root   8505 Sep  6 05:14 last_population.npz
+-rw-r--r-- 1 root root   1246 Sep  6 05:00 m0_0_0.zmatrix
+-rw-r--r-- 1 root root    139 Sep  6 05:00 m0_1_0.zmatrix
+-rw-r--r-- 1 root root    139 Sep  6 05:00 m0_1_1.zmatrix
+-rw-r--r-- 1 root root   2381 Sep  6 05:00 model.json
+-rw-r--r-- 1 root root 703493 Sep  6 05:00 profile_matrix.npz
+-rw-r--r-- 1 root root 701863 Sep  6 05:00 structure.json
+RGS options
+GALLOP 5 Nref 122 seconds 37.810044288635254 best 6.207498 q25 16.437363 median 22.141235 total 234.3094847202301
+GALLOP 6 Nref 122 seconds 37.690905809402466 best 6.1323667 q25 16.079817 median 22.665018 total 272.0074305534363
+GALLOP 7 Nref 122 seconds 34.19123864173889 best 6.1386585 q25 14.635656 median 21.56792 total 306.2396764755249
+GALLOP 8 Nref 122 seconds 32.94585108757019 best 6.131055 q25 14.464558 median 20.464308 total 339.18940448760986
+GALLOP 9 Nref 122 seconds 37.493048429489136 best 5.7952404 q25 13.302922 median 19.085167 total 376.7233669757843
+#  0:ScatteringPowerAtom(O)
+#  1:ScatteringPowerAtom(C)
+ANTIBUMP 3 Scale 10.0 Initial cost 0.0
+Imported powder pattern: 11370 points, 2theta=  1.801 ->  13.152, step= 0.001
+RESCALED_BASE 1.4627227046877824 0.07040823664357759 11369.999999999949
+INITIAL Xe1fb77b 2 Rw 0.5989750625271313 LLK 657585.6897973643 Integrated 656704.6631084775 DOF -1
+RUN 0 steps 100000 time 209.78746509552002 total 209.78754663467407 LLK 232011.76959382676 Rw 0.3818387882183914 Integrated 229416.284933597
+RUN 1 steps 3000000 time 600.2046418190002 total 810.3128747940063 LLK 169875.12621515183 Rw 0.32918504854933317 Integrated 168534.19451505868
+#  1:ScatteringPowerAtom(C)
+#  2:ScatteringPowerAtom(N)
+#  3:ScatteringPowerAtom(Cl)
+Imported powder pattern: 7578 points, 2theta=  4.678 ->  23.621, step= 0.002
+RESCALED_BASE 1.0004644785769743 0.046395222945572724 7577.999999999983
+INITIAL Xeb393f9 1 Rw 0.2688026345500707 LLK 186500.52827408884 Integrated 185153.28212240367 DOF -1
+RUN 0 steps 100000 time 29.4878511428833 total 29.487924814224243 LLK 37728.519233669984 Rw 0.1369213554625328 Integrated 36290.14913488902
+RUN 1 steps 4000000 time 600.0131418704987 total 629.6252927780151 LLK 13985.610211307898 Rw 0.09508150311094965 Integrated 12509.513964364744
+#  1:ScatteringPowerAtom(N)
+#  2:ScatteringPowerAtom(O)
+#  3:ScatteringPowerAtom(Cl)
+ANTIBUMP 5 Scale 10.0 Initial cost 3951.290161268634
+Imported powder pattern: 4041 points, 2theta=  4.850 ->  45.251, step= 0.010
+RESCALED_BASE 2.2519343277139 0.0464910011027389 4040.999999999988
+INITIAL Xbfeeda9 1 Rw 0.4758924869647883 LLK 299928.47530277877 Integrated 294450.45788102126 DOF -1
+RUN 0 steps 100000 time 224.03500199317932 total 224.03508639335632 LLK 115530.38822475183 Rw 0.27262385070481876 Integrated 113045.05589373872
+[
+ {
+  "cell": [
+   8.054314613342285,
+   9.01951569487852,
+   12.059207916259767,
+   98.39609116944975,
+   100.1927024543102,
+   114.85003396440185
+  ],
+  "volume": 758.1998314768935,
+  "score": 14.74155044555664,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 4,
+  "source": "index_TRICLINIC_P_4.json",
+  "sg": "P-1"
+ },
+ {
+  "cell": [
+   8.332381248474121,
+   9.689390182495117,
+   9.812661170959473,
+   73.34296244961246,
+   82.74776911546115,
+   71.05105149247966
+  ],
+  "volume": 717.3764757695676,
+  "score": 12.41263198852539,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 4,
+  "source": "index_TRICLINIC_P_4.json",
+  "sg": "P-1"
+ },
+ {
+  "cell": [
+   8.691378593444824,
+   10.321927070617676,
+   10.569539815275807,
+   117.57016410205871,
+   105.83884941585931,
+   97.54801905673543
+  ],
+  "volume": 770.8274586452236,
+  "score": 12.148015975952148,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 4,
+  "source": "index_TRICLINIC_P_4.json",
+  "sg": "P-1"
+ },
+ {
+  "cell": [
+   9.059966087341309,
+   9.267343521118164,
+   10.218840574124576,
+   101.58736640553123,
+   112.99653037922934,
+   101.90873102052973
+  ],
+  "volume": 734.1025158587615,
+  "score": 12.005582809448242,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 4,
+  "source": "index_TRICLINIC_P_4.json",
+  "sg": "P-1"
+ },
+ {

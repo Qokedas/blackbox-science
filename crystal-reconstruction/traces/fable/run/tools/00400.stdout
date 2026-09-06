@@ -1,0 +1,3 @@
+[('OC1C(O)C(O)C(O)C(O)C1O', 1, 0)]
+achiral components; no stereodescriptors.
+{'type': 'Cu K1', 'wavelength_A': 1.54056, 'wavelengths_A': [1.54056], 'wavelength_weights': None, 'monochromator': None, 'source': 'sealed x-ray tube'} [2.0, 79.99] 293.0 transmission (capillary / Debye-Scherrer)

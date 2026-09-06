@@ -1,0 +1,146 @@
+import os,json,glob,sys
+import numpy as np,spglib
+from pymatgen.core import Lattice
+ids=sys.argv[1:] or json.load(open('/app/data/instances.json'))['ids']
+for sid in ids:
+ W='/app/work/'+sid;alls=[]
+ for f in glob.glob(W+'/index*.json'):
+  ss=json.load(open(f))
+  for s in ss:s['source']=os.path.basename(f)
+  alls+=ss
+ alls.sort(key=lambda s:-s['score']);out=[];nig=[]
+ for s in alls:
+  if s['score']<max(8,alls[0]['score']*.65):continue
+  cp=np.array(s['cell']);L=Lattice.from_parameters(*cp)
+  cen=s['centering'];pos={'P':[[0,0,0]],'C':[[0,0,0],[.5,.5,0]],'I':[[0,0,0],[.5,.5,.5]],'A':[[0,0,0],[0,.5,.5]],'B':[[0,0,0],[.5,0,.5]],'F':[[0,0,0],[.5,.5,0],[.5,0,.5],[0,.5,.5]]}[cen]
+  try:
+   std=spglib.standardize_cell((L.matrix,pos,[1]*len(pos)),to_primitive=False,no_idealize=False,symprec=.025)
+   prim=spglib.standardize_cell((L.matrix,pos,[1]*len(pos)),to_primitive=True,no_idealize=False,symprec=.025)
+   primL=Lattice(prim[0]).get_niggli_reduced_lattice();n=np.array(primL.parameters)
+   if any(np.allclose(n[:3],n2[:3],rtol=.006) and np.allclose(n[3:],n2[3:],atol=.5) for n2 in nig):continue
+   nig.append(n)
+   ds=spglib.get_symmetry_dataset(std,symprec=.015)
+   L=Lattice(std[0]);cp=list(L.parameters);num=ds.number;sg=ds.international;cen=sg[0]
+   sys='TRICLINIC' if num<=2 else 'MONOCLINIC' if num<=15 else 'ORTHOROMBIC' if num<=74 else 'TETRAGONAL' if num<=142 else 'HEXAGONAL' if num<=194 else 'CUBIC'
+  except Exception as e:print(sid,e);continue
+  new=dict(s,cell=cp,volume=L.volume,system=sys,centering=cen,sg=sg)
+  out.append(new)
+  if len(out)>=8:break
+ json.dump(out,open(W+'/candidates.json','w'),indent=1)
+ if out:print(sid,len(out),out[0]['score'],[round(x,4) for x in out[0]['cell']],out[0]['sg'])
+import sys,re,json,os
+sid=sys.argv[1];tag=sys.argv[2] if len(sys.argv)>2 else 'TRICLINIC_P_3';W='/app/work/'+sid
+text=open(W+'/index_'+tag+'.log').read();pat=r'Solution\s*\?\s*a=\s*([\d.]+),?\s*b=\s*([\d.]+),?\s*c=\s*([\d.]+),?\s*alpha=\s*([\d.]+),?\s*beta=\s*([\d.]+),?\s*gamma=\s*([\d.]+),?\s*V=\s*([\d.]+),?\s*score=\s*([\d.]+)';rows=[]
+for ma in re.finditer(pat,text):
+ v=list(map(float,ma.groups()));rows.append({'cell':v[:6],'volume':v[6],'score':v[7],'system':tag.split('_')[0],'centering':tag.split('_')[1],'mode':int(tag.split('_')[2])})
+rows.sort(key=lambda s:-s['score']);out=[];seen=set()
+for r in rows:
+ key=tuple(round(x,2) for x in r['cell'])
+ if key in seen:continue
+ seen.add(key);out.append(r)
+ if len(out)>=100:break
+json.dump(out,open(W+'/index_'+tag+'_partial.json','w'),indent=1)
+print(sid,len(out),out[:4])
+ },
+ {
+  "two_theta": 84.3158784545905,
+  "height": 86.35002198233813,
+  "fwhm": 0.04933631279064151,
+  "eta": 3.141325533920196e-05,
+  "error": 0.0722930706860683,
+  "d": 1.1476785957759887,
+  "area": 4.2601916939994044,
+  "peak_max": 84.3,
+  "widthL": 0.0902390827214895,
+  "widthR": 0.00843354285979352,
+  "fit_chi": 1.08316784235104
+ }
+]X8a6f5a8 MONOCLINIC P 4 peaks [5.61089, 8.25591, 11.22154, 11.58156, 12.24958, 13.30442, 13.54372, 14.26862, 15.34475, 15.95262, 16.22573, 16.52627, 16.88797, 17.08, 18.35093, 18.782, 19.279, 19.69379] V 1000.0 5500.0 Lmax 80.0
+3->80,3.08001,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+1000->5500,500.006,8.9999
+Starting: V=1000->1500.01
+    a= 7.84- 7.95 b= 9.89- 9.97 c=22.31-22.41 alpha= 90.00- 90.00 beta=105.91-106.05 gamma= 90.00- 90.00 V=1663.34-1708.83level=4, indexed=1(0 sol.)
+    a=0.13259-0.13082 b=0.10114-0.10026 c=0.04662-0.04643 alpha=0.27410-0.27650 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(0 sol.)
+ Solution ? a=  7.931 b=  9.928 c= 22.370 alpha= 90.000 beta=106.292 gamma= 90.000 V= 1690.84 score=  4.82 #   0
+    a= 7.85- 7.97 b= 9.89- 9.97 c=22.34-22.45 alpha= 90.00- 90.00 beta=106.19-106.34 gamma= 90.00- 90.00 V=1665.72-1711.31level=4, indexed=1(1 sol.)
+    a=0.13259-0.13082 b=0.10114-0.10026 c=0.04662-0.04643 alpha=0.27889-0.28128 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(1 sol.)
+ Solution ? a=  7.931 b=  9.928 c= 22.370 alpha= 90.000 beta=106.292 gamma= 90.000 V= 1690.84 score=  4.82 #   1
+    a= 7.87- 7.98 b= 9.89- 9.97 c=22.37-22.48 alpha= 90.00- 90.00 beta=106.48-106.62 gamma= 90.00- 90.00 V=1668.16-1713.84level=4, indexed=1(2 sol.)
+    a=0.13259-0.13082 b=0.10114-0.10026 c=0.04662-0.04643 alpha=0.28368-0.28607 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(2 sol.)
+ Solution ? a=  7.931 b=  9.928 c= 22.370 alpha= 90.000 beta=106.292 gamma= 90.000 V= 1690.84 score=  4.82 #   2
+    a=10.90-11.01 b= 8.77- 8.84 c=17.25-17.37 alpha= 90.00- 90.00 beta=114.69-114.84 gamma= 90.00- 90.00 V=1497.97-1535.05level=4, indexed=1(3 sol.)
+    a=0.10099-0.10006 b=0.11400-0.11307 c=0.06382-0.06345 alpha=0.41774-0.42013 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(3 sol.)
+ Solution ? a= 10.885 b=  8.736 c= 17.311 alpha= 90.000 beta=115.001 gamma= 90.000 V= 1491.89 score=  4.47 #   3
+    a=10.93-11.04 b= 8.77- 8.84 c=17.29-17.41 alpha= 90.00- 90.00 beta=114.99-115.15 gamma= 90.00- 90.00 V=1501.63-1538.84level=4, indexed=1(4 sol.)
+    a=0.10099-0.10006 b=0.11400-0.11307 c=0.06382-0.06345 alpha=0.42253-0.42492 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(4 sol.)
+ Solution ? a= 10.999 b=  8.868 c= 17.354 alpha= 90.000 beta=115.012 gamma= 90.000 V= 1534.01 score=  4.77 #   4
+    a=10.95-11.07 b= 8.77- 8.84 c=17.33-17.45 alpha= 90.00- 90.00 beta=115.30-115.45 gamma= 90.00- 90.00 V=1505.36-1542.69level=4, indexed=1(5 sol.)
+    a=0.10099-0.10006 b=0.11400-0.11307 c=0.06382-0.06345 alpha=0.42731-0.42971 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(5 sol.)
+ Solution ? a= 10.999 b=  8.868 c= 17.354 alpha= 90.000 beta=115.012 gamma= 90.000 V= 1534.01 score=  4.77 #   5
+    a=13.25-13.36 b= 7.07- 7.17 c=18.01-18.15 alpha= 90.00- 90.00 beta=119.94-120.10 gamma= 90.00- 90.00 V=1462.66-1504.39level=4, indexed=1(6 sol.)
+    a=0.08708-0.08650 b=0.14141-0.13946 c=0.06408-0.06369 alpha=0.49913-0.50152 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(6 sol.)
+{
+ "radiation": {
+  "type": "Mo Kalpha1,2 (laboratory sealed tube)",
+  "wavelength_A": 0.709319,
+  "wavelengths_A": [
+   0.709319,
+   0.713609
+  ],
+  "wavelength_weights": [
+   1.0,
+   0.5
+  ],
+  "monochromator": null,
+  "source": "sealed X-ray tube"
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 300.0,
+ "two_theta_range_deg": [
+  1.0125,
+  49.987
+ ],
+ "n_points": 5862,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "sqrt(max(I,1)); counting statistics assumed",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": [
+  "Kalpha2 weight 0.5 is the standard ratio; the depositors state only Kalpha1,2"
+ ]
+}{"indices": [1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 13, 14, 15, 17, 18, 20, 22, 24, 25]}[
+ {
+  "two_theta": 3.1957084201049084,
+  "height": 113.9028492402138,
+  "fwhm": 0.012496375866331646,
+  "eta": 1.7113197852682549e-22,
+  "error": 0.6080225120682905,
+  "d": 27.624781742362863,
+  "area": 1.4233728163518196,
+  "peak_max": 3.19,
+  "widthL": 0.01727468068987863,
+  "widthR": 0.007718071042784663,
+  "fit_chi": 0.7545253784883965
+ },
+ {
+  "two_theta": 3.536997443859656,
+  "height": 111.9020537774987,
+  "fwhm": 0.10965983415140405,
+  "eta": 8.163520641773121e-08,
+  "error": 0.028908655915440732,
+  "d": 24.959962192307525,
+  "area": 12.271160658442005,
+  "peak_max": 3.53,
+  "widthL": 0.2092670842815341,
+  "widthR": 0.010052584021274022,
+  "fit_chi": 0.9377954730420472
+ },
+ {
+  "two_theta": 3.9384708652298164,
+  "height": 138.98586818809045,
+  "fwhm": 0.043759523784683875,
+  "eta": 0.9999999999999999,
+  "error": 0.0038720988831682616,
+  "d": 22.416488206674522,
+  "area": 6.081955404711682,

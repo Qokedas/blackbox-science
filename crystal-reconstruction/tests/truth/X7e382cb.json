@@ -1,0 +1,26 @@
+{
+ "id": "X7e382cb",
+ "reference_cif": "data_ref\n_symmetry_cell_setting triclinic\n_symmetry_space_group_name_H-M \"P 1\"\n_symmetry_space_group_name_Hall 'P 1'\n\nloop_\n_space_group_symop_id\n_space_group_symop_operation_xyz\n1 x,y,z\n\n_cell_length_a 4.6770(6)\n_cell_length_b 5.2306(14)\n_cell_length_c 14.387(6)\n_cell_angle_alpha 90.57(7)\n_cell_angle_beta 91.41(4)\n_cell_angle_gamma 92.775(11)\n_cell_volume 351.43(17)\n_cell_formula_units_Z 1\n\nloop_\n_atom_type_symbol\n_atom_type_scat_dispersion_real\n_atom_type_scat_dispersion_imag\n_atom_type_scat_source\nC 0.003 0.002 https://subversion.xray.aps.anl.gov/pyGSAS/trunk/atmdata.py\nH 0.000 0.000 https://subversion.xray.aps.anl.gov/pyGSAS/trunk/atmdata.py\nN 0.006 0.003 https://subversion.xray.aps.anl.gov/pyGSAS/trunk/atmdata.py\nO 0.011 0.006 https://subversion.xray.aps.anl.gov/pyGSAS/trunk/atmdata.py\n\nloop_\n_atom_site_type_symbol\n_atom_site_label\n_atom_site_fract_x\n_atom_site_fract_y\n_atom_site_fract_z\n_atom_site_U_iso_or_equiv\n_atom_site_adp_type\n_atom_site_occupancy\n_atom_site_site_symmetry_multiplicity\nH H1 0.56271 0.55748 -0.04903 0.0500 Uiso 1.0000 1\nC C2 0.72650 0.71007 -0.07277 0.0042 Uiso 1.0000 1\nC C3 1.092(10) 1.091(7) -0.1369(14) 0.0042 Uiso 1.0000 1\nC C4 0.886(5) 0.858(4) -0.0073(7) 0.0042 Uiso 1.0000 1\nC C5 0.759(8) 0.741(7) -0.1644(4) 0.0042 Uiso 1.0000 1\nC C6 0.942(5) 0.928(5) -0.1987(9) 0.0042 Uiso 1.0000 1\nC C7 1.068(8) 1.055(6) -0.0421(13) 0.0042 Uiso 1.0000 1\nH H8 0.63274 0.60998 -0.21606 0.0500 Uiso 1.0000 1\nH H9 1.19666 1.18586 0.00901 0.0500 Uiso 1.0000 1\nH H10 1.23536 1.25494 -0.16391 0.0500 Uiso 1.0000 1\nC C11 0.935(5) 0.754(5) 0.0884(8) 0.0042 Uiso 1.0000 1\nC C12 1.040(7) 0.578(6) 0.2730(11) 0.0042 Uiso 1.0000 1\nC C13 0.788(12) 0.847(10) 0.1638(15) 0.0042 Uiso 1.0000 1\nC C14 1.140(8) 0.571(9) 0.1072(12) 0.0042 Uiso 1.0000 1\nC C15 1.197(11) 0.490(10) 0.1986(15) 0.0042 Uiso 1.0000 1\nC C16 0.833(10) 0.754(9) 0.2538(12) 0.0042 Uiso 1.0000 1\nH H17 0.62741 1.00179 0.15295 0.0500 Uiso 1.0000 1\nH H18 1.26305 0.48583 0.04787 0.0500 Uiso 1.0000 1\nH H19 1.37364 0.35094 0.21156 0.0500 Uiso 1.0000 1\nH H20 0.69528 0.82586 0.31194 0.0500 Uiso 1.0000 1\nC C21 1.076(7) 0.480(7) 0.3737(13) 0.0566 Uiso 1.0000 1\nC C22 0.944(5) 0.962(6) -0.3033(10) 0.0566 Uiso 1.0000 1\nO O23 0.840(7) 0.413(8) 0.4081(17) 0.0566 Uiso 1.0000 1\nO O24 0.969(10) 0.758(7) -0.3508(14) 0.0566 Uiso 1.0000 1\nO O25 1.309(7) 0.371(8) 0.4015(16) 0.0566 Uiso 1.0000 1\nO O26 0.762(7) 1.119(7) -0.3310(18) 0.0566 Uiso 1.0000 1\nN N27 0.34475 1.28836 -0.39168 0.0500 Uiso 1.0000 1\nH H29 0.36001 1.43931 -0.43695 0.0500 Uiso 1.0000 1\nH H30 0.22878 1.13756 -0.42606 0.0500 Uiso 1.0000 1\nH H31 0.54682 1.23237 -0.37405 0.0500 Uiso 1.0000 1\nH H32 0.24338 1.34422 -0.33265 0.0500 Uiso 1.0000 1\nN N28 0.88714 0.85588 -0.47716 0.0500 Uiso 1.0000 1\nH H33 0.85037 0.66062 -0.48279 0.0500 Uiso 1.0000 1\nH H34 0.69609 0.94431 -0.48449 0.0500 Uiso 1.0000 1\nH H35 1.02320 0.91738 -0.52839 0.0500 Uiso 1.0000 1\nH H36 0.97893 0.90122 -0.41298 0.0500 Uiso 1.0000 1\n",
+ "space_group_number": 1,
+ "space_group_symbol": "P 1",
+ "centring": "P",
+ "sohncke": true,
+ "chiral": false,
+ "L_graded": true,
+ "dof": 15.0,
+ "dof_bin": "calib_lt15",
+ "zprime": 2.0,
+ "n_heavy_asym": 20.0,
+ "components": [
+  {
+   "smiles": "O=C([O-])c1ccc(-c2ccc(C(=O)[O-])cc2)cc1",
+   "count": 1
+  },
+  {
+   "smiles": "[NH4+]",
+   "count": 2
+  }
+ ],
+ "radiation_class": "lab_Mo",
+ "candidate_name": "Diammonium 4,4'-biphenyldicarboxylate"
+}

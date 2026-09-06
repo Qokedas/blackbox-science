@@ -1,0 +1,72 @@
+"""Conditional one-axis March-Dollase test against the exact native profile matrix.
+No intensity extraction; only a scale is fitted at each trial texture coefficient.
+"""
+import os,sys,json,itertools,numpy as np
+from scipy.optimize import minimize_scalar
+from pymatgen.core import Lattice
+from pyobjcryst.io import xml_cryst_file_load_all_object
+from obj_bridge import profile_matrix
+src,out=sys.argv[1:3];objs=xml_cryst_file_load_all_object(src);p=next(o for o in objs if o.GetClassName()=='PowderPattern');c=next(o for o in objs if o.GetClassName()=='Crystal');d=p.GetPowderPatternComponent(0);p.Prepare();p.FitScaleFactorForRw();f=np.asarray(d.GetFhklCalcSq());M=profile_matrix(p,d,len(f));cp=np.asarray(d.GetPowderPatternCalc());print('MATRIX_ERROR',np.linalg.norm(M@f-cp)/np.linalg.norm(cp),flush=True)
+x=np.asarray(p.GetPowderPatternX());w=np.asarray(p.GetLSQWeight(0));obs=np.asarray(p.GetPowderPatternObs());calc=np.asarray(p.GetPowderPatternCalc());bg=np.asarray(p.GetPowderPatternComponent(1).GetPowderPatternCalc());scale=np.dot(calc-bg,cp)/np.dot(cp,cp);bg=calc-scale*cp
+n=min(len(w),len(obs));w=w[:n];A=M[:n]*np.sqrt(w)[:,None];t=(obs-bg)[:n]*np.sqrt(w);normal=A.T@A;rhs=A.T@t;tt=t@t;denom=obs[:n]@(w*obs[:n]);nf=len(f)
+hkl=np.asarray([d.GetH(),d.GetK(),d.GetL()]).T[:nf];lat=Lattice.from_parameters(*[c.GetPar(n).GetHumanValue() for n in ['a','b','c','alpha','beta','gamma']]);B=lat.reciprocal_lattice_crystallographic.matrix;g=hkl@B;gn=np.linalg.norm(g,axis=1)
+def chi(v):return float(tt-max(v@rhs,0)**2/max(v@normal@v,1e-30))
+baseline=chi(f);res=[]
+for axis in itertools.product(range(-1,2),repeat=3):
+ if not any(axis) or next(v for v in axis if v)!=1:continue
+ u=np.asarray(axis)@B;co=((g@u)/(gn*np.linalg.norm(u)))**2
+ def fun(lr):
+  r=np.exp(lr);md=(r*r*co+(1-co)/r)**-1.5;return chi(f*md)
+ fit=minimize_scalar(fun,bounds=(np.log(.4),np.log(2.5)),method='bounded');res.append(dict(axis=axis,MD=float(np.exp(fit.x)),chi2=float(fit.fun),Rw=float(np.sqrt(max(0,fit.fun)/denom))))
+res.sort(key=lambda x:x['chi2']);print('BASELINE',p.GetRw(),np.sqrt(baseline/denom),baseline,flush=True)
+for r in res[:5]:print(r,flush=True)
+json.dump(dict(baseline_Rw=float(p.GetRw()),baseline_chi2=baseline,scan=res),open(out,'w'),indent=1)
+"""Test whether a single March-Dollase texture term explains a residual.
+This is conditional on a candidate structure and is not evidence of solution.
+"""
+import sys,os,json,numpy as np,torch,itertools
+from scipy.optimize import minimize_scalar
+from gallop import tensor_prep,zm_to_cart,intensities
+from gallop_io import load_structure
+from hydrogen_prefix import enable_hydrogen_prefix
+from gallop_fast_symmetry import enable_fast_symmetry
+torch.set_num_threads(1);torch.set_num_interop_threads(1)
+sid=sys.argv[1];run=sys.argv[2];G='/app/work/'+sid+'/gallop_'+run;s=load_structure(G+'/structure.json');enable_fast_symmetry(s);enable_hydrogen_prefix(s,G+'/model.json');best=np.load(G+'/best.npz');ts=tensor_prep.get_all_required_tensors(s,external=best['external'],internal=best['internal'],requires_grad=False,device=torch.device('cpu'),verbose=False)
+with torch.no_grad():fr=zm_to_cart.get_asymmetric_coords(**ts['zm']);f=intensities.calculate_intensities(fr,**ts['int_tensors']).numpy()[0]
+obs=s.intensities;N=np.asarray(s.inverse_covariance_matrix)/(len(s.hkl)-2);no=N@obs;oo=obs@no;B=s.lattice.reciprocal_lattice_crystallographic.matrix;g=s.hkl@B;gn=np.linalg.norm(g,axis=1)
+def chi(f):return float(oo-max(f@no,0)**2/max(f@N@f,1e-30))
+base=chi(f);out=[]
+for ax in itertools.product(range(-1,2),repeat=3):
+ if not any(ax):continue
+ if next(x for x in ax if x)!=1:continue
+ u=np.array(ax)@B;c2=((g@u)/(gn*np.linalg.norm(u)))**2
+ def fun(lr):
+  r=np.exp(lr);md=(r*r*c2+(1-c2)/r)**(-1.5);return chi(f*md)
+ fit=minimize_scalar(fun,bounds=(np.log(.25),np.log(4)),method='bounded');out.append(dict(axis=ax,MD=float(np.exp(fit.x)),chi=float(fit.fun)))
+out.sort(key=lambda a:a['chi']);print('BASE',base,flush=True)
+for a in out[:8]:print(a,flush=True)
+json.dump({'untextured_chi':base,'scan':out},open(G+'/po_scan.json','w'),indent=1)
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+set -e
+id=Xbfeeda9
+while [[ ! -f /app/work/$id/refined_g11.json ]];do sleep 5;done
+python /app/work/add_fixed_march.py $id g11md /app/work/$id/refined_g11.xml 1.32295 0 0 1 /app/work/$id/search_g11/model.json > /app/work/$id/md_add.log 2>&1
+python /app/work/refine_obj.py $id g11md /app/work/$id/search_g11md/best.xml --scale --tight --free-march --stol=.35 > /app/work/$id/refine_g11md.log 2>&1
+# Avoid an eighth long global search: wait for the psilocybin continuation.
+while [[ -r /proc/36093/status ]] && ! grep -q '^State:.*Z' /proc/36093/status;do sleep 5;done
+GALLOP_STOL=.27 python /app/work/warm_gallop.py $id 60 /app/work/$id/refined_g11md.xml /app/work/$id/search_g11md/model.json > /app/work/$id/warm60.log 2>&1
+SEARCH_TIME=2000 PARTICLES=128 ITERATIONS=400 BUMP_COEFF=60 HBOND_COEFF=12 START_NPZ=/app/work/$id/gallop_60/warm.npz START_JITTER=.08 START_TOR_JITTER=.40 MACRO_ELITE_FRAC=.35 python /app/work/search_gallop.py $id 60 1 --hscatter --packing > /app/work/$id/gallop60.log 2>&1
+python /app/work/import_gallop.py $id 60 > /app/work/$id/import_g60.log 2>&1
+python /app/work/refine_obj.py $id g60 /app/work/$id/search_g60/best.xml --scale --tight --free-march --stol=.4 > /app/work/$id/refine_g60.log 2>&1
+python /app/work/submit.py $id /app/work/$id/refined_g60.cif --check > /app/work/$id/check_g60.log 2>&1
+CYCLE 0 0 Rw 0.11470605721599701 chi2 8229.237138009914 geom 261.0159655316003 LSQ 8924.798148968297
+CYCLE 0 1 Rw 0.114310340502418 chi2 8172.556093325641 geom 261.0159655316003 LSQ 8868.63429750715
+CYCLE 0 2 Rw 0.11423817056940659 chi2 8162.23985012708 geom 261.0159655316003 LSQ 8863.58266393415
+PACKING_STAGE 0 117.87419231422577
+CYCLE 1 0 Rw 0.1101771766511295 chi2 7592.2439048132555 geom 331.03015299472185 LSQ 8412.64991607327
+GALLOP 1 Nref 111 seconds 103.60648107528687 best 166.66914 q25 179.45056 median 359.02222 total 210.7929265499115
+GALLOP 2 Nref 132 seconds 103.7869553565979 best 161.03862 q25 166.50514 median 234.17719 total 314.6757068634033
+GALLOP 3 Nref 153 seconds 105.08427023887634 best 160.35634 q25 164.85545 median 231.79909 total 419.8724892139435
+GALLOP 4 Nref 174 seconds 141.2825219631195 best 159.86702 q25 163.61574 median 219.65245 total 561.2701635360718
+GALLOP 5 Nref 202 seconds 121.82206678390503 best 159.1852 q25 162.16577 median 355.34674 total 683.2041771411896
+GALLOP 6 Nref 227 seconds 120.00628447532654 best 159.01613 q25 161.77257 median 238.15176 total 803.31507563591

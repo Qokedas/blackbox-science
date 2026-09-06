@@ -1,0 +1,18 @@
+16:def embed(smiles, seed=42, nconf=30):
+17:    mol = Chem.AddHs(Chem.MolFromSmiles(smiles))
+18:    ps = AllChem.ETKDGv3(); ps.randomSeed = seed
+19:    cids = AllChem.EmbedMultipleConfs(mol, nconf, ps)
+22:        cids = AllChem.EmbedMultipleConfs(mol, nconf, ps)
+23:    res = AllChem.MMFFOptimizeMoleculeConfs(mol, maxIters=2000)
+26:    # distinct conformers (heavy-atom RMSD > 0.25 A), sorted by energy
+29:    distinct = []
+32:        if all(rdMolAlign.GetBestRMS(Chem.RemoveHs(mol), Chem.RemoveHs(mol), c2, cid) > 0.25 for c2 in distinct):
+33:            distinct.append(cid)
+34:    k = min(CONF_RANK, len(distinct) - 1)
+35:    best = distinct[k]
+36:    print(f'  conformers: {len(distinct)} distinct; energies {[round(energies[c],1) for c in distinct[:6]]}; using rank {k} (E={energies[best]:.1f})', flush=True)
+40:def classify_bonds(mol):
+45:    dbl_nb = lambda y: any(mol.GetBondBetweenAtoms(y.GetIdx(), nb.GetIdx()).GetBondType() == Chem.BondType.DOUBLE for nb in y.GetNeighbors())
+46:    is_carbonyl = lambda y: y.GetAtomicNum() == 6 and any(nb.GetAtomicNum() in (8, 16) and mol.GetBondBetweenAtoms(y.GetIdx(), nb.GetIdx()).GetBondType() == Chem.BondType.DOUBLE for nb in y.GetNeighbors())
+53:        if b.GetBondType() != Chem.BondType.SINGLE:
+59:        if a1.GetHybridization() == Chem.HybridizationType.SP or a2.GetHybridization() == Chem.HybridizationType.SP:

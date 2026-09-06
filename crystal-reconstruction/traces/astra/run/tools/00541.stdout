@@ -1,0 +1,5 @@
+Xedd9c7b 19 max1/2bond_error 1.9056114952675784e-06 ix (np.int64(18), np.int64(13), np.int64(17)) i (32, 10)
+Xedd9c7b 19 max1/2bond_error 2.292788161994963e-06 ix (np.int64(25), np.int64(6), np.int64(18)) i (32, 10)
+Xb7088cf 28 max1/2bond_error 4.4112353587699715e-06 ix (np.int64(6), np.int64(18), np.int64(20)) i (32, 7)
+Xd4c1a35 24 max1/2bond_error 2.0897892789584205e-06 ix (np.int64(4), np.int64(2), np.int64(22)) i (32, 6)
+Xd4c1a35 24 max1/2bond_error 2.0442193484626614e-06 ix (np.int64(25), np.int64(9), np.int64(23)) i (32, 6)

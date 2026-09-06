@@ -1,0 +1,603 @@
+import os,sys,json,time,numpy as np
+from scipy.optimize import least_squares
+from numba import njit
+from pymatgen.core import Lattice
+sid=sys.argv[1];W='/app/work/'+sid;tag=sys.argv[2] if len(sys.argv)>2 else '0';start=json.load(open(W+'/fit_'+tag+'.json'));L=Lattice.from_parameters(*start['cell']);G=L.reciprocal_lattice_crystallographic.metric_tensor;wl=json.load(open('/app/data/instances/'+sid+'/instrument.json'))['radiation']['wavelength_A'];ps=json.load(open(W+'/peaks_raw.json'));selection=json.load(open(os.environ.get('SELECT_FILE',W+'/peak_select_ext.json')))['indices'];pp=[ps[i-1] for i in selection];tt=np.array([p['two_theta'] for p in pp]);qobs=(2*np.sin(np.deg2rad(tt/2))/wl)**2;fac=wl*wl/(2*np.sin(np.deg2rad(tt)))*180/np.pi
+kl=np.array([[k,l] for k in range(-8,9) for l in range(-12,13) if k or l],dtype=float);kt=np.array([kl[:,0]**2,kl[:,1]**2,2*kl[:,0]*kl[:,1]]).T
+v=np.array([G[1,1],G[2,2],G[1,2],start.get('p_pars',{}).get('Zero',0)])
+# Low-angle lines below the first possible h != 0 reflection determine the 2D reciprocal net.
+ttmax=float(os.environ.get('PLANE_MAX','17.65'))
+low=tt<ttmax
+for it in range(5):
+ q=kt@v[:3];idx=np.argmin(abs(q[None,:]-(qobs-v[3]/fac)[:,None]),axis=1);err=(q[idx]-qobs)*fac+v[3];sel=low&(abs(err)<float(os.environ.get('PLANE_ERR','.10')))
+ if sel.sum()<5:raise Exception('not enough 2D matches')
+ v=least_squares(lambda x:(kt[idx[sel]]@x[:3]-qobs[sel])*fac[sel]+x[3],v,loss='soft_l1',f_scale=.015,max_nfev=100).x
+q=kt@v[:3];idx=np.argmin(abs(q[None,:]-(qobs-v[3]/fac)[:,None]),axis=1);err=(q[idx]-qobs)*fac+v[3]
+need=np.where((abs(err)>.055)&(~low))[0]
+print('PLANE',sid,'g22,g33,g23,zero',v.tolist(),'nlow',sum(sel),flush=True)
+for i,(t,ee) in enumerate(zip(tt,err)):print('LINE',selection[i],round(t,5),'0kl',kl[idx[i]],'err',round(ee,5),'NEW' if i in need else '',flush=True)
+# Peak ids can be specified manually when a weak impurity lies outside the 2D net.
+if 'H1_IDS' in os.environ:need=np.array([selection.index(int(s)) for s in os.environ['H1_IDS'].split(',')],int)
+if len(need)<3:raise Exception('not enough out-of-plane lines')
+qcor=qobs-v[3]/fac;ks=np.array([[k,l] for k in range(-5,6) for l in range(-9,10) if k or l],dtype=float)
+hkl=np.array([[h,k,l] for h in range(0,4) for k in range(-8,9) for l in range(-12,13) if h or k or l],dtype=float);terms=np.array([hkl[:,0]**2,hkl[:,1]**2,hkl[:,2]**2,2*hkl[:,1]*hkl[:,2],2*hkl[:,0]*hkl[:,2],2*hkl[:,0]*hkl[:,1]]).T
+nspur=int(os.environ.get('NSPUR','1'));vmin=float(os.environ.get('VMIN','1000'));vmax=float(os.environ.get('VMAX','1800'));targetv=float(os.environ.get('VTARGET','1300'));etol=.04
+@njit(cache=False)
+def evaluate(g):
+ sq=np.zeros(len(qobs));vol=1/np.sqrt(g[0]*g[1]*g[2]+2*g[3]*g[4]*g[5]-g[0]*g[3]*g[3]-g[1]*g[4]*g[4]-g[2]*g[5]*g[5]);idx=np.zeros(len(qobs),np.int64)
+ qc=terms@g
+ for i in range(len(qobs)):
+  best=1e20;bj=0
+  for j in range(len(qc)):
+   delta=abs(qc[j]-qcor[i])
+   if delta<best:best=delta;bj=j
+  sq[i]=np.log1p((best*fac[i]/etol)**2);idx[i]=bj
+ sq.sort();res=np.mean(sq[:len(sq)-nspur])*vol/targetv
+ return res,idx
+@njit(cache=False)
+def enumerate_solutions(i1,i2,i3):
+ out=np.zeros((len(ks)*len(ks),7));nout=0;g=np.array([qcor[i1],v[0],v[1],v[2],0.,0.]);area=g[1]*g[2]-g[3]*g[3]
+ for a in range(len(ks)):
+  k,l=ks[a];rhs2=qcor[i2]-g[0]-g[1]*k*k-g[2]*l*l-2*g[3]*k*l
+  for b in range(len(ks)):
+   m,n=ks[b];det=k*n-m*l
+   if abs(det)<.1:continue
+   rhs3=qcor[i3]-g[0]-g[1]*m*m-g[2]*n*n-2*g[3]*m*n
+   g[5]=(rhs2*n-rhs3*l)/(2*det);g[4]=(rhs3*k-rhs2*m)/(2*det)
+   dg=g[0]*area+2*g[3]*g[4]*g[5]-g[1]*g[4]*g[4]-g[2]*g[5]*g[5]
+   if dg<=0:continue
+   vol=1/np.sqrt(dg)
+   if vol<vmin or vol>vmax:continue
+   # Reduce equivalent h=1 origins: the reciprocal (100) line should not be much longer than others.
+   cost,idx=evaluate(g)
+   if cost>.6:continue
+   out[nout,0]=cost;out[nout,1:]=g;nout+=1
+ return out[:nout]
+t0=time.time();out=[]
+# The first extra line is taken as (100); two others span the metric cross terms.
+for i2,i3 in [(need[1],need[2]),(need[1],need[3]) if len(need)>3 else (need[1],need[2])]:
+ rows=enumerate_solutions(need[0],i2,i3);rows=rows[np.argsort(rows[:,0])][:80];print('ENUM',sid,'anchors',tt[[need[0],i2,i3]],'nsolutions',len(rows),'seconds',time.time()-t0,flush=True)
+ for row in rows:
+  g=row[1:];cost,idx=evaluate(g);x=np.r_[g,v[3]]
+  for it in range(3):
+   tr=terms[idx]
+   re=least_squares(lambda xx:(tr@xx[:6]-qobs)*fac+xx[6],x,loss='soft_l1',f_scale=.02,max_nfev=100);x=re.x
+   qc=terms@x[:6];idx=np.argmin(abs(qc[None,:]-(qobs-x[6]/fac)[:,None]),axis=1)
+  g=x[:6];gm=np.array([[g[0],g[5],g[4]],[g[5],g[1],g[3]],[g[4],g[3],g[2]]])
+  if np.linalg.det(gm)<=0:continue
+  cell=Lattice(np.linalg.cholesky(np.linalg.inv(gm))).get_niggli_reduced_lattice();di=(terms[idx]@g-qobs)*fac+x[6];sq=np.sort(np.log1p((di/etol)**2));cost=np.mean(sq[:len(sq)-nspur])*cell.volume/targetv
+  ncal=np.sum((terms@g)<qobs[-1]);score=qobs[-1]/(2*np.mean(abs(di)/fac)*ncal)
+  if any(np.allclose(cell.parameters[:3],s['cell'][:3],rtol=.002) and np.allclose(cell.parameters[3:],s['cell'][3:],atol=.3) for s in out):continue
+  ss=dict(cell=list(cell.parameters),volume=cell.volume,score=float(score),system='TRICLINIC',centering='P',sg='P -1',mode=12,cost=float(cost),zero=float(x[6]),rms=float(np.sqrt(np.mean(di**2))),maxerr=float(max(abs(di))),source='2d_completion');out.append(ss)
+ out.sort(key=lambda s:s['cost']);json.dump(out,open(W+'/index_'+os.environ.get('INDEX_TAG','2d')+'.json','w'),indent=1)
+for s in out[:15]:print('SOLUTION',s,flush=True)
+{"indices": [4, 10, 11, 12, 13, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 33, 34, 35, 38, 39, 40, 41, 43, 44, 46, 47, 48, 49]}{"cell": [3.8743169307708745, 40.96534347534178, 12.84425735473633, 90, 98.85094412157423, 90], "p_pars": {"Zero": 0.0}}[
+ {
+  "cell": [
+   4.9040594622145335,
+   40.93856769628846,
+   12.886773960655624,
+   90.0,
+   79.62893837938307,
+   90.0
+  ],
+  "volume": 2544.9324118683685,
+  "score": 7.592925996598233,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "sg": "P 1 2/m 1",
+  "mode": 12,
+  "cost": 0.023104085981000923,
+  "zero": -0.04689837330800778,
+  "rms": 0.010427940370273689,
+  "maxerr": 0.048242348379564856,
+  "source": "2d_completion"
+ },
+ {
+  "cell": [
+   4.904167178748592,
+   40.93726422696198,
+   12.886773131271083,
+   90.0,
+   100.3188323230673,
+   90.0
+  ],
+  "volume": 2545.3309069864517,
+  "score": 7.381604053778507,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "sg": "P 1 2/m 1",
+  "mode": 12,
+  "cost": 0.034354641667829866,
+  "zero": -0.046729429584021195,
+  "rms": 0.009196169347049522,
+  "maxerr": 0.02829079337848507,
+  "source": "2d_completion"
+ },
+ {
+  "cell": [
+   5.003359261966045,
+   40.979470063437724,
+   12.682423016729661,
+   90.0,
+   87.89200912126007,
+   90.0
+  ],
+  "volume": 2595.7694820841507,
+  "score": 7.271810715353305,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "sg": "P 1 2/m 1",
+  "mode": 12,
+  "cost": 0.035394708354047615,
+  "zero": -0.04957006685564438,
+  "rms": 0.00868071256770523,
+  "maxerr": 0.023842998015694526,
+  "source": "2d_completion"
+ },
+ {
+  "cell": [
+   5.098951440377936,
+   40.94307900263965,
+   12.699195359719333,
+   90.0,
+   93.47057256000745,
+   90.0
+  ],
+  "volume": 2646.292421640898,
+  "score": 5.359777256453696,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "sg": "P 1 2/m 1",
+  "mode": 12,
+  "cost": 0.03718039884656373,
+  "zero": -0.046809098669609,
+  "rms": 0.012552234926379083,
+  "maxerr": 0.0563373836740364,
+  "source": "2d_completion"
+ },
+ {
+  "cell": [
+   5.277669751080569,
+   40.91990349204436,
+   12.67844221229612,
+   90.0,
+   88.44768358497683,
+   90.0
+  ],
+  "volume": 2737.0268053452482,
+  "score": 5.805469392776461,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "sg": "P 1 2/m 1",
+  "mode": 12,
+  "cost": 0.04150549238062304,
+  "zero": -0.05177301405286797,
+  "rms": 0.010402115856295881,
+  "maxerr": 0.03800539530319991,
+  "source": "2d_completion"
+ },
+ {
+  "cell": [
+   4.9375489709304325,
+   40.94247684218131,
+   12.894609981451438,
+   90.0,
+   79.47262925141399,
+   90.0
+  ],
+  "volume": 2562.6689792980947,
+  "score": 5.936455876237938,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "sg": "P 1 2/m 1",
+  "mode": 12,
+  "cost": 0.041729338545315825,
+  "zero": -0.047263931694677,
+  "rms": 0.010015307732105115,
+  "maxerr": 0.03135134187056847,
+  "source": "2d_completion"
+ },
+ {
+  "cell": [
+   4.86473908351488,
+   40.972689926878594,
+   12.774403975370488,
+   90.0,
+   96.9911987490254,
+   90.0
+  ],
+  "volume": 2527.2545267698565,
+  "score": 4.786329457690624,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "sg": "P 1 2/m 1",
+  "mode": 12,
+  "cost": 0.04200656228630056,
+  "zero": -0.040256989866890275,
+  "rms": 0.01494355268650805,
+  "maxerr": 0.07098545291532331,
+  "source": "2d_completion"
+ },
+ {
+  "cell": [
+   4.832554928833866,
+   40.92498064875103,
+   12.692804953000186,
+   90.0,
+   92.62316588012968,
+   90.0
+  ],
+  "volume": 2507.6288974521385,
+  "score": 5.820767912387828,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "sg": "P 1 2/m 1",
+  "mode": 12,
+  "cost": 0.046559953834904855,
+  "zero": -0.048686844792098304,
+  "rms": 0.01025863321366663,
+  "maxerr": 0.028499600958414924,
+  "source": "2d_completion"
+ }
+]{
+ "cell": [
+  4.889544682099897,
+  40.84611453692309,
+  12.864831101969099,
+  90.0,
+  79.62762978446524,
+  90.0
+ ],
+ "volume": 2544.9324118683685,
+ "score": 7.592925996598233,
+ "system": "MONOCLINIC",
+ "centering": "P",
+ "sg": "P 1 2/m 1",
+ "mode": 12,
+ "cost": 0.023104085981000923,
+ "zero": -0.04689837330800778,
+ "rms": 0.010427940370273689,
+ "maxerr": 0.048242348379564856,
+ "source": "2d_completion",
+ "sgstart": "P 1 2/m 1",
+ "Rw": 0.05840021374433379,
+ "groups": [
+  {
+   "sg": "P 1 2 1",
+   "number": 3,
+   "Rw": 6.580737735412197,
+   "GoF": 1893.9016351377497,
+   "nGoF": 0.0,
+   "mult": 2
+  },
+  {
+   "sg": "P 1 m 1",
+   "number": 6,
+   "Rw": 6.580737735412197,
+   "GoF": 1893.9016351377497,
+   "nGoF": 0.0,
+   "mult": 2
+  },
+  {
+   "sg": "P 1 2/m 1",
+   "number": 10,
+   "Rw": 6.580737735412197,
+   "GoF": 1893.9016351377497,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 1 a 1",
+   "number": 7,
+   "Rw": 6.606859832967832,
+   "GoF": 1901.272453585614,
+   "nGoF": 0.0,
+   "mult": 2
+  },
+  {
+   "sg": "P 1 2/a 1",
+   "number": 13,
+   "Rw": 6.606859832967832,
+   "GoF": 1901.272453585614,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 1 c 1",
+   "number": 7,
+   "Rw": 6.631768015137227,
+   "GoF": 1916.3374680328782,
+   "nGoF": 0.0,
+   "mult": 2
+  },
+  {
+   "sg": "P 1 2/c 1",
+   "number": 13,
+   "Rw": 6.631768015137227,
+   "GoF": 1916.3374680328782,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 1 21 1",
+   "number": 4,
+   "Rw": 6.687361769323578,
+   "GoF": 1950.746493018778,
+   "nGoF": 0.0,
+   "mult": 2
+  },
+  {
+   "sg": "P 1 21/m 1",
+   "number": 11,
+   "Rw": 6.687361769323578,
+   "GoF": 1950.746493018778,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 1 21/a 1",
+   "number": 14,
+   "Rw": 6.712983808921915,
+   "GoF": 1957.8202297976513,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 1 21/c 1",
+   "number": 14,
+   "Rw": 6.739085278222226,
+   "GoF": 1973.7960649770755,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 1 n 1",
+   "number": 7,
+   "Rw": 6.792629301993673,
+   "GoF": 2008.9581360910872,
+   "nGoF": 0.0,
+   "mult": 2
+  },
+  {
+   "sg": "P 1 2/n 1",
+   "number": 13,
+   "Rw": 6.792629301993673,
+   "GoF": 2008.9581360910872,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 1 21/n 1",
+   "number": 14,
+   "Rw": 6.897293611568396,
+   "GoF": 2066.0476601057376,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "A 1 2 1",
+   "number": 5,
+   "Rw": 10.569453973877838,
+   "GoF": 4525.10535722128,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "A 1 m 1",
+   "number": 8,
+   "Rw": 10.569453973877838,
+   "GoF": 4525.10535722128,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "A 1 2/m 1",
+   "number": 12,
+   "Rw": 10.569453973877838,
+   "GoF": 4525.10535722128,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "A 1 n 1",
+   "number": 9,
+   "Rw": 10.698517190014108,
+   "GoF": 4626.045057318536,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "A 1 a 1",
+   "number": 9,
+   "Rw": 10.698517190014108,
+   "GoF": 4626.045057318536,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "A 1 2/n 1",
+   "number": 15,
+   "Rw": 10.698517190014108,
+   "GoF": 4626.045057318536,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "A 1 2/a 1",
+   "number": 15,
+   "Rw": 10.698517190014108,
+   "GoF": 4626.045057318536,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "I 1 2 1",
+   "number": 5,
+   "Rw": 12.255490873077715,
+   "GoF": 6087.052732276694,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "I 1 m 1",
+   "number": 8,
+   "Rw": 12.255490873077715,
+   "GoF": 6087.052732276694,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "I 1 2/m 1",
+   "number": 12,
+   "Rw": 12.255490873077715,
+   "GoF": 6087.052732276694,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "I 1 a 1",
+   "number": 9,
+   "Rw": 12.770940241679524,
+   "GoF": 6595.230617351392,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "I 1 2/a 1",
+   "number": 15,
+   "Rw": 12.770940241679524,
+   "GoF": 6595.230617351392,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "I 1 c 1",
+   "number": 9,
+   "Rw": 12.770940241679533,
+   "GoF": 6595.230617351405,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "I 1 2/c 1",
+   "number": 15,
+   "Rw": 12.770940241679533,
+   "GoF": 6595.230617351405,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "C 1 2 1",
+   "number": 5,
+   "Rw": 12.956718446938458,
+   "GoF": 6793.129176245947,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "C 1 m 1",
+   "number": 8,
+   "Rw": 12.956718446938458,
+   "GoF": 6793.129176245947,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "C 1 2/m 1",
+   "number": 12,
+   "Rw": 12.956718446938458,
+   "GoF": 6793.129176245947,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "C 1 c 1",
+   "number": 9,
+   "Rw": 13.166425734503182,
+   "GoF": 7001.695681732236,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "C 1 n 1",
+   "number": 9,
+   "Rw": 13.166425734503182,
+   "GoF": 7001.695681732236,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "C 1 2/c 1",
+   "number": 15,
+   "Rw": 13.166425734503182,
+   "GoF": 7001.695681732236,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "C 1 2/n 1",
+   "number": 15,
+   "Rw": 13.166425734503182,
+   "GoF": 7001.695681732236,
+   "nGoF": 0.0,
+   "mult": 8
+  }
+ ],
+ "stol": 0.36,
+ "p_pars": {
+  "Zero": -0.07857918990131975,
+  "2ThetaDispl": 0.0,
+  "2ThetaTransp": 0.0,
+  "DIFC": 48277.14,
+  "DIFA": -6.7,
+  "MuR": 0.0,
+  "Scale_": 0.00018315323192358304
+ },
+ "d_pars": {
+  "Global Biso": 0.0
+ }
+}{
+ "components": [
+  {
+   "smiles": "COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1",
+   "count": 1,
+   "charge": 0
+  },
+  {
+   "smiles": "NC(=O)c1cccnc1",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}{
+ "components": [
+  {
+   "smiles": "COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1",
+   "count": 1,
+   "charge": 0
+  },
+  {
+   "smiles": "NC(=O)c1ccccn1",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}{
+ "components": [
+  {
+   "smiles": "C[NH+](C)CCc1c[nH]c2cccc(OP(=O)([O-])O)c12",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}

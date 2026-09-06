@@ -1,0 +1,24 @@
+{
+ "radiation": {
+  "type": "synchrotron",
+  "wavelength_A": 0.46873,
+  "wavelengths_A": [
+   0.46873
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 295.0,
+ "two_theta_range_deg": [
+  0.51,
+  49.995
+ ],
+ "n_points": 49486,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "sqrt(max(I,1)); counting statistics assumed",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}{'radiation': {'type': 'synchrotron', 'wavelength_A': 0.46873, 'wavelengths_A': [0.46873], 'wavelength_weights': None, 'monochromator': None, 'source': None}, 'geometry': 'transmission (capillary / Debye-Scherrer)', 'geometry_source_text': None, 'temperature_K': 295.0, 'two_theta_range_deg': [0.51, 49.995], 'n_points': 49486, 'intensity_column': 'observed total intensity', 'sigma_column': 'sqrt(max(I,1)); counting statistics assumed', 'pattern_units': 'two_theta_deg intensity sigma', 'notes': []}

@@ -1,0 +1,2 @@
+[('COc1ccc(NC(=O)[C@@H]2C[C@H](C)CC[C@H]2C(C)C)cc1', 1, 0)]
+{'type': 'synchrotron', 'wavelength_A': 0.46873, 'wavelengths_A': [0.46873], 'wavelength_weights': None, 'monochromator': None, 'source': None} [0.51, 49.995] 295.0

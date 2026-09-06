@@ -1,0 +1,91 @@
+      /** Stretch a bond, while respecting the Restraint (if any).
+      *
+      *\return the \e actual change in bond length.
+      *\param: the desired change in bond length. This will be the actual change \e if
+      * there is no restraint \e or if the restraint is constant in this range.
+      */
+      REAL BondLengthRandomChange(const StretchModeBondLength& mode, const REAL amplitude,
+                                  const bool respectRestraint=true);
+      /** change a bond angle, while respecting the Restraint (if any).
+      *
+      *\return the \e actual change in bond angle.
+      *\param: the desired angular change. This will be the actual change \e if
+      * there is no restraint \e or if the restraint is constant in this range.
+      */
+      REAL BondAngleRandomChange(const StretchModeBondAngle& mode, const REAL amplitude,
+                                 const bool respectRestraint=true);
+      /** Change a dihedral angle, while respecting the Restraint (if any).
+      *
+      *\return the \e actual change in bond angle.
+      *\param: the desired angular change. This will be the actual change \e if
+      * there is no restraint \e or if the restraint is constant in this range.
+      */
+      REAL DihedralAngleRandomChange(const StretchModeTorsion& mode, const REAL amplitude,
+                                     const bool respectRestraint=true);
+      /// Get the atom defining the origin of the Molecule
+      /// Equal to 0 if no atom as been set.
+      const MolAtom* GetCenterAtom()const;
+      /// Get the atom defining the origin of the Molecule
+      /// Equal to 0 if no atom as been set.
+      void SetCenterAtom(const MolAtom &at);
+      /** Molecule as Z-matrix
+      *
+      * \param keeporder: if true, the order of the atoms is exactly the same as in
+      * the Molecule.
+      */
+      const std::vector<MolZAtom>& AsZMatrix(const bool keeporder)const;
+      /** Set whether to delete the MolAtoms, MolBonds, MolBondAngles and
+       * MolDihedralAngles in the destructor. By default these sub-objects are
+       * deleted.
+      */
+      void SetDeleteSubObjInDestructor(const bool b);
+      /// molecule: rigid body, free atoms + restraints, torsion angles...
+      /// \warning still EXPERIMENTAL !
+      RefObjOpt mFlexModel;
+
+      RefObjOpt mFlipModel;
+
+      /** Option to automatically optimize the starting conformation, if the
+      * total restraint cost is too high. This is done in BeginOptimization().
+      *
+      * This is enabled by default, and should be disabled by people who already
+      * supply a good starting conformation for their molecule.
+      */
+      RefObjOpt mAutoOptimizeConformation;
+
+      /** Option to optimize the Molecule's orientation. Useful to completely
+      * fix the Molecule.
+      */
+      RefObjOpt mOptimizeOrientation;
+
+      /** Option to choose the center of rotation of the Molecule for the global orientation
+      * either as the geometrical center, or as a given atom.
+      */
+      RefObjOpt mMoleculeCenter;
+
+      /** Atom chosen as center of rotation, if mRotationCenter is set to use
+      * an atom rather than the geometrical center.
+      */
+      const MolAtom* mpCenterAtom;
+
+      /// Connectivity table: for each atom, keep the list of atoms
+      /// bonded to it. All atoms are referenced from their index.
+      mutable map<MolAtom *,set<MolAtom *> > mConnectivityTable;
+      /** Defines a group of atoms which can be rotated around an axis defined
+      * by two other atoms.
+      */
+      struct RotorGroup
+0 Flexibility Model 3 ['Automatic from Restraints, relaxed - RECOMMENDED', 'Rigid Body', 'Automatic from Restraints, strict']
+1 Enable Flipping 2 ['Yes', 'No']
+2 Auto Optimize Starting Conformation 2 ['Yes', 'No']
+3 Optimize Orientation 2 ['Yes', 'No']
+4 Rotation Center 2 ['Geometrical center (recommended)', 'User-chosen Atom']
+
+SetCenterAtom( (Molecule)arg1, (MolAtom)arg2) -> None :
+
+    C++ signature :
+        void SetCenterAtom(ObjCryst::Molecule {lvalue},ObjCryst::MolAtom) 
+AddAtom( (Molecule)arg1, (float)x, (float)y, (float)z, (ScatteringPower)pPow, (str)name [, (bool)updateDisplay=True]) -> MolAtom :
+
+    C++ signature :
+        ObjCryst::MolAtom {lvalue} AddAtom(ObjCryst::Molecule {lvalue},double,double,double,ObjCryst::ScatteringPower const*,std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > [,bool=True])

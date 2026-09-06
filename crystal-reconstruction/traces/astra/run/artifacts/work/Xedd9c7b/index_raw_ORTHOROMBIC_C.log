@@ -1,0 +1,15 @@
+Xedd9c7b ORTHOROMBIC C 4 peaks [11.10742, 11.81985, 12.52948, 14.26583, 14.8881, 15.39919, 17.12935, 17.38853, 19.31913, 19.98573, 20.61934, 21.50266, 22.228, 23.87816, 24.33548, 25.23826, 26.49338, 28.19291] V 400.0 2600.0 Lmax 80.0
+3->80,3.08001,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+400->2600,440.009,4.9999
+Starting: V=400->840.009
+Finished: V=400->840.009 A^3, 104 unit cells tested, 167472 tests/s,   Elapsed time=0.00063s
+Starting: V=840.009->1280.02
+Finished: V=840.009->1280.02 A^3, 488 unit cells tested, 261522 tests/s,   Elapsed time=0.001874s
+Starting: V=1280.02->1720.03
+Finished: V=1280.02->1720.03 A^3, 1362 unit cells tested, 330904 tests/s,   Elapsed time=0.004126s
+Starting: V=1720.03->2160.04
+Finished: V=1720.03->2160.04 A^3, 2965 unit cells tested, 407280 tests/s,   Elapsed time=0.007289s
+Starting: V=2160.04->2600
+Finished: V=2160.04->2600 A^3, 5798 unit cells tested, 479253 tests/s,   Elapsed time=0.012108s
+DONE Xedd9c7b ORTHOROMBIC C 0 0.012339591979980469 []

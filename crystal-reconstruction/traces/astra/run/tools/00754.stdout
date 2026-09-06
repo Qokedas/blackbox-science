@@ -1,0 +1,56 @@
+4:ZM CC[C@H]1OC(=O)[C@H](C)[C@@H](O[C@H]2C[C@@](C)(OC)[C@@H](O)[C@H](C)O2)[C@H](C)[C@@H](O[C@@H]2O[C@H](C)C[C@H](N(C)C)[C@H]2O)[C@](C)(OC)C[C@@H](C)C(=O)[C@H](C)[C@@H](O)[C@]1(C)O n 52 torsions 8 max_distance_error 1.191343379502996e-08
+5:Total degrees of freedom: 15
+6:Total external degrees of freedom: 7 (pos: 3 rot: 4 )
+7:Total internal degrees of freedom: 8
+8:PREPARED X238783d Nref 280 PawleyRw 0.059194151452383076 SG P 21 21 21
+16:  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+ObjRegistry<T>::Find(ion_C): Not found !!
+List of Crystal ScatteringPowers :0 object registered:
+EXACT_PAWLEY nref 280 rank 259 cond 945.2252408589018 chi2 26899.904522179888 netRwp 0.08479324968477112
+ZM CC[C@H]1OC(=O)[C@H](C)[C@@H](O[C@H]2C[C@@](C)(OC)[C@@H](O)[C@H](C)O2)[C@H](C)[C@@H](O[C@@H]2O[C@H](C)C[C@H](N(C)C)[C@H]2O)[C@](C)(OC)C[C@@H](C)C(=O)[C@H](C)[C@@H](O)[C@]1(C)O n 52 torsions 8 max_distance_error 1.191343379502996e-08
+Total degrees of freedom: 15
+Total external degrees of freedom: 7 (pos: 3 rot: 4 )
+Total internal degrees of freedom: 8
+PREPARED X238783d Nref 280 PawleyRw 0.059194151452383076 SG P 21 21 21
+ATTACHED_H_SCATTERING 52 heavy atoms 69 H atoms
+PACKING_ENABLED 52 atoms 9197 pair terms coefficient 50.0 active_only True
+HBOND_PRIOR 4 donors 14 acceptors coefficient 4.0
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1545.29it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+base.log
+base.png
+base.xml
+candidates.json
+fit_0.json
+fit_0.log
+fit_0.png
+fit_0.xml
+fit_0.xye
+gallop11.log
+gallop_11
+import_g11.log
+index_CUBIC_F_0.json
+index_CUBIC_F_0.log
+index_CUBIC_I_0.json
+index_CUBIC_I_0.log
+index_CUBIC_P_0.json
+index_CUBIC_P_0.log
+index_HEXAGONAL_P_0.json
+index_HEXAGONAL_P_0.log
+index_MONOCLINIC_C_0.json
+index_MONOCLINIC_C_0.log
+index_MONOCLINIC_C_2.json
+index_MONOCLINIC_C_2.log
+index_MONOCLINIC_P_0.json
+index_MONOCLINIC_P_0.log
+index_MONOCLINIC_P_2.json
+index_MONOCLINIC_P_2.log
+index_ORTHOROMBIC_C_0.json
+index_ORTHOROMBIC_C_0.log
+{
+ "Rw": 0.3266073746978208,
+ "chi2": 13040.327961164618
+}

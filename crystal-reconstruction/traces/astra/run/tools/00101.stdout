@@ -1,0 +1,238 @@
+    def zm_to_cart(self,zm,bond_connection,angle_connection,torsion_connection):
+        """
+        Uses the Natural Extension Reference Frame method to convert from
+        Internal to Cartesian coordinates.
+        Paper here: https://onlinelibrary.wiley.com/doi/abs/10.1002/jcc.20237
+        """
+
+        def cross_product(a, b):
+            """
+            Performs the cross-product of two three-dimensional vectors.
+            """
+            return np.array([a[1]*b[2] - a[2]*b[1],
+                            a[2]*b[0] - a[0]*b[2],
+                            a[0]*b[1] - a[1]*b[0]])
+
+        def get_D2(zm):
+            """
+            Produces the D2 matrix described in the NERF paper linked above.
+            """
+            R = zm[:,0]
+            c_t = np.cos(zm[:,1])
+            s_t = np.sin(zm[:,1])
+            c_p = np.cos(zm[:,2])
+            s_p = np.sin(zm[:,2])
+            D2 = np.empty((zm.shape[0], 3))
+            for i in range(D2.shape[0]):
+                D2[i] = R[i] * np.array([-c_t[i], c_p[i]*s_t[i], s_p[i]*s_t[i]])
+            return D2
+
+        def normalize(vector):
+            """
+            Normalize a vector
+            """
+            return vector / np.sqrt(np.dot(vector, vector))
+
+        D2 = get_D2(zm)
+        cart = np.zeros_like(D2)
+        cart[0:3] = D2[0:3]
+        for i in range(3, zm.shape[0]):
+            C = cart[bond_connection[i]]
+            B = cart[angle_connection[i]]
+            A = cart[torsion_connection[i]]
+            bc = normalize(C - B)
+            AB = B - A
+            n = normalize(cross_product(AB, bc))
+            n_bc = cross_product(n, bc)
+            M = np.vstack((bc, n_bc, n))
+            cart[i] = np.dot(M.T, D2[i]) + C
+        return cart
+
+    def get_initial_D2_for_torch(self, zm, ref):
+    def generate_intensity_calculation_prefix(self,
+                                            debye_waller_factors=None,
+                                            just_asymmetric=False,
+                                            from_cif=False):
+        """
+        Much of this code is adapted from the PyMatGen code for PXRD pattern
+        generation, which can be found here:
+            https://pymatgen.org/pymatgen.analysis.diffraction.xrd.html
+        A few modifications have been made. For example, ability to "absorb"
+        H atoms by increasing the atomic number used to calculate
+        atomic form factors, or increase the occupancy of the non-H
+        atoms.
+
+        If reading directly from a CIF then the atomic coordinates
+        are used. If not reading from a CIF, then a dummy structure
+        is created in order to extract the required information.
+        This can either just be the atoms in the asymmetric unit,
+        or the whole unit cell.
+        """
+        if debye_waller_factors is None:
+            debye_waller_factors = {}
+        if len(self.zmatrices) == 0 and not from_cif:
+            print("No Z-matrices have been added!")
+        else:
+            all_atoms_coords, all_atoms_elements, all_atoms_n_H_connected, \
+            all_occus, fractional_coords, just_asymmetric \
+                = self.get_coords_occus_elements(from_cif, just_asymmetric)
+
+
+            fractional_expanded, n_H_connected_expanded, species_occus_expanded \
+                = self.get_expanded(just_asymmetric, fractional_coords,
+                                    all_atoms_elements, all_occus,
+                                    all_atoms_n_H_connected, from_cif)
+
+
+            # Create a pymatgen Structure object using the atom positions
+            # created earlier. This is just a dummy structure, not used in any
+            # other GALLOP functions or calculations.
+            dummy_structure = pmg.core.Structure(lattice=self.lattice,
+                                species=species_occus_expanded,
+                                coords=fractional_expanded)
+
+            zs, coeffs, occus, dwfactors = self.get_coeffs_dwfactors_occus(
+                dummy_structure, debye_waller_factors, n_H_connected_expanded,
+                from_cif, just_asymmetric)
+
+            g_hkl = np.sqrt(np.sum(np.dot(self.hkl,
+                self.lattice.reciprocal_lattice_crystallographic.matrix)**2,
+                axis=1))
+            # Note that:
+            # d_hkl = 1/g_hkl
+            # tt = np.rad2deg(2 * np.arcsin(wavelength / (2*d_hkl)))
+            # s = sin(theta) / wavelength = 1 / 2d = |ghkl| / 2 (d = 1/|ghkl|)
+            # s = g_hkl / 2
+            s2 = (g_hkl / 2)**2
+
+            dw_correction = []
+            for x in s2:
+                dw_correction.append(np.exp(-1*dwfactors * x))
+            if "neutron" in self.radiation:
+                fs = np.tile(coeffs, (1,s2.shape[0])).T
+            else:
+                # First get the X-ray scattering factors
+                fs = []
+                for x in s2:
+                    fs.append(zs - 41.78214 * x * np.sum(coeffs[:, :, 0] * \
+                                        np.exp(-coeffs[:, :, 1] * x), axis=1))
+                fs = np.array(fs)
+                if "electron" in self.radiation:
+                    # Now convert the X-ray scattering factors into electron
+                    # scattering factors using the Mott-Bethe formula.
+                    # See pymatgen documentation here for the implementation which
+                    # inspired this:
+                    # https://pymatgen.org/pymatgen.analysis.diffraction.tem.html
+                    prefactor = 0.023934
+                    electron_fs = prefactor * (zs.reshape(1,-1) - fs) / s2.reshape(-1,1)
+                    fs = electron_fs
+            dw_correction = np.array(dw_correction).astype(float)
+            self.fs = fs
+            prefix = np.empty_like(fs)
+            for i in range(fs.shape[0]):
+                for j in range(fs.shape[1]):
+                    if self.ignore_H_atoms and self.absorb_H_occu_increase:
+                        new_occu = ((1 + n_H_connected_expanded[j]) / zs[j])
+                        prefix[i][j] = (fs[i][j] * occus[j]
+                                                * dw_correction[i][j]
+                                                * new_occu)
+                    else:
+                        prefix[i][j] = fs[i][j] * occus[j] * dw_correction[i][j]
+            self.prefix = prefix
+            return prefix
+
+    def get_total_degrees_of_freedom(self, verbose=True):
+# coding: utf-8
+# Copyright (c) Mark Spillman.
+# Distributed under the terms of the GPL v3 License.
+"""
+Provides a class for particle swarm.
+"""
+
+import time
+import tqdm
+import numpy as np
+from scipy.stats import gaussian_kde
+from scipy.stats import qmc
+
+from gallop import files
+
+
+
+class Swarm(object):
+    def __init__(self, Structure, n_particles=10000, n_swarms=10,
+        particle_best_position = None, best_chi_2 = None, velocity = None,
+        position = None, best_subswarm_chi2 = None, inertia="ranked", c1=1.5,
+        c2=1.5, inertia_bounds=(0.4,0.9), use_matrix=True, limit_velocity=True,
+        global_update=False, global_update_freq=10, vmax=1):
+        """
+        Class for the particle swarm optimiser used in GALLOP.
+
+        Args:
+            Structure (class): GALLOP structure object
+            n_particles (int, optional): The number of particles to optimise.
+                Defaults to 10000.
+            n_swarms (int, optional): The number of independent swarms which
+                are represented by the n_particles. Defaults to 20.
+            particle_best_position (numpy array, optional): the best position
+                on the hypersurface obtained by each particle. Defaults to None.
+            best_chi_2 (numpy array, optional): The best chi_2 obtained by each
+                particle. Defaults to None.
+            velocity (numpy array, optional): The current velocity of the
+                particles. Defaults to None.
+            position (numpy array, optional): The current position of the
+                particles. Defaults to None.
+            best_subswarm_chi2 (list, optional): The best chi_2 found in each
+                subswarm. Defaults to [].
+            inertia (float or str, optional): The inertia to use in the velocity
+                update. If random, sample the inertia from a uniform
+                distribution. If "ranked", then solutions ranked in order of
+                increasing chi2. Lowest chi2 assigned lowest inertia, as defined
+                by bounds in inertia_bounds. Defaults to "ranked".
+            c1 (int, optional): c1 (social) parameter in PSO equation.
+                Defaults to 1.5
+            c2 (int, optional): c2 (cognitive) parameter in PSO equation.
+                Defaults to 1.5
+            inertia_bounds (list, optional): The upper and lower bound of the
+                values that inertia will take if inertia is set to "random" or
+                "ranked".
+                Defaults to [0.4,0.9].
+            use_matrix (bool, optional): Take a different step size in every
+                degree of freedom. Defaults to True.
+            limit_velocity (bool, optional): Restrict the velocity to the range
+                (-vmax, vmax). Defaults to True.
+            global_update (bool, optional): If True, allow global updates (see
+                below). Defaults to False.
+            global_update_freq (int, optional): If using subswarms, it may be
+                desirable to occasionally update all subswarms swarm as a single
+                swarm to allow communication of information from different
+                regions of the hypersurface. Setting this to an integer will
+                activate the global update when:
+                    run number % global_update_freq == 0 and run number > 0
+                Defaults to 10.
+            vmax (float, optional): The absolute maximum velocity a particle can
+                achieve if limit_velocity is True.
+        """
+        self.Structure = Structure
+        self.particle_best_position = particle_best_position
+        self.best_chi_2 = best_chi_2
+        self.velocity = velocity
+        self.position = position
+        self.n_swarms = n_swarms
+        if best_subswarm_chi2 is not None:
+            self.best_subswarm_chi2 = best_subswarm_chi2
+        else:
+            self.best_subswarm_chi2 = []
+        self.inertia = inertia
+        self.c1 = c1
+        self.c2 = c2
+        self.inertia_bounds = inertia_bounds
+        self.use_matrix = use_matrix
+        self.swarm_progress = []
+        self.limit_velocity = limit_velocity
+        self.n_particles = n_particles
+        self.best_low_res_chi_2 = None
+309:def minimise(Structure, external=None, internal=None, n_samples=10000,
+-> 100 remaining
+1580 solutions ! Redparing...
+-> 100 remaining

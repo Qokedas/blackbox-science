@@ -1,0 +1,76 @@
+X019b9a4.json 0.005 P-1 2; 0.02 P-1 2; 0.08 P-1 2; 
+X07806d9.json 0.005 Pmmm 47; 0.02 Pmmm 47; 0.08 Pmmm 47; 
+X13023e3.json 0.005 P2/m 10; 0.02 P2/m 10; 0.08 P2/m 10; 
+X14a2b08.json 0.005 P-1 2; 0.02 P-1 2; 0.08 P-1 2; 
+X1a56c78.json 0.005 Pmmm 47; 0.02 Pmmm 47; 0.08 Pmmm 47; 
+X1db5091.json 0.005 P2/m 10; 0.02 P2/m 10; 0.08 P2/m 10; 
+X2327841.json 0.005 P2/m 10; 0.02 P2/m 10; 0.08 P2/m 10; 
+X238783d.json 0.005 Pmmm 47; 0.02 Pmmm 47; 0.08 Pmmm 47; 
+X263b09a.json 0.005 P-1 2; 0.02 P-1 2; 0.08 P-1 2; 
+X35b7fbc.json 0.005 Pmmm 47; 0.02 Pmmm 47; 0.08 Pmmm 47; 
+X3c176e2.json 0.005 Pmmm 47; 0.02 Pmmm 47; 0.08 Pmmm 47; 
+X3f4781b.json 0.005 P2/m 10; 0.02 P2/m 10; 0.08 P2/m 10; 
+X4f6fe58.json 0.005 P-1 2; 0.02 P-1 2; 0.08 P-1 2; 
+X7e382cb.json 0.005 P-1 2; 0.02 P-1 2; 0.08 P-1 2; 
+X8a06d7a.json 0.005 P-1 2; 0.02 P-1 2; 0.08 P2/m 10; 
+X8a6f5a8.json 0.005 P2/m 10; 0.02 P2/m 10; 0.08 P2/m 10; 
+X9af54a2.json 0.005 P2/m 10; 0.02 P2/m 10; 0.08 P2/m 10; 
+Xb7088cf.json 0.005 Pmmm 47; 0.02 Pmmm 47; 0.08 Pmmm 47; 
+Xbfc6d2c.json 0.005 P2/m 10; 0.02 P2/m 10; 0.08 P2/m 10; 
+Xbfeeda9.json 0.005 P2/m 10; 0.02 P2/m 10; 0.08 P2/m 10; 
+Xd4c1a35.json 0.005 Pmmm 47; 0.02 Pmmm 47; 0.08 Pmmm 47; 
+Xd8634a2.json 0.005 P-1 2; 0.02 P-1 2; 0.08 P-1 2; 
+Xdcc971e.json 0.005 P2/m 10; 0.02 P2/m 10; 0.08 P2/m 10; 
+Xe1fb77b.json 0.005 P2/m 10; 0.02 P2/m 10; 0.08 P2/m 10; 
+Xe3a2935.json 0.005 Pmmm 47; 0.02 Pmmm 47; 0.08 Pmmm 47; 
+Xeb393f9.json 0.005 P-1 2; 0.02 P-1 2; 0.08 P-1 2; 
+Xebbd488.json 0.005 P2/m 10; 0.02 P2/m 10; 0.08 P2/m 10; 
+Xedd9c7b.json 0.005 P2/m 10; 0.02 P2/m 10; 0.08 P2/m 10; 
+Xf8ac963.json 0.005 Pmmm 47; 0.02 Pmmm 47; 0.08 Pmmm 47; 
+Xfca9f3c.json 0.005 P2/m 10; 0.02 P2/m 10; 0.08 P2/m 10; 
+/app/work/X7e382cb/candidates.json
+/app/work/X7e382cb/double_candidates.json
+/app/work/X7e382cb/fit_0.json
+/app/work/X7e382cb/fit_double0.json
+/app/work/X7e382cb/half30_best.json
+/app/work/X7e382cb/half30_eval.json
+/app/work/X7e382cb/half_best.json
+/app/work/X7e382cb/index_CUBIC_F_0.json
+/app/work/X7e382cb/index_CUBIC_I_0.json
+/app/work/X7e382cb/index_CUBIC_P_0.json
+/app/work/X7e382cb/index_HEXAGONAL_P_0.json
+/app/work/X7e382cb/index_MONOCLINIC_C_0.json
+/app/work/X7e382cb/index_MONOCLINIC_C_2.json
+/app/work/X7e382cb/index_MONOCLINIC_P_0.json
+/app/work/X7e382cb/index_MONOCLINIC_P_2.json
+/app/work/X7e382cb/index_ORTHOROMBIC_C_0.json
+/app/work/X7e382cb/index_ORTHOROMBIC_C_4_250_1800_z-.02_peaks_raw.json
+/app/work/X7e382cb/index_ORTHOROMBIC_I_0.json
+/app/work/X7e382cb/index_ORTHOROMBIC_P_0.json
+/app/work/X7e382cb/index_ORTHOROMBIC_P_2.json
+/app/work/X7e382cb/index_ORTHOROMBIC_P_4_250_1800_z-.02_peaks_raw.json
+/app/work/X7e382cb/index_RHOMBOEDRAL_P_0.json
+/app/work/X7e382cb/index_TETRAGONAL_I_0.json
+/app/work/X7e382cb/index_TETRAGONAL_P_0.json
+/app/work/X7e382cb/index_TRICLINIC_P_4.json
+/app/work/X7e382cb/index_raw_MONOCLINIC_P_partial.json
+/app/work/X7e382cb/index_raw_TRICLINIC_P_partial.json
+/app/work/X7e382cb/lattice.json
+/app/work/X7e382cb/peak_select.json
+/app/work/X7e382cb/peak_select_raw.json
+/app/work/X7e382cb/peaks.json
+/app/work/X7e382cb/peaks_raw.json
+/app/work/X7e382cb/refined_chem32.json
+/app/work/X7e382cb/refined_g22.json
+/app/work/X7e382cb/refined_g31.json
+/app/work/X7e382cb/refined_g32.json
+BATCH 11 best 155.03265380859375 diffraction 146.55267333984375 p25 445.56927490234375 seconds 728.1047239303589 centre [0.  0.5 0.5]
+BATCH 12 best 155.0325164794922 diffraction 146.55255126953125 p25 443.9252624511719 seconds 779.9874613285065 centre [0.  0.5 0.5]
+BATCH 13 best 155.03260803222656 diffraction 146.55096435546875 p25 417.85211181640625 seconds 834.6184883117676 centre [0.  0.5 0.5]
+BATCH 14 best 155.03245544433594 diffraction 146.55242919921875 p25 453.1072692871094 seconds 897.3774268627167 centre [0.  0.5 0.5]
+BATCH 15 best 155.50880432128906 diffraction 144.99151611328125 p25 527.4254150390625 seconds 947.404007434845 centre [0.  0.5 0.5]
+GALLOP 22 Nref 171 seconds 67.47576999664307 best 104.948326 q25 171.09525 median 221.50525 total 1347.2435121536255
+GALLOP 23 Nref 171 seconds 69.4941017627716 best 104.92971 q25 156.88258 median 221.76117 total 1416.8047206401825
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1582.91it/s]
+GALLOP 24 Nref 171 seconds 63.298951864242554 best 104.9297 q25 189.16844 median 225.35254 total 1480.2001786231995
+GALLOP 25 Nref 171 seconds 59.859830379486084 best 104.92963 q25 196.69644 median 242.20926 total 1540.1491792201996

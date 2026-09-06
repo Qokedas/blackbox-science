@@ -1,0 +1,48 @@
+N.B. Configuration file /root/.GSASII/config.ini does not exist
+======================================================================
+Module pyspg in '/opt/g2/GSAS-II/GSASII-bin/linux_64_p3.13_n2.2' could not be loaded
+error msg: /lib/x86_64-linux-gnu/libm.so.6: version `GLIBC_2.38' not found (required by /opt/g2/GSAS-II/GSASII-bin/linux_64_p3.13_n2.2/pyspg.cpython-313-x86_64-linux-gnu.so)
+======================================================================
+*** ERROR: Unable to find GSAS-II binaries. Much of GSAS-II cannot function
+binary load error: pyspg not found
+pypowder is not available - profile calcs. not allowed
+pydiffax is not available for this platform
+pypowder is not available - profile calcs. not allowed
+peaks used: [np.float64(5.862), np.float64(6.914), np.float64(7.94), np.float64(9.125), np.float64(11.263), np.float64(12.549), np.float64(12.889), np.float64(13.905), np.float64(14.329), np.float64(14.788), np.float64(15.38), np.float64(15.923), np.float64(16.185), np.float64(17.567), np.float64(18.212), np.float64(18.828), np.float64(19.657), np.float64(20.639), np.float64(22.205), np.float64(22.817)]
+lattice parameter range =     2.500   75.326
+Zero = 0.0000 Nc/No max = 4  Max Nc = 80
+cell search for  Monoclinic-C
+      M20  X20  Nc       a          b          c        alpha       beta      gamma     volume      V-test
+     2.410  12  10    5.55325   22.21503    8.20784     90.000    107.994     90.000     963.04     919.65 Monoclinic-C
+     2.137  12  11   16.13995   12.36466    4.85617     90.000    104.244     90.000     939.33     990.37 Monoclinic-C
+     2.137  12  11   16.66387   12.36466    4.85617     90.000    110.152     90.000     939.33    1040.50 Monoclinic-C
+     2.118  11  15   15.66693    4.51480   16.76780     90.000    115.660     90.000    1069.07    1066.52 Monoclinic-C
+     2.245  10  17    6.28334   19.49559   12.77705     90.000     91.747     90.000    1564.43    1583.25 Monoclinic-C
+     2.633   3  47   11.44596    1.81719   47.03626     90.000    106.690     90.000     937.11    2077.36 Monoclinic-C
+     2.487   1  47   17.07330    1.84142   38.45160     90.000     94.791     90.000    1204.66    2409.10 Monoclinic-C
+     2.084   1  50   21.29417    1.84266   33.58431     90.000    100.450     90.000    1295.93    2531.06 Monoclinic-C
+     3.768   0  45   17.73352    2.12320   29.99986     90.000     93.441     90.000    1127.51    2594.34 Monoclinic-C
+     2.191   3  39   16.86236   22.39910   11.28537     90.000    112.712     90.000    3931.96    2659.20 Monoclinic-C
+     2.209   0  36   30.70038    8.04955   13.23361     90.000    100.713     90.000    3213.34    2725.68 Monoclinic-C
+     2.661   0  62   17.72743    2.15085   46.32298     90.000     99.622     90.000    1741.41    2793.82 Monoclinic-C
+     3.641   0  58   21.24659    1.89233   30.15046     90.000     93.930     90.000    1209.37    2863.66 Monoclinic-C
+     2.661   0  62   15.65509    1.88248   46.18031     90.000     98.515     90.000    1345.95    2935.26 Monoclinic-C
+     2.876   1  60   18.20424    1.87764   37.65499     90.000     94.544     90.000    1283.04    3008.64 Monoclinic-C
+Restart search, new Max Nc = 100
+finished cell search for Monoclinic-C, elapsed time = 0: 1:30.71
+elapsed 90.71154546737671 ncells 15
+M20=    3.8 X20= 0 Nc= 45 Monoclinic-C     a= 17.7335 b=  2.1232 c= 29.9999 al= 90.000 be= 93.441 ga= 90.000 V=  1127.5 Z~0.88
+M20=    3.6 X20= 0 Nc= 58 Monoclinic-C     a= 21.2466 b=  1.8923 c= 30.1505 al= 90.000 be= 93.930 ga= 90.000 V=  1209.4 Z~0.95
+M20=    2.9 X20= 1 Nc= 60 Monoclinic-C     a= 18.2042 b=  1.8776 c= 37.6550 al= 90.000 be= 94.544 ga= 90.000 V=  1283.0 Z~1.00
+M20=    2.7 X20= 0 Nc= 62 Monoclinic-C     a= 17.7274 b=  2.1509 c= 46.3230 al= 90.000 be= 99.622 ga= 90.000 V=  1741.4 Z~1.36
+M20=    2.7 X20= 0 Nc= 62 Monoclinic-C     a= 15.6551 b=  1.8825 c= 46.1803 al= 90.000 be= 98.515 ga= 90.000 V=  1345.9 Z~1.05
+M20=    2.6 X20= 3 Nc= 47 Monoclinic-C     a= 11.4460 b=  1.8172 c= 47.0363 al= 90.000 be=106.690 ga= 90.000 V=   937.1 Z~0.73
+M20=    2.5 X20= 1 Nc= 47 Monoclinic-C     a= 17.0733 b=  1.8414 c= 38.4516 al= 90.000 be= 94.791 ga= 90.000 V=  1204.7 Z~0.94
+M20=    2.4 X20=12 Nc= 10 Monoclinic-C     a=  5.5532 b= 22.2150 c=  8.2078 al= 90.000 be=107.994 ga= 90.000 V=   963.0 Z~0.75
+M20=    2.2 X20=10 Nc= 17 Monoclinic-C     a=  6.2833 b= 19.4956 c= 12.7770 al= 90.000 be= 91.747 ga= 90.000 V=  1564.4 Z~1.22
+M20=    2.2 X20= 0 Nc= 36 Monoclinic-C     a= 30.7004 b=  8.0495 c= 13.2336 al= 90.000 be=100.713 ga= 90.000 V=  3213.3 Z~2.51
+M20=    2.2 X20= 3 Nc= 39 Monoclinic-C     a= 16.8624 b= 22.3991 c= 11.2854 al= 90.000 be=112.712 ga= 90.000 V=  3932.0 Z~3.08
+M20=    2.1 X20=12 Nc= 11 Monoclinic-C     a= 16.6639 b= 12.3647 c=  4.8562 al= 90.000 be=110.152 ga= 90.000 V=   939.3 Z~0.73
+M20=    2.1 X20=12 Nc= 11 Monoclinic-C     a= 16.1399 b= 12.3647 c=  4.8562 al= 90.000 be=104.244 ga= 90.000 V=   939.3 Z~0.73
+M20=    2.1 X20=11 Nc= 15 Monoclinic-C     a= 15.6669 b=  4.5148 c= 16.7678 al= 90.000 be=115.660 ga= 90.000 V=  1069.1 Z~0.84
+M20=    2.1 X20= 1 Nc= 50 Monoclinic-C     a= 21.2942 b=  1.8427 c= 33.5843 al= 90.000 be=100.450 ga= 90.000 V=  1295.9 Z~1.01

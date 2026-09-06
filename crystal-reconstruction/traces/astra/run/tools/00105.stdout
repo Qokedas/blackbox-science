@@ -1,0 +1,290 @@
+        if streamlit:
+            #prog_bar.progress(i/n_iterations)
+            #with col1:
+            prog_bar.progress(i/n_iterations)
+            #with col2:
+            if i % print_every == 0 or i == 1:
+                with chi2_result:
+                    st.write(str(chi_2.min().item())[:6])
+    result = {
+            "external"     : tensors["zm"]["external"].detach().cpu().numpy(),
+            "internal"     : tensors["zm"]["internal"].detach().cpu().numpy(),
+            "chi_2"        : chi_2.detach().cpu().numpy(),
+            "GALLOP Iter"  : run
+            }
+
+    if torsion_shadowing:
+        ##torsions = result["internal"]
+        #torsions = torsions[:,:int(torsions.shape[1] / Z_prime)]
+        #torsions = np.tile(torsions, (1,Z_prime))
+        #result["internal"] = torsions
+        result["internal"] = all_tors.detach().cpu().numpy()
+
+
+    # Now calculate the intensities with H-atoms included and use them to get a
+    # profile chi2 estimate. If Structure.ignore_H_atoms is True, also calculate
+    # the intensity chi2 with H-atoms included and add to the results dict.
+    # This will also use the full data range even if n_reflections is set to a
+    # subset of the available reflections.
+    ignore_H_setting = Structure.ignore_H_atoms
+    Structure.ignore_H_atoms = False
+    best = result["chi_2"] == result["chi_2"].min()
+    # Create tensors on CPU as it will be faster for a single data point.
+    if best.sum() > 1:
+        best_tensors = tensor_prep.get_all_required_tensors(Structure,
+            external=result["external"][best][0].reshape(1,-1),
+            internal=result["internal"][best][0].reshape(1,-1),
+            requires_grad=False, device=torch.device("cpu"), verbose=False)
+    else:
+        best_tensors = tensor_prep.get_all_required_tensors(Structure,
+            external=result["external"][best].reshape(1,-1),
+            internal=result["internal"][best].reshape(1,-1),
+            requires_grad=False, device=torch.device("cpu"), verbose=False)
+    # Restore the Structure.ignore_H_atoms setting
+    Structure.ignore_H_atoms = ignore_H_setting
+
+    with torch.no_grad():
+        best_asym = zm_to_cart.get_asymmetric_coords(**best_tensors["zm"])
+
+        best_intensities = intensities.calculate_intensities(best_asym,
+                                                **best_tensors["int_tensors"])
+        if include_PO:
+            best_intensities = intensities.apply_MD_PO_correction(
+                best_intensities, cosP.cpu(), sinP.cpu(),
+                factor[best][0].cpu().reshape(1,1))
+
+    if ignore_H_setting:
+        chi_2_H = chi2.calc_int_chisqd(best_intensities,
+                                            **best_tensors["chisqd_tensors"])
+
+        result["best_chi_2_with_H"] = chi_2_H.detach().cpu().numpy()[0]
+    else:
+        result["best_chi_2_with_H"] = result["chi_2"].min()
+
+    # Now get the profile chi2 if using DASH data
+    if Structure.source.lower() == "dash":
+        calc_profile = (best_intensities.detach().cpu().numpy().reshape(
+                        max(best_intensities.shape),1)
+                    * Structure.baseline_peaks[:max(best.shape)]).sum(axis=0)
+        sum1 = calc_profile[Structure.n_contributing_peaks != 0].sum()
+        sum2 = Structure.profile[:,1][Structure.n_contributing_peaks != 0].sum()
+        rescale = sum2/sum1
+        subset = Structure.n_contributing_peaks != 0
+        profchi2 = (((Structure.profile[:,2]**(-2))
+            *(rescale*calc_profile - Structure.profile[:,1])**2)[subset].sum()
+            / (subset.sum() - 2))
+        result["prof_chi_2"] = profchi2
+        result["calc_profile"] = rescale*calc_profile
+
+    if save_trajectories:
+        result["trajectories"] = trajectories
+
+    if save_loss:
+        result["losses"] = np.array(losses)
+
+    if save_grad:
+        result["gradients"] = gradients
+
+    if include_PO:
+        result["MD_factor"] = factor.detach().cpu().numpy()**2
+        result["PO_axis"] = PO_axis
+        del factor
+        del cosP
+        del sinP
+
+    if save_CIF:
+        files.save_CIF_of_best_result(Structure, result, start_time,
+                                        n_reflections)
+
+    # Now delete tensors to clear GPU memory for the next iteration
+    if torsion_shadowing:
+        del t_permutations
+
+    if use_restraints:
+        del restraint_tensors
+
+    if profile:
+        del profile_tensors
+
+    del tensors
+    return result
+    def update_position(self, result=None, external=None, internal=None,
+        chi_2=None, run=None, global_update=False, verbose=False, n_swarms=None):
+        """
+        Take a set of results from the minimisation algorithm and use
+        them to generate a new set of starting points to be minimised. This
+        will also update the internal swarm representation of position and
+        velocity.
+
+        Args:
+            result (dict, optional): The result dict from a GALLOP minimise run.
+                Defaults to None.
+            external (numpy array, optional): If no result dict is supplied,
+                then pass a numpy array of the external DoF. Defaults to None.
+            internal (numpy array, optional): If no result dict is supplied,
+                then pass a numpy array of the internal DoF. Defaults to None.
+            chi_2 (numpy array, optional): If no result dict is supplied,
+                then pass a numpy array of the chi_2 values. Defaults to None.
+            run (int, optional): If no result dict is supplied, then pass the
+                run number. Defaults to None.
+            global_update (bool, optional): If True, update all of the particles
+                as a single swarm. Defaults to False.
+            verbose (bool, optional): Print out information. Defaults to False.
+            n_swarms (int, optional): If global_update is False, it use the
+                Swarm.n_swarms parameter. This value can be overwritten if
+                desired by supplying it as an argument. This could be useful for
+                strategies that enable small subswarms to communicate, e.g.
+                initially have 2^n swarms, then after some iterations, change to
+                2^(n-1) swarms for 1 or more iterations. This would propagate
+                information between swarms without doing a full global update.
+                Defaults to None.
+
+        Returns:
+            tuple: Tuple of numpy arrays containing the external and internal
+                degrees of freedom
+        """
+        if result is not None:
+            external = result["external"]
+            internal = result["internal"]
+            chi_2 = result["chi_2"]
+            run = result["GALLOP Iter"]
+        else:
+            if external is None and internal is None:
+                print("No DoFs supplied!")
+                exit()
+        self.position = self.get_position_from_dof(external, internal)
+        if self.n_particles is None:
+            self.n_particles = external.shape[0]
+
+        if n_swarms is not None:
+            self.n_swarms = n_swarms
+
+        if self.particle_best_position is None:
+            self.particle_best_position = np.copy(self.position)
+            self.best_chi_2 = np.copy(chi_2)
+        if self.velocity is None:
+            self.velocity = np.zeros_like(self.position)
+        self.update_best(chi_2)
+
+        if not global_update:
+            if self.global_update_freq is not None and self.global_update:
+                if (run+1) % self.global_update_freq == 0 and run != 0:
+                    global_update = True
+        self.get_new_velocities(global_update=global_update, verbose=verbose)
+        self.position = self.position + self.velocity
+
+        if verbose:
+            print(self.velocity.min(), self.velocity.max(),
+            self.velocity.mean(),
+            self.velocity.std(), np.abs(self.velocity).mean(),
+            np.abs(self.velocity).std())
+
+        external, internal = self.get_new_external_internal(self.position)
+
+        return external, internal
+
+    def get_CIF_of_best(self, n_reflections=None, one_for_each_subswarm=True,
+    def get_initial_positions(self, method="latin", MDB=None):
+        """
+        Generate the initial starting points for a GALLOP attempt. The
+        recommended method uses latin hypercube sampling which provides a
+        more even coverage of the search space than random uniform sampling,
+        which can produce clusters or leave regions unexplored.
+
+        Args:
+            method (str, optional): The sampling method to use. Can be one of
+                "latin" or "uniform". Defaults to "latin".
+            MDB (str, optional): Supply a DASH .dbf containing the Mogul
+                Distribution Bias information for the Z-matrices used. They
+                must have been entered into DASH in the same order used for
+                GALLOP. Defaults to None.
+
+        Returns:
+            tuple: Tuple of numpy arrays containing the initial external and
+            internal degrees of freedom
+        """
+        if self.Structure.total_internal_degrees_of_freedom is None:
+            self.Structure.get_total_degrees_of_freedom()
+
+        assert method in ["uniform", "latin"], "method must be latin or uniform"
+        if self.n_particles % self.n_swarms != 0:
+            print("n_particles should be divisible by n_swarms.")
+            self.n_particles = self.n_swarms * (self.n_particles//self.n_swarms)
+            print("Setting n_particles to", self.n_particles)
+        subswarm = int(self.n_particles // self.n_swarms)
+        init_external = []
+        init_internal = []
+
+        total_pos = self.Structure.total_position_degrees_of_freedom
+        total_rot = self.Structure.total_rotation_degrees_of_freedom
+        tot_external = total_pos+total_rot
+        total_tors = self.Structure.total_internal_degrees_of_freedom
+        # Separate hypercube for each subswarm
+        for _ in tqdm.tqdm(range(int(self.n_swarms))):
+            if method == "latin":
+                lhc = qmc.LatinHypercube(int(total_pos+total_rot+total_tors))
+                lhc = qmc.LatinHypercube(int(total_pos+total_rot+total_tors))
+                all_dof = lhc.random(subswarm)
+                external = all_dof[:,:total_pos+total_rot]
+                pos = external[:,:total_pos]
+                rot = external[:,total_pos:]
+                tor = all_dof[:,total_pos+total_rot:]
+                rot -= 0.5
+                rot *= 2. # Rotation to range [-1,1]
+                tor -= 0.5
+                tor *= 2. * np.pi # Torsions to range [-pi,pi]
+                init_external.append(np.hstack([pos,rot]))
+                init_internal.append(tor)
+
+            else:
+                rand_ext = np.random.uniform(-1,1,size=(subswarm,tot_external))
+                rand_int = np.random.uniform(-1,1,size=(subswarm,total_tors))
+                init_external.append(rand_ext)
+                init_internal.append(rand_int)
+
+        init_external = np.vstack(init_external)
+        init_internal = np.vstack(init_internal)
+
+        if MDB is not None or self.distributions is not None:
+            print("Using MDBs for initial torsion angles")
+            if MDB is not None:
+                distributions = []
+                with open(MDB) as dbf:
+                    for line in dbf:
+                        line = line.strip().split(" ")
+                        if line[1] == "MDB":
+                            distributions.append([int(x) for x in line[-18:]])
+                        elif line[1] == "LBUB" and line[2] == "-180.00000":
+                            distributions.append([10]*19)
+                dbf.close()
+                distributions = np.array(distributions)
+                self.distributions = distributions
+            bins = np.linspace(0, np.pi, self.distributions.shape[1])
+            kdes = []
+            for torsion in self.distributions:
+                samples = []
+                for i, t in enumerate(torsion):
+                    if t > 0:
+                        observed = np.linspace(bins[i]-(np.pi/36),
+                                                bins[i]+np.pi/36, t)
+                        samples.append(np.hstack([observed, -1*observed]))
+                samples = np.hstack(samples)
+                samples = np.vstack((np.sin(samples), np.cos(samples)))
+                kde = gaussian_kde(samples, bw_method=None)
+                kdes.append(kde)
+            if init_internal.shape[1] != len(kdes):
+                if len(kdes) < init_internal.shape[1]:
+                    print("Not enough MDBs for the number of torsions.")
+                else:
+                    print("Too many MDBs for the number of torsions.")
+            else:
+                new_internal = []
+                for k in kdes:
+                    resampled = k.resample(init_internal.shape[0])
+                    new_internal.append(np.arctan2(resampled[0], resampled[1]))
+                new_internal = np.vstack(new_internal).T
+                init_internal = new_internal
+        return init_external, init_internal
+
+
+    def update_best(self, chi_2):

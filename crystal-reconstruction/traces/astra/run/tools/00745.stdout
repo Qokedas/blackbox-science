@@ -1,0 +1,113 @@
+                            dervDict = {'int':dMdpk[0],'pos':dMdpk[1],'alp':dMdpk[2],'bet':dMdpk[3],'sig':dMdpk[4]/1.e4,'gam':dMdpk[5]/100.,'L1/L2':dMdpk[6]*intens}
+                        else: #'A'
+                            dMdpk2 = np.zeros(shape=(8,len(xdata)))
+                            dMdipk2 = getdExpFCJVoigt3(pos,alp,bet,sig,gam,shl,xdata[iBeg:iFin])
+                            for i in range(1,7):
+                                dMdpk2[i][iBeg:iFin] += intens*kRatio*dMdipk2[i]
+                            dMdpk[0][iBeg:iFin] += kRatio*dMdipk2[0]
+                            dervDict = {'int':dMdpk[0],'pos':dMdpk[1],'alp':dMdpk[2],'bet':dMdpk[3],'sig':dMdpk[4],'gam':dMdpk[5],'shl':dMdpk[6],'L1/L2':dMdpk[7]*intens}
+                for parmName in ['pos','int','alp','bet','sig','gam','shl','L1/L2']:
+                    try:
+                        idx = varyList.index(parmName+str(iPeak))
+                        dMdv[idx] = dervDict[parmName]
+                    except ValueError:
+                        pass
+                if 'U' in varyList:
+                    dMdv[varyList.index('U')] += dsdU*dervDict['sig']
+                if 'V' in varyList:
+                    dMdv[varyList.index('V')] += dsdV*dervDict['sig']
+                if 'W' in varyList:
+                    dMdv[varyList.index('W')] += dsdW*dervDict['sig']
+                if 'X' in varyList:
+                    dMdv[varyList.index('X')] += dgdX*dervDict['gam']
+                if 'Y' in varyList:
+                    dMdv[varyList.index('Y')] += dgdY*dervDict['gam']
+                if 'Z' in varyList:
+                    dMdv[varyList.index('Z')] += dgdZ*dervDict['gam']
+                if 'SH/L' in varyList:
+                    dMdv[varyList.index('SH/L')] += dervDict['shl']
+                if 'alpha-0' in varyList:
+                    dMdv[varyList.index('alpha-0')] += dada0*dervDict['alp']
+                if 'alpha-1' in varyList:
+                    dMdv[varyList.index('alpha-1')] += dada1*dervDict['alp']
+                if 'beta-0' in varyList:
+                    dMdv[varyList.index('beta-0')] += dbdb0*dervDict['bet']
+                if 'beta-1' in varyList:
+                    dMdv[varyList.index('beta-1')] += dbdb1*dervDict['bet']
+                if 'I(L2)/I(L1)' in varyList:
+                    dMdv[varyList.index('I(L2)/I(L1)')] += dervDict['L1/L2']
+                iPeak += 1
+            except KeyError:        #no more peaks to process
+                break
+    elif 'E' in dataType:
+        iPeak = 0
+        while True:
+            try:
+                pos = parmDict['pos'+str(iPeak)]
+                intens = parmDict['int'+str(iPeak)]
+                sigName = 'sig'+str(iPeak)
+                if sigName in varyList or not peakInstPrmMode:
+                    sig = parmDict[sigName]
+                    dsdA = dsdB = dsdC = 0
+                else:
+                    sig = G2mth.getEDsig(parmDict,pos)
+                    dsdA,dsdB,dsdC = G2mth.getEDsigDeriv(parmDict,pos)
+                sig = max(sig,0.001)          #avoid neg sigma
+                gamName = 'gam'+str(iPeak)
+                if gamName in varyList or not peakInstPrmMode:
+                    gam = parmDict[gamName]
+                    dgdX = dgdY = dgdZ = 0
+1287:                Df,dFdp,dFds,dFdg,x = getdFCJVoigt3(pkP,pkS,pkG,shl,xdata[iBeg:iFin])
+1289:                Df,dFdp,x,x,dFds,dFdg = getdEpsVoigt(pkP,alp,bet,pkS/1.e4,pkG/100.,xdata[iBeg:iFin])
+1290:                dFdp /= 100.
+1291:                dFds /= 1.e6
+1295:                Df,dFdp,x,x,dFds,dFdg,x = getdExpFCJVoigt3(pkP,alp,bet,pkS,pkG,shl,xdata[iBeg:iFin])
+1297:                Df,dFdp,dFds,dFdg = getdPsVoigt(pkP,pkS*10.**4,pkG*100.,xdata[iBeg:iFin])
+1299:                Df,dFdp,x,x,dFds,dFdg = getdEpsVoigt(pkP,1.,1.,pkS,pkG,xdata[iBeg:iFin])
+1302:            dydpk[4*iD+2][iBeg:iFin] += pkI*dFds
+1349:    Df,dFdp,dFds,dFdg,dFdsh = pyd.pydpsvfcjo(len(xdata),xdata-pos,pos,sig,gam,shl)
+1350:    return Df,dFdp,dFds,dFdg,dFdsh
+1389:    Df,dFdp,dFda,dFdb,dFds,dFdg,dFdsh = pyd.pydpsvfcjexpo(len(xdata),xdata-pos,pos,alp,bet,sig,gam,shl)
+1390:    return Df,dFdp,dFda,dFdb,dFds,dFdg,dFdsh
+1423:    Df,dFdp,dFds,dFdg = pyd.pydpsvoigt(len(xdata),xdata-pos,sig,gam)
+1424:    return Df,dFdp,dFds,dFdg
+1441:    Df,dFdp,dFda,dFdb,dFds,dFdg = pyd.pydepsvoigt(len(xdata),xdata-pos,alp,bet,sig,gam)
+1442:    return Df,dFdp,dFda,dFdb,dFds,dFdg
+[
+ {
+  "cell": [
+   40.00578343748879,
+   4.436394773740464,
+   16.469116006208285,
+   90.0,
+   107.06738011139134,
+   90.0
+  ],
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "volume": 2794.236066288202,
+  "score": 3.7247282990994535,
+  "cost": 0.5807175414148499,
+  "mode": 21,
+  "zero": 0.03791770616625257,
+  "rms": 0.04522870465430631,
+  "maxerr": 0.14994197815341387,
+  "parameters": [
+   0.026147933977218932,
+   0.2254082539991969,
+   0.06351698437463456,
+   0.29349612126803487,
+   0.03791770616625257
+  ],
+  "diff": [
+   -0.0034383363139298753,
+   -0.02324608330357418,
+   -0.018191477560662556,
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 13 Nref 342 seconds 148.58330512046814 best 152.19656 q25 226.16954 median 317.89075 total 1885.516844034195
+GALLOP 14 Nref 342 seconds 127.51885056495667 best 152.19678 q25 217.66882 median 325.19778 total 2013.2262649536133
+GALLOP 15 Nref 342 seconds 145.66678309440613 best 152.19685 q25 221.71246 median 312.35547 total 2158.910834789276
+GALLOP 16 Nref 342 seconds 142.9850594997406 best 152.19658 q25 201.28317 median 303.62097 total 2301.920555114746

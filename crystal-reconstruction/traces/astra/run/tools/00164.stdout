@@ -1,0 +1,4 @@
+PowderPatternBackground
+['GetInterpPointsX', 'GetInterpPointsY', 'GetParentPowderPattern', 'GetPowderPatternCalc', 'ImportUserBackground', 'OptimizeBayesianBackground', 'SetInterpPoints']
+Use Integrated Profiles
+[('Zero', True), ('2ThetaDispl', True), ('2ThetaTransp', True), ('DIFC', True), ('DIFA', True), ('MuR', True), ('Scale_', True)]

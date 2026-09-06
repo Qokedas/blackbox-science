@@ -1,0 +1,17 @@
+38240
+ZM COC(=O)[C@H](c1ccccc1Cl)[NH+]1CCc2sccc2C1 n 21 torsions 4 max_distance_error 7.0015451214544555e-09
+ZM O=S(=O)([O-])O n 5 torsions 0 max_distance_error 5.96557114818097e-09
+Total degrees of freedom: 36
+Total external degrees of freedom: 28 (pos: 12 rot: 16 )
+Total internal degrees of freedom: 8
+PREPARED X3f4781b Nref 298 PawleyRw 0.07710350307728994 SG P 1 21 1
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+RESTART_ERROR max/rms 1.3210348161993863e-06 6.677688681445328e-07
+WARM_READY /app/work/X3f4781b/gallop_50
+  File "/opt/conda/lib/python3.11/site-packages/numpy/lib/_npyio_impl.py", line 454, in load
+    fid = stack.enter_context(open(os.fspath(file), "rb"))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/app/work/X3f4781b/gallop_50/warm.npz'

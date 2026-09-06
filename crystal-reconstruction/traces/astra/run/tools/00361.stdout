@@ -1,0 +1,45 @@
+{
+ "radiation": {
+  "type": "synchrotron",
+  "wavelength_A": 0.46873,
+  "wavelengths_A": [
+   0.46873
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 295.0,
+ "two_theta_range_deg": [
+  0.51,
+  49.995
+ ],
+ "n_points": 49486,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "sqrt(max(I,1)); counting statistics assumed",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 266 seconds 46.58451008796692 best 483.76123 q25 579.0052 median 624.40814 total 46.590912103652954
+/app/work/search_gallop.py:20: RuntimeWarning: overflow encountered in cast
+  if mn>=best:return
+GALLOP 1 Nref 266 seconds 46.6188702583313 best 478.95514 q25 574.38367 median 620.1144 total 93.30033993721008
+GALLOP 2 Nref 266 seconds 31.098251819610596 best 467.40137 q25 559.6513 median 604.5741 total 124.48669242858887
+{
+ "chi2": 3.4471957683563232,
+ "Rint": 0.05871282517910004,
+ "iteration": 33,
+ "elapsed": 1140.6103172302246
+}ERRORSG F 1 m 1 Space group symbol 'F 1 m 1' not recognized
+ERRORSG F 1 d 1 Space group symbol 'F 1 d 1' not recognized
+ERRORSG F 1 2/m 1 Space group symbol 'F 1 2/m 1' not recognized
+GROUPS [{"sg": "P 1 a 1", "number": 7, "Rw": 8.680493027762854, "GoF": 3277.9491432596583, "nGoF": 0.0, "mult": 2}, {"sg": "P 1 2/a 1", "number": 13, "Rw": 8.680493027762854, "GoF": 3277.9491432596583, "nGoF": 0.0, "mult": 4}, {"sg": "P 1 2 1", "number": 3, "Rw": 8.744538086726134, "GoF": 3341.175707336879, "nGoF": 0.0, "mult": 2}, {"sg": "P 1 m 1", "number": 6, "Rw": 8.744538086726134, "GoF": 3341.175707336879, "nGoF": 0.0, "mult": 2}, {"sg": "P 1 2/m 1", "number": 10, "Rw": 8.744538086726134, "GoF": 3341.175707336879, "nGoF": 0.0, "mult": 4}, {"sg": "P 1 c 1", "number": 7, "Rw": 8.94010700297167, "GoF": 3477.589889150906, "nGoF": 0.0, "mult": 2}, {"sg": "P 1 2/c 1", "number": 13, "Rw": 8.94010700297167, "GoF": 3477.589889150906, "nGoF": 0.0, "mult": 4}, {"sg": "P 1 n 1", "number": 7, "Rw": 9.002478115456976, "GoF": 3526.2823177874243, "nGoF": 0.0, "mult": 2}, {"sg": "P 1 2/n 1", "number": 13, "Rw": 9.002478115456976, "GoF": 3526.2823177874243, "nGoF": 0.0, "mult": 4}, {"sg": "P 1 21/a 1", "number": 14, "Rw": 9.54898363778519, "GoF": 3957.9909920582236, "nGoF": 0.0, "mult": 4}, {"sg": "P 1 21 1", "number": 4, "Rw": 9.630083071784018, "GoF": 4043.2306014159026, "nGoF": 0.0, "mult": 2}, {"sg": "P 1 21/m 1", "number": 11, "Rw": 9.630083071784018, "GoF": 4043.2306014159026, "nGoF": 0.0, "mult": 4}, {"sg": "P 1 21/c 1", "number": 14, "Rw": 9.78070928023693, "GoF": 4153.177896384741, "nGoF": 0.0, "mult": 4}, {"sg": "P 1 21/n 1", "number": 14, "Rw": 9.859778181584982, "GoF": 4220.599301662696, "nGoF": 0.0, "mult": 4}, {"sg": "C 1 2 1", "number": 5, "Rw": 15.604110334441781, "GoF": 9851.190317933813, "nGoF": 0.0, "mult": 4}, {"sg": "C 1 m 1", "number": 8, "Rw": 15.604110334441781, "GoF": 9851.190317933813, "nGoF": 0.0, "mult": 4}, {"sg": "C 1 2/m 1", "number": 12, "Rw": 15.604110334441781, "GoF": 9851.190317933813, "nGoF": 0.0, "mult": 8}, {"sg": "A 1 a 1", "number": 9, "Rw": 17.532763020720292, "GoF": 12390.472761362695, "nGoF": 0.0, "mult": 4}, {"sg": "A 1 2/a 1", "number": 15, "Rw": 17.532763020720292, "GoF": 12390.472761362695, "nGoF": 0.0, "mult": 8}, {"sg": "A 1 n 1", "number": 9, "Rw": 17.532763020720296, "GoF": 12390.472761362695, "nGoF": 0.0, "mult": 4}, {"sg": "A 1 2/n 1", "number": 15, "Rw": 17.532763020720296, "GoF": 12390.472761362695, "nGoF": 0.0, "mult": 8}, {"sg": "A 1 2 1", "number": 5, "Rw": 17.53650805881701, "GoF": 12423.15822416126, "nGoF": 0.0, "mult": 4}, {"sg": "A 1 m 1", "number": 8, "Rw": 17.53650805881701, "GoF": 12423.15822416126, "nGoF": 0.0, "mult": 4}, {"sg": "A 1 2/m 1", "number": 12, "Rw": 17.53650805881701, "GoF": 12423.15822416126, "nGoF": 0.0, "mult": 8}, {"sg": "I 1 2 1", "number": 5, "Rw": 17.829193392056393, "GoF": 12863.170236712249, "nGoF": 0.0, "mult": 4}, {"sg": "I 1 m 1", "number": 8, "Rw": 17.829193392056393, "GoF": 12863.170236712249, "nGoF": 0.0, "mult": 4}, {"sg": "I 1 2/m 1", "number": 12, "Rw": 17.829193392056393, "GoF": 12863.170236712249, "nGoF": 0.0, "mult": 8}, {"sg": "I 1 a 1", "number": 9, "Rw": 18.17902729561655, "GoF": 13343.373795329871, "nGoF": 0.0, "mult": 4}, {"sg": "I 1 c 1", "number": 9, "Rw": 18.17902729561655, "GoF": 13343.373795329857, "nGoF": 0.0, "mult": 4}, {"sg": "I 1 2/a 1", "number": 15, "Rw": 18.17902729561655, "GoF": 13343.373795329871, "nGoF": 0.0, "mult": 8}, {"sg": "I 1 2/c 1", "number": 15, "Rw": 18.17902729561655, "GoF": 13343.373795329857, "nGoF": 0.0, "mult": 8}, {"sg": "C 1 c 1", "number": 9, "Rw": 18.20536393356525, "GoF": 13384.337819629081, "nGoF": 0.0, "mult": 4}, {"sg": "C 1 n 1", "number": 9, "Rw": 18.20536393356525, "GoF": 13384.337819629081, "nGoF": 0.0, "mult": 4}, {"sg": "C 1 2/c 1", "number": 15, "Rw": 18.20536393356525, "GoF": 13384.337819629081, "nGoF": 0.0, "mult": 8}, {"sg": "C 1 2/n 1", "number": 15, "Rw": 18.20536393356525, "GoF": 13384.337819629081, "nGoF": 0.0, "mult": 8}]
+DONE X1db5091 plane2 0.06884986745593565 [5.005815144611653, 40.712708875350195, 12.634694426601895, 90.0, 88.31165512173068, 90.0]
+  2.8000e-02]
+TRIAL 33 sec 37.93860054016113 cost 2.1576018892101048 score 2.599782166149921 vol 550.1416220381285 cell [ 7.1224  7.5484 10.2327 90.     90.     90.    ] zero 0.09999999990000001 best 2.027006527643956 diff [ 0.7231 -0.0052 -0.0114  0.4078 -0.2143 -0.1532  0.0734  0.0299 -0.0307
+ -0.6825  0.442  -0.0363 -0.7461 -0.223   0.1978 -0.0095  0.0864  0.027
+ -0.0081]

@@ -1,0 +1,61 @@
+X8a6f5a8 ORTHOROMBIC P 3 peaks [5.62258, 8.2707, 11.25159, 11.6046, 12.28102, 13.32648, 14.2826, 15.36534, 15.97194, 16.56392, 16.90511, 18.37578, 18.8132, 19.72076, 20.32588, 20.80584, 21.75211, 22.2314, 23.04001, 23.39003] V 2000.0 4100.0 Lmax 50.0
+3->50,1.88001,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+2000->4100,420.008,4.9999
+Starting: V=2000->2420.01
+Finished: V=2000->2420.01 A^3, 2584 unit cells tested, 362616 tests/s,   Elapsed time=0.007138s
+Starting: V=2420.01->2840.02
+Finished: V=2420.01->2840.02 A^3, 6338 unit cells tested, 410705 tests/s,   Elapsed time=0.015444s
+Starting: V=2840.02->3260.02
+Finished: V=2840.02->3260.02 A^3, 11066 unit cells tested, 430316 tests/s,   Elapsed time=0.025727s
+Starting: V=3260.02->3680.03
+Finished: V=3260.02->3680.03 A^3, 17567 unit cells tested, 459364 tests/s,   Elapsed time=0.03826s
+Starting: V=3680.03->4100
+Finished: V=3680.03->4100 A^3, 27097 unit cells tested, 250268 tests/s,   Elapsed time=0.108285s
+DONE X8a6f5a8 ORTHOROMBIC P 0 0.10856318473815918 []
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=8.08472, b=31.4287, c=7.54163, alpha=90, beta=104.717, gamma=90, V=1853.4, score=8.86057
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=7.54163, b=31.4287, c=8.08472, alpha=90, beta=104.717, gamma=90, V=1853.4, score=8.86057
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=15.7267, b=6.18652, c=21.3526, alpha=90, beta=93.4997, gamma=90, V=2073.59, score=7.20506
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=8.02437, b=31.423, c=7.53303, alpha=90, beta=104.489, gamma=90, V=1839.05, score=6.6123
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=7.53303, b=31.423, c=8.02437, alpha=90, beta=104.489, gamma=90, V=1839.05, score=6.6123
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=15.7157, b=6.18616, c=21.3741, alpha=90, beta=93.5593, gamma=90, V=2073.98, score=6.23429
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=15.6866, b=6.1948, c=21.3593, alpha=90, beta=93.7479, gamma=90, V=2071.16, score=5.97465
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=7.73056, b=15.7413, c=14.8812, alpha=90, beta=102.144, gamma=90, V=1770.35, score=5.84336
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=8.03479, b=31.4627, c=7.52588, alpha=90, beta=104.382, gamma=90, V=1842.89, score=5.84046
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=7.52588, b=31.4627, c=8.03479, alpha=90, beta=104.382, gamma=90, V=1842.89, score=5.84046
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=15.7075, b=6.18241, c=21.3447, alpha=90, beta=93.8611, gamma=90, V=2068.09, score=5.7872
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=7.72204, b=15.7307, c=14.7874, alpha=90, beta=101.851, gamma=90, V=1757.97, score=5.46193
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=9.94746, b=10.7012, c=17.088, alpha=90, beta=112.882, gamma=90, V=1675.88, score=5.36044
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=8.75887, b=21.4553, c=11.1316, alpha=90, beta=120.048, gamma=90, V=1810.76, score=4.85844
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=11.6766, b=7.19827, c=22.859, alpha=90, beta=94.3333, gamma=90, V=1915.84, score=4.72222
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=15.6773, b=6.18516, c=21.3407, alpha=90, beta=93.9588, gamma=90, V=2064.4, score=4.67581
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=7.76982, b=15.6983, c=15.2354, alpha=90, beta=107.909, gamma=90, V=1768.27, score=4.6389
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2609 BEST ? a=8.08765, b=31.4364, c=9.55853, alpha=90, beta=130.242, gamma=90, V=1855.05, score=9.13611
+997158unit cells tested, 415179 tests/s,   Elapsed time=2.40176s
+DONE X8a6f5a8 MONOCLINIC P 18 2.402528762817383 [{'cell': [8.087646484375, 31.43644142150879, 9.558534622192383, 90.00000250447816, 130.24198128276507, 90.00000250447816], 'volume': 1855.0477294921875, 'score': 9.1361083984375, 'system': 'MONOCLINIC', 'centering': 'P', 'mode': 3}, {'cell': [8.084717750549316, 31.42867088317871, 7.541627407073975, 90.00000250447816, 104.71662178832194, 90.00000250447816], 'volume': 1853.40185546875, 'score': 8.86056900024414, 'system': 'MONOCLINIC', 'centering': 'P', 'mode': 3}, {'cell': [7.541627407073975, 31.42867088317871, 8.084717750549316, 90.00000250447816, 104.71662178832194, 90.00000250447816], 'volume': 1853.40185546875, 'score': 8.86056900024414, 'system': 'MONOCLINIC', 'centering': 'P', 'mode': 3}, {'cell': [15.726666450500488, 6.186516761779785, 21.35264015197754, 90.00000250447816, 93.499723133301, 90.00000250447816], 'volume': 2073.59423828125, 'score': 7.2050604820251465, 'system': 'MONOCLINIC', 'centering': 'P', 'mode': 3}, {'cell': [8.024373054504395, 31.423015594482422, 7.533032417297363, 90.00000250447816, 104.48869837571863, 90.00000250447816], 'volume': 1839.0458984375, 'score': 6.612302303314209, 'system': 'MONOCLINIC', 'centering': 'P', 'mode': 3}]
+X8a6f5a8 MONOCLINIC P 3 peaks [5.62258, 8.2707, 11.25159, 11.6046, 12.28102, 13.32648, 14.2826, 15.36534, 15.97194, 16.56392, 16.90511, 18.37578, 18.8132, 19.72076, 20.32588, 20.80584, 21.75211, 22.2314, 23.04001, 23.39003] V 2100.0 3800.0 Lmax 50.0
+3->50,1.88001,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+2100->3800,425.011,3.9999
+Starting: V=2100->2525.01
+     a=11.59-11.62 b= 6.18- 6.22 c=31.52-31.55 alpha= 90.00- 90.00 beta= 92.50- 92.57 gamma= 90.00- 90.00 V=2256.48-2277.07level=5, indexed=1(0 sol.)
+     a=0.08638-0.08616 b=0.16173-0.16084 c=0.03175-0.03172 alpha=0.04369-0.04489 beta=0.00000-0.00000 gamma=0.00000-0.00000level=5, indexed=1(0 sol.)
+ Solution ? a= 11.586 b=  6.182 c= 31.437 alpha= 90.000 beta= 92.646 gamma= 90.000 V= 2249.38 score=  4.09 #   0
+     a=11.59-11.62 b= 6.18- 6.22 c=31.53-31.56 alpha= 90.00- 90.00 beta= 92.64- 92.71 gamma= 90.00- 90.00 V=2256.72-2277.32level=5, indexed=1(1 sol.)
+     a=0.08638-0.08616 b=0.16173-0.16084 c=0.03175-0.03172 alpha=0.04608-0.04728 beta=0.00000-0.00000 gamma=0.00000-0.00000level=5, indexed=1(1 sol.)
+ Solution ? a= 11.606 b=  6.209 c= 31.534 alpha= 90.000 beta= 92.778 gamma= 90.000 V= 2269.88 score=  4.56 #   1
+      a=15.70-15.74 b= 6.20- 6.23 c=21.40-21.43 alpha= 90.00- 90.00 beta= 93.36- 93.43 gamma= 90.00- 90.00 V=2079.77-2098.68level=6, indexed=1(2 sol.)
+      a=0.08060-0.08043 b=0.06365-0.06352 c=0.06597-0.06584 alpha=0.21904-0.22024 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(99 sol.)
+ Solution ? a= 12.706 b= 15.728 c= 15.585 alpha= 90.000 beta=102.674 gamma= 90.000 V= 3038.60 score= 12.90 #  99
+      a=12.69-12.72 b=15.71-15.74 c=15.54-15.58 alpha= 90.00- 90.00 beta=102.72-102.79 gamma= 90.00- 90.00 V=3023.03-3042.25level=6, indexed=1(118 sol.)
+      a=0.08077-0.08060 b=0.06365-0.06352 c=0.06597-0.06584 alpha=0.22024-0.22144 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(118 sol.)
+ Solution ? a= 12.706 b= 15.728 c= 15.585 alpha= 90.000 beta=102.674 gamma= 90.000 V= 3038.60 score= 12.90 # 118
+      a=12.71-12.74 b=15.68-15.71 c=15.56-15.60 alpha= 90.00- 90.00 beta=102.58-102.65 gamma= 90.00- 90.00 V=3027.45-3046.71level=6, indexed=1(141 sol.)
+      a=0.08060-0.08043 b=0.06378-0.06365 c=0.06584-0.06571 alpha=0.21785-0.21904 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(141 sol.)
+ Solution ? a= 12.706 b= 15.728 c= 15.585 alpha= 90.000 beta=102.674 gamma= 90.000 V= 3038.60 score= 12.90 # 141
+Finished: V=2525.01->2950.02 A^3, 3669261 unit cells tested, 330562 tests/s,   Elapsed time=11.1001s
+Starting: V=2950.02->3375.03
+Finished: V=2950.02->3375.03 A^3, 8042044 unit cells tested, 256301 tests/s,   Elapsed time=31.3774s
+Starting: V=3375.03->3800
+/app/work/X8a6f5a8/index_MONOCLINIC_P_3_1000_2100_fcj_peaks_fcjsel.json
+/app/work/X8a6f5a8/index_ORTHOROMBIC_P_3_2000_4100_fcj_peaks_fcjsel.json

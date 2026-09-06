@@ -1,0 +1,9 @@
+Imported powder pattern: 7853 points, 2theta=  0.515 ->  20.145, step= 0.003
+STARTFIT X35b7fbc 2 Rw 0.3947766670792924
+ERRORSG I 1 21 1 Space group symbol 'I 1 21 1' not recognized
+ERRORSG C 1 21 1 Space group symbol 'C 1 21 1' not recognized
+ERRORSG B 1 2 1 Space group symbol 'B 1 2 1' not recognized
+ERRORSG B 1 21 1 Space group symbol 'B 1 21 1' not recognized
+ERRORSG F 1 2 1 Space group symbol 'F 1 2 1' not recognized
+GROUPS [{"sg": "P 1 21 1", "number": 4, "Rw": 29.40084727870287, "GoF": 258.3601646762404, "nGoF": 0.0, "mult": 2}, {"sg": "P 1 2 1", "number": 3, "Rw": 35.204126496712824, "GoF": 370.8156472473904, "nGoF": 0.0, "mult": 2}, {"sg": "C 1 2 1", "number": 5, "Rw": 53.29379032574919, "GoF": 834.2840757896543, "nGoF": 0.0, "mult": 4}, {"sg": "I 1 2 1", "number": 5, "Rw": 59.46432296111935, "GoF": 1041.8110474729267, "nGoF": 0.0, "mult": 4}, {"sg": "A 1 2 1", "number": 5, "Rw": 60.50359549519738, "GoF": 1069.378740099989, "nGoF": 0.0, "mult": 4}]
+DONE X35b7fbc 2 0.39187564436568 [7.110052204381852, 33.12895053228756, 12.980997126599734, 90.0, 100.52570660730169, 90.0]

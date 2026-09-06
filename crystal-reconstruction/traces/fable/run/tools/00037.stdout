@@ -1,0 +1,8 @@
+make pattern
+pattern ok 4501
+crystal ok
+profile ok
+Profile fitting finished.
+Remember to use SetExtractionMode(False) on the PowderPatternDiffraction object
+to disable profile fitting and optimise the structure.
+fit ok 0.20438151447901817

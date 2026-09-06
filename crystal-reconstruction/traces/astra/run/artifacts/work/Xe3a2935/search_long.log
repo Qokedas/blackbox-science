@@ -1,0 +1,14 @@
+ObjRegistry<T>::Find(C): Not found !!
+List of Crystal ScatteringPowers :0 object registered:
+ObjRegistry<T>::Find(O): Not found !!
+List of Crystal ScatteringPowers :1 object registered:
+#  0:ScatteringPowerAtom(C)
+ObjRegistry<T>::Find(N): Not found !!
+List of Crystal ScatteringPowers :2 object registered:
+#  0:ScatteringPowerAtom(C)
+#  1:ScatteringPowerAtom(O)
+INITIAL Xe3a2935 1 Rw 0.564972854154267 LLK 394247.6255201409 Integrated 393712.38298402895 DOF -1
+RUN 0 steps 100000 time 10.51531434059143 total 10.515430927276611 LLK 54693.99730405666 Rw 0.23041775209750023 Integrated 54111.554128125594
+RUN 1 steps 1000000 time 82.58428311347961 total 93.19862675666809 LLK 14984.862518667585 Rw 0.12762617609700574 Integrated 14407.284700997161
+RUN 2 steps 1000000 time 83.88746356964111 total 177.18513679504395 LLK 15206.847109509185 Rw 0.12992222951296167 Integrated 14621.208385218206
+FINISHED 14984.862518667585

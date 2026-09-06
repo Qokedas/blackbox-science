@@ -1,0 +1,385 @@
+import os,json,glob
+import numpy as np,spglib
+from pymatgen.core import Lattice
+ids=json.load(open('/app/data/instances.json'))['ids']
+for sid in ids:
+ W='/app/work/'+sid;alls=[]
+ for f in glob.glob(W+'/index*.json'):
+  ss=json.load(open(f))
+  for s in ss:s['source']=os.path.basename(f)
+  alls+=ss
+ alls.sort(key=lambda s:-s['score']);out=[];nig=[]
+ for s in alls:
+  if s['score']<max(8,alls[0]['score']*.65):continue
+  cp=np.array(s['cell']);L=Lattice.from_parameters(*cp)
+  cen=s['centering'];pos={'P':[[0,0,0]],'C':[[0,0,0],[.5,.5,0]],'I':[[0,0,0],[.5,.5,.5]],'A':[[0,0,0],[0,.5,.5]],'B':[[0,0,0],[.5,0,.5]],'F':[[0,0,0],[.5,.5,0],[.5,0,.5],[0,.5,.5]]}[cen]
+  try:
+   std=spglib.standardize_cell((L.matrix,pos,[1]*len(pos)),to_primitive=False,no_idealize=False,symprec=.025)
+   prim=spglib.standardize_cell((L.matrix,pos,[1]*len(pos)),to_primitive=True,no_idealize=False,symprec=.025)
+   primL=Lattice(prim[0]).get_niggli_reduced_lattice();n=np.array(primL.parameters)
+   if any(np.allclose(n[:3],n2[:3],rtol=.006) and np.allclose(n[3:],n2[3:],atol=.5) for n2 in nig):continue
+   nig.append(n)
+   ds=spglib.get_symmetry_dataset(std,symprec=.015)
+   L=Lattice(std[0]);cp=list(L.parameters);num=ds.number;sg=ds.international;cen=sg[0]
+   sys='TRICLINIC' if num<=2 else 'MONOCLINIC' if num<=15 else 'ORTHOROMBIC' if num<=74 else 'TETRAGONAL' if num<=142 else 'HEXAGONAL' if num<=194 else 'CUBIC'
+  except Exception as e:print(sid,e);continue
+  new=dict(s,cell=cp,volume=L.volume,system=sys,centering=cen,sg=sg)
+  out.append(new)
+  if len(out)>=8:break
+ json.dump(out,open(W+'/candidates.json','w'),indent=1)
+ if out:print(sid,len(out),out[0]['score'],[round(x,4) for x in out[0]['cell']],out[0]['sg'])
+import os,sys,time,json,io
+import numpy as np
+from pyobjcryst.indexing import *
+from rdkit import Chem
+sid=sys.argv[1]; system=sys.argv[2] if len(sys.argv)>2 else 'MONOCLINIC'; center=sys.argv[3] if len(sys.argv)>3 else 'P'
+mode=int(sys.argv[4]) if len(sys.argv)>4 else 0
+W='/app/work/'+sid
+ins=json.load(open('/app/data/instances/'+sid+'/instrument.json'));comp=json.load(open('/app/data/instances/'+sid+'/composition.json'));wl=ins['radiation']['wavelength_A']
+peaks=json.load(open(W+'/peaks.json'));data=np.load(W+'/processed.npz');x=data['x'];dx=np.median(np.diff(x))
+maxh=max(p['height'] for p in peaks); medwid=np.median([p['fwhm'] for p in sorted(peaks,key=lambda p:-p['height'])[:25]])
+# strict suppression of baseline artifacts and short single-point spikes
+peaks=[p for p in peaks if p['height']>maxh*(.003 if mode<2 else .007) and p['fwhm']>max(dx*1.5,medwid*.3) and p['fwhm']<max(medwid*3,.055*wl/1.54) and p['two_theta']>x[0]+max(.08*wl/1.54,dx*4)]
+# remove user-marked impurity / blended lines (1-based original peak list indices)
+if os.path.exists(W+'/peak_select.json'):
+ sel=json.load(open(W+'/peak_select.json')); orig=json.load(open(W+'/peaks.json'))
+ if 'indices' in sel: peaks=[orig[i-1] for i in sel['indices']]
+ else: peaks=[p for p in peaks if p['two_theta']>=sel.get('min_two_theta',0) and all(abs(p['two_theta']-xx)>.01 for xx in sel.get('exclude',[]))]
+# For indexing low-lying broad peaks in otherwise fine data are suspect
+npeak=int(os.environ.get('NPEAK',22 if mode not in [3,4] else 18))
+peaks=peaks[:npeak]
+if len(peaks)<10: sys.exit(1)
+ns=int(os.environ.get('NSPUR',1 if mode in [1,4] else 0))
+# deviations incorporate peak-profile asymmetry and blended maxima
+base_err=(.012 if wl>1.3 else .003 if wl>.65 else .0015)*(2 if mode>=2 else 1)
+base_err=float(os.environ.get('TTHERR',base_err))
+ss=''
+for p in peaks:
+ theta=p['two_theta']; d=p['d'];terr=max(base_err,p['error']*2,min(p['fwhm']*.15,base_err*2))
+ dsig=d/np.tan(np.deg2rad(theta/2))*np.deg2rad(terr/2)*2
+ ss+=f"{d:.9f} {dsig:.9f} {p['height']:.3f}\n"
+pl=PeakList();pl.ImportDhklDSigmaIntensity(io.BytesIO(ss.encode()))
+cs=getattr(CrystalSystem,system);cen=getattr(CrystalCentering,'LATTICE_'+center)
+heavy=sum(Chem.MolFromSmiles(c['smiles']).GetNumHeavyAtoms()*c['count'] for c in comp['components'])
+v1=heavy*18
+lo=EstimateCellVolume(1/peaks[-1]['d'],1/(peaks[0]['d']*4),len(peaks),cs,cen,1.4)
+hi=EstimateCellVolume(1/peaks[-1]['d'],1/(peaks[0]['d']*4),len(peaks),cs,cen,.20 if system!='TRICLINIC' else .35)
+lo=max(lo, v1*.65,80);hi=min(hi,v1*(10 if system not in ['MONOCLINIC','TRICLINIC'] else 8 if system=='MONOCLINIC' else 4),15000)
+if hi<lo:hi=lo*1.1
+if len(sys.argv)>5:lo=float(sys.argv[5]);hi=float(sys.argv[6])
+lmax=max(25,min(60,2.8*hi**(1/3)))
+if heavy>25 and all(set(c['smiles'])<=set('C[]@H()') for c in comp['components']): lmax=100
+ex=CellExplorer(pl,cs,ns);ex.SetCrystalCentering(cen);ex.SetLengthMinMax(3,lmax);ex.SetAngleMinMax(np.deg2rad(90),np.deg2rad(135 if system=='TRICLINIC' else 140));ex.SetVolumeMinMax(lo,hi);ex.SetD2Error(0)
+print(sid,system,center,mode,'peaks',[round(p['two_theta'],5) for p in peaks], 'V',lo,hi, 'Lmax',lmax,flush=True)
+start=time.time();ex.DicVol(8,4,80,7,True);ex.ReduceSolutions()
+sols=[]
+for cell,score in ex.GetSolutions():
+ c=cell.DirectUnitCell(False,True)
+ if all(np.isfinite(c)):
+  sols.append(dict(cell=list(c[:6]),volume=c[6],score=score,system=cell.lattice.name,centering=cell.centering.name.replace('LATTICE_',''),mode=mode))
+print('DONE',sid,system,center,len(sols),time.time()-start,sols[:5],flush=True)
+tag=system+'_'+center+'_'+str(mode)
+if len(sys.argv)>5:tag+='_'+sys.argv[5]+'_'+sys.argv[6]
+json.dump(sols,open(W+'/index_'+tag+'.json','w'),indent=1)
+[
+ {
+  "id": "X019b9a4",
+  "wl": 1.54056,
+  "heavy": 48,
+  "rotors": 8,
+  "mw": 676.7560000000001,
+  "npeaks": 40,
+  "noise": 36.96969696969697,
+  "chiral": false
+ },
+ {
+  "id": "X07806d9",
+  "wl": 0.81933,
+  "heavy": 10,
+  "rotors": 4,
+  "mw": 167.592,
+  "npeaks": 177,
+  "noise": 9.187878787877597,
+  "chiral": false
+ },
+ {
+  "id": "X13023e3",
+  "wl": 0.728302,
+  "heavy": 24,
+  "rotors": 5,
+  "mw": 328.4119999999999,
+  "npeaks": 106,
+  "noise": 23.636363636363637,
+  "chiral": true
+ },
+ {
+  "id": "X14a2b08",
+  "wl": 1.5418,
+  "heavy": 37,
+  "rotors": 6,
+  "mw": 528.989,
+  "npeaks": 75,
+  "noise": 7.272727272727273,
+  "chiral": false
+ },
+ {
+  "id": "X1a56c78",
+  "wl": 1.5418,
+  "heavy": 23,
+  "rotors": 5,
+  "mw": 337.9350000000002,
+  "npeaks": 65,
+  "noise": 107.87878787878789,
+  "chiral": true
+ },
+ {
+  "id": "X1db5091",
+  "wl": 1.54059,
+  "heavy": 38,
+  "rotors": 7,
+  "mw": 537.956,
+  "npeaks": 56,
+  "noise": 30.90909090909091,
+  "chiral": false
+ },
+ {
+  "id": "X2327841",
+  "wl": 0.80105,
+  "heavy": 32,
+  "rotors": 28,
+  "mw": 450.8800000000004,
+  "npeaks": 68,
+  "noise": 0.07909090909096808,
+  "chiral": true
+ },
+ {
+  "id": "X238783d",
+  "wl": 1.54056,
+  "heavy": 52,
+  "rotors": 8,
+  "mw": 747.9640000000002,
+  "npeaks": 65,
+  "noise": 41.21212121212121,
+  "chiral": true
+ },
+ {
+  "id": "X263b09a",
+  "wl": 1.54059,
+  "heavy": 36,
+  "rotors": 6,
+  "mw": 514.9620000000001,
+  "npeaks": 71,
+  "noise": 24.242424242424242,
+  "chiral": false
+ },
+ {
+  "id": "X35b7fbc",
+  "wl": 0.6996,
+  "heavy": 33,
+  "rotors": 6,
+  "mw": 455.51100000000014,
+  "npeaks": 152,
+  "noise": 30.303030303030305,
+  "chiral": true
+ },
+ {
+  "id": "X3c176e2",
+  "wl": 1.54056,
+  "heavy": 12,
+  "rotors": 0,
+  "mw": 180.156,
+  "npeaks": 66,
+  "noise": 26.666666666666668,
+  "chiral": false
+ },
+ {
+  "id": "X3f4781b",
+  "wl": 1.54059,
+  "heavy": 26,
+  "rotors": 3,
+  "mw": 419.908,
+  "npeaks": 120,
+  "noise": 23.03030303030303,
+  "chiral": true
+ },
+ {
+  "id": "X4f6fe58",
+  "wl": 1.54059,
+  "heavy": 20,
+  "rotors": 1,
+  "mw": 349.61499999999995,
+  "npeaks": 65,
+  "noise": 29.6969696969697,
+  "chiral": false
+ },
+ {
+  "id": "X7e382cb",
+  "wl": 0.709319,
+  "heavy": 20,
+  "rotors": 3,
+  "mw": 276.292,
+  "npeaks": 24,
+  "noise": 29.6969696969697,
+  "chiral": false
+ },
+ {
+  "id": "X8a06d7a",
+  "wl": 1.5418,
+  "heavy": 38,
+  "rotors": 7,
+  "mw": 537.956,
+  "npeaks": 67,
+  "noise": 15.151515151515152,
+  "chiral": false
+ },
+ {
+  "id": "X8a6f5a8",
+  "wl": 1.54059,
+  "heavy": 39,
+  "rotors": 10,
+  "mw": 564.572,
+  "npeaks": 85,
+  "noise": 27.272727272727273,
+  "chiral": true
+ },
+ {
+  "id": "X9af54a2",
+  "wl": 0.46873,
+  "heavy": 19,
+  "rotors": 6,
+  "mw": 290.74699999999996,
+  "npeaks": 191,
+  "noise": 1.5818181818181811,
+  "chiral": true
+ },
+ {
+  "id": "Xb7088cf",
+  "wl": 0.709319,
+  "heavy": 28,
+  "rotors": 6,
+  "mw": 376.4160000000001,
+  "npeaks": 25,
+  "noise": 30.303030303030305,
+  "chiral": false
+ },
+ {
+  "id": "Xbfc6d2c",
+  "wl": 1.5406,
+  "heavy": 18,
+  "rotors": 1,
+  "mw": 232.28599999999994,
+  "npeaks": 43,
+  "noise": 49.6969696969697,
+  "chiral": false
+ },
+ {
+  "id": "Xbfeeda9",
+  "wl": 1.54056,
+  "heavy": 35,
+  "rotors": 7,
+  "mw": 513.5090000000001,
+  "npeaks": 81,
+  "noise": 27.87878787878788,
+  "chiral": false
+ },
+ {
+  "id": "Xd4c1a35",
+  "wl": 1.23922,
+  "heavy": 24,
+  "rotors": 3,
+  "mw": 352.7700000000001,
+  "npeaks": 134,
+  "noise": 11.284848484848471,
+  "chiral": true
+ },
+ {
+  "id": "Xd8634a2",
+  "wl": 0.46873,
+  "heavy": 33,
+  "rotors": 7,
+  "mw": 471.4700000000002,
+  "npeaks": 215,
+  "noise": 1.6381818181818169,
+  "chiral": false
+ },
+ {
+  "id": "Xdcc971e",
+  "wl": 0.80105,
+  "heavy": 30,
+  "rotors": 26,
+  "mw": 422.8260000000004,
+  "npeaks": 45,
+  "noise": 0.03575757575748812,
+  "chiral": true
+ },
+ {
+  "id": "Xe1fb77b",
+  "wl": 0.45815,
+  "heavy": 38,
+  "rotors": 7,
+  "mw": 534.4700000000003,
+  "npeaks": 154,
+  "noise": 7.677696969696969,
+  "chiral": true
+ },
+ {
+  "id": "Xe3a2935",
+  "wl": 0.46873,
+  "heavy": 21,
+  "rotors": 3,
+  "mw": 280.291,
+  "npeaks": 136,
+  "noise": 1.4569696969696992,
+  "chiral": true
+ },
+ {
+  "id": "Xeb393f9",
+  "wl": 0.81933,
+  "heavy": 37,
+  "rotors": 9,
+  "mw": 547.0730000000001,
+  "npeaks": 129,
+  "noise": 6.109090909090865,
+  "chiral": true
+ },
+ {
+  "id": "Xebbd488",
+  "wl": 1.54059,
+  "heavy": 71,
+  "rotors": 20,
+  "mw": 1026.967,
+  "npeaks": 68,
+  "noise": 49.09090909090909,
+  "chiral": true
+ },
+ {
+  "id": "Xedd9c7b",
+  "wl": 1.540598,
+  "heavy": 19,
+  "rotors": 5,
+  "mw": 284.252,
+  "npeaks": 20,
+  "noise": 15.151515151515152,
+  "chiral": false
+ },
+ {
+  "id": "Xf8ac963",
+  "wl": 0.46873,
+  "heavy": 21,
+  "rotors": 4,
+  "mw": 289.419,
+  "npeaks": 138,
+  "noise": 1.6778787878787942,
+  "chiral": true
+ },
+ {
+  "id": "Xfca9f3c",
+  "wl": 0.80025,
+  "heavy": 26,
+  "rotors": 22,
+  "mw": 366.71800000000025,
+  "npeaks": 46,
+  "noise": 0.02363636363635592,
+  "chiral": true
+ }
+]

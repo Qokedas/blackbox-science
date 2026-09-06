@@ -1,0 +1,106 @@
+data_ref
+loop_
+_atom_type_symbol
+_atom_type_description
+_atom_type_scat_dispersion_real
+_atom_type_scat_dispersion_imag
+_atom_type_scat_source
+'Cl' 'Cl' 0.3639 0.7018 'International Tables Vol C Tables 4.2.6.8 and 6.1.1.4'
+'O' 'O' 0.0492 0.0322 'International Tables Vol C Tables 4.2.6.8 and 6.1.1.4'
+'N' 'N' 0.0311 0.0180 'International Tables Vol C Tables 4.2.6.8 and 6.1.1.4'
+'C' 'C' 0.0181 0.0091 'International Tables Vol C Tables 4.2.6.8 and 6.1.1.4'
+'H' 'H' 0.0000 0.0000 'International Tables Vol C Tables 4.2.6.8 and 6.1.1.4'
+
+_symmetry_cell_setting monoclinic
+_symmetry_space_group_name_H-M 'P 21'
+_symmetry_space_group_name_Hall 'P 2yb'
+
+loop_
+_symmetry_equiv_pos_as_xyz
+'x, y, z'
+'-x, y+1/2, -z'
+
+_cell_length_a 21.7202(15)
+_cell_length_b 5.0077(14)
+_cell_length_c 11.8457(17)
+_cell_angle_alpha 90.00
+_cell_angle_beta 93.954(13)
+_cell_angle_gamma 90.00
+_cell_volume 1285.4(4)
+_cell_formula_units_Z 2
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_U_iso_or_equiv
+_atom_site_adp_type
+_atom_site_occupancy
+_atom_site_symmetry_multiplicity
+_atom_site_calc_flag
+_atom_site_disorder_assembly
+_atom_site_disorder_group
+Cl1 Cl 0.56380(13) 0.8295(12) 0.4633(2) 0.097(5) Uiso 1 1 d . .
+O1 O 0.8551(3) 0.413(3) 0.4592(5) 0.097(5) Uiso 1 1 d . .
+O2 O 0.7945(3) 0.303(3) 0.9746(5) 0.097(5) Uiso 1 1 d . .
+O3 O 0.8254(3) 0.516(2) 1.1328(5) 0.097(5) Uiso 1 1 d . .
+O4 O 0.6834(3) 0.301(3) 1.2370(5) 0.097(5) Uiso 1 1 d . .
+H4 H 0.6487 0.3665 1.2347 0.146 Uiso 1 1 calc . .
+O5 O 0.7083(3) 0.665(3) 1.1405(5) 0.097(5) Uiso 1 1 d . .
+O6 O 1.0351(3) -0.289(3) 0.8211(5) 0.097(5) Uiso 1 1 d . .
+N1 N 0.8502(3) 0.367(3) 0.6459(6) 0.097(5) Uiso 1 1 d . .
+C1 C 0.6376(4) 0.700(4) 0.4857(8) 0.097(5) Uiso 1 1 d . .
+C2 C 0.6859(4) 0.815(5) 0.4295(7) 0.097(5) Uiso 1 1 d . .
+H2 H 0.6783 0.9552 0.3789 0.117 Uiso 1 1 calc . .
+C3 C 0.7447(4) 0.717(4) 0.4507(8) 0.097(5) Uiso 1 1 d . .
+H3 H 0.7773 0.8011 0.4184 0.116 Uiso 1 1 calc . .
+C4 C 0.7568(4) 0.493(4) 0.5193(7) 0.097(5) Uiso 1 1 d . .
+C5 C 0.7098(5) 0.379(4) 0.5778(8) 0.097(5) Uiso 1 1 d . .
+H5 H 0.7180 0.2389 0.6281 0.116 Uiso 1 1 calc . .
+C6 C 0.6488(4) 0.483(4) 0.5586(8) 0.097(5) Uiso 1 1 d . .
+H6 H 0.6164 0.4056 0.5945 0.116 Uiso 1 1 calc . .
+C7 C 0.8210(5) 0.392(4) 0.5367(8) 0.097(5) Uiso 1 1 d . .
+C8 C 0.8361(5) 0.506(4) 0.7451(9) 0.097(5) Uiso 1 1 d . .
+C9 C 0.7897(4) 0.717(4) 0.7508(7) 0.097(5) Uiso 1 1 d . .
+H9A H 0.7659 0.7284 0.6796 0.146 Uiso 1 1 calc . .
+H9B H 0.8099 0.8846 0.7669 0.146 Uiso 1 1 calc . .
+H9C H 0.7629 0.6761 0.8096 0.146 Uiso 1 1 calc . .
+C10 C 0.8789(5) 0.432(4) 0.8319(9) 0.097(5) Uiso 1 1 d . .
+C11 C 0.9155(4) 0.217(4) 0.7887(8) 0.097(5) Uiso 1 1 d . .
+C12 C 0.8974(5) 0.185(4) 0.6741(8) 0.097(5) Uiso 1 1 d . .
+C13 C 0.9264(4) -0.006(4) 0.6092(8) 0.097(5) Uiso 1 1 d . .
+H13 H 0.9140 -0.0273 0.5330 0.116 Uiso 1 1 calc . .
+C14 C 0.9740(5) -0.165(5) 0.6589(8) 0.097(5) Uiso 1 1 d . .
+H14 H 0.9927 -0.2939 0.6165 0.116 Uiso 1 1 calc . .
+C15 C 0.9930(4) -0.126(4) 0.7728(8) 0.097(5) Uiso 1 1 d . .
+C16 C 0.9639(4) 0.061(4) 0.8380(8) 0.097(5) Uiso 1 1 d . .
+H16 H 0.9765 0.0820 0.9141 0.116 Uiso 1 1 calc . .
+C17 C 1.0624(5) -0.473(4) 0.7506(8) 0.097(5) Uiso 1 1 d . .
+H17A H 1.0919 -0.5793 0.7948 0.146 Uiso 1 1 calc . .
+H17B H 1.0828 -0.3792 0.6932 0.146 Uiso 1 1 calc . .
+H17C H 1.0311 -0.5873 0.7155 0.146 Uiso 1 1 calc . .
+C18 C 0.8830(5) 0.534(4) 0.9528(8) 0.097(5) Uiso 1 1 d . .
+H18A H 0.8842 0.7273 0.9507 0.117 Uiso 1 1 calc . .
+H18B H 0.9218 0.4735 0.9896 0.117 Uiso 1 1 calc . .
+C19 C 0.8314(5) 0.450(4) 1.0253(9) 0.097(5) Uiso 1 1 d . .
+C20 C 0.7843(4) 0.336(5) 1.1860(8) 0.097(5) Uiso 1 1 d . .
+H20A H 0.7995 0.3050 1.2639 0.116 Uiso 1 1 calc . .
+H20B H 0.7832 0.1655 1.1469 0.116 Uiso 1 1 calc . .
+C21 C 0.7192(5) 0.453(4) 1.1832(8) 0.097(5) Uiso 1 1 d . .
+O7 O 0.5716(3) 0.438(3) 1.2288(5) 0.115(6) Uiso 1 1 d . .
+N2 N 0.5803(4) 0.809(4) 1.1242(7) 0.115(6) Uiso 1 1 d . .
+H2A H 0.6198 0.8102 1.1354 0.138 Uiso 1 1 calc . .
+H2B H 0.5619 0.9305 1.0835 0.138 Uiso 1 1 calc . .
+N3 N 0.4553(4) 0.854(4) 1.0955(7) 0.115(6) Uiso 1 1 d . .
+C22 C 0.5481(5) 0.620(4) 1.1692(8) 0.115(6) Uiso 1 1 d . .
+C23 C 0.4788(5) 0.658(4) 1.1617(9) 0.115(6) Uiso 1 1 d . .
+C24 C 0.4433(5) 0.485(4) 1.2210(9) 0.115(6) Uiso 1 1 d . .
+H24 H 0.4612 0.3504 1.2660 0.138 Uiso 1 1 calc . .
+C25 C 0.3791(4) 0.522(4) 1.2106(8) 0.115(6) Uiso 1 1 d . .
+H25 H 0.3535 0.4159 1.2516 0.138 Uiso 1 1 calc . .
+C26 C 0.3548(4) 0.715(4) 1.1397(8) 0.115(6) Uiso 1 1 d . .
+H26 H 0.3123 0.7332 1.1279 0.138 Uiso 1 1 calc . .
+C27 C 0.3935(5) 0.881(5) 1.0857(8) 0.115(6) Uiso 1 1 d . .
+H27 H 0.3764 1.0182 1.0407 0.138 Uiso 1 1 calc . .

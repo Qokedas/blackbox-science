@@ -1,0 +1,32 @@
+ObjRegistry<T>::Find(ion_C): Not found !!
+List of Crystal ScatteringPowers :0 object registered:
+/opt/conda/lib/python3.11/site-packages/monty/design_patterns.py:76: UserWarning: Full symbol not available, falling back to short Hermann Mauguin symbol P12_1/a1 instead
+  orig_init(instance, *args, **kwargs)
+EXACT_PAWLEY nref 303 rank 271 cond 918.9518151168392 chi2 11631.875806528547 netRwp 0.07855541989326903
+ZM CN(C)C(=O)C(CC[NH+]1CCC(O)(c2ccc(Cl)cc2)CC1)(c1ccccc1)c1ccccc1 n 34 torsions 7 max_distance_error 1.9115407923209204e-08
+ZM [Cl-] n 1 torsions 0 max_distance_error 0.0
+GENERIC_SYMMETRY P 1 21/a 1
+Total degrees of freedom: 17
+Total external degrees of freedom: 10 (pos: 6 rot: 4 )
+Total internal degrees of freedom: 7
+PREPARED Xbfeeda9 Nref 303 PawleyRw 0.04633768027665172 SG P 1 21/a 1
+FAST_SYMMETRY P 1 21/a 1 mono14 max_relative_error 1.141254074354947e-06
+ATTACHED_H_SCATTERING 35 heavy atoms 34 H atoms
+PACKING_ENABLED 35 atoms 4120 pair terms coefficient 50.0
+HBOND_PRIOR 2 donors 3 acceptors coefficient 10.0
+  0%|          | 0/5 [00:00<?, ?it/s]100%|██████████| 5/5 [00:00<00:00, 1650.91it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 100 seconds 201.9081244468689 best 327.6044 q25 472.96216 median 528.5221 total 201.91527652740479
+GALLOP 1 Nref 132 seconds 221.17007756233215 best 311.49615 q25 400.19025 median 473.81384 total 423.22599482536316
+GALLOP 2 Nref 167 seconds 228.50864243507385 best 206.35104 q25 366.97208 median 452.8956 total 651.9196012020111
+GALLOP 3 Nref 204 seconds 222.09518456459045 best 187.45094 q25 327.1311 median 414.35654 total 874.1395015716553
+GALLOP 4 Nref 240 seconds 233.9164800643921 best 186.19278 q25 317.51562 median 394.69452 total 1108.2346739768982
+GALLOP 5 Nref 277 seconds 224.52726554870605 best 183.895 q25 319.86774 median 458.11368 total 1332.9399344921112
+GALLOP 6 Nref 303 seconds 267.1981439590454 best 183.77046 q25 315.00333 median 421.17133 total 1600.310879945755
+GALLOP 7 Nref 303 seconds 253.10305166244507 best 183.77037 q25 278.16922 median 410.4281 total 1853.5449752807617
+GALLOP 8 Nref 303 seconds 278.39205598831177 best 183.77058 q25 201.673 median 386.83435 total 2132.1150455474854
+GALLOP 9 Nref 303 seconds 257.13540840148926 best 183.77058 q25 200.32755 median 390.89252 total 2389.32950091362
+FINISHED Xbfeeda9 183.77037048339844

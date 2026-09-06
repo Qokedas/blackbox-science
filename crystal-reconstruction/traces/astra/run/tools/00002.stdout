@@ -1,0 +1,1260 @@
+
+--- X019b9a4 ---
+{
+ "components": [
+  {
+   "smiles": "CC(=O)C(=NNc1ccc(C(=O)Nc2ccc(C(N)=O)cc2)cc1)C(=O)Nc1ccc2[nH]c(=O)[nH]c2c1",
+   "count": 1,
+   "charge": 0
+  },
+  {
+   "smiles": "CN1CCCC1=O",
+   "count": 1,
+   "charge": 0
+  },
+  {
+   "smiles": "C[S+](C)[O-]",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}
+{
+ "radiation": {
+  "type": "Cu K1",
+  "wavelength_A": 1.54056,
+  "wavelengths_A": [
+   1.54056
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": "sealed x-ray tube"
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 298.0,
+ "two_theta_range_deg": [
+  3.0,
+  33.98
+ ],
+ "n_points": 1550,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}
+
+--- X07806d9 ---
+{
+ "components": [
+  {
+   "smiles": "[NH3+]CC(=O)CCC(=O)O",
+   "count": 1,
+   "charge": 1
+  },
+  {
+   "smiles": "[Cl-]",
+   "count": 1,
+   "charge": -1
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}
+{
+ "radiation": {
+  "type": "synchrotron",
+  "wavelength_A": 0.81933,
+  "wavelengths_A": [
+   0.81933
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 298.0,
+ "two_theta_range_deg": [
+  0.5008,
+  75.0383
+ ],
+ "n_points": 29816,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "sqrt(max(I,1)); counting statistics assumed",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}
+
+--- X13023e3 ---
+{
+ "components": [
+  {
+   "smiles": "CC(C)Cc1ccc([C@@H](C)C(=O)O)cc1",
+   "count": 1,
+   "charge": 0
+  },
+  {
+   "smiles": "NC(=O)c1cccnc1",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}
+{
+ "radiation": {
+  "type": "synchrotron",
+  "wavelength_A": 0.728302,
+  "wavelengths_A": [
+   0.728302
+  ],
+  "wavelength_weights": null,
+  "monochromator": "?",
+  "source": "synchrotron"
+ },
+ "geometry": "not stated",
+ "geometry_source_text": null,
+ "temperature_K": 293.0,
+ "two_theta_range_deg": [
+  2.015,
+  40.299
+ ],
+ "n_points": 9572,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}
+
+--- X14a2b08 ---
+{
+ "components": [
+  {
+   "smiles": "COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1",
+   "count": 1,
+   "charge": 0
+  },
+  {
+   "smiles": "O=C1CCCCCN1",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}
+{
+ "radiation": {
+  "type": "CuK",
+  "wavelength_A": 1.5418,
+  "wavelengths_A": [
+   1.5418
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": "Fine focus X-ray tube"
+ },
+ "geometry": "reflection (flat plate / Bragg-Brentano)",
+ "geometry_source_text": null,
+ "temperature_K": 298.0,
+ "two_theta_range_deg": [
+  3.0,
+  80.0
+ ],
+ "n_points": 9626,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": [
+  "the depositors recorded Cu K-alpha as a single wavelength 1.5418 A (the K-alpha1/K-alpha2 weighted mean); whether the K-alpha2 component is present in the data is not stated"
+ ]
+}
+
+--- X1a56c78 ---
+{
+ "components": [
+  {
+   "smiles": "O[C@](CC[NH+]1CCCCC1)(c1ccccc1)C1CCCCC1",
+   "count": 1,
+   "charge": 1
+  },
+  {
+   "smiles": "[Cl-]",
+   "count": 1,
+   "charge": -1
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}
+{
+ "radiation": {
+  "type": "Cu K",
+  "wavelength_A": 1.5418,
+  "wavelengths_A": [
+   1.5418
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "reflection (flat plate / Bragg-Brentano)",
+ "geometry_source_text": null,
+ "temperature_K": 298.0,
+ "two_theta_range_deg": [
+  5.0,
+  104.86
+ ],
+ "n_points": 4994,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "sqrt(max(I,1)); counting statistics assumed",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": [
+  "the depositors recorded Cu K-alpha as a single wavelength 1.5418 A (the K-alpha1/K-alpha2 weighted mean); whether the K-alpha2 component is present in the data is not stated"
+ ]
+}
+
+--- X1db5091 ---
+{
+ "components": [
+  {
+   "smiles": "COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1",
+   "count": 1,
+   "charge": 0
+  },
+  {
+   "smiles": "NC(=O)c1cccnc1",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}
+{
+ "radiation": {
+  "type": "CuK1",
+  "wavelength_A": 1.54059,
+  "wavelengths_A": [
+   1.54059
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": "Fine focus X-ray tube"
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 298.0,
+ "two_theta_range_deg": [
+  3.0,
+  75.0
+ ],
+ "n_points": 7201,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}
+
+--- X2327841 ---
+{
+ "components": [
+  {
+   "smiles": "CCCCCCCCCCCCCCCCCCCCCC[C@@H](C)CCCCCCCC",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}
+{
+ "radiation": {
+  "type": "Synchrotron ID31 at ESRF",
+  "wavelength_A": 0.80105,
+  "wavelengths_A": [
+   0.80105
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "not stated",
+ "geometry_source_text": null,
+ "temperature_K": 100.0,
+ "two_theta_range_deg": [
+  1.5,
+  39.999
+ ],
+ "n_points": 12834,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}
+
+--- X238783d ---
+{
+ "components": [
+  {
+   "smiles": "CC[C@H]1OC(=O)[C@H](C)[C@@H](O[C@H]2C[C@@](C)(OC)[C@@H](O)[C@H](C)O2)[C@H](C)[C@@H](O[C@@H]2O[C@H](C)C[C@H](N(C)C)[C@H]2O)[C@](C)(OC)C[C@@H](C)C(=O)[C@H](C)[C@@H](O)[C@]1(C)O",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}
+{
+ "radiation": {
+  "type": "Cu K1",
+  "wavelength_A": 1.54056,
+  "wavelengths_A": [
+   1.54056
+  ],
+  "wavelength_weights": null,
+  "monochromator": "\nprimary focussing Ge 111",
+  "source": "sealed x-ray tube"
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 298.0,
+ "two_theta_range_deg": [
+  2.0,
+  69.0
+ ],
+ "n_points": 6701,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}
+
+--- X263b09a ---
+{
+ "components": [
+  {
+   "smiles": "COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1",
+   "count": 1,
+   "charge": 0
+  },
+  {
+   "smiles": "O=C1CCCCN1",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}
+{
+ "radiation": {
+  "type": "CuK1",
+  "wavelength_A": 1.54059,
+  "wavelengths_A": [
+   1.54059
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": "Fine focus X-ray tube"
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 298.0,
+ "two_theta_range_deg": [
+  3.0,
+  75.0
+ ],
+ "n_points": 7201,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}
+
+--- X35b7fbc ---
+{
+ "components": [
+  {
+   "smiles": "CC[C@@H](CO)NC(=O)[C@@H]1C=C2c3cccc4[nH]cc(c34)C[C@H]2[NH+](C)C1",
+   "count": 1,
+   "charge": 1
+  },
+  {
+   "smiles": "O=C([O-])C=CC(=O)O",
+   "count": 1,
+   "charge": -1
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}
+{
+ "radiation": {
+  "type": "synchrotron",
+  "wavelength_A": 0.6996,
+  "wavelengths_A": [
+   0.6996
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 293.0,
+ "two_theta_range_deg": [
+  0.515,
+  29.49
+ ],
+ "n_points": 11591,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "sqrt(max(I,1)); counting statistics assumed",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}
+
+--- X3c176e2 ---
+{
+ "components": [
+  {
+   "smiles": "OC1C(O)C(O)C(O)C(O)C1O",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}
+{
+ "radiation": {
+  "type": "Cu K1",
+  "wavelength_A": 1.54056,
+  "wavelengths_A": [
+   1.54056
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": "sealed x-ray tube"
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 293.0,
+ "two_theta_range_deg": [
+  2.0,
+  79.99
+ ],
+ "n_points": 7800,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "sqrt(max(I,1)); counting statistics assumed",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}
+
+--- X3f4781b ---
+{
+ "components": [
+  {
+   "smiles": "COC(=O)[C@H](c1ccccc1Cl)[NH+]1CCc2sccc2C1",
+   "count": 1,
+   "charge": 1
+  },
+  {
+   "smiles": "O=S(=O)([O-])O",
+   "count": 1,
+   "charge": -1
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}
+{
+ "radiation": {
+  "type": "CuK1",
+  "wavelength_A": 1.54059,
+  "wavelengths_A": [
+   1.54059
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 295.0,
+ "two_theta_range_deg": [
+  4.0,
+  90.0
+ ],
+ "n_points": 8601,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}
+
+--- X4f6fe58 ---
+{
+ "components": [
+  {
+   "smiles": "O=C1CN=C(c2ccccc2Cl)c2cc(Br)ccc2N1",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}
+{
+ "radiation": {
+  "type": "CuK1",
+  "wavelength_A": 1.54059,
+  "wavelengths_A": [
+   1.54059
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 295.0,
+ "two_theta_range_deg": [
+  5.0,
+  80.0
+ ],
+ "n_points": 7501,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}
+
+--- X7e382cb ---
+{
+ "components": [
+  {
+   "smiles": "O=C([O-])c1ccc(-c2ccc(C(=O)[O-])cc2)cc1",
+   "count": 1,
+   "charge": -2
+  },
+  {
+   "smiles": "[NH4+]",
+   "count": 2,
+   "charge": 1
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}
+{
+ "radiation": {
+  "type": "Mo Kalpha1,2 (laboratory sealed tube)",
+  "wavelength_A": 0.709319,
+  "wavelengths_A": [
+   0.709319,
+   0.713609
+  ],
+  "wavelength_weights": [
+   1.0,
+   0.5
+  ],
+  "monochromator": null,
+  "source": "sealed X-ray tube"
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 300.0,
+ "two_theta_range_deg": [
+  1.0125,
+  49.987
+ ],
+ "n_points": 5862,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "sqrt(max(I,1)); counting statistics assumed",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": [
+  "Kalpha2 weight 0.5 is the standard ratio; the depositors state only Kalpha1,2"
+ ]
+}
+
+--- X8a06d7a ---
+{
+ "components": [
+  {
+   "smiles": "COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1",
+   "count": 1,
+   "charge": 0
+  },
+  {
+   "smiles": "NC(=O)c1ccccn1",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}
+{
+ "radiation": {
+  "type": "CuK",
+  "wavelength_A": 1.5418,
+  "wavelengths_A": [
+   1.5418
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": "Fine focus X-ray tube"
+ },
+ "geometry": "reflection (flat plate / Bragg-Brentano)",
+ "geometry_source_text": null,
+ "temperature_K": 298.0,
+ "two_theta_range_deg": [
+  3.001,
+  80.011
+ ],
+ "n_points": 4531,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": [
+  "the depositors recorded Cu K-alpha as a single wavelength 1.5418 A (the K-alpha1/K-alpha2 weighted mean); whether the K-alpha2 component is present in the data is not stated"
+ ]
+}
+
+--- X8a6f5a8 ---
+{
+ "components": [
+  {
+   "smiles": "COc1ccccc1OCC[NH2+]C[C@@H](O)COc1cccc2[nH]c3ccccc3c12",
+   "count": 1,
+   "charge": 1
+  },
+  {
+   "smiles": "O=P([O-])(O)O",
+   "count": 1,
+   "charge": -1
+  },
+  {
+   "smiles": "CC(C)O",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}
+{
+ "radiation": {
+  "type": "CuK1",
+  "wavelength_A": 1.54059,
+  "wavelengths_A": [
+   1.54059
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 295.0,
+ "two_theta_range_deg": [
+  3.5,
+  85.0
+ ],
+ "n_points": 8151,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}
+
+--- X9af54a2 ---
+{
+ "components": [
+  {
+   "smiles": "COc1ccc(OC)c([C@H](O)CNC(=O)C[NH3+])c1",
+   "count": 1,
+   "charge": 1
+  },
+  {
+   "smiles": "[Cl-]",
+   "count": 1,
+   "charge": -1
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}
+{
+ "radiation": {
+  "type": "synchrotron",
+  "wavelength_A": 0.46873,
+  "wavelengths_A": [
+   0.46873
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 295.0,
+ "two_theta_range_deg": [
+  0.51,
+  49.995
+ ],
+ "n_points": 49486,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "sqrt(max(I,1)); counting statistics assumed",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}
+
+--- Xb7088cf ---
+{
+ "components": [
+  {
+   "smiles": "Nc1ccccc1NC(=O)c1ccc(CNC(=O)OCc2cccnc2)cc1",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}
+{
+ "radiation": {
+  "type": "Mo Kalpha1,2 (laboratory sealed tube)",
+  "wavelength_A": 0.709319,
+  "wavelengths_A": [
+   0.709319,
+   0.713609
+  ],
+  "wavelength_weights": [
+   1.0,
+   0.5
+  ],
+  "monochromator": null,
+  "source": "sealed X-ray tube"
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 300.0,
+ "two_theta_range_deg": [
+  1.0067,
+  49.9958
+ ],
+ "n_points": 5864,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "sqrt(max(I,1)); counting statistics assumed",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": [
+  "Kalpha2 weight 0.5 is the standard ratio; the depositors state only Kalpha1,2"
+ ]
+}
+
+--- Xbfc6d2c ---
+{
+ "components": [
+  {
+   "smiles": "[C-]#[N+]c1ccc(-c2ccc([N+]#[C-])c(C)c2)cc1C",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}
+{
+ "radiation": {
+  "type": "Cu K1",
+  "wavelength_A": 1.5406,
+  "wavelengths_A": [
+   1.5406
+  ],
+  "wavelength_weights": null,
+  "monochromator": "curved Ge(111)",
+  "source": "sealed X-ray tube"
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 298.0,
+ "two_theta_range_deg": [
+  5.0,
+  89.98
+ ],
+ "n_points": 4250,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "sqrt(max(I,1)); counting statistics assumed",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}
+
+--- Xbfeeda9 ---
+{
+ "components": [
+  {
+   "smiles": "CN(C)C(=O)C(CC[NH+]1CCC(O)(c2ccc(Cl)cc2)CC1)(c1ccccc1)c1ccccc1",
+   "count": 1,
+   "charge": 1
+  },
+  {
+   "smiles": "[Cl-]",
+   "count": 1,
+   "charge": -1
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}
+{
+ "radiation": {
+  "type": "Cu K1",
+  "wavelength_A": 1.54056,
+  "wavelengths_A": [
+   1.54056
+  ],
+  "wavelength_weights": null,
+  "monochromator": "\nprimary focussing Ge 111",
+  "source": "sealed x-ray tube"
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 298.0,
+ "two_theta_range_deg": [
+  2.0,
+  100.19
+ ],
+ "n_points": 9820,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}
+
+--- Xd4c1a35 ---
+{
+ "components": [
+  {
+   "smiles": "COC1=CC(=O)C[C@@H](C)[C@]12Oc1c(Cl)c(OC)cc(OC)c1C2=O",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}
+{
+ "radiation": {
+  "type": "synchrotron",
+  "wavelength_A": 1.23922,
+  "wavelengths_A": [
+   1.23922
+  ],
+  "wavelength_weights": null,
+  "monochromator": "?",
+  "source": "?"
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 293.0,
+ "two_theta_range_deg": [
+  5.05,
+  60.04
+ ],
+ "n_points": 5499,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}
+
+--- Xd8634a2 ---
+{
+ "components": [
+  {
+   "smiles": "CNS(=O)(=O)Nc1nccc(Cc2c(C)c3ccc(Oc4ncccn4)cc3oc2=O)c1F",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}
+{
+ "radiation": {
+  "type": "synchrotron",
+  "wavelength_A": 0.46873,
+  "wavelengths_A": [
+   0.46873
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 295.0,
+ "two_theta_range_deg": [
+  0.51,
+  49.995
+ ],
+ "n_points": 49486,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "sqrt(max(I,1)); counting statistics assumed",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}
+
+--- Xdcc971e ---
+{
+ "components": [
+  {
+   "smiles": "CCCCCCCCCCCCCCCC[C@@H](C)CCCCCCCCCCCC",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}
+{
+ "radiation": {
+  "type": "Synchrotron ID31 at ESRF",
+  "wavelength_A": 0.80105,
+  "wavelengths_A": [
+   0.80105
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "not stated",
+ "geometry_source_text": null,
+ "temperature_K": 100.0,
+ "two_theta_range_deg": [
+  2.001,
+  39.999
+ ],
+ "n_points": 12667,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}
+
+--- Xe1fb77b ---
+{
+ "components": [
+  {
+   "smiles": "O=C(/C=C/c1ccc(O)c(O)c1)O[C@@H]1C[C@@](OC(=O)/C=C/c2ccc(O)c(O)c2)(C(=O)O)C[C@@H](O)[C@@H]1O",
+   "count": 1,
+   "charge": 0
+  },
+  {
+   "smiles": "O",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}
+{
+ "radiation": {
+  "type": "synchrotron",
+  "wavelength_A": 0.45815,
+  "wavelengths_A": [
+   0.45815
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": "synchrotron"
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 295.0,
+ "two_theta_range_deg": [
+  0.5,
+  49.9965
+ ],
+ "n_points": 49575,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "sqrt(max(I,1)); counting statistics assumed",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}
+
+--- Xe3a2935 ---
+{
+ "components": [
+  {
+   "smiles": "C[C@@H]1CC(=O)NN=C1c1ccc(NN=C(C#N)C#N)cc1",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}
+{
+ "radiation": {
+  "type": "synchrotron",
+  "wavelength_A": 0.46873,
+  "wavelengths_A": [
+   0.46873
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 295.0,
+ "two_theta_range_deg": [
+  0.51,
+  49.995
+ ],
+ "n_points": 49486,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "sqrt(max(I,1)); counting statistics assumed",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}
+
+--- Xeb393f9 ---
+{
+ "components": [
+  {
+   "smiles": "O=C(O)CCC[NH+]1CCC(O[C@@H](c2ccc(Cl)cc2)c2ccccn2)CC1",
+   "count": 1,
+   "charge": 1
+  },
+  {
+   "smiles": "O=S(=O)([O-])c1ccccc1",
+   "count": 1,
+   "charge": -1
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}
+{
+ "radiation": {
+  "type": "synchrotron",
+  "wavelength_A": 0.81933,
+  "wavelengths_A": [
+   0.81933
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 298.0,
+ "two_theta_range_deg": [
+  0.5008,
+  75.0383
+ ],
+ "n_points": 29816,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "sqrt(max(I,1)); counting statistics assumed",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}
+
+--- Xebbd488 ---
+{
+ "components": [
+  {
+   "smiles": "COc1ccccc1OCC[NH2+]C[C@H](O)COc1cccc2[nH]c3ccccc3c12",
+   "count": 2,
+   "charge": 1
+  },
+  {
+   "smiles": "O=P([O-])(O)O",
+   "count": 2,
+   "charge": -1
+  },
+  {
+   "smiles": "O",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}
+{
+ "radiation": {
+  "type": "CuK1",
+  "wavelength_A": 1.54059,
+  "wavelengths_A": [
+   1.54059
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 295.0,
+ "two_theta_range_deg": [
+  5.0,
+  75.0
+ ],
+ "n_points": 7001,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}
+
+--- Xedd9c7b ---
+{
+ "components": [
+  {
+   "smiles": "C[NH+](C)CCc1c[nH]c2cccc(OP(=O)([O-])O)c12",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}
+{
+ "radiation": {
+  "type": "Cu Kalpha1 (laboratory, monochromatic per the paper: Bruker D8 Advance, LynxEye)",
+  "wavelength_A": 1.540598,
+  "wavelengths_A": [
+   1.540598
+  ],
+  "wavelength_weights": null,
+  "monochromator": "monochromatic incident beam (paper)",
+  "source": "sealed X-ray tube"
+ },
+ "geometry": "reflection (flat plate / Bragg-Brentano)",
+ "geometry_source_text": null,
+ "temperature_K": 300.0,
+ "two_theta_range_deg": [
+  3.0066,
+  39.9938
+ ],
+ "n_points": 2818,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": [
+  "depositors tagged the radiation K-alpha1,2; the paper states monochromatic 1.5406 A and the deposited profile is consistent with a single wavelength"
+ ]
+}
+
+--- Xf8ac963 ---
+{
+ "components": [
+  {
+   "smiles": "COc1ccc(NC(=O)[C@@H]2C[C@H](C)CC[C@H]2C(C)C)cc1",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}
+{
+ "radiation": {
+  "type": "synchrotron",
+  "wavelength_A": 0.46873,
+  "wavelengths_A": [
+   0.46873
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 295.0,
+ "two_theta_range_deg": [
+  0.51,
+  49.995
+ ],
+ "n_points": 49486,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "sqrt(max(I,1)); counting statistics assumed",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}
+
+--- Xfca9f3c ---
+{
+ "components": [
+  {
+   "smiles": "CCCCCCCCCCCCCCCC[C@@H](C)CCCCCCCC",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}
+{
+ "radiation": {
+  "type": "Synchrotron ID31 at ESRF",
+  "wavelength_A": 0.80025,
+  "wavelengths_A": [
+   0.80025
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "not stated",
+ "geometry_source_text": null,
+ "temperature_K": 80.0,
+ "two_theta_range_deg": [
+  1.5,
+  39.999
+ ],
+ "n_points": 12834,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}

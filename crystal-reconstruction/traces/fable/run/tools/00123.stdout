@@ -1,0 +1,31 @@
+== X9af54a2
+X9af54a2 P 1 2/m 1 Rwp=0.0911 nrefl=160
+--- absences : 21 reflections used (stol<=0.111)
+00l: l odd (2_1 c)           4    0.103     3    1.272   0.081 (weak)
+h0l: l odd (c_b)             8    0.070     6    1.019   0.069 <== ABSENT?
+--- absences : 160 reflections used (stol<=0.221)
+0k0: k odd (2_1 b)           2    0.000     1    0.085   0.004 <== ABSENT?
+00l: l odd (2_1 c)           7    0.037     7    1.819   0.020 <== ABSENT?
+h0l: l odd (c_b)            27    0.066    27    1.339   0.049 <== ABSENT?
+== Xe1fb77b
+Xe1fb77b P 1 2/m 1 Rwp=0.0791 nrefl=138
+--- absences : 20 reflections used (stol<=0.114)
+0k0: k odd (2_1 b)           2    0.024     1    0.516   0.047 <== ABSENT?
+hk0: h+k odd (n_c)           4    0.305     2    1.532   0.199 (weak)
+--- absences : 138 reflections used (stol<=0.228)
+0k0: k odd (2_1 b)           4    0.025     3    3.923   0.006 <== ABSENT?
+hk0: h+k odd (n_c)          10    0.400     9    2.196   0.182 (weak)
+== Xd4c1a35
+Xd4c1a35 P 2 2 2 Rwp=0.0865 nrefl=179
+--- absences : 33 reflections used (stol<=0.104)
+00l: l odd (2_1 c)           3    0.000     2    7.026   0.000 <== ABSENT?
+0kl: k odd (b_a)             5    0.067     8    2.458   0.027 <== ABSENT?
+h0l: h odd (a_b)             5    0.220     9    1.721   0.128 (weak)
+h0l: l odd (c_b)             7    0.213     7    2.156   0.099 (weak)
+h0l: h+l odd (n_b)           8    0.232     6    2.455   0.095 (weak)
+--- absences : 179 reflections used (stol<=0.208)
+h00: h odd (2_1 a)           3    0.014     2    0.801   0.017 <== ABSENT?
+0k0: k odd (2_1 b)           2    0.003     2    0.729   0.004 <== ABSENT?
+00l: l odd (2_1 c)           5    0.005     5    3.839   0.001 <== ABSENT?
+0kl: k odd (b_a)            19    0.433    26    2.538   0.170 (weak)
+h0l: h+l odd (n_b)          24    0.241    23    1.375   0.175 (weak)

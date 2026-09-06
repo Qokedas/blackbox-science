@@ -1,0 +1,23 @@
+Xeb393f9 MONOCLINIC C 0 peaks [4.94328, 5.27706, 6.68293, 6.7383, 6.82834, 6.92831, 7.0894, 7.71364, 9.40682, 9.71197, 9.93455, 10.2495, 10.35728, 10.49235, 10.59787, 11.04598, 11.58152, 11.72869, 11.85043, 12.27556, 12.57856, 12.8808] V 1201.39697265625 5328 Lmax 48.9041937512574
+3->48.9042,1.83618,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+1201.4->5328,458.517,8.9999
+Starting: V=1201.4->1659.91
+Finished: V=1201.4->1659.91 A^3, 5951 unit cells tested, 218972 tests/s,   Elapsed time=0.027185s
+Starting: V=1659.91->2118.43
+Finished: V=1659.91->2118.43 A^3, 17582 unit cells tested, 261438 tests/s,   Elapsed time=0.067261s
+Starting: V=2118.43->2576.95
+Finished: V=2118.43->2576.95 A^3, 46601 unit cells tested, 363414 tests/s,   Elapsed time=0.128239s
+Starting: V=2576.95->3035.46
+Finished: V=2576.95->3035.46 A^3, 105314 unit cells tested, 490778 tests/s,   Elapsed time=0.214594s
+Starting: V=3035.46->3493.98
+Finished: V=3035.46->3493.98 A^3, 189346 unit cells tested, 582565 tests/s,   Elapsed time=0.325031s
+Starting: V=3493.98->3952.5
+Finished: V=3493.98->3952.5 A^3, 306601 unit cells tested, 661742 tests/s,   Elapsed time=0.463333s
+Starting: V=3952.5->4411.01
+Finished: V=3952.5->4411.01 A^3, 458513 unit cells tested, 730043 tests/s,   Elapsed time=0.628071s
+Starting: V=4411.01->4869.53
+Finished: V=4411.01->4869.53 A^3, 651050 unit cells tested, 787411 tests/s,   Elapsed time=0.826833s
+Starting: V=4869.53->5328
+Finished: V=4869.53->5328 A^3, 904880 unit cells tested, 848473 tests/s,   Elapsed time=1.06649s
+DONE Xeb393f9 MONOCLINIC C 0 1.0666594505310059 []

@@ -1,0 +1,29 @@
+3
+3
+X1db5091,X2327841,X238783d,X263b09a,X35b7fbc,X3c176e2,X3f4781b,X4f6fe58,X7e382cb,X8a06d7a,X8a6f5a8,X9af54a2,Xb7088cf,Xbfc6d2c,Xbfeeda9,Xd4c1a35,Xd8634a2,Xdcc971e,Xe1fb77b,Xe3a2935,Xeb393f9,Xebbd488,Xedd9c7b,Xf8ac963,Xfca9f3c
+X019b9a4/g2index_monoC_20.txt
+X019b9a4/g2index_monoP_20.txt
+X019b9a4/g2index_ortho_20.txt
+X07806d9/g2index_monoC_20.txt
+X07806d9/g2index_monoP_20.txt
+X07806d9/g2index_ortho_20.txt
+X13023e3/g2index_monoC_20.txt
+X13023e3/g2index_monoP_20.txt
+X13023e3/g2index_ortho_20.txt
+X14a2b08/g2index_monoC_20.txt
+X14a2b08/g2index_monoP_20.txt
+X14a2b08/g2index_ortho_20.txt
+X1a56c78/g2index_monoC_20.txt
+X1a56c78/g2index_monoP_20.txt
+X1a56c78/g2index_ortho_20.txt
+X1db5091/g2index_monoC_20.txt
+X1db5091/g2index_monoP_20.txt
+X1db5091/g2index_ortho_20.txt
+X2327841/g2index_monoP_20.txt
+X238783d/g2index_monoP_20.txt
+X35b7fbc/g2index_monoP_20.txt
+X4f6fe58/g2index_monoP_20.txt
+
+  molecule mol0_0: 9 atoms, 8 bonds, 9 angles, 0 dihedral restraints, 4 free torsions
+  single atom Cl
+run 0: cost=1357259.9 Rwp=0.1452 chi2=4577681.6 t=163s

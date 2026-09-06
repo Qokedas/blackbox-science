@@ -1,0 +1,48 @@
+/app/work/flip_chairs.py
+/app/work/queue_flip130.log
+/app/work/queue_flip130.sh
+PROJECTED_RWP 0.0629202947128902
+LSQ_PACKING 38 atoms 1685 terms sigma 0.012 cost 18.172653145707212
+Imported powder pattern: 3705 points, 2theta=  2.007 ->  32.958, step= 0.008
+Traceback (most recent call last):
+  File "/app/work/refine_special_x7.py", line 57, in <module>
+    lsq.SafeRefine(nbCycle=10,useLevenbergMarquardt=True,silent=True);p.FitScaleFactorForRw();assert np.max(np.abs(np.array([[m.X,m.Y,m.Z] for m in mols[:2]])-centres))<1e-6
+                                                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+/app/work/submit.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+X7e382cb Nat 40 molecule sizes [18, 18, 1, 1, 1, 1]
+  component O=C([O-])c1ccc(-c2ccc(C(=O)[O-])cc2)cc1 matches 2
+  component [NH4+] matches 4
+  bond range 1.2472935261264813 1.5096253546741012
+  min intermolecular distance 2.6399895160497024
+/app/work/submit.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+X4f6fe58 Nat 80 molecule sizes [20, 20, 20, 20]
+  component O=C1CN=C(c2ccccc2Cl)c2cc(Br)ccc2N1 matches 4
+  bond range 1.2152270113204522 1.8995486073821566
+  min intermolecular distance 2.49144087548908
+PACKING_STAGE 1 57.882823488628595
+CYCLE 2 0 Rw 0.10410779155390139 chi2 7947.370701323679 geom 387.89573599166715 LSQ 8930.505772866833
+CYCLE 2 1 Rw 0.10413145615364966 chi2 7950.98412389289 geom 383.9613751831158 LSQ 8923.913120974114
+CYCLE 2 2 Rw 0.10411146331661264 chi2 7947.931300555357 geom 382.3979253253748 LSQ 8916.548040609683
+PACKING_STAGE 2 52.55679645762147
+CYCLE 3 0 Rw 0.10372791419093709 chi2 7889.478431403619 geom 384.39517410489606 LSQ 8864.738077240574
+CYCLE 3 1 Rw 0.1036563034599203 chi2 7878.588859346819 geom 382.1736851974514 LSQ 8847.483191438125
+CYCLE 3 2 Rw 0.10353777498790344 chi2 7860.581209875586 geom 380.65185518589163 LSQ 8827.383471154837
+PACKING_STAGE 3 53.233849085081665
+FINISHED X14a2b08 0.10353777498790344
+/app/work/submit.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+X35b7fbc Nat 132 molecule sizes [25, 25, 25, 25, 8, 8, 8, 8]
+  component CC[C@@H](CO)NC(=O)[C@@H]1C=C2c3cccc4[nH]cc(c34)C[C@H]2[NH+](C)C1 matches 4
+  component O=C([O-])C=CC(=O)O matches 4
+  bond range 1.211459734500642 1.57974679422934
+  min intermolecular distance 2.447838064885243
+/app/work/check_stereo.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(fn).parse_structures(primitive=False)[0];s.remove_species(['H']);rad=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<1.2*(rad[:,None]+rad[None,:]));g=nx.from_numpy_array(A)
+X35b7fbc root 0 expected {2: 'S', 8: 'R', 21: 'R'} actual {2: 'S', 8: 'R', 21: 'R'} OK True
+X35b7fbc root 1 expected {2: 'S', 8: 'R', 21: 'R'} actual {2: 'S', 8: 'R', 21: 'R'} OK True
+X35b7fbc root 2 expected {2: 'S', 8: 'R', 21: 'R'} actual {2: 'S', 8: 'R', 21: 'R'} OK True
+X35b7fbc root 3 expected {2: 'S', 8: 'R', 21: 'R'} actual {2: 'S', 8: 'R', 21: 'R'} OK True
+24

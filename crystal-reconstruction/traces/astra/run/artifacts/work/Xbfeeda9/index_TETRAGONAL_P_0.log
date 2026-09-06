@@ -1,0 +1,25 @@
+Xbfeeda9 TETRAGONAL P 0 peaks [5.34086, 9.83521, 10.76052, 11.87024, 12.90361, 13.60996, 14.26707, 15.3791, 15.82593, 16.22635, 17.1726, 17.91618, 18.39564, 19.00636, 19.8005, 20.172, 21.40279, 21.76391, 22.17054, 22.40243, 22.88997, 23.50179] V 1509.9234619140625 6300 Lmax 51.71361301253933
+3->51.7136,1.94855,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+1509.92->6300,479.012,9.9999
+Starting: V=1509.92->1988.94
+Finished: V=1509.92->1988.94 A^3, 55 unit cells tested, 105973 tests/s,   Elapsed time=0.000525s
+Starting: V=1988.94->2467.95
+Finished: V=1988.94->2467.95 A^3, 121 unit cells tested, 103242 tests/s,   Elapsed time=0.001177s
+Starting: V=2467.95->2946.96
+Finished: V=2467.95->2946.96 A^3, 183 unit cells tested, 101441 tests/s,   Elapsed time=0.00181s
+Starting: V=2946.96->3425.97
+Finished: V=2946.96->3425.97 A^3, 247 unit cells tested, 99677.2 tests/s,   Elapsed time=0.002483s
+Starting: V=3425.97->3904.99
+Finished: V=3425.97->3904.99 A^3, 324 unit cells tested, 99753.7 tests/s,   Elapsed time=0.003253s
+Starting: V=3904.99->4384
+Finished: V=3904.99->4384 A^3, 401 unit cells tested, 99306.6 tests/s,   Elapsed time=0.004044s
+Starting: V=4384->4863.01
+Finished: V=4384->4863.01 A^3, 493 unit cells tested, 98659.2 tests/s,   Elapsed time=0.005003s
+Starting: V=4863.01->5342.02
+Finished: V=4863.01->5342.02 A^3, 591 unit cells tested, 97140 tests/s,   Elapsed time=0.006091s
+Starting: V=5342.02->5821.04
+Finished: V=5342.02->5821.04 A^3, 694 unit cells tested, 96576.7 tests/s,   Elapsed time=0.007191s
+Starting: V=5821.04->6300
+Finished: V=5821.04->6300 A^3, 786 unit cells tested, 95830.3 tests/s,   Elapsed time=0.008207s
+DONE Xbfeeda9 TETRAGONAL P 0 0.008332014083862305 []

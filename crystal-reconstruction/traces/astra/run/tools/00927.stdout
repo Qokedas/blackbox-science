@@ -1,0 +1,220 @@
+==== /app/work/X7e382cb/gallop41.log
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 259 seconds 214.3479790687561 best 56.670815 q25 80.9508 median 224.02286 total 214.35779857635498
+GALLOP 1 Nref 259 seconds 226.91054677963257 best 56.6708 q25 58.51201 median 140.92369 total 441.4646825790405
+GALLOP 2 Nref 259 seconds 233.58859205245972 best 56.34568 q25 76.44482 median 145.07407 total 675.2482352256775
+GALLOP 3 Nref 259 seconds 242.79962420463562 best 56.345665 q25 60.633392 median 110.59525 total 918.2593472003937
+GALLOP 4 Nref 259 seconds 224.33162641525269 best 56.345634 q25 62.353146 median 105.39104 total 1142.7931516170502
+GALLOP 5 Nref 259 seconds 242.45689868927002 best 56.345623 q25 64.823044 median 160.77051 total 1385.4499492645264
+GALLOP 6 Nref 259 seconds 186.72492241859436 best 56.34564 q25 62.752594 median 108.44537 total 1572.4827771186829
+GALLOP 7 Nref 259 seconds 221.70268988609314 best 56.345634 q25 62.730434 median 112.44452 total 1794.2605323791504
+==== /app/work/Xedd9c7b/conditional85.log
+FAST_SYMMETRY P 1 21/a 1 mono14 max_relative_error 8.408831604356237e-07
+ATTACHED_H_SCATTERING 38 heavy atoms 34 H atoms
+PACKING_ENABLED 38 atoms 4887 pair terms coefficient 80.0 active_only True
+HBOND_PRIOR 6 donors 6 acceptors coefficient 15.0
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL Xedd9c7b 26.511154174804688
+CONDITIONAL 0 [0] best 22.842021942138672 q25 252.8203 sec 227.7043538093567
+CONDITIONAL 1 [1] best 22.421558380126953 q25 156.02538 sec 424.294016122818
+CONDITIONAL 2 [0] best 22.31981086730957 q25 238.8623 sec 613.6664605140686
+==== /app/work/X3f4781b/conditional83.log
+ATTACHED_H_SCATTERING 52 heavy atoms 36 H atoms
+PACKING_ENABLED 52 atoms 3834 pair terms coefficient 70.0 active_only True
+HBOND_PRIOR 4 donors 12 acceptors coefficient 20.0 directional False
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X3f4781b 120.62457275390625
+CONDITIONAL 0 [1, 3] best 115.91807556152344 q25 120.81404 sec 291.4120674133301
+==== /app/work/Xb7088cf/gallop51.log
+ATTACHED_H_SCATTERING 28 heavy atoms 20 H atoms
+PACKING_ENABLED 28 atoms 2623 pair terms coefficient 90.0 active_only True
+HBOND_PRIOR 3 donors 5 acceptors coefficient 20.0 directional True
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1429.80it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+==== /app/work/X8a06d7a/gallop74.log
+ATTACHED_H_SCATTERING 38 heavy atoms 24 H atoms
+PACKING_ENABLED 38 atoms 1996 pair terms coefficient 70.0 active_only True
+HBOND_PRIOR 2 donors 8 acceptors coefficient 15.0 directional False
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1504.28it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 421 seconds 172.99796962738037 best 154.83446 q25 251.32997 median 395.0284 total 173.00717782974243
+==== /app/work/X263b09a/gallop50.log
+ATTACHED_H_SCATTERING 36 heavy atoms 27 H atoms
+PACKING_ENABLED 36 atoms 1784 pair terms coefficient 70.0 active_only True
+HBOND_PRIOR 2 donors 7 acceptors coefficient 15.0 directional False
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1613.35it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 449 seconds 187.00480556488037 best 17.591324 q25 18.452652 median 235.75632 total 187.0625762939453
+==== /app/work/X019b9a4/gallop11.log
+Total external degrees of freedom: 21 (pos: 9 rot: 12 )
+Total internal degrees of freedom: 8
+PREPARED X019b9a4 Nref 183 PawleyRw 0.04457996894951537 SG P -1
+ATTACHED_H_SCATTERING 48 heavy atoms 36 H atoms
+PACKING_ENABLED 48 atoms 3253 pair terms coefficient 50.0 active_only True
+HBOND_PRIOR 6 donors 9 acceptors coefficient 10.0 directional False
+  0%|          | 0/5 [00:00<?, ?it/s]100%|██████████| 5/5 [00:00<00:00, 2376.91it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 100 seconds 201.9990417957306 best 294.39438 q25 429.89124 median 473.49396 total 202.00445413589478
+==== /app/work/Xd8634a2/gallop31.log
+HBOND_PRIOR 2 donors 8 acceptors coefficient 8.0
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1500.65it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 90 seconds 122.94292211532593 best 550.64417 q25 730.02057 median 783.6307 total 122.95197772979736
+GALLOP 1 Nref 113 seconds 99.14196133613586 best 537.6483 q25 672.208 median 742.63513 total 222.34414768218994
+GALLOP 2 Nref 131 seconds 82.90654444694519 best 362.7695 q25 604.49426 median 727.05273 total 305.40696382522583
+GALLOP 3 Nref 147 seconds 102.11134147644043 best 355.7981 q25 632.7824 median 724.8013 total 407.6429374217987
+GALLOP 4 Nref 166 seconds 110.0969591140747 best 350.91513 q25 653.4633 median 719.72266 total 517.9241013526917
+GALLOP 5 Nref 187 seconds 111.34984111785889 best 256.5222 q25 654.4151 median 731.03 total 629.4984002113342
+{
+ "components": [
+  {
+   "smiles": "O[C@](CC[NH+]1CCCCC1)(c1ccccc1)C1CCCCC1",
+   "count": 1,
+   "charge": 1
+  },
+  {
+   "smiles": "[Cl-]",
+   "count": 1,
+   "charge": -1
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}{
+ "components": [
+  {
+   "smiles": "O=C([O-])c1ccc(-c2ccc(C(=O)[O-])cc2)cc1",
+   "count": 1,
+   "charge": -2
+  },
+  {
+   "smiles": "[NH4+]",
+   "count": 2,
+   "charge": 1
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}import os,sys,json,shutil,numpy as np,networkx as nx,gemmi
+from pymatgen.io.cif import CifParser
+from rdkit import Chem
+sid=sys.argv[1];f=sys.argv[2]
+s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+for i in g:g.nodes[i]['el']=s[i].specie.symbol
+matched=set();ratios=[]
+for comp in json.load(open('/app/data/instances/'+sid+'/composition.json'))['components']:
+ rm=Chem.MolFromSmiles(comp['smiles']);rg=nx.Graph();rg.add_nodes_from((a.GetIdx(),{'el':a.GetSymbol()}) for a in rm.GetAtoms());rg.add_edges_from((b.GetBeginAtomIdx(),b.GetEndAtomIdx()) for b in rm.GetBonds());matches=[j for j,co in enumerate(cs) if nx.is_isomorphic(g.subgraph(co),rg,node_match=lambda a,b:a['el']==b['el'])];matched|=set(matches);ratios.append(len(matches)/comp['count']);print('  component',comp['smiles'],'matches',len(matches))
+valid=len(matched)==len(cs) and min(ratios)>0 and max(ratios)==min(ratios)
+if not valid:raise Exception('Connectivity validation failed')
+print('  bond range',np.min(D[A]),np.max(D[A]) if A.any() else None)
+print('  min intermolecular distance',min((D[i,j] for ii,co in enumerate(cs) for co2 in cs[ii+1:] for i in co for j in co2),default=0))
+if '--check' in sys.argv:sys.exit(0)
+b=gemmi.cif.read_file(f).sole_block();keys=['a','b','c','alpha','beta','gamma'];ct=['length_a','length_b','length_c','angle_alpha','angle_beta','angle_gamma'];out={'cell':{k:float(b.find_value('_cell_'+v)) for k,v in zip(keys,ct)},'space_group':gemmi.cif.as_string(b.find_value('_space_group_name_H-M_alt')),'space_group_number':int(b.find_value('_space_group_IT_number'))}
+shutil.copyfile(f,'/app/results/submission/'+sid+'.cif');json.dump(out,open('/app/results/submission/'+sid+'.json','w'),indent=1)
+print('SUBMITTED',sid)
+refine_bep50_control.log
+refine_bep50_control.sh
+refine_bep51_chem.log
+refine_bep51_chem.sh
+refine_g12.log
+refine_g12.sh
+refine_obj.py
+refine_obj_v1.py
+refine_obj_v2.py
+refine_obj_v3.py
+refine_obj_v4.py
+refine_obj_v5.py
+refine_obj_v6.py
+refine_obj_v7.py
+refine_obj_v8.py
+refine_snapshot130.log
+refine_snapshot130.sh
+refine_stable.py
+reindex_batch.log
+reindex_batch.py
+repick.log
+repick.py
+repick2.log
+restore_cif.py
+restore_structure_mode.py
+restorefit.log
+restraint_report.py
+run_fits.py
+run_fits2.py
+run_index_batch.py
+scan_po.py
+search_coformer.py
+search_conditional.py
+search_gallop.py
+search_gallop_v1.py
+search_gallop_v10.py
+search_gallop_v11.py
+search_gallop_v2.py
+search_gallop_v3.py
+search_gallop_v4.py
+search_gallop_v5.py
+search_gallop_v6.py
+search_gallop_v7.py
+search_gallop_v8.py
+search_gallop_v9.py
+search_obj.py
+search_obj_v1.py
+solve_de.py
+solve_half_biphenyl.py
+solve_half_biphenyl_v1.py
+solve_heavy.py
+solve_twocentres.py
+solve_twocentres_v1.py
+split_synthon.py
+subcells.log
+submit.py
+summary.json
+synthon_model.py
+task_3f478.log
+task_d863.log
+task_e1.log
+test_222_fast.py
+test_bump.xml
+test_doublet.py
+test_emg8.py
+test_fit.log
+test_fit.py
+test_lsq_packing.log
+test_lsq_packing.sh
+test_macro4.log
+test_macro4.sh
+transfer_acm.py
+transfer_acm_v2.py
+update_transfer72.log
+update_transfer72.sh
+warm_gallop.py
+warm_gallop_v3.py
+warm_gallop_v4.py
+x7_explicit.log
+zmcheck.log

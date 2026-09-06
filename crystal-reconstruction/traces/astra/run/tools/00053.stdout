@@ -1,0 +1,11 @@
+1556
+START 0.06660654362582023 49963.51506581777
+ObjRegistry<T>::Find(H): Not found !!
+List of Crystal ScatteringPowers :2 object registered:
+#  0:ScatteringPowerAtom(C)
+#  1:ScatteringPowerAtom(N)
+Traceback (most recent call last):
+  File "/app/work/refine_obj.py", line 37, in <module>
+    group=m.GetRigidGroup(rg)
+          ^^^^^^^^^^^^^^^
+AttributeError: 'Molecule' object has no attribute 'GetRigidGroup'. Did you mean: 'AddRigidGroup'?

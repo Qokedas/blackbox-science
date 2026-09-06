@@ -1,0 +1,148 @@
+analysis.log
+base.png
+base.xml
+base_profile.xye
+basefresh.log
+candidates.json
+fit_0.json
+fit_0.log
+fit_0.png
+fit_0.xml
+fit_0.xye
+fit_1.json
+fit_1.log
+fit_1.png
+fit_1.xml
+fit_1.xye
+gallop11.log
+gallop_11
+index_CUBIC_F_0.json
+index_CUBIC_F_0.log
+index_CUBIC_I_0.json
+index_CUBIC_I_0.log
+index_CUBIC_P_0.json
+index_CUBIC_P_0.log
+index_HEXAGONAL_P_0.json
+index_HEXAGONAL_P_0.log
+index_MONOCLINIC_C_0.json
+index_MONOCLINIC_C_0.log
+index_MONOCLINIC_P_0.json
+index_MONOCLINIC_P_0.log
+index_ORTHOROMBIC_C_0.json
+index_ORTHOROMBIC_C_0.log
+index_ORTHOROMBIC_I_0.json
+index_ORTHOROMBIC_I_0.log
+index_ORTHOROMBIC_P_0.json
+index_ORTHOROMBIC_P_0.log
+index_RHOMBOEDRAL_P_0.json
+index_RHOMBOEDRAL_P_0.log
+index_TETRAGONAL_I_0.json
+index_TETRAGONAL_I_0.log
+index_TETRAGONAL_P_0.json
+index_TETRAGONAL_P_0.log
+lattice.json
+lebail.npz
+peaks.json
+peaks.png
+processed.npz
+translations_1.json
+[
+ {
+  "cell": [
+   5.891409397125244,
+   11.226055145263672,
+   30.00559562733976,
+   90.0,
+   90.12615602943684,
+   90.0
+  ],
+  "volume": 1984.4838723847654,
+  "score": 21.92359161376953,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 0,
+  "source": "index_MONOCLINIC_P_0.json",
+  "sg": "P2/m"
+ },
+ {
+  "cell": [
+   5.891409397125244,
+   11.226055145263672,
+   30.00559562733976,
+   90.0,
+   90.0,
+   90.0
+  ],
+  "volume": 1984.4838723847654,
+  "score": 0,
+  "system": "ORTHOROMBIC",
+  "centering": "P",
+  "mode": 0,
+  "source": "index_MONOCLINIC_P_0.json",
+  "sg": "Pmmm"
+ }
+]
+==== X1a56c78
+fit_1.json [5.903783617655909, 11.249379732170144, 30.0795900574189, 90.0, 90.0, 90.0] Pmmm 0.07593666179367951 [{'sg': 'P 2 2 21', 'number': 17, 'Rw': 8.713415682938887, 'GoF': 240.69254748215516, 'nGoF': 0.0, 'mult': 4}, {'sg': 'P 2 2 2', 'number': 16, 'Rw': 8.719985191334056, 'GoF': 241.8569191176284, 'nGoF': 0.0, 'mult': 4}, {'sg': 'P 2 21 21', 'number': 18, 'Rw': 8.777604348916663, 'GoF': 243.8478592508151, 'nGoF': 0.0, 'mult': 4}, {'sg': 'P 2 21 2', 'number': 17, 'Rw': 8.784025482193567, 'GoF': 245.01517071892158, 'nGoF': 0.0, 'mult': 4}]
+fit_0.json [5.898928758876659, 11.248303331807252, 30.076099463101997, 90.0, 90.1261696851211, 90.0] P2/m 0.07748000141933635 [{'sg': 'P 1 2 1', 'number': 3, 'Rw': 8.94560733795531, 'GoF': 265.51506049521134, 'nGoF': 0.0, 'mult': 2}, {'sg': 'P 1 21 1', 'number': 4, 'Rw': 8.99731056304675, 'GoF': 268.12818044909665, 'nGoF': 0.0, 'mult': 2}, {'sg': 'A 1 2 1', 'number': 5, 'Rw': 35.244297447654574, 'GoF': 3849.9255772420875, 'nGoF': 0.0, 'mult': 4}, {'sg': 'I 1 2 1', 'number': 5, 'Rw': 37.82537602638335, 'GoF': 4436.859642893471, 'nGoF': 0.0, 'mult': 4}]
+
+==== X8a06d7a
+fit_deh2.json [6.6077267615283635, 12.3716960880876, 21.72420954079096, 94.83744528993684, 93.63433931542794, 72.91116168885118] P -1 0.08995672928398658 [{'sg': 'P 1', 'number': 1, 'Rw': 12.627743248253662, 'GoF': 4382.963270348384, 'nGoF': 2029.0618370872885, 'mult': 1}, {'sg': 'P -1', 'number': 2, 'Rw': 12.627743248253662, 'GoF': 4382.963270348384, 'nGoF': 2029.061837087288, 'mult': 2}]
+fit_oldh0.json [5.063884241078632, 11.846698030405706, 21.713701549061128, 93.79801740524188, 92.0946772239665, 92.40103243019426] P-1 0.12822279959341595 [{'sg': 'P 1', 'number': 1, 'Rw': 14.923225611103561, 'GoF': 5625.010474540922, 'nGoF': 2219.2366160645965, 'mult': 1}, {'sg': 'P -1', 'number': 2, 'Rw': 14.923225611103561, 'GoF': 5625.010474540922, 'nGoF': 2219.2366160645956, 'mult': 2}]
+fit_2d0.json [11.859878191858613, 5.01369621206577, 21.734570616650437, 90.0, 86.05010540353668, 90.0] P 1 2/m 1 0.0744753038416127 [{'sg': 'P 1 2 1', 'number': 3, 'Rw': 8.588691853348305, 'GoF': 1707.8307424887735, 'nGoF': 0.0, 'mult': 2}, {'sg': 'P 1 m 1', 'number': 6, 'Rw': 8.588691853348305, 'GoF': 1707.8307424887735, 'nGoF': 0.0, 'mult': 2}, {'sg': 'P 1 2/m 1', 'number': 10, 'Rw': 8.588691853348305, 'GoF': 1707.8307424887735, 'nGoF': 0.0, 'mult': 4}, {'sg': 'P 1 21 1', 'number': 4, 'Rw': 8.620349810170703, 'GoF': 1719.3437097823464, 'nGoF': 0.0, 'mult': 2}]
+fit_2.json [4.91062930477394, 11.864642763376404, 21.8809139398306, 93.82012658516416, 95.03956639150407, 92.10520914189425] P-1 0.13741477277382277 [{'sg': 'P 1', 'number': 1, 'Rw': 15.546825571262415, 'GoF': 7784.015667460636, 'nGoF': 2987.3405346520485, 'mult': 1}, {'sg': 'P -1', 'number': 2, 'Rw': 15.546825571262415, 'GoF': 7784.015667460636, 'nGoF': 2987.340534652048, 'mult': 2}]
+fit_de1.json [6.581412012866471, 12.206413564321087, 21.714779888666385, 87.00250646889323, 93.35707676144025, 75.64276218118695] P -1 0.10621808922659663 [{'sg': 'P 1', 'number': 1, 'Rw': 13.979841779385533, 'GoF': 6380.401902734982, 'nGoF': 3365.67652713744, 'mult': 1}, {'sg': 'P -1', 'number': 2, 'Rw': 13.979841779385533, 'GoF': 6380.401902734982, 'nGoF': 3365.6765271374406, 'mult': 2}]
+fit_de2.json [6.613910478351195, 12.382615099380532, 21.741858742664395, 94.84751816059183, 93.6679114180935, 72.91934288839109] P -1 0.09106943299635283 [{'sg': 'P 1', 'number': 1, 'Rw': 12.576070939749037, 'GoF': 5193.178090266389, 'nGoF': 2975.1660256888067, 'mult': 1}, {'sg': 'P -1', 'number': 2, 'Rw': 12.576070939749037, 'GoF': 5193.178090266389, 'nGoF': 2975.166025688806, 'mult': 2}]
+fit_1.json [5.040685136959435, 11.877298720245884, 21.759102115621456, 85.91240359024049, 88.88717862917514, 85.23389681623082] P-1 0.13940083740215697 [{'sg': 'P 1', 'number': 1, 'Rw': 15.663950299599971, 'GoF': 7958.300830020363, 'nGoF': 3210.0018368847946, 'mult': 1}, {'sg': 'P -1', 'number': 2, 'Rw': 15.663950299599971, 'GoF': 7958.300830020363, 'nGoF': 3210.001836884795, 'mult': 2}]
+fit_deh0.json [6.582362964744483, 12.348727693398798, 21.71743313873199, 85.25795603823816, 86.68250797069945, 73.27723561885124] P -1 0.09223096227720502 [{'sg': 'P 1', 'number': 1, 'Rw': 12.703551718088635, 'GoF': 4393.047177729033, 'nGoF': 1825.8689878154503, 'mult': 1}, {'sg': 'P -1', 'number': 2, 'Rw': 12.703551718088635, 'GoF': 4393.047177729033, 'nGoF': 1825.8689878154503, 'mult': 2}]
+fit_force_mono.json [11.838503525695577, 5.004072815900225, 21.694320968178932, 90.0, 86.06823685026342, 90.0] P 1 21 1 0.09635277107538187 [{'sg': 'P 1 2 1', 'number': 3, 'Rw': 11.527605591114801, 'GoF': 3408.5759925615744, 'nGoF': 0.0, 'mult': 2}, {'sg': 'P 1 m 1', 'number': 6, 'Rw': 11.527605591114801, 'GoF': 3408.5759925615744, 'nGoF': 0.0, 'mult': 2}, {'sg': 'P 1 2/m 1', 'number': 10, 'Rw': 11.527605591114801, 'GoF': 3408.5759925615744, 'nGoF': 0.0, 'mult': 4}, {'sg': 'P 1 21 1', 'number': 4, 'Rw': 11.53013314118825, 'GoF': 3407.5505118765677, 'nGoF': 0.0, 'mult': 2}]
+fit_deh1.json [6.586226644263285, 12.214206295478863, 21.71968863028019, 87.00395200410874, 93.30434920379966, 75.63960008537467] P -1 0.08578201390429563 [{'sg': 'P 1', 'number': 1, 'Rw': 12.136386606869987, 'GoF': 4002.1295636423615, 'nGoF': 1605.7957387943554, 'mult': 1}, {'sg': 'P -1', 'number': 2, 'Rw': 12.136386606869987, 'GoF': 4002.1295636423615, 'nGoF': 1605.7957387943552, 'mult': 2}]
+fit_3.json [4.8810792328026436, 11.83758931370045, 21.646531854351565, 86.11259004215867, 89.73426811643523, 86.61865881531139] P-1 0.1365665016699511 [{'sg': 'P 1', 'number': 1, 'Rw': 15.909320679687742, 'GoF': 8124.237248793661, 'nGoF': 3990.3702809524775, 'mult': 1}, {'sg': 'P -1', 'number': 2, 'Rw': 15.909320679687742, 'GoF': 8124.237248793661, 'nGoF': 3990.3702809524757, 'mult': 2}]
+fit_4.json [4.930805337574092, 11.827538766581554, 21.73219753977565, 86.01698427466174, 85.62545869340512, 89.3113520555868] P-1 0.12467426285726457 [{'sg': 'P 1', 'number': 1, 'Rw': 14.959715439022867, 'GoF': 7321.5231334037835, 'nGoF': 3917.7380749700365, 'mult': 1}, {'sg': 'P -1', 'number': 2, 'Rw': 14.959715439022867, 'GoF': 7321.5231334037835, 'nGoF': 3917.7380749700365, 'mult': 2}]
+fit_2d1.json [5.0091383238525715, 11.848563275546834, 21.71794934646855, 86.05896163393095, 89.84305466129743, 89.82859972805159] P -1 0.06761190137761997 [{'sg': 'P 1', 'number': 1, 'Rw': 8.104956144040095, 'GoF': 1687.156220372542, 'nGoF': 598.994173661858, 'mult': 1}, {'sg': 'P -1', 'number': 2, 'Rw': 8.104956144040095, 'GoF': 1687.156220372542, 'nGoF': 598.9941736618578, 'mult': 2}]
+fit_de0.json [6.581383944690168, 12.347859270935208, 21.715447904410937, 85.24468725257051, 86.64245588586299, 73.27759745505011] P -1 0.10635016937703069 [{'sg': 'P 1', 'number': 1, 'Rw': 14.020962315772492, 'GoF': 6411.469594047575, 'nGoF': 3336.828220489513, 'mult': 1}, {'sg': 'P -1', 'number': 2, 'Rw': 14.020962315772492, 'GoF': 6411.469594047575, 'nGoF': 3336.828220489513, 'mult': 2}]
+fit_0.json [5.055787575052005, 11.827412752276887, 21.669333605732486, 93.79422615047704, 92.1195306468104, 92.45190949090853] P-1 0.13372338604703796 [{'sg': 'P 1', 'number': 1, 'Rw': 15.351577091292743, 'GoF': 7609.354014158842, 'nGoF': 3691.2686058060062, 'mult': 1}, {'sg': 'P -1', 'number': 2, 'Rw': 15.351577091292743, 'GoF': 7609.354014158842, 'nGoF': 3691.2686058060062, 'mult': 2}]
+
+==== X7e382cb
+fit_double0.json [6.950883561252238, 6.9714360090474425, 15.760000618785241, 65.620071071758, 82.98049443060587, 67.39068753201737] P -1 0.034961766101973206 [{'sg': 'P 1', 'number': 1, 'Rw': 4.05634287476456, 'GoF': 9.221592321633876, 'nGoF': 2.638392983510142, 'mult': 1}, {'sg': 'P -1', 'number': 2, 'Rw': 4.05634287476456, 'GoF': 9.221592321633876, 'nGoF': 2.638392983510143, 'mult': 2}]
+fit_0.json [6.941781803827611, 6.978941427798109, 7.9009613612602525, 65.8465231872708, 83.18913857072069, 67.46611408102082] P-1 0.04521538665447432 [{'sg': 'P 1', 'number': 1, 'Rw': 4.587705183201699, 'GoF': 11.130401149249012, 'nGoF': 1.4609676326079588, 'mult': 1}, {'sg': 'P -1', 'number': 2, 'Rw': 4.587705183201699, 'GoF': 11.130401149249012, 'nGoF': 1.4609676326079595, 'mult': 2}]
+
+==== X4f6fe58
+fit_0.json [7.555477033684864, 13.072865019837627, 15.417504879610412, 72.25496173074335, 83.44145094599322, 77.58872908217276] P-1 0.0332905465894755 [{'sg': 'P 1', 'number': 1, 'Rw': 4.216245368349747, 'GoF': 1969.3661255173743, 'nGoF': 1132.7470553562616, 'mult': 1}, {'sg': 'P -1', 'number': 2, 'Rw': 4.216245368349747, 'GoF': 1969.3661255173743, 'nGoF': 1132.7470553562612, 'mult': 2}]
+
+==== X9af54a2
+fit_0.json [5.178814129193726, 8.253796883565743, 32.95194847624056, 90.0, 92.75211080328904, 90.0] P2/m 0.09741624604904386 [{'sg': 'P 1 21 1', 'number': 4, 'Rw': 10.644214205835544, 'GoF': 1.5911742201531953, 'nGoF': 0.0, 'mult': 2}, {'sg': 'P 1 2 1', 'number': 3, 'Rw': 10.64891099076825, 'GoF': 1.5928498491144056, 'nGoF': 0.0, 'mult': 2}, {'sg': 'A 1 2 1', 'number': 5, 'Rw': 47.53115809721536, 'GoF': 31.442038457685076, 'nGoF': 0.0, 'mult': 4}, {'sg': 'C 1 2 1', 'number': 5, 'Rw': 54.05376167080483, 'GoF': 40.68074606277353, 'nGoF': 0.0, 'mult': 4}]
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/17408/status ]] && ! grep -q '^State:.*Z' /proc/17408/status; do sleep 5;done
+# Independently test the higher-prior orthorhombic screw-axis group for X1a.
+python - <<'PY'
+import json
+W='/app/work/X1a56c78';j=json.load(open(W+'/fit_1.json'));j['sg']='P 21 21 21';json.dump([j],open(W+'/candidates_sg19.json','w'))
+PY
+SG_SCAN=0 CANDIDATE_FILE=/app/work/X1a56c78/candidates_sg19.json CANDIDATE_INDEX=0 python /app/work/fit_candidate.py X1a56c78 sg19 .30 > /app/work/X1a56c78/fit_sg19.log 2>&1
+mkdir -p /app/work/X1a56c78/gallop_19; cp /app/work/X1a56c78/fit_sg19.xml /app/work/X1a56c78/gallop_19/base.xml
+BASE_XML=/app/work/X1a56c78/gallop_19/base.xml SEARCH_TIME=1700 PARTICLES=128 ITERATIONS=400 GALLOP_STOL=.24 CONF_RANK=1 python /app/work/search_gallop.py X1a56c78 19 1 --prepare --hscatter --packing > /app/work/X1a56c78/gallop19.log 2>&1
+python /app/work/import_gallop.py X1a56c78 19 > /app/work/X1a56c78/import_g19.log 2>&1
+python /app/work/refine_obj.py X1a56c78 g19 /app/work/X1a56c78/search_g19/best.xml --scale --tight > /app/work/X1a56c78/refine_g19.log 2>&1
+for id in Xd8634a2 Xb7088cf; do
+ START_REFL=90 RAMP_REF_EVERY=5 RAMP_REF_STEP=40 SEARCH_TIME=1700 PARTICLES=128 ITERATIONS=400 GALLOP_STOL=.25 CONF_RANK=4 python /app/work/search_gallop.py $id 31 1 --prepare --hscatter --packing > /app/work/$id/gallop31.log 2>&1
+ python /app/work/import_gallop.py $id 31 > /app/work/$id/import_g31.log 2>&1
+ python /app/work/refine_obj.py $id g31 /app/work/$id/search_g31/best.xml --scale --tight > /app/work/$id/refine_g31.log 2>&1
+ done
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/16582/status ]] && ! grep -q '^State:.*Z' /proc/16582/status; do sleep 5; done
+python /app/work/import_gallop.py X13023e3 31 > /app/work/X13023e3/import_g31.log 2>&1
+python /app/work/refine_obj.py X13023e3 g31 /app/work/X13023e3/search_g31/best.xml --scale --tight > /app/work/X13023e3/refine_g31.log 2>&1
+cp -r /app/work/X7e382cb/gallop_22 /app/work/X7e382cb/gallop_31
+rm -f /app/work/X7e382cb/gallop_31/STOP
+EXACT_BUMP_IMAGES=1 SEARCH_TIME=1800 PARTICLES=128 ITERATIONS=400 START_NPZ=/app/work/X7e382cb/gallop_22/best.npz START_JITTER=.18 START_TOR_JITTER=.5 python /app/work/search_gallop.py X7e382cb 31 1 --packing --hscatter > /app/work/X7e382cb/gallop31.log 2>&1
+python /app/work/import_gallop.py X7e382cb 31 > /app/work/X7e382cb/import_g31.log 2>&1
+python /app/work/refine_obj.py X7e382cb g31 /app/work/X7e382cb/search_g31/best.xml --scale --tight > /app/work/X7e382cb/refine_g31.log 2>&1
+SEARCH_TIME=2200 PARTICLES=160 ITERATIONS=450 GALLOP_STOL=.23 CONF_RANK=0 python /app/work/search_gallop.py Xedd9c7b 11 2 --prepare --hscatter > /app/work/Xedd9c7b/gallop11.log 2>&1
+python /app/work/import_gallop.py Xedd9c7b 11 > /app/work/Xedd9c7b/import_g11.log 2>&1
+python /app/work/refine_obj.py Xedd9c7b g11 /app/work/Xedd9c7b/search_g11/best.xml --scale --tight > /app/work/Xedd9c7b/refine_g11.log 2>&1
+for id in X1a56c78 X8a06d7a; do
+ SEARCH_TIME=2200 PARTICLES=128 ITERATIONS=400 GALLOP_STOL=.24 CONF_RANK=0 python /app/work/search_gallop.py $id 11 1 --prepare --hscatter > /app/work/$id/gallop11.log 2>&1
+ python /app/work/import_gallop.py $id 11 > /app/work/$id/import_g11.log 2>&1
+ python /app/work/refine_obj.py $id g11 /app/work/$id/search_g11/best.xml --scale --tight > /app/work/$id/refine_g11.log 2>&1
+done

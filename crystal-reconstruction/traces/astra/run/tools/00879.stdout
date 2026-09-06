@@ -1,0 +1,34 @@
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+BASE 54.89606837605834
+{'axis': (0, 1, 1), 'MD': 1.1688505583852098, 'chi': 51.27420791820771}
+{'axis': (0, 1, 0), 'MD': 1.1142496207989787, 'chi': 52.194761143398864}
+{'axis': (1, 0, 1), 'MD': 0.9598670287125011, 'chi': 53.79884970593275}
+{'axis': (1, 1, -1), 'MD': 1.0329669976115778, 'chi': 54.270904508646595}
+{'axis': (1, 1, 0), 'MD': 1.031142052043446, 'chi': 54.370569719126934}
+{'axis': (1, 0, 0), 'MD': 0.9576865614507222, 'chi': 54.371683814087646}
+{'axis': (0, 0, 1), 'MD': 0.9643706305916063, 'chi': 54.3895735642551}
+{'axis': (0, 1, -1), 'MD': 1.0371780973526905, 'chi': 54.42507511273493}
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+BASE 158.56431980123727
+{'axis': (0, 1, 0), 'MD': 0.8909405147820517, 'chi': 147.96161656110257}
+{'axis': (1, 0, 1), 'MD': 1.104522420881227, 'chi': 152.17637251940255}
+{'axis': (0, 0, 1), 'MD': 1.0940165334516814, 'chi': 153.3607623791637}
+{'axis': (1, 0, 0), 'MD': 1.0484845403466079, 'chi': 156.9852563871333}
+{'axis': (0, 1, 1), 'MD': 0.9590441949269312, 'chi': 157.19781884590589}
+{'axis': (1, 1, 1), 'MD': 1.0415016492470104, 'chi': 157.434507593528}
+{'axis': (1, -1, 1), 'MD': 1.0389155359022886, 'chi': 157.45558358592734}
+{'axis': (0, 1, -1), 'MD': 0.9684485830202754, 'chi': 157.6796422923801}
+HBOND_PRIOR 2 donors 8 acceptors coefficient 40.0
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X1db5091 165.75013732910156
+CONDITIONAL 0 [1] best 163.57705688476562 q25 180.29877 sec 174.9730508327484
+HBOND_PRIOR 2 donors 4 acceptors coefficient 12.0
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X4f6fe58 164.42037963867188
+CONDITIONAL 0 [0] best 161.30221557617188 q25 439.87305 sec 194.72371339797974

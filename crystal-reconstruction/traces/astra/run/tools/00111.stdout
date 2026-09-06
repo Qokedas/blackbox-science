@@ -1,0 +1,54 @@
+
+SetMinMaxZeroShift( (CellExplorer)arg1, (float)arg2, (float)arg3) -> None :
+
+    C++ signature :
+        void SetMinMaxZeroShift(ObjCryst::CellExplorer {lvalue},float,float)
+/opt/conda/lib/python3.11/site-packages/torch/_inductor/optimize_indexing.py
+/opt/conda/lib/python3.11/site-packages/torch/_inductor/__pycache__/optimize_indexing.cpython-311.pyc
+/opt/conda/lib/python3.11/site-packages/numpy/_core/tests/test_indexing.py
+/opt/conda/lib/python3.11/site-packages/numpy/_core/tests/__pycache__/test_indexing.cpython-311.pyc
+/opt/conda/lib/python3.11/site-packages/sklearn/utils/_indexing.py
+/opt/conda/lib/python3.11/site-packages/sklearn/utils/__pycache__/_indexing.cpython-311.pyc
+/opt/conda/lib/python3.11/site-packages/sklearn/utils/tests/test_indexing.py
+/opt/conda/lib/python3.11/site-packages/sklearn/utils/tests/__pycache__/test_indexing.cpython-311.pyc
+/opt/conda/lib/python3.11/site-packages/pyobjcryst/indexing.py
+/opt/conda/lib/python3.11/site-packages/pyobjcryst/__pycache__/indexing.cpython-311.pyc
+/opt/conda/lib/python3.11/site-packages/sympy/matrices/expressions/tests/test_indexing.py
+/opt/conda/lib/python3.11/site-packages/sympy/matrices/expressions/tests/__pycache__/test_indexing.cpython-311.pyc
+/opt/conda/lib/python3.11/site-packages/pandas/core/indexing.py
+/opt/conda/lib/python3.11/site-packages/pandas/core/groupby/indexing.py
+/opt/conda/lib/python3.11/site-packages/pandas/core/groupby/__pycache__/indexing.cpython-311.pyc
+{
+ "cell": [
+  7.555477033684864,
+  13.072865019837627,
+  15.417504879610412,
+  72.25496173074335,
+  83.44145094599322,
+  77.58872908217276
+ ],
+ "volume": 1422.8258782326423,
+ "score": 13.456541061401367,
+ "system": "TRICLINIC",
+ "centering": "P",
+ "mode": 3,
+ "source": "index_TRICLINIC_P_3.json",
+ "sg": "P-1",
+ "sgstart": "P-1",
+ "Rw": 0.0332905465894755,
+ "groups": [
+  {
+   "sg": "P 1",
+   "number": 1,
+   "Rw": 4.216245368349747,
+   "GoF": 1969.3661255173743,
+   "nGoF": 1132.7470553562616,
+   "mult": 1
+  },
+  {
+   "sg": "P -1",
+   "number": 2,
+Imported powder pattern: 5293 points, 2theta=  3.000 ->  45.336, step= 0.008
+FRESH_BASE X14a2b08 P -1 0.11366991277002887 57015.321361856506
+Imported powder pattern: 5293 points, 2theta=  3.000 ->  45.336, step= 0.008
+SCALED 32.820290866444836 Rw 0.11366938983230598 Chi2 5292.951299285247

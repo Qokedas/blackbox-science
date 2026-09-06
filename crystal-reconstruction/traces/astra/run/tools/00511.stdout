@@ -1,0 +1,31 @@
+22050
+CYCLE 2 0 Rw 0.04614755605668014 chi2 3981.6209491230084 geom 56.20400681243784 LSQ 4239.538912713406
+CYCLE 2 1 Rw 0.04609579922818545 chi2 3972.6947771736636 geom 57.90203674130461 LSQ 4216.437570269332
+CYCLE 2 2 Rw 0.04606779657129825 chi2 3967.8695123858492 geom 59.01110671612595 LSQ 4213.525709185905
+CYCLE 3 0 Rw 0.045183248351571614 chi2 3816.9581778175716 geom 54.616671290900506 LSQ 4147.960453603869
+CYCLE 3 1 Rw 0.0450430481683295 chi2 3793.307466156636 geom 53.53114045335952 LSQ 4043.6838984950537
+CYCLE 3 2 Rw 0.04498542127338241 chi2 3783.6075587834484 geom 53.6580207029369 LSQ 4016.259125077304
+FINISHED X13023e3 0.04498542127338241
+/app/work/submit.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+X13023e3 Nat 48 molecule sizes [15, 15, 9, 9]
+  component CC(C)Cc1ccc([C@@H](C)C(=O)O)cc1 matches 2
+  component NC(=O)c1cccnc1 matches 2
+  bond range 1.213969647337677 1.5411433141524504
+  min intermolecular distance 2.592053331515419
+/app/work/check_stereo.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(fn).parse_structures(primitive=False)[0];s.remove_species(['H']);rad=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<1.2*(rad[:,None]+rad[None,:]));g=nx.from_numpy_array(A)
+X13023e3 root 0 expected {8: 'R'} actual {8: 'R'} OK True
+X13023e3 root 1 expected {8: 'R'} actual {8: 'R'} OK True
+/app/work/contacts.py:4: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(sys.argv[1]).parse_structures(primitive=False)[0];s.remove_species(['H'])
+Cell (6.02220737, 5.52861212, 27.99499229, 90.0, 93.11545829, 90.0) n 48 components [15, 15, 9, 9]
+2.5921 41 N41 N 3 43 O12 O 1
+2.6570 37 C42 C 3 45 O13 O 1
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 169 seconds 50.305293560028076 best 119.53947 q25 171.62221 median 264.678 total 50.312689542770386
+GALLOP 1 Nref 169 seconds 28.322688817977905 best 119.53936 q25 119.54126 median 159.75586 total 78.68792963027954
+GALLOP 2 Nref 169 seconds 27.62180995941162 best 119.53937 q25 119.53987 median 145.35095 total 106.33355450630188

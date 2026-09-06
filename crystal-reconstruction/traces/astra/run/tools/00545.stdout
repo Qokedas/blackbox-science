@@ -1,0 +1,160 @@
+X019b9a4 P -1 N 48 V 1629 Znom 1.9 mult 2 V/mN 16.97 CIF False
+X07806d9 P b c a N 10 V 1554 Znom 8.6 mult 8 V/mN 19.43 CIF True
+X13023e3 P 1 21 1 N 24 V 931 Znom 2.2 mult 2 V/mN 19.39 CIF True
+X14a2b08 P -1 N 37 V 1288 Znom 1.9 mult 2 V/mN 17.4 CIF False
+X1a56c78 P 2 2 21 N 23 V 2000 Znom 4.8 mult 4 V/mN 21.74 CIF False
+X1db5091 P 1 21/c 1 N 38 V 2545 Znom 3.7 mult 4 V/mN 16.74 CIF False
+X2327841 P 1 21 1 N 32 V 1532 Znom 2.7 mult 2 V/mN 23.93 CIF True
+X238783d P 21 21 21 N 52 V 4264 Znom 4.6 mult 4 V/mN 20.5 CIF False
+X263b09a P -1 N 36 V 1243 Znom 1.9 mult 2 V/mN 17.26 CIF False
+X35b7fbc P 21 21 21 N 33 V 2416 Znom 4.1 mult 4 V/mN 18.3 CIF False
+X3c176e2 P 21 21 21 N 12 V 1444 Znom 6.7 mult 4 V/mN 30.08 CIF True
+X3f4781b P 1 21 1 N 26 V 1857 Znom 4.0 mult 2 V/mN 35.71 CIF False
+X4f6fe58 P -1 N 20 V 1412 Znom 3.9 mult 2 V/mN 35.29 CIF False
+X7e382cb P -1 N 20 V 642 Znom 1.8 mult 2 V/mN 16.04 CIF False
+X8a06d7a P -1 N 38 V 1286 Znom 1.9 mult 2 V/mN 16.92 CIF False
+X8a6f5a8 P 1 21 1 N 39 V 6417 Znom 9.1 mult 2 V/mN 82.27 CIF False
+X9af54a2 P 1 21 1 N 19 V 1407 Znom 4.1 mult 2 V/mN 37.02 CIF False
+Xb7088cf P 21 21 21 N 28 V 1799 Znom 3.6 mult 4 V/mN 16.07 CIF False
+Xbfc6d2c P 1 21/a 1 N 18 V 1278 Znom 3.9 mult 4 V/mN 17.74 CIF True
+Xbfeeda9 P 1 21/a 1 N 35 V 2670 Znom 4.2 mult 4 V/mN 19.07 CIF False
+Xd4c1a35 P 21 21 21 N 24 V 3428 Znom 7.9 mult 4 V/mN 35.71 CIF True
+Xd8634a2 P -1 N 33 V 1015 Znom 1.7 mult 2 V/mN 15.38 CIF False
+Xdcc971e P 1 21 1 N 30 V 1433 Znom 2.7 mult 2 V/mN 23.89 CIF True
+Xe1fb77b P 1 21 1 N 38 V 1188 Znom 1.7 mult 2 V/mN 15.63 CIF False
+Xe3a2935 P 21 21 21 N 21 V 1418 Znom 3.8 mult 4 V/mN 16.88 CIF True
+Xeb393f9 P 1 N 37 V 680 Znom 1.0 mult 1 V/mN 18.37 CIF True
+Xebbd488 C 1 2 1 N 71 V 5252 Znom 4.1 mult 4 V/mN 18.49 CIF False
+Xedd9c7b P 1 21/a 1 N 19 V 2740 Znom 8.0 mult 4 V/mN 36.05 CIF False
+Xf8ac963 P 21 21 21 N 21 V 1727 Znom 4.6 mult 4 V/mN 20.56 CIF True
+Xfca9f3c P 1 21 1 N 26 V 1258 Znom 2.7 mult 2 V/mN 24.19 CIF True
+{
+ "cell": [
+  5.898928758876659,
+  11.248303331807252,
+  30.076099463101997,
+  90.0,
+  90.1261696851211,
+  90.0
+ ],
+ "volume": 1984.4838723847654,
+ "score": 21.92359161376953,
+ "system": "MONOCLINIC",
+ "centering": "P",
+ "mode": 0,
+ "source": "index_MONOCLINIC_P_0.json",
+ "sg": "P2/m",
+ "sgstart": "P2/m",
+ "Rw": 0.07748000141933635,
+ "groups": [
+  {
+   "sg": "P 1 2 1",
+   "number": 3,
+   "Rw": 8.94560733795531,
+   "GoF": 265.51506049521134,
+   "nGoF": 0.0,
+   "mult": 2
+  },
+  {
+   "sg": "P 1 21 1",
+   "number": 4,
+   "Rw": 8.99731056304675,
+   "GoF": 268.12818044909665,
+   "nGoF": 0.0,
+   "mult": 2
+  },
+  {
+   "sg": "A 1 2 1",
+   "number": 5,
+   "Rw": 35.244297447654574,
+   "GoF": 3849.9255772420875,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "I 1 2 1",
+   "number": 5,
+   "Rw": 37.82537602638335,
+   "GoF": 4436.859642893471,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "C 1 2 1",
+   "number": 5,
+   "Rw": 47.31036789223542,
+   "GoF": 6922.297808389229,
+   "nGoF": 0.0,
+   "mult": 4
+  }
+ ],
+ "stol": 0.25,
+ "p_pars": {
+  "Zero": 0.01639669296204636,
+  "2ThetaDispl": 0.0,
+  "2ThetaTransp": 0.0,
+  "DIFC": 48277.14,
+  "DIFA": -6.7,
+  "MuR": 0.0,
+  "Scale_": 0.00035922857216979094
+ },
+ "d_pars": {
+  "Global Biso": 0.0
+ }
+}{
+ "cell": {
+  "a": 5.90627278679979,
+  "b": 11.253950622962217,
+  "c": 30.08996977329099,
+  "alpha": 90.0,
+  "beta": 90.0,
+  "gamma": 90.0
+ },
+ "space_group": "P 2 2 21",
+ "space_group_number": 17
+}analysis.log
+base.png
+base.xml
+base_profile.xye
+basefresh.log
+candidates.json
+fit_0.json
+fit_0.log
+fit_0.png
+fit_0.xml
+fit_0.xye
+fit_1.json
+fit_1.log
+fit_1.png
+fit_1.xml
+fit_1.xye
+index_CUBIC_F_0.json
+index_CUBIC_F_0.log
+index_CUBIC_I_0.json
+index_CUBIC_I_0.log
+index_CUBIC_P_0.json
+index_CUBIC_P_0.log
+index_HEXAGONAL_P_0.json
+index_HEXAGONAL_P_0.log
+index_MONOCLINIC_C_0.json
+index_MONOCLINIC_C_0.log
+index_MONOCLINIC_P_0.json
+index_MONOCLINIC_P_0.log
+index_ORTHOROMBIC_C_0.json
+index_ORTHOROMBIC_C_0.log
+index_ORTHOROMBIC_I_0.json
+index_ORTHOROMBIC_I_0.log
+index_ORTHOROMBIC_P_0.json
+index_ORTHOROMBIC_P_0.log
+index_RHOMBOEDRAL_P_0.json
+index_RHOMBOEDRAL_P_0.log
+index_TETRAGONAL_I_0.json
+index_TETRAGONAL_I_0.log
+index_TETRAGONAL_P_0.json
+index_TETRAGONAL_P_0.log
+lattice.json
+lebail.npz
+peaks.json
+peaks.png
+processed.npz
+translations_1.json

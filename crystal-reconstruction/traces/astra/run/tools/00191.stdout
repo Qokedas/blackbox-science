@@ -1,0 +1,11 @@
+['ExtractLeBail', 'GetClockNbReflBelowMaxSinThetaOvLambda', 'GetExtractionMode', 'GetFhklCalcImag', 'GetFhklCalcReal', 'GetFhklCalcSq', 'GetFhklObsSq', 'GetLSQCalc', 'GetLSQDeriv', 'GetLSQObs', 'GetLSQWeight', 'GetNbLSQFunction', 'GetNbRefl', 'GetNbReflBelowMaxSinThetaOvLambda', 'GetProfile', 'GetReflX', 'GetReflY', 'GetReflZ', 'PrintFhklCalc', 'PrintFhklCalcDetail', 'SetExtractionMode', 'SetReflectionProfilePar']
+['AddRestraint', 'ClearParamSet', 'CreateParamSet', 'EraseAllParamSet', 'FitScaleFactorForIntegratedR', 'FitScaleFactorForIntegratedRw', 'GetChi2', 'GetIntegratedChi2', 'GetIntegratedR', 'GetIntegratedRw', 'GetLSQCalc', 'GetLSQDeriv', 'GetLSQObs', 'GetLSQWeight', 'GetMaxSinThetaOvLambda', 'GetNbLSQFunction', 'GetNbPoint', 'GetNbPointUsed', 'GetParamSet', 'GetParamSetName', 'GetParamSet_ParNotFixedHumanValue', 'GetRestraintCost', 'Print', 'RemoveRestraint', 'RestoreParamSet', 'SaveParamSet', 'SetMaxSinThetaOvLambda', 'chi2', 'chi2_integrated', 'int_ptr', 'r_integrated', 'rw_integrated']
+['AddPar', 'ClearParamSet', 'CreateParamSet', 'EraseAllParamSet', 'FixAllPar', 'GetNbPar', 'GetNbParNotFixed', 'GetPar', 'GetParNotFixed', 'GetParamSet', 'GetParamSetName', 'GetParamSet_ParNotFixedHumanValue', 'GetRefParListClock', 'RemovePar', 'ResetParList', 'RestoreParamSet', 'SaveParamSet', 'SetParIsFixed', 'SetParIsUsed', 'UnFixAllPar', 'XMLInput', 'XMLOutput']
+SetFhklObsSq None None
+GetFhklObsSq <bound method GetFhklObsSq of <pyobjcryst._pyobjcryst.PowderPatternDiffraction object at 0x7655de5a9d90>> None
+GetFhklCalcSq <bound method GetFhklCalcSq of <pyobjcryst._pyobjcryst.PowderPatternDiffraction object at 0x7655de5a9d90>> None
+GetPowderPatternCalc <bound method GetPowderPatternCalc of <pyobjcryst._pyobjcryst.PowderPatternDiffraction object at 0x7655de5a9d90>> <bound method GetPowderPatternCalc of <pyobjcryst._pyobjcryst.PowderPattern object at 0x7655de5a9cb0>>
+GetPowderPatternCalcFullDeriv None None
+GetIntegratedChi2 None <bound method GetIntegratedChi2 of <pyobjcryst._pyobjcryst.PowderPattern object at 0x7655de5a9cb0>>
+GetIntegratedProfileMin None None
+GetIntegratedProfileMax None None

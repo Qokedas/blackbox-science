@@ -1,0 +1,26 @@
+/app/work/compare_periodic.py:7: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  A=CifParser(sys.argv[1]).parse_structures(primitive=False)[0];A.remove_species(['H']);L=A.lattice;fa=A.frac_coords;ea=np.array([a.specie.symbol for a in A]);els=np.unique(ea)
+/app/work/compare_periodic.py:9: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  B=CifParser(path).parse_structures(primitive=False)[0];B.remove_species(['H']);fb=B.frac_coords;eb=np.array([b.specie.symbol for b in B]);assert all((ea==e).sum()==(eb==e).sum() for e in els)
+/app/work/X7e382cb/refined_fixed105.cif origin [0.5 0.5 1. ] rms/max (np.float64(0.4905218316662341), np.float64(1.2812743821255383))
+/app/work/compare_periodic.py:9: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  B=CifParser(path).parse_structures(primitive=False)[0];B.remove_species(['H']);fb=B.frac_coords;eb=np.array([b.specie.symbol for b in B]);assert all((ea==e).sum()==(eb==e).sum() for e in els)
+/app/work/X7e382cb/refined_special104.cif origin [0.5        0.75       0.24999999] rms/max (np.float64(0.9545518206198854), np.float64(3.0809299470707145))
+/app/work/X7e382cb/refined_ionH85.cif origin [0.2397509  0.09851085 0.43623202] rms/max (np.float64(1.2310343371711219), np.float64(5.516220375318751))
+Xeb393f9 CIF graph/stereo/cell/SG validated Nat 37
+Xebbd488 JSON only C 1 2 1
+Xedd9c7b CIF graph/stereo/cell/SG validated Nat 152
+Xf8ac963 CIF graph/stereo/cell/SG validated Nat 84
+Xfca9f3c CIF graph/stereo/cell/SG validated Nat 52
+DONE 30 instances 28 CIFs
+CONDITIONAL 0 [1, 3] best 38.17605209350586 q25 40.896584 sec 290.37329173088074
+CONDITIONAL 1 [0] best 37.35530090332031 q25 220.19748 sec 507.1182029247284
+CONDITIONAL 2 [2] best 36.59720230102539 q25 204.50325 sec 606.2377254962921
+CONDITIONAL 3 [1, 3] best 36.28054428100586 q25 38.54685 sec 702.9978597164154
+CONDITIONAL 4 [0] best 36.022090911865234 q25 238.6036 sec 800.8238391876221
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X1db5091 105.29139709472656
+CONDITIONAL 0 [1] best 102.45206451416016 q25 108.15955 sec 90.65020060539246
+Sun Sep  6 11:04:08 UTC 2026

@@ -1,0 +1,16 @@
+ObjRegistry<T>::Find(a_C0): Not found !!
+List of Crystal ScatteringPowers :0 object registered:
+ObjRegistry<T>::Find(a_C1): Not found !!
+List of Crystal ScatteringPowers :1 object registered:
+#  0:ScatteringPowerAtom(a_C0)
+ObjRegistry<T>::Find(a_O2): Not found !!
+List of Crystal ScatteringPowers :2 object registered:
+#  0:ScatteringPowerAtom(a_C0)
+#  1:ScatteringPowerAtom(a_C1)
+XML: Loading Crystal:
+XML: Loading Crystal:(spg:P 1)
+Input ScatteringPowerAtom:a_C0(C)
+Input ScatteringPowerAtom:a_C1(C)
+Input ScatteringPowerAtom:a_O2(O)
+ANTIBUMP 6 Scale 10.0 Initial cost 0.0
+0.0

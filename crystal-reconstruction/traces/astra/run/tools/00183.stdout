@@ -1,0 +1,217 @@
+/opt/conda/include/ObjCryst/ObjCryst/ScatteringCorr.h:124:class TextureMarchDollase;
+/opt/conda/include/ObjCryst/ObjCryst/ScatteringCorr.h:132:                            TextureMarchDollase &);
+/opt/conda/include/ObjCryst/ObjCryst/ScatteringCorr.h:142:   /// The parent TextureMarchDollase object.
+/opt/conda/include/ObjCryst/ObjCryst/ScatteringCorr.h:143:   TextureMarchDollase *mpTextureMarchDollase;
+/opt/conda/include/ObjCryst/ObjCryst/ScatteringCorr.h:161:class TextureMarchDollase:public ScatteringCorr,public RefinableObj
+/opt/conda/include/ObjCryst/ObjCryst/ScatteringCorr.h:164:      TextureMarchDollase(const ScatteringData & data);
+/opt/conda/include/ObjCryst/ObjCryst/ScatteringCorr.h:165:      virtual ~TextureMarchDollase();
+/opt/conda/include/ObjCryst/ObjCryst/ScatteringCorr.h:199:   friend class WXTextureMarchDollase;
+/opt/conda/include/ObjCryst/ObjCryst/ScatteringCorr.h:208:class TextureEllipsoid:public ScatteringCorr,public RefinableObj
+/opt/conda/include/ObjCryst/ObjCryst/ScatteringCorr.h:211:      TextureEllipsoid(const ScatteringData & data, const REAL EPR1=0.0, const REAL EPR2=0.0, const REAL EPR3=0.0,
+/opt/conda/include/ObjCryst/ObjCryst/ScatteringCorr.h:213:      virtual ~TextureEllipsoid();
+/opt/conda/include/ObjCryst/ObjCryst/ScatteringCorr.h:230:      RefinableObjClock mClockTextureEllipsoidPar;
+/opt/conda/include/ObjCryst/ObjCryst/PowderPattern.h:503:         TextureMarchDollase mCorrTextureMarchDollase;
+/opt/conda/include/ObjCryst/ObjCryst/PowderPattern.h:505:         TextureEllipsoid mCorrTextureEllipsoid;
+      /** \brief \internal input H,K,L
+      *
+      * \param h,k,l: REAL arrays (vectors with NbRefl elements -same size),
+      *with the h, k and l coordinates of all reflections.
+      */
+      virtual void SetHKL( const CrystVector_REAL &h,
+                           const CrystVector_REAL &k,
+                           const CrystVector_REAL &l) const;
+      /** \brief Generate a list of h,k,l to describe a full reciprocal space,
+      * up to a given maximum theta value
+      *
+      * \param maxTheta:maximum theta value
+      * \param unique: if set to true, only unique reflections will be listed.
+      * Bijvoet (Friedel) pairs
+      * are NOT merged, for 'anomalous' reasons, unless you have chosen to ignore the
+      * imaginary part of the scattering factor.
+      *
+      * The multiplicity is always stored in ScatteringData::mMultiplicity.
+      *
+      * \warning The ScatteringData object must already have been assigned
+      * a crystal object using SetCrystal(), and the experimental wavelength
+      * must also have been set before calling this function.
+      */
+      virtual void GenHKLFullSpace2(const REAL maxsithsl,
+                                   const bool unique=false) const;
+      /** \brief \internal Generate a list of h,k,l to describe a full reciprocal space,
+      * up to a given maximum theta value
+      *
+      * \param maxsithsl:maximum sin(theta)/lambda=1/2d value
+      * \param unique: if set to true, only unique reflections will be listed.
+      * Bijvoet (Friedel) pairs
+      * are NOT merged, for 'anomalous' reasons, unless you have chosen to ignore the
+      * imaginary part of the scattering factor.
+      *
+      * The multiplicity is always stored in ScatteringData::mMultiplicity.
+      *
+      * \warning The ScatteringData object must already have been assigned
+      * a crystal object using SetCrystal(), and the experimental wavelength
+      * must also have been set before calling this function.
+      *
+      * \deprecated Rather use PowderPattern::GenHKLFullSpace2,
+      * with a maximum sin(theta)/lambda value, which also works for dispersive experiments.
+      */
+      virtual void GenHKLFullSpace(const REAL maxTheta,
+                                   const bool unique=false) const;
+      /// \internal This function is called after H,K and L arrays have
+      /// been initialized or modified.
+      virtual void PrepareHKLarrays() const;
+      /// \internal sort reflections by theta values (also get rid of [0,0,0] if present)
+      /// If maxSTOL >0, then only reflections where sin(theta)/lambda<maxSTOL are kept
+      /// \return an array with the subscript of the kept reflections (for inherited classes)
+      virtual CrystVector_long SortReflectionBySinThetaOverLambda(const REAL maxSTOL=-1.) const;
+      /// \internal Get rid of extinct reflections. Useful after GenHKLFullSpace().
+      /// Do not use this if you have a list of observed reflections !
+      ///
+      /// Currently done using (brute-force) numerical evaluation. Should rather use
+      /// SpaceGroup info... To do !
+      ///
+      /// \return an array with the subscript of the kept reflections (for inherited classes)
+      CrystVector_long EliminateExtinctReflections();
+
+      //The following functions are used during the calculation of structure factors,
+         /// \internal Compute sin(theta)/lambda as well a orthonormal coordinates
+         /// for all reflections. theta and tan(theta),
+         /// are also re-computed, provided a wavelength has been supplied.
+         virtual void CalcSinThetaLambda()const;
+         /// Calculate sin(theta)/lambda for a single reflection
+         REAL CalcSinThetaLambda(REAL h, REAL k, REAL l)const;
+         /// Get access to the B matrix used to compute reflection positions.
+         /// May be overridden by derived classes to use different lattice parameters
+         /// than the Crystal's unitcell (used for multiple datasets).
+         virtual const CrystMatrix_REAL& GetBMatrix()const;
+         /// \internal Get scattering factors for all ScatteringPower & reflections
+         void CalcScattFactor()const;
+         /// \internal Compute thermic factors for all ScatteringPower & reflections
+         void CalcTemperatureFactor()const;
+         /// \internal get f' and f" for ScatteringPower of the crystal, at the exp. wavelength
+         ///
+         /// This \e could be specialized for multi-wavelength experiments...
+         virtual void CalcResonantScattFactor()const;
+         /**\brief Compute the overall temperature factor affecting all reflections
+         */
+         void CalcGlobalTemperatureFactor() const;
+
+      /**\brief Compute the overall structure factor (real \b and imaginary part).
+      *This function is \e optimized \e for \e speed (geometrical structure factors are
+      *computed for all atoms and all reflections in two loops, avoiding re-calculation).
+      *So use this function for repetitive calculations.
+      *
+      *This function recognizes the type of radiation (XRay or neutron) and
+      *uses the corresponding scattering factor/length.
+      *
+      *  \return the result (real and imaginary part of the structure factor)
+      * (mRealFhklCalc, mImagFhklCalc) are stored in ScatteringData.
+      */
+      void CalcStructFactor() const;
+      void CalcStructFactor_FullDeriv(std::set<RefinablePar *> &vPar);
+      /** \brief Compute the 'Geometrical Structure Factor' for each ScatteringPower
+      * of the Crystal
+      *
+      */
+      void CalcGeomStructFactor() const;
+      void CalcGeomStructFactor_FullDeriv(std::set<RefinablePar*> &vPar);
+      /** Calculate the Luzzati factor associated to each ScatteringPower and
+      * each reflection, for maximum likelihood optimization.
+      *
+      */
+      void CalcLuzzatiFactor()const;
+      /** Calculate the variance associated to the calculated structure factor
+      *
+      */
+      void CalcStructFactVariance()const;
+
+      /// Number of H,K,L reflections
+      mutable long mNbRefl;
+      /// H,K,L coordinates
+      mutable CrystVector_REAL mH, mK, mL ;
+      /// H,K,L integer coordinates
+      mutable CrystVector_long mIntH, mIntK, mIntL ;
+      /// H,K,L coordinates, multiplied by 2PI
+      mutable CrystVector_REAL mH2Pi, mK2Pi, mL2Pi ;
+      /// reflection coordinates in an orthonormal base
+      mutable CrystVector_REAL mX, mY, mZ ;
+
+      ///Multiplicity for each reflections (mostly for powder diffraction)
+      mutable CrystVector_int mMultiplicity ;
+
+      /** Expected intensity factor for all reflections.
+      *
+      * See SpaceGroup::GetExpectedIntensityFactor()
+      */
+      mutable CrystVector_int mExpectedIntensityFactor;
+
+      /// real &imaginary parts of F(HKL)calc
+      mutable CrystVector_REAL mFhklCalcReal, mFhklCalcImag ;
+      mutable std::map<RefinablePar*, CrystVector_REAL> mFhklCalcReal_FullDeriv, mFhklCalcImag_FullDeriv ;
+      /// F(HKL)^2 calc for each reflection
+      mutable CrystVector_REAL mFhklCalcSq ;
+      mutable std::map<RefinablePar*, CrystVector_REAL> mFhklCalcSq_FullDeriv;
+
+      /** Pointer to the crystal corresponding to this experiment.
+      *
+      *  This gives an access to the UB matrix for the crystal,
+      * as well as to the list of Scatterer.
+      */
+      Crystal *mpCrystal;
+
+      /** Global Biso, affecting the overall structure factor for all
+      * reflections (but not the structure factors of individual atoms or
+      * type of atomes).
+      *
+      */
+      REAL mGlobalBiso;
+      /// Global Biso factor
+      mutable CrystVector_REAL  mGlobalTemperatureFactor;
+
+      ///Use faster, but less precise, approximations for functions? (integer
+      ///approximations to compute sin and cos in structure factors, and also
+      ///to compute interatomic distances).
+      /// This is activated by global optimization algortithms, only during the
+      /// optimization.
+      bool mUseFastLessPreciseFunc;
+
+      //The Following members are only kept to avoid useless re-computation
+      //during global refinements. They are used \b only by CalcStructFactor()
+
+         ///  \f$ \frac{sin(\theta)}{\lambda} = \frac{1}{2d_{hkl}}\f$
+         ///for the crystal and the reflections in ReciprSpace
+         mutable CrystVector_REAL mSinThetaLambda;
+
+         /// theta for the crystal and the HKL in ReciprSpace (in radians)
+         mutable CrystVector_REAL mTheta;
+
+         /// Anomalous X-Ray scattering term f' and f" are stored here for each ScatteringPower
+         /// We store here only a value. For multi-wavelength support this should be changed
+         /// to a vector... or to a matrix to take into account anisotropy of anomalous
+         /// scattering...
+         mutable map<const ScatteringPower*,REAL> mvFprime,mvFsecond;
+
+         /// Thermic factors for each ScatteringPower, as vectors with NbRefl elements
+         mutable map<const ScatteringPower*,CrystVector_REAL> mvTemperatureFactor;
+
+         /// Scattering factors for each ScatteringPower, as vectors with NbRefl elements
+         mutable map<const ScatteringPower*,CrystVector_REAL> mvScatteringFactor;
+
+         /// Geometrical Structure factor for each ScatteringPower, as vectors with NbRefl elements
+         mutable map<const ScatteringPower*,CrystVector_REAL> mvRealGeomSF,mvImagGeomSF;
+         mutable map<RefinablePar*,map<const ScatteringPower*,CrystVector_REAL> > mvRealGeomSF_FullDeriv,mvImagGeomSF_FullDeriv;
+
+      //Public Clocks
+         /// Clock for the list of hkl
+         mutable RefinableObjClock mClockHKL;
+         /// Clock for the structure factor
+         mutable RefinableObjClock mClockStructFactor;
+         /// Clock for the square modulus of the structure factor
+         mutable RefinableObjClock mClockStructFactorSq;
+      //Internal Clocks
+         /// Clock the last time theta was computed
+         mutable RefinableObjClock mClockTheta;
+         /// Clock the last time scattering factors were computed
+         mutable RefinableObjClock mClockScattFactor;
+/opt/conda/include/ObjCryst/ObjCryst/ScatteringCorr.h
+/opt/conda/pkgs/libobjcryst-2024.2.1-h2b4839b_1/include/ObjCryst/ObjCryst/ScatteringCorr.h

@@ -1,0 +1,15 @@
+EXACT_PAWLEY nref 370 rank 319 cond 992.7713866822553 chi2 596.232732746641 netRwp 0.15910768953782778
+ZM COC(=O)[C@H](c1ccccc1Cl)[NH+]1CCc2sccc2C1 n 21 torsions 4 max_distance_error 9.595735761536162e-09
+ZM O=S(=O)([O-])O n 5 torsions 0 max_distance_error 4.721088409098684e-09
+ZM COC(=O)[C@H](c1ccccc1Cl)[NH+]1CCc2sccc2C1 n 21 torsions 4 max_distance_error 9.983160520476986e-09
+ZM O=S(=O)([O-])O n 5 torsions 0 max_distance_error 7.304869598101504e-09
+Total degrees of freedom: 36
+Total external degrees of freedom: 28 (pos: 12 rot: 16 )
+Total internal degrees of freedom: 8
+PREPARED X3f4781b Nref 370 PawleyRw 0.07776951963268078 SG P 1 21 1
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+RESTART_ERROR max/rms 2.43742791117647e-06 9.1045000519325e-07
+WARM_READY /app/work/X3f4781b/gallop_82

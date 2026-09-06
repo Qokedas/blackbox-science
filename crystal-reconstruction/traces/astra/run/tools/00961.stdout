@@ -1,0 +1,18 @@
+57590
+57591
+CYCLE 3 1 Rw 0.14535626447286792 chi2 1623.8343842588813 geom 35.592396459859565 LSQ 1769.1313859948314
+CYCLE 3 2 Rw 0.14524132185751779 chi2 1621.267257558751 geom 35.65182880905584 LSQ 1766.680817276629
+PACKING_STAGE 3 0.0
+FINISHED X1a56c78 0.14524132185751779
+CYCLE 0 1 Rw 0.2776384461351432 chi2 2125.700977151831 geom 97.13781593747845 LSQ 2578.099498088711
+CYCLE 0 2 Rw 0.27384187961703604 chi2 2067.962676345336 geom 97.13781593747845 LSQ 2346.5834783556925
+PACKING_STAGE 0 1.7210028001605935
+CYCLE 1 0 Rw 0.2654450433794541 chi2 1943.0868041496196 geom 20.18642255053678 LSQ 2047.726275717992
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 523 seconds 241.89472556114197 best 116.84064 q25 403.62494 median 489.0633 total 241.9100866317749
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X7e382cb 64.20481872558594
+CONDITIONAL 0 [1, 2, 4, 5] best 56.50246810913086 q25 93.325836 sec 297.57661747932434

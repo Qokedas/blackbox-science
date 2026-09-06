@@ -1,0 +1,162 @@
+{
+ "cost": 122.25847625732422,
+ "batch": 9,
+ "elapsed": 271.3950250148773,
+ "centre": [
+  0.0,
+  0.5,
+  0.5
+ ]
+}{
+ "cost": 155.03245544433594,
+ "batch": 14,
+ "elapsed": 897.3809304237366,
+ "centre": [
+  0.0,
+  0.5,
+  0.5
+ ]
+}BATCH 7 best 155.0325927734375 diffraction 146.5526123046875 p25 453.666259765625 seconds 475.66691637039185 centre [0.  0.5 0.5]
+BATCH 8 best 155.0325164794922 diffraction 146.55255126953125 p25 464.62847900390625 seconds 538.3997128009796 centre [0.  0.5 0.5]
+BATCH 9 best 155.0325164794922 diffraction 146.552490234375 p25 437.2877197265625 seconds 601.2653486728668 centre [0.  0.5 0.5]
+BATCH 10 best 241.47352600097656 diffraction 230.96832275390625 p25 486.0748596191406 seconds 677.5586700439453 centre [0.  0.5 0.5]
+BATCH 11 best 155.03265380859375 diffraction 146.55267333984375 p25 445.56927490234375 seconds 728.1047239303589 centre [0.  0.5 0.5]
+BATCH 12 best 155.0325164794922 diffraction 146.55255126953125 p25 443.9252624511719 seconds 779.9874613285065 centre [0.  0.5 0.5]
+BATCH 13 best 155.03260803222656 diffraction 146.55096435546875 p25 417.85211181640625 seconds 834.6184883117676 centre [0.  0.5 0.5]
+BATCH 14 best 155.03245544433594 diffraction 146.55242919921875 p25 453.1072692871094 seconds 897.3774268627167 centre [0.  0.5 0.5]
+BATCH 15 best 155.50880432128906 diffraction 144.99151611328125 p25 527.4254150390625 seconds 947.404007434845 centre [0.  0.5 0.5]
+BATCH 16 best 155.03250122070312 diffraction 146.55255126953125 p25 428.306884765625 seconds 990.4656229019165 centre [0.  0.5 0.5]
+/app/work/gallop_fast_symmetry.py
+/app/work/gallop_fast_symmetry_v1.py
+/app/work/import_de.py
+/app/work/import_gallop.py
+/app/work/import_gallop_v1.py
+/app/work/import_gallop_v4.py
+/app/work/queue_twocentre.log
+/app/work/queue_twocentre.sh
+/app/work/solve_twocentres.py
+/app/work/solve_twocentres_v1.py
+/app/work/x7_symmetrise.py
+/app/work/x7_symmetrise_v0.py
+"""Expand a molecular ObjCryst model into P1 while retaining heavy connectivity.
+Creates a diagnostic, not an automatic submission. Every symmetry image is a
+whole independent molecule; improper operations also transform restraint targets.
+"""
+import sys,os,json,numpy as np,gemmi
+from rdkit import Chem
+from pyobjcryst.io import xml_cryst_file_load_all_object,xml_cryst_file_save_global
+from obj_model import add_component,export_cif,recenter_molecules
+sid,src,model_path,tag=sys.argv[1:5];W='/app/work/'+sid;R=W+'/search_'+tag;os.makedirs(R,exist_ok=True)
+objs=xml_cryst_file_load_all_object(src);c=next(o for o in objs if o.GetClassName()=='Crystal');p=next(o for o in objs if o.GetClassName()=='PowderPattern');d=next(p.GetPowderPatternComponent(i) for i in range(p.GetNbPowderPatternComponent()) if p.GetPowderPatternComponent(i).GetClassName()=='PowderPatternDiffraction')
+mods=json.load(open(model_path));sg=gemmi.find_spacegroup_by_name(c.GetSpaceGroup().GetName());mols=[c.GetScatterer(i) for i in range(c.GetNbScatterer())]
+mat=np.array([c.FractionalToOrthonormalCoords(*v) for v in np.eye(3)]);inv=np.linalg.inv(mat);images=[]
+for op in sg.operations():
+ rot=np.array(op.rot,dtype=float)/op.DEN;trans=np.array(op.tran,dtype=float)/op.DEN
+ cartrot=inv@rot.T@mat
+ for m,md in zip(mols,mods):
+  n=Chem.MolFromSmiles(md['smiles']).GetNumHeavyAtoms();sc=list(m.GetScatteringComponentList());f=np.array([[a.X,a.Y,a.Z] for a in sc[:n]])
+  target=(f@rot.T+trans)@mat
+  ideal=np.array(md.get('restraint_coords',md.get('rdkit_coords',np.zeros((n,3)))))@cartrot
+  images.append((md['smiles'],target,ideal))
+for m in mols:c.RemoveScatterer(m)
+c.ChangeSpaceGroup('P 1');newmods=[]
+for i,(smiles,xyz,ideal) in enumerate(images):
+ m,md=add_component(c,smiles,'p1_m'+str(i),coords_override=ideal)
+ if m.GetClassName()=='Molecule':
+  cen=xyz.mean(0);local=xyz-cen
+  for j,v in enumerate(local):a=m.GetAtom(j);a.X,a.Y,a.Z=map(float,v)
+  m.Q0,m.Q1,m.Q2,m.Q3=1.,0.,0.,0.;m.X,m.Y,m.Z=c.OrthonormalToFractionalCoords(*map(float,cen))
+ else:m.X,m.Y,m.Z=c.OrthonormalToFractionalCoords(*map(float,xyz[0]))
+ newmods.append(md)
+c.GetOption(1).SetChoice(0);d.SetExtractionMode(False);p.Prepare();p.FitScaleFactorForRw();recenter_molecules(c)
+json.dump(newmods,open(R+'/model.json','w'),indent=1);xml_cryst_file_save_global(R+'/best.xml');export_cif(c,R+'/best.cif')
+print('P1_EXPANDED',sid,'molecules',len(newmods),'Rw',p.GetRw(),flush=True)
+import sys,os,json,numpy as np,gemmi
+from rdkit import Chem
+from pymatgen.core import Lattice
+from pyobjcryst.io import xml_cryst_file_load_all_object,xml_cryst_file_save_global
+from obj_model import export_cif,recenter_molecules
+sid=sys.argv[1];run=sys.argv[2];W='/app/work/'+sid;src=sys.argv[3] if len(sys.argv)>3 else W+'/refined_'+run+'.xml';cif=sys.argv[4] if len(sys.argv)>4 else W+'/refined_'+run+'.cif';out=sys.argv[5] if len(sys.argv)>5 else W+'/restored_'+run+'.xml'
+objs=xml_cryst_file_load_all_object(src);c=[x for x in objs if x.GetClassName()=='Crystal'][0];p=[x for x in objs if x.GetClassName()=='PowderPattern'][0]
+b=gemmi.cif.read_file(cif).sole_block();rows=b.find(['_atom_site_type_symbol','_atom_site_fract_x','_atom_site_fract_y','_atom_site_fract_z']);frac=np.array([[float(row[j]) for j in range(1,4)] for row in rows]);els=[row[0] for row in rows]
+cp=[c.GetPar(n).GetHumanValue() for n in ['a','b','c','alpha','beta','gamma']];L=Lattice.from_parameters(*cp);models=json.load(open(W+'/search_'+run+'/model.json'));offset=0
+for im,md in enumerate(models):
+ m=c.GetScatterer(im);n=m.GetNbAtoms() if m.GetClassName()=='Molecule' else 1;f=frac[offset:offset+n];offset+=n
+ if n==1:m.X,m.Y,m.Z=f[0];continue
+ r=Chem.MolFromSmiles(md['smiles'])
+ if n>r.GetNumAtoms():r=Chem.AddHs(r)
+ assert n==r.GetNumAtoms()
+ coords=f.copy();seen={0};queue=[0]
+ while queue:
+  i=queue.pop()
+  for a in r.GetAtomWithIdx(i).GetNeighbors():
+   j=a.GetIdx()
+   if j in seen:continue
+   ds,imv=L.get_distance_and_image(coords[i],f[j]);coords[j]=f[j]+imv;seen.add(j);queue.append(j)
+ xyz=np.array([c.FractionalToOrthonormalCoords(*v) for v in coords]);center=xyz.mean(0)
+ for i,v in enumerate(xyz-center):a=m.GetAtom(i);a.X,a.Y,a.Z=v
+ m.Q0,m.Q1,m.Q2,m.Q3=1.,0.,0.,0.;m.X,m.Y,m.Z=c.OrthonormalToFractionalCoords(*center);m.GetOption(0).SetChoice(2)
+p.Prepare();p.FitScaleFactorForRw();print('RESTORED_CIF',sid,p.GetRw(),p.GetChi2(),flush=True)
+recenter_molecules(c);xml_cryst_file_save_global(out)
+{
+ "cell": [
+  6.950883561252238,
+  6.9714360090474425,
+  15.760000618785241,
+  65.620071071758,
+  82.98049443060587,
+  67.39068753201737
+ ],
+ "volume": 647.2495595622713,
+ "score": 77.87,
+ "system": "TRICLINIC",
+ "centering": "P",
+ "mode": 9,
+ "source": "doublec_fit0",
+ "sg": "P -1",
+ "sgstart": "P -1",
+ "Rw": 0.034961766101973206,
+ "groups": [
+  {
+   "sg": "P 1",
+   "number": 1,
+   "Rw": 4.05634287476456,
+   "GoF": 9.221592321633876,
+   "nGoF": 2.638392983510142,
+   "mult": 1
+  },
+  {
+   "sg": "P -1",
+   "number": 2,
+   "Rw": 4.05634287476456,
+   "GoF": 9.221592321633876,
+   "nGoF": 2.638392983510143,
+   "mult": 2
+  }
+ ],
+ "stol": 0.32,
+ "p_pars": {
+  "Zero": -0.020591785845689447,
+  "2ThetaDispl": 0.0,
+  "2ThetaTransp": 0.0,
+  "DIFC": 48277.14,
+  "DIFA": -6.7,
+  "MuR": 0.0,
+  "Scale_": 0.00015134670845511351
+ },
+ "d_pars": {
+  "Global Biso": 0.0
+ }
+}/app/work/submit.py:5: UserWarning: Issues encountered while parsing CIF: 1 fractional coordinates rounded to ideal values to avoid issues with finite precision.
+Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+X1a56c78 Nat 92 molecule sizes [22, 22, 22, 22, 1, 1, 1, 1]
+  component O[C@](CC[NH+]1CCCCC1)(c1ccccc1)C1CCCCC1 matches 4
+  component [Cl-] matches 4
+  bond range 1.388616939097765 1.5819484764175122
+  min intermolecular distance 3.0652118545613036
+EXTENDED_BACKGROUND 0.13787404757623425
+CYCLE 0 0 Rw 0.1374667021068206 chi2 3507.58357770351 geom 363.70374794189433 LSQ 4265.559957459374
+CYCLE 0 1 Rw 0.13729628667253127 chi2 3498.8923694199093 geom 363.70374794189433 LSQ 4256.373950185991
+CYCLE 0 2 Rw 0.1370980473639094 chi2 3488.795705182165 geom 363.70374794189433 LSQ 4246.781926709423
+PACKING_STAGE 0 0.5463227297184026

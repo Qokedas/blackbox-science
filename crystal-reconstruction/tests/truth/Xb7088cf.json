@@ -1,0 +1,22 @@
+{
+ "id": "Xb7088cf",
+ "reference_cif": "data_ref\n_symmetry_cell_setting orthorhombic\n_symmetry_space_group_name_Hall ?\n_space_group_name_H-M_alt \"P n a 21\"\n_space_group_name_Hall \"P 2c -2n\"\n\nloop_\n_space_group_symop_id\n_space_group_symop_operation_xyz\n1 x,y,z\n2 1/2-x,1/2+y,1/2+z\n3 1/2+x,1/2-y,z\n4 -x,-y,1/2+z\n\n_cell_length_a 38.236(5)\n_cell_length_b 9.4459(7)\n_cell_length_c 5.0673(4)\n_cell_angle_alpha 90\n_cell_angle_beta 90\n_cell_angle_gamma 90\n_cell_volume 1830.2(2)\n_cell_formula_units_Z 4\n\nloop_\n_atom_type_symbol\n_atom_type_scat_dispersion_real\n_atom_type_scat_dispersion_imag\n_atom_type_scat_source\nC 0.003 0.002 https://github.com/AdvancedPhotonSource/GSAS-II/blob/master/GSASII/atmdata.py\nH 0.000 0.000 https://github.com/AdvancedPhotonSource/GSAS-II/blob/master/GSASII/atmdata.py\nN 0.006 0.003 https://github.com/AdvancedPhotonSource/GSAS-II/blob/master/GSASII/atmdata.py\nO 0.011 0.006 https://github.com/AdvancedPhotonSource/GSAS-II/blob/master/GSASII/atmdata.py\n\nloop_\n_atom_site_type_symbol\n_atom_site_label\n_atom_site_fract_x\n_atom_site_fract_y\n_atom_site_fract_z\n_atom_site_U_iso_or_equiv\n_atom_site_adp_type\n_atom_site_occupancy\n_atom_site_site_symmetry_multiplicity\nO O1 0.7170(5) 0.3108(13) 1.26983 0.055(8) Uiso 1.0000 4\nO O2 0.5094(5) 0.313(3) 0.331(4) 0.029(9) Uiso 1.0000 4\nO O3 0.7017(6) 0.5418(13) 1.292(8) 0.055(8) Uiso 1.0000 4\nN N4 0.6773(5) 0.393(2) 0.994(5) 0.055(8) Uiso 1.0000 4\nN N5 0.4935(5) 0.278(3) 0.760(5) 0.029(9) Uiso 1.0000 4\nN N6 0.4756(7) 0.052(3) 1.089(7) 0.055(10) Uiso 1.0000 4\nN N7 0.8163(6) 0.5927(17) 1.337(8) 0.033(9) Uiso 1.0000 4\nC C8 0.6206(3) 0.4434(17) 0.780(5) 0.027(8) Uiso 1.0000 4\nC C9 0.6556(6) 0.500(2) 0.869(8) 0.055(8) Uiso 1.0000 4\nC C10 0.5512(3) 0.3708(19) 0.659(5) 0.027(8) Uiso 1.0000 4\nC C11 0.6038(4) 0.502(3) 0.563(5) 0.027(8) Uiso 1.0000 4\nC C12 0.6023(5) 0.347(4) 0.933(6) 0.027(8) Uiso 1.0000 4\nC C13 0.5696(3) 0.467(2) 0.504(5) 0.027(8) Uiso 1.0000 4\nC C14 0.5681(5) 0.311(3) 0.875(6) 0.027(8) Uiso 1.0000 4\nC C15 0.5163(4) 0.318(3) 0.568(4) 0.029(9) Uiso 1.0000 4\nC C16 0.4613(4) 0.207(2) 0.725(6) 0.055(10) Uiso 1.0000 4\nC C17 0.4533(7) 0.091(3) 0.889(8) 0.055(10) Uiso 1.0000 4\nC C18 0.4383(9) 0.246(4) 0.523(9) 0.055(10) Uiso 1.0000 4\nC C19 0.6981(5) 0.4247(11) 1.198(5) 0.055(8) Uiso 1.0000 4\nC C20 0.7430(4) 0.335(2) 1.474(4) 0.055(8) Uiso 1.0000 4\nC C21 0.4222(8) 0.017(3) 0.844(9) 0.055(10) Uiso 1.0000 4\nC C22 0.7750(5) 0.4006(19) 1.352(8) 0.033(9) Uiso 1.0000 4\nC C23 0.4077(7) 0.169(4) 0.483(8) 0.055(10) Uiso 1.0000 4\nC C24 0.3997(8) 0.056(4) 0.643(8) 0.055(10) Uiso 1.0000 4\nC C25 0.7929(8) 0.335(3) 1.149(7) 0.033(9) Uiso 1.0000 4\nC C26 0.7880(8) 0.529(2) 1.439(7) 0.033(9) Uiso 1.0000 4\nC C27 0.8221(8) 0.398(3) 1.040(9) 0.033(9) Uiso 1.0000 4\nC C28 0.8329(6) 0.526(2) 1.140(7) 0.033(9) Uiso 1.0000 4\nH H29 0.67008 0.54448 0.69050 0.0713 Uiso 1.0000 4\nH H30 0.65046 0.58991 1.01441 0.0713 Uiso 1.0000 4\nH H31 0.62060 0.54691 0.39817 0.0356 Uiso 1.0000 4\nH H32 0.61567 0.29902 1.10662 0.0356 Uiso 1.0000 4\nH H33 0.55888 0.51030 0.32747 0.0356 Uiso 1.0000 4\nH H34 0.55238 0.26635 1.04151 0.0356 Uiso 1.0000 4\nH H35 0.67159 0.28737 0.92867 0.0713 Uiso 1.0000 4\nH H36 0.50674 0.20423 0.89818 0.0372 Uiso 1.0000 4\nH H37 0.45017 0.32241 0.38325 0.0721 Uiso 1.0000 4\nH H38 0.74850 0.23110 1.55041 0.0713 Uiso 1.0000 4\nH H39 0.73009 0.39869 1.62195 0.0713 Uiso 1.0000 4\nH H40 0.41682 -0.08211 0.94296 0.0721 Uiso 1.0000 4\nH H41 0.39034 0.23483 0.36479 0.0721 Uiso 1.0000 4\nH H42 0.37377 0.02234 0.63785 0.0721 Uiso 1.0000 4\nH H43 0.78356 0.22806 1.07112 0.0432 Uiso 1.0000 4\nH H44 0.47309 -0.06399 1.12476 0.0721 Uiso 1.0000 4\nH H45 0.46876 0.11006 1.27176 0.0721 Uiso 1.0000 4\nH H46 0.77066 0.58946 1.57984 0.0432 Uiso 1.0000 4\nH H47 0.83386 0.33515 0.89816 0.0432 Uiso 1.0000 4\nH H48 0.85627 0.56225 1.10069 0.0432 Uiso 1.0000 4\n",
+ "space_group_number": 33,
+ "space_group_symbol": "P n a 21",
+ "centring": "P",
+ "sohncke": false,
+ "chiral": false,
+ "L_graded": true,
+ "dof": 12.0,
+ "dof_bin": "calib_lt15",
+ "zprime": 1.0,
+ "n_heavy_asym": 28.0,
+ "components": [
+  {
+   "smiles": "Nc1ccccc1NC(=O)c1ccc(CNC(=O)OCc2cccnc2)cc1",
+   "count": 1
+  }
+ ],
+ "radiation_class": "lab_Mo",
+ "candidate_name": "entinostat Form B"
+}

@@ -1,0 +1,14 @@
+EDD_CONDITIONAL_PID:51579
+15
+CYCLE 2 0 Rw 0.11864250286592025 chi2 7264.5493915930965 geom 234.30209018639758 LSQ 8103.906871918598
+CYCLE 2 1 Rw 0.11445625912867599 chi2 6760.941463054464 geom 117.77521077073472 LSQ 7597.420422936333
+CYCLE 2 2 Rw 0.1067620139844905 chi2 5882.495405803804 geom 52.316249705864166 LSQ 7080.81127067707
+PACKING_STAGE 2 903.9520970833034
+CYCLE 3 0 Rw 0.10625498781330357 chi2 5826.754666363993 geom 49.971456137456045 LSQ 6310.892645415524
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 211 seconds 239.96308970451355 best 99.649445 q25 180.83546 median 224.47261 total 239.97126030921936
+GALLOP 1 Nref 211 seconds 214.2991418838501 best 99.649055 q25 165.23811 median 221.0964 total 454.400057554245
+GALLOP 2 Nref 211 seconds 149.20572519302368 best 99.64931 q25 152.52448 median 195.99094 total 603.7232489585876

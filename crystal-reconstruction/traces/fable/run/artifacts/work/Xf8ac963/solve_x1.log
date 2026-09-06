@@ -1,0 +1,20 @@
+seed 1975869493
+down-weighting 2.84-2.93 deg (89 points) by sigma x10.0
+down-weighting 6.15-6.28 deg (129 points) by sigma x10.0
+Imported powder pattern: 15491 points, 2theta=  0.510 ->  16.000, step= 0.001
+step ['Zero'] Rwp=0.4678
+step ['W'] Rwp=0.1089
+step ['a', 'b', 'c', 'alpha', 'beta', 'gamma'] Rwp=0.0928
+step ['U', 'V'] Rwp=0.0778
+step ['Eta0'] Rwp=0.0718
+step ['Eta1'] Rwp=0.0714
+step ['background'] Rwp=0.0626
+step ['Zero', 'W', 'U', 'V', 'Eta0', 'background', 'a', 'b', 'c', 'alpha', 'beta', 'gamma'] Rwp=0.0621
+LeBail Rwp=0.0622 chi2=7372.6 cell= 16.263816200417317 9.321172785603734 11.392715747178476 90.0
+  conformers: 27 distinct; energies [23.1, 23.3, 26.1, 26.3, 26.5, 28.3]; using rank 0 (E=23.1)
+  molecule mol0_0: 21 atoms, 22 bonds, 30 angles, 25 dihedral restraints, 4 free torsions
+run 0: cost=81450.6 Rwp=0.2387 chi2=108736.5 t=1031s
+polish: Rwp 0.2379 -> 0.2276 (accepted) restraint cost=0.00
+run 1: cost=73305.9 Rwp=0.2290 chi2=100423.7 t=736s
+polish: Rwp 0.2286 -> 0.2257 (accepted) restraint cost=0.00
+RESULTS Xf8ac963 P 21 21 21 [(81450.55881840028, 0.23873089168356557, 108736.5084095648), (73305.9421554334, 0.22897883539450287, 100423.72874485604)]

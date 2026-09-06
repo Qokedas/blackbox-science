@@ -1,0 +1,16 @@
+/opt/conda/lib/python3.11/site-packages/monty/design_patterns.py:76: UserWarning: Full symbol not available, falling back to short Hermann Mauguin symbol P12_1/a1 instead
+  orig_init(instance, *args, **kwargs)
+EXACT_PAWLEY nref 258 rank 206 cond 944.1300345620227 chi2 1287.3910016304912 netRwp 0.20807466817581488
+ZM C[NH+](C)CCc1c[nH]c2cccc(OP(=O)([O-])O)c12 n 19 torsions 5 max_distance_error 1.135272675867327e-08
+ZM C[NH+](C)CCc1c[nH]c2cccc(OP(=O)([O-])O)c12 n 19 torsions 5 max_distance_error 1.2109230951296013e-08
+GENERIC_SYMMETRY P 1 21/a 1
+Total degrees of freedom: 24
+Total external degrees of freedom: 14 (pos: 6 rot: 8 )
+Total internal degrees of freedom: 10
+PREPARED Xedd9c7b Nref 258 PawleyRw 0.07148368491521652 SG P 1 21/a 1
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+RESTART_ERROR max/rms 1.636583389492449e-06 9.227303288334675e-07
+WARM_READY /app/work/Xedd9c7b/gallop_84

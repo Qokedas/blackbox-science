@@ -1,0 +1,6 @@
+restored from X35b7fbc/sol_a/P212121_run0_lsq_rw0.163.cif: Rwp=0.1819 restraint cost=0.00
+polish: Rwp 0.1819 -> 0.1454 (accepted) restraint cost=0.00
+run 0: cost=50213.7 Rwp=0.1789 chi2=52674.3 t=1753s
+polish: Rwp 0.1787 -> 0.1506 (accepted) restraint cost=0.00
+  conformers: 3 distinct; energies [105.0, 106.6, 108.0]; using rank 0 (E=105.0)
+  molecule mol0_1: 24 atoms, 26 bonds, 40 angles, 55 dihedral restraints, 3 free torsions

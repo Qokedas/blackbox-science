@@ -1,0 +1,80 @@
+X019b9a4
+X07806d9
+X13023e3
+X14a2b08
+X1a56c78
+X1db5091
+X2327841
+X238783d
+X263b09a
+X35b7fbc
+# Tools available in this container (offline)
+
+No network. 4 CPUs, no GPU. Everything below is installed; nothing else can be downloaded.
+
+## Python (default `python`, conda-forge, Python 3.11)
+- numpy, scipy, pandas, matplotlib (Agg backend; save figures to files and view them with `view_image`), sympy, numba, lmfit, scikit-learn, networkx, h5py
+- **pymatgen** (structures, lattices, `Lattice.get_niggli_reduced_lattice`, `SpacegroupAnalyzer`, CIF read/write, `StructureMatcher`)
+- **spglib**, **gemmi** (CIF parsing, space-group tables: `gemmi.find_spacegroup_by_name`), **ase**
+- **RDKit** (SMILES to 3D conformers: `AllChem.EmbedMolecule`, `ETKDG`, MMFF/UFF), **openbabel**
+- **xtb** (command line `xtb`, GFN2-xTB / GFN-FF for conformer optimisation)
+- **pyobjcryst** (Python bindings to ObjCryst++, the engine behind FOX): `pyobjcryst.crystal.Crystal`, `pyobjcryst.molecule.Molecule`, `pyobjcryst.powderpattern.PowderPattern`, `pyobjcryst.globaloptim.MonteCarloObj`, `pyobjcryst.indexing` (peak-list indexing, `CellExplorer`), `pyobjcryst.zscatterer` (Z-matrix). Use `help(pyobjcryst.<module>)` for the API; the FOX manual concepts (direct-space Monte-Carlo / parallel tempering against a powder pattern, anti-bump, dynamical occupancy correction) map one-to-one.
+- **gallop** (GALLOP: GPU-accelerated direct-space solver, here on CPU via torch; `gallop.structure.Structure`, `gallop.optim.local`, `gallop.z_matrix`; needs Pawley-extracted intensities and covariance, e.g. from GSAS-II or DASH-style hkl files; see the package's `example_data` directory under `site-packages/gallop` if present)
+- **torch** (CPU), **diffpy.structure**
+
+## GSAS-II
+Installed in its own environment. Run it with
+```
+PYTHONPATH=/opt/g2/GSAS-II /opt/g2/bin/python your_script.py
+```
+and `import GSASII.GSASIIscriptable as G2` (the scriptable API: create a project, add a powder histogram from an .xye file with an instrument-parameter file, add phases from CIF, Pawley refinement, Rietveld refinement, restraints, `G2.G2Project(...)`, `hist.set_refinements`, `phase.set_refinements`, export CIF). Indexing (`GSASIIindex`), peak fitting and Le Bail / Pawley are all reachable through the scriptable API or by importing the GSASII modules directly. An instrument-parameter file is a short text file; the `.xye` reader accepts three columns (2theta, intensity, sigma).
+
+## Shell utilities
+bash, coreutils, ripgrep (`rg`), jq, less, vim-tiny, gfortran/gcc (compile your own Fortran or C if you want, e.g. an indexing program you write yourself).
+
+## Notes
+- `view_image` renders PNG/JPEG files you write (max 1568 px on a side); use it to look at patterns, difference plots and packing diagrams.
+- CPU time is the scarce resource: 4 cores for the whole run. Run long searches in the background (`nohup ... &`) and poll; set `OMP_NUM_THREADS` sensibly.
+- Write final answers only under `/app/results/submission/` (see the instruction). If you export a CIF from pyobjcryst (`Crystal.CIFOutput`), note that ObjCryst writes dynamical-occupancy values below 1 for atoms it considers overlapping; the evaluator requires every site fully occupied (occupancy 1), so fix the occupancy column (and merge or remove genuinely duplicated atoms) before submitting.
+X3f4781b clopidogrel bisulfate: cell volume ~1852 A3 with MW420. Z=4 (density1.5), not Z=2 (density0.75). In P21 MUST use Z'=2: two clopidogrel cations and two bisulfates. The first MC trial had Z'=1 and was necessarily incorrect; do not submit its structure.
+X9af54a2 P21 volume1407 Z=4 Z'=2.
+X3c176e2 P212121 volume1444 Z=8 Z'=2.
+Xd4c1a35 P212121 volume3426 Z=8 Z'=2.
+X4f6fe58 P-1 volume1410 Z=4 Z'=2.
+X3c176e2 inositol isomer0 (RDKit enumeration) with Z'=2 P212121 solved, Rwp0.04247, minO-contact2.532 A, bonds1.413-1.563 A; submitted.
+Xe3a2935 final Rwp0.09778 vs Le Bail0.0869; plausible heavy connectivity, 2.80A mincontacts; submitted.
+Xfca9f3c best cell candidate1/P21 newly submitted JSON after freshbase0.03974.
+X8a06d7a partial TRI log gives M47.37 V1300.7 a5.061,b11.862,c21.748,angles93.96,91.916,92.17; fits in progress for five candidates.
+Antibump test: ObjCryst DOES count intramolecular bonds! New script antibump.py assigns topology-aware minima only with separate atom scattering powers (--fullbump), or solvent/ion selective only (--bump). Scale via c.XMLInput(XMLOutput modified AntiBumpScale). Usual scale10; rescale diffraction errors before search (--rescale) for comparable chemical likelihood.
+IMPORTANT: automatic MonteCarlo LSQ after each run was causing very large geometry likelihood and nonphysical high-cost models in X130/X35. Default MC_LSQ now 0 (never); only enable explicitly if useful. Added --profile for full point-by-point MC when integrated-profile objective is suspicious.
+IMPORTANT: Molecule internal-coordinate translation is a gauge mode. Least squares (especially --rigid starting models) can drift its common XYZ center to 1e9 A; CIF calc remains correct but ObjCryst XML six-significant-digit serialization collapses the molecule! Added recenter_molecules() before CIF/XML saving and each refinement cycle. X3c176e2 refined_10.xml was corrupted this way, but original CIF fine; restored via restore_cif.py and highres fit 0.03704, re-submitted.
+IMPORTANT: c.XMLInput on a crystal already containing Python-owned Molecules can abort with invalid pointer. antibump.py now leaves default AntiBumpScale1, does not use XMLInput. --fullbump sameatom SP distances still work without scaling.
+X35b7fbc likely ergometrine maleate. Default unspecified C=C conformer was TRANS, cannot change under rigid double-bond restraint. Now cis.json/trans.json enumerate. Stopped trans search after ~4M; new cis search scheduled.
+Four original submitted structures replaced by higher-resolution dmin1.316A refinements: Xe3 Rwp.07252, Xf8.08811, Xbfc.03502, X078.12342; all connectivity/contact checks passed.
+Xeb393f9 triclinic cell V~682, M72.29, whole-profile Lebail.0454. Enantiopure one FU has density1.33 with Z1, thus P1 plausible; freshbase/JSON submitted. Candidate reducedcell8.014,9.816,10.233 angles74.871,68.959,65.931.
+X14a2b08 candidate4 is markedly better (Lebail.0838 vs .109 others), freshbase/JSON replaces candidate0. X8a06d7a cell4 tentative (best prior.125 but fresh.146); raw-peak reindex needed.
+
+Continuation: ObjCryst bridge compiled in /app/work/libobj_bridge.so with wrapper obj_bridge.py.
+Exact fixed-profile Pawley matrix now implemented and GALLOP preparation uses exact weighted profile overlaps and SVD extraction (old gallop runs remain old).
+Anti-bump scale safely adjustable via bridge (no XMLInput); current antibump.py respects requested scale, default10.
+Aromatic N-aroyl amide torsion restraints disabled in new model generation (e.g. acemetacin) because truly rotatable.
+Xd4 run1 was killed (bad older base Le Bail .228). Fresh base .09397 saved and run2/full-profile started on new CoreC queue.
+X130 run2 refined to .0875 but cocrystal molecules overlap/connect; not submitted.
+Xfca all-trans run10 refined to .04652; validated two26-heavy molecules; submitted six-th CIF. High-resolution refinement planned.
+X7e reconsidered: candidate V324 ignored clearly crystalline first2.808° peak (and5.635°,11.301° harmonics). Doubling c toV647 permits first001, full-profile .03496 vs .04522 half-cell. Half-anion global solver plateau ~202 normalized cost /Rwp.096, likely half-cell is only pseudosubcell. Replaced mainbase with fit_double0.xml (.32, not inferior fresh doublebase), and JSON with doubledcell. Fullanion+2N Zprime1 P-1 GALLOP21 queued. Half oldbase remains half_base/.
+Refinement fix: ObjCryst rigid-group local translations are not properly accounted in cross-group geometrical restraints during LSQ. Copy-par True/False and manual Begin did not fix; removing ALL rigid groups before final Rietveld does. refine_obj.py default now removes rigid groups; --keep-rigid opts back into old behavior. X130 g12free graph valid, Rwp.08133 vs broken g12t. Rings no longer distort or disconnect from substituents. True restraints now work; further tight physical refinements needed.
+New important cache issue: loading some empty Le Bail bases (X4f6, X3f, X14) yielded Rwp .22-.40 despite the saved .03-.10. The exact matrix@Fobs also disagreed (~.995 relative) with the actual component calc. A disposable C atom stabilizes empty-crystal scales, and ExtractLeBail(20) followed by Prepare/FitScale after loading repairs the cache (X3f actual .077 and matrix error1e-4). search_obj --rescale now performs that extraction, gallop_prepare adds disposable C and 20 LB cycles, exact_pawley verifies/repairs matrix bridge. X4 base freshly .032 but old run3 used bad .218; STOP set, GALLOP11 queued ahead of X3f/X9. X3f/X14 bases recreated via create_stable_base but audit is still bad until extraction after load; future searches now patched. New create_stable_base writes named components and strips disposable Atom from XML.
+Xeb393f9 P1 MC/refine1 solved to Rwp.0616327; graph37=27+10 and chiralityS good; minimum contact2.70A. Submitted both CIF+JSON. Now11CIFs.
+Five old submissions replaced by freeh tight/free-ring refinement: X078 .123626, Xbfc .035702, Xe3 .074208, Xf8 .093051, X3c .037. Graph and stereo all validated; RMSD to old submissions only0.015-.054A (max0.118) hence same convergence basins.
+X130 packing GALLOP31 begins promising: chi combined5.67, best graph sizes15,15,9,9, min contact2.42A. Do not confuse invalid g11 with valid g31. Wait/refine before submit.
+New L submissions: Xedd9c7b P21/a a10.37794,b15.45814,c17.16180,beta95.6539,V2740; LeBail .07359, absences a-glide clearly preferred over n/c. Probably Z8 Zprime2; new GALLOP11 Zprime2 queued D5. Found in zero scans originally ranked behind bad GSAS giant cells; targeted mono fits decisive.
+Xebbd488 C2 a26.65439,b12.39193,c16.58989,beta106.5733,V~5250; directed axial enumerator widerV found it, wholefit.07316 freshbase .08327. Correct volume for one listed71-heavy FU perASU (=2cations+2phos+water),C2Z4. Two weaklow lines5.836/7.740 off~.15deg but bulkpatternexcellent.
+X8a6f5a8 remains uncertain; NEW PROVISIONAL JSON P21 a16.86422,b17.99627,c22.60641,beta110.7298 (largeV~6415). Wholefit axis3 .07269. This is doubled b from metric1; needed to explain weakline12.25. Other competingmetric2a17.6056b7.1886c23.1409beta105.36 .09178 but indices12.2496=010 would violateP21! Do not blindly prefer metric2. Newcomplete_mono_axis.py found candidate P21b9.94 .09125 andC2 a33.75,b7.46,c22.61beta110.69 .12, not better. Possible actual triclinic/2Dnet subcell unresolved. All30 now haveJSON,29 fairly credible exceptX8 uncertain.
+Aromatic planarity fixed: obj_model.add_aromatic_planarity constrains every quadruplet across aromatic bond (including first substituent atoms), sigma1°delta1°, deduplicated by names. refine_obj automatically adds/restores these before LSQ. Saturated rings untouched. Backups obj_model_v2.py/refine_obj_v5.py. Planarity X130g41plan rings .0013Å; Xebplan .007/.006/.005Å vs previous .09/.18/.08. Xeb planar model shifts RMS.204,max.473 from old, highres and pyridine180flip tests pending queue_bep_plan parent20084.
+GALLOP packing exact nearest27 lattice images added behind EXACT_BUMP_IMAGES=1; queued X7 D6 patched to use it (skew lattice65/67° makes rounding inaccurate). Other default searches unchanged for speed.
+Current context changes: Xbfc/Xe3/Xf8 submissions replaced by refined_plan.cif with aromatic planarity; graph/stereo validated. Xeb two pyridine180flip models high-resolution .38 refined_pyrm0 Rwp.0610301 and pyrm1 .0610419; neither submitted (old .06163 remains). Both physicalgraphs but there is intramolecular C18-C25 contact~2.47Å. A further GALLOP packing restart from each Rietveld model is queued after X8 wide indexing; parent21574 queue_bep_packing.sh. New warm_gallop.py makes GALLOP geometry matching any Rietveld model with Procrustes quat/translation (tested max1.6e-6Å). Stores independent base.xml in G; prepare respects BASE_XML env; import uses G/base.xml if present. Propagates refined per-element B factors. This makes near-basin global repacking possible. Xeb50 warm prepared but queue will rebuild to include B factors.
+X130G31 best improved2.82335 (from3.54), plateau500sec, STOP set to release D6 to import/refine and start X7. Xd4GALLOP11 improving 39->25->12->11.8 after1285sec; do not interrupt yet. X4 G11 best339 refined.1202, macro31 best386 no improvement, stopped; extra X8 indexing18059 now active.
+X130 new G31 physical synthon solved: no old O...O2.415/C...C2.64; new acidO...pyridineN2.61 and amideN...O2.74. Refinedg31.06291, extendedhighstol.40 -> refined_ghigh.0449854, graph+stereo valid minN...O2.592,C...O2.657. SUBMITTED refined_ghigh.cif replacing oldg12free entirely. Likely genuine convergence. Model source search_ghigh.
+Warm converter now preserves original ideal restraint_coords separately from current search rdkit_coords; import_gallop uses restraint_coords for bond/angle targets. This prevents locking distorted Rietveld bonds during warm global searches. Per-element B retained in warm structure JSON.
+Queue heavy4 parent22050 afterBep21574: Br-only Patterson/partial-structure search350sec for two ASU Br positions (P-1), then128x400 GALLOP40 withHEAVY_POOL initial anchoring1600sec differentCONFRANK4. Neither partial heavyatom model is a deliverable. Queued acm warm parent221xx afterC4: packing restarts of X263, X14, X1db bestprev1500sec each; new queue_acm_warm.sh.
+X7 G31 softpacking chi119.539 has validgraph but N...O2.14 and O...O2.25, unphysical; STOP early at~600sec. New hardpacking G32 BUMP_COEFF200 EXACTimages96x350 warmstartedG31,700sec immediate background (hard7.sh). Default future GALLOP packing coefficient raised from12 to50 because normalised diffractioncost100 can swamp weak chemical penalties. X130 oldrun unaffected. Do not compare combinedchi acrossdifferentBUMP_COEFF values.

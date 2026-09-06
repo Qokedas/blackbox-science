@@ -1,0 +1,17 @@
+X3f4781b HEXAGONAL P 0 peaks [7.6395, 9.24167, 9.57625, 10.90521, 11.54194, 13.84257, 14.38968, 14.83969, 15.3, 15.523, 16.33203, 17.97701, 18.29324, 18.51615, 18.98239, 19.69341, 20.59098, 21.60315, 21.89415, 22.60701, 23.1965, 23.45701] V 2083.37353515625 4680 Lmax 46.835301001267474
+3->46.8353,1.75342,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+2083.37->4680,432.778,5.9999
+Starting: V=2083.37->2516.15
+Finished: V=2083.37->2516.15 A^3, 55 unit cells tested, 58949.6 tests/s,   Elapsed time=0.000938s
+Starting: V=2516.15->2948.93
+Finished: V=2516.15->2948.93 A^3, 114 unit cells tested, 60063.2 tests/s,   Elapsed time=0.001903s
+Starting: V=2948.93->3381.71
+Finished: V=2948.93->3381.71 A^3, 182 unit cells tested, 60707.1 tests/s,   Elapsed time=0.003004s
+Starting: V=3381.71->3814.49
+Finished: V=3381.71->3814.49 A^3, 249 unit cells tested, 58286.5 tests/s,   Elapsed time=0.004278s
+Starting: V=3814.49->4247.27
+Finished: V=3814.49->4247.27 A^3, 316 unit cells tested, 57153.2 tests/s,   Elapsed time=0.005534s
+Starting: V=4247.27->4680
+Finished: V=4247.27->4680 A^3, 392 unit cells tested, 56935.4 tests/s,   Elapsed time=0.006891s
+DONE X3f4781b HEXAGONAL P 0 0.007017612457275391 []

@@ -1,0 +1,55 @@
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+/app/work/X13023e3/gallop_11 CC(C)Cc1ccc([C@@H](C)C(=O)O)cc1 maxbondError 1.7948944333046057e-06
+/app/work/X13023e3/gallop_11 NC(=O)c1cccnc1 maxbondError 2.2165800901419175e-06
+/app/work/X7e382cb/gallop_22 O=C([O-])c1ccc(-c2ccc(C(=O)[O-])cc2)cc1 maxbondError 2.0761791668100216e-06
+/app/work/X7e382cb/gallop_22 [NH4+] maxbondError 0
+/app/work/X7e382cb/gallop_22 [NH4+] maxbondError 0
+Name:	python
+State:	Z (zombie)
+Tgid:	13332
+/app/work/Xd8634a2/gallop_2/best.json {'chi2': 151.44483947753906, 'Rint': 0.3891591429710388, 'iteration': 23, 'elapsed': 393.0868704319}
+/app/work/Xd8634a2/gallop_1/best.json {'chi2': 399.7392883300781, 'Rint': 0.6322494149208069, 'iteration': 10, 'elapsed': 237.40643692016602}
+/app/work/Xd8634a2/gallop_11/best.json {'chi2': 483.76123046875, 'Rint': 0.6955294609069824, 'iteration': 0, 'elapsed': 46.67676901817322}
+/app/work/X13023e3/gallop_12/best.json {'chi2': 8.269341468811035, 'Rint': 0.09093592315912247, 'iteration': 0, 'elapsed': 23.598449230194092}
+/app/work/X13023e3/gallop_11/best.json {'chi2': 3.4471957683563232, 'Rint': 0.05871282517910004, 'iteration': 33, 'elapsed': 1140.6103172302246}
+{
+ "cell": {
+  "a": 8.910169100782866,
+  "b": 9.47845325451745,
+  "c": 13.245308707674797,
+  "alpha": 83.98286911524386,
+  "beta": 81.77580180151384,
+  "gamma": 66.67862762269598
+ },
+ "space_group": "P -1",
+ "space_group_number": 2
+}import numpy as np, gemmi, json, types, os
+from rdkit import Chem
+
+def enable_hydrogen_prefix(s, model):
+    """Spherical attached-H scattering, without adding search degrees of freedom.
+    The radial average is sin(2 pi g r)/(2 pi g r), with g=2 sin(theta)/lambda.
+    """
+    metadata=json.load(open(model)) if isinstance(model,str) else model
+    elements=[];counts=[];radii=[]
+    for md in metadata:
+        r=Chem.MolFromSmiles(md['smiles'])
+        for i in md['order']:
+            a=r.GetAtomWithIdx(i);elements.append(a.GetSymbol());counts.append(a.GetTotalNumHs(includeNeighbors=True));radii.append({'C':1.09,'N':1.01,'O':.98,'S':1.34}.get(a.GetSymbol(),1.09))
+    elements=np.array(elements);counts=np.array(counts);radii=np.array(radii)
+    hweight=float(os.environ.get('H_SCATTER_WEIGHT','1.0'))
+    def prefix(self,debye_waller_factors=None,just_asymmetric=False,from_cif=False):
+        if from_cif:raise ValueError('Attached-H prefix is for molecular search models, not CIFs')
+        ss=np.sqrt(np.sum((self.hkl@self.lattice.reciprocal_lattice_crystallographic.matrix)**2,axis=1))/2
+        sf=np.array([[gemmi.Element(str(el)).it92.calculate_sf(float(x*x)) for el in elements] for x in ss])
+        hf=np.array([gemmi.Element('H').it92.calculate_sf(float(x*x)) for x in ss])
+        sf+=hweight*hf[:,None]*counts[None,:]*np.sinc(4*ss[:,None]*radii[None,:])
+        dw=debye_waller_factors or {};B=np.array([dw.get(str(el),3.0) for el in elements]);sf*=np.exp(-ss[:,None]**2*B[None,:])
+        self.fs=sf;self.prefix=sf
+        return sf if just_asymmetric else np.tile(sf,(1,len(self.affine_matrices)))
+    s.generate_intensity_calculation_prefix=types.MethodType(prefix,s)
+    print('ATTACHED_H_SCATTERING',len(elements),'heavy atoms',int(counts.sum()),'H atoms',flush=True)
+METRIC_INDEX Xedd9c7b ORTHOROMBIC P peaks [11.10741547267633, 11.819852153171562, 12.52947619929769, 14.265826161013724, 14.88809841533551, 15.399189786908144, 17.129349600162993, 17.388529765124716, 19.319127440926042, 19.985734553741324, 20.619342370758677, 21.502664201180238, 22.228001041190527, 23.878158668192086, 24.335476387333678, 25.23825930472767, 26.49337674141685, 28.19291137968172, 28.805370805791867] bounds [(0.02, 0.2857142857142857), (0.02, 0.2857142857142857), (0.02, 0.2857142857142857), (-0.1, 0.1)] volume 500.0 1550.0

@@ -1,0 +1,34 @@
+# Context-3 notes (started 04:56 UTC; hard end ~11:24 UTC)
+
+## Fixed in this context
+- polish() in solve.py now works: sets Molecule option 'Auto Optimize Starting Conformation'=No, rigid-body LSQ only
+  (atom coords, cell, Zero, occupancies, Biso fixed). Test on X9af54a2: 0.1396 -> 0.1204, rms move 0.03 A.
+  Xe3a2935 polish: 0.180 -> 0.1425 (but cell drifted 0.4% — cell now fixed in polish).
+- RNG: ObjCryst uses libc rand(); separate processes with identical commands gave IDENTICAL results.
+  Now solve.py/inositol_scan.py call ctypes.CDLL(None).srand(seed). Runs within one process (nruns>1) were always different.
+- solve.py new flags: --zprime N (multiplies component counts), --conf K (K-th distinct MMFF conformer by energy).
+- compare.py a.cif b.cif (pymatgen StructureMatcher), diffcif.py a b (same-label displacement).
+
+## Status
+- X9af54a2 finalized (CIF+JSON). X07806d9 done.
+- Xe3a2935: P212121 conf0 runs 0/1 same structure Rwp 0.185; conf2 (methyl equatorial) run0 0.181. 102 peak underestimated 1.75x.
+  Candidate CIFs in Xe3a2935/sol_a, sol_c2. Consider alt SGs P 2 21 21 / P 21 2 21.
+- Xf8ac963: P212121 2 runs identical structure Rwp 0.224 (bad; several obs peaks calc=0). P 21 2 21: 0.44/1.39 (bad).
+  Try P 2 21 21, P 21 21 2, P21 Z'=2 ... or leave as L-only.
+- Xd8634a2: P-1, 13 DOF; first 3e6 run 0.348 (bad). Running 5e6 x2 (tags c,d).
+- X3c176e2 inositol: iso map 0=cis 1=epi 2=allo 3=myo 4=neo 5=muco 6/7=chiro 8=scyllo. Pbca(P c a b) all bad (best cis 0.198).
+  P212121 Z'=2 scan running (inos_p212121.log); iso0 0.221.
+- X13023e3: indexing with peaks_c (SNR>=5.5, 20 peaks) monoP running (g2_monoPc.log).
+
+## Context 4 (07:15 UTC)
+- lebail.make_pattern: env EXCLUDE="lo,hi;lo,hi" (deg) inflates sigma x EXCL_FACTOR (30) in those regions and imports via
+  ImportPowderPattern2ThetaObsSigma (weights=1/sigma^2 verified). Purpose: down-weight giant peaks that flatten the SA landscape.
+- Xe3a2935: two pseudo-solutions A (sol_c2 run1, 0.146) and B (c2b runs, 0.148-0.149) both have calc~0 for obs reflections
+  015,106,018,302,306,004,210,220,117 (reflcompare.py <id> <cif> <ttmax>) -> both probably wrong. Running x2 with 020 down-weighted.
+- X3c176e2 inositol: raw-data check: 100,001,010,030,201,102 absent; 101,110,111 present; a weak peak at 27.33 = 203 (h+l odd) -> n-glide
+  perp b probably violated -> keep P212121. Groups with mirrors (Pmnm, Pcam...) SA gives 0.46-0.5 (hopeless). Running P212121 Z'=2 with
+  211 & 020 down-weighted (inos_p19x_a/b logs).
+- Xf8ac963: 011 (3.72) and 210 (4.38) clearly present; SA in P212121 gave calc~0 for them -> false minimum. Plan: EXCLUDE="2.84,2.93;6.15,6.28".
+- hbonds.py / contacts.py <cif> [dmax]: intermolecular contact listing; molgeom.py: centroid/axes.
+----
+X1db5091,X2327841,X238783d,X263b09a,X35b7fbc,X3c176e2,X3f4781b,X4f6fe58,X7e382cb,X8a06d7a,X8a6f5a8,X9af54a2,Xb7088cf,Xbfc6d2c,Xbfeeda9,Xd4c1a35,Xd8634a2,Xdcc971e,Xe1fb77b,Xe3a2935,Xeb393f9,Xebbd488,Xedd9c7b,Xf8ac963,Xfca9f3c

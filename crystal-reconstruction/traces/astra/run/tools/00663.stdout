@@ -1,0 +1,125 @@
+def apply_MD_PO_correction(calculated_intensities: Tensor,
+    cosP: Tensor,
+    sinP: Tensor,
+    factor: Tensor,
+    eps: float=9.9999999999999998e-13) -> Tensor:
+  _0 = torch.mul(torch.pow(torch.add(factor, eps), 2), cosP)
+  _1 = torch.pow(_0, 2)
+  _2 = torch.div(torch.pow(sinP, 2), torch.pow(torch.add(factor, eps), 2))
+  _3 = torch.reciprocal(torch.sqrt(torch.add(_1, _2)))
+  A_all = torch.pow(torch.mul(_3, 1.), 3)
+  _4 = torch.mul(calculated_intensities, A_all)
+  return _4
+
+def get_PO_tensors(Structure, PO_axis, n_reflections, n_samples, device, dtype):
+    """
+    Pre-calculate terms needed for preferred orientation correction. Adapted
+    from the GSAS-II source code.
+
+    Original code can be found in:
+    GSASIIstrMath.py > GetPrefOri
+
+    For original source code, see here:
+        https://subversion.xray.aps.anl.gov/pyGSAS/trunk/GSASIIstrMath.py
+
+    Args:
+        Structure (GALLOP Structure): GALLOP Structure object
+        PO_axis (list): List of Miller indices for the axis to apply PO
+            correction to.
+        n_reflections (int): Number of reflections to consider for chi2 calcs
+        n_samples (int): Number of independent samples to optimise
+        device (torch.device): Device to run calculations on
+        dtype (torch.dtype): Data type to use for calculations
+
+    Returns:
+        Tuple of tensors: cosP, sinP (same meaning as used in GSAS code, but
+            Tensors so applied for all reflections). Factor = refinable
+            parameter, initialized to 1.0.
+    """
+    if n_reflections is not None:
+        assert n_reflections > 0, "Cannot optimise with <= 0 reflections"
+        if n_reflections >  len(Structure.hkl):
+            n_reflections = len(Structure.hkl)
+    else:
+        n_reflections = len(Structure.hkl)
+    PO_axis = np.array(PO_axis)
+    hkl = Structure.hkl[:n_reflections]
+    u = hkl / np.sqrt(np.einsum("kj,kj->k", hkl, np.einsum("ij,kj->ki",
+                Structure.lattice.reciprocal_lattice.metric_tensor,hkl))).reshape(-1,1)
+    cosP = np.einsum("ij,j->i", u, np.inner(
+                    Structure.lattice.reciprocal_lattice.metric_tensor, PO_axis))
+    one_minus_cosPsqd = 1.0-cosP**2
+    one_minus_cosPsqd[one_minus_cosPsqd < 0.] *= 0.
+    sinP = np.sqrt(one_minus_cosPsqd)
+    cosP = torch.from_numpy(cosP).type(dtype).to(device)
+    sinP = torch.from_numpy(sinP).type(dtype).to(device)
+    factor = torch.from_numpy(np.ones(n_samples).reshape(-1,1)
+                                ).type(dtype).to(device)
+    factor.requires_grad = True
+
+    return cosP, sinP, factor
+
+318                                                 cosP, sinP, factor)
+                if profile:
+                    chi_2 = chi2.calc_prof_chisqd(corrected_intensities, **profile_tensors)
+                else:
+                    chi_2 = chi2.calc_int_chisqd(corrected_intensities,
+                                        **tensors["chisqd_tensors"])
+            else:
+                if profile:
+320                     chi_2 = chi2.calc_prof_chisqd(corrected_intensities, **profile_tensors)
+                else:
+                    chi_2 = chi2.calc_int_chisqd(corrected_intensities,
+                                        **tensors["chisqd_tensors"])
+            else:
+                if profile:
+                    chi_2 = chi2.calc_prof_chisqd(calculated_intensities, **profile_tensors)
+                else:
+324             else:
+                if profile:
+                    chi_2 = chi2.calc_prof_chisqd(calculated_intensities, **profile_tensors)
+                else:
+                    chi_2 = chi2.calc_int_chisqd(calculated_intensities,
+                                        **tensors["chisqd_tensors"])
+        else:
+            if profile:
+326                     chi_2 = chi2.calc_prof_chisqd(calculated_intensities, **profile_tensors)
+                else:
+                    chi_2 = chi2.calc_int_chisqd(calculated_intensities,
+                                        **tensors["chisqd_tensors"])
+        else:
+            if profile:
+                chi_2 = chi2.get_chi_2(**tensors, profile=profile_tensors)
+            else:
+330         else:
+            if profile:
+                chi_2 = chi2.get_chi_2(**tensors, profile=profile_tensors)
+            else:
+                chi_2 = chi2.get_chi_2(**tensors)
+
+        if use_restraints:
+            restraint_penalty = restraints.get_restraint_penalties(
+332                 chi_2 = chi2.get_chi_2(**tensors, profile=profile_tensors)
+            else:
+                chi_2 = chi2.get_chi_2(**tensors)
+
+        if use_restraints:
+            restraint_penalty = restraints.get_restraint_penalties(
+                                asymmetric_frac_coords, **restraint_tensors)
+        else:
+343 
+        # Backward pass to calculate gradients
+        L.backward()
+        if save_loss:
+            losses.append(L.detach().cpu().numpy())
+        if i == 0:
+            best = torch.min(chi_2).item()
+            best_iteration = 1
+399                 tensors["zm"]["internal"].grad.detach().cpu().numpy()])
+        if i != n_iterations:
+            optimizer.step()
+        if streamlit:
+            #prog_bar.progress(i/n_iterations)
+            #with col1:
+            prog_bar.progress(i/n_iterations)
+            #with col2:

@@ -1,0 +1,10 @@
+make pattern
+pattern ok 4501
+crystal ok
+profile ok
+Traceback (most recent call last):
+  File "/app/work/dbg.py", line 12, in <module>
+    p.quick_fit_profile(pdiff=pd, auto_background=False, init_profile=True, plot=False, zero=True, constant_width=True, width=True, eta=True, backgd=True, cell=True, asym=False, verbose=True)
+  File "/opt/conda/lib/python3.11/site-packages/pyobjcryst/powderpattern.py", line 472, in quick_fit_profile
+    lsq.SafeRefine(nbCycle=10, useLevenbergMarquardt=True, silent=True)
+ValueError: Square of unit cell volume is negative.

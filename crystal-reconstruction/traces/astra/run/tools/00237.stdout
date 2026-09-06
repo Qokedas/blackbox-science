@@ -1,0 +1,325 @@
+import ctypes, numpy as np
+_lib=ctypes.CDLL('/app/work/libobj_bridge.so')
+_lib.bridge_matrix.argtypes=[ctypes.c_void_p,ctypes.c_void_p,ctypes.c_long,ctypes.c_long]
+_lib.bridge_setobs.argtypes=[ctypes.c_void_p,ctypes.c_void_p,ctypes.c_long]
+_lib.bridge_march.argtypes=[ctypes.c_void_p]+[ctypes.c_double]*5
+_lib.bridge_bumpscale.argtypes=[ctypes.c_void_p,ctypes.c_double]
+def profile_matrix(p,d,nref=None):
+ p.Prepare();d.GetPowderPatternCalc()
+ if nref is None:nref=len(d.GetFhklObsSq())
+ a=np.zeros((len(p.GetPowderPatternX()),nref),dtype=np.float64)
+ ret=_lib.bridge_matrix(d.int_ptr(),a.ctypes.data,*a.shape)
+ if ret<0:raise RuntimeError('Profile matrix failed '+str(ret))
+ return a
+def set_obs(d,values):
+ v=np.ascontiguousarray(values,dtype=np.float64);_lib.bridge_setobs(d.int_ptr(),v.ctypes.data,len(v))
+def add_march(d,fraction,coeff,h,k,l):
+ _lib.bridge_march(d.int_ptr(),float(fraction),float(coeff),float(h),float(k),float(l))
+def set_bump_scale(c,scale):
+ _lib.bridge_bumpscale(c.int_ptr(),float(scale))
+
+def exact_pawley(p,d,stolmax=None,rcond=1e-4):
+ # Exact linear design matrix at fixed profile, lattice, and background.
+ # Retain all overlap couplings; truncate only near-null singular directions.
+ d.SetExtractionMode(True,False);p.Prepare();p.FitScaleFactorForRw()
+ mat=profile_matrix(p,d);f0=np.asarray(d.GetFhklObsSq());x=np.asarray(p.GetPowderPatternX());weight=np.asarray(p.GetLSQWeight(0));obs=np.asarray(p.GetPowderPatternObs());calc=np.asarray(p.GetPowderPatternCalc());compcalc=np.asarray(d.GetPowderPatternCalc());scale=np.dot(calc-p.GetPowderPatternComponent(1).GetPowderPatternCalc(),compcalc)/np.dot(compcalc,compcalc)
+ background=calc-compcalc*scale
+ n=min(len(weight),len(x));sel=np.arange(len(f0))
+ if stolmax is not None:
+  stol=np.asarray(d.GetSinThetaOverLambda())[:len(f0)];sel=sel[stol<=stolmax]
+  n=min(n,int(np.searchsorted(x,2*np.arcsin(stolmax*p.GetWavelength())+np.deg2rad(p.GetPar('Zero').GetHumanValue()))))
+ a=mat[:n,sel]*scale;target=obs[:n]-background[:n]
+ excluded=np.setdiff1d(np.arange(len(f0)),sel)
+ if len(excluded):target-=mat[:n,excluded]@f0[excluded]*scale
+ sw=np.sqrt(weight[:n]);aw=a*sw[:,None];yw=target*sw
+ # Scale columns for numerical stability. Use Le Bail distribution in null modes.
+ cs=np.linalg.norm(aw,axis=0);cs=np.maximum(cs,np.max(cs)*1e-9);an=aw/cs
+ u,sv,vt=np.linalg.svd(an,full_matrices=False);keep=sv>sv[0]*rcond
+ corr=(vt[keep].T@((u[:,keep].T@(yw-aw@f0[sel]))/sv[keep]))/cs
+ f=f0[sel]+corr
+ # Filter near-null modes also from normal matrix, keeping a PSD covariance.
+ av=(vt[keep]*sv[keep,None])*cs[None,:];normal=av.T@av
+ chi=np.sum((yw-aw@f)**2);var=float(f@normal@f)
+ print('EXACT_PAWLEY','nref',len(sel),'rank',int(keep.sum()),'cond',sv[0]/sv[keep][-1], 'chi2',chi,'netRwp',np.sqrt(chi/max(np.dot(yw,yw),1e-30)),flush=True)
+ return dict(matrix=a,normal=normal,obs=f,sel=sel,x=x[:n],weights=weight[:n],profile=target,chi2=chi,var=var)
+#include <bits/stdc++.h>
+#define private public
+#include <ObjCryst/ObjCryst/PowderPattern.h>
+#include <ObjCryst/ObjCryst/Crystal.h>
+#include <ObjCryst/ObjCryst/DiffractionDataSingleCrystal.h>
+#include <algorithm>
+#include <cstdio>
+#undef private
+using namespace ObjCryst;
+struct AccessDiff : PowderPatternDiffraction {
+ int matrix(double* out, long npoint,long nref) {
+  GetPowderPatternCalc();
+  if(nref>long(mvReflProfile.size())) return -1;
+  std::fill(out,out+npoint*nref,0.0);
+  for(long j=0;j<nref;j++) {
+   auto &r=mvReflProfile[j];
+   double corr=mIntensityCorr(j)*mMultiplicity(j);
+   for(long i=std::max(0L,r.first);i<=std::min(npoint-1,r.last);i++) out[i*nref+j]=r.profile(i-r.first)*corr;
+  }
+  return long(mvReflProfile.size());
+ }
+ void setobs(double *v,long n) {
+  CrystVector_REAL vv(n);for(long i=0;i<n;i++)vv(i)=v[i];
+  mpLeBailData->SetFhklObsSq(vv);
+  SetExtractionMode(true,false);
+ }
+ void march(double frac,double coeff,double h,double k,double l) {mCorrTextureMarchDollase.AddPhase(frac,coeff,h,k,l);}
+};
+struct AccessCrystal: Crystal {void bumpscale(double scale){mBumpMergeScale=scale; mBumpMergeParClock.Click();}};
+extern "C" {
+ int bridge_kind(void *ptr) {auto *r=reinterpret_cast<RefinableObj*>(ptr);std::printf("Object: %s %s\n",r->GetClassName().c_str(),r->GetName().c_str()); return sizeof(REAL);}
+ int bridge_matrix(void *ptr,double *out,long np,long nr) {auto*d=dynamic_cast<PowderPatternDiffraction*>(reinterpret_cast<RefinableObj*>(ptr));if(!d)return -2;return reinterpret_cast<AccessDiff*>(d)->matrix(out,np,nr);}
+ void bridge_setobs(void*ptr,double*v,long n) {auto*d=dynamic_cast<PowderPatternDiffraction*>(reinterpret_cast<RefinableObj*>(ptr));reinterpret_cast<AccessDiff*>(d)->setobs(v,n);}
+ void bridge_march(void*ptr,double frac,double coeff,double h,double k,double l) {auto*d=dynamic_cast<PowderPatternDiffraction*>(reinterpret_cast<RefinableObj*>(ptr));reinterpret_cast<AccessDiff*>(d)->march(frac,coeff,h,k,l);}
+ void bridge_bumpscale(void*ptr,double scale) {auto*c=dynamic_cast<Crystal*>(reinterpret_cast<RefinableObj*>(ptr));reinterpret_cast<AccessCrystal*>(c)->bumpscale(scale);}
+}
+import numpy as np,itertools,os,json
+from rdkit import Chem
+from rdkit.Chem import AllChem,rdMolTransforms,Lipinski
+from pyobjcryst.molecule import Molecule
+from pyobjcryst.atom import Atom
+from pyobjcryst.scatteringpower import ScatteringPowerAtom
+from pyobjcryst.refinableobj import refpartype_scatt_occup,refpartype_scattpow_temperature
+import gemmi
+
+def recenter_molecules(c):
+ # Molecular scattering is defined about the geometrical center. Remove the
+ # coordinate-gauge null mode before serializing at ObjCryst XML precision.
+ for im in range(c.GetNbScatterer()):
+  m=c.GetScatterer(im)
+  if m.GetClassName()!='Molecule':continue
+  xyz=np.array([[m.GetAtom(i).X,m.GetAtom(i).Y,m.GetAtom(i).Z] for i in range(m.GetNbAtoms())]);ctr=xyz.mean(axis=0)
+  if np.linalg.norm(ctr)>1e-6:
+   for i,v in enumerate(xyz-ctr):a=m.GetAtom(i);a.X,a.Y,a.Z=v
+
+def export_cif(c,path):
+ recenter_molecules(c)
+ cp=[c.GetPar(n).GetHumanValue() for n in ['a','b','c','alpha','beta','gamma']]
+ sgname=c.GetSpaceGroup().GetName();sg=gemmi.find_spacegroup_by_name(sgname)
+ if sg is None: raise Exception(sgname)
+ text='data_solution\n'
+ for name,v in zip(['length_a','length_b','length_c','angle_alpha','angle_beta','angle_gamma'],cp):text+=f'_cell_{name} {v:.8f}\n'
+ text+=f"_space_group_name_H-M_alt '{sg.xhm()}'\n_space_group_IT_number {sg.number}\nloop_\n_space_group_symop_id\n_space_group_symop_operation_xyz\n"
+ for i,op in enumerate(sg.operations()):text+=f"{i+1} '{op.triplet()}'\n"
+ text+='loop_\n_atom_site_label\n_atom_site_type_symbol\n_atom_site_fract_x\n_atom_site_fract_y\n_atom_site_fract_z\n_atom_site_occupancy\n_atom_site_B_iso_or_equiv\n'
+ for i,a in enumerate(c.GetScatteringComponentList()):
+  if a.mpScattPow is None:continue
+  el=a.mpScattPow.GetSymbol();text+=f'{el}{i+1} {el} {a.X%1:.8f} {a.Y%1:.8f} {a.Z%1:.8f} 1.0 {a.mpScattPow.GetBiso():.4f}\n'
+ open(path,'w').write(text)
+
+def make_rdkit(smiles,seed=10,nconf=30,conf_rank=0,hydrogen=False):
+ r=Chem.AddHs(Chem.MolFromSmiles(smiles));ps=AllChem.ETKDGv3();ps.randomSeed=seed;ps.numThreads=1;ps.pruneRmsThresh=.25
+ ids=list(AllChem.EmbedMultipleConfs(r,numConfs=nconf,params=ps))
+ if not ids:
+  ps.useRandomCoords=True;ids=list(AllChem.EmbedMultipleConfs(r,numConfs=nconf,params=ps))
+ try:
+  es=AllChem.MMFFOptimizeMoleculeConfs(r,numThreads=1,maxIters=600)
+ except Exception:
+  es=AllChem.UFFOptimizeMoleculeConfs(r,numThreads=1,maxIters=600)
+ ranked=sorted(range(len(ids)),key=lambda i:es[i][1]);ci=ids[ranked[conf_rank%len(ranked)]]
+ c=r.GetConformer(ci);coords=c.GetPositions();els=[a.GetSymbol() for a in r.GetAtoms()]
+ if not hydrogen:
+  keep=[i for i,x in enumerate(els) if x!='H'];coords=coords[keep];r=Chem.RemoveHs(r);els=[a.GetSymbol() for a in r.GetAtoms()]
+ # use the selected coordinates, indexed independently of RDKit conformer indices
+ return r,coords,es[ranked[conf_rank%len(ranked)]][1]
+
+def add_component(c,smiles,name,seed=10,conf_rank=0,rigid=False,hydrogen=False,coords_override=None,unique_sp=False):
+ base=Chem.MolFromSmiles(smiles)
+ if base.GetNumHeavyAtoms()==1:
+  atom=base.GetAtomWithIdx(0);el=atom.GetSymbol();spname=name+'_'+el if unique_sp else 'ion_'+el
+  try:sp=c.GetScatteringPower(spname)
+  except Exception:sp=ScatteringPowerAtom(spname,el,3.0);c.AddScatteringPower(sp)
+  a=Atom(*np.random.random(3),name,sp,1.0);c.AddScatterer(a);a.SetParIsFixed(refpartype_scatt_occup,True)
+  return a,{'elements':[el],'smiles':smiles}
+ if coords_override is None:
+  r,coords,e=make_rdkit(smiles,seed=seed,conf_rank=conf_rank,hydrogen=hydrogen)
+ else:
+  r=Chem.MolFromSmiles(smiles);coords=np.array(coords_override,dtype=float);e=0.
+  cf=Chem.Conformer(r.GetNumAtoms())
+  for i,v in enumerate(coords):cf.SetAtomPosition(i,v)
+  r.AddConformer(cf)
+  if hydrogen:r=Chem.AddHs(r,addCoords=True);coords=r.GetConformer().GetPositions()
+ coords-=coords.mean(axis=0)
+ m=Molecule(c,name);ats=[];els=[]
+ for i,(at,xyz) in enumerate(zip(r.GetAtoms(),coords)):
+  el=at.GetSymbol();els.append(el);spname=name+'_'+el+str(i) if unique_sp else el
+  try:sp=c.GetScatteringPower(spname)
+  except Exception:sp=ScatteringPowerAtom(spname,el,3.0 if el!='H' else 4.0);c.AddScatteringPower(sp)
+  ats.append(m.AddAtom(*xyz,sp,name+'_'+el+str(i+1),False))
+ for bo in r.GetBonds():
+  i,j=bo.GetBeginAtomIdx(),bo.GetEndAtomIdx();dist=np.linalg.norm(coords[i]-coords[j]);m.AddBond(ats[i],ats[j],dist,.02,.025,bo.GetBondTypeAsDouble(),False)
+ for a in r.GetAtoms():
+  j=a.GetIdx()
+  for i,k in itertools.combinations([a.GetIdx() for a in a.GetNeighbors()],2):
+   d1=coords[i]-coords[j];d2=coords[k]-coords[j];ang=np.arccos(np.clip(d1@d2/np.linalg.norm(d1)/np.linalg.norm(d2),-1,1));m.AddBondAngle(ats[i],ats[j],ats[k],ang,np.deg2rad(1.5),np.deg2rad(2),False)
+ # Freeze each ring system, preserving the embedded chair/fused-ring conformations.
+ rings=[set(x) for x in r.GetRingInfo().AtomRings()]
+ merged=[]
+ while rings:
+  s=rings.pop();flag=True
+  while flag:
+   flag=False
+   for t in rings[:]:
+    if s&t:s|=t;rings.remove(t);flag=True
+  merged.append(s)
+ for ring in merged:
+  # Add directly attached terminal atoms and hydrogens to aromatic or saturated ring geometry.
+  extended=set(ring)
+  for i in ring:
+   for n in r.GetAtomWithIdx(i).GetNeighbors():
+    j=n.GetIdx()
+    if n.GetDegree()==1:extended.add(j)
+  m.AddRigidGroup([ats[i] for i in sorted(extended)],False)
+ # Planarity about multiple and amide bonds, based on the input conformer.
+ cf=Chem.Conformer(r.GetNumAtoms())
+ for i,v in enumerate(coords):cf.SetAtomPosition(i,v)
+ for bo in r.GetBonds():
+  i,j=bo.GetBeginAtomIdx(),bo.GetEndAtomIdx()
+  ai=r.GetAtomWithIdx(i);aj=r.GetAtomWithIdx(j)
+  amide=(ai.GetAtomicNum()==7 and aj.GetAtomicNum()==6 and any(b.GetBondTypeAsDouble()==2 and b.GetOtherAtom(aj).GetAtomicNum() in [8,16] for b in aj.GetBonds())) or (aj.GetAtomicNum()==7 and ai.GetAtomicNum()==6 and any(b.GetBondTypeAsDouble()==2 and b.GetOtherAtom(ai).GetAtomicNum() in [8,16] for b in ai.GetBonds()))
+  if bo.IsInRing():continue
+  # N-aroyl heteroaromatics (e.g. acemetacin) have a genuinely rotatable N-CO bond.
+  if (ai.GetAtomicNum()==7 and ai.GetIsAromatic()) or (aj.GetAtomicNum()==7 and aj.GetIsAromatic()):amide=False
+  if bo.GetBondTypeAsDouble()>1.1 or amide:
+   ni=[a.GetIdx() for a in ai.GetNeighbors() if a.GetIdx()!=j];nj=[a.GetIdx() for a in aj.GetNeighbors() if a.GetIdx()!=i]
+   if ni and nj:
+    k,l=ni[0],nj[0];angle=rdMolTransforms.GetDihedralRad(cf,k,i,j,l);m.AddDihedralAngle(ats[k],ats[i],ats[j],ats[l],angle,np.deg2rad(3),np.deg2rad(6),False)
+ m.GetOption(0).SetChoice(1 if rigid else 2)
+ m.GetOption(1).SetChoice(1) # never invert supplied stereochemistry
+ m.GetOption(2).SetChoice(1)
+ m.X,m.Y,m.Z=np.random.random(3)
+ q=np.random.normal(size=4);q/=np.linalg.norm(q);m.Q0,m.Q1,m.Q2,m.Q3=q
+ m.SetParIsFixed(refpartype_scatt_occup,True);c.AddScatterer(m)
+ return m,{'smiles':smiles,'elements':els,'rdkit_coords':coords.tolist(),'energy':e}
+import os,sys,json,itertools,numpy as np,xml.etree.ElementTree as ET
+from rdkit import Chem
+from rdkit.Chem import Lipinski
+from pymatgen.core import Lattice
+from pymatgen.symmetry.groups import SpaceGroup
+from gallop.structure import Structure
+from gallop.z_matrix import Z_matrix
+from pyobjcryst.io import xml_cryst_file_load_all_object
+from obj_model import make_rdkit
+import gemmi
+
+def make_zmatrix(smiles,path,seed=10,rank=0,rigid=False,coords_override=None):
+ if coords_override is None:r,xyz,e=make_rdkit(smiles,seed=seed,nconf=30,conf_rank=rank,hydrogen=False)
+ else:r=Chem.MolFromSmiles(smiles);xyz=np.asarray(coords_override);e=0.
+ n=len(xyz)
+ adj={i:[a.GetIdx() for a in r.GetAtomWithIdx(i).GetNeighbors()] for i in range(n)}
+ # Start at a terminal atom where possible; DFS preserves a reference for all rigid branches.
+ root=min(range(n),key=lambda i:(len(adj[i]),i));parent={root:None};order=[];children={i:[] for i in range(n)}
+ def dfs(i):
+  order.append(i)
+  for j in sorted(adj[i],key=lambda a:(len(adj[a])==1,a)):
+   if j in parent:continue
+   parent[j]=i;children[i].append(j);dfs(j)
+ dfs(root);idx={j:i for i,j in enumerate(order)}
+ flex={frozenset(x) for x in r.GetSubstructMatches(Lipinski.RotatableBondSmarts)}
+ # Amide C-N bonds are planar. Other single bonds retain their internal degree of freedom.
+ for b in r.GetBonds():
+  i,j=b.GetBeginAtomIdx(),b.GetEndAtomIdx();ai=r.GetAtomWithIdx(i);aj=r.GetAtomWithIdx(j)
+  amide=(ai.GetAtomicNum()==7 and aj.GetAtomicNum()==6 and any(z.GetBondTypeAsDouble()==2 and z.GetOtherAtom(aj).GetAtomicNum() in [8,16] for z in aj.GetBonds())) or (aj.GetAtomicNum()==7 and ai.GetAtomicNum()==6 and any(z.GetBondTypeAsDouble()==2 and z.GetOtherAtom(ai).GetAtomicNum() in [8,16] for z in ai.GetBonds()))
+  if (ai.GetAtomicNum()==7 and ai.GetIsAromatic()) or (aj.GetAtomicNum()==7 and aj.GetIsAromatic()):amide=False
+  if amide:flex.discard(frozenset([i,j]))
+ if rigid:flex=set()
+ lines=['Generated from supplied connectivity and an RDKit conformer','1 1 1 90 90 90',f'{n} 0'];zm=[]
+ xyzord=xyz[order]
+ # Transform first three atoms to the NERF initial convention using a proper rotation.
+ if n>=3:
+  ex=xyzord[1]-xyzord[0];ex/=np.linalg.norm(ex);ey=xyzord[2]-xyzord[0];ey-=ey@ex*ex;ey/=np.linalg.norm(ey);ez=np.cross(ex,ey);xyzcanon=(xyzord-xyzord[0])@np.array([ex,ey,ez]).T
+ elif n==2:xyzcanon=np.array([[0,0,0],[np.linalg.norm(xyzord[1]-xyzord[0]),0,0]])
+ else:xyzcanon=np.zeros((1,3))
+ for ii,old in enumerate(order):
+  ref=0
+  if ii==0:R,ang,phi,b,a,t=0,0,0,0,0,0
+  elif ii in [1,2]:
+   v=xyzcanon[ii];R=np.linalg.norm(v);ang=np.rad2deg(np.arccos(np.clip(-v[0]/R,-1,1)));phi=0.;b,a,t=1,0,0
+  else:
+   pp=parent[old];gp=parent[pp]
+   if gp is None:
+    # At a root branch: use another previously placed neighbour as the angle reference.
+    gp=next(o for o in order[:ii] if o!=pp and np.linalg.norm(np.cross(xyz[old]-xyz[pp],xyz[o]-xyz[pp]))>1e-5)
+   siblings=children[pp];first=siblings[0]
+   if old!=first:tp=first
+   else:tp=parent.get(gp)
+   if tp is None or tp in [old,pp,gp] or idx.get(tp,ii)>=ii:
+    tp=max([o for o in order[:ii] if o not in [pp,gp]],key=lambda o:np.linalg.norm(np.cross(xyz[gp]-xyz[o],xyz[pp]-xyz[gp])))
+   C=xyz[pp];B=xyz[gp];A=xyz[tp];bc=C-B;bc/=np.linalg.norm(bc);nv=np.cross(B-A,bc);nv/=np.linalg.norm(nv);nbc=np.cross(nv,bc);v=xyz[old]-C;R=np.linalg.norm(v);ang=np.rad2deg(np.arccos(np.clip(-v@bc/R,-1,1)));phi=np.rad2deg(np.arctan2(v@nv,v@nbc));b,a,t=idx[pp]+1,idx[gp]+1,idx[tp]+1
+   if old==first and frozenset([pp,gp]) in flex:ref=1
+  el=r.GetAtomWithIdx(old).GetSymbol();lines.append(f'{el} {R:.8f} 0 {ang:.8f} 0 {phi:.8f} {ref} {b} {a} {t} 3.0 1.0 {ii+1} {el}{old+1}')
+ open(path,'w').write('\n'.join(lines)+'\n');z=Z_matrix(path)
+ dist=np.max(np.abs(np.linalg.norm(xyzcanon[:,None]-xyzcanon[None,:],axis=2)-np.linalg.norm(z.initial_cartesian[:,None]-z.initial_cartesian[None,:],axis=2)))
+ print('ZM',smiles,'n',n,'torsions',z.internal_degrees_of_freedom,'max_distance_error',dist,flush=True)
+ if dist>.002:raise RuntimeError('Z-matrix failed to reproduce molecular geometry')
+ return z,dict(smiles=smiles,elements=[a.GetSymbol() for a in r.GetAtoms()],order=order,rdkit_coords=xyz.tolist(),energy=e)
+
+def prepare(sid,run=1,zprime=1,rigid=False,model_path=None,stolmax=.21):
+ W='/app/work/'+sid;G=W+'/gallop_'+str(run);os.makedirs(G,exist_ok=True)
+ objs=xml_cryst_file_load_all_object(W+'/base.xml');c=[o for o in objs if o.GetClassName()=='Crystal'][0];p=[o for o in objs if o.GetClassName()=='PowderPattern'][0];d=p.GetPowderPatternComponent(0);d.SetExtractionMode(True,False);p.Prepare()
+ cp=[c.GetPar(n).GetHumanValue() for n in ['a','b','c','alpha','beta','gamma']];sg=gemmi.find_spacegroup_by_name(c.GetSpaceGroup().GetName());L=Lattice.from_parameters(*cp);ins=json.load(open('/app/data/instances/'+sid+'/instrument.json'));wl=ins['radiation']['wavelength_A']
+ # Read the original Le Bail reflection order before applying a resolution cutoff.
+ hkls=np.array([d.GetH(),d.GetK(),d.GetL()]).T.astype(int);stol=np.array(d.GetSinThetaOverLambda());f2=np.array(d.GetFhklObsSq());xx=np.rad2deg(p.GetPowderPatternX());obs=np.array(p.GetPowderPatternObs());wg=np.array(p.GetLSQWeight(0));tt=np.rad2deg(2*np.arcsin(wl*stol));zero=p.GetPar('Zero').GetHumanValue()
+ sel=(tt+zero>xx[0]-.02)&(tt+zero<xx[-1])&(stol<=stolmax);hkls=hkls[sel];tt=tt[sel];stol=stol[sel];f2=f2[sel]
+ s=Structure(sid,ignore_H_atoms=True);s.lattice=L;s.sg_number=sg.number;s.original_sg_number=sg.number;s.space_group=SpaceGroup(sg.xhm());s.centrosymmetric=sg.is_centrosymmetric();s.affine_matrices=np.array([op.affine_matrix for op in s.space_group.symmetry_ops]);s.wavelength=wl;s.hkl=hkls;s.intensities=f2;s.twotheta=tt;s.dspacing=1/(2*stol);s.data_resolution=float(s.dspacing[-1]);s.source='GSAS';s.PawleyChiSq=1.;s.temperature=ins.get('temperature_K',298.)
+ # Exact fixed-profile Pawley covariance from the ObjCryst reflection profiles.
+ from obj_bridge import exact_pawley
+ pw=exact_pawley(p,d,stolmax=stolmax,rcond=float(os.environ.get('PAWLEY_RCOND','.001')))
+ ii=pw['sel'];hkls=np.array([d.GetH(),d.GetK(),d.GetL()]).T.astype(int)[ii];stol=np.asarray(d.GetSinThetaOverLambda())[ii];tt=np.rad2deg(2*np.arcsin(wl*stol));f2=pw['obs'];A=pw['matrix'];normal=pw['normal']
+ # Only a global normalization is applied: chi2=1000 is the background-subtracted signal variance.
+ normal=normal*((len(hkls)-2)*1000/max(pw['var'],1e-25))
+ s.hkl=hkls;s.intensities=f2;s.twotheta=tt;s.dspacing=1/(2*stol);s.data_resolution=float(s.dspacing[-1]);s.inverse_covariance_matrix=normal
+ comp=json.load(open(model_path or '/app/data/instances/'+sid+'/composition.json'));meta=[]
+ for z in range(zprime):
+  for ic,co in enumerate(comp['components']):
+   for cc in range(co['count']):
+    zm,md=make_zmatrix(co['smiles'],G+f'/m{z}_{ic}_{cc}.zmatrix',seed=1027+run*21+z*11+ic,rank=run,rigid=rigid,coords_override=co.get('coords'));s.zmatrices.append(zm);meta.append(md)
+ s.get_total_degrees_of_freedom(verbose=True)
+ for obj in [s]+s.zmatrices:
+  for key,value in list(obj.__dict__.items()):
+   if isinstance(value,np.generic):setattr(obj,key,value.item())
+ json.dump(meta,open(G+'/model.json','w'),indent=1);open(G+'/structure.json','w').write(s.to_json());np.savez_compressed(G+'/profile_matrix.npz',matrix=A,hkl=hkls,normal=normal,tt=tt,obs=f2)
+ print('PREPARED',sid,'Nref',len(hkls),'PawleyRw',p.GetRw(),'SG',sg.xhm(),flush=True)
+ return s,G
+
+if __name__=='__main__':
+ sid=sys.argv[1];run=int(sys.argv[2]) if len(sys.argv)>2 else 1;zp=int(sys.argv[3]) if len(sys.argv)>3 else 1;mp=next((v.split('=',1)[1] for v in sys.argv if v.startswith('--model=')),None)
+ prepare(sid,run,zp,rigid='--rigid' in sys.argv,model_path=mp,stolmax=float(os.environ.get('GALLOP_STOL','.21')))
+import os,sys,json,numpy as np,gemmi
+import matplotlib
+matplotlib.use('Agg')
+from pyobjcryst.crystal import Crystal
+from pyobjcryst.powderpattern import PowderPattern,ReflectionProfileType
+from pyobjcryst.io import xml_cryst_file_save_global
+sid=sys.argv[1];tag=sys.argv[2];sg=sys.argv[3];W='/app/work/'+sid
+j=json.load(open(W+'/fit_'+tag+'.json'));cp=j['cell'];ins=json.load(open('/app/data/instances/'+sid+'/instrument.json'));wl=ins['radiation']['wavelength_A'];rad=ins['radiation']
+c=Crystal(*cp[:3],*np.deg2rad(cp[3:]),sg);c.SetName(sid)
+data=np.loadtxt('/app/data/instances/'+sid+'/pattern.xye');peaks=json.load(open(W+'/peaks.json'));mh=max(p['height'] for p in peaks);valid=[p for p in peaks if p['height']>.015*mh];xmin=max(data[0,0],min(p['two_theta'] for p in valid)-.5*wl/1.54)
+if os.path.exists(W+'/peak_select.json'):xmin=max(xmin,json.load(open(W+'/peak_select.json')).get('min_two_theta',xmin))
+stol=float(os.environ.get('MAX_STOL','.25'));data=data[(data[:,0]>=xmin)&(data[:,0]<np.rad2deg(2*np.arcsin(stol*wl)))]
+if len(data)>12000:
+ n=len(data)//2*2;data=np.column_stack([data[:n,0].reshape(-1,2).mean(1),data[:n,1].reshape(-1,2).mean(1),np.sqrt((data[:n,2]**2).reshape(-1,2).sum(1))/2])
+# A constant uncertainty rescaling preserves all diffraction relative weights and prevents disproportionate molecular restraint weighting.
+scale=max(1.,np.median(np.sqrt(np.clip(data[:,1],1,None))/data[:,2]));data[:,2]*=scale
+np.savetxt(W+'/base_profile.xye',data)
+p=PowderPattern();p.SetName(sid);p.ImportPowderPattern2ThetaObsSigma(W+'/base_profile.xye');p.SetWavelength(wl);p.SetMaxSinThetaOvLambda(stol)
+if len(rad.get('wavelengths_A') or [])>1:p.SetWavelength('Mo' if wl<1 else 'Cu')
+d=p.AddPowderPatternDiffraction(c)
+wid=np.median([v['fwhm'] for v in sorted(valid,key=lambda z:-z['height'])[:25]])
+d.SetReflectionProfilePar(ReflectionProfileType.PROFILE_PSEUDO_VOIGT,np.deg2rad(wid)**2,0,0,.5,0)
+b=p.AddPowderPatternBackground();nbkg=max(20,int((data[-1,0]-data[0,0])/(1.2*wl/1.54)));bx=np.linspace(np.deg2rad(data[0,0]),np.deg2rad(data[-1,0]),nbkg);raw=np.load(W+'/processed.npz');by=np.interp(np.rad2deg(bx),raw['x'],raw['background']);b.SetInterpPoints(bx,by)
+p.Prepare();p.quick_fit_profile(pdiff=d,auto_background=False,init_profile=False,plot=False,asym=True,verbose=False);p.FitScaleFactorForRw()
+print('FRESH_BASE',sid,sg,p.GetRw(),p.GetChi2(),flush=True)
+# Save the actual optimum reached. Excessive multiplicative Le Bail cycles can destabilize heavily overlapped lines.
+scale2=max(1.,np.sqrt(p.GetChi2()/len(data)));data[:,2]*=scale2;np.savetxt(W+'/base_profile.xye',data);p.ImportPowderPattern2ThetaObsSigma(W+'/base_profile.xye');p.Prepare();p.FitScaleFactorForRw()
+print('SCALED',scale*scale2,'Rw',p.GetRw(),'Chi2',p.GetChi2(),flush=True)
+cell={n:float(c.GetPar(n).GetHumanValue()) for n in ['a','b','c','alpha','beta','gamma']};out={'cell':cell,'space_group':sg,'space_group_number':gemmi.find_spacegroup_by_name(sg).number}
+json.dump(out,open(W+'/lattice.json','w'),indent=1)
+if '--submit' in sys.argv:json.dump(out,open('/app/results/submission/'+sid+'.json','w'),indent=1)
+xml_cryst_file_save_global(W+'/base.xml');np.savez_compressed(W+'/lebail.npz',h=d.GetH(),k=d.GetK(),l=d.GetL(),stol=d.GetSinThetaOverLambda(),f2=d.GetFhklObsSq(),x=p.GetPowderPatternX(),obs=p.GetPowderPatternObs(),calc=p.GetPowderPatternCalc())
+p.plot(diff=True,hkl=False);p.figure.savefig(W+'/base.png',dpi=140)

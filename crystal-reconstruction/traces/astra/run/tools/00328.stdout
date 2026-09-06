@@ -1,0 +1,166 @@
+import sys,os,time,json,numpy as np,torch,gemmi
+from gallop.structure import Structure
+from gallop.optim import local
+from gallop.optim.swarm import Swarm
+from gallop import tensor_prep,zm_to_cart,chi2
+from gallop_prepare import prepare
+sid=sys.argv[1];run=int(sys.argv[2]) if len(sys.argv)>2 else 1;zp=int(sys.argv[3]) if len(sys.argv)>3 else 1
+W='/app/work/'+sid;G=W+'/gallop_'+str(run);torch.set_num_threads(int(os.environ.get('TORCH_THREADS',1)));torch.set_num_interop_threads(1)
+if not os.path.exists(G+'/structure.json') or '--prepare' in sys.argv:
+ mp=next((v.split('=',1)[1] for v in sys.argv if v.startswith('--model=')),None);s,G=prepare(sid,run,zp,rigid='--rigid' in sys.argv,model_path=mp,stolmax=float(os.environ.get('GALLOP_STOL','.21')))
+else:s=Structure();s.from_json(open(G+'/structure.json').read())
+if '--hscatter' in sys.argv:
+ from hydrogen_prefix import enable_hydrogen_prefix
+ enable_hydrogen_prefix(s,G+'/model.json')
+np.random.seed((int(time.time())+run)%1000000);NP=int(os.environ.get('PARTICLES','128'));IT=int(os.environ.get('ITERATIONS','450'));ns=max(1,NP//32);max_time=float(os.environ.get('SEARCH_TIME',1800));best=1e100;t0=time.time();i=0
+
+def save_result(result,i):
+ global best
+ mn=result['chi_2'].min();ix=int(result['chi_2'].argmin())
+ if mn>=best:return
+ best=float(mn)
+ np.savez_compressed(G+'/best.npz',external=result['external'][ix:ix+1],internal=result['internal'][ix:ix+1],chi2=mn)
+ t=tensor_prep.get_all_required_tensors(s,external=result['external'][ix:ix+1],internal=result['internal'][ix:ix+1],requires_grad=False,device=torch.device('cpu'),verbose=False)
+ with torch.no_grad():frac=zm_to_cart.get_asymmetric_coords(**t['zm']).detach().numpy()[0]
+ np.save(G+'/best_frac.npy',frac)
+ sg=gemmi.find_spacegroup_by_name(s.space_group.symbol);text='data_solution\n'
+ for name,v in zip(['length_a','length_b','length_c','angle_alpha','angle_beta','angle_gamma'],s.lattice.parameters):text+=f'_cell_{name} {v:.9f}\n'
+ text+=f"_space_group_name_H-M_alt '{sg.xhm()}'\n_space_group_IT_number {sg.number}\nloop_\n_space_group_symop_id\n_space_group_symop_operation_xyz\n"
+ for j,op in enumerate(sg.operations()):text+=f"{j+1} '{op.triplet()}'\n"
+ text+='loop_\n_atom_site_label\n_atom_site_type_symbol\n_atom_site_fract_x\n_atom_site_fract_y\n_atom_site_fract_z\n_atom_site_occupancy\n'
+ els=[el for z in s.zmatrices for el in z.elements_no_H]
+ for j,(el,v) in enumerate(zip(els,frac)):text+=f'{el}{j+1} {el} {v[0]%1:.9f} {v[1]%1:.9f} {v[2]%1:.9f} 1\n'
+ open(G+'/best.cif','w').write(text);json.dump({'chi2':float(mn),'Rint':float(np.sqrt(mn/1000)),'iteration':i,'elapsed':time.time()-t0},open(G+'/best.json','w'),indent=1)
+
+while time.time()-t0<max_time and not os.path.exists(G+'/STOP'):
+ if i%12==0:
+  swarm=Swarm(s,n_particles=NP,n_swarms=ns,global_update=True,global_update_freq=5);ext,intr=swarm.get_initial_positions()
+ ti=time.time()
+ nref=min(len(s.hkl),int(os.environ.get('START_REFL',str(len(s.hkl))))+40*(i//12))
+ result=local.minimise(s,external=ext,internal=intr,n_reflections=nref,n_iterations=IT,n_cooldown=IT//4,learning_rate=.04,device=torch.device('cpu'),loss='sum',use_progress_bar=False,save_CIF=False,run=i,verbose=False,check_min=25)
+ if nref<len(s.hkl):
+  ft=tensor_prep.get_all_required_tensors(s,external=result['external'],internal=result['internal'],requires_grad=False,device=torch.device('cpu'),verbose=False)
+  with torch.no_grad():full_chi=chi2.get_chi_2(ft['zm'],ft['int_tensors'],ft['chisqd_tensors']).numpy()
+  result['low_chi_2']=result['chi_2'].copy();result['chi_2']=full_chi
+ print('GALLOP',i,'Nref',nref,'seconds',time.time()-ti,'best',result['chi_2'].min(),'q25',np.quantile(result['chi_2'],.25),'median',np.median(result['chi_2']),'total',time.time()-t0,flush=True)
+ save_result(result,i)
+ if 'low_chi_2' in result:result['chi_2']=result['low_chi_2']
+ ext,intr=swarm.update_position(result=result,verbose=False)
+ np.savez_compressed(G+'/last_population.npz',external=result['external'],internal=result['internal'],chi2=result['chi_2'])
+ i+=1
+ if '--test' in sys.argv or best<float(os.environ.get('TARGET_CHI','2.0')):break
+print('FINISHED',sid,best,flush=True)
+---refine---
+import sys,os,time,json,itertools,numpy as np
+import matplotlib
+matplotlib.use('Agg')
+from rdkit import Chem
+from pyobjcryst.io import xml_cryst_file_load_all_object,xml_cryst_file_save_global
+from pyobjcryst._pyobjcryst import LSQ
+from pyobjcryst.scatteringpower import ScatteringPowerAtom
+from pyobjcryst.refinableobj import *
+from obj_model import export_cif,recenter_molecules
+sid=sys.argv[1];run=sys.argv[2] if len(sys.argv)>2 else '1';W='/app/work/'+sid
+src=W+'/search_'+run+'/best.xml' if len(sys.argv)<4 else sys.argv[3]
+objs=xml_cryst_file_load_all_object(src);c=[o for o in objs if o.GetClassName()=='Crystal'][0];p=[o for o in objs if o.GetClassName()=='PowderPattern'][0]
+d=[p.GetPowderPatternComponent(i) for i in range(p.GetNbPowderPatternComponent()) if p.GetPowderPatternComponent(i).GetClassName()=='PowderPatternDiffraction'][0]
+mods=json.load(open(W+'/search_'+run+'/model.json'));mols=[c.GetScatterer(i) for i in range(c.GetNbScatterer())]
+p.Prepare()
+print('START',p.GetRw(),p.GetChi2(),flush=True)
+# Add geometrically generated hydrogens to the molecular model, keeping all heavy-atom positions unchanged.
+if '--noH' not in sys.argv:
+ try:hs=c.GetScatteringPower('H')
+ except:hs=ScatteringPowerAtom('H','H',4.0);c.AddScatteringPower(hs)
+ for m,md in zip(mols,mods):
+  if m.GetClassName()!='Molecule':continue
+  r=Chem.MolFromSmiles(md['smiles']);n=r.GetNumAtoms()
+  ac=m.GetScatteringComponentList()[0];old_xyz=np.array([ac.X,ac.Y,ac.Z])
+  if m.GetNbAtoms()!=n:continue
+  cf=Chem.Conformer(n)
+  for i in range(n):
+   a=m.GetAtom(i);cf.SetAtomPosition(i,(a.X,a.Y,a.Z))
+  r.AddConformer(cf);rh=Chem.AddHs(r,addCoords=True);xyz=rh.GetConformer().GetPositions()
+  for i in range(n,rh.GetNumAtoms()):
+   h=m.AddAtom(*xyz[i],hs,m.GetName()+'_H'+str(i+1),False)
+   j=rh.GetAtomWithIdx(i).GetNeighbors()[0].GetIdx();parent=m.GetAtom(j);bl=float(np.linalg.norm(xyz[i]-xyz[j]));m.AddBond(parent,h,bl,.02,.015,1,False)
+   for nb in rh.GetAtomWithIdx(j).GetNeighbors():
+    k=nb.GetIdx()
+    if k==i or k>=i:continue
+    v1=xyz[i]-xyz[j];v2=xyz[k]-xyz[j];ang=np.arccos(np.clip(v1@v2/np.linalg.norm(v1)/np.linalg.norm(v2),-1,1));m.AddBondAngle(h,parent,m.GetAtom(k),ang,np.deg2rad(2),np.deg2rad(2),False)
+   for rg in range(m.GetNbRigidGroups()):
+    group=m.GetRigidGroupList()[rg]
+    if parent in group:group.add(h)
+   # Aromatic atoms and nitrile terminal atoms require no additional torsions.
+  ac=m.GetScatteringComponentList()[0];new_xyz=np.array([ac.X,ac.Y,ac.Z]);delta=old_xyz-new_xyz
+  m.X+=delta[0];m.Y+=delta[1];m.Z+=delta[2]
+ c.SetParIsFixed(refpartype_scattpow_temperature,True)
+# Optional extension to higher-angle observations for a final coordinate refinement.
+new_stol=next((float(a.split('=',1)[1]) for a in sys.argv if a.startswith('--stol=')),None)
+if new_stol is not None:
+ ins=json.load(open('/app/data/instances/'+sid+'/instrument.json'));wl=ins['radiation']['wavelength_A'];raw=np.loadtxt('/app/data/instances/'+sid+'/pattern.xye')
+ lo=np.rad2deg(p.GetPowderPatternX()[0]);hi=np.rad2deg(2*np.arcsin(new_stol*wl));raw=raw[(raw[:,0]>=lo)&(raw[:,0]<hi)]
+ nbin=max(1,int(np.ceil(len(raw)/12000)))
+ if nbin>1:
+  n=len(raw)//nbin*nbin;raw=np.column_stack([raw[:n,0].reshape(-1,nbin).mean(1),raw[:n,1].reshape(-1,nbin).mean(1),np.sqrt((raw[:n,2]**2).reshape(-1,nbin).sum(1))/nbin])
+ data0=np.load(W+'/processed.npz');b=[p.GetPowderPatternComponent(i) for i in range(p.GetNbPowderPatternComponent()) if p.GetPowderPatternComponent(i).GetClassName()=='PowderPatternBackground'][0]
+ bx0=np.array(b.GetInterpPointsX());by0=np.array(b.GetInterpPointsY());step=np.median(np.diff(bx0));extra=np.arange(bx0[-1]+step,np.deg2rad(raw[-1,0])+step,step)
+ byextra=np.interp(np.rad2deg(extra),data0['x'],data0['background']);b.SetInterpPoints(np.r_[bx0,extra],np.r_[by0,byextra])
+ np.savetxt(W+'/extended_'+run+'.xye',raw);p.ImportPowderPattern2ThetaObsSigma(W+'/extended_'+run+'.xye');p.SetMaxSinThetaOvLambda(new_stol);p.Prepare()
+ print('EXTENDED',new_stol,len(raw),'Rw',p.GetRw(),flush=True)
+p.GetOption(0).SetChoice(1) # use the point-by-point profile for Rietveld refinement
+p.Prepare();p.FitScaleFactorForRw()
+print('WITH_H',p.GetRw(),p.GetChi2(),flush=True)
+if '--scale' in sys.argv:
+ wgt=np.array(p.GetLSQWeight(0));xx=np.rad2deg(p.GetPowderPatternX());yy=np.array(p.GetPowderPatternObs())
+ n=min(len(xx),len(wgt));scale=np.sqrt(max(1.,p.GetChi2()/n))
+ ss=1/np.sqrt(np.maximum(wgt[:n],1e-20))*scale
+ np.savetxt(W+'/scaled_refine.xye',np.column_stack([xx[:n],yy[:n],ss]));p.ImportPowderPattern2ThetaObsSigma(W+'/scaled_refine.xye');p.Prepare()
+ print('SCALED_SIGMA',scale,p.GetChi2(),flush=True)
+
+if '--tight' in sys.argv:
+ for m in mols:
+  if m.GetClassName()!='Molecule':continue
+  for bo in m.GetBondList():
+   if bo.GetAtom1().GetScatteringPower().GetSymbol()!='H' and bo.GetAtom2().GetScatteringPower().GetSymbol()!='H':bo.SetLengthSigma(.006);bo.SetLengthDelta(.008)
+  for an in m.GetBondAngleList():
+   if all(a.GetScatteringPower().GetSymbol()!='H' for a in [an.GetAtom1(),an.GetAtom2(),an.GetAtom3()]):an.SetAngleSigma(np.deg2rad(.8));an.SetAngleDelta(np.deg2rad(1.))
+ print('TIGHT_RESTRAINTS',flush=True)
+if '--keep-rigid' not in sys.argv:
+ for m in mols:
+  if m.GetClassName()=='Molecule':
+   for rg in list(m.GetRigidGroupList()):m.RemoveRigidGroup(rg)
+ print('FLEXIBLE_RINGS',flush=True)
+lsq=LSQ();lsq.SetRefinedObj(p,0,True,True);lsq.PrepareRefParList(True);ref=lsq.GetCompiledRefinedObj();ref.FixAllPar()
+if new_stol is not None:
+ lsq.SetParIsFixed(refpartype_scattdata_background,False)
+ for i in range(2):
+  try:lsq.SafeRefine(nbCycle=5,useLevenbergMarquardt=True,silent=True)
+  except:break
+  p.FitScaleFactorForRw()
+ print('EXTENDED_BACKGROUND',p.GetRw(),flush=True)
+lsq.SetParIsFixed(refpartype_scatt_transl,False);lsq.SetParIsFixed(refpartype_scatt_orient,False)
+# Begin with positions and orientations only, then allow restrained intramolecular relaxation.
+for stage in range(4):
+ if stage==1:
+  lsq.SetParIsFixed(refpartype_scatt_conform,False)
+ if stage==2 and '--fixB' not in sys.argv:
+  lsq.SetParIsFixed(refpartype_scattpow_temperature,False)
+  # H displacement parameters have limited information; keep at chemically reasonable bounds.
+  for i in range(len(c.GetScatteringPowerRegistry())):
+   sp=c.GetScatteringPowerRegistry().GetObj(i);sp.SetLimitsAbsolute('Biso',.3,10.)
+ if stage==3:
+  for n in ['a','b','c','alpha','beta','gamma','Zero','U','V','W','Eta0','Eta1']:
+   try:lsq.SetParIsFixed(n,False)
+   except:pass
+ for j in range(3):
+  try:lsq.SafeRefine(nbCycle=10,useLevenbergMarquardt=True,silent=True)
+  except Exception as e:print('REFINE_ERROR',e,flush=True);break
+  recenter_molecules(c);p.FitScaleFactorForRw();print('CYCLE',stage,j,'Rw',p.GetRw(),'chi2',p.GetChi2(),'geom',sum(m.GetLogLikelihood() for m in mols),'LSQ',lsq.ChiSquare(),flush=True)
+ export_cif(c,W+'/refine_'+run+'_stage'+str(stage)+'.cif')
+ xml_cryst_file_save_global(W+'/refine_'+run+'_stage'+str(stage)+'.xml')
+# Final pattern and parameters
+export_cif(c,W+'/refined_'+run+'.cif');xml_cryst_file_save_global(W+'/refined_'+run+'.xml')
+json.dump({'Rw':p.GetRw(),'chi2':p.GetChi2()},open(W+'/refined_'+run+'.json','w'),indent=1)
+import matplotlib.pyplot as plt
+x=np.rad2deg(p.GetPowderPatternX());y=p.GetPowderPatternObs();yc=p.GetPowderPatternCalc();fig,ax=plt.subplots(figsize=(14,6));ax.plot(x,y,'k',lw=.6,label='Observed');ax.plot(x,yc,'r',lw=.6,label='Rietveld');ax.plot(x,y-yc-y.max()*.13,'b',lw=.4,label='Difference');ax.legend();ax.set_title(sid+' Rwp %.4f'%p.GetRw());fig.tight_layout();fig.savefig(W+'/refined_'+run+'.png',dpi=130)
+print('FINISHED',sid,p.GetRw(),flush=True)

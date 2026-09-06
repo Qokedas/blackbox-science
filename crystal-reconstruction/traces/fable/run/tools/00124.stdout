@@ -1,0 +1,6 @@
+58:    print(f'--- absences {label}: {len(h)} reflections used (stol<={smax:.3f})')
+59:    print(f'{"class":24s} {"nAbs":>5s} {"<I>abs":>8s} {"nPres":>5s} {"<I>pres":>8s} {"ratio":>7s}')
+62:        print(f'{name:24s} {na:5d} {ra:8.3f} {npres:5d} {rp:8.3f} {ratio:7.3f}{flag}')
+71:    print(f'{iid} {spg} Rwp={p.GetRw():.4f} nrefl={len(h)}')
+76:    print('lowest-angle reflections (h k l  2theta  I):')
+80:        print(f'  {h[i]:3d} {k[i]:3d} {l[i]:3d}  {tth:7.3f}  {I[i]:10.1f}')

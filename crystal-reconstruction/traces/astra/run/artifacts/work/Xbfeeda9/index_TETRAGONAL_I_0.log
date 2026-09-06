@@ -1,0 +1,17 @@
+Xbfeeda9 TETRAGONAL I 0 peaks [5.34086, 9.83521, 10.76052, 11.87024, 12.90361, 13.60996, 14.26707, 15.3791, 15.82593, 16.22635, 17.1726, 17.91618, 18.39564, 19.00636, 19.8005, 20.172, 21.40279, 21.76391, 22.17054, 22.40243, 22.88997, 23.50179] V 3572.640380859375 6300 Lmax 51.71361301253933
+3->51.7136,1.94855,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+3572.64->6300,454.568,5.9999
+Starting: V=3572.64->4027.21
+Finished: V=3572.64->4027.21 A^3, 54 unit cells tested, 141732 tests/s,   Elapsed time=0.000419s
+Starting: V=4027.21->4481.78
+Finished: V=4027.21->4481.78 A^3, 104 unit cells tested, 129353 tests/s,   Elapsed time=0.00081s
+Starting: V=4481.78->4936.34
+Finished: V=4481.78->4936.34 A^3, 157 unit cells tested, 132601 tests/s,   Elapsed time=0.001189s
+Starting: V=4936.34->5390.91
+Finished: V=4936.34->5390.91 A^3, 212 unit cells tested, 131351 tests/s,   Elapsed time=0.001619s
+Starting: V=5390.91->5845.48
+Finished: V=5390.91->5845.48 A^3, 267 unit cells tested, 131011 tests/s,   Elapsed time=0.002043s
+Starting: V=5845.48->6300
+Finished: V=5845.48->6300 A^3, 318 unit cells tested, 128174 tests/s,   Elapsed time=0.002487s
+DONE Xbfeeda9 TETRAGONAL I 0 0.0026001930236816406 []

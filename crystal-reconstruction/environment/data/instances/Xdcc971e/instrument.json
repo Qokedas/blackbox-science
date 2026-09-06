@@ -1,0 +1,24 @@
+{
+ "radiation": {
+  "type": "Synchrotron ID31 at ESRF",
+  "wavelength_A": 0.80105,
+  "wavelengths_A": [
+   0.80105
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "not stated",
+ "geometry_source_text": null,
+ "temperature_K": 100.0,
+ "two_theta_range_deg": [
+  2.001,
+  39.999
+ ],
+ "n_points": 12667,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}

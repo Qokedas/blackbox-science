@@ -1,0 +1,12 @@
+option 0 Flexibility Model 0 Automatic from Restraints, relaxed - RECOMMENDED ['Automatic from Restraints, relaxed - RECOMMENDED', 'Rigid Body', 'Automatic from Restraints, strict']
+option 1 Enable Flipping 0 Yes ['Yes', 'No']
+option 2 Auto Optimize Starting Conformation 0 Yes ['Yes', 'No']
+option 3 Optimize Orientation 0 Yes ['Yes', 'No']
+option 4 Rotation Center 0 Geometrical center (recommended) ['Geometrical center (recommended)', 'User-chosen Atom']
+Rwp0 0.13960938755589844
+set Auto Optimize Starting Conformation -> No
+set Optimize Orientation -> No
+after cr.BeginOptimization(True,True) 0.13960938755589836
+restored 0.13960938755589836
+set Flexibility Model -> Rigid Body
+after cr.BeginOptimization(True,True) rigid 0.13960938755589836

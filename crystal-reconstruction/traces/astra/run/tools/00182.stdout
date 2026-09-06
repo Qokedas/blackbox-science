@@ -1,0 +1,51 @@
+7-    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="beta">105.75</Par>
+8-    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="gamma">90</Par>
+9-    <Option Name="Constrain Lattice to SpaceGroup Symmetry" Choice="0" ChoiceName="Yes (Default)"/>
+10-
+11:    <Option Name="Use Dynamical Occupancy Correction" Choice="0" ChoiceName="No"/>
+12-
+13-    <Option Name="Display Enantiomer" Choice="0" ChoiceName="No"/>
+14-
+15-    <ScatteringPowerAtom Name="C" Symbol="C">
+16-      <Par Refined="0" Limited="1" Min="0.1" Max="5" Name="Biso">3</Par>
+17-      <Par Refined="0" Limited="0" Min="0" Max="1" Name="ML Error">0</Par>
+18-      <Par Refined="0" Limited="1" Min="0" Max="10" Name="ML-NbGhost">0</Par>
+19-      <Par Refined="0" Limited="1" Min="-10" Max="10" Name="Formal Charge">0</Par>
+--
+36-
+37-      <Option Name="Flexibility Model" Choice="1" ChoiceName="Rigid Body"/>
+38-      <Option Name="Enable Flipping" Choice="1" ChoiceName="No"/>
+39-      <Option Name="Auto Optimize Starting Conformation" Choice="1" ChoiceName="No"/>
+40:      <Option Name="Optimize Orientation" Choice="0" ChoiceName="Yes"/>
+41-      <Option Name="Rotation Center" Choice="0" ChoiceName="Geometrical center (recommended)"/>
+42-
+43-      <Atom Name="m0_0_0_C1" ScattPow="C" x="9.81384" y="7.36817" z="9.22914" Occup="1"/>
+44-      <Atom Name="m0_0_0_C2" ScattPow="C" x="8.62846" y="7.44127" z="8.2799" Occup="1"/>
+45-      <Atom Name="m0_0_0_C3" ScattPow="C" x="8.24644" y="6.05812" z="7.75343" Occup="1"/>
+46-      <Atom Name="m0_0_0_C4" ScattPow="C" x="7.05373" y="6.13604" z="6.79901" Occup="1"/>
+47-      <Atom Name="m0_0_0_C5" ScattPow="C" x="6.67136" y="4.7519" z="6.2721" Occup="1"/>
+48-      <Atom Name="m0_0_0_C6" ScattPow="C" x="5.47863" y="4.82989" z="5.31767" Occup="1"/>
+obj 0 ReflectionProfilePseudoVoigt  8
+0 U 0.4460160136222839 True
+1 V -0.020140400156378746 True
+2 W 0.001357479952275753 True
+3 Eta0 0.6280480027198792 True
+4 Eta1 -0.9547449946403503 True
+5 Asym0 0.8502529859542847 True
+6 Asym1 0.02970759943127632 True
+7 Asym2 0.0 True
+obj 1 TextureMarchDollase TextureMarchDollase 0
+obj 2 TextureEllipsoid TextureEllipsoid 6
+0 EPR1 0.0 True
+1 EPR2 0.0 True
+2 EPR3 0.0 True
+3 EPR4 0.0 True
+4 EPR5 0.0 True
+5 EPR6 0.0 True
+obj 3 Crystal Xfca9f3c 6
+0 a 12.35949993133545 True
+1 b 4.93710994720459 True
+2 c 21.485700607299805 True
+3 alpha 90.0 True
+4 beta 105.75 True
+5 gamma 90.0 True

@@ -1,0 +1,68 @@
+ACID maxshift 0.0
+LACTAM sign 1 rms 4.8004254299838065 max 5.500089764207595 all [4.91200688 4.2335071  4.55837909 5.50008976 4.19444853 5.06699143
+ 4.99605727]
+LACTAM sign -1 rms 2.6094793610325904 max 4.678527069420539 all [4.67852707 2.38461944 1.04827407 1.71055546 3.37327849 2.01391353
+ 0.79430368]
+==== X263b09a
+/app/work/X263b09a/coformer91.log
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+COFORMER 0 best 69.80543518066406 q25 83.04179 sec 163.12879824638367
+COFORMER 1 best 69.80525207519531 q25 70.81578 sec 318.9429008960724
+/app/work/X263b09a/gallop72.log
+GALLOP 4 Nref 409 seconds 201.90984654426575 best 103.00185 q25 300.5567 median 426.9541 total 1076.3930368423462
+GALLOP 5 Nref 409 seconds 212.1918694972992 best 103.00244 q25 364.6688 median 478.15637 total 1288.6126592159271
+GALLOP 6 Nref 409 seconds 202.30457210540771 best 103.001434 q25 333.38495 median 441.1855 total 1490.998957157135
+==== X1db5091
+/app/work/X1db5091/gallop11.log
+GALLOP 6 Nref 335 seconds 287.8897964954376 best 152.15736 q25 185.67065 median 240.35178 total 2038.2774240970612
+GALLOP 7 Nref 335 seconds 272.5870683193207 best 152.04619 q25 178.34225 median 239.02652 total 2311.0701241493225
+GALLOP 8 Nref 335 seconds 307.64573764801025 best 151.96248 q25 201.57202 median 234.77502 total 2618.9027020931244
+/app/work/X1db5091/basefresh.log
+FRESH_BASE X1db5091 P 1 21/c 1 0.08393986606639924 158069.5992844066
+Imported powder pattern: 5536 points, 2theta=  3.720 ->  59.070, step= 0.010
+SCALED 53.43615721820278 Rw 0.08393993472928879 Chi2 5536.009056910117
+==== Xedd9c7b
+/app/work/Xedd9c7b/gallop52.log
+GALLOP 3 Nref 258 seconds 224.08546495437622 best 76.1003 q25 182.12398 median 240.31937 total 952.8568501472473
+GALLOP 4 Nref 258 seconds 240.63830494880676 best 76.10083 q25 169.15366 median 241.07114 total 1193.5936093330383
+GALLOP 5 Nref 258 seconds 248.6805658340454 best 76.10034 q25 189.37234 median 245.35971 total 1442.3655953407288
+/app/work/Xedd9c7b/po52.log
+{'axis': (0, 1, 0), 'MD': 0.9696585557127829, 'chi': 68.55726781189526}
+{'axis': (1, 0, -1), 'MD': 0.9788215501818595, 'chi': 68.63933033936519}
+{'axis': (1, -1, -1), 'MD': 0.987080643834344, 'chi': 69.21654049959636}
+==== Xb7088cf
+/app/work/Xb7088cf/submitted_chem11.log
+  bond range 1.2192372679813543 1.5124904636198662
+  min intermolecular distance 2.757091466175654
+SUBMITTED Xb7088cf
+/app/work/Xb7088cf/gallop50.log
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+==== X8a06d7a
+/app/work/X8a06d7a/gallop12.log
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 100 seconds 125.31532597541809 best 252.84636 q25 429.8872 median 489.6629 total 125.32262468338013
+GALLOP 1 Nref 130 seconds 125.46597504615784 best 199.25066 q25 308.91824 median 408.92462 total 250.99730277061462
+/app/work/X8a06d7a/extend_low12.log
+List of Crystal ScatteringPowers :0 object registered:
+Imported powder pattern: 4043 points, 2theta=  3.001 ->  71.715, step= 0.017
+RESTORED_LOW_RANGE X8a06d7a 3.001 7.744 71.715 4043 Rw 0.06555820317824887
+==== Xe1fb77b
+/app/work/Xe1fb77b/gallop11.log
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 149 seconds 202.03725934028625 best 313.48587 q25 421.73187 median 464.80066 total 202.0943148136139
+GALLOP 1 Nref 149 seconds 192.20476365089417 best 218.77892 q25 314.57855 median 416.34702 total 394.46836495399475
+/app/work/Xe1fb77b/refine_2.log
+CYCLE 3 1 Rw 0.19400691825310798 chi2 4849.093126771856 geom 574.369143850644 LSQ 5992.504423247231
+CYCLE 3 2 Rw 0.19097255385349643 chi2 4698.594894872138 geom 516.0452752173262 LSQ 5757.02474269456
+FINISHED Xe1fb77b 0.19097255385349643
+==== X238783d
+/app/work/X238783d/gallop25.log
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 100 seconds 340.5074944496155 best 279.19736 q25 397.62335 median 472.732 total 340.51409244537354
+/app/work/X238783d/refine_g20.log
+CYCLE 3 2 Rw 0.19305281955322562 chi2 2625.164693904293 geom 46.99987253244483 LSQ 2873.192251470302
+PACKING_STAGE 3 5.206952932751076
+FINISHED X238783d 0.19305281955322562

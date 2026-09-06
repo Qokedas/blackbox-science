@@ -1,0 +1,11 @@
+done ('Xf8ac963', 'monoC', 90)
+done ('Xfca9f3c', 'monoC', 90)
+python batch_index.py X1db5091,X2327841,X238783d,X263b09a,X35b7fbc,X3c176e2,X3f4781b,X4f6fe58,X7e382
+python solve.py X9af54a2 5.1777 8.2521 32.9450 90 92.7521 90 P 1 21/c 1 --nsteps 2000000 --nruns 2 -
+python solve.py Xe3a2935 10.29176 6.88129 19.99016 90 90 90 P 21 21 21 --nsteps 2000000 --nruns 2 --
+python sgscan.py X3c176e2 14.0376 9.3447 11.0572 90 90 90 ortho 45 
+/opt/g2/bin/python /app/work/g2index.py X1db5091 20 ortho 60 
+/opt/g2/bin/python /app/work/g2index.py X2327841 20 ortho 60 
+/opt/g2/bin/python /app/work/g2index.py X238783d 20 ortho 60 
+timeout --signal=TERM --kill-after=5s 30 bash -lc cd /app/work; tail -n 2 batch_index.log; for p in 
+bash -lc cd /app/work; tail -n 2 batch_index.log; for p in /proc/[0-9]*; do c=$(tr '\0' ' ' < $p/cmd

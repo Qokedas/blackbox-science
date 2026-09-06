@@ -1,0 +1,295 @@
+{"indices": [1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 13, 14, 15, 17, 18, 20, 22, 24, 25]}import sys,os,json,time,itertools,numpy as np
+from numba import njit
+from scipy.optimize import differential_evolution,least_squares
+from pymatgen.core import Lattice
+sid=sys.argv[1];system=sys.argv[2] if len(sys.argv)>2 else 'MONOCLINIC';center=sys.argv[3] if len(sys.argv)>3 else 'P';W='/app/work/'+sid
+wl=json.load(open('/app/data/instances/'+sid+'/instrument.json'))['radiation']['wavelength_A'];ps=json.load(open(W+'/'+os.environ.get('PEAK_FILE','peaks_raw.json')))
+sp=os.environ.get('SELECT_FILE',W+'/peak_select_raw.json')
+if os.path.exists(sp):si=json.load(open(sp));ps=[ps[i-1] for i in si['indices']] if 'indices' in si else [p for p in ps if p['two_theta']>=si.get('min_two_theta',0)]
+ps=ps[int(os.environ.get('PEAK_SKIP','0')):][:int(os.environ.get('NPEAK','25'))];tt=np.array([p['two_theta'] for p in ps]);qobs=(2*np.sin(np.deg2rad(tt/2))/wl)**2;fac=wl**2/(2*np.sin(np.deg2rad(tt)))*180/np.pi
+hkl=[];R=int(os.environ.get('HMAX','10'))
+for h in range(0,R+1):
+ for k in (range(0,R+1) if system!='TRICLINIC' else range(-R,R+1)):
+  for l in (range(0,R+1) if system=='ORTHOROMBIC' else range(-R,R+1)):
+   if not(h or k or l):continue
+   if h==0 and (k<0 or (k==0 and l<0)):continue
+   if system=='MONOCLINIC' and h==0 and l<0:continue
+   if center=='C' and (h+k)%2:continue
+   if center=='I' and (h+k+l)%2:continue
+   if center=='F' and ((h+k)%2 or (h+l)%2):continue
+   hkl.append((h,k,l))
+hkl=np.array(hkl,dtype=float);terms=np.array([hkl[:,0]**2,hkl[:,1]**2,hkl[:,2]**2,2*hkl[:,1]*hkl[:,2],2*hkl[:,0]*hkl[:,2],2*hkl[:,0]*hkl[:,1]]).T
+lo=float(os.environ.get('VMIN','700'));hi=float(os.environ.get('VMAX','3200'));tar=float(os.environ.get('VTARGET',np.sqrt(lo*hi)));err=float(os.environ.get('TTHERR','.025'));nspur=int(os.environ.get('NSPUR','1'));max_time=float(os.environ.get('INDEX_TIME','300'));ndim={'ORTHOROMBIC':4,'MONOCLINIC':5,'TRICLINIC':7}[system];sgn={'ORTHOROMBIC':'P m m m','MONOCLINIC':'P 1 2/m 1','TRICLINIC':'P -1'}[system]
+@njit(cache=False)
+def metric(x):
+ g=np.zeros(6);g[:3]=x[:3]**2
+ if ndim==5:g[4]=x[3]*x[0]*x[2]
+ if ndim==7:g[3]=x[3]*x[1]*x[2];g[4]=x[4]*x[0]*x[2];g[5]=x[5]*x[0]*x[1]
+ return g
+@njit(cache=False)
+def diffs(x):
+ g=metric(x);qc=terms@g;ix=np.zeros(len(tt),np.int64);dif=np.zeros(len(tt))
+ for i in range(len(tt)):
+  qq=qobs[i]-x[-1]/fac[i];bd=1e10
+  for j in range(len(qc)):
+   dd=abs(qc[j]-qq)
+   if dd<bd:bd=dd;ix[i]=j
+  dif[i]=(qc[ix[i]]-qobs[i])*fac[i]+x[-1]
+ return dif,ix
+@njit(cache=False)
+def cost(x):
+ g=metric(x);det=g[0]*g[1]*g[2]+2*g[3]*g[4]*g[5]-g[0]*g[3]**2-g[1]*g[4]**2-g[2]*g[5]**2
+ if det<=0:return 1000.
+ vol=1/np.sqrt(det);dc,ix=diffs(x);sq=np.log1p((dc/err)**2);sq.sort();co=np.mean(sq[:len(sq)-nspur])*vol/tar
+ for i in range(len(ix)):
+  for j in range(i):
+   if ix[i]==ix[j]:co+=.06
+ if vol<lo:co+=100*np.log(lo/vol)**2
+ if vol>hi:co+=100*np.log(vol/hi)**2
+ return co
+amin=float(os.environ.get('AMIN','3.5'));amax=float(os.environ.get('AMAX','50'));bounds=[(1/amax,1/amin)]*3
+if system=='MONOCLINIC':bounds+=[(0.,.7)]
+if system=='TRICLINIC':bounds+=[(-.45,.45)]*3
+bounds+=[(-float(os.environ.get('ZEROMAX','.10')),float(os.environ.get('ZEROMAX','.10')))]
+if 'BOUNDS_FILE' in os.environ:bounds=json.load(open(os.environ['BOUNDS_FILE']))
+print('METRIC_INDEX',sid,system,center,'peaks',tt.tolist(),'bounds',bounds,'volume',lo,hi,flush=True);cost(np.mean(bounds,axis=1));t0=time.time();sol=[];tag=os.environ.get('INDEX_TAG','metric_'+system+'_'+center)
+for trial in range(int(os.environ.get('TRIALS','60'))):
+ kw={}
+ if sol and trial%3:
+  ss=sol[0]['parameters'];pop=np.random.uniform(np.array(bounds)[:,0],np.array(bounds)[:,1],size=(max(60,18*ndim),ndim));half=len(pop)//2;pop[:half]=np.clip(np.array(ss)*(1+np.random.normal(size=(half,ndim))*.15),np.array(bounds)[:,0],np.array(bounds)[:,1]);kw['init']=pop
+ res=differential_evolution(cost,bounds,popsize=int(os.environ.get('POPSIZE','18')),maxiter=int(os.environ.get('MAXITER','700')),polish=False,tol=.0001,workers=1,**kw);x=res.x
+ for j in range(6):
+  _,ix=diffs(x);tr=terms[ix]
+  re=least_squares(lambda xx:(tr@metric(xx)-qobs)*fac+xx[-1],x,bounds=np.array(bounds).T,loss='soft_l1',f_scale=err,max_nfev=100)
+  if cost(re.x)>cost(x)+.05:break
+  x=re.x
+ g=metric(x);GM=np.array([[g[0],g[5],g[4]],[g[5],g[1],g[3]],[g[4],g[3],g[2]]]);L=Lattice(np.linalg.cholesky(np.linalg.inv(GM)));df,ix=diffs(x);nc=np.sum(terms@g<qobs[-1]);sc=qobs[-1]/(2*max(1e-10,np.mean(abs(df)/fac))*nc);cell=list(L.parameters)
+ if system=='ORTHOROMBIC':cell[:3]=sorted(cell[:3]) if center=='P' else cell[:3]
+ o=dict(cell=cell,system=system,centering=center,volume=L.volume,score=float(sc),cost=float(cost(x)),mode=21,zero=float(x[-1]),rms=float(np.sqrt(np.mean(df**2))),maxerr=float(max(abs(df))),parameters=x.tolist(),diff=df.tolist(),hkl=hkl[ix].astype(int).tolist())
+ if not any(np.allclose(o['cell'][:3],s['cell'][:3],rtol=.003) and np.allclose(o['cell'][3:],s['cell'][3:],atol=.3) for s in sol):sol.append(o)
+ sol.sort(key=lambda s:s['cost']);json.dump(sol,open(W+'/index_'+tag+'.json','w'),indent=1)
+ print('TRIAL',trial,'sec',time.time()-t0,'cost',o['cost'],'score',sc,'vol',L.volume,'cell',np.round(cell,4),'zero',x[-1],'best',sol[0]['cost'],'diff',np.round(df,4),flush=True)
+ if o['maxerr']<.05 and o['cost']<.06 and sc>30:break
+ if time.time()-t0>max_time:break
+import os,sys,time,json,io
+import numpy as np
+from pyobjcryst.indexing import *
+from rdkit import Chem
+sid=sys.argv[1]; system=sys.argv[2] if len(sys.argv)>2 else 'MONOCLINIC'; center=sys.argv[3] if len(sys.argv)>3 else 'P'
+mode=int(sys.argv[4]) if len(sys.argv)>4 else 0
+W='/app/work/'+sid
+ins=json.load(open('/app/data/instances/'+sid+'/instrument.json'));comp=json.load(open('/app/data/instances/'+sid+'/composition.json'));wl=ins['radiation']['wavelength_A']
+peakfile=os.environ.get('PEAK_FILE','peaks.json');peaks=json.load(open(W+'/'+peakfile));data=np.load(W+'/processed.npz');x=data['x'];dx=np.median(np.diff(x))
+maxh=max(p['height'] for p in peaks); medwid=np.median([p['fwhm'] for p in sorted(peaks,key=lambda p:-p['height'])[:25]])
+# strict suppression of baseline artifacts and short single-point spikes
+peaks=[p for p in peaks if p['height']>maxh*(.003 if mode<2 else .007) and p['fwhm']>max(dx*1.5,medwid*.3) and p['fwhm']<max(medwid*3,.055*wl/1.54) and p['two_theta']>x[0]+max(.08*wl/1.54,dx*4)]
+# remove user-marked impurity / blended lines (1-based original peak list indices)
+selectfile='peak_select_raw.json' if peakfile!='peaks.json' and os.path.exists(W+'/peak_select_raw.json') else 'peak_select.json'
+if os.path.exists(W+'/'+selectfile):
+ sel=json.load(open(W+'/'+selectfile)); orig=json.load(open(W+'/'+peakfile))
+ if 'indices' in sel and (peakfile=='peaks.json' or selectfile=='peak_select_raw.json'): peaks=[orig[i-1] for i in sel['indices']]
+ else: peaks=[p for p in peaks if p['two_theta']>=sel.get('min_two_theta',0) and all(abs(p['two_theta']-xx)>.01 for xx in sel.get('exclude',[]))]
+# For indexing low-lying broad peaks in otherwise fine data are suspect
+npeak=int(os.environ.get('NPEAK',22 if mode not in [3,4] else 18))
+peaks=peaks[int(os.environ.get('PEAK_SKIP','0')):][:npeak]
+if len(peaks)<10: sys.exit(1)
+ns=int(os.environ.get('NSPUR',1 if mode in [1,4] else 0))
+# deviations incorporate peak-profile asymmetry and blended maxima
+base_err=(.012 if wl>1.3 else .003 if wl>.65 else .0015)*(2 if mode>=2 else 1)
+base_err=float(os.environ.get('TTHERR',base_err))
+ss=''
+for p in peaks:
+ theta=p['two_theta']-float(os.environ.get('TTHSHIFT',0)); d=wl/(2*np.sin(np.deg2rad(theta/2)));terr=min(float(os.environ.get('MAXERR','100')),max(base_err,p['error']*2,min(p['fwhm']*.15,base_err*2)))
+ dsig=d/np.tan(np.deg2rad(theta/2))*np.deg2rad(terr/2)*2
+ ss+=f"{d:.9f} {dsig:.9f} {p['height']:.3f}\n"
+pl=PeakList();pl.ImportDhklDSigmaIntensity(io.BytesIO(ss.encode()))
+cs=getattr(CrystalSystem,system);cen=getattr(CrystalCentering,'LATTICE_'+center)
+heavy=sum(Chem.MolFromSmiles(c['smiles']).GetNumHeavyAtoms()*c['count'] for c in comp['components'])
+v1=heavy*18
+lo=EstimateCellVolume(1/peaks[-1]['d'],1/(peaks[0]['d']*4),len(peaks),cs,cen,1.4)
+hi=EstimateCellVolume(1/peaks[-1]['d'],1/(peaks[0]['d']*4),len(peaks),cs,cen,.20 if system!='TRICLINIC' else .35)
+lo=max(lo, v1*.65,80);hi=min(hi,v1*(10 if system not in ['MONOCLINIC','TRICLINIC'] else 8 if system=='MONOCLINIC' else 4),15000)
+if hi<lo:hi=lo*1.1
+if len(sys.argv)>5:lo=float(sys.argv[5]);hi=float(sys.argv[6])
+lmax=max(25,min(60,2.8*hi**(1/3)))
+if heavy>25 and all(set(c['smiles'])<=set('C[]@H()') for c in comp['components']): lmax=100
+lmax=float(os.environ.get('LMAX',lmax))
+if system=='TRICLINIC':lmax=min(lmax,float(os.environ.get('LMAX_TRI','40')))
+ex=CellExplorer(pl,cs,ns);ex.SetCrystalCentering(cen);ex.SetLengthMinMax(3,lmax);ex.SetAngleMinMax(np.deg2rad(90),np.deg2rad(135 if system=='TRICLINIC' else 140));ex.SetVolumeMinMax(lo,hi);ex.SetD2Error(0)
+print(sid,system,center,mode,'peaks',[round(p['two_theta'],5) for p in peaks], 'V',lo,hi, 'Lmax',lmax,flush=True)
+start=time.time();ex.DicVol(8,4,float(os.environ.get("INDEX_SCORE",80)),int(os.environ.get("INDEX_DEPTH",7)),True);ex.ReduceSolutions()
+sols=[]
+for cell,score in ex.GetSolutions():
+ c=cell.DirectUnitCell(False,True)
+ if all(np.isfinite(c)):
+  sols.append(dict(cell=list(c[:6]),volume=c[6],score=score,system=cell.lattice.name,centering=cell.centering.name.replace('LATTICE_',''),mode=mode))
+print('DONE',sid,system,center,len(sols),time.time()-start,sols[:5],flush=True)
+tag=system+'_'+center+'_'+str(mode)
+if len(sys.argv)>5:tag+='_'+sys.argv[5]+'_'+sys.argv[6]
+if 'TTHSHIFT' in os.environ:tag+='_z'+os.environ['TTHSHIFT']
+if 'INDEX_TAG' in os.environ:tag+='_'+os.environ['INDEX_TAG']
+if peakfile!='peaks.json':tag+='_'+peakfile.replace('.json','')
+json.dump(sols,open(W+'/index_'+tag+'.json','w'),indent=1)
+import sys,os,json,subprocess,time,concurrent.futures
+ids=json.load(open('/app/data/instances.json'))['ids']
+if len(sys.argv)>1:ids=sys.argv[1:]
+else:
+ ids=[x for x in ids if not json.load(open('/app/work/'+x+'/candidates.json')) or json.load(open('/app/work/'+x+'/candidates.json'))[0]['score']<16]
+mode=2
+jobs=[(s,'ORTHOROMBIC','P') for s in ids]+[(s,'MONOCLINIC','P') for s in ids]+[(s,'MONOCLINIC','C') for s in ids]
+def run(job):
+ s,sy,ce=job;out=f'/app/work/{s}/index_{sy}_{ce}_{mode}.json';log=out.replace('.json','.log')
+ with open(log,'w') as f:
+  try:subprocess.run([sys.executable,'/app/work/index_one.py',s,sy,ce,str(mode)],stdout=f,stderr=subprocess.STDOUT,timeout=240)
+  except Exception as e:print(s,sy,str(e),flush=True)
+ if os.path.exists(out):
+  sols=json.load(open(out));val=max([s['score'] for s in sols]+[0]);print(s,sy,ce,val,flush=True)
+with concurrent.futures.ThreadPoolExecutor(max_workers=3) as ex:list(ex.map(run,jobs))
+[
+ {
+  "cell": [
+   12.042,
+   9.241,
+   8.049,
+   117.503,
+   79.808,
+   107.19
+  ],
+  "volume": 758.11,
+  "score": 16.75,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   10.326,
+   10.865,
+   8.699,
+   112.866,
+   82.427,
+   120.089
+  ],
+  "volume": 775.59,
+  "score": 12.32,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   10.356,
+   11.14,
+   8.689,
+   112.64,
+   82.434,
+   120.125
+  ],
+  "volume": 797.85,
+  "score": 12.14,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   11.14,
+   10.356,
+   8.689,
+   82.434,
+   112.64,
+   120.125
+  ],
+  "volume": 797.85,
+  "score": 11.96,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9
+{
+ "radiation": {
+  "type": "Cu Kalpha1 (laboratory, monochromatic per the paper: Bruker D8 Advance, LynxEye)",
+  "wavelength_A": 1.540598,
+  "wavelengths_A": [
+   1.540598
+  ],
+  "wavelength_weights": null,
+  "monochromator": "monochromatic incident beam (paper)",
+  "source": "sealed X-ray tube"
+ },
+ "geometry": "reflection (flat plate / Bragg-Brentano)",
+ "geometry_source_text": null,
+ "temperature_K": 300.0,
+ "two_theta_range_deg": [
+  3.0066,
+  39.9938
+ ],
+ "n_points": 2818,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": [
+  "depositors tagged the radiation K-alpha1,2; the paper states monochromatic 1.5406 A and the deposited profile is consistent with a single wavelength"
+ ]
+}import os,sys,json,numpy as np,gemmi
+import matplotlib
+matplotlib.use('Agg')
+from pyobjcryst.crystal import Crystal
+from pyobjcryst.powderpattern import PowderPattern,ReflectionProfileType
+from pyobjcryst.io import xml_cryst_file_save_global
+sid=sys.argv[1];tag=sys.argv[2];sg=sys.argv[3];W='/app/work/'+sid
+j=json.load(open(W+'/fit_'+tag+'.json'));cp=j['cell'];ins=json.load(open('/app/data/instances/'+sid+'/instrument.json'));wl=ins['radiation']['wavelength_A'];rad=ins['radiation']
+c=Crystal(*cp[:3],*np.deg2rad(cp[3:]),sg);c.SetName(sid)
+data=np.loadtxt('/app/data/instances/'+sid+'/pattern.xye');peaks=json.load(open(W+'/peaks.json'));mh=max(p['height'] for p in peaks);valid=[p for p in peaks if p['height']>.015*mh];xmin=max(data[0,0],min(p['two_theta'] for p in valid)-.5*wl/1.54)
+if os.path.exists(W+'/peak_select.json'):xmin=max(xmin,json.load(open(W+'/peak_select.json')).get('min_two_theta',xmin))
+stol=float(os.environ.get('MAX_STOL','.25'));data=data[(data[:,0]>=xmin)&(data[:,0]<np.rad2deg(2*np.arcsin(stol*wl)))]
+if len(data)>12000:
+ n=len(data)//2*2;data=np.column_stack([data[:n,0].reshape(-1,2).mean(1),data[:n,1].reshape(-1,2).mean(1),np.sqrt((data[:n,2]**2).reshape(-1,2).sum(1))/2])
+# A constant uncertainty rescaling preserves all diffraction relative weights and prevents disproportionate molecular restraint weighting.
+scale=max(1.,np.median(np.sqrt(np.clip(data[:,1],1,None))/data[:,2]));data[:,2]*=scale
+np.savetxt(W+'/base_profile.xye',data)
+p=PowderPattern();p.SetName(sid);p.ImportPowderPattern2ThetaObsSigma(W+'/base_profile.xye');p.SetWavelength(wl);p.SetMaxSinThetaOvLambda(stol)
+if len(rad.get('wavelengths_A') or [])>1:p.SetWavelength('Mo' if wl<1 else 'Cu')
+d=p.AddPowderPatternDiffraction(c)
+wid=np.median([v['fwhm'] for v in sorted(valid,key=lambda z:-z['height'])[:25]])
+d.SetReflectionProfilePar(ReflectionProfileType.PROFILE_PSEUDO_VOIGT,np.deg2rad(wid)**2,0,0,.5,0)
+b=p.AddPowderPatternBackground();nbkg=max(20,int((data[-1,0]-data[0,0])/(1.2*wl/1.54)));bx=np.linspace(np.deg2rad(data[0,0]),np.deg2rad(data[-1,0]),nbkg);raw=np.load(W+'/processed.npz');by=np.interp(np.rad2deg(bx),raw['x'],raw['background']);b.SetInterpPoints(bx,by)
+p.Prepare();p.quick_fit_profile(pdiff=d,auto_background=False,init_profile=False,plot=False,asym=True,verbose=False);p.FitScaleFactorForRw()
+print('FRESH_BASE',sid,sg,p.GetRw(),p.GetChi2(),flush=True)
+# Save the actual optimum reached. Excessive multiplicative Le Bail cycles can destabilize heavily overlapped lines.
+scale2=max(1.,np.sqrt(p.GetChi2()/len(data)));data[:,2]*=scale2;np.savetxt(W+'/base_profile.xye',data);p.ImportPowderPattern2ThetaObsSigma(W+'/base_profile.xye');p.Prepare();p.FitScaleFactorForRw()
+print('SCALED',scale*scale2,'Rw',p.GetRw(),'Chi2',p.GetChi2(),flush=True)
+cell={n:float(c.GetPar(n).GetHumanValue()) for n in ['a','b','c','alpha','beta','gamma']};out={'cell':cell,'space_group':sg,'space_group_number':gemmi.find_spacegroup_by_name(sg).number}
+json.dump(out,open(W+'/lattice.json','w'),indent=1)
+if '--submit' in sys.argv:json.dump(out,open('/app/results/submission/'+sid+'.json','w'),indent=1)
+xml_cryst_file_save_global(W+'/base.xml');np.savez_compressed(W+'/lebail.npz',h=d.GetH(),k=d.GetK(),l=d.GetL(),stol=d.GetSinThetaOverLambda(),f2=d.GetFhklObsSq(),x=p.GetPowderPatternX(),obs=p.GetPowderPatternObs(),calc=p.GetPowderPatternCalc())
+p.plot(diff=True,hkl=False);p.figure.savefig(W+'/base.png',dpi=140)
+import os,sys,json,numpy as np
+import matplotlib
+matplotlib.use('Agg')
+from pyobjcryst.io import xml_cryst_file_load_all_object,xml_cryst_file_save_global
+from pyobjcryst.powderpattern import PowderPattern,wrap_boost_powderpattern
+from pyobjcryst.crystal import Crystal
+from pyobjcryst._pyobjcryst import LSQ
+sid=sys.argv[1];tag=sys.argv[2];sg=sys.argv[3];W='/app/work/'+sid
+startxml=W+('/pre_scan_' if os.path.exists(W+'/pre_scan_'+tag+'.xml') else '/fit_')+tag+'.xml'
+objs=xml_cryst_file_load_all_object(startxml);c=[x for x in objs if x.GetClassName()=='Crystal'][0];p=[x for x in objs if x.GetClassName()=='PowderPattern'][0]
+import pyobjcryst.powderpattern as ppmod
+from types import MethodType
+ppmod.MethodType=MethodType
+wrap_boost_powderpattern(p)
+c.ChangeSpaceGroup(sg);c.SetName(sid);p.SetName(sid);d=p.get_crystalline_components()[0]
+d.SetExtractionMode(True,True);d.ExtractLeBail(10)
+p.quick_fit_profile(pdiff=d,init_profile=False,auto_background=False,plot=False,asym=True,verbose=False)
+print('BEFORE_EXTRACTION',p.GetRw(),flush=True)
+p.FitScaleFactorForRw()
+print('BASE',sid,sg,'Rw',p.GetRw(),'chi2',p.GetChi2(),flush=True)
+cell={n:float(c.GetPar(n).GetHumanValue()) for n in ['a','b','c','alpha','beta','gamma']}
+import gemmi
+out={'cell':cell,'space_group':sg,'space_group_number':gemmi.find_spacegroup_by_name(sg).number}
+json.dump(out,open(W+'/lattice.json','w'),indent=1)
+# This is a supported lattice hypothesis, updated if later solution tests reject it.
+os.makedirs('/app/results/submission',exist_ok=True)
+if '--submit' in sys.argv:json.dump(out,open('/app/results/submission/'+sid+'.json','w'),indent=1)
+xml_cryst_file_save_global(W+'/base.xml')
+np.savez_compressed(W+'/lebail.npz',h=d.GetH(),k=d.GetK(),l=d.GetL(),stol=d.GetSinThetaOverLambda(),f2=d.GetFhklObsSq(),x=p.GetPowderPatternX(),obs=p.GetPowderPatternObs(),calc=p.GetPowderPatternCalc())
+p.plot(diff=True,hkl=False);p._plot_fig.savefig(W+'/base.png',dpi=140)

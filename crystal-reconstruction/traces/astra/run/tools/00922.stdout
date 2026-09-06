@@ -1,0 +1,23 @@
+PO83=55582
+CYCLE 2 2 Rw 0.05009551715330569 chi2 3678.173179745793 geom 5.370675387760367 LSQ 3777.636441194715
+PACKING_STAGE 2 12.324672270448188
+CYCLE 3 0 Rw 0.050101942565970885 chi2 3679.1167889766884 geom 5.142576667721915 LSQ 3775.7800339036503
+CYCLE 3 1 Rw 0.05008938791364758 chi2 3677.2731780275503 geom 5.100178501020114 LSQ 3773.05847267212
+CYCLE 3 2 Rw 0.050068319663083775 chi2 3674.180410369371 geom 5.065234864884449 LSQ 3768.9629500447836
+PACKING_STAGE 3 10.903313146683828
+FINISHED Xb7088cf 0.050068319663083775
+ATTACHED_H_SCATTERING 38 heavy atoms 24 H atoms
+PACKING_ENABLED 38 atoms 1996 pair terms coefficient 70.0 active_only True
+HBOND_PRIOR 2 donors 8 acceptors coefficient 15.0 directional False
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1504.28it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 90 seconds 122.94292211532593 best 550.64417 q25 730.02057 median 783.6307 total 122.95197772979736
+GALLOP 1 Nref 113 seconds 99.14196133613586 best 537.6483 q25 672.208 median 742.63513 total 222.34414768218994
+GALLOP 2 Nref 131 seconds 82.90654444694519 best 362.7695 q25 604.49426 median 727.05273 total 305.40696382522583
+GALLOP 3 Nref 147 seconds 102.11134147644043 best 355.7981 q25 632.7824 median 724.8013 total 407.6429374217987

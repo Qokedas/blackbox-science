@@ -1,0 +1,8 @@
+restored from Xe3a2935/sol_a/P212121_run0_rw0.185.cif: Rwp=0.1800 restraint cost=0.00
+polish: Rwp 0.1800 -> 0.1425 (accepted) restraint cost=0.00
+RESTORE-POLISH Xe3a2935 0.14245769598158894
+P212121_run0_rw0.185.cif
+P212121_run0_rw0.185_fit.png
+P212121_run1_rw0.188.cif
+restored_check.cif
+restored_lsq_rw0.142.cif

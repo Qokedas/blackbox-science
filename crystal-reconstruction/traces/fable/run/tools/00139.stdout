@@ -1,0 +1,22 @@
+kill 4032: python solve.py Xe3a2935 10.29176 6.88129 19.99016 90 90 90 P 21 21 21 --nsteps 
+    return mol, best, energies
+
+def classify_bonds(mol):
+    """Return set of bond indices whose torsion should be restrained (kept as in conformer)."""
+    fixed = set()
+    for b in mol.GetBonds():
+        a1, a2 = b.GetBeginAtom(), b.GetEndAtom()
+        if a1.GetAtomicNum() == 1 or a2.GetAtomicNum() == 1:
+            continue
+        if b.IsInRing():
+            fixed.add(b.GetIdx()); continue
+        if b.GetBondType() != Chem.BondType.SINGLE:
+            fixed.add(b.GetIdx()); continue
+        # heavy degree
+        hd1 = sum(1 for n in a1.GetNeighbors() if n.GetAtomicNum() > 1)
+        hd2 = sum(1 for n in a2.GetNeighbors() if n.GetAtomicNum() > 1)
+        if hd1 < 2 or hd2 < 2:
+            fixed.add(b.GetIdx()); continue  # terminal: no torsion needed
+        sp2 = lambda a: a.GetHybridization() in (Chem.HybridizationType.SP2, Chem.HybridizationType.SP)
+        # amide / conjugated sp2-sp2 single bonds
+        if sp2(a1) and sp2(a2):

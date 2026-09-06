@@ -1,0 +1,49 @@
+/app/work/submit.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+X3f4781b Nat 104 molecule sizes [21, 21, 21, 21, 5, 5, 5, 5]
+  component COC(=O)[C@H](c1ccccc1Cl)[NH+]1CCc2sccc2C1 matches 4
+  component O=S(=O)([O-])O matches 4
+  bond range 1.2236082167566755 1.741855400958254
+  min intermolecular distance 2.458385594045028
+/app/work/check_stereo.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(fn).parse_structures(primitive=False)[0];s.remove_species(['H']);rad=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<1.2*(rad[:,None]+rad[None,:]));g=nx.from_numpy_array(A)
+X3f4781b root 0 expected {4: 'S'} actual {4: 'S'} OK True
+X3f4781b root 1 expected {4: 'S'} actual {4: 'S'} OK True
+X3f4781b root 32 expected {4: 'S'} actual {4: 'S'} OK True
+X3f4781b root 33 expected {4: 'S'} actual {4: 'S'} OK True
+Cell (10.429374420000002, 15.33415882, 12.62376995, 90.0, 113.29321028, 90.0) n 104 components [21, 21, 21, 21, 5, 5, 5, 5]
+2.4584 83 O4 O 1 91 O43 O 5
+2.7735 83 O4 O 1 102 O87 O 6
+2.8019 43 C52 C 3 84 O39 O 4
+2.8196 79 Cl56 Cl 3 101 O86 O 7
+2.8400 76 Cl12 Cl 0 98 O85 O 6
+2.8886 15 C10 C 1 94 O48 O 2
+2.8912 51 C58 C 3 85 O39 O 5
+2.9167 1 C1 C 1 91 O43 O 5
+2.9341 21 C15 C 1 96 O83 O 6
+2.9595 26 C19 C 0 83 O4 O 1
+2.9791 88 O42 O 4 97 O83 O 7
+3.0048 88 O42 O 4 99 O85 O 7
+3.0091 3 C3 C 1 91 O43 O 5
+3.0227 49 C55 C 3 101 O86 O 7
+3.0236 26 C19 C 0 91 O43 O 5
+3.0300 32 C45 C 2 77 Cl12 Cl 1
+3.0405 17 C11 C 1 99 O85 O 7
+3.0459 72 N13 N 0 97 O83 O 7
+3.0854 1 C1 C 1 93 O46 O 3
+3.1018 52 C59 C 2 81 O2 O 1
+3.1064 22 C16 C 0 97 O83 O 7
+3.1064 1 C1 C 1 85 O39 O 5
+3.1717 75 N57 N 3 85 O39 O 5
+3.1796 19 C14 C 1 34 C47 C 2
+3.2603 19 C14 C 1 94 O48 O 2
+['m0_C5', 'm0_N13', 'm0_C21'] actual 120.88933306205995 target 115.22300000000001 cost 34.02291286383746
+['m0_H30', 'm0_N13', 'm0_C14'] actual 77.60599315100893 target 90.0 cost 27.00884459013268
+['m2_C3', 'm2_C5', 'm2_C6'] actual 119.20166482701372 target 114.34 cost 23.30071129067839
+['m2_C3', 'm2_C5', 'm2_N13'] actual 119.98610754064386 target 114.144 cost 36.63438347227016
+['m2_C6', 'm2_C5', 'm2_N13'] actual 115.82761398254509 target 111.1 cost 21.711103116290342
+['m2_C14', 'm2_N13', 'm2_C21'] actual 116.57673729878151 target 111.0 cost 32.72894420476602
+COMMON_GEOMETRY_TOTAL 442.35803690700277
+Fixed atom-order final vs n110m00 RMS/max 0.07995071062676266 0.16989573960870485
+largest [(np.float64(0.16989573960870485), 'O86'), (np.float64(0.1698957396087048), 'O86'), (np.float64(0.16010258880936074), 'O41'), (np.float64(0.1601025888093606), 'O41'), (np.float64(0.1565043481748635), 'O83'), (np.float64(0.15650434817486347), 'O83'), (np.float64(0.13469065049985907), 'N13'), (np.float64(0.13469065049985907), 'N13')]
+old cell (10.42964277, 15.33438836, 12.62394326, 90.0, 113.29315318, 90.0) new (10.429374420000002, 15.33415882, 12.62376995, 90.0, 113.29321028, 90.0)

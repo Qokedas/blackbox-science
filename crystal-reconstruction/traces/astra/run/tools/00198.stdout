@@ -1,0 +1,122 @@
+302:      * value) if you have added antibump distances using Crystal::SetBumpMergeDistance().
+305:      REAL GetBumpMergeCost() const;
+309:      void SetBumpMergeDistance(const ScatteringPower &scatt1,
+312:      void SetBumpMergeDistance(const ScatteringPower &scatt1,
+317:      void RemoveBumpMergeDistance(const ScatteringPower &scatt1,
+321:      struct BumpMergePar
+323:         BumpMergePar();
+328:         BumpMergePar(const REAL dist, const bool canOverlap=false);
+337:      typedef std::map<pair<const ScatteringPower*, const ScatteringPower*>,Crystal::BumpMergePar > VBumpMergePar;
+338:      const VBumpMergePar& GetBumpMergeParList()const;
+339:      VBumpMergePar& GetBumpMergeParList();
+562:      VBumpMergePar mvBumpMergePar;
+567:      RefinableObjClock mBumpMergeParClock;
+569:      mutable RefinableObjClock mBumpMergeCostClock;
+571:      mutable REAL mBumpMergeCost;
+573:      REAL mBumpMergeScale;
+345:      * The multiplicity is always stored in ScatteringData::mMultiplicity.
+362:      * The multiplicity is always stored in ScatteringData::mMultiplicity.
+497:      * The multiplicity is always stored in ScatteringData::mMultiplicity.
+514:      * The multiplicity is always stored in ScatteringData::mMultiplicity.
+605:      mutable CrystVector_int mMultiplicity ;
+/usr/bin/g++
+/*  ObjCryst++ Object-Oriented Crystallographic Library
+    (c) 2000-2002 Vincent Favre-Nicolin vincefn@users.sourceforge.net
+        2000-2001 University of Geneva (Switzerland)
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+*/
+/*   General.h
+*  header file for various global declaration. Most of these declarations
+* should be moved to other headers, and this file could eventually disappear.
+*
+*/
+
+#ifndef _VFN_OBJCRYST_H_
+#define _VFN_OBJCRYST_H_
+
+
+#include <string>
+#include <cmath>
+#include <utility>
+
+// Restricted pointers (useful for auto-vectorization)
+#ifdef __GNUG__
+   #define RESTRICT __restrict__
+#elif defined(_MSC_VER) || defined(__ICL) // MS and VC++ compiler
+   #define RESTRICT __restrict
+#else
+   #define RESTRICT
+#endif
+
+//profiling
+#ifdef __MWERKS__
+#include <Profiler.h>
+#endif
+
+#ifdef PROFILING_ON
+#include "Profile/Profiler.h"
+#else
+
+#define TAU_PROFILE(name, type, group)
+#define TAU_PROFILE_START(var)
+#define TAU_PROFILE_TIMER(var, name, type, group)
+#define TAU_PROFILE_STOP(var)
+#define TAU_PROFILE_INIT(argc, argv)
+#define TAU_PROFILE_SET_NODE(node)
+#define TAU_PROFILE_SET_CONTEXT(context)
+#define TAU_EVENT(event, data)
+#define TAU_REPORT_STATISTICS()
+#define TAU_REPORT_THREAD_STATISTICS()
+
+#endif
+
+#include "ObjCryst/Quirks/VFNDebug.h"
+
+using namespace std;
+/** The namespace which includes all objects (crystallographic and
+* algorithmic) in ObjCryst++.
+*
+* \note It may be a good idea to separate in 3 namespaces for ObjCryst, WXObjCryst,
+* and RefinableObj
+*/
+namespace ObjCryst
+{
+
+#ifndef M_PI
+#define M_PI 3.14159265358979323846264338327950288
+#endif
+
+#define DEG2RAD (M_PI/180.)
+#define RAD2DEG (180./M_PI)
+
+#ifndef REAL
+#define REAL float
+#endif
+
+// Implemented in IO.cpp
+/// Function to convert a substring to a floating point value, imposing a C locale (using '.' as decimal separator).
+/// This is used for input/output from data file, which are only using the C locale, contrary to the GUI.
+float string2floatC(const string &s);
+Atom.h
+CIF.h
+Colours.h
+Crystal.h
+DiffractionDataSingleCrystal.h
+General.h
+GeomStructFactor.h
+IO.h
+Indexing.h
+Molecule.h

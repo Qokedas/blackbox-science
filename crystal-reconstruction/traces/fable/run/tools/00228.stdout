@@ -1,0 +1,101 @@
+g2_monoC.log
+g2_monoP.log
+g2_monoPb.log
+g2_ortho.log
+g2index_monoC_20.txt
+g2index_monoP_20.txt
+g2index_monoPb_20.txt
+g2index_ortho_20.txt
+peaks.png
+peaks.txt
+peaks_b.txt
+# fwhm_typ 0.02456 noise 40.030
+2.98303 12.018 195.768 0.0614 6.0
+3.47475 19.862 488.492 0.0407 12.7
+4.47911 311.897 14169.620 0.0220 348.1
+5.33934 7.563 323.927 0.0233 7.8
+5.97412 247.808 10958.602 0.0226 266.6
+6.94722 350.230 10416.647 0.0336 190.7
+6.97192 313.715 7671.789 0.0409 44.0
+7.02365 793.884 34837.906 0.0228 849.9
+7.18269 211.486 9349.377 0.0226 223.6
+7.41138 18.711 727.402 0.0257 12.7
+7.47076 86.891 3749.215 0.0232 87.1
+7.70581 2585.804 105890.676 0.0244 2590.2
+8.06082 784.315 34143.569 0.0230 666.9
+8.12482 1485.630 62840.642 0.0236 1510.2
+8.32415 238.324 5718.101 0.0417 62.0
+8.47014 2054.690 88153.676 0.0233 2122.8
+8.78496 88.741 2212.342 0.0401 23.7
+8.91685 96.628 3785.759 0.0255 66.5
+8.96726 137.918 5524.084 0.0250 117.6
+9.18797 24.032 672.080 0.0358 11.3
+9.40929 372.046 15787.443 0.0236 374.3
+9.63611 39.366 1530.306 0.0257 30.9
+9.92686 129.339 5866.056 0.0220 141.9
+10.26793 179.223 6395.271 0.0280 146.8
+10.32037 69.782 2089.173 0.0334 24.3
+10.47979 733.626 30503.556 0.0241 727.4
+10.59218 123.278 3128.615 0.0394 11.6
+10.63087 324.201 12740.945 0.0254 289.2
+10.80087 464.155 17324.339 0.0268 405.7
+10.97260 116.908 2105.012 0.0555 17.5
+11.05351 666.378 23583.173 0.0283 559.0
+11.35782 381.672 14424.510 0.0265 338.7
+11.69523 1126.413 40409.711 0.0279 989.6
+11.90873 83.207 2517.156 0.0331 55.7
+11.96380 21.543 604.246 0.0357 6.9
+12.08096 50.974 1378.844 0.0370 9.3
+12.12513 122.367 3770.881 0.0325 89.6
+12.25205 172.956 7507.435 0.0230 180.6
+12.48447 398.605 14265.822 0.0279 348.3
+import sys, json, time, numpy as np
+sys.path.insert(0, '/opt/g2/GSAS-II')
+from GSASII import GSASIIindex as G2indx
+from GSASII import GSASIIlattice as G2lat
+
+bravaisNames = ['Cubic-F','Cubic-I','Cubic-P','Trigonal-R','Trigonal/Hexagonal-P',
+        'Tetragonal-I','Tetragonal-P','Orthorhombic-F','Orthorhombic-I','Orthorhombic-A',
+        'Orthorhombic-B','Orthorhombic-C',
+        'Orthorhombic-P','Monoclinic-I','Monoclinic-A','Monoclinic-C','Monoclinic-P','Triclinic']
+
+def load_peaks(iid, nmax=20, min_snr=8.0, pkfile=None):
+    ins = json.load(open(f'/app/data/instances/{iid}/instrument.json'))
+    wl = ins['radiation']['wavelengths_A'][0]
+    import os
+    fn = pkfile or f'/app/work/{iid}/peaks_clean.txt'
+    if not os.path.exists(fn): fn = f'/app/work/{iid}/peaks.txt'
+    p = np.loadtxt(fn)
+    p = p[p[:,4] >= min_snr][:nmax]
+    peaks = []
+    for row in p:
+        d = wl/(2*np.sin(np.radians(row[0]/2)))
+        peaks.append([row[0], row[1], True, False, 0, 0, 0, d, 0.0])
+    return peaks, wl
+
+def run(iid, nmax=20, brav=None, ncno=4, V1=25.0, timeout=300, zero=0.0, min_snr=8.0, M20_min=2.0, pkfile=None):
+    peaks, wl = load_peaks(iid, nmax, min_snr, pkfile)
+    print('peaks used:', [round(x[0],3) for x in peaks])
+    if brav is None:
+        brav = [0]*18
+        for i in [16, 15, 12, 11, 9, 8, 13]:  # mono-P, mono-C, ortho-P, ortho-C, A, I, mono-I
+            brav[i] = 1
+    controls = [0, zero, ncno, V1, 0, 'P1', 0,0,0,90,90,90]
+    t0 = time.time()
+    OK, dmin, cells = G2indx.DoIndexPeaks(peaks, controls, brav, None, timeout=timeout, M20_min=M20_min, X20_max=None, return_Nc=True)
+    print('elapsed', time.time()-t0, 'ncells', len(cells))
+    cells.sort(key=lambda c: -c[0])
+    return cells
+
+if __name__ == '__main__':
+    iid = sys.argv[1]
+    nmax = int(sys.argv[2]) if len(sys.argv) > 2 else 20
+    bravsel = sys.argv[3] if len(sys.argv) > 3 else 'mono'
+    timeout = int(sys.argv[4]) if len(sys.argv) > 4 else 300
+    brav = [0]*18
+    sel = {'mono': [16, 15], 'ortho': [12, 11, 9, 8, 7, 10], 'tri': [17], 'high': [0,1,2,3,4,5,6], 'monoP': [16], 'monoC': [15], 'orthoP': [12]}
+    for k in bravsel.split(','):
+        for i in sel[k]: brav[i] = 1
+    nheavy = {x['id']: x['heavy_atoms_per_formula_unit'] for x in json.load(open('/app/data/instances.json'))['instances']}[iid]
+    tag = sys.argv[5] if len(sys.argv) > 5 else ''
+    pkfile = sys.argv[6] if len(sys.argv) > 6 else None

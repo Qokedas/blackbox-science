@@ -1,0 +1,118 @@
+import ctypes, numpy as np
+_lib=ctypes.CDLL('/app/work/libobj_bridge.so')
+_lib.bridge_matrix.argtypes=[ctypes.c_void_p,ctypes.c_void_p,ctypes.c_long,ctypes.c_long]
+_lib.bridge_setobs.argtypes=[ctypes.c_void_p,ctypes.c_void_p,ctypes.c_long]
+_lib.bridge_march.argtypes=[ctypes.c_void_p]+[ctypes.c_double]*5
+_lib.bridge_bumpscale.argtypes=[ctypes.c_void_p,ctypes.c_double]
+def profile_matrix(p,d,nref=None):
+ p.Prepare();d.GetPowderPatternCalc()
+ if nref is None:nref=len(d.GetFhklObsSq())
+ a=np.zeros((len(p.GetPowderPatternX()),nref),dtype=np.float64)
+ ret=_lib.bridge_matrix(d.int_ptr(),a.ctypes.data,*a.shape)
+ if ret<0:raise RuntimeError('Profile matrix failed '+str(ret))
+ return a
+def set_obs(d,values):
+ v=np.ascontiguousarray(values,dtype=np.float64);_lib.bridge_setobs(d.int_ptr(),v.ctypes.data,len(v))
+def add_march(d,fraction,coeff,h,k,l):
+ _lib.bridge_march(d.int_ptr(),float(fraction),float(coeff),float(h),float(k),float(l))
+def set_bump_scale(c,scale):
+ _lib.bridge_bumpscale(c.int_ptr(),float(scale))
+
+def exact_pawley(p,d,stolmax=None,rcond=1e-4):
+ # Exact linear design matrix at fixed profile, lattice, and background.
+ # Retain all overlap couplings; truncate only near-null singular directions.
+ d.SetExtractionMode(True,False);p.Prepare();p.FitScaleFactorForRw()
+ mat=profile_matrix(p,d);f0=np.asarray(d.GetFhklObsSq());x=np.asarray(p.GetPowderPatternX());weight=np.asarray(p.GetLSQWeight(0));obs=np.asarray(p.GetPowderPatternObs());calc=np.asarray(p.GetPowderPatternCalc());compcalc=np.asarray(d.GetPowderPatternCalc());scale=np.dot(calc-p.GetPowderPatternComponent(1).GetPowderPatternCalc(),compcalc)/np.dot(compcalc,compcalc)
+ background=calc-compcalc*scale
+ n=min(len(weight),len(x));sel=np.arange(len(f0))
+ if stolmax is not None:
+  stol=np.asarray(d.GetSinThetaOverLambda())[:len(f0)];sel=sel[stol<=stolmax]
+  n=min(n,int(np.searchsorted(x,2*np.arcsin(stolmax*p.GetWavelength())+np.deg2rad(p.GetPar('Zero').GetHumanValue()))))
+ a=mat[:n,sel]*scale;target=obs[:n]-background[:n]
+ excluded=np.setdiff1d(np.arange(len(f0)),sel)
+ if len(excluded):target-=mat[:n,excluded]@f0[excluded]*scale
+ sw=np.sqrt(weight[:n]);aw=a*sw[:,None];yw=target*sw
+ # Scale columns for numerical stability. Use Le Bail distribution in null modes.
+ cs=np.linalg.norm(aw,axis=0);cs=np.maximum(cs,np.max(cs)*1e-9);an=aw/cs
+ u,sv,vt=np.linalg.svd(an,full_matrices=False);keep=sv>sv[0]*rcond
+ corr=(vt[keep].T@((u[:,keep].T@(yw-aw@f0[sel]))/sv[keep]))/cs
+ f=f0[sel]+corr
+ # Filter near-null modes also from normal matrix, keeping a PSD covariance.
+ av=(vt[keep]*sv[keep,None])*cs[None,:];normal=av.T@av
+ chi=np.sum((yw-aw@f)**2);var=float(f@normal@f)
+ print('EXACT_PAWLEY','nref',len(sel),'rank',int(keep.sum()),'cond',sv[0]/sv[keep][-1], 'chi2',chi,'netRwp',np.sqrt(chi/max(np.dot(yw,yw),1e-30)),flush=True)
+ return dict(matrix=a,normal=normal,obs=f,sel=sel,x=x[:n],weights=weight[:n],profile=target,chi2=chi,var=var)
+import os,sys,time,json,numpy as np,torch,gemmi
+from scipy.spatial.transform import Rotation
+from pyobjcryst.io import xml_cryst_file_load_all_object
+from obj_bridge import exact_pawley
+from obj_model import make_rdkit
+from pymatgen.core import Lattice
+from rdkit import Chem
+sid='X7e382cb';W='/app/work/'+sid;run=sys.argv[1] if len(sys.argv)>1 else 'twocentre1';out=W+'/'+run;os.makedirs(out,exist_ok=True)
+torch.set_num_threads(1);torch.set_num_interop_threads(1)
+O=xml_cryst_file_load_all_object(W+'/base.xml');p=next(o for o in O if o.GetClassName()=='PowderPattern');c=next(o for o in O if o.GetClassName()=='Crystal');d=p.GetPowderPatternComponent(0)
+pw=exact_pawley(p,d,stolmax=float(os.environ.get('STOL','.25')),rcond=.001);sel=pw['sel'];hkl=np.array([d.GetH(),d.GetK(),d.GetL()]).T[sel];stol=np.asarray(d.GetSinThetaOverLambda())[sel]
+cp=[c.GetPar(n).GetHumanValue() for n in ['a','b','c','alpha','beta','gamma']];lat=Lattice.from_parameters(*cp)
+r,xyz,en=make_rdkit('O=C([O-])c1ccccc1',seed=143,hydrogen=False)
+axis=xyz[6]-(xyz[5]+xyz[7])/2;axis/=np.linalg.norm(axis);center=xyz[6]+axis*.745;xyz=xyz-center
+axis=xyz[1]-xyz[3];axis/=np.linalg.norm(axis);point=xyz[3].copy();delta=xyz[[0,2]]-point
+els=[a.GetSymbol() for a in r.GetAtoms()]*2+['N','N'];counts=[a.GetTotalNumHs() for a in r.GetAtoms()];counts[6]=0;counts=counts*2+[4,4];rad=[.98 if el=='O' else 1.01 if el=='N' else 1.09 for el in els]
+sf=np.array([[gemmi.Element(el).it92.calculate_sf(float(s*s))+counts[i]*gemmi.Element('H').it92.calculate_sf(float(s*s))*np.sinc(4*s*rad[i]) for i,el in enumerate(els)] for s in stol])*2*np.exp(-3*stol[:,None]**2)
+T=lambda a:torch.tensor(a,dtype=torch.float32)
+li=T(np.linalg.inv(lat.matrix));lm=T(lat.matrix);sf=T(sf);hk=T(hkl);xy0=T(xyz);dv=T(delta);ax=T(axis);pt=T(point);nm=T(pw['normal']*1000/pw['var']);obs=T(pw['obs']);no=nm@obs;oo=obs@no
+N=int(os.environ.get('PARTICLES','256'));IT=int(os.environ.get('ITERATIONS','500'));BATCH=int(os.environ.get('BATCHES','40'));MAX=float(os.environ.get('SEARCH_TIME','1200'));centres=np.array([[0,0,.5],[0,.5,0],[.5,0,0],[0,.5,.5],[.5,0,.5],[.5,.5,0],[.5,.5,.5]])
+if 'CENTRE' in os.environ:centres=np.array([[float(x) for x in os.environ['CENTRE'].split(',')]])
+ids=np.arange(N)%len(centres);cnt=T(centres[ids]);best=1.e20;t0=time.time();bestpars=None;bestctr=None
+
+def coords(q,phi,pos):
+    q=q/torch.linalg.norm(q,dim=-1,keepdim=True);x,y,z,w=q.unbind(-1)
+    rr=torch.stack([1-2*y*y-2*z*z,2*x*y-2*z*w,2*x*z+2*y*w,2*x*y+2*z*w,1-2*x*x-2*z*z,2*y*z-2*x*w,2*x*z-2*y*w,2*y*z+2*x*w,1-2*x*x-2*y*y],-1).reshape(-1,2,3,3)
+    ca=torch.cos(phi)[...,None,None];sa=torch.sin(phi)[...,None,None]
+    mov=pt+dv*ca+torch.linalg.cross(ax.expand_as(dv),dv)*sa+ax*(dv@ax)[...,None]*(1-ca)
+    xy=xy0.repeat(len(q),2,1,1);xy[:,:,0]=mov[:,:,0];xy[:,:,2]=mov[:,:,1]
+    fr=(xy@rr.transpose(-1,-2))@li;fr[:,1]=fr[:,1]+cnt[:len(q),None,:]
+    return torch.cat([fr.reshape(-1,18,3),pos],1)
+
+def calc(q,phi,pos):
+    fr=coords(q,phi,pos);f=((torch.cos(2*np.pi*(fr@hk.T)))*sf.T).sum(1)**2
+    nf=f@nm;of=f@no;ff=(f*nf).sum(1);cost=oo-torch.clamp(of,min=0)**2/ff.clamp(min=1e-20)
+    # Weak chemical screening of ammonium contacts.
+    dd=fr[:,18:20,None,:]-torch.cat([fr[:,:18],-fr[:,:18]],1)[:,None,:,:]
+    dd=dd-torch.round(dd);dist=torch.linalg.norm(dd@lm,dim=-1);limits=T([2.35 if e=='O' else 2.65 for e in els[:18]]*2)
+    penalty=(torch.clamp(limits-dist,min=0)**2).sum((1,2))*20
+    d1=fr[:,18,:]-fr[:,19,:];d1-=torch.round(d1);penalty+=20*torch.clamp(2.5-torch.linalg.norm(d1@lm,dim=-1),min=0)**2
+    return cost,penalty,fr
+
+def save(q,ph,po,ctr,cost,batch):
+    global cnt
+    savecnt=cnt;cnt=T(np.array([ctr]));fr=coords(T(q[None]),T(ph[None]),T(po[None]))[0].detach().numpy();cnt=savecnt
+    text='data_solution\n'
+    for k,v in zip(['length_a','length_b','length_c','angle_alpha','angle_beta','angle_gamma'],cp):text+=f'_cell_{k} {v:.9f}\n'
+    text+="_space_group_name_H-M_alt 'P -1'\n_space_group_IT_number 2\nloop_\n_space_group_symop_id\n_space_group_symop_operation_xyz\n1 'x,y,z'\n2 '-x,-y,-z'\nloop_\n_atom_site_label\n_atom_site_type_symbol\n_atom_site_fract_x\n_atom_site_fract_y\n_atom_site_fract_z\n_atom_site_occupancy\n"
+    for i,(e,v) in enumerate(zip(els,fr)):text+=f'{e}{i+1} {e} {v[0]%1:.9f} {v[1]%1:.9f} {v[2]%1:.9f} 1\n'
+    open(out+'/best.cif','w').write(text);np.savez_compressed(out+'/best.npz',q=q,phi=ph,pos=po,centre=ctr,frac=fr);json.dump({'cost':float(cost),'batch':batch,'elapsed':time.time()-t0,'centre':list(ctr)},open(out+'/best.json','w'),indent=1)
+
+print('TWO_CENTRES',cp,'Nref',len(hkl),'Nparticle',N,flush=True)
+for batch in range(BATCH):
+    q=T(np.random.normal(size=(N,2,4)));phi=T(np.random.uniform(-np.pi,np.pi,size=(N,2)));pos=T(np.random.rand(N,2,3))
+    if bestpars is not None and batch%5!=0:
+        n=N//2;mask=np.all(centres[ids]==bestctr,axis=1);sel=np.where(mask)[0]
+        for ar,br in zip([q,phi,pos],bestpars):ar[sel]=T(br).unsqueeze(0)+torch.randn_like(ar[sel])*.16
+    for ar in [q,phi,pos]:ar.requires_grad_(True)
+    opt=torch.optim.Adam([q,phi,pos],lr=.035)
+    for it in range(IT):
+        opt.zero_grad();co,pe,fr=calc(q,phi,pos);loss=(co+pe).sum();loss.backward();torch.nn.utils.clip_grad_norm_([q,phi,pos],max_norm=100000);opt.step()
+        if it==IT*3//4:
+            for g in opt.param_groups:g['lr']=.008
+    with torch.no_grad():
+        co,pe,fr=calc(q,phi,pos);score=co+pe;k=int(score.argmin());val=float(score[k]);print('BATCH',batch,'best',val,'diffraction',float(co[k]),'p25',float(torch.quantile(score,.25)),'seconds',time.time()-t0,'centre',centres[ids[k]],flush=True)
+        if val<best:
+            best=val;bestpars=[ar[k].detach().numpy().copy() for ar in [q,phi,pos]];bestctr=centres[ids[k]].copy();save(*bestpars,bestctr,best,batch)
+    if time.time()-t0>MAX or best<3:break
+/app/work/index_de.py
+/app/work/index_de_v1.py
+/app/work/index_one.py
+/app/work/parse_index_log.py
+/app/work/reindex_batch.py
+/app/work/run_index_batch.py

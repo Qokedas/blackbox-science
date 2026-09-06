@@ -1,0 +1,22 @@
+{
+ "id": "Xe3a2935",
+ "reference_cif": "data_ref\n_symmetry_cell_setting orthorhombic\n_space_group_name_H-M_alt \"P 21 21 21\"\n_space_group_name_Hall \"P 2ac 2ab\"\n\nloop_\n_space_group_symop_id\n_space_group_symop_operation_xyz\n1 x,y,z\n2 1/2+x,1/2-y,-z\n3 -x,1/2+y,1/2-z\n4 1/2-x,-y,1/2+z\n\n_cell_length_a 6.88117(5)\n_cell_length_b 10.29085(14)\n_cell_length_c 19.9896(2)\n_cell_angle_alpha 90\n_cell_angle_beta 90\n_cell_angle_gamma 90\n_cell_volume 1415.527(18)\n_cell_formula_units_Z 4\n\nloop_\n_atom_type_symbol\n_atom_type_scat_source\nC https://raw.githubusercontent.com/AdvancedPhotonSource/GSAS-II/refs/heads/main/GSASII/atmdata.py\nH https://raw.githubusercontent.com/AdvancedPhotonSource/GSAS-II/refs/heads/main/GSASII/atmdata.py\nN https://raw.githubusercontent.com/AdvancedPhotonSource/GSAS-II/refs/heads/main/GSASII/atmdata.py\nO https://raw.githubusercontent.com/AdvancedPhotonSource/GSAS-II/refs/heads/main/GSASII/atmdata.py\n\nloop_\n_atom_site_type_symbol\n_atom_site_label\n_atom_site_fract_x\n_atom_site_fract_y\n_atom_site_fract_z\n_atom_site_U_iso_or_equiv\n_atom_site_adp_type\n_atom_site_occupancy\n_atom_site_site_symmetry_multiplicity\nO O1 0.3588(6) 0.3414(4) 1.22287(18) 0.0376(10) Uiso 1.0000 4\nN N2 0.2838(11) 0.6044(3) 1.10975(16) 0.0376(10) Uiso 1.0000 4\nN N3 0.2866(9) 0.5248(3) 1.16716(16) 0.0376(10) Uiso 1.0000 4\nN N4 0.2546(9) 0.8551(4) 0.81892(15) 0.0470(11) Uiso 1.0000 4\nN N5 0.3124(9) 0.9785(4) 0.8192(2) 0.0470(11) Uiso 1.0000 4\nN N6 0.3644(8) 1.2937(4) 0.7777(3) 0.0470(11) Uiso 1.0000 4\nN N7 0.2169(10) 0.9602(6) 0.6485(2) 0.0470(11) Uiso 1.0000 4\nC C8 0.3240(7) 0.3997(3) 1.04589(17) 0.0376(10) Uiso 1.0000 4\nC C9 0.4339(7) 0.3493(4) 1.10531(19) 0.0376(10) Uiso 1.0000 4\nC C10 0.3069(9) 0.5467(2) 1.05283(14) 0.0376(10) Uiso 1.0000 4\nC C11 0.1216(10) 0.3375(5) 1.0463(3) 0.0376(10) Uiso 1.0000 4\nC C12 0.2985(13) 0.6283(2) 0.99214(15) 0.0394(12) Uiso 1.0000 4\nC C13 0.3476(10) 0.4004(3) 1.16966(14) 0.0376(10) Uiso 1.0000 4\nC C14 0.2772(11) 0.5712(3) 0.92960(18) 0.0394(12) Uiso 1.0000 4\nC C15 0.2935(14) 0.7636(3) 0.99683(16) 0.0394(12) Uiso 1.0000 4\nC C16 0.2604(12) 0.6463(3) 0.87291(16) 0.0394(12) Uiso 1.0000 4\nC C17 0.2957(13) 0.8390(3) 0.93951(18) 0.0394(12) Uiso 1.0000 4\nC C18 0.2734(13) 0.7806(3) 0.87704(15) 0.0394(12) Uiso 1.0000 4\nC C19 0.2862(11) 1.0528(4) 0.7653(2) 0.0470(11) Uiso 1.0000 4\nC C20 0.3161(9) 1.1878(4) 0.7732(3) 0.0470(11) Uiso 1.0000 4\nC C21 0.2562(7) 1.0050(6) 0.6992(2) 0.0470(11) Uiso 1.0000 4\nH H22 0.39740 0.37220 1.00210 0.0451 Uiso 1.0000 4\nH H23 0.58470 0.38100 1.10290 0.0451 Uiso 1.0000 4\nH H24 0.42550 0.24610 1.10960 0.0451 Uiso 1.0000 4\nH H25 0.05530 0.32640 1.09300 0.0451 Uiso 1.0000 4\nH H26 0.01400 0.39720 1.01670 0.0451 Uiso 1.0000 4\nH H27 0.12240 0.24650 1.01800 0.0451 Uiso 1.0000 4\nH H28 0.24490 0.58260 1.20820 0.0451 Uiso 1.0000 4\nH H29 0.28830 0.46680 0.92150 0.0473 Uiso 1.0000 4\nH H30 0.32240 0.81360 1.04360 0.0473 Uiso 1.0000 4\nH H31 0.28490 0.60190 0.82380 0.0473 Uiso 1.0000 4\nH H32 0.32520 0.94610 0.94320 0.0473 Uiso 1.0000 4\nH H33 0.31980 0.81670 0.77660 0.0564 Uiso 1.0000 4\n",
+ "space_group_number": 19,
+ "space_group_symbol": "P 21 21 21",
+ "centring": "P",
+ "sohncke": true,
+ "chiral": true,
+ "L_graded": true,
+ "dof": 9.0,
+ "dof_bin": "calib_lt15",
+ "zprime": 1.0,
+ "n_heavy_asym": 21.0,
+ "components": [
+  {
+   "smiles": "C[C@@H]1CC(=O)NN=C1c1ccc(NN=C(C#N)C#N)cc1",
+   "count": 1
+  }
+ ],
+ "radiation_class": "synchrotron",
+ "candidate_name": "Levosimendan"
+}

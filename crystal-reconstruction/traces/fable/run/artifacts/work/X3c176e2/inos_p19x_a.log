@@ -1,0 +1,28 @@
+down-weighting 17.5-17.95 deg (44 points) by sigma x30.0
+down-weighting 18.85-19.2 deg (34 points) by sigma x30.0
+Imported powder pattern: 4301 points, 2theta=  2.000 ->  45.000, step= 0.010
+LeBail Rwp=0.0432 chi2=13549.5 cell= 14.004243682578249 9.323448777803357 11.028444725212003 90.0
+  conformers: 4 distinct; energies [103.8, 124.9, 127.4, 132.9]; using rank 0 (E=103.8)
+  molecule mol0_0: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions
+  conformers: 4 distinct; energies [103.8, 128.9, 129.8, 132.0]; using rank 0 (E=103.8)
+  molecule mol0_1: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions
+run 0: cost=547073.5 Rwp=0.2932 chi2=616980.6 t=1312s
+ISO 8 P 21 21 21 Zp=2: 0.2932
+down-weighting 17.5-17.95 deg (44 points) by sigma x30.0
+down-weighting 18.85-19.2 deg (34 points) by sigma x30.0
+Imported powder pattern: 4301 points, 2theta=  2.000 ->  45.000, step= 0.010
+LeBail Rwp=0.0432 chi2=13549.5 cell= 14.004243682578306 9.323448777803412 11.028444725212054 90.0
+  conformers: 7 distinct; energies [104.4, 119.7, 120.0, 121.8, 122.8, 123.5]; using rank 0 (E=104.4)
+  molecule mol0_0: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions
+  conformers: 6 distinct; energies [104.4, 119.7, 120.5, 121.7, 122.2, 123.5]; using rank 0 (E=104.4)
+  molecule mol0_1: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions
+run 0: cost=476546.2 Rwp=0.2593 chi2=484388.3 t=1497s
+ISO 3 P 21 21 21 Zp=2: 0.2593
+down-weighting 17.5-17.95 deg (44 points) by sigma x30.0
+down-weighting 18.85-19.2 deg (34 points) by sigma x30.0
+Imported powder pattern: 4301 points, 2theta=  2.000 ->  45.000, step= 0.010
+LeBail Rwp=0.0432 chi2=13549.5 cell= 14.004243682578242 9.323448777803359 11.028444725212008 90.0
+  conformers: 8 distinct; energies [108.8, 116.8, 117.0, 117.1, 121.8, 124.3]; using rank 0 (E=108.8)
+  molecule mol0_0: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions
+  conformers: 7 distinct; energies [108.8, 116.8, 117.0, 117.1, 117.5, 122.8]; using rank 0 (E=108.8)
+  molecule mol0_1: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions

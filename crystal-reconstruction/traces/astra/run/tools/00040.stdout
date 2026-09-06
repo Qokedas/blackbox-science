@@ -1,0 +1,15 @@
+    wrap_boost_powderpattern(p)
+  File "/opt/conda/lib/python3.11/site-packages/pyobjcryst/powderpattern.py", line 656, in wrap_boost_powderpattern
+    exec("c.%s = MethodType(PowderPattern.%s, c)" % (func, func))
+  File "<string>", line 1, in <module>
+NameError: name 'MethodType' is not defined
+X8a6f5a8 MONOCLINIC C 0
+X8a06d7a MONOCLINIC C 13.88257122039795
+Xd8634a2 MONOCLINIC C 6.057438850402832
+Xe1fb77b MONOCLINIC C 230.85597229003906
+Xb7088cf MONOCLINIC C 4.820270538330078
+Xe3a2935 MONOCLINIC C 0
+Xedd9c7b MONOCLINIC C 0
+Xeb393f9 MONOCLINIC C 0
+Xebbd488 MONOCLINIC C 2.5982954502105713
+Xfca9f3c MONOCLINIC C 0

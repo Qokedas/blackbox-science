@@ -1,0 +1,17 @@
+X1a56c78 TETRAGONAL P 0 peaks [5.87458, 8.37569, 11.79464, 14.15707, 14.99658, 15.29396, 15.74291, 16.1214, 16.80836, 17.20776, 17.70678, 17.97177, 19.14, 19.39601, 19.72196, 20.69094, 21.08593, 21.84, 22.57878, 23.26621, 23.7545, 24.61491] V 1320.44580078125 4140 Lmax 44.95984566167473
+3->44.9598,1.6784,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+1320.45->4140,469.934,5.9999
+Starting: V=1320.45->1790.38
+Finished: V=1320.45->1790.38 A^3, 74 unit cells tested, 139098 tests/s,   Elapsed time=0.000538s
+Starting: V=1790.38->2260.31
+Finished: V=1790.38->2260.31 A^3, 142 unit cells tested, 127469 tests/s,   Elapsed time=0.001119s
+Starting: V=2260.31->2730.25
+Finished: V=2260.31->2730.25 A^3, 224 unit cells tested, 126984 tests/s,   Elapsed time=0.001769s
+Starting: V=2730.25->3200.18
+Finished: V=2730.25->3200.18 A^3, 320 unit cells tested, 128308 tests/s,   Elapsed time=0.002499s
+Starting: V=3200.18->3670.11
+Finished: V=3200.18->3670.11 A^3, 405 unit cells tested, 124081 tests/s,   Elapsed time=0.003269s
+Starting: V=3670.11->4140
+Finished: V=3670.11->4140 A^3, 492 unit cells tested, 116920 tests/s,   Elapsed time=0.004214s
+DONE X1a56c78 TETRAGONAL P 0 0.004328727722167969 []

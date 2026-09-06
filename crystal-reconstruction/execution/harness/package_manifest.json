@@ -1,0 +1,19 @@
+{
+  "author": "Qokedas",
+  "files_sha256": {
+    "HANDOFF.md": "53cd3750f5a70871ee47895da1c346f450bcf6cbee55efabae740132bd3b4fc3",
+    "README.md": "dcef23f1389117e72554b6d271fc6631e61116eb105cbda836bc46423c3689cf",
+    "container_tools.py": "f2d7bc4a84fe14b6579fbb4ff7cd7eb9352d571e13447132778ab87dbaebdbb8",
+    "deadline_guard.py": "031298e66c900fb04e52732bbe23b65c0006da4dd5a4339c37292f6f6e624e84",
+    "docker_integration.py": "7080ccedebe545d6d9daec65936afb69020f2d475b2053fdc9d4c01d929970b6",
+    "docker_missing_path_integration.py": "b76b9b7b7c0b5a3e13e12ccd034ef3bd4fd59a115c05caf62768c8e0e87c63bf",
+    "integration_remote.sh": "4bfebf63e608a9771da35282bae021fe7bcd2e60c4199921b537643b3779d19a",
+    "protocol.py": "eeb073bb0991712dfefffcce58e4c84e4588c83427a1a79db0208b6c24f48c69",
+    "requirements.txt": "4bf9be16c2d6c2c510d2c71aff3e4ed5775958f94d090baf2925b78fccb70ad3",
+    "run_agent.py": "c45f7053333b328acb1c2cf2b8e9ffd8855ffd6db3a3317cb5cde9ce1c621331",
+    "test_harness.py": "1679d1173acdfadedb9154321596401222693a7b1c97a8883db772cb993c565c",
+    "test_recovery.py": "bf2b6bc35eb1d26493175cd546c9a90f595ce02da15aacd0cb8c1f3a7bca4803",
+    "validation.json": "059408485b53427a97aa7c68384d42ee22984b4b3388e2205983a940727ccfe4"
+  },
+  "manifest_sha256": "89e82a62847f8de3870df5b9f3f8793a4fe74b6691d8c4e9c6548467338ca9f9"
+}

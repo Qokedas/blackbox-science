@@ -1,0 +1,9 @@
+/proc/3434/cmdline 	S (sleeping) bash -c while [[ -r /proc/1909/status ]] && ! grep -q "^State:.*Z" /proc/1909/status; do sleep 10; done; for z in 0 0.04 -0.04 0.08 -0.08; do NPEAK=18 NSPUR=1 TTHERR=.028 TTHSHIFT=
+/proc/3477/cmdline 	R (running) python /app/work/search_gallop.py Xd8634a2 2 1 --prepare 
+/proc/4260/cmdline 	S (sleeping) bash /app/work/queue_structures_A.sh 
+/proc/4263/cmdline 	S (sleeping) bash /app/work/queue_structures_B.sh 
+/proc/4266/cmdline 	S (sleeping) bash /app/work/queue_structures_C.sh 
+/proc/4650/cmdline 	R (running) python /app/work/search_obj.py X13023e3 2 1 --rescale --lsq 
+/proc/4659/cmdline 	R (running) python /app/work/search_obj.py X35b7fbc 1 1 --rescale --lsq 
+/proc/4752/cmdline 	S (sleeping) timeout 180 python /app/work/index_one.py X1db5091 TRICLINIC P 4 1000 1900 
+/proc/4753/cmdline 	R (running) python /app/work/index_one.py X1db5091 TRICLINIC P 4 1000 1900 

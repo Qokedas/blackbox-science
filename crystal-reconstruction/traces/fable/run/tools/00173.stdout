@@ -1,0 +1,30 @@
+TORSION :C5-O2:C6,: base rotation=9.74028 free=1
+TORSION :C7-C5:O2,C4,C6,C3,C2,C1,O1,C12,: base rotation=0.592776 free=0
+TORSION :C7-C8:O2,C4,C6,C3,C2,C1,O1,C5,C12,: base rotation=6.01942 free=1
+TORSION :C8-C9:N1,C10,O4,C11,N2,: base rotation=8.3143 free=1
+TORSION :C9-N1:C10,O4,C11,N2,: base rotation=9.74028 free=1
+TORSION :N1-C10:O4,C11,N2,: base rotation=0.974028 free=0
+TORSION :C10-C11:N2,: base rotation=9.74028 free=1
+TORSION :C7-C12:O2,C4,C6,C3,C2,C1,O1,C5,: base rotation=0.790894 free=0
+TORSION :C3-C2:C1,O1,: base rotation=0.974028 free=0
+TORSION :C4-C5:O2,C6,: base rotation=0.974028 free=0
+TORSION :C7-C5:O2,C6,: base rotation=0.974028 free=0
+TORSION :C5-C7:C4,C3,C2,C1,O1,C12,: base rotation=0.705423 free=0
+TORSION :C5-C7:O3,C9,C8,N1,C10,O4,C11,N2,: base rotation=0.500602 free=0
+TORSION :C7-C8:O3,: base rotation=0.974028 free=0
+TORSION :C7-C8:C9,N1,C10,O4,C11,N2,: base rotation=0.685472 free=0
+TORSION :C8-O3:C9,N1,C10,O4,C11,N2,: base rotation=0.673218 free=0
+TORSION :C8-C9:O3,: base rotation=0.974028 free=0
+TORSION :N1-C10:O4,: base rotation=0.974028 free=0
+TORSION :N1-C10:C11,N2,: base rotation=0.974028 free=0
+TORSION :C10-O4:C11,N2,: base rotation=0.974028 free=0
+TORSION :C10-C11:O4,: base rotation=0.974028 free=0
+TORSION :C12-C7:O3,C9,C8,N1,C10,O4,C11,N2,: base rotation=0.455808 free=0
+TORSION :C12-C2:C1,O1,: base rotation=0.974028 free=0
+MDAtomGroup: C4 C7 C3 C2 C5 C12 
+  Involving bond restraints:O1-C2  C2-C3  C3-C4  C4-C5  C5-O2  C5-C7  C7-C8  C7-C12  C12-C2  
+  Involving bond angle restraints:C3-C2-C12  O1-C2-C12  O1-C2-C3  C1-O1-C2  C8-C7-C12  C7-C8-O3  C7-C8-C9  C7-C12-C2  C2-C3-C4  C3-C4-C5  C4-C5-O2  C4-C5-C7  O2-C5-C7  C5-O2-C6  C5-C7-C8  C5-C7-C12  
+  Involving dihedral angle restraints:O1-C2-C3-C4  C12-C2-C3-C4  C2-C3-C4-C5  C3-C4-C5-O2  C3-C4-C5-C7  C4-C5-C7-C8  C4-C5-C7-C12  O2-C5-C7-C8  O2-C5-C7-C12  C5-C7-C12-C2  C8-C7-C12-C2  C7-C12-C2-O1  C7-C12-C2-C3  
+Full MD atom group:
+ O2 C4 O3 C9 C6 C7 C8 C3 C2 C1 O1 N1 C5 C10 O4 C11 N2 C12 
+Rwp after 0.5539133288134716 restraint 0.0

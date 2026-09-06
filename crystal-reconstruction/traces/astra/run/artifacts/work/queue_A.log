@@ -1,0 +1,1 @@
+/app/work/queue_structures_A.sh: line 3:  4655 Aborted                 (core dumped) SEARCH_TIME=1000 MC_STEPS=2000000 TARGET_RW=.07 python /app/work/search_obj.py X4f6fe58 2 2 --rescale --lsq --fullbump > /app/work/X4f6fe58/search2.log 2>&1

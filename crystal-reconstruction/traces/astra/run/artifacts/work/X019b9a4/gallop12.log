@@ -1,0 +1,26 @@
+ObjRegistry<T>::Find(ion_C): Not found !!
+List of Crystal ScatteringPowers :0 object registered:
+EXACT_PAWLEY nref 183 rank 168 cond 974.558894346747 chi2 3725.2449708429212 netRwp 0.08409288065436689
+ZM CC(=O)/C(=N/Nc1ccc(C(=O)Nc2ccc(C(N)=O)cc2)cc1)C(=O)Nc1ccc2[nH]c(=O)[nH]c2c1 n 37 torsions 8 max_distance_error 1.5078748916153017e-08
+ZM CN1CCCC1=O n 7 torsions 0 max_distance_error 7.351237396591159e-09
+[10:26:17] UFFTYPER: Unrecognized charge state for atom: 1
+ZM C[S+](C)[O-] n 4 torsions 0 max_distance_error 1.305566321718743e-09
+Total degrees of freedom: 29
+Total external degrees of freedom: 21 (pos: 9 rot: 12 )
+Total internal degrees of freedom: 8
+PREPARED X019b9a4 Nref 183 PawleyRw 0.04457996894951537 SG P -1
+ATTACHED_H_SCATTERING 48 heavy atoms 36 H atoms
+PACKING_ENABLED 48 atoms 3253 pair terms coefficient 50.0 active_only True
+HBOND_PRIOR 6 donors 9 acceptors coefficient 10.0 directional False
+  0%|          | 0/5 [00:00<?, ?it/s]100%|██████████| 5/5 [00:00<00:00, 271.58it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 100 seconds 273.80527663230896 best 276.93082 q25 417.24286 median 455.38684 total 273.8321633338928
+GALLOP 1 Nref 122 seconds 245.41908478736877 best 253.04839 q25 347.96634 median 426.92908 total 519.4278690814972
+GALLOP 2 Nref 143 seconds 229.00086092948914 best 222.75778 q25 374.57135 median 424.77115 total 748.6208715438843
+GALLOP 3 Nref 162 seconds 241.60343718528748 best 181.36533 q25 325.64523 median 412.70343 total 990.3950750827789
+GALLOP 4 Nref 183 seconds 237.12601161003113 best 179.65047 q25 340.25146 median 390.6053 total 1227.719312429428
+GALLOP 5 Nref 183 seconds 212.68321895599365 best 178.30695 q25 347.25128 median 407.33673 total 1440.4909188747406
+FINISHED X019b9a4 178.30694580078125

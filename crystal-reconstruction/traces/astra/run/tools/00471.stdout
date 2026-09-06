@@ -1,0 +1,163 @@
+import sys,os,time,json,numpy as np,torch,gemmi
+from gallop.structure import Structure
+from gallop.optim import local
+from gallop.optim.swarm import Swarm
+from gallop import tensor_prep,zm_to_cart,chi2
+from gallop_prepare import prepare
+sid=sys.argv[1];run=int(sys.argv[2]) if len(sys.argv)>2 else 1;zp=int(sys.argv[3]) if len(sys.argv)>3 else 1
+W='/app/work/'+sid;G=W+'/gallop_'+str(run);torch.set_num_threads(int(os.environ.get('TORCH_THREADS',1)));torch.set_num_interop_threads(1)
+if not os.path.exists(G+'/structure.json') or '--prepare' in sys.argv:
+ mp=next((v.split('=',1)[1] for v in sys.argv if v.startswith('--model=')),None);s,G=prepare(sid,run,zp,rigid='--rigid' in sys.argv,model_path=mp,stolmax=float(os.environ.get('GALLOP_STOL','.21')))
+else:s=Structure();s.from_json(open(G+'/structure.json').read())
+if '--hscatter' in sys.argv:
+ from hydrogen_prefix import enable_hydrogen_prefix
+ enable_hydrogen_prefix(s,G+'/model.json')
+if '--packing' in sys.argv:
+ from gallop_packing import enable_packing
+ enable_packing(s,G+'/model.json')
+np.random.seed((int(time.time())+run)%1000000);NP=int(os.environ.get('PARTICLES','128'));IT=int(os.environ.get('ITERATIONS','450'));ns=max(1,NP//32);max_time=float(os.environ.get('SEARCH_TIME',1800));best=1e100;elite_e=None;elite_i=None;t0=time.time();i=0
+
+def save_result(result,i):
+ global best,elite_e,elite_i
+ mn=float(result['chi_2'].min());ix=int(result['chi_2'].argmin())
+ if mn>=best:return
+ best=float(mn);elite_e=result['external'][ix].copy();elite_i=result['internal'][ix].copy()
+ np.savez_compressed(G+'/best.npz',external=result['external'][ix:ix+1],internal=result['internal'][ix:ix+1],chi2=mn)
+ t=tensor_prep.get_all_required_tensors(s,external=result['external'][ix:ix+1],internal=result['internal'][ix:ix+1],requires_grad=False,device=torch.device('cpu'),verbose=False)
+ with torch.no_grad():frac=zm_to_cart.get_asymmetric_coords(**t['zm']).detach().numpy()[0]
+ np.save(G+'/best_frac.npy',frac)
+ sg=gemmi.find_spacegroup_by_name(s.space_group.symbol);text='data_solution\n'
+ for name,v in zip(['length_a','length_b','length_c','angle_alpha','angle_beta','angle_gamma'],s.lattice.parameters):text+=f'_cell_{name} {v:.9f}\n'
+ text+=f"_space_group_name_H-M_alt '{sg.xhm()}'\n_space_group_IT_number {sg.number}\nloop_\n_space_group_symop_id\n_space_group_symop_operation_xyz\n"
+ for j,op in enumerate(sg.operations()):text+=f"{j+1} '{op.triplet()}'\n"
+ text+='loop_\n_atom_site_label\n_atom_site_type_symbol\n_atom_site_fract_x\n_atom_site_fract_y\n_atom_site_fract_z\n_atom_site_occupancy\n'
+ els=[el for z in s.zmatrices for el in z.elements_no_H]
+ for j,(el,v) in enumerate(zip(els,frac)):text+=f'{el}{j+1} {el} {v[0]%1:.9f} {v[1]%1:.9f} {v[2]%1:.9f} 1\n'
+ open(G+'/best.cif','w').write(text);json.dump({'chi2':float(mn),'Rint':float(np.sqrt(mn/1000)),'iteration':i,'elapsed':time.time()-t0},open(G+'/best.json','w'),indent=1)
+
+while time.time()-t0<max_time and not os.path.exists(G+'/STOP'):
+ if i%12==0:
+  swarm=Swarm(s,n_particles=NP,n_swarms=ns,global_update=True,global_update_freq=5);ext,intr=swarm.get_initial_positions()
+  # Optional warm-start around a chemically sensible best particle.
+  if 'START_NPZ' in os.environ:
+   warm=np.load(os.environ['START_NPZ']);nn=NP//2;ext[:nn]=warm['external'][0]+np.random.normal(size=ext[:nn].shape)*float(os.environ.get('START_JITTER','.15'));intr[:nn]=warm['internal'][0]+np.random.normal(size=intr[:nn].shape)*float(os.environ.get('START_TOR_JITTER','.4'))
+ # Retain a small elite cloud across PSO and reset boundaries.
+ if elite_e is not None:
+  ne=max(1,int(NP*float(os.environ.get('ELITE_FRAC','.10'))));ext[:ne]=elite_e+np.random.normal(size=ext[:ne].shape)*float(os.environ.get('ELITE_JITTER','.045'));intr[:ne]=elite_i+np.random.normal(size=intr[:ne].shape)*float(os.environ.get('ELITE_TOR_JITTER','.12'));ext[0]=elite_e;intr[0]=elite_i
+  nm=max(0,int(NP*float(os.environ.get('MACRO_ELITE_FRAC','.20'))))
+  if nm:
+   from gallop_moves import macro_mutations
+   me,mi=macro_mutations(s,elite_e,elite_i,nm);ext[ne:ne+nm]=me;intr[ne:ne+nm]=mi
+ ti=time.time()
+ nref=min(len(s.hkl),int(os.environ.get('START_REFL',str(len(s.hkl))))+40*(i//12))
+ result=local.minimise(s,external=ext,internal=intr,n_reflections=nref,n_iterations=IT,n_cooldown=IT//4,learning_rate=.04,device=torch.device('cpu'),loss='sum',use_progress_bar=False,save_CIF=False,run=i,verbose=False,check_min=25)
+ if nref<len(s.hkl):
+  ft=tensor_prep.get_all_required_tensors(s,external=result['external'],internal=result['internal'],requires_grad=False,device=torch.device('cpu'),verbose=False)
+  with torch.no_grad():full_chi=chi2.get_chi_2(ft['zm'],ft['int_tensors'],ft['chisqd_tensors']).numpy()
+  result['low_chi_2']=result['chi_2'].copy();result['chi_2']=full_chi
+ print('GALLOP',i,'Nref',nref,'seconds',time.time()-ti,'best',result['chi_2'].min(),'q25',np.quantile(result['chi_2'],.25),'median',np.median(result['chi_2']),'total',time.time()-t0,flush=True)
+ save_result(result,i)
+ if 'low_chi_2' in result:result['chi_2']=result['low_chi_2']
+ ext,intr=swarm.update_position(result=result,verbose=False)
+ np.savez_compressed(G+'/last_population.npz',external=result['external'],internal=result['internal'],chi2=result['chi_2'])
+ i+=1
+ if '--test' in sys.argv or best<float(os.environ.get('TARGET_CHI','2.0')):break
+print('FINISHED',sid,best,flush=True)
+import os,json,numpy as np,torch
+from rdkit import Chem
+from gallop import chi2,zm_to_cart,intensities
+
+def enable_packing(s,model_path,coefficient=None):
+ """Differentiable minimum-image heavy-atom steric screening in an ASU.
+ Excludes fixed-topology 1-2/1-3/1-4 intramolecular contacts. The cutoff is
+ deliberately softer than a van der Waals sum, allowing hydrogen bonds.
+ """
+ mods=json.load(open(model_path));n=sum(len(m['order']) for m in mods);els=[];exclude=np.eye(n,dtype=bool);off=0
+ for m in mods:
+  r=Chem.MolFromSmiles(m['smiles']);order=m['order'];N=len(order);dm=Chem.GetDistanceMatrix(r)[np.ix_(order,order)];exclude[off:off+N,off:off+N]=(dm<=3);els.extend([r.GetAtomWithIdx(i).GetSymbol() for i in order]);off+=N
+ radii={'C':1.48,'N':1.35,'O':1.28,'F':1.32,'S':1.55,'P':1.52,'Cl':1.58,'Br':1.67,'I':1.78}
+ ii=[];jj=[];rr=[];tr=[];lim=[];weights=[]
+ for op in s.space_group.symmetry_ops:
+  rot=op.rotation_matrix;trans=op.translation_vector;ident=np.allclose(rot,np.eye(3)) and np.allclose(trans%1,0)
+  for i in range(n):
+   for j in range(n):
+    if ident and (i>=j or exclude[i,j]):continue
+    limit=radii.get(els[i],1.4)+radii.get(els[j],1.4)
+    if set([els[i],els[j]])<=set(['N','O']):limit-=.10
+    ii.append(i);jj.append(j);rr.append(rot);tr.append(trans);lim.append(limit);weights.append(1 if ident else .5)
+ ii=torch.tensor(ii,dtype=torch.long);jj=torch.tensor(jj,dtype=torch.long);rr=torch.tensor(np.array(rr),dtype=torch.float32);tr=torch.tensor(np.array(tr),dtype=torch.float32);lim=torch.tensor(lim,dtype=torch.float32);weights=torch.tensor(weights,dtype=torch.float32);lm=torch.tensor(s.lattice.matrix,dtype=torch.float32)
+ cf=float(coefficient if coefficient is not None else os.environ.get('BUMP_COEFF','12'))
+ def penalty(fr):
+  right=torch.einsum('nki,kji->nkj',fr[:,jj,:],rr)+tr
+  delta=fr[:,ii,:]-right;delta=delta-torch.round(delta).detach();cart=delta@lm;dist=torch.sqrt((cart*cart).sum(-1)+1e-8)
+  return cf*(torch.clamp(lim-dist,min=0)**2*weights).sum(-1)
+ def calc(zm,int_tensors,chisqd_tensors,profile=None):
+  fr=zm_to_cart.get_asymmetric_coords(**zm);f=intensities.calculate_intensities(fr,**int_tensors)
+  val=chi2.calc_int_chisqd(f,**chisqd_tensors) if profile is None else chi2.calc_prof_chisqd(f,**profile)
+  return val+penalty(fr)
+ s.packing_penalty=penalty;s.diffraction_get_chi_2=chi2.get_chi_2;chi2.get_chi_2=calc
+ print('PACKING_ENABLED',n,'atoms',len(ii),'pair terms','coefficient',cf,flush=True)
+ return penalty
+import sys,os,json,numpy as np
+from pyobjcryst.io import xml_cryst_file_load_all_object,xml_cryst_file_save_global
+from pyobjcryst.refinableobj import refpartype_scattpow_temperature,refpartype_scatt_occup
+from obj_model import add_component,export_cif
+sid=sys.argv[1];run=sys.argv[2];W='/app/work/'+sid;G=W+'/gallop_'+run;R=W+'/search_g'+run;os.makedirs(R,exist_ok=True)
+objs=xml_cryst_file_load_all_object(W+'/base.xml');c=[o for o in objs if o.GetClassName()=='Crystal'][0];p=[o for o in objs if o.GetClassName()=='PowderPattern'][0];d=p.GetPowderPatternComponent(0)
+meta=json.load(open(G+'/model.json'));frac=np.load(G+'/best_frac.npy');offset=0;models=[]
+for j,md in enumerate(meta):
+ n=len(md['order']);xyz=np.zeros((n,3));f=frac[offset:offset+n];offset+=n
+ for i,old in enumerate(md['order']):xyz[old]=c.FractionalToOrthonormalCoords(*map(float,f[i]))
+ m,newmd=add_component(c,md['smiles'],'m'+str(j),coords_override=md['rdkit_coords'])
+ if m.GetClassName()=='Molecule':
+  center=xyz.mean(axis=0);xyz-=center
+  for i,v in enumerate(xyz):a=m.GetAtom(i);a.X,a.Y,a.Z=v
+  m.Q0,m.Q1,m.Q2,m.Q3=1.,0.,0.,0.;m.X,m.Y,m.Z=c.OrthonormalToFractionalCoords(*center)
+ else:m.X,m.Y,m.Z=map(float,f[0])
+ models.append(newmd)
+c.GetOption(1).SetChoice(0);c.SetParIsFixed(refpartype_scattpow_temperature,True);c.SetParIsFixed(refpartype_scatt_occup,True)
+d.SetExtractionMode(False);p.Prepare();p.FitScaleFactorForRw();print('IMPORTED',sid,run,'Rw',p.GetRw(),'Chi2',p.GetChi2(),flush=True)
+json.dump(models,open(R+'/model.json','w'),indent=1);export_cif(c,R+'/best.cif');xml_cryst_file_save_global(R+'/best.xml');json.dump({'Rw':p.GetRw()},open(R+'/best.json','w'))
+"""Topology-preserving basin-hop mutations for small molecular populations."""
+import numpy as np, torch, gemmi
+from scipy.spatial.transform import Rotation
+from gallop import tensor_prep,zm_to_cart
+
+def coords(s,ext,intr):
+ z=tensor_prep.get_zm_related_tensors(s,len(ext),torch.float32,torch.device('cpu'));z.pop('nsamples_ones',None)
+ with torch.no_grad():
+  f=zm_to_cart.get_asymmetric_coords(external=torch.as_tensor(ext,dtype=torch.float32),internal=torch.as_tensor(intr,dtype=torch.float32),lattice_inv_matrix=torch.as_tensor(np.linalg.inv(s.lattice.matrix),dtype=torch.float32),**z)
+ return f.numpy()
+
+def macro_mutations(s,external,internal,n):
+ e=np.tile(external,(n,1));t=np.tile(internal,(n,1));old=coords(s,e,t);offs=np.cumsum([0]+[len(z.elements_no_H) for z in s.zmatrices]);anchors=[]
+ for k in range(n):
+  j=np.random.randint(len(s.zmatrices));p=s.position_indices[j];r=s.rotation_indices[j];tors=s.torsion_indices[j];N=offs[j+1]-offs[j]
+  znum=np.array([gemmi.Element(str(x)).atomic_number for x in s.zmatrices[j].elements_no_H]);a=int(znum.argmax()) if znum.max()>9 else np.random.randint(N);a+=offs[j]
+  mode=np.random.choice(5,p=[.25,.25,.25,.15,.10])
+  anchor=False
+  if mode==0 and len(tors):
+   # Flip one rotatable substituent while retaining most of the phased scaffold.
+   tor=np.random.choice(tors);t[k,tor]+=np.random.choice([np.pi,-np.pi,2*np.pi/3,-2*np.pi/3])+np.random.normal(scale=.10);anchor=True
+  elif mode in [1,2] and len(r):
+   if mode==1 and N>=2:
+    b=int(np.argsort(znum)[-2]) if znum.max()>9 else np.random.randint(N)
+    if b+offs[j]==a:b=(b+1)%N
+    axis=(old[k,b+offs[j]]-old[k,a])@s.lattice.matrix
+   else:axis=np.random.normal(size=3)
+   axis/=max(np.linalg.norm(axis),1e-10);ang=np.random.choice([np.pi,2*np.pi/3,-2*np.pi/3,np.pi/2])+np.random.normal(scale=.10)
+   q=e[k,r];q=q/max(np.linalg.norm(q),1e-10);rot=Rotation.from_rotvec(axis*ang)*Rotation.from_quat(q[[1,2,3,0]]);nq=rot.as_quat();e[k,r]=nq[[3,0,1,2]];anchor=True
+  elif mode==3:
+   e[k,p]+=np.random.normal(size=len(p))*np.random.choice([.12,.25,.4])
+   if len(tors):t[k,tors]+=np.random.normal(size=len(tors))*.25
+  else:
+   # Restart only one fragment, not the whole crystal.
+   e[k,p]=np.random.rand(len(p))
+   if len(r):e[k,r]=np.random.normal(size=len(r))
+   if len(tors):t[k,tors]=np.random.uniform(-np.pi,np.pi,size=len(tors))
+  if anchor:anchors.append((k,j,a))
+ if anchors:
+  new=coords(s,e,t)
+  for k,j,a in anchors:e[k,s.position_indices[j]]+=old[k,a]-new[k,a]
+ e[:,np.hstack(s.position_indices)]%=1
+ return e,t

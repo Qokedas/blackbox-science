@@ -1,0 +1,277 @@
+    if centrosymmetric:
+        return Asqd
+    else:
+        Bsqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs,torch.sin(hxkylz)).sum(dim=2)**2
+        return Asqd + Bsqd
+
+@torch.jit.script
+def calculate_intensities(asymmetric_frac_coords, hkl, intensity_calc_prefix_fs,
+        intensity_calc_prefix_fs_asymmetric, nsamples_ones, affine_matrices,
+        centrosymmetric, space_group_number):
+    # type: (Tensor, Tensor, Tensor, Tensor, Tensor, Tensor, bool, int) -> Tensor
+    """
+    Calculate the intensities for a set of Miller indices and atomic fractional
+    coordinates. For some space groups, an equation taken from the International
+    Tables of Crystallography has been used to allow the structure factors to be
+    determined directly from the contents of the asymmetric unit.
+    If this equation has not been added to the code, then the fall-back method
+    is to generate the equivalent positions within the unit cell, and then
+    determine the structure factors using the general P1 equation (or P-1 if
+    centrosymmetric). Note: equations taken from international tables may not
+    be faster or use less memory than the fallback method - testing is advised!
+
+    Args:
+        asymmetric_frac_coords (Tensor): The fractional coordinates of the atoms
+            in the asymmetric unit
+        hkl (Tensor): The hkl Miller indices of the observed reflections
+        intensity_calc_prefix_fs (Tensor): The atomic scattering factors,
+            occupancies and DW-factors of all atoms in the unit cell.
+            Only used in fallback method, generated with a Structure object.
+        intensity_calc_prefix_fs_asymmetric (Tensor): The atomic scattering
+            factors, occupancies and DW-factors of atoms in the asymmetric unit.
+            Generated with a Structure object.
+        nsamples_ones (Tensor): a tensor of ones, with the
+            shape(nsamples, natoms, 1). Only used in fallback method
+        affine_matrices (Tensor): Tensor of affine matrices obtained from
+            pymatgen. Only used in fallback method
+        centrosymmetric (bool): True if the space group is centrosymmetric
+            else False
+        space_group_number (integer): The space group number for the current
+            crystal
+
+    Returns:
+        intensities: A tensor of shape (n_samples, n_reflections) containing
+                    the calculated intensities for all hkl's.
+    """
+    pi = 3.141592653589793
+    peaks = hkl.shape[1]
+    if space_group_number == 1:
+        # P1
+        hxkylz = 2 * pi * torch.einsum("ji,klj->kil", hkl, asymmetric_frac_coords)
+        Asqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,torch.cos(hxkylz)).sum(dim=2)**2
+        Bsqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,torch.sin(hxkylz)).sum(dim=2)**2
+        # (a + ib) * (a - ib) = a^2 + b^2
+        intensities = Asqd + Bsqd
+
+    elif space_group_number == 2:
+        # P-1
+        hxkylz = 2 * pi * torch.einsum("ji,klj->kil", hkl, asymmetric_frac_coords)
+        A = 2 * torch.cos(hxkylz)
+        intensities = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,A).sum(dim=2)**2
+
+    elif space_group_number == 3:
+        # P2
+        hl = 2 * pi * (torch.einsum("i,jk->jik", hkl[0], asymmetric_frac_coords[:,:,0])
+                        + torch.einsum("i,jk->jik", hkl[2], asymmetric_frac_coords[:,:,2]))
+        ky = 2 * pi * torch.einsum("i,jk->jik", hkl[1], asymmetric_frac_coords[:,:,1])
+
+        chl = torch.cos(hl)
+        cky = torch.cos(ky)
+        sky = torch.sin(ky)
+
+        A = 2 * chl * cky
+        B = 2 * chl * sky
+        Asqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,A).sum(dim=2)**2
+        Bsqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,B).sum(dim=2)**2
+        intensities = Asqd + Bsqd
+
+    elif space_group_number == 4:
+        # P21
+        hl = 2 * pi * (torch.einsum("i,jk->jik", hkl[0], asymmetric_frac_coords[:,:,0])
+                        + torch.einsum("i,jk->jik", hkl[2], asymmetric_frac_coords[:,:,2])
+                        + hkl[1].view(1,peaks,1)/4)
+        ky = 2 * pi * (torch.einsum("i,jk->jik", hkl[1], asymmetric_frac_coords[:,:,1])
+                        - hkl[1].view(1,peaks,1)/4)
+
+        chl = torch.cos(hl)
+        cky = torch.cos(ky)
+        sky = torch.sin(ky)
+
+        A = 2 * chl * cky
+        B = 2 * chl * sky
+
+        Asqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,A).sum(dim=2)**2
+        Bsqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,B).sum(dim=2)**2
+        intensities = Asqd + Bsqd
+
+    elif space_group_number == 5:
+        # C2
+        # This expression is simpler and quicker than the style used
+        # in the other space groups. For reference, it would be:
+        # A = 4 * cos(2pi (h+k/4))*cos(2pi(hx+lz))*cos(2piky)
+        # B = 4 * cos(2pi (h+k/4))*cos(2pi(hx+lz))*sin(2piky)
+        # This would require a minimum of 4 x trig functions to determine
+        # whereas the following only requires 3.
+        chl = torch.cos(2.*pi*(torch.einsum("i,jk->jik", hkl[0], asymmetric_frac_coords[:,:,0])
+                                + torch.einsum("i,jk->jik", hkl[2], asymmetric_frac_coords[:,:,2])))
+        ky = 2 * pi * torch.einsum("i,jk->jik", hkl[1], asymmetric_frac_coords[:,:,1])
+
+        A = 4 * chl * torch.cos(ky)
+        B = 4 * chl * torch.sin(ky)
+
+        Asqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,A).sum(dim=2)**2
+        Bsqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,B).sum(dim=2)**2
+        intensities = Asqd + Bsqd
+
+    elif space_group_number == 7:
+        # Pc
+        hl = 2 * pi * (torch.einsum("i,jk->jik", hkl[0], asymmetric_frac_coords[:,:,0])
+                        + torch.einsum("i,jk->jik", hkl[2], asymmetric_frac_coords[:,:,2])
+                        + hkl[2].view(1,peaks,1)/4)
+        ky = 2 * pi * (torch.einsum("i,jk->jik", hkl[1], asymmetric_frac_coords[:,:,1])
+                        - hkl[2].view(1,peaks,1)/4)
+
+        chl = torch.cos(hl)
+        shl = torch.sin(hl)
+        cky = torch.cos(ky)
+        A = 2 * chl * cky
+        B = 2 * shl * cky
+
+        Asqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,A).sum(dim=2)**2
+        Bsqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,B).sum(dim=2)**2
+        intensities = Asqd + Bsqd
+
+    elif space_group_number == 9:
+        # Cc
+        hl = 2 * pi * (torch.einsum("i,jk->jik", hkl[0], asymmetric_frac_coords[:,:,0])
+                        + torch.einsum("i,jk->jik", hkl[2], asymmetric_frac_coords[:,:,2])
+                        + hkl[2].view(1,peaks,1)/4)
+        ky = 2 * pi * (torch.einsum("i,jk->jik", hkl[1], asymmetric_frac_coords[:,:,1])
+                        - hkl[2].view(1,peaks,1)/4)
+        hk = (2 * pi * (hkl[0] + hkl[1])/4).view(1,peaks,1)
+
+        chl = torch.cos(hl)
+        shl = torch.sin(hl)
+        cky = torch.cos(ky)
+        c_sqd_hk = torch.cos(hk)**2
+        c_sqd_hk = torch.cos(hk)**2
+        A = 4 * c_sqd_hk * chl * cky
+        B = 4 * c_sqd_hk * shl * cky
+
+        Asqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,A).sum(dim=2)**2
+        Bsqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,B).sum(dim=2)**2
+        intensities = Asqd + Bsqd
+
+    elif space_group_number == 11:
+        # P21/m
+        hl = 2 * pi * (torch.einsum("i,jk->jik", hkl[0], asymmetric_frac_coords[:,:,0])
+                        + torch.einsum("i,jk->jik", hkl[2], asymmetric_frac_coords[:,:,2])
+                        + hkl[1].view(1,peaks,1)/4)
+        ky = 2 * pi * (torch.einsum("i,jk->jik", hkl[1], asymmetric_frac_coords[:,:,1])
+                        - hkl[1].view(1,peaks,1)/4)
+
+        A = 4 * torch.cos(hl) * torch.cos(ky)
+        intensities = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,A).sum(dim=2)**2
+
+    elif space_group_number == 12:
+        # C2/m
+        hl = 2 * pi * (torch.einsum("i,jk->jik", hkl[0], asymmetric_frac_coords[:,:,0])
+                        + torch.einsum("i,jk->jik", hkl[2], asymmetric_frac_coords[:,:,2]))
+        ky = 2 * pi * (torch.einsum("i,jk->jik", hkl[1], asymmetric_frac_coords[:,:,1]))
+        hk = (2 * pi * (hkl[0] + hkl[1])/4).view(1,peaks,1)
+        c_sqd_hk = torch.cos(hk)**2
+        A = 8 * c_sqd_hk * torch.cos(hl) * torch.cos(ky)
+        intensities = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,A).sum(dim=2)**2
+
+    elif space_group_number == 13:
+        # P2/c
+        hl = 2 * pi * (torch.einsum("i,jk->jik", hkl[0], asymmetric_frac_coords[:,:,0])
+                        + torch.einsum("i,jk->jik", hkl[2], asymmetric_frac_coords[:,:,2])
+                        + hkl[2].view(1,peaks,1)/4)
+        ky = 2 * pi * (torch.einsum("i,jk->jik", hkl[1], asymmetric_frac_coords[:,:,1])
+                        - hkl[2].view(1,peaks,1)/4)
+        A = 4 * torch.cos(hl) * torch.cos(ky)
+        intensities = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,A).sum(dim=2)**2
+
+    elif space_group_number == 14:
+        # P21/c
+        hl = 2 * pi * (torch.einsum("i,jk->jik", hkl[0], asymmetric_frac_coords[:,:,0])
+                        + torch.einsum("i,jk->jik", hkl[2], asymmetric_frac_coords[:,:,2])
+                        + (hkl[1] + hkl[2]).view(1,peaks,1)/4)
+        ky = 2 * pi * (torch.einsum("i,jk->jik", hkl[1], asymmetric_frac_coords[:,:,1])
+                        - (hkl[1] + hkl[2]).view(1,peaks,1)/4)
+        A = 4 * torch.cos(hl) * torch.cos(ky)
+        intensities = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,A).sum(dim=2)**2
+
+    elif space_group_number == 15:
+        # C2/c
+        hl = 2 * pi * (torch.einsum("i,jk->jik", hkl[0], asymmetric_frac_coords[:,:,0])
+                        + torch.einsum("i,jk->jik", hkl[2], asymmetric_frac_coords[:,:,2])
+                        + hkl[2].view(1,peaks,1)/4)
+        ky = 2 * pi * (torch.einsum("i,jk->jik", hkl[1], asymmetric_frac_coords[:,:,1])
+                        - hkl[2].view(1,peaks,1)/4)
+        # The initial term involving only h and k could be calculated in advance.
+        A = 8 * (((torch.cos((2 * pi * (hkl[0] + hkl[1]))/4))**2).view(1,peaks,1)
+                    * torch.cos(hl) * torch.cos(ky))
+
+        intensities = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,A).sum(dim=2)**2
+
+    elif space_group_number == 18:
+        # P21212
+        hx = 2 * pi * (torch.einsum("i,jk->jik", hkl[0], asymmetric_frac_coords[:,:,0])
+                        + (hkl[0] + hkl[1]).view(1,peaks,1)/4)
+        ky = 2 * pi * (torch.einsum("i,jk->jik", hkl[1], asymmetric_frac_coords[:,:,1])
+                        - (hkl[0] + hkl[1]).view(1,peaks,1)/4)
+        lz = 2 * pi * torch.einsum("i,jk->jik", hkl[2], asymmetric_frac_coords[:,:,2])
+
+        chx = torch.cos(hx)
+        cky = torch.cos(ky)
+        clz = torch.cos(lz)
+
+        shx = torch.sin(hx)
+        sky = torch.sin(ky)
+        slz = torch.sin(lz)
+
+        A =  4 * chx * cky * clz
+        B = -4 * shx * sky * slz
+
+        Asqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,A).sum(dim=2)**2
+        Bsqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,B).sum(dim=2)**2
+        intensities = Asqd + Bsqd
+
+    elif space_group_number == 19:
+        # P212121
+        hx = 2 * pi * (torch.einsum("i,jk->jik", hkl[0], asymmetric_frac_coords[:,:,0])
+                        - (hkl[0] - hkl[1]).view(1,peaks,1)/4)
+        ky = 2 * pi * (torch.einsum("i,jk->jik", hkl[1], asymmetric_frac_coords[:,:,1])
+                        - (hkl[1] - hkl[2]).view(1,peaks,1)/4)
+        lz = 2 * pi * (torch.einsum("i,jk->jik", hkl[2], asymmetric_frac_coords[:,:,2])
+                        - (hkl[2] - hkl[0]).view(1,peaks,1)/4)
+
+        chx = torch.cos(hx)
+        cky = torch.cos(ky)
+        clz = torch.cos(lz)
+
+        shx = torch.sin(hx)
+        sky = torch.sin(ky)
+        slz = torch.sin(lz)
+68:    n_atoms_asymmetric = 0
+164:            n_atoms_asymmetric += zm.coords_no_H.shape[0]
+166:            n_atoms_asymmetric += zm.coords.shape[0]
+205:                                n_atoms_asymmetric,
+393:            n_atoms_asymmetric = Structure.cif_frac_coords_no_H.shape[0]
+394:            asymmetric_frac_coords = Structure.cif_frac_coords_no_H.reshape(1,
+395:                                                        n_atoms_asymmetric,3)
+397:            n_atoms_asymmetric = Structure.cif_frac_coords.shape[0]
+398:            asymmetric_frac_coords = Structure.cif_frac_coords.reshape(1,
+399:                                                        n_atoms_asymmetric,3)
+400:        asymmetric_frac_coords = torch.from_numpy(asymmetric_frac_coords)
+401:        asymmetric_frac_coords = asymmetric_frac_coords.type(dtype).to(device)
+403:                                n_atoms_asymmetric,
+405:        intensity_tensors["asymmetric_frac_coords"] = asymmetric_frac_coords
+413:                        debye_waller_factors=dw_factors, just_asymmetric=False,
+416:                        debye_waller_factors=dw_factors, just_asymmetric=True,
+421:    intensity_tensors["intensity_calc_prefix_fs_asymmetric"] = torch.from_numpy(
+424:    intensity_tensors["space_group_number"] = Structure.sg_number
+{
+ "chi2": 478.95513916015625,
+ "Rint": 0.6920658349990845,
+ "iteration": 1,
+ "elapsed": 93.38457942008972
+}GROUPS [{"sg": "P 1 2 1", "number": 3, "Rw": 7.040196170081252, "GoF": 2168.6501399588865, "nGoF": 0.0, "mult": 2}, {"sg": "P 1 m 1", "number": 6, "Rw": 7.040196170081252, "GoF": 2168.6501399588865, "nGoF": 0.0, "mult": 2}, {"sg": "P 1 2/m 1", "number": 10, "Rw": 7.040196170081252, "GoF": 2168.6501399588865, "nGoF": 0.0, "mult": 4}, {"sg": "P 1 21 1", "number": 4, "Rw": 7.0858143093125925, "GoF": 2193.615400959581, "nGoF": 0.0, "mult": 2}, {"sg": "P 1 21/m 1", "number": 11, "Rw": 7.0858143093125925, "GoF": 2193.615400959581, "nGoF": 0.0, "mult": 4}, {"sg": "P 1 a 1", "number": 7, "Rw": 7.092215532299888, "GoF": 2192.3424617519695, "nGoF": 0.0, "mult": 2}, {"sg": "P 1 2/a 1", "number": 13, "Rw": 7.092215532299888, "GoF": 2192.3424617519695, "nGoF": 0.0, "mult": 4}, {"sg": "P 1 c 1", "number": 7, "Rw": 7.107616728751596, "GoF": 2201.874421935865, "nGoF": 0.0, "mult": 2}, {"sg": "P 1 2/c 1", "number": 13, "Rw": 7.107616728751596, "GoF": 2201.874421935865, "nGoF": 0.0, "mult": 4}, {"sg": "P 1 21/a 1", "number": 14, "Rw": 7.13734880054908, "GoF": 2217.082351449645, "nGoF": 0.0, "mult": 4}, {"sg": "P 1 21/c 1", "number": 14, "Rw": 7.153603860511962, "GoF": 2227.192504709237, "nGoF": 0.0, "mult": 4}, {"sg": "P 1 n 1", "number": 7, "Rw": 7.298072738010426, "GoF": 2320.1822484396425, "nGoF": 0.0, "mult": 2}, {"sg": "P 1 2/n 1", "number": 13, "Rw": 7.298072738010426, "GoF": 2320.1822484396425, "nGoF": 0.0, "mult": 4}, {"sg": "P 1 21/n 1", "number": 14, "Rw": 7.342714727382325, "GoF": 2345.2158654214477, "nGoF": 0.0, "mult": 4}, {"sg": "A 1 2 1", "number": 5, "Rw": 10.589222613300077, "GoF": 4539.434858648921, "nGoF": 0.0, "mult": 4}, {"sg": "A 1 m 1", "number": 8, "Rw": 10.589222613300077, "GoF": 4539.434858648921, "nGoF": 0.0, "mult": 4}, {"sg": "A 1 2/m 1", "number": 12, "Rw": 10.589222613300077, "GoF": 4539.434858648921, "nGoF": 0.0, "mult": 8}, {"sg": "A 1 n 1", "number": 9, "Rw": 10.735713441967217, "GoF": 4655.593281279199, "nGoF": 0.0, "mult": 4}, {"sg": "A 1 2/n 1", "number": 15, "Rw": 10.735713441967217, "GoF": 4655.593281279199, "nGoF": 0.0, "mult": 8}, {"sg": "A 1 a 1", "number": 9, "Rw": 10.73571344196722, "GoF": 4655.593281279201, "nGoF": 0.0, "mult": 4}, {"sg": "A 1 2/a 1", "number": 15, "Rw": 10.73571344196722, "GoF": 4655.593281279201, "nGoF": 0.0, "mult": 8}, {"sg": "I 1 2 1", "number": 5, "Rw": 12.667994816362599, "GoF": 6495.542542560006, "nGoF": 0.0, "mult": 4}, {"sg": "I 1 m 1", "number": 8, "Rw": 12.667994816362599, "GoF": 6495.542542560006, "nGoF": 0.0, "mult": 4}, {"sg": "I 1 2/m 1", "number": 12, "Rw": 12.667994816362599, "GoF": 6495.542542560006, "nGoF": 0.0, "mult": 8}, {"sg": "C 1 2 1", "number": 5, "Rw": 12.973765151264885, "GoF": 6811.73588509968, "nGoF": 0.0, "mult": 4}, {"sg": "C 1 m 1", "number": 8, "Rw": 12.973765151264885, "GoF": 6811.73588509968, "nGoF": 0.0, "mult": 4}, {"sg": "C 1 2/m 1", "number": 12, "Rw": 12.973765151264885, "GoF": 6811.73588509968, "nGoF": 0.0, "mult": 8}, {"sg": "I 1 a 1", "number": 9, "Rw": 13.009103470542744, "GoF": 6836.092760285854, "nGoF": 0.0, "mult": 4}, {"sg": "I 1 2/a 1", "number": 15, "Rw": 13.009103470542744, "GoF": 6836.092760285854, "nGoF": 0.0, "mult": 8}, {"sg": "I 1 c 1", "number": 9, "Rw": 13.00910347054276, "GoF": 6836.0927602858665, "nGoF": 0.0, "mult": 4}, {"sg": "I 1 2/c 1", "number": 15, "Rw": 13.00910347054276, "GoF": 6836.0927602858665, "nGoF": 0.0, "mult": 8}, {"sg": "C 1 c 1", "number": 9, "Rw": 13.178727873502027, "GoF": 7014.333347758855, "nGoF": 0.0, "mult": 4}, {"sg": "C 1 n 1", "number": 9, "Rw": 13.178727873502027, "GoF": 7014.333347758855, "nGoF": 0.0, "mult": 4}, {"sg": "C 1 2/c 1", "number": 15, "Rw": 13.178727873502027, "GoF": 7014.333347758855, "nGoF": 0.0, "mult": 8}, {"sg": "C 1 2/n 1", "number": 15, "Rw": 13.178727873502027, "GoF": 7014.333347758855, "nGoF": 0.0, "mult": 8}]
+DONE X1db5091 plane1 0.06095502908873357 [4.889569197220623, 40.808454209124335, 12.858112691931163, 90.0, 100.37577847991288, 90.0]
+ -3.1130e-01  4.6700e-02  1.5060e-01 -2.3010e-01 -3.9140e-01  5.2000e-03
+ -1.2430e-01]
+TRIAL 6 sec 12.61285924911499 cost 2.135025063205341 score 2.9699543818109864 vol 582.2376413854482 cell [ 7.0781  8.0278 10.2468 90.     90.     90.    ] zero 0.09237912340929966 best 2.027006527643956 diff [-0.0021 -0.6878  0.0585 -0.1681  0.4088 -0.1042  0.2582 -0.0015 -0.4108
+  0.6627  0.0216 -0.0174 -0.007   0.003  -0.1218 -0.0029  0.2255  0.1203
+  0.1788]

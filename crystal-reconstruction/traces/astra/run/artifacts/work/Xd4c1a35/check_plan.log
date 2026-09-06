@@ -1,0 +1,44 @@
+/app/work/submit.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+Xd4c1a35 Nat 192 molecule sizes [24, 24, 24, 24, 24, 24, 24, 24]
+  component COC1=CC(=O)C[C@@H](C)[C@]12Oc1c(Cl)c(OC)cc(OC)c1C2=O matches 8
+  bond range 1.2213631082561456 1.737239166528385
+  min intermolecular distance 2.377722028564
+/app/work/check_stereo.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(fn).parse_structures(primitive=False)[0];s.remove_species(['H']);rad=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<1.2*(rad[:,None]+rad[None,:]));g=nx.from_numpy_array(A)
+Xd4c1a35 root 0 expected {7: 'R', 9: 'S'} actual {7: 'R', 9: 'S'} OK True
+Xd4c1a35 root 1 expected {7: 'R', 9: 'S'} actual {7: 'R', 9: 'S'} OK True
+Xd4c1a35 root 2 expected {7: 'R', 9: 'S'} actual {7: 'R', 9: 'S'} OK True
+Xd4c1a35 root 3 expected {7: 'R', 9: 'S'} actual {7: 'R', 9: 'S'} OK True
+Xd4c1a35 root 68 expected {7: 'R', 9: 'S'} actual {7: 'R', 9: 'S'} OK True
+Xd4c1a35 root 69 expected {7: 'R', 9: 'S'} actual {7: 'R', 9: 'S'} OK True
+Xd4c1a35 root 70 expected {7: 'R', 9: 'S'} actual {7: 'R', 9: 'S'} OK True
+Xd4c1a35 root 71 expected {7: 'R', 9: 'S'} actual {7: 'R', 9: 'S'} OK True
+/app/work/contacts.py:4: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(sys.argv[1]).parse_structures(primitive=False)[0];s.remove_species(['H'])
+Cell (11.76244991, 12.00344057, 24.27767263, 90.0, 90.0, 90.0) n 192 components [24, 24, 24, 24, 24, 24, 24, 24]
+2.3777 45 C17 C 1 58 C21 C 2
+2.6710 84 C48 C 4 167 O24 O 3
+2.7599 56 C21 C 0 159 O16 O 3
+2.8861 26 C9 C 2 113 C58 C 5
+2.9286 161 O20 O 1 174 O47 O 6
+2.9412 165 O24 O 1 174 O47 O 6
+3.1705 127 C62 C 7 150 O6 O 2
+3.1915 80 C46 C 4 167 O24 O 3
+3.2200 47 C17 C 3 92 C50 C 4
+3.2397 146 O2 O 2 173 O47 O 5
+3.2414 115 C58 C 7 152 O11 O 0
+3.2876 70 C42 C 6 147 O2 O 3
+3.2951 95 C50 C 7 180 O57 O 4
+3.3202 26 C9 C 2 94 C50 C 6
+3.3231 55 C19 C 3 172 O47 O 4
+3.3547 64 C23 C 0 175 O47 O 7
+3.3717 0 C1 C 0 69 C42 C 5
+3.3934 43 C15 C 3 56 C21 C 0
+3.4141 71 C42 C 7 185 O61 O 5
+3.4251 70 C42 C 6 124 C62 C 4
+3.4292 61 C22 C 1 174 O47 O 6
+3.4986 94 C50 C 6 113 C58 C 5
+3.5494 2 C1 C 2 173 O47 O 5
+3.5564 45 C17 C 1 162 O20 O 2
+3.5646 56 C21 C 0 140 Cl55 Cl 4

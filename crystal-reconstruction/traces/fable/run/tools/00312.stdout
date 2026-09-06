@@ -1,0 +1,30 @@
+LeBail Rwp=0.0607 chi2=28218.6 cell= 14.004727142110923 9.323490436406114 11.028649387905212 90.0
+  conformers: 3 distinct; energies [114.0, 120.9, 120.9]; using rank 0 (E=114.0)
+  molecule mol0_0: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions
+Optimizing initial conformation of Molecule:mol0_0
+Starting Parallel Tempering Optimization
+->Trial :30 World=3 Temp=3856.62 Mutation Ampl.: 6.21017 NEW OVERALL Best Cost=78287.6
+->Trial :76 World=7 Temp=1082.64 Mutation Ampl.: 3.29034 NEW OVERALL Best Cost=75836.4
+--
+P m n m Rwp 0.569 nrefl 83 F2 max 32930.3 mean 3323.58 nan 0 scale 1.0 calc max 2595010120.7 obs max 45974
+   0 1 0  F2=910.36
+   1 0 1  F2=32930.33
+   1 1 0  F2=28526.80
+   0 1 1  F2=12015.99
+   2 0 0  F2=10963.96
+   1 1 1  F2=145.00
+LeBail Rwp=0.0764 chi2=44603.9 cell= 14.003982316854641 9.322347904668433 11.028140744857472 90.0
+  conformers: 3 distinct; energies [114.0, 120.9, 120.9]; using rank 0 (E=114.0)
+  molecule mol0_0: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions
+Optimizing initial conformation of Molecule:mol0_0
+Starting Parallel Tempering Optimization
+->Trial :41 World=4 Temp=2807.22 Mutation Ampl.: 5.29832 NEW OVERALL Best Cost=80951.8
+->Trial :83 World=8 Temp=788.046 Mutation Ampl.: 2.80722 NEW OVERALL Best Cost=78644.6
+--
+P c a b Rwp 0.565 nrefl 64 F2 max 72925.9 mean 4785.58 nan 0 scale 1.0 calc max 1148781759.0 obs max 45974
+   2 0 0  F2=27863.43
+   1 1 -1  F2=1310.67
+   2 0 -1  F2=32239.67
+   0 0 -2  F2=72925.89
+   2 1 -1  F2=509.11
+   0 1 -2  F2=1.56

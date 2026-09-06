@@ -1,0 +1,10 @@
+LeBail Rwp=0.0764 chi2=44603.9 cell= 14.003982316854657 9.322347904668458 11.028140744857504 90.0
+  conformers: 8 distinct; energies [108.8, 116.8, 117.0, 117.1, 121.8, 124.3]; using rank 0 (E=108.8)
+  molecule mol0_0: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions
+run 0: cost=343971.7 Rwp=0.2208 chi2=369369.7 t=583s
+ISO 1 P c a b Zp=1: 0.2208
+LeBail Rwp=0.0764 chi2=44603.9 cell= 14.00398231685475 9.322347904668506 11.028140744857556 90.0
+  conformers: 3 distinct; energies [114.0, 120.9, 120.9]; using rank 0 (E=114.0)
+  molecule mol0_0: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions
+run 0: cost=212833.1 Rwp=0.1885 chi2=270856.9 t=696s
+ISO 0 P c a b Zp=1: 0.1885

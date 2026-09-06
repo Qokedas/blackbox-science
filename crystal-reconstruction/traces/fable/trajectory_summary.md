@@ -1,0 +1,461 @@
+# Trajectory summary: qkd-0906-pxrd-fable
+
+- wall clock: 7.25 h; termination: model_finished; execution: completed
+- API responses: 454; tool results: 449 (bash 408, view_image 26, write_file 15); images viewed: 26; context compactions: 4; API errors: 0
+- usage: {"provider": "anthropic", "model": "claude-fable-5-1", "scope": "Usage returned by completed provider responses, including compaction. Failed or disconnected requests may incur unreported usage; no fabricated cost estimate."}
+- tool inputs recovered from provider bodies: 449 (bash 408, write_file 15, view_image 26)
+
+## Timeline of first submission writes (hours since start)
+- Xd8634a2.cif at 4.91 h
+
+## Compaction handoffs (first 300 characters each)
+- t=0.79 h: # Handoff notes (context reset) — blind PXRD structure solution panel  ## Objective (unchanged) 30 instances under `/app/data/instances/<id>/` (pattern.xye, instrument.json, composition.json). For each attempted instance write exactly `/app/results/submission/<id>.json` (cell + space group) and opti
+- t=1.54 h: # Handoff notes (context reset #2) — blind PXRD structure solution panel  ## Objective (unchanged) 30 instances under `/app/data/instances/<id>/`. For each attempted instance write exactly `/app/results/submission/<id>.json` (cell + SG) and optionally one `/app/results/submission/<id>.cif` (single d
+- t=3.34 h: # Handoff notes (context reset #3) — blind PXRD structure solution panel  ## Objective (unchanged) 30 instances under `/app/data/instances/<id>/`. For each attempted instance write exactly `/app/results/submission/<id>.json` (cell + SG) and optionally one `/app/results/submission/<id>.cif` (single d
+- t=4.73 h: # Handoff notes (context reset #4) — blind PXRD structure solution panel  ## Objective (unchanged) 30 instances under `/app/data/instances/<id>/`. For each attempted instance write exactly `/app/results/submission/<id>.json` (cell + SG) and optionally one `/app/results/submission/<id>.cif` (single d
+
+## Grader ledger
+score 0.211111, points 19/90, L 13, S 3, hedged 0
+
+| id | DoF | bin | L | S | L reason / cells | S reason | rmsd | dmax |
+|---|---|---|---|---|---|---|---|---|
+| X019b9a4 | 26.0 | hard_ | 0 | 0 | no cell submitted | no CIF submitted | None | None |
+| X07806d9 | 13.0 | calib | 1 | 1 | cell_ok=True sg_ok=True sub=[8.2068, 11.2198, 16.8557, 90.0, 90.0, 90.0] |  | 0.0646 | 0.0902 |
+| X13023e3 | 17.0 | mid_1 | 0 | 0 | no cell submitted | no CIF submitted | None | None |
+| X14a2b08 | 18.0 | mid_1 | 0 | 0 | no cell submitted | no CIF submitted | None | None |
+| X1a56c78 | 14.0 | calib | 0 | 0 | no cell submitted | no CIF submitted | None | None |
+| X1db5091 | 19.0 | mid_1 | 0 | 0 | no cell submitted | no CIF submitted | None | None |
+| X2327841 | 34.0 | hard_ | 1 | 0 | cell_ok=True sg_ok=True sub=[4.93, 12.39, 25.06, 90.78, 90.0, 90.0] | no CIF submitted | None | None |
+| X238783d | 14.0 | calib | 1 | 0 | cell_ok=True sg_ok=True sub=[8.8357, 20.118, 23.9134, 90.0, 90.0, 90.0] | no CIF submitted | None | None |
+| X263b09a | 18.0 | mid_1 | 0 | 0 | no cell submitted | no CIF submitted | None | None |
+| X35b7fbc | 18.0 | mid_1 | 1 | 0 | cell_ok=True sg_ok=True sub=[5.7075, 12.7644, 33.1307, 90.0, 90.0, 90.0] | displacements exceed tolerance | 0.972 | 3.7359 |
+| X3c176e2 | 12.0 | hard_ | 1 | 0 | cell_ok=True sg_ok=True sub=[9.3253, 11.0305, 14.0067, 90.0, 90.0, 90.0] | no CIF submitted | None | None |
+| X3f4781b | 30.0 | hard_ | 1 | 0 | cell_ok=True sg_ok=True sub=[10.4195, 12.6031, 15.3169, 90.0, 90.0, 113.3343] | no CIF submitted | None | None |
+| X4f6fe58 | 7.0 | calib | 0 | 0 | no cell submitted | no CIF submitted | None | None |
+| X7e382cb | 15.0 | calib | 0 | 0 | no cell submitted | no CIF submitted | None | None |
+| X8a06d7a | 19.0 | mid_1 | 0 | 0 | no cell submitted | no CIF submitted | None | None |
+| X8a6f5a8 | 28.0 | hard_ | 0 | 0 | no cell submitted | no CIF submitted | None | None |
+| X9af54a2 | 15.0 | mid_1 | 1 | 1 | cell_ok=True sg_ok=True sub=[5.1779, 8.2522, 32.9459, 90.0, 92.751, 90.0] |  | 0.1122 | 0.2227 |
+| Xb7088cf | 12.0 | calib | 0 | 0 | no cell submitted | no CIF submitted | None | None |
+| Xbfc6d2c | 7.0 | calib | 0 | 0 | no cell submitted | no CIF submitted | None | None |
+| Xbfeeda9 | 16.0 | mid_1 | 0 | 0 | no cell submitted | no CIF submitted | None | None |
+| Xd4c1a35 | 18.0 | hard_ | 1 | 0 | cell_ok=True sg_ok=True sub=[11.7621, 12.0026, 24.2758, 90.0, 90.0, 90.0] | no CIF submitted | None | None |
+| Xd8634a2 | 13.0 | calib | 1 | 1 | cell_ok=True sg_ok=True sub=[8.9099, 9.4782, 13.245, 83.983, 81.776, 66.679] |  | 0.1277 | 0.2742 |
+| Xdcc971e | 32.0 | hard_ | 1 | 0 | cell_ok=True sg_ok=True sub=[7.19, 11.04, 18.4796, 101.9068, 90.0, 90.0] | no CIF submitted | None | None |
+| Xe1fb77b | 16.0 | mid_1 | 1 | 0 | cell_ok=True sg_ok=True sub=[5.5926, 13.8797, 15.359, 90.0, 90.0, 94.9749] | no CIF submitted | None | None |
+| Xe3a2935 | 9.0 | calib | 1 | 0 | cell_ok=True sg_ok=True sub=[6.8804, 10.2923, 19.9898, 90.0, 90.0, 90.0] | displacements exceed tolerance | 0.4849 | 1.3091 |
+| Xeb393f9 | 21.0 | mid_1 | 0 | 0 | no cell submitted | no CIF submitted | None | None |
+| Xebbd488 | 23.5 | mid_1 | 0 | 0 | no cell submitted | no CIF submitted | None | None |
+| Xedd9c7b | 22.0 | hard_ | 0 | 0 | no cell submitted | no CIF submitted | None | None |
+| Xf8ac963 | 10.0 | calib | 1 | 0 | cell_ok=True sg_ok=True sub=[9.321, 11.3928, 16.264, 90.0, 90.0, 90.0] | mirror image of a chiral structure | 0.2804 | 0.5572 |
+| Xfca9f3c | 28.0 | hard_ | 0 | 0 | no cell submitted | no CIF submitted | None | None |
+
+## Bash commands (first 120 chars each, in order)
+- cat /app/TOOLS.md; echo ----; cat /app/data/instances.json; echo ----; ls -la /app/data/instances/; nproc; free -g; date
+- cd /app/data/instances; for d in *; do echo "=== $d"; cat $d/composition.json | jq -c .; cat $d/instrument.json | jq -c 
+- cd /app/data/instances; for d in X8a06d7a X8a6f5a8; do echo "=== $d"; cat $d/composition.json | jq -c .components; cat $
+- cd /app; python -c " import pyobjcryst, pyobjcryst.indexing as I print(pyobjcryst.__version__ if hasattr(pyobjcryst,'__v
+- cd /app; python -c " import pyobjcryst.indexing as I help(I.quick_index) help(I.PeakList) " 2>&1 | grep -v "^\s*$" | hea
+- mkdir -p /app/work /app/results/submission; cd /app/work; cat > plotall.py <<'EOF' import numpy as np, matplotlib matplo
+- cd /app; python -c " import pyobjcryst.indexing as I print([x for x in dir(I.CrystalSystem) if not x.startswith('_')]) p
+- cd /app/work && time python peaks.py 2>&1 | tail -40
+- cd /app/work && time python index1.py X4f6fe58 20 0 2>&1 | tail -40
+- cd /app/work && cat > idx_test.py <<'EOF' import sys, time sys.path.insert(0,'/app/work') from index1 import * iid='X4f6
+- sleep 90; cat /app/work/idx_test.log; ps aux | grep idx_test | head -3
+- cd /app/work; head -25 X4f6fe58/peaks.txt; cat X4f6fe58/pl_20.txt | wc -l; sleep 45; cat idx_test.log
+- pkill -f idx_test.py; sleep 1; cat /app/work/idx_test.log; echo; python - <<'EOF' import numpy as np p=np.loadtxt('/app/
+- for p in /proc/[0-9]*; do if grep -q idx_test $p/cmdline 2>/dev/null; then echo kill ${p#/proc/}; kill -9 ${p#/proc/}; f
+- cat > /app/work/killpy.sh <<'EOF' #!/bin/bash # kill python processes whose cmdline contains $1 (excluding this script) 
+- cd /app/work && python peaks.py X4f6fe58 && head -30 X4f6fe58/peaks.txt
+- cd /app/work && nohup python peaks.py > peaks_all.log 2>&1 & cd /app/work && cat > idx_test.py <<'EOF' import sys, time 
+- sleep 60; cat /app/work/idx_test.log; cat /app/work/peaks_all.log | tail -5
+- sleep 30; cat /app/work/idx_test.log
+- cd /opt/g2/GSAS-II; ls; grep -n "^def " GSASII/GSASIIindex.py | head -40
+- cd /opt/g2/GSAS-II; sed -n 976,1120p GSASII/GSASIIindex.py; cat /app/work/idx_test.log
+- cd /opt/g2/GSAS-II; sed -n 1116,1240p GSASII/GSASIIindex.py | grep -v "^\s*\[" | head -80; sed -n 1,40p GSASII/GSASIIind
+- cd /opt/g2/GSAS-II; sed -n 1120,1130p GSASII/GSASIIindex.py | cut -c1-300; sed -n 163,192p GSASII/GSASIIindex.py; sed -n
+- cd /app/work && /app/work/killpy.sh idx_test; nohup /opt/g2/bin/python g2index.py X4f6fe58 20 monoP 240 > X4f6fe58/g2_mo
+- sleep 120; tail -5 /app/work/X4f6fe58/g2_monoP.log; cat /app/work/X4f6fe58/g2index_monoP_20.txt 2>/dev/null | head
+- cd /app/work && cat > batch_index.py <<'EOF' import sys, json, subprocess, os from concurrent.futures import ThreadPoolE
+- cd /app; python -c " import pyobjcryst.molecule as M print([x for x in dir(M.Molecule) if not x.startswith('_')]) print(
+- cd /app; python -c " import pyobjcryst.powderpattern as P, inspect print(inspect.getsource(P.PowderPattern.quick_fit_pro
+- cd /app; python -c " import pyobjcryst.powderpattern as P help(P.SpaceGroupExplorer) " 2>&1 | grep -v "C++ sig" | grep -
+- cd /app/work && timeout 600 python lebail.py X4f6fe58 10.5197 14.8446 19.3852 90 101.918 90 P1 50 2>&1 | tail -5
+- cd /app/work && sed -i 's/    cr = Crystal(a, b, c, al, be, ga, spg)/    cr = Crystal(a, b, c, np.radians(al), np.radian
+- cd /app/work && cat > dbg.py <<'EOF' import sys, json, numpy as np, time sys.path.insert(0,'/app/work') from lebail impo
+- cd /app/work && python - <<'EOF' import re s=open('lebail.py').read() s=s.replace("""        try:             th = pd.Ge
+- cd /app/work && cat >> dbg.py <<'EOF' res = dict(rw=p.GetRw(), r=p.GetR(), chi2=p.GetChi2()) print('res ok', flush=True)
+- cd /app/work && timeout 600 python dbg.py 2>&1 | tail -12
+- cd /app/work && python - <<'EOF' s=open('lebail.py').read() old_start = s.index("def lebail(") old_end = s.index("if __n
+- cd /app/work && cat batch_index.log; for f in */g2index_*_20.txt; do echo "== $f"; head -4 $f; done 2>/dev/null | head -
+- cd /app/work && ls -la X019b9a4/ X07806d9/ 2>/dev/null; tail -3 X019b9a4/g2_monoP.log; date
+- cd /app; python - <<'EOF' 2>&1 | grep -v "C++ sig" | grep -v "^\s*$" | head -120 import pyobjcryst.globaloptim as G prin
+- cd /app; python - <<'EOF' 2>&1 | grep -v "C++ sig" | grep -v "^\s*$" | head -150 import pyobjcryst.globaloptim as G prin
+- cd /opt/conda/lib/python3.11/site-packages/pyobjcryst; grep -n "def \|^class " molecule.py globaloptim.py zscatterer.py 
+- cd /opt/conda/lib/python3.11/site-packages/pyobjcryst; sed -n 40,95p globaloptim.py; sed -n 120,160p molecule.py; python
+- cd /app; python - <<'EOF' 2>&1 | grep -v "C++ sig" | grep -v "^\s*$" | head -80 import pyobjcryst.globaloptim as G, insp
+- cd /app; python - <<'EOF' 2>&1 | grep -v "C++ sig" | grep -v "^\s*$" | head -80 import pyobjcryst.globaloptim as G, insp
+- cd /app/work && cat batch_index.log | tail -3; for i in X07806d9 X13023e3 X14a2b08; do for f in $i/g2index_*_20.txt; do 
+- cd /app/work && (timeout 300 python lebail.py X07806d9 8.2184 16.8866 11.2380 90 90 90 "P 2 2 2" 40 2>&1 | tail -2; time
+- cd /app/work && python - <<'EOF' s=open('lebail.py').read() s=s.replace("""        fig, ax = plt.subplots(figsize=(18, 6
+- cd /app/work && timeout 900 python spgexplore.py X07806d9 8.2184 16.8866 11.2380 90 90 90 30 2>&1 | tail -45
+- cd /app/work && python -c " import pyobjcryst._pyobjcryst as P print([x for x in dir(P.SPGScore) if not x.startswith('_'
+- cd /app/work && python - <<'EOF' s=open('spgexplore.py').read() s=s.replace("out.append((s.hermann_mauguin, s.nbreflused
+- cd /app/work && timeout 600 python absences.py X07806d9 8.2184 16.8866 11.2380 90 90 90 "P 2 2 2" 30 2>&1 | tail -80
+- cd /app/work && nohup python solve.py X07806d9 16.8866 8.2184 11.2380 90 90 90 "P b c a" --nsteps 500000 --nruns 1 --ttm
+- cd /app/work && ls; ls X07806d9/; cat /app/work/X07806d9/solve_test.log 2>&1 | head; cat /app/work/batch_index.log | tai
+- cd /app/work && for i in X14a2b08 X1a56c78; do for f in $i/g2index_*_20.txt; do echo "== $f"; head -4 $f; done; done 2>/
+- cd /app/work && cat > idx_test2.py <<'EOF' import sys, time sys.path.insert(0,'/app/work') from index1 import * iid='X07
+- cd /app/work && python - <<'EOF' s=open('solve.py').read() s=s.replace("""    print(f'  molecule {name}: {len(heavy)} at
+- cd /app/work && nohup python solve.py X07806d9 16.8866 8.2184 11.2380 90 90 90 "P b c a" --nsteps 1000000 --nruns 3 --tt
+- cd /app/work; pwd; ls | head -3; cat /app/work/idx_test2.log; tail -2 /app/work/batch_index.log
+- cd /app/work && ./killpy.sh batch_index.py; ./killpy.sh g2index.py; ./killpy.sh idx_test2; sleep 1; ls -d */g2index_mono
+- cat > /app/work/killpy.sh <<'EOF' #!/bin/bash # kill python processes (argv0 is python) whose cmdline contains $1 for p 
+- cd /app/work && python - <<'EOF' import json, os ids = json.load(open('/app/data/instances.json'))['ids'] done = [i for 
+- cd /app/work && python rank.py X07806d9 30 2>&1 | head -12; python rank.py X4f6fe58 30 2>&1 | head -12
+- cd /app/work && sed -i 's|    qc = 1/dcalc\*\*2|    qc = np.sort(1/dcalc**2)|' rank.py && python rank.py X07806d9 30 2>&
+- cd /app/work && python - <<'EOF' s=open('rank.py').read() s=s.replace("def fom(cell, brav, tth, wl, npk=30, tol_frac=1.5
+- cd /app/work && tail -3 X07806d9/solve_a.log; tail -2 batch_index.log
+- cd /app/work && tail -2 X07806d9/solve_a.log; ls X07806d9/sol_a/ 2>/dev/null; tail -2 batch_index.log
+- cd /app/work && cat X07806d9/sol_a/Pbca_run0_rw0.145.cif | head -60; python check_structure.py X07806d9/sol_a/Pbca_run0_
+- cd /app/work && python finalize.py X07806d9 X07806d9/sol_a/Pbca_run0_rw0.145.cif "P b c a" && cat /app/results/submissio
+- cd /app/work && tail -1 batch_index.log; for i in X13023e3 X14a2b08 X1a56c78 X019b9a4; do python rank.py $i 30 2>&1 | he
+- date -u; ls /app/results/submission/; echo ---; tail -5 /app/work/batch_index.log; echo ---; ls /app/work/*/g2index_* | 
+- cd /app/work; cat batch_index.log | wc -l; grep -c done batch_index.log; cat todo.txt | tr '\n' ' '; echo; ls */g2index_
+- cd /app/work; for p in /proc/[0-9]*; do c=$(tr '\0' ' ' < $p/cmdline 2>/dev/null); [ -n "$c" ] && echo "$(basename $p) $
+- cd /app/work; python - <<'EOF' import json,os ids=json.load(open('/app/data/instances.json'))['ids'] from rdkit import C
+- cd /app/work; for i in X1db5091 X2327841 X238783d X35b7fbc; do echo "== $i"; timeout 120 python rank.py $i 30 2>&1 | hea
+- cd /app/work; head -35 X35b7fbc/peaks.txt; cat /app/data/instances/X35b7fbc/instrument.json
+- cd /app/work; cat g2index.py; echo ----; sed -n 1,60p rank.py
+- cd /app/work; python - <<'EOF' import numpy as np, matplotlib matplotlib.use('Agg'); import matplotlib.pyplot as plt d=n
+- cd /app/work; for i in $(python -c "import json;print(' '.join(json.load(open('/app/data/instances.json'))['ids']))"); d
+- cd /app/work; python - <<'EOF' import numpy as np, matplotlib matplotlib.use('Agg'); import matplotlib.pyplot as plt set
+- cd /app/work; python - <<'EOF' import re s=open('g2index.py').read() s=s.replace("p = np.loadtxt(f'/app/work/{iid}/peaks
+- cd /app/work; python - <<'EOF' s=open('rank.py').read() s=s.replace("    pk = np.loadtxt(f'/app/work/{iid}/peaks.txt')",
+- cd /app/work; cat batch_index.log; tail -2 X07806d9/solve_a.log; date -u
+- cd /app/work; for i in X3c176e2 X263b09a X3f4781b X4f6fe58 X7e382cb; do echo "== $i"; timeout 120 python rank.py $i 30 2
+- cd /app/work; sed -n 1,50p absences.py | head -80; grep -n "argv" absences.py | head
+- cd /app/work; nohup python absences.py X3c176e2 14.0376 9.3447 11.0572 90 90 90 "P 2 2 2" 60 > X3c176e2/abs_ortho.log 2>
+- cd /app/work; python - <<'EOF' s=open('g2index.py').read() s=s.replace("def load_peaks(iid, nmax=20, min_snr=8.0):","def
+- cd /app/work; cat X3c176e2/abs_ortho.log | tail -40
+- cd /app/work; grep -v "^ " X3c176e2/abs_ortho.log | tail -30
+- cd /app/work; ls X3c176e2/; grep -n "Rwp\|savefig" X3c176e2/abs_ortho.log | head; grep -n "savefig" lebail.py absences.p
+- cd /app/work; sed -n 95,140p lebail.py
+- cd /app/work; cat > ticks.py <<'EOF' import sys, json, numpy as np, gemmi, matplotlib matplotlib.use('Agg'); import matp
+- cd /app/work; tail -3 batch_index.log; tail -1 X07806d9/solve_a.log; ls X07806d9/sol_a/
+- cd /app/work; python - <<'EOF' 2>&1 | grep -v Warning from pymatgen.core import Structure from pymatgen.analysis.structu
+- cd /app/work; python finalize.py X07806d9 X07806d9/sol_a/Pbca_run2_rw0.144.cif "P b c a" 2>&1 | grep -v Warn | tail -5; 
+- cd /app/work; nohup /opt/g2/bin/python g2index.py X35b7fbc 20 monoP 180 c > X35b7fbc/g2_monoPc.log 2>&1 & sleep 2; pytho
+- cd /app/work; timeout 200 /opt/g2/bin/python g2index.py X3c176e2 20 ortho 90 2>&1 | grep -v "^$" | head -12
+- cd /app/work; sleep 60; cat X3c176e2/g2index_ortho_20.txt | head; python rank.py X3c176e2 30 | head -8
+- cd /app/work; python - <<'EOF' from pymatgen.core import Lattice import numpy as np l1=Lattice.from_parameters(14.0376,9
+- cd /app/work; cat batch_index.log | wc -l; tail -2 batch_index.log; cat X35b7fbc/g2index_monoPc_20.txt 2>/dev/null | hea
+- cd /app/work; nohup python absences.py X35b7fbc 5.7122 33.1811 12.7796 90 90 90 "P 2 2 2" 14 > X35b7fbc/abs_ortho.log 2>
+- cd /app/work; timeout 300 python lebail.py X35b7fbc 5.7122 33.1811 12.7796 90 90 90 "P 2 2 2" 14 2>&1 | tail -3
+- cd /app/work; sed -n 1,60p lebail.py
+- cd /app/work; python - <<'EOF' s=open('lebail.py').read() s=s.replace("""    if tt_min is not None:         m = tt >= tt
+- cd /app/work; timeout 300 python lebail.py X35b7fbc 5.7122 33.1811 12.7796 90 90 90 "P 2 2 2" 14 2>&1 | tail -1; sed -n 
+- cd /app/work; timeout 300 python absences.py X35b7fbc 5.7122 33.1811 12.7796 90 90 90 "P 2 2 2" 14 > X35b7fbc/abs_ortho.
+- cd /app/work; grep -E "^\s+[0-9]+\s+0\s+0\s" X35b7fbc/abs_ortho.log; grep -E "^\s+0\s+0\s+[0-9]+\s" X35b7fbc/abs_ortho.l
+- cd /app/work; awk '$1 ~ /^-?[0-9]+$/ && NF==5 && $4>9.3 && $4<9.6' X35b7fbc/abs_ortho.log; awk '$1 ~ /^-?[0-9]+$/ && NF=
+- cd /app/work; python submit_cell.py X35b7fbc 5.7074 33.1312 12.7644 90 90 90 "P 21 21 21"; cat /app/results/submission/X
+- cd /app/work; for i in X9af54a2 Xbfc6d2c Xd4c1a35 Xd8634a2 Xe1fb77b; do echo "== $i"; timeout 120 python rank.py $i 30 2
+- cd /app/work; python - <<'EOF' from pymatgen.core import Lattice import numpy as np for name,c in [('X9af54a2',(5.1783,8
+- cd /app/work; nohup python absences.py X9af54a2 5.1783 8.2536 32.9503 90 92.7587 90 "P 1 2/m 1" 12 > X9af54a2/abs_mono.l
+- cd /app/work; grep -n "cell=" X9af54a2/abs_mono.log Xe1fb77b/abs_mono.log Xd4c1a35/abs_ortho.log | head; grep -n "print"
+- cd /app/work; python - <<'EOF' s=open('absences.py').read() s=s.replace("    print(f'{iid} {spg} Rwp={p.GetRw():.4f} nre
+- cd /app/work; python submit_cell.py X9af54a2 5.1777 8.2521 32.9450 90 92.7521 90 "P 1 21/c 1"; python submit_cell.py Xe1
+- cd /app/work; python -c " import json for i in ['X9af54a2','Xe1fb77b','Xd4c1a35','X35b7fbc']:     ins=json.load(open(f'/
+- cd /app/work; sed -n 100,200p solve.py
+- cd /app/work; nohup python solve.py X9af54a2 5.1777 8.2521 32.9450 90 92.7521 90 "P 1 21/c 1" --nsteps 2000000 --nruns 2
+- cd /app/work; sed -n 40,100p solve.py
+- cd /app/work; cat killpy.sh; ./killpy.sh "solve.py X9af54a2"; sleep 1; python - <<'EOF' s=open('solve.py').read() old=""
+- cd /app/work; python - <<'EOF' s=open('solve.py').read() old="""            if a1.GetAtomicNum() in (8, 16) or a2.GetAto
+- cd /app/work; tail -1 batch_index.log; for i in Xeb393f9 X8a6f5a8 Xbfeeda9 Xdcc971e; do echo "== $i"; timeout 120 python
+- cd /app/work; for i in Xf8ac963 Xe3a2935 Xfca9f3c Xedd9c7b; do echo "== $i"; timeout 120 python rank.py $i 30 2>&1 | hea
+- cd /app/work; nohup python absences.py Xe3a2935 10.3022 6.8832 19.9890 90 90 90 "P 2 2 2" 14 > Xe3a2935/abs_ortho.log 2>
+- cd /app/work; cat >> ticks.py <<'EOF'  # numeric check of observed peaks import os pf=f'/app/work/{iid}/peaks_clean.txt'
+- cd /app/work; nohup python absences.py Xf8ac963 16.2602 9.3196 11.3926 90 90 90 "P 2 2 2" 12 > Xf8ac963/abs_ortho.log 2>
+- cd /app/work; python submit_cell.py Xe3a2935 10.29176 6.88129 19.99016 90 90 90 "P 21 21 21"; python -c " import json; i
+- cd /app/work; ./killpy.sh "solve.py Xe3a2935"; sed -n 25,45p solve.py
+- cd /app/work; python - <<'EOF' s=open('solve.py').read() start=s.index("def classify_bonds(mol):") end=s.index("def add_
+- cd /app/work; python - <<'EOF' s=open('solve.py').read() old="""        if hd1 < 2 or hd2 < 2:             fixed.add(b.G
+- cd /app/work; python submit_cell.py Xf8ac963 16.26352 9.32080 11.39244 90 90 90 "P 21 21 21"; tail -1 batch_index.log; t
+- cd /app/work; for p in /proc/[0-9]*; do c=$(tr '\0' ' ' < $p/cmdline 2>/dev/null); case "$c" in *g2index*|*batch_index*)
+- cd /app/work; python clean_peaks.py X13023e3 3.0 20 6.97192; mv X13023e3/peaks_clean.txt X13023e3/peaks_b.txt; head -22 
+- cd /app/work; for i in Xd8634a2 Xeb393f9; do echo "== $i"; grep -v '^#' $i/peaks.txt | head -32 | awk '{printf "%s(%.0f,
+- cd /app/work; nohup nice -n 5 /opt/g2/bin/python g2index.py Xd8634a2 20 tri 300 > Xd8634a2/g2_tri.log 2>&1 & sleep 1; ec
+- cd /app/work; cat X3c176e2/g2index_monoC_20.txt | head -5; echo; timeout 100 python rank.py Xbfc6d2c 30 | head -4; timeo
+- cd /app/work; tail -2 X9af54a2/solve_a.log Xe3a2935/solve_a.log; cat X13023e3/g2index_monoPb_20.txt 2>/dev/null | head -
+- cd /app/work; for f in X9af54a2/solve_a.log Xe3a2935/solve_a.log; do tail -n 2 $f; done; cat X13023e3/g2index_monoPb_20.
+- cd /app/work; cat > sgscan.py <<'EOF' import sys, json, numpy as np, gemmi, os, time sys.path.insert(0, '/app/work') fro
+- cd /app/work; sleep 120; for f in X9af54a2/solve_a.log Xe3a2935/solve_a.log; do tail -n 1 $f; done; cat X13023e3/g2index
+- cd /app/work; for i in X2327841 Xdcc971e Xfca9f3c; do python -c " import json; ins=json.load(open('/app/data/instances/$
+- cd /app/work; sleep 60; for f in X9af54a2/solve_a.log Xe3a2935/solve_a.log; do tail -n 1 $f; done; wc -l X3c176e2/sgscan
+- cd /app/work; head -8 Xd8634a2/g2index_tri_20.txt; timeout 200 python rank.py Xd8634a2 30 2>/dev/null | head -5
+- cd /app/work; timeout 300 python lebail.py Xd8634a2 8.9103 9.4781 13.2452 96.028 98.217 66.677 "P -1" 12 2>&1 | tail -n 
+- cd /app/work; python submit_cell.py Xd8634a2 8.9099 9.4782 13.2450 96.0172 98.2243 66.6787 "P -1"; for f in X9af54a2/sol
+- cd /app/work; tail -n 2 batch_index.log; for p in /proc/[0-9]*; do c=$(tr '\0' ' ' < $p/cmdline 2>/dev/null); case "$c" 
+- cd /app/work; ./killpy.sh batch_index.py; ./killpy.sh "g2index.py X1db5091"; ./killpy.sh "g2index.py X2327841"; ./killpy
+- cd /app/work; nohup python solve.py Xf8ac963 16.26352 9.32080 11.39244 90 90 90 "P 21 21 21" --nsteps 2000000 --nruns 2 
+- cd /app/work; sleep 240; for f in X9af54a2/solve_a.log Xe3a2935/solve_a.log Xf8ac963/solve_a.log; do tail -n 1 $f; done;
+- cd /app/work; grep -A40 "sorted by" X3c176e2/sgscan_ortho.log | head -45
+- cd /app/work; python clean_peaks.py X3c176e2 3.0 8 10.15650 11.34977; mv X3c176e2/peaks_clean.txt X3c176e2/peaks_b.txt; 
+- cd /app/work; sleep 200; for f in X9af54a2/solve_a.log Xe3a2935/solve_a.log Xf8ac963/solve_a.log; do tail -n 1 $f; done;
+- cd /app/work; ls X9af54a2/sol_a/; python - <<'EOF' 2>&1 | grep -v Warn from pymatgen.core import Structure from pymatgen
+- cd /app/work; python - <<'EOF' 2>/dev/null import pyobjcryst from pyobjcryst.globaloptim import MonteCarlo, AnnealingSch
+- cd /app/work; python - <<'EOF' s=open('solve.py').read() old="""def optimize(p, cr, nsteps=1e6, nruns=1, seed=None, maxt
+- cd /app/work; nohup python solve.py X07806d9 16.8866 8.2184 11.2380 90 90 90 "P b c a" --nsteps 300000 --nruns 1 --ttmax
+- cd /app/work; cat > fitplot.py <<'EOF' import sys, os, json, numpy as np, time sys.path.insert(0, '/app/work') from leba
+- cd /app/work; grep -A30 "_atom_site_fract_z" X9af54a2/sol_a/P121_c1_run0_rw0.140.cif | head -30; python -c " from pyobjc
+- cd /app/work; grep -n "GetCenterAtom\|SetCenterAtom\|m.X\|Q0" solve.py | head; python - <<'EOF' s=open('solve.py').read(
+- cd /app/work; python -c " from pyobjcryst.crystal import Crystal import numpy as np c=Crystal(5,6,7,np.radians(90),np.ra
+- cd /app/work; sed -i 's/^from lebail import make_pattern, add_crystal, fit_sequence/from lebail import make_pattern, add
+- cd /app/work; cat > dbg_polish.py <<'EOF' import sys, os, numpy as np sys.path.insert(0,'/app/work') from solve import *
+- cd /app/work; timeout 600 python dbg_polish.py 2>&1 | grep -E "^Rwp|npar|notfixed|after|err|\[" | head -n 20
+- cd /app/work; cat > dbg_polish2.py <<'EOF' import sys, os, numpy as np sys.path.insert(0,'/app/work') from solve import 
+- cd /app/work; cat > dbg_polish3.py <<'EOF' import sys, os, numpy as np sys.path.insert(0,'/app/work') from solve import 
+- cd /app/work; cat > dbg_polish4.py <<'EOF' import sys, os, numpy as np sys.path.insert(0,'/app/work') from solve import 
+- date -u; ls /app/results/submission/; echo; ls /app/work/ | head -80; echo; for p in /proc/[0-9]*; do tr '\0' ' ' < $p/c
+- cd /app/work; tail -5 Xe3a2935/solve_a.log; echo ----; tail -5 Xf8ac963/solve_a.log; echo; ls Xe3a2935/sol_a Xf8ac963/so
+- cd /app/work; python finalize.py X9af54a2 X9af54a2/sol_a/P121_c1_run0_rw0.140.cif "P 1 21/c 1" 2>&1 | tail -15; ls -la /
+- cd /app/work; wc -l solve.py; sed -n 1,120p solve.py
+- cd /app/work; sed -n 120,262p solve.py
+- cd /app/work; cat > compare.py << 'EOF' import sys, warnings; warnings.filterwarnings('ignore') from pymatgen.io.cif imp
+- cd /app/work; cat dbg_polish4.py | head -60
+- cd /app/work; cat > dbg_polish5.py << 'EOF' import sys, os, numpy as np sys.path.insert(0,'/app/work') from solve import
+- cd /app/work; timeout 600 python dbg_polish5.py 2>&1 | grep -E "^option|^set|Rwp0|^after|^restored"
+- cd /app/work; python - << 'EOF' import re s = open('solve.py').read() old = """    rw0 = p.GetRw()     lsq = LSQ()""" ne
+- cd /app/work; cat > dbg_polish7.py << 'EOF' import sys, os, numpy as np sys.path.insert(0,'/app/work') from solve import
+- cd /app/work; cat > dbg_polish8.py << 'EOF' import sys, os, re, numpy as np sys.path.insert(0,'/app/work') from solve im
+- cd /app/work; python - << 'EOF' s = open('solve.py').read() old = """    for i in range(lsqr.GetNbPar()):         par = 
+- cd /app/work; timeout 600 python fitplot.py Xe3a2935 Xe3a2935/sol_a/P212121_run0_rw0.185.cif 40 2>&1 | grep -vE "Warning
+- cd /app/work; cat /app/data/instances/Xe3a2935/instrument.json; python - << 'EOF' import numpy as np lam=None import jso
+- cd /app/work; cat /app/data/instances/Xd8634a2/composition.json | head -12; python -c " import json;i=json.load(open('/a
+- cd /app/work; mkdir -p Xd8634a2; for t in a b; do nohup python solve.py Xd8634a2 8.9099 9.4782 13.2450 96.0172 98.2243 6
+- cd /app/work; cat /app/data/instances/X3c176e2/composition.json; python -c " import json;i=json.load(open('/app/data/ins
+- cd /app/work; grep -E "Rwp=" X3c176e2/sgscan_ortho.log | sort -t= -k2 -g | head -25
+- cd /app/work; python - << 'EOF' from rdkit import Chem from rdkit.Chem.EnumerateStereoisomers import EnumerateStereoisom
+- cd /app/work; cat > inositol_scan.py << 'EOF' import sys, os, time, json, numpy as np sys.path.insert(0, '/app/work') fr
+- cd /app/work; python compare.py Xf8ac963/sol_a/P212121_run0_rw0.224.cif Xf8ac963/sol_a/P212121_run1_rw0.226.cif 2>&1 | t
+- cd /app/work; python - << 'EOF' 2>&1 | grep -v Warning import sys; sys.path.insert(0,'/app/work') from solve import embe
+- cd /app/work; python - << 'EOF' import json, numpy as np ins=json.load(open('/app/data/instances/Xf8ac963/instrument.jso
+- cd /app/work; nohup python solve.py Xf8ac963 16.26352 9.32080 11.39244 90 90 90 "P 21 2 21" --nsteps 2000000 --nruns 2 -
+- cd /app/work; ls Xe3a2935/ Xf8ac963/; grep -A30 "lowest" Xf8ac963/abs*.log 2>/dev/null | head -60
+- cd /app/work; sleep 120; grep -E "run|ISO" X3c176e2/inos_test.log; grep -E "run" Xd8634a2/solve_*.log
+- cd /app/work; tail -3 X3c176e2/inos_test.log; date -u
+- cd /app/work; grep -A40 "lowest" Xe3a2935/abs_ortho.log | head -45
+- cd /app/work; timeout 900 python solve.py Xe3a2935 10.29176 6.88129 19.99016 90 90 90 "P 21 21 21" --ttmax 40 --tag a --
+- cd /app/work; python compare.py Xe3a2935/sol_a/restored_check.cif Xe3a2935/sol_a/restored_lsq_rw0.142.cif 2>&1 | tail -2
+- cd /app/work; cat > diffcif.py << 'EOF' import sys, numpy as np, gemmi def read(f):     d = gemmi.cif.read(f).sole_block
+- cd /app/work; sed -n 1,60p Xe3a2935/sol_a/restored_lsq_rw0.142.cif
+- cd /app/work; python - << 'EOF' s = open('solve.py').read() old = """        if (n.startswith('Biso') or n.startswith('O
+- cd /app/work; sed -n 1,60p finalize.py
+- cd /app/work; python - << 'EOF' from rdkit import Chem smis = ['O[C@H]1[C@@H](O)[C@@H](O)[C@@H](O)[C@@H](O)[C@H]1O', 'O[
+- cd /app/work; sed -i 's/ttmax=50, components=comps/ttmax=float(os.environ.get("TTMAX","40")), components=comps/' inosito
+- cd /app/work; for i in Xe1fb77b X35b7fbc Xd4c1a35 X13023e3 Xeb393f9; do echo "== $i"; python -c " import json;c=json.loa
+- cd /app/work; python - << 'EOF' s = open('solve.py').read() old = "    ap.add_argument('--restore', default=None, help='
+- cd /app/work; python - << 'EOF' 2>&1 | grep -v Warning import sys; sys.path.insert(0,'/app/work') from solve import embe
+- cd /app/work; python - << 'EOF' s = open('solve.py').read() old = """    res = AllChem.MMFFOptimizeMoleculeConfs(mol, ma
+- cd /app/work; sleep 240; grep -E "^run|ISO" Xd8634a2/solve_*.log Xf8ac963/solve_b.log X3c176e2/inos_pcab.log; date -u
+- cd /app/work; sleep 420; grep -E "^run|ISO" Xd8634a2/solve_*.log Xf8ac963/solve_b.log X3c176e2/inos_pcab.log; date -u
+- cd /app/work; python - << 'EOF' s = open('solve.py').read() old = "    np.random.seed(int(time.time()*1000) % 2**31)\n  
+- cd /app/work; nohup python solve.py Xd8634a2 8.9099 9.4782 13.2450 96.0172 98.2243 66.6787 "P -1" --nsteps 5000000 --nru
+- cd /app/work; python - << 'EOF' 2>&1 | grep -v Warning import sys; sys.path.insert(0,'/app/work') import solve from rdki
+- cd /app/work; sleep 200; grep -E "ISO" X3c176e2/inos_pcab.log; grep -E "^run" Xe3a2935/solve_c2.log Xd8634a2/solve_c.log
+- cd /app/work; TTMAX=40 nohup python inositol_scan.py "P 21 21 21" 2 0,1,2,3,4,5,8 1000000 1 p212121 > X3c176e2/inos_p212
+- cd /app/work; python - << 'EOF' 2>&1 | grep -v Warning import sys; sys.path.insert(0,'/app/work') import solve from rdki
+- cd /app/work; sleep 420; grep -E "ISO" X3c176e2/inos_p212121.log; grep -E "^run" Xe3a2935/solve_c2.log Xd8634a2/solve_c.
+- cd /app/work; ls X13023e3/; head -40 X13023e3/peaks.txt; cat g2index.py | head -50
+- cd /app/work; sed -n 50,80p g2index.py; awk 'NR==1 || $5>=5.5' X13023e3/peaks.txt | head -30 > X13023e3/peaks_c.txt; wc 
+- cd /app/work; nohup /opt/g2/bin/python g2index.py X13023e3 20 monoP 500 c X13023e3/peaks_c.txt > X13023e3/g2_monoPc.log 
+- cd /app/work; ls Xeb393f9/; head -30 Xeb393f9/peaks.txt; cat Xeb393f9/g2index_monoP_20.txt | head -5
+- cd /app/work; sleep 300; grep -E "ISO" X3c176e2/inos_p212121.log; grep -E "^run" Xe3a2935/solve_c2.log Xd8634a2/solve_c.
+- cd /app/work; sleep 420; grep -E "ISO" X3c176e2/inos_p212121.log; grep -E "^run" Xe3a2935/solve_c2.log Xd8634a2/solve_c.
+- cd /app/work; ls Xe3a2935/sol_c2/; python compare.py Xe3a2935/sol_c2/P212121_run1_rw0.150.cif Xe3a2935/sol_c2/P212121_ru
+- cd /app/work; for p in /proc/[0-9]*; do tr '\0' ' ' < $p/cmdline 2>/dev/null; echo; done | grep -E "g2index" | grep -v g
+- cd /app/work; timeout 300 python ticks.py X13023e3 18.1849 6.3822 28.3316 90 99.474 90 "P 1 21 1" 14 2>&1 | tail -40
+- cd /app/work; timeout 600 python fitplot.py Xe3a2935 Xe3a2935/sol_c2/P212121_run1_lsq_rw0.146.cif 40 2>&1 | grep -E "^Xe
+- cd /app/work; grep -E "ISO" X3c176e2/inos_p212121.log; grep -E "^run" Xd8634a2/solve_c.log Xd8634a2/solve_d.log; date -u
+- cd /app/work; nohup python solve.py Xe3a2935 10.29176 6.88129 19.99016 90 90 90 "P 21 21 21" --nsteps 3000000 --nruns 2 
+- cd /app/work; grep -A25 "Dynamical" Xf8ac963/sol_a/P212121_run0_rw0.224.cif | head -30
+- cd /app/work; head -25 X3c176e2/peaks.txt; grep -B2 -A12 "lowest" X3c176e2/abs_ortho.log | head -40
+- cd /app/work; grep -B22 "hkl: k+l odd (A)" X3c176e2/abs_ortho.log | head -40
+- cd /app/work; grep -A60 "lowest" X3c176e2/abs_ortho.log | sed -n 1,60p
+- cd /app/work; grep -E "Rwp=" X3c176e2/sgscan_ortho.log | sort -t= -k2 -g | awk '!seen[$0]++' | sed -n 1,60p | grep -v " 
+- cd /app/work; cat > X3c176e2/run_zp1.sh << 'EOF' #!/bin/bash cd /app/work for sg in "P c a m" "P c n m" "P m n m" "P c m
+- cd /app/work; sleep 600; grep -E "ISO" X3c176e2/inos_p212121.log X3c176e2/inos_Pcam.log 2>/dev/null; grep -E "^run" Xd86
+- cd /app/work; python - << 'EOF' 2>&1 | grep -v Warning | grep -v conformers import sys; sys.path.insert(0,'/app/work') i
+- cd /app/work; for p in /proc/[0-9]*; do c=$(tr '\0' ' ' < $p/cmdline 2>/dev/null); case "$c" in *run_zp1*|*"P c a m"*) e
+- cd /app/work; cat killpy.sh; ./killpy.sh "run_zp1"; ./killpy.sh "P c a m"; sleep 1; for p in /proc/[0-9]*; do tr '\0' ' 
+- cd /app/work; for p in /proc/[0-9]*; do pid=${p#/proc/}; cl=$(tr '\0' ' ' < $p/cmdline 2>/dev/null); case "$cl" in *run_
+- cd /app/work; ./killpy.sh "P c n m"; sleep 1; for p in /proc/[0-9]*; do tr '\0' ' ' < $p/cmdline 2>/dev/null; echo; done
+- cd /app/work; for t in e f; do nohup python solve.py Xd8634a2 8.9099 9.4782 13.2450 96.0172 98.2243 66.6787 "P -1" --nst
+- cd /app/work; TTMAX=40 nohup python inositol_scan.py "P c a b" 1 1,0 2500000 1 pcab2 > X3c176e2/inos_pcab2.log 2>&1 & sl
+- cd /app/work; timeout 900 python - << 'EOF' 2>&1 | grep -E "LeBail|molecule|conformers|single" import sys, os; sys.path.
+- cd /app/work; sleep 420; grep -E "ISO" X3c176e2/inos_p212121.log X3c176e2/inos_pcab2.log; grep -E "^run" Xe3a2935/solve_
+- cd /app/work; python check_structure.py Xe3a2935/sol_c2/P212121_run1_lsq_rw0.146.cif Xe3a2935 2>&1 | grep -v Warning | t
+- cd /app/work; python check_structure.py /app/results/submission/Xe3a2935.cif Xe3a2935 2>&1 | grep -v Warning | tail -4
+- cd /app/work; timeout 300 python ticks.py Xd4c1a35 8.967 8.967 41.87 90 90 90 "P 41" 30 2>&1 | grep -c UNINDEXED; timeou
+- cd /app/work; sleep 480; grep -E "ISO" X3c176e2/inos_p212121.log X3c176e2/inos_pcab2.log | tail -3; grep -E "^run" Xe3a2
+- cd /app/work; for t in a b; do nohup python solve.py X35b7fbc 5.7074 33.1312 12.7644 90 90 90 "P 21 21 21" --nsteps 5000
+- cd /app/work; cat submit_cell.py | head -20; python submit_cell.py X3c176e2 14.0067 9.3253 11.0305 90 90 90 "P 21 21 21"
+- cd /app/work; for i in X3f4781b X238783d X2327841 Xdcc971e; do echo "== $i"; python -c " import json;c=json.load(open('/
+- cd /app/work; (nice -n 10 python lebail.py X238783d 8.83 20.22 24.02 90 90 90 "P 21 21 21" 35 > X238783d/lebail_p212121.
+- cd /app/work; python submit_cell.py X238783d 8.8357 20.1180 23.9134 90 90 90 "P 21 21 21"; sleep 60; grep -E "Rwp=" X3f4
+- cd /app/work; python submit_cell.py X3f4781b 12.6031 15.3169 10.4195 90 113.3343 90 "P 1 21 1"; python submit_cell.py X2
+- cd /app/work; nice -n 5 timeout 600 python lebail.py X3c176e2 14.0067 9.3253 11.0305 90 90 90 "P 21 21 21" 60 2>&1 | gre
+- cd /app/work; TTMAX=40 nohup python inositol_scan.py "P 21 21 21" 2 8,3 3000000 1 p212121L > X3c176e2/inos_p212121L.log 
+- date -u; echo; ls -la /app/results/submission/; echo; for p in /proc/[0-9]*; do tr '\0' ' ' < $p/cmdline 2>/dev/null; ec
+- cd /app/work; for f in Xd8634a2/solve_e.log Xd8634a2/solve_f.log X35b7fbc/solve_a.log X35b7fbc/solve_b.log Xe3a2935/solv
+- cd /app/work; ls -la Xe3a2935/sol_c2b/ Xe3a2935/sol_c2/ 2>/dev/null; cat Xe3a2935/solve_c2.log | grep -E "run |polish|RE
+- cd /app/work; cat /app/data/instances/Xe3a2935/composition.json; echo; cat /app/data/instances/Xe3a2935/instrument.json;
+- cd /app/work; head -30 fitplot.py; echo; head -40 compare.py
+- cd /app/work; grep -E "^run |polish|RESULT" Xd8634a2/solve_*.log X35b7fbc/solve_*.log; ls -la Xd8634a2/ X35b7fbc/ | head
+- cd /app/work; cat /app/data/instances/X3c176e2/composition.json | head -12; cat Xe3a2935/sol_c2/P212121_run1_lsq_rw0.146
+- cd /app/work; cat > hbonds.py << 'EOF' import sys, warnings; warnings.filterwarnings('ignore') from pymatgen.io.cif impo
+- cd /app/work; sed -i 's/StructureGraph.with_local_env_strategy/StructureGraph.from_local_env_strategy/' hbonds.py; for f
+- cd /app/work; cat > hbonds.py << 'EOF' import sys, warnings; warnings.filterwarnings('ignore') from pymatgen.io.cif impo
+- cd /app/work; cat > molgeom.py << 'EOF' import sys, warnings; warnings.filterwarnings('ignore') import numpy as np from 
+- cd /app/work; cat > contacts.py << 'EOF' import sys, warnings; warnings.filterwarnings('ignore') from pymatgen.io.cif im
+- cd /app/work; cat > contacts.py << 'EOF' import sys, warnings; warnings.filterwarnings('ignore') from pymatgen.io.cif im
+- cd /app/work; python - << 'EOF' import re s = open('contacts.py').read() s = s.replace("        if k == 0 and t == (0, 0
+- cd /app/work; grep -n "^def \|^class " lebail.py solve.py | head -60; ls Xe3a2935/
+- cd /app/work; sed -n 1,130p lebail.py
+- cd /app/work; cat > reflcompare.py << 'EOF' import sys, os, json, numpy as np sys.path.insert(0, '/app/work') from lebai
+- cd /app/work; python reflcompare.py Xe3a2935 Xe3a2935/sol_c2b/P212121_run0_lsq_rw0.149.cif 16 25 2>&1 | tail -46
+- cd /app/work; sed -n 128,235p solve.py
+- cd /app/work; python -c " from pyobjcryst.powderpattern import PowderPattern p = PowderPattern() print([m for m in dir(p
+- cd /app/work; python -c " from pyobjcryst.powderpattern import PowderPattern p = PowderPattern() print([m for m in dir(p
+- cd /app/work; python - << 'EOF' 2>&1 | grep -v Warn import numpy as np, json from pyobjcryst.powderpattern import Powder
+- cd /app/work; python - << 'EOF' 2>&1 | grep -v Warn import numpy as np, json from pyobjcryst.powderpattern import Powder
+- cd /app/work; python - << 'EOF' 2>&1 | grep -v Warn import numpy as np, json from pyobjcryst.powderpattern import Powder
+- cd /app/work; python - << 'EOF' s = open('lebail.py').read() old = """    sig = np.where(sig <= 0, 1.0, sig)     p = Pow
+- cd /app/work; python compare.py Xe3a2935/sol_c2b/P212121_run1_lsq_rw0.149.cif Xe3a2935/sol_c2/P212121_run1_lsq_rw0.146.c
+- cd /app/work; ls X3c176e2/; grep -h "ISO\|^run" X3c176e2/inos_*.log | head -40; cat /app/data/instances/X3c176e2/instrum
+- cd /app/work; python - << 'EOF' 2>&1 | grep -v Warn import numpy as np from pyobjcryst.crystal import Crystal for sg in 
+- cd /app/work; cat X3c176e2/abs_ortho.log | head -80
+- cd /app/work; python - << 'EOF' import numpy as np, matplotlib matplotlib.use('Agg'); import matplotlib.pyplot as plt d 
+- cd /app/work; cat killpy.sh; ./killpy.sh "inositol_scan.py P 21 21 21 2 8,3"; sleep 2; for p in /proc/[0-9]*; do tr '\0'
+- cd /app/work && nohup python inositol_scan.py "P m n m" 1 0,1,2,3,4,5,8 400000 1 pmnm > X3c176e2/inos_pmnm.log 2>&1 & sl
+- cd /app/work; ls Xf8ac963/; cat /app/data/instances/Xf8ac963/composition.json | head -8; python -c " import json; d=json
+- cd /app/work; python - << 'EOF' import numpy as np, itertools a, b, c = 14.0067, 9.3253, 11.0305; lam = 1.54056 d = np.l
+- cd /app/work; python - << 'EOF' 2>&1 | grep -v Warn | tail -12 import sys; sys.path.insert(0, '/app/work') from lebail i
+- cd /app/work; sed -n 130,175p lebail.py | grep -n "return" ; python - << 'EOF' 2>&1 | grep -v Warn | tail -12 import sys
+- cd /app/work; grep -E "ISO|^run" X3c176e2/inos_pmnm.log; tail -2 Xe3a2935/solve_x2.log; date -u
+- cd /app/work; cat X3c176e2/inos_pmnm.log | head; sleep 120; grep -E "ISO|^run" X3c176e2/inos_pmnm.log
+- cd /app/work; cat X3c176e2/sgscan_ortho.log | head -40; grep -E "ISO|^run" X3c176e2/inos_pmnm.log
+- cd /app/work; ls X3c176e2/inos_pmnm/; python - << 'EOF' 2>&1 | grep -v Warn import warnings; warnings.filterwarnings('ig
+- cd /app/work; cat > randtest.py << 'EOF' import sys, os, numpy as np sys.path.insert(0, '/app/work') from solve import *
+- cd /app/work; cat > randtest2.py << 'EOF' import sys, os, numpy as np sys.path.insert(0, '/app/work') from solve import 
+- cd /app/work; python randtest.py "P m m n" "P m n m:1" "P c a m" "P b c m" "P n m a" "P m c 21" 2>&1 | grep -v Warn | gr
+- cd /app/work; cat > randtest3.py << 'EOF' import sys, os, numpy as np sys.path.insert(0, '/app/work') from solve import 
+- cd /app/work; cat > randtest4.py << 'EOF' import sys, os, numpy as np sys.path.insert(0, '/app/work') from solve import 
+- cd /app/work; python - << 'EOF' import numpy as np, itertools, matplotlib matplotlib.use('Agg'); import matplotlib.pyplo
+- cd /app/work; python - << 'EOF' import numpy as np, itertools a, b, c = 14.0045, 9.3233, 11.0284; lam = 1.54056 d = np.l
+- cd /app/work; ./killpy.sh "inositol_scan.py P m n m"; sleep 1 EXCLUDE="17.5,17.95;18.85,19.2" TTMAX=45 nohup python inos
+- cd /app/work; python - << 'EOF' import numpy as np, itertools a, b, c = 10.29233, 6.88044, 19.98978; lam = 0.46873 d = n
+- cd /app/work; python - << 'EOF' import numpy as np, itertools a, b, c = 16.26352, 9.32080, 11.39244; lam = 0.46873 d = n
+- cd /app/work; date -u; grep -E "^run|polish|RESULT" Xd8634a2/solve_e.log Xd8634a2/solve_f.log X35b7fbc/solve_a.log X35b7
+- cd /app/work; python - << 'EOF' import json, glob, os, numpy as np from rdkit import Chem for f in sorted(glob.glob('/ap
+- cd /app/work; for i in X2327841 Xdcc971e Xe1fb77b Xd8634a2 X35b7fbc; do echo "== $i"; python -c " import json; c=json.lo
+- cd /app/work; cat >> NOTES_ctx3.md << 'EOF'  ## Context 4 (07:15 UTC) - lebail.make_pattern: env EXCLUDE="lo,hi;lo,hi" (
+- cd /app/work; sleep 420; date -u; grep -E "^run|polish|RESULT|ISO" Xd8634a2/solve_e.log Xd8634a2/solve_f.log X35b7fbc/so
+- cd /app/work; sleep 480; date -u; grep -E "^run|polish|RESULT|ISO" Xd8634a2/solve_e.log Xd8634a2/solve_f.log X35b7fbc/so
+- cd /app/work; ls Xe3a2935/sol_x2/; f=$(ls Xe3a2935/sol_x2/*run0_lsq*.cif); python molgeom.py $f 2>/dev/null | head -4; f
+- cd /app/work; python reflcompare.py Xe3a2935 Xe3a2935/sol_x2/P212121_run0_lsq_rw0.147.cif 16 22 2>&1 | grep -v Warn | ta
+- cd /app/work; ./killpy.sh "solve.py Xe3a2935"; sleep 1; EXCLUDE="7.795,7.835" EXCL_FACTOR=10 nohup python solve.py Xe3a2
+- cd /app/work; sleep 300; date -u; grep -E "^run|polish|RESULT|ISO" Xd8634a2/solve_e.log Xd8634a2/solve_f.log X35b7fbc/so
+- cd /app/work; sleep 420; date -u; grep -E "^run|polish|RESULT|ISO" Xd8634a2/solve_e.log Xd8634a2/solve_f.log X35b7fbc/so
+- cd /app/work; for f in Xd8634a2/solve_e.log Xd8634a2/solve_f.log X35b7fbc/solve_a.log X35b7fbc/solve_b.log; do echo "== 
+- cd /app/work; tail -c 600 Xd8634a2/solve_e.log; echo; echo ----; tail -c 400 X35b7fbc/solve_a.log; echo; for p in /proc/
+- cd /app/work; sleep 540; date -u; grep -E "^run|polish|RESULT|ISO" Xd8634a2/solve_e.log Xd8634a2/solve_f.log X35b7fbc/so
+- cd /app/work; sleep 480; date -u; grep -E "^run|polish|RESULT|ISO" Xd8634a2/solve_e.log Xd8634a2/solve_f.log X35b7fbc/so
+- cd /app/work; ls X35b7fbc/sol_a X35b7fbc/sol_b; python compare.py X35b7fbc/sol_a/P212121_run0_lsq_rw0.163.cif X35b7fbc/s
+- cd /app/work; python fitplot.py X35b7fbc X35b7fbc/sol_a/P212121_run0_lsq_rw0.163.cif 16 X35b7fbc/sol_a/fit_a.png 2>&1 | 
+- cd /app/work; date -u; grep -E "^run|polish|RESULT" Xd8634a2/solve_e.log Xd8634a2/solve_f.log; for p in /proc/[0-9]*; do
+- cd /app/work; python - << 'EOF' s = open('solve.py').read() old = "def optimize(p, cr, nsteps=1e6, nruns=1, seed=None, m
+- cd /app/work; python - << 'EOF' s = open('solve.py').read() old = """        print(f'restored from {a.restore_sa}: Rwp={
+- cd /app/work && nohup python solve.py X35b7fbc 5.7074 33.1312 12.7644 90 90 90 "P 21 21 21" --nsteps 2000000 --nruns 1 -
+- date -u; cd /app/work; for p in /proc/[0-9]*; do c=$(tr '\0' ' ' < $p/cmdline 2>/dev/null); case "$c" in *python*) echo 
+- cd /app/work; echo "== e"; tail -5 Xd8634a2/solve_e.log; echo "== f"; tail -8 Xd8634a2/solve_f.log; ls Xd8634a2/sol_e Xd
+- cd /app/work; python reflcompare.py Xd8634a2 Xd8634a2/sol_f/P-1_run0_lsq_rw0.128.cif 12 12 2>&1 | tail -20; python fitpl
+- cd /app/work; python reflcompare.py Xd8634a2 Xd8634a2/sol_f/P-1_run0_lsq_rw0.128.cif 12 12 2>&1 | head -8
+- cd /app/work; python - <<'EOF' 2>&1 | tail -30 import subprocess out = subprocess.run(['python','reflcompare.py','Xd8634
+- cd /app/work; python contacts.py Xd8634a2/sol_f/P-1_run0_lsq_rw0.128.cif 3.0 2>&1 | tail -15; python hbonds.py Xd8634a2/
+- cd /app/work; cat /app/data/instances/Xd8634a2/composition.json; echo; python contacts.py Xd8634a2/sol_f/P-1_run0_lsq_rw
+- cd /app/work; ls; wc -l NOTES*.md; grep -n -i -E "Xd4c1a35|Xe1fb77b|X3f4781b|X238783d" NOTES*.md | head -40
+- cd /app/work; cat NOTES_ctx3.md; echo ----; cat todo.txt
+- cd /app/work; EXCLUDE="2.84,2.93;6.15,6.28" EXCL_FACTOR=10 nohup python solve.py Xf8ac963 16.26352 9.32080 11.39244 90 9
+- cd /app/work; cat Xd4c1a35/abs_ortho.log | head -60
+- cd /app/work; cat /app/data/instances/Xd4c1a35/instrument.json; head -3 /app/data/instances/Xd4c1a35/pattern.xye; tail -
+- cd /app/work; cat killpy.sh; ./killpy.sh "inositol_scan.py"; sleep 1; grep -n "zprime" solve.py | head; grep -n "def mak
+- cd /app/work; mkdir -p Xd4c1a35; nohup python solve.py Xd4c1a35 12.0029 11.7622 24.2763 90 90 90 "P 21 21 21" --zprime 2
+- cd /app/work; ls Xd8634a2/sol_e; python compare.py Xd8634a2/sol_e/P-1_run0_lsq_rw0.126.cif Xd8634a2/sol_f/P-1_run0_lsq_r
+- cd /app/work; python reflcompare.py Xd8634a2 Xd8634a2/sol_e/P-1_run0_lsq_rw0.126.cif 12 12 2>&1 | head -16; python molge
+- cd /app/work; python - <<'EOF' import numpy as np, gemmi, itertools def load(fn):     st = gemmi.read_small_structure(fn
+- cd /app/work; python finalize.py Xd8634a2 Xd8634a2/sol_e/P-1_run0_lsq_rw0.126.cif "P -1" 2>&1 | tail -8; python check_st
+- cd /app/work; grep -h "run 0\|run 1\|polish" X35b7fbc/solve_a.log X35b7fbc/solve_b.log 2>/dev/null; ls X35b7fbc/; grep -
+- cd /app/work; grep -n "def restore_from_cif" -A 45 solve.py | head -80
+- cd /app/work; grep -c "" X35b7fbc/sol_a/P212121_run0_lsq_rw0.163.cif; awk '/_atom_site_label/{f=1} f && NF>=5 {print $1}
+- cd /app/work; python - <<'EOF' src = open('solve.py').read() old = """    pos = {n: np.array([x, y, z]) for n, x, y, z i
+- cd /app/work; nohup python solve.py X35b7fbc 5.7074 33.1312 12.7644 90 90 90 "P 21 21 21" --ttmax 16 --tag a_chk --resto
+- cd /app/work; ls X35b7fbc/sol_a_chk/; grep -n "SetAlgorithmParallTempering\|SetAlgorithmSimulatedAnnealing\|Optimize\|Mu
+- cd /app/work; sed -n 195,231p solve.py
+- cd /app/work; python reflcompare.py X35b7fbc X35b7fbc/sol_a_chk/restored_lsq_rw0.145.cif 16 14 2>&1 | head -18; python c
+- cd /app/work; head -40 X35b7fbc/sol_a_chk/restored_lsq_rw0.145.cif; python check_structure.py X35b7fbc/sol_a_chk/restore
+- cd /app/work; grep -m1 "Uiso" X35b7fbc/sol_a/P212121_run0_lsq_rw0.163.cif; grep -m1 "Uiso" X35b7fbc/sol_b/P212121_run0_l
+- cd /app/work; python intercontacts.py X35b7fbc/sol_a_chk/restored_lsq_rw0.145.cif X35b7fbc/sol_b/P212121_run0_lsq_rw0.19
+- cd /app/work; ls Xe3a2935/ | head -40; cat /app/data/instances/Xe3a2935/composition.json | python -c "import json,sys; d
+- cd /app/work; nohup python solve.py Xe3a2935 10.29233 6.88044 19.98978 90 90 90 "P 2 21 21" --nsteps 2000000 --nruns 2 -
+- cd /app/work; cat /app/data/instances/Xf8ac963/composition.json | python -c "import json,sys; d=json.load(sys.stdin); pr
+- cd /app/work; for id in X07806d9 X9af54a2 Xe3a2935 Xd8634a2; do python check_structure.py /app/results/submission/$id.ci
+- cd /app/work; nohup python solve.py Xd4c1a35 12.0029 11.7622 24.2763 90 90 90 "P 21 21 21" --zprime 2 --nsteps 30000 --n
+- cd /app/work; sleep 240; date -u; grep -h "run \|polish\|RESULTS" Xe3a2935/solve_x3.log X35b7fbc/solve_a_sa.log Xf8ac963
+- cd /app/work; cat >> NOTES_ctx3.md <<'EOF'  ## Context 5 (08:08 UTC) - Xd8634a2 SOLVED: two independent 8e6-step P-1 run
+- cd /app/work; grep -h "run 1\|polish" Xe3a2935/solve_x3.log; ls Xe3a2935/sol_x3/ X35b7fbc/sol_a_sa/; python compare.py X
+- cd /app/work; python reflcompare.py Xe3a2935 Xe3a2935/sol_x3/P212121_run1_lsq_rw0.146.cif 16 14 2>&1 | head -18; python 
+- cd /app/work; nohup python solve.py X35b7fbc 5.7074 33.1312 12.7644 90 90 90 "P 21 21 21" --nsteps 1500000 --nruns 1 --t
+- cd /app/work; for id in X2327841 Xdcc971e; do cat /app/data/instances/$id/composition.json | python -c "import json,sys;
+- cd /app/work; sleep 420; date -u; grep -h "run \|polish\|RESULTS" Xe3a2935/solve_s2.log Xf8ac963/solve_x1.log X35b7fbc/s
+- cd /app/work; ls Xf8ac963/sol_x1/; python reflcompare.py Xf8ac963 Xf8ac963/sol_x1/P212121_run1_lsq_rw0.226.cif 16 14 2>&
+- cd /app/work; python - <<'EOF' 2>&1 | grep -v Warning import pyobjcryst from pyobjcryst.crystal import Crystal for sg in
+- cd /app/work; ls Xf8ac963/; grep -B2 -A 45 "lowest-angle" Xf8ac963/abs_ortho.log 2>/dev/null | head -60
+- cd /app/work; head -3 Xf8ac963/solve_b.log; grep -h "LeBail\|run \|polish\|conformers\|molecule" Xf8ac963/solve_b.log Xf
+- cd /app/work; python - <<'EOF' import numpy as np a,b,c = 16.26352, 9.32080, 11.39244; lam = 0.46873 refl = [] for h in 
+- cd /app/work; ./killpy.sh "Xe3a2935 10.29233"; grep -n "conformers:" Xf8ac963/solve_x1.log | head -2; nohup python solve
+- cd /app/work; sed -n 1,60p solve.py | grep -n "def \|EmbedMultiple\|MMFF\|distinct\|rms\|Chem\." | head -30
+- cd /app/work; python - <<'EOF' 2>&1 | grep -v Warn from rdkit import Chem from rdkit.Chem import AllChem, rdMolAlign imp
+- cd /app/work; python - <<'EOF' import numpy as np a,b,c = 10.29233, 6.88044, 19.98978; lam = 0.46873 def tt(h,k,l):     
+- cd /app/work; nohup python solve.py Xe3a2935 10.29233 6.88044 19.98978 90 90 90 "P 2 21 21" --nsteps 3000000 --nruns 2 -
+- cd /app/work; python final_check.py 2>&1 | grep -v Warn
+- cd /app/work; sleep 540; date -u; grep -h "run \|polish\|RESULTS" X35b7fbc/solve_a_sa2.log Xf8ac963/solve_L0.log Xf8ac96
+- cd /app/work; python finalize.py X35b7fbc X35b7fbc/sol_a_chk/restored_lsq_rw0.145.cif "P 21 21 21" 2>&1 | grep -v Warn |
+- cd /app/work; nohup python solve.py X35b7fbc 5.7074 33.1312 12.7644 90 90 90 "P 21 21 21" --nsteps 5000000 --nruns 1 --t
+- cd /app/work; python -c " from pyobjcryst.globaloptim import MonteCarlo print(MonteCarlo.Optimize.__doc__) " 2>&1 | grep
+- cd /app/work; python -c " import pyobjcryst.globaloptim as g, inspect src = inspect.getsource(g) i = src.find('def Optim
+- cd /app/work; cat >> NOTES_ctx3.md <<'EOF' - 08:56: X35b7fbc 'a' (sol_a_chk/restored_lsq_rw0.145.cif) FINALIZED to submi
+- cd /app/work; cat /app/data/instances/X3c176e2/composition.json | python -c "import json,sys; d=json.load(sys.stdin); pr
+- cd /app/work; sleep 560; date -u; grep -h "run \|polish\|RESULTS" Xf8ac963/solve_L0.log Xf8ac963/solve_L1.log Xe3a2935/s
+- cd /app/work; sleep 570; date -u; grep -h "run \|polish\|RESULTS" Xf8ac963/solve_L0.log Xf8ac963/solve_L1.log Xd4c1a35/s
+- cd /app/work; sleep 570; date -u; grep -h "run \|polish\|RESULTS" Xf8ac963/solve_L0.log Xf8ac963/solve_L1.log Xd4c1a35/s
+- cd /app/work; nohup python solve.py Xd4c1a35 12.0029 11.7622 24.2763 90 90 90 "P 21 21 21" --zprime 2 --nsteps 6000000 -
+- cd /app/work; for p in /proc/[0-9]*; do c=$(tr '\0' ' ' < $p/cmdline 2>/dev/null); case "$c" in *solve.py*) echo "$(base
+- cd /app/work; sleep 400; date -u; grep -h "run \|polish\|RESULTS" Xf8ac963/solve_L0.log Xf8ac963/solve_L1.log
+- cd /app/work; sleep 420; date -u; grep -h "run \|polish\|RESULTS" Xf8ac963/solve_L0.log Xf8ac963/solve_L1.log; for p in 
+- cd /app/work; sleep 300; date -u; grep -h "run \|polish\|RESULTS" Xf8ac963/solve_L0.log Xf8ac963/solve_L1.log
+- cd /app/work; ls Xf8ac963/sol_L0 Xf8ac963/sol_L1; python compare.py Xf8ac963/sol_L0/P212121_run0_lsq_rw0.217.cif Xf8ac96
+- cd /app/work; python reflcompare.py Xf8ac963 Xf8ac963/sol_L0/P212121_run0_lsq_rw0.217.cif 16 16 2>&1 | head -20; python 
+- cd /app/work; cat >> NOTES_ctx3.md <<'EOF' - 09:55: Xf8ac963 L0/L1 (8e6 steps, independent seeds) converge to the SAME s
+- cd /app/work; ls X35b7fbc/sol_c/; python compare.py X35b7fbc/sol_c/P212121_run0_lsq_rw0.167.cif X35b7fbc/sol_a_chk/resto
+- cd /app/work; head -5 Xf8ac963/peaks.txt; python - <<'EOF' import numpy as np a,b,c = 16.26352, 9.32080, 11.39244; lam =
+- cd /app/work; nohup python solve.py Xf8ac963 16.26352 9.32080 11.39244 90 90 90 "P 21 2 21" --nsteps 3000000 --nruns 1 -
+- cd /app/work; sleep 600; date -u; grep -h "LeBail\|run \|polish\|RESULTS" Xf8ac963/solve_s21221.log Xf8ac963/solve_s2121
+- cd /app/work; sleep 600; date -u; grep -h "run \|polish\|RESULTS" Xf8ac963/solve_s21221.log Xf8ac963/solve_s21212.log Xd
+- cd /app/work; cat >> NOTES_ctx3.md <<'EOF' - 10:25: X35b7fbc run c (5e6): 0.202->0.167, different from 'a' (mean dev 1.5
+- cd /app/work; sleep 420; date -u; grep -h "run \|polish\|RESULTS" Xd4c1a35/solve_g3.log; for p in /proc/[0-9]*; do c=$(t
+- cd /app/work; python finalize.py Xd4c1a35 Xd4c1a35/sol_g1/P212121_run0_lsq_rw0.258.cif "P 21 21 21" 2>&1 | grep -v Warn 
+- cd /app/work; rm -f /app/results/submission/Xd4c1a35.cif; ls Xd4c1a35/sol_g3/; python intercontacts.py Xd4c1a35/sol_g3/P
+- cd /app/work; python final_check.py 2>&1 | grep -v Warn; ls -la /app/results/submission/ | wc -l
+- cd /app/work; head -30 /app/results/submission/Xd8634a2.cif; grep -c "" /app/results/submission/Xd8634a2.cif; for p in /
+- cd /app/work; cat >> NOTES_ctx3.md <<'EOF' - 10:45 FINAL: Xd4c1a35 g3 0.377->0.287 with clashes (2.39 A C..C) -> no CIF 

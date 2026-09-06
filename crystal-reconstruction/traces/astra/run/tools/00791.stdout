@@ -1,0 +1,6 @@
+GUIDED_SYNTHON X263b09a Rw 0.1980297889082891 O...O 2.7800347551622915 N...O 2.780034755162291
+X263b09a Nat 72 molecule sizes [29, 29, 7, 7]
+  component COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1 matches 2
+  component O=C1CCCCN1 matches 2
+  bond range 1.2141243184748134 1.7216573136400137
+  min intermolecular distance 2.0834667497668597

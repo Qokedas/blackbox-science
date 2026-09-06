@@ -1,0 +1,17 @@
+/opt/conda/lib/python3.11/site-packages/monty/design_patterns.py:76: UserWarning: Full symbol not available, falling back to short Hermann Mauguin symbol P22_12_1 instead
+  orig_init(instance, *args, **kwargs)
+FAST_SYMMETRY P 2 21 21 222gen max_relative_error 2.1123898932273732e-06
+ATTACHED_H_SCATTERING 23 heavy atoms 32 H atoms
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+BASE 103.76203698572647
+{'axis': (0, 0, 1), 'MD': 0.9457767088676445, 'chi': 95.56049685138737}
+{'axis': (1, 1, -1), 'MD': 1.0786104648953272, 'chi': 97.41369905420481}
+{'axis': (1, -1, -1), 'MD': 1.1185602906035783, 'chi': 97.75523489521436}
+{'axis': (1, 1, 0), 'MD': 1.0638979664249377, 'chi': 98.03553286063914}
+{'axis': (1, -1, 0), 'MD': 1.0929496097800502, 'chi': 98.81336359959482}
+{'axis': (1, 1, 1), 'MD': 1.05573539885155, 'chi': 99.05502969734675}
+{'axis': (1, 0, -1), 'MD': 1.0666699217771862, 'chi': 99.3808872370605}
+{'axis': (1, 0, 0), 'MD': 1.0495246157585663, 'chi': 100.11147727491755}

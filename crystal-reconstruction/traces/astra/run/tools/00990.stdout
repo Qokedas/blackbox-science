@@ -1,0 +1,41 @@
+import sys,numpy as np
+from pyobjcryst.io import xml_cryst_file_load_all_object
+objs=xml_cryst_file_load_all_object(sys.argv[1]);c=next(o for o in objs if o.GetClassName()=='Crystal');rows=[]
+for i in range(c.GetNbScatterer()):
+ m=c.GetScatterer(i)
+ if m.GetClassName()!='Molecule':continue
+ for tag,meth,n in [('bond',m.GetBondList,2),('angle',m.GetBondAngleList,3),('dihedral',m.GetDihedralAngleList,4)]:
+  for b in meth():
+   try:ll=b.GetLogLikelihood()
+   except:continue
+   ats=[getattr(b,'GetAtom'+str(k+1))() for k in range(n)];names=[a.GetName() for a in ats];rows.append((ll,tag,names,str(b)))
+print('All geom',sum(r[0] for r in rows))
+for row in sorted(rows,reverse=True,key=lambda r:r[0])[:30]:print(row[:3])
+CYCLE 1 1 Rw 0.04425890621618515 chi2 4655.803609963314 geom 655.8667132710837 LSQ 5843.377304519157
+CYCLE 1 2 Rw 0.04389743445412925 chi2 4580.0643199593715 geom 418.17506389172974 LSQ 5477.638826787732
+PACKING_STAGE 1 0.0
+CYCLE 2 0 Rw 0.04369229013531402 chi2 4537.356642509869 geom 399.93654007646023 LSQ 5422.658802665084
+CYCLE 2 1 Rw 0.0435104221026893 chi2 4499.661997243968 geom 393.2487573127978 LSQ 5364.728028186084
+CYCLE 2 2 Rw 0.04341715838420167 chi2 4480.392800197711 geom 392.10506775562567 LSQ 5339.480267049863
+PACKING_STAGE 2 0.0
+CYCLE 3 0 Rw 0.04309818393086241 chi2 4414.802090312577 geom 392.56494423958316 LSQ 5261.937778357873
+CYCLE 3 1 Rw 0.041368787763049225 chi2 4067.606088450373 geom 454.17349965534123 LSQ 5093.6394706953315
+CYCLE 3 2 Rw 0.0406981080324283 chi2 3936.785383034463 geom 437.5016738831451 LSQ 4877.982955576502
+PACKING_STAGE 3 0.0
+FINISHED X263b09a 0.0406981080324283
+Total internal degrees of freedom: 8
+PREPARED X14a2b08 Nref 470 PawleyRw 0.07827671710762811 SG P -1
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+RESTART_ERROR max/rms 4.327183068081356e-06 2.1196531918233096e-06
+WARM_READY /app/work/X14a2b08/gallop_50
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+CYCLE 0 2 Rw 0.048916374406635404 chi2 3531.7625754553105 geom 9.804207911868918 LSQ 3656.8857505328633
+PACKING_STAGE 0 31.83003179677634
+CYCLE 1 0 Rw 0.04880493841963853 chi2 3515.6895461635672 geom 13.026681270799834 LSQ 3651.9266173829997
+CYCLE 1 1 Rw 0.04841439989191607 chi2 3459.6493657293627 geom 13.232744096947206 LSQ 3594.1247260039904

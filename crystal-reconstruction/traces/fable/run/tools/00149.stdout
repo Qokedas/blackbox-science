@@ -1,0 +1,4 @@
+  molecule mol0_0: 18 atoms, 18 bonds, 23 angles, 15 dihedral restraints, 6 free torsions
+  single atom Cl
+LeBail Rwp=0.0793 chi2=10560.3 cell= 10.292389294279328 6.880566165094606 19.98989173467916 90.0
+  molecule mol0_0: 21 atoms, 22 bonds, 29 angles, 30 dihedral restraints, 2 free torsions

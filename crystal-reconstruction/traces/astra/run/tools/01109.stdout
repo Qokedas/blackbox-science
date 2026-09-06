@@ -1,0 +1,352 @@
+X35b7fbc CIF graph/stereo/cell/SG validated Nat 132
+X3c176e2 CIF graph/stereo/cell/SG validated Nat 96
+X3f4781b CIF graph/stereo/cell/SG validated Nat 104
+X4f6fe58 CIF graph/stereo/cell/SG validated Nat 80
+X7e382cb CIF graph/stereo/cell/SG validated Nat 40
+X8a06d7a CIF graph/stereo/cell/SG validated Nat 76
+X8a6f5a8 JSON only P 1
+X9af54a2 CIF graph/stereo/cell/SG validated Nat 76
+Xb7088cf CIF graph/stereo/cell/SG validated Nat 112
+Xbfc6d2c CIF graph/stereo/cell/SG validated Nat 72
+Xbfeeda9 CIF graph/stereo/cell/SG validated Nat 140
+Xd4c1a35 CIF graph/stereo/cell/SG validated Nat 192
+Xd8634a2 CIF graph/stereo/cell/SG validated Nat 66
+Xdcc971e CIF graph/stereo/cell/SG validated Nat 60
+Xe1fb77b CIF graph/stereo/cell/SG validated Nat 76
+Xe3a2935 CIF graph/stereo/cell/SG validated Nat 84
+Xeb393f9 CIF graph/stereo/cell/SG validated Nat 37
+Xebbd488 JSON only C 1 2 1
+Xedd9c7b CIF graph/stereo/cell/SG validated Nat 152
+Xf8ac963 CIF graph/stereo/cell/SG validated Nat 84
+X3f4781b clopidogrel bisulfate: cell volume ~1852 A3 with MW420. Z=4 (density1.5), not Z=2 (density0.75). In P21 MUST use Z'=2: two clopidogrel cations and two bisulfates. The first MC trial had Z'=1 and was necessarily incorrect; do not submit its structure.
+X9af54a2 P21 volume1407 Z=4 Z'=2.
+X3c176e2 P212121 volume1444 Z=8 Z'=2.
+Xd4c1a35 P212121 volume3426 Z=8 Z'=2.
+X4f6fe58 P-1 volume1410 Z=4 Z'=2.
+X3c176e2 inositol isomer0 (RDKit enumeration) with Z'=2 P212121 solved, Rwp0.04247, minO-contact2.532 A, bonds1.413-1.563 A; submitted.
+Xe3a2935 final Rwp0.09778 vs Le Bail0.0869; plausible heavy connectivity, 2.80A mincontacts; submitted.
+Xfca9f3c best cell candidate1/P21 newly submitted JSON after freshbase0.03974.
+X8a06d7a partial TRI log gives M47.37 V1300.7 a5.061,b11.862,c21.748,angles93.96,91.916,92.17; fits in progress for five candidates.
+Antibump test: ObjCryst DOES count intramolecular bonds! New script antibump.py assigns topology-aware minima only with separate atom scattering powers (--fullbump), or solvent/ion selective only (--bump). Scale via c.XMLInput(XMLOutput modified AntiBumpScale). Usual scale10; rescale diffraction errors before search (--rescale) for comparable chemical likelihood.
+IMPORTANT: automatic MonteCarlo LSQ after each run was causing very large geometry likelihood and nonphysical high-cost models in X130/X35. Default MC_LSQ now 0 (never); only enable explicitly if useful. Added --profile for full point-by-point MC when integrated-profile objective is suspicious.
+IMPORTANT: Molecule internal-coordinate translation is a gauge mode. Least squares (especially --rigid starting models) can drift its common XYZ center to 1e9 A; CIF calc remains correct but ObjCryst XML six-significant-digit serialization collapses the molecule! Added recenter_molecules() before CIF/XML saving and each refinement cycle. X3c176e2 refined_10.xml was corrupted this way, but original CIF fine; restored via restore_cif.py and highres fit 0.03704, re-submitted.
+IMPORTANT: c.XMLInput on a crystal already containing Python-owned Molecules can abort with invalid pointer. antibump.py now leaves default AntiBumpScale1, does not use XMLInput. --fullbump sameatom SP distances still work without scaling.
+X35b7fbc likely ergometrine maleate. Default unspecified C=C conformer was TRANS, cannot change under rigid double-bond restraint. Now cis.json/trans.json enumerate. Stopped trans search after ~4M; new cis search scheduled.
+Four original submitted structures replaced by higher-resolution dmin1.316A refinements: Xe3 Rwp.07252, Xf8.08811, Xbfc.03502, X078.12342; all connectivity/contact checks passed.
+Xeb393f9 triclinic cell V~682, M72.29, whole-profile Lebail.0454. Enantiopure one FU has density1.33 with Z1, thus P1 plausible; freshbase/JSON submitted. Candidate reducedcell8.014,9.816,10.233 angles74.871,68.959,65.931.
+X14a2b08 candidate4 is markedly better (Lebail.0838 vs .109 others), freshbase/JSON replaces candidate0. X8a06d7a cell4 tentative (best prior.125 but fresh.146); raw-peak reindex needed.
+
+Continuation: ObjCryst bridge compiled in /app/work/libobj_bridge.so with wrapper obj_bridge.py.
+Exact fixed-profile Pawley matrix now implemented and GALLOP preparation uses exact weighted profile overlaps and SVD extraction (old gallop runs remain old).
+Anti-bump scale safely adjustable via bridge (no XMLInput); current antibump.py respects requested scale, default10.
+Aromatic N-aroyl amide torsion restraints disabled in new model generation (e.g. acemetacin) because truly rotatable.
+Xd4 run1 was killed (bad older base Le Bail .228). Fresh base .09397 saved and run2/full-profile started on new CoreC queue.
+X130 run2 refined to .0875 but cocrystal molecules overlap/connect; not submitted.
+Xfca all-trans run10 refined to .04652; validated two26-heavy molecules; submitted six-th CIF. High-resolution refinement planned.
+X7e reconsidered: candidate V324 ignored clearly crystalline first2.808° peak (and5.635°,11.301° harmonics). Doubling c toV647 permits first001, full-profile .03496 vs .04522 half-cell. Half-anion global solver plateau ~202 normalized cost /Rwp.096, likely half-cell is only pseudosubcell. Replaced mainbase with fit_double0.xml (.32, not inferior fresh doublebase), and JSON with doubledcell. Fullanion+2N Zprime1 P-1 GALLOP21 queued. Half oldbase remains half_base/.
+Refinement fix: ObjCryst rigid-group local translations are not properly accounted in cross-group geometrical restraints during LSQ. Copy-par True/False and manual Begin did not fix; removing ALL rigid groups before final Rietveld does. refine_obj.py default now removes rigid groups; --keep-rigid opts back into old behavior. X130 g12free graph valid, Rwp.08133 vs broken g12t. Rings no longer distort or disconnect from substituents. True restraints now work; further tight physical refinements needed.
+New important cache issue: loading some empty Le Bail bases (X4f6, X3f, X14) yielded Rwp .22-.40 despite the saved .03-.10. The exact matrix@Fobs also disagreed (~.995 relative) with the actual component calc. A disposable C atom stabilizes empty-crystal scales, and ExtractLeBail(20) followed by Prepare/FitScale after loading repairs the cache (X3f actual .077 and matrix error1e-4). search_obj --rescale now performs that extraction, gallop_prepare adds disposable C and 20 LB cycles, exact_pawley verifies/repairs matrix bridge. X4 base freshly .032 but old run3 used bad .218; STOP set, GALLOP11 queued ahead of X3f/X9. X3f/X14 bases recreated via create_stable_base but audit is still bad until extraction after load; future searches now patched. New create_stable_base writes named components and strips disposable Atom from XML.
+Xeb393f9 P1 MC/refine1 solved to Rwp.0616327; graph37=27+10 and chiralityS good; minimum contact2.70A. Submitted both CIF+JSON. Now11CIFs.
+Five old submissions replaced by freeh tight/free-ring refinement: X078 .123626, Xbfc .035702, Xe3 .074208, Xf8 .093051, X3c .037. Graph and stereo all validated; RMSD to old submissions only0.015-.054A (max0.118) hence same convergence basins.
+X130 packing GALLOP31 begins promising: chi combined5.67, best graph sizes15,15,9,9, min contact2.42A. Do not confuse invalid g11 with valid g31. Wait/refine before submit.
+New L submissions: Xedd9c7b P21/a a10.37794,b15.45814,c17.16180,beta95.6539,V2740; LeBail .07359, absences a-glide clearly preferred over n/c. Probably Z8 Zprime2; new GALLOP11 Zprime2 queued D5. Found in zero scans originally ranked behind bad GSAS giant cells; targeted mono fits decisive.
+Xebbd488 C2 a26.65439,b12.39193,c16.58989,beta106.5733,V~5250; directed axial enumerator widerV found it, wholefit.07316 freshbase .08327. Correct volume for one listed71-heavy FU perASU (=2cations+2phos+water),C2Z4. Two weaklow lines5.836/7.740 off~.15deg but bulkpatternexcellent.
+X8a6f5a8 remains uncertain; NEW PROVISIONAL JSON P21 a16.86422,b17.99627,c22.60641,beta110.7298 (largeV~6415). Wholefit axis3 .07269. This is doubled b from metric1; needed to explain weakline12.25. Other competingmetric2a17.6056b7.1886c23.1409beta105.36 .09178 but indices12.2496=010 would violateP21! Do not blindly prefer metric2. Newcomplete_mono_axis.py found candidate P21b9.94 .09125 andC2 a33.75,b7.46,c22.61beta110.69 .12, not better. Possible actual triclinic/2Dnet subcell unresolved. All30 now haveJSON,29 fairly credible exceptX8 uncertain.
+Aromatic planarity fixed: obj_model.add_aromatic_planarity constrains every quadruplet across aromatic bond (including first substituent atoms), sigma1°delta1°, deduplicated by names. refine_obj automatically adds/restores these before LSQ. Saturated rings untouched. Backups obj_model_v2.py/refine_obj_v5.py. Planarity X130g41plan rings .0013Å; Xebplan .007/.006/.005Å vs previous .09/.18/.08. Xeb planar model shifts RMS.204,max.473 from old, highres and pyridine180flip tests pending queue_bep_plan parent20084.
+GALLOP packing exact nearest27 lattice images added behind EXACT_BUMP_IMAGES=1; queued X7 D6 patched to use it (skew lattice65/67° makes rounding inaccurate). Other default searches unchanged for speed.
+Current context changes: Xbfc/Xe3/Xf8 submissions replaced by refined_plan.cif with aromatic planarity; graph/stereo validated. Xeb two pyridine180flip models high-resolution .38 refined_pyrm0 Rwp.0610301 and pyrm1 .0610419; neither submitted (old .06163 remains). Both physicalgraphs but there is intramolecular C18-C25 contact~2.47Å. A further GALLOP packing restart from each Rietveld model is queued after X8 wide indexing; parent21574 queue_bep_packing.sh. New warm_gallop.py makes GALLOP geometry matching any Rietveld model with Procrustes quat/translation (tested max1.6e-6Å). Stores independent base.xml in G; prepare respects BASE_XML env; import uses G/base.xml if present. Propagates refined per-element B factors. This makes near-basin global repacking possible. Xeb50 warm prepared but queue will rebuild to include B factors.
+X130G31 best improved2.82335 (from3.54), plateau500sec, STOP set to release D6 to import/refine and start X7. Xd4GALLOP11 improving 39->25->12->11.8 after1285sec; do not interrupt yet. X4 G11 best339 refined.1202, macro31 best386 no improvement, stopped; extra X8 indexing18059 now active.
+X130 new G31 physical synthon solved: no old O...O2.415/C...C2.64; new acidO...pyridineN2.61 and amideN...O2.74. Refinedg31.06291, extendedhighstol.40 -> refined_ghigh.0449854, graph+stereo valid minN...O2.592,C...O2.657. SUBMITTED refined_ghigh.cif replacing oldg12free entirely. Likely genuine convergence. Model source search_ghigh.
+Warm converter now preserves original ideal restraint_coords separately from current search rdkit_coords; import_gallop uses restraint_coords for bond/angle targets. This prevents locking distorted Rietveld bonds during warm global searches. Per-element B retained in warm structure JSON.
+Queue heavy4 parent22050 afterBep21574: Br-only Patterson/partial-structure search350sec for two ASU Br positions (P-1), then128x400 GALLOP40 withHEAVY_POOL initial anchoring1600sec differentCONFRANK4. Neither partial heavyatom model is a deliverable. Queued acm warm parent221xx afterC4: packing restarts of X263, X14, X1db bestprev1500sec each; new queue_acm_warm.sh.
+X7 G31 softpacking chi119.539 has validgraph but N...O2.14 and O...O2.25, unphysical; STOP early at~600sec. New hardpacking G32 BUMP_COEFF200 EXACTimages96x350 warmstartedG31,700sec immediate background (hard7.sh). Default future GALLOP packing coefficient raised from12 to50 because normalised diffractioncost100 can swamp weak chemical penalties. X130 oldrun unaffected. Do not compare combinedchi acrossdifferentBUMP_COEFF values.
+Xd4 GALLOP11 validated graph 8x24, all R/S stereocenters, contacts3.12A. Highresolution .40 refined_ghigh Rwp.0579205, graph+stereo valid min3.133; SUBMITTED high replacing g11/old2freeh. X7hard32 refine_g32 Rwp.0704 but ions collapse badly (N...N1.92A and organic bonded extraN); not submit. tc2 rerun twohalf centers with full exactpacking150 and fresh LeBail queued/start. Added gallop_io.load_structure preserving sg_number0 and actual nonstandardSG; search_gallop uses it, prepare writes sg_symbol. Old structure.from_json raised ValueError for0; fixed future warm restarts in P21/a etc.
+Continuation: X8a06d7a mono lattice fit_force_mono (P21 a11.8385,b5.00407,c21.6943,beta86.0682,Rwp.096) materially better than tentative P-1 model; older fit_2d0 mono .0745. Config now runs upcoming G11 against independent G11/base.xml from fit_force_mono; HBOND15/coarsefine enabled. JSON remainsP-1 pending solution. X7 P1 symmetry release built via expand_p1.py: P1test heavygraph2x18+4N, oldRwp.07383. New B5 queue replaced B4 wait: afterXb708G11 => Xeddwarm50 packing/Hbond20,1700sec; X7P1warm40 packing80,Hbond10,1500sec; X238runs20&25 only1800sec each. All otherqueueparents unchanged. Xeb51 config HBOND25 fixed before start.
+Added gallop_fast_symmetry.py: exactly validated analytic SF for nonstandardP21/a (#14) and P2221 (#17), errors<2e-6 vs fullsym expansion. search_gallop nowenables for futurestarts; existingXedd50/X1a11beganjustbeforepatch. Allfuturefreeacm/Xbfee/X35/Xe1/X019searchconfig nowENABLE_PACKING1 andHBOND10-15. X019hydrazoneE/Ztwoisomersenumeratedas isomer0/1.json (currentG11defaultstillnotselected). Added optionalHBOND_MULTIPLE1 forX7P1G40 torequirethreeacceptorsforNH4 insteadone.
+Added synthon_model.py acid-lactam R2(8) hypothesis forX263 andX14: combinedcomponentSMILESdot, coordsdockO...O/N...O2.78; virtualO...OlinkinZmatrixmakescluster14dofratherthan22, notchemicalbond. gallop_prepare supportsvirtual_bonds metadata. Tested36atoms8torsions maxerror1.5e-8. Newqueue_synthon_acm.sh waits25595index then1400secclusterG70each X263/X14,packing+HB8, coarsefine, refinepacking/stol.35. This is hypothesis alongsidefreefragments, notautomaticstructureevidence.
+XeddG11chi48.346refine.093874 butsevereoverlapsN...O2.05,C...C2.13,graph4x19+2x38: NEVERsubmit. Xb708G11.062213graph4x28butC...O2.14andC...C2.16: NEVERsubmit. Xeddwarm50underwaywithpacking/HB20. Xeb51HBpriorplateau47.502, fullgraphvalid andN+...pyridineN3.21vsunflipped>5A; postrefinechem51queuedwithPACKING_SIGMA.01highstol.40.
+Xeb393f9 chem51 audit: intramolecular C25...C18 now2.92084A vs2.5858old; periodic piperidiniumN6...pyridineN24=3.2748A, valid27+10graph/Sstereo. Rwp.059328/stol.40. SUBMITTED refined_chem51 replacingold1. A5queue launchedparent32867. TriwideX8P1fits0,1,2,5startedparent33127.
+Refinement now defaults to packing unless --no-packing, and packing sigma default.01 ratherthan.03. True structures should satisfy these permissive lowerbounds; prevents LSQ destroying sensible GALLOP models. Backupsrefine_obj_v7,lsq_packing_v1. Existing processesalreadyloadedoldversionunaffected.
+X1a56c78 axial audit atCu1.5418: clear100peak14.9966 (calc14.9995), height6151 shoulderresolved; 010calc7.8557 absent; 0038.816absent. This favors P22121(#18) overP2221(#17), rulesP212121unless100impurity. D7 changedSG19testtoSG18P22121; parentrestarted. Generic222exactfastformula forSG18 added/validated againstfullsym; maxerror<1e-5.
+Futurespeedup: gallop_packing.py active_only exactsupport screening enableddefault; validatescost/gradientall3testsystems relativegradient1e-7. About1.5xfasterinrandom32particlebenchmark; noobjectiveapprox. Backupv3. Warm/import nowpropagatevirtual_bonds, enablingclusterrestarts. Guided_synthon.py buildsacidposepreservinglactamdock; queuedparent34757 aftersynthon31937, X263/X14G71 1400seceach thenhighres .38refine.
+X8a6f5a8 strongasymmetriclowtails: EMGglobalfitall45linesin5-31deg givesRw.02462 (notcrystallographicfit). Newpeaks_emg.json withpositionuncertainties; 23reliablepeaksselectedpeak_select_emg.json. Indexqueueparent34814 triesorthSG19,monoSG4,triwith480secbudgets. OriginalJSONunchangeduntilcomparedwithwholeprofile.
+XeddG50 improvedthroughlastbatches118.75->114.004; rawgraph8x19validbutminC...O2.461A. Tightstrongpackhighrefineg50stol.37Rwp.1155124,geom8.41,packingcost27.76; notsubmitted. FastcontinuationG51queuedparent36093afterEMGindex34814,copyG50and1400secsHB20packing50thenstol.38refine. X263freeG11finalchi84.2789refined.0963988,graph2x29+2x7valid,minC...O2.733; missingconvincingacid-Hbond, notsubmitted. ClusterG70chi258.445refine.1380131clearlyinferior, notsubmitted. GuidedseedtestworksRwp.234, warmmaxgeomerror9e-6A; G71queuevalid.
+Xebchem51periodicN+...Npyr3.2748 hasN-Halignmentdeviation51deg (=bentN-H...N112deg): weakratherthanstrongHbondevidence; unflippednoacceptorcloser4A. Independentchem50strongpackingstol.40controlrunningparent36667 tocomparelikeforlikediffractionmodel. Currentchem51submissionunchanged.
+MDtextureconditionaltestX4G40chi335->309bestMD1.23along101, onlymodest; X9chi190->186MD~.94; preferredorientationunlikelymainfailure, noPOsearchchanges.
+FutureX238runs20/25 nowpacking+HB4; X1a18HB15coarse90; Xd86331/Xb70831HB8.
+L-submission changes at08:04: X1a56c78 nowP22121(#18) based observed100 andabsent010/003/005, plusgroupprior; SG18solutionteststillqueued. X8a06d7a nowmonoclinicP21 withfit_2d0cell11.859878,5.013696,21.734571,beta86.0501: metricnearlymonoclinicandwholefit .0745, unlikeprovisionalP-1. ExistingG11P21searchactive. BotholdJSONpreservedwork/submission_before_sgaudit.json.
+X3f lowwarm queue initiallyfailed: extend_low_base GetLSQWeight empty beforecalc. Fixed byGetOption(0).SetChoice(1),p.GetRw() beforeweight. Newparent38122 set-e, lowrange4.0-55.05 restored, warmerror1.32e-6, HB10; activeG50. BrG40refinedstrongpackingRwp.13229 graph4x20validbutnotstructuralsolution; noHBnetwork. NewconditionalBranchorG41 queuedparent39221 after38122: supports allP-1origins/orbits/permutations ofpartialBrpair withloose.35A tolerance/coeff30; finalRietveldremovesanchor. search_gallop newHEAVY_ANCHORenvhook optionalonly, backup_v7.
+Xebchem50controlvalidatedgraph/stereo; Rwp.059397vschem51.059328, retainchem51submission.
+08:21 continuation: Native MD001 validates PO hypothesis for Xbfeeda9: imported g11 Rwp.2040 ->.1551 fixedr1.32295. Strongpack restrained refinement g11 untextured.14678; independently MD/free coefficient/stol.35 gives g11md Rwp.03834498, packing0, geometry64.91, MD1.34244. Graph4x34+4Cl valid, minO...Cl3.0039/N...Cl3.1067,bond1.2434-1.7145. SUBMITTED refined_g11md.cif + matchingJSON. Now12CIFs. Newadd_fixed_march.py and refine_obj --free-march flag unfix only coefficient (axes/fractionfixed); bridge exactprofilematrix validatedincludesMD. QueuebfeePOparent41254 waitsEdd51 thenwarmG60fixedtexture2000sec +highstol.4 freeMDrefine.
+Lowcutoffaudit with correcthumanXMLangles: Xedd4allowedreflections5.17,7.708,10.29,10.35 omitted priorfirst10.61; X2382allowed5.73/7.38 omittedfirst8.05; X8a06mono0014.08 alsoomitted. Queued Xeddlow52parent41900:afterEdd51restoreentire3degdata/preparewarm52, waitsBfeePO then2000secsearch. X238G25 independentbaseextendedto2degandconfigBASE_XMLpatched. Newrestore_structure_mode.py togglesFalse afterextend_low_base (whichsavesLeBailTrue). AlloriginalsubmissionsunchangedexceptBfee.
+X7P1G40 refined.0586066/graph2x18+4NvalidbutN...N2.6343 andtriplycloseN...O2.52 pileup; notsolved/notsubmitted. Largeunfitshouldernear8.3deg persists.
+08:25: D7waitingparent33679 stopped/replaced D8: sameX1aSG18test, thenNEW X8a06d7aP-1G12 1800sec usingfit_2d1/free2near90anglesandrestoredlow3degdata, thenXd86331/Xb70831. P-1wasneverstructurallytestedbefore. CellP-1fit2d1Rw.06761vsmono2d0.07448; mayreflectfalsepeak-splittingoverfitoractualP-1. JSONP21unchangeduntilstructurecomparison.
+08:27: X8a6f5a8 peakshape breakthrough. EMG independenttailsRw.02462 notasgoodas commonFCJaxialdivergence withsig/gamindividual+oneSHL: Rw.019369,SHL.11143, realistic peakedshapes. Newpeaks_fcj.json/peak_select_fcj.json, mu systematically.02-.08 belowEMG. Built nativeFortran/ctypes libfcj.so fromsuppliedGSASII sources because installedGSASbinaryrequiresunavailableGLIBC2.38. Scriptsfcj_bridge.f90/fcj_global8.py/fcj_refine_cells.py; diagnosticsnotstructures. FCJindexqueuefirstrefinesalloldcandidatecells, then450secmonovol1000-2100 (P21Z2vol~1400previousEMGmonomissed),2100-3800,ortho2000-4100. OriginalprovisionalJSONunchanged.
+08:35: XbfeeG60warmdiffraction13.34 (afteractualnativeRw.038) partlydue B mismatch: covalentClB8.985 vsionicClB2.943, warmoldper-elementmergeusedlastClforall. Added optionalbiso_by_atom metadata throughwarm/prepare/hydrogen_prefix forfuturewarmsearches. ExistingrunningG60notchanged; itsfirstbatchchi10.27. STOPsettofinishaftercurrentbatchthenhighresolutionRietveld. Currentg11mdsubmissionretained.
+2026-09-06 08:42 continuation: Bfee G60 with native MD finished highres stol.4 Rwp .03468464, geometry164.13 packing0; graph4x34+4Cl, minO...Cl3.0025,N...Cl3.1215, maxbond1.7109. RMS shift to g11md only0.048A,max.108A. SUBMITTED refined_g60.cif replacingg11md.
+IMPORTANT BUG in guided_synthon G71: read exported CIF modulo1 coordinates as unwrapped molecule, producing absurd 10+A bonds, although Zmatrix max_distance_error passed. X263g71 refinement exploded geometry1e7. KILLED parent34757 and X14g71child45485. DO NOT SUBMIT/REUSE G71. Fixed guided_synthon.py (backupv1) to extract unwrapped coordinates via helper extract_molecule_coords.py from REFINED g11 XML. G72 corrected acid-lactam cluster prepared, graphvalid seed; queuedparent45980 /app/work/queue_acm72.sh: X263G72 then X14G72 (free-fragment isostructural transfer fromX263g11, transfer_acm.py, initialRw.291; largerlactamcollides butsearchshouldresolve). Doesnotautosubmit.
+Warm by-atom B patch exercisedX263G90 maxrestarterror2.2e-6A. PO scanX263refinedg11 onlyminor72.17->69.15, not a texture solution. Original g11 valid29+7graph, minC...O2.733,but no plausible lactam Hbond (N...O3.35/3.52), stillunsolved.
+Newwaitingqueues: /app/work/queue_native_fcj8.sh parent45579 after43632; nativeObjCrystDicVol FCJ selected20peaks,1spurious,.025deg floor,max.045,260secs each orthP/monoP2volranges/monoC/triP. /app/work/queue_b708_warm.sh parent45641 afterBr39221; strongpackingrefineoldg11 then1800secwarmG50 andhighresrefine, noautosubmit.
+09:07 continuation: Conditional coformer search now runs correctly. search_coformer.py fixed missing GALLOP tensor-prep initialization for position/rotation/torsion indices; MaskedAdam verified frozen acid DOFs invariant. Parent49288 queue_coformer91.sh, 3x128x350,HB80/packing70. Batch0best69.805. Revised ACM50 queue parent49475 (replaced47291) will include graph-valid g91 in best-Rw seed choice, excludes brokenG71.
+FCJ plane enumeration completed: bestC2 a31.57193,b9.91274,c21.47246,beta84.56073,V6689.9,cost.291 with one.0825 and one-.0463deg outlier. BestP21 smallerV2592,cost.422 has two .2deg outliers. New waitingqueue49423 queue_fcj_finalfits.sh aftercoformer: metricrefine new nativeTRI M27.03 candidate16.661,11.542,7.872/94.658,84.506,108.699V1425 plusplanes; thenwholefits top6 +oldbestTRI +oldP21controls. X8JSONunchanged.
+X1aSG18nativeg18finishedRw.190711,packing0,notconverged. BranchorG41graphvalid4x20,Rw~.131,stillunsolved. No submissions for these.
+B708 oldg11 repaired by strongpacking/stol.38, refined_chem11 Rwp.05565556,geometry4.194,packing8.468. Graphvalid4x28,bonds1.2192-1.5125,mininterC-O2.7571. SUBMITTED bestavailable chemicallyvalidated candidate (13th CIF), although remaining diffraction residuals indicate possible false minimum; warmG50 searching now and should replace if clearlybetter. Other submissions unchanged.
+09:10 X263G72 native refinement breakthrough: Rwp .0572 atstage2, packing1.35, comparedg11.0964. Correctacid-lactamcluster hypothesis seems productive. Parent45980 paused (SIGSTOP) during finalG72refine50395 to update X14 transfer seed to improvedX263g72 instead ofoldg11. Background update_transfer72.sh waitsfor50395,graph-checks,backsupoldX14search_transfer72_oldG11, runs transfer_acm.py X263 X14 g72 transfer72, then trap resumes45980. No autosubmission. ConditionalcoformerG91justcompletedchi69.805 and native refinement started50521; G72may be substantiallybetter.
+09:14 X263g91 conditional coformer search gave better, chemically plausible solution than guidedG72: Rwp.0487685, packing0, geometry96.55, graph2x29+2x7, minOO(acid/lactam)2.6477 and lactamN...O dimer2.7076, DHA155deg. G72 instead has repulsive lactamO...O2.5999 with lessplausibleHBnetwork andRw.05228; do not preferit. SUBMITTED refined_g91.cif +matchingJSON, now14CIFs.
+Replaced X14 transfer pipeline again with G73 from chemicallypreferred X263g91. Stopped X14G72child50732 before firstbatch, parent45980, and waitingwarm49475. Newqueue_acm73.sh transfersX263g91 toX14,1500secs, thenhighres.4refine. ACM50warmqueue restarted withwaitonnewACM73parent and bestseedchoice includesg73,g91. OldG71buggy remains explicitlyexcluded. X14G72 sourcefromG72saved butnotfinished/notsubmitted.
+09:15 X8a6f5a8 INDEXING RESOLVED: nativeFCJtriclinicM27.03 refinesagainstALL23FCJlines withRMStwo_theta.00876°, max.0224°,nooutliers,allhklmoduleindex1. Cell16.66062448,11.54272919,7.86913440,94.65334052,84.51193059,108.72568003,V1424.59,zero+.01170. ChiralcompositionforcesP1; spglibsingleatom latticeonlyP-1 eventol.1, nohiddenmonoclinic. Z=2 formula gives18.26A3/heavy, plausible. WholeObjprofilefitfcjfinal0 Rwp.06716 vsoldgiantP21 .06919despite4.5xvolume, newC2 .07621. Smalltricliniccellclearlypreferred. SUBMITTED JSONnewP1matchingFCJmetric; oldJSONbackedupwork/submission_before_fcj_triclinic.json. NoCIFandnonequeuedforthisveryflexibleZ'=2solvate.
+Currentparents: ACM73=51090,ACM50warm=51094. Old45980/50732/49475killed intentionally. FCJfinalfits49423finished. Edd52lateimproved76.10->47.83atbatch7(total1926s), awaitnativefit.
+09:18 New general search_conditional.py extends proven coformer strategy: mask/freeze unselected wholefragments, randomizeandoptimize only free fragmentposes/torsions, alternatefreegroups0;1;0;1, preserve bestidenticalfullobjectiveacrosspasses. FixedDOFinvariance assertsincluded. Newqueue_brconditional.sh repairsBrg11strongpackstol.38 -> warm82 -> conditional83 (4x128x350,BUMP70/HB12,noheavyanchor) -> native.4refine/graphcheck. Noautosubmission.
+09:19 Edd52 latechi46.354 yielded strongphysicalrefinement Rwp.07975924 (nearwholeLBfloor.0736),geom11.824,packing6.950. Graphvalid8x19,bonds1.3634–1.6149. ShortphosphateOO2.4617/2.488andindoleN...O2.558(165deg),ammoniumN...O2.529(165deg),plausiblestrongzwitterionicHBnetworkalthoughveryshortNHcontacts. Profilemostlynoiseandmodestpeakheightdifferences. SUBMITTED refined_g52.cif+JSON (15CIFs). Newqueue_eddconditional.sh waitsBrconditional51460 thenwarm84fromg52/alternatingconditional85(4x128x350,Hb15/pack80)/native.4refine; noautosubmission.
+09:20 New focused nicotinamide conditional search: queue_nicotinamide_cond.sh warmX1dbg11 ->90, onlycoformerfree in3x96x300 passes (HB40/pack70), acidicacemetacinfixed; finalfullyreleasednativeg91/stol.4/graphcheck. X1dbcurrentg11Rw.1332146,geom.003,packing2.398,unsubmitted. g91willalreadybeallowedbyACM50seedselection. This is the successfulX263strategy appliedtootheracid/coformer before expensivefullwarm.
+09:27 X1a potential Ka2/100 issue resolved by explicit reflection enumeration: no possible parentline14.96. Around14.3–15.5 only005(14.7195,forbidden),100(14.9995),101(15.2875). CuKa1/2 components100=14.9874/15.0249 vs10115.2751/15.3133; shoulder~15.0 cannot beKa2of101. KeepSG18. Kalpha2profilemaystillmatterforhighangle refinement butdoesnotundermine100extinctionevidence.
+09:28 X1a apparent stereochemistryR from check_stereo.py is a GRAPH-MAPPING FALSE ALARM: phenyl andcyclohexylbothC6 connectivitycycle are interchangeable to unweightedGraphMatcher, whichpicksarbitraryfirstmap. Directknownatom-order CIP fromgallop18/templateandbest_frac bothSasprescribed. Nochiralitybugidentified. NativeCuKa2testvsmonousingidenticalfurtherprofilecycles: .06357doubletvs.06314mono; mono retained. Earlier.070fitjustneededmorecycles.
+09:34 Moreconditionalqueues: X1aafter51725 viaqueue_additional_cond.sh parent52927 usesG18warm82/conditional83freeCl;cation;Cl;cation,mono. X3fafterB5parent29859 viaqueue_clopidogrel_cond.sh parent52928 warmg50to82/conditional83freebisulfates;cation0;cation2;bisulfates;cation0;cation2,then.4native. Noautosubmit.
+X8a06Ka2diagnosticidenticalextraquickprofilecycles: monoP21 single.06041,doublet.05788; triP-1single.05386,doublet.05559. Trianglesretain~.13/.16offrightangles; symmetrynotyetresolved. CurrentP21JSONunchangedawaitP-1g12native. Refinedwholeprofilesinfit_mono_single/fit_tri_single etcareDIAGNOSTICSwithdisposableC, notstructures.
+X1dbconditionalg91finishedRwp.110886,graphvalid,stillinferiorfit/notstrongHBnetwork. WillbechosenbyACM50warmselector. X4conditionalg83Rwp.089702,geom140.8,packing90.1,notclearlysolved. Edd85queuehasstartedafterX4.
+Criticalmodelaudit: atomicNH4+ componentshadNOexplicitH in nativeRietveld, whileGALLOPcorrectlyspherical4Hprefix. Implemented add_ammonium_h.py rebuildwholemodelheavycoordinatesEXACTLYpreserved, addsfulltetraNH4molecules. ValidatedX7g40seed heavygraph2x18+4N. Newqueue_x7_explicit.sh waits47634(G41), explicitHNativerefineionH41 ->warm84 ->conditional85(iongroup;anion0;anion3;repeat)->reinsertNH4HbeforefinalnativeionH85. Thisisprofilemodelcorrection, notHcoordinateevidence. Noautosubmit. NewBr84warmfullqueuewaits51579(Edd85),1600seconds.
+check_stereo.py nowselectsgraphmapwithbondlengthsconsistentwithSMILESmultiplebonds/aromaticity,avoidingphenyl/cyclohexylfalseRforX1a. NewcheckexplicitlyconfirmsG18nativeSall4.
+09:40 Brg83falseminhascarbonylO...O2.445(noO-Hdonor)andN-H...O2.508bent124deg. AddedoptionalCARBONYL_OO_MINtoGALLOP/nativepackers; default0(oldbehavior). AddedoptionalHBOND_DIRECTIONALforNsingleHdonors, usingnegativeheavybondbisector,prefersD-H...Aalignment; default0oldbehavior. Br84queueRESTARTEDafterkilling54141, nowtypedcarbonylO-O>=2.85+directionalHB4, firststrongnativechem83repairthenwarm84/search. Costgradienttestfinite. Otherqueuesdonotenablethesenewpriors. Retainalloldmodels as alternatives; noautosubmit. Parent54499wasaccidentallykilledbytooltimeoutjustafterlaunchand isrelaunchednow.
+09:42 B708g50Rwp.0503864 improveschem11.05565;geometry2.853packing.491;valid4x28graph. SUBMITTED g50. RemainingN(pyridine)...O(ether)2.657bothacceptors isquestionable. AddedoptionalACCEPTOR_NO_MINtoGALLOP/native(minfornonprotonatedN/Oacceptorpairsonly,default0oldbehavior). Enumeratedexactpyridine180flipg50(pyr51m0/1;bond19:20,correctunwrapped/gaugehandling),fixedRw.050386vsflip.051108. Newqueue_b708_typed.sh waits52927;typedacceptormin2.85nativeeachpyrvariant->bestwarmG51withdirectionalHB,1400sec ->typednative. Noautosubmit.
+09:44 X8a06P-1g12native.14505vsP21g11.21587, stillnotconverged. Newqueue_pic74.sh triesisostructuralacidtransferfromsolvedX263g91usingNEWrefinedtriclinicsingle-profile/entirelowrange (1500sec,warm74). transfer_acm.pynowsupportsTRANSFER_BASEenvandremovesanydisposableCbeforeaddingfragments. P21JSONnotyetchangedpendingthistest.
+09:46 LdecisionX8a06d7a: updateJSONfromP21toP-1usingfit_tri_single(a5.00967881,b11.85108557,c21.72453692,alpha86.05861325,beta89.87347918,gamma89.84390125). Arguments: consistentlybetterLeBailbothKaassumptions(.05386P-1vsbestmono.05788), reproducibleoff-rightangles, muchbetterfirstnativeP-1solution(.145vsP21.216),andcentrosymmetricpriorforachiralcocrystal. StillnotasconclusiveasotherLcases; restorebackupsubmission_before_final_tri.jsonifcontraryevidence. NoCIFyet.
+09:46 X14G73nativefinished.1228104,geom125,packing22,betterg11.175butnotconverged. ACM50queuehasstartedX263g91warm, thenwillselectX14g73, X1dbg91. X1aG83native.139922,geometry58packing0,graphvalidandactualSstereo; NH...Cl3.259bent115degnotcompelling, stillnotclearlysolved. NativeconditionalMDscanlaunchedfromg83toassessPOwithfinalcoordinates (notoldg18).
+09:55 continuation: X1a chair84 test (script now run/graph/stereo validated) yields four combinations; unflipped m00 further nativeRietveld .13126 vs g83 .13992; small RMS.084A shift. Flipped others in queue parent56091. New saltconditional86 parent56479 waits56091 thenstrongnative/warm/conditional X9 andX35, noautosubmit.
+09:56 Edd85 finishedRwp.0782541 versusg52 .0797592, geom36.6packing11.7; valid8x19graph, maxbond1.616; RMS.089A/max.185A change. SUBMITTED refined_g85.cif+JSON, old52backup preserved. Current15CIFs.
+X7 explicitNH4H nativeionH41 .0492426 improves bareN g41 .056038. Stillnotcentrosymmetric even spglib.8A andminN-O~2.51; P1conditional85active. AddedoptionalCHARGED_NO_MIN(mincationicN-O) tobothpackers(default0), previousfiles *_beforeNO.py. Newparent56680queue_x7_centros88 waitsB70855083: freshindependentP-1(fullanion+2NH4) fromtrustedbase, strongpacking150/N+N>=3.15/N+O>=2.65/HBmultiple20,1500sec160x400, explicitNH4Hthenhighresnative. This testscentrosymmetrywithcorrectmodernprofile/chemicalmodel; noautosubmit.
+10:31 Adopted Xb7088cf refined_pyr51m1: Rwp .0494979 vs g50 .0503864; typed geometry excludes pyridine-N/ether-O 2.657 A acceptor clash, heavy graph valid. Other NH contacts remain uncertain; no claim of independent global convergence. Backup submission_before_pyr97.*.
+10:23 Adopted X263 tight96: Rwp .0406348, actual heavy shift RMS .0523/max .1288 A vs g50; tighter geometry and no packing penalty, graph valid. Methoxy97 180 flip markedly worse Rwp .11285 vs .04064, not used.
+10:25 Added X3f4781b g83 CIF, valid heavy graph/stereochemistry S, Rwp .0952604. Native N-config refinements and new conditional G98 are pending; must inspect and replace manually. SG19 diagnostic for X1a native .24075 much worse, no symmetry submission change.
+
+10:42 Caprolactam queue57590 replaced by queue_caprolactam95_typed (waitchild62522). Same six ring variants, skip finished, then conditionalG95 has donorN--donorN>=2.95A, directionalNH(HB30), packing100 and schedule1;0;1;0, native packingSigma.008. This tests/removes neutral lactam NH--NH clash2.58A in g50. New optional DONOR_NN_MIN in both packers default0; other queues unchanged. No autosubmit.
+/app/work/submission_audit.log
+/app/work/sg19fresh_queue.log
+/app/work/clop_n110_queue.log
+/app/work/x7_bound108_queue.log
+/app/work/br105_queue.log
+/app/work/x7_cross107_queue.log
+/app/work/x7_fixed105_queue.log
+/app/work/fallback_c.log
+/app/work/nic103_queue.log
+/app/work/fallback_b.log
+/app/work/fallback_a.log
+/app/work/x7_tc103_queue.log
+/app/work/x7_centro101_queue.log
+/app/work/x1a_sub101_queue.log
+/app/work/clop98_queue.log
+/app/work/cap95typed_queue.log
+/app/work/br101_queue.log
+/app/work/sg19test_queue.log
+/app/work/clop_n94_queue.log
+/app/work/x1a90_queue.log
+/app/work/caprolactam94_queue.log
+/app/work/bep89_queue.log
+/app/work/x7centros88_queue.log
+/app/work/salt86_queue.log
+/app/work/chair84_queue.log
+/app/work/pic74.log
+/app/work/b708_typed.log
+/app/work/br84.log
+/app/work/x7_explicit.log
+/app/work/clopidogrel_cond.log
+/app/work/summary.json
+[
+ {
+  "id": "X019b9a4",
+  "json_sg": "P -1",
+  "json_sg_num": 2,
+  "cell_agrees": true,
+  "sg_agrees": true,
+  "nheavy": 96,
+  "sizes": [
+   4,
+   4,
+   7,
+   7,
+   37,
+   37
+  ],
+  "graph_ok": true,
+  "Z": 2.0,
+  "stereochemistry": ""
+ },
+ {
+  "id": "X07806d9",
+  "json_sg": "P b c a",
+  "json_sg_num": 61,
+  "cell_agrees": true,
+  "sg_agrees": true,
+  "nheavy": 80,
+  "sizes": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   9,
+   9,
+   9,
+   9,
+   9,
+   9,
+   9,
+   9
+  ],
+  "graph_ok": true,
+  "Z": 8.0,
+  "stereochemistry": ""
+ },
+ {
+  "id": "X13023e3",
+  "json_sg": "P 1 21 1",
+  "json_sg_num": 4,
+  "cell_agrees": true,
+  "sg_agrees": true,
+  "nheavy": 48,
+  "sizes": [
+   9,
+   9,
+   15,
+   15
+  ],
+  "graph_ok": true,
+  "Z": 2.0,
+  "stereochemistry": "X13023e3 root 0 expected {8: 'R'} actual {8: 'R'} OK True\nX13023e3 root 1 expected {8: 'R'} actual {8: 'R'} OK True"
+ },
+ {
+  "id": "X14a2b08",
+  "json_sg": "P -1",
+  "json_sg_num": 2,
+  "cell_agrees": true,
+  "sg_agrees": true,
+  "nheavy": 74,
+  "sizes": [
+   8,
+   8,
+   29,
+   29
+  ],
+  "graph_ok": true,
+  "Z": 2.0,
+  "stereochemistry": ""
+ },
+ {
+  "id": "X1a56c78",
+  "json_sg": "P 2 21 21",
+  "json_sg_num": 18,
+  "cell_agrees": true,
+  "sg_agrees": true,
+  "nheavy": 92,
+  "sizes": [
+   1,
+   1,
+   1,
+   1,
+   22,
+   22,
+   22,
+   22
+  ],
+  "graph_ok": true,
+  "Z": 4.0,
+  "stereochemistry": "X1a56c78 root 88 expected {1: 'S'} actual {1: 'S'} OK True\nX1a56c78 root 89 expected {1: 'S'} actual {1: 'S'} OK True\nX1a56c78 root 90 expected {1: 'S'} actual {1: 'S'} OK True\nX1a56c78 root 91 expected {1: 'S'} actual {1: 'S'} OK True"
+ },
+ {
+  "id": "X1db5091",
+  "json_sg": "P 1 21/c 1",
+  "json_sg_num": 14,
+  "cell_agrees": true,
+  "sg_agrees": true,
+  "nheavy": 152,
+  "sizes": [
+   9,
+   9,
+   9,
+   9,
+   29,
+   29,
+   29,
+   29
+  ],
+  "graph_ok": true,
+  "Z": 4.0,
+  "stereochemistry": ""
+ },
+ {
+  "id": "X2327841",
+  "json_sg": "P 1 21 1",
+  "json_sg_num": 4,
+  "cell_agrees": true,
+  "sg_agrees": true,
+  "nheavy": 64,
+  "sizes": [
+   32,
+   32
+  ],
+  "graph_ok": true,
+  "Z": 2.0,
+  "stereochemistry": "X2327841 root 0 expected {22: 'S'} actual {22: 'S'} OK True\nX2327841 root 1 expected {22: 'S'} actual {22: 'S'} OK True"
+ },
+ {
+  "id": "X238783d",
+  "json_sg": "P 21 21 21",
+  "json_sg_num": 19,
+  "cell_agrees": true,
+  "sg_agrees": true,
+  "nheavy": 208,
+  "sizes": [
+   52,
+   52,
+   52,
+   52
+  ],
+  "graph_ok": true,
+  "Z": 4.0,
+  "stereochemistry": "X238783d root 0 expected {2: 'R', 6: 'R', 8: 'S', 10: 'R', 12: 'R', 16: 'S', 18: 'S', 21: 'S', 23: 'R', 25: 'S', 27: 'R', 30: 'S', 34: 'R', 36: 'R', 41: 'R', 45: 'R', 47: 'R', 49: 'S'} actual {2: 'R', 6: 'R', 8: 'S', 10: 'R', 12: 'R', 16: 'S', 18: 'S', 21: 'S', 23: 'R', 25: 'S', 27: 'R', 30: 'S', 34: 'R', 36: 'R', 41: 'R', 45: 'R', 47: 'R', 49: 'S'} OK True\nX238783d root 1 expected {2: 'R', 6: 'R', 8: 'S', 10: 'R', 12: 'R', 16: 'S', 18: 'S', 21: 'S', 23: 'R', 25: 'S', 27: 'R', 30: 'S', 34: 'R', 36: 'R', 41: 'R', 45: 'R', 47: 'R', 49: 'S'} actual {2: 'R', 6: 'R', 8: 'S', 10: 'R', 12: 'R', 16: 'S', 18: 'S', 21: 'S', 23: 'R', 25: 'S', 27: 'R', 30: 'S', 34: 'R', 36: 'R', 41: 'R', 45: 'R', 47: 'R', 49: 'S'} OK True\nX238783d root 2 expected {2: 'R', 6: 'R', 8: 'S', 10: 'R', 12: 'R', 16: 'S', 18: 'S', 21: 'S', 23: 'R', 25: 'S', 27: 'R', 30: 'S', 34: 'R', 36: 'R', 41: 'R', 45: 'R', 47: 'R', 49: 'S'} actual {2: 'R', 6: 'R', 8: 'S', 10: 'R', 12: 'R', 16: 'S', 18: 'S', 21: 'S', 23: 'R', 25: 'S', 27: 'R', 30: 'S', 34: 'R', 36: 'R', 41: 'R', 45: 'R', 47: 'R', 49: 'S'} OK True\nX238783d root 3 expected {2: 'R', 6: 'R', 8: 'S', 10: 'R', 12: 'R', 16: 'S', 18: 'S', 21: 'S', 23: 'R', 25: 'S', 27: 'R', 30: 'S', 34: 'R', 36: 'R', 41: 'R', 45: 'R', 47: 'R', 49: 'S'} actual {2: 'R', 6: 'R', 8: 'S', 10: 'R', 12: 'R', 16: 'S', 18: 'S', 21: 'S', 23: 'R', 25: 'S', 27: 'R', 30: 'S', 34: 'R', 36: 'R', 41: 'R', 45: 'R', 47: 'R', 49: 'S'} OK True"
+ },
+ {
+  "id": "X263b09a",
+  "json_sg": "P -1",
+  "json_sg_num": 2,
+  "cell_agrees": true,
+  "sg_agrees": true,
+  "nheavy": 72,
+  "sizes": [
+   7,
+   7,
+   29,
+   29
+  ],
+  "graph_ok": true,
+  "Z": 2.0,
+  "stereochemistry": ""
+ },
+ {
+  "id": "X35b7fbc",
+  "json_sg": "P 21 21 21",
+  "json_sg_num": 19,
+  "cell_agrees": true,
+  "sg_agrees": true,
+  "nheavy": 132,
+  "sizes": [
+   8,
+   8,
+   8,
+   8,
+   25,
+   25,
+   25,
+   25
+  ],
+  "graph_ok": true,
+  "Z": 4.0,
+  "stereochemistry": "X35b7fbc root 0 expected {2: 'S', 8: 'R', 21: 'R'} actual {2: 'S', 8: 'R', 21: 'R'} OK True\nX35b7fbc root 1 expected {2: 'S', 8: 'R', 21: 'R'} actual {2: 'S', 8: 'R', 21: 'R'} OK True\nX35b7fbc root 2 expected {2: 'S', 8: 'R', 21: 'R'} actual {2: 'S', 8: 'R', 21: 'R'} OK True\nX35b7fbc root 3 expected {2: 'S', 8: 'R', 21: 'R'} actual {2: 'S', 8: 'R', 21: 'R'} OK True"
+ },
+ {
+  "id": "X3c176e2",
+  "json_sg": "P 21 21 21",
+  "json_sg_num": 19,
+  "cell_agrees": true,

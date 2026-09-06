@@ -1,0 +1,53 @@
+[
+ {
+  "cell": [
+   9.652,
+   10.076,
+   10.249,
+   66.84500000000001,
+   88.804,
+   82.18500000000002
+  ],
+  "volume": 907.3644946546219,
+  "score": 19.44,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9,
+  "source": "index_raw_TRICLINIC_P_partial.json",
+  "sg": "P-1"
+ },
+ {
+  "cell": [
+   4.49,
+   38.23,
+   4.748,
+   90.0,
+   96.807,
+   90.0
+  ],
+  "volume": 809.2620635807468,
+  "score": 14.4,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9,
+  "source": "index_raw_MONOCLINIC_P_partial.json",
+  "sg": "P2/m"
+ },
+ {
+  "cell": [
+   5.061854839324949,
+   9.43370246887207,
+   38.232627868652344,
+   90.0,
+   90.0,
+   90.0
+  ],
+  "volume": 1825.6856883459345,
+  "score": 13.355050086975098,
+  "system": "ORTHOROMBIC",
+  "centering": "P",
+  "mode": 4,
+  "source": "index_ORTHOROMBIC_P_4_700_3200_z-.04_peaks_raw.json",
+  "sg": "Pmmm"
+ }
+]

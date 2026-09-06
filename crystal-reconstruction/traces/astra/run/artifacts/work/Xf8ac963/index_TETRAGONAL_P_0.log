@@ -1,0 +1,15 @@
+Xf8ac963 TETRAGONAL P 0 peaks [2.87883, 3.32181, 3.72358, 4.05855, 4.07376, 4.38414, 4.71616, 4.97863, 4.99742, 5.48885, 5.73348, 5.76493, 5.99757, 6.20019, 6.22962, 6.44391, 6.60931, 6.64592, 7.05257, 7.21148, 7.26749, 7.42667] V 1329.2760009765625 3780 Lmax 43.616950455549265
+3->43.617,1.62468,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+1329.28->3780,490.155,4.9999
+Starting: V=1329.28->1819.43
+Finished: V=1329.28->1819.43 A^3, 95 unit cells tested, 165505 tests/s,   Elapsed time=0.000579s
+Starting: V=1819.43->2309.59
+Finished: V=1819.43->2309.59 A^3, 199 unit cells tested, 171700 tests/s,   Elapsed time=0.001165s
+Starting: V=2309.59->2799.74
+Finished: V=2309.59->2799.74 A^3, 338 unit cells tested, 179883 tests/s,   Elapsed time=0.001884s
+Starting: V=2799.74->3289.89
+Finished: V=2799.74->3289.89 A^3, 504 unit cells tested, 190332 tests/s,   Elapsed time=0.002653s
+Starting: V=3289.89->3780
+Finished: V=3289.89->3780 A^3, 667 unit cells tested, 186678 tests/s,   Elapsed time=0.003579s
+DONE Xf8ac963 TETRAGONAL P 0 0.003689289093017578 []

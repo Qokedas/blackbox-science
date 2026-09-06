@@ -1,0 +1,25 @@
+molecule.py:128:def ImportFenskeHallZMatrix(cryst, src, named=False):
+globaloptim.py:42:class MonteCarlo(MonteCarlo_orig):
+globaloptim.py:44:    def Optimize(self, nb_step: int, final_cost=0, max_time=-1):
+globaloptim.py:51:    def MultiRunOptimize(
+globaloptim.py:64:    def RunSimulatedAnnealing(self, nb_step: int, final_cost=0, max_time=-1):
+globaloptim.py:75:    def RunParallelTempering(self, nb_step: int, final_cost=0, max_time=-1):
+globaloptim.py:86:    def _fix_parameters_for_global_optim(self):
+globaloptim.py:95:    def widget(self):
+globaloptim.py:122:    def UpdateDisplay(self):
+globaloptim.py:135:    def disable_display_update(self):
+globaloptim.py:139:    def enable_display_update(self):
+globaloptim.py:143:    def _widget_update(self):
+globaloptim.py:161:def wrap_boost_montecarlo(c: MonteCarlo):
+globaloptim.py:192:class OptimizationObjRegistryWrapper(OptimizationObjRegistry):
+globaloptim.py:200:    def GetObj(self, i):
+globaloptim.py:211:def wrap_boost_optimizationobjregistry(o):
+zscatterer.py:45:class ZScatterer(ZScatterer_orig):
+zscatterer.py:47:    def ImportFenskeHallZMatrix(self, src, named=False):
+molecule.py:101:    "ImportFenskeHallZMatrix",
+molecule.py:128:def ImportFenskeHallZMatrix(cryst, src, named=False):
+molecule.py:142:    z.ImportFenskeHallZMatrix(src, named)
+zscatterer.py:47:    def ImportFenskeHallZMatrix(self, src, named=False):
+zscatterer.py:59:                    return super().ImportFenskeHallZMatrix(urlopen(src), named)
+zscatterer.py:61:                super().ImportFenskeHallZMatrix(fhz, named)
+zscatterer.py:63:            super().ImportFenskeHallZMatrix(src, named)

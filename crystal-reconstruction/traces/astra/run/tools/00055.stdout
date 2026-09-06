@@ -1,0 +1,16 @@
+1600
+WITH_H 0.0904735904787213 92195.94927810578
+CYCLE 0 0 Rw 0.06647917216652892 chi2 49778.22360127485
+CYCLE 0 1 Rw 0.06638922054669408 chi2 49643.60692651248
+CYCLE 0 2 Rw 0.06638833533166265 chi2 49642.283067797805
+CYCLE 1 0 Rw 0.053832899616576356 chi2 32641.020982917627
+CYCLE 1 1 Rw 0.04877868562801206 chi2 26799.60397007047
+CYCLE 1 2 Rw 0.045154915060234155 chi2 22965.623889313883
+Traceback (most recent call last):
+  File "/app/work/refine_obj.py", line 54, in <module>
+    sp=c.GetScatteringPower(i);sp.SetLimitsAbsolute('Biso',.3,10.)
+       ^^^^^^^^^^^^^^^^^^^^^^^
+Boost.Python.ArgumentError: Python argument types in
+    Crystal.GetScatteringPower(Crystal, int)
+did not match C++ signature:
+    GetScatteringPower(ObjCryst::Crystal {lvalue}, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)

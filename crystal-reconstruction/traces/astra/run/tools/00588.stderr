@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/app/work/submit.py", line 5, in <module>
+    s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+      ^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.11/site-packages/pymatgen/io/cif.py", line 346, in __init__
+    with zopen(filename, mode="rt", encoding="utf-8", errors="replace") as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.11/site-packages/monty/io.py", line 113, in zopen
+    return cast(IO[Any], open(filename, mode, **kwargs))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/app/work/X7e382cb/search_p1test/best.cif'

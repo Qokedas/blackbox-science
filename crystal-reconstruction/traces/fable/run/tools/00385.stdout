@@ -1,0 +1,16 @@
+step ['Zero'] Rwp=0.5742
+step ['W'] Rwp=0.1251
+step ['a', 'b', 'c', 'alpha', 'beta', 'gamma'] Rwp=0.0972
+LeBail Rwp=0.0650 chi2=9770.0 cell= 16.26395272342021 9.321007297646133 11.392744227739469 90.0
+  molecule mol0_0: 21 atoms, 22 bonds, 30 angles, 25 dihedral restraints, 4 free torsions
+run 0: cost=295482.2 Rwp=0.4411 chi2=429345.8 t=718s
+polish: Rwp 0.4303 -> 0.4066 (accepted) restraint cost=0.00
+run 1: cost=401653.3 Rwp=1.3901 chi2=1056238.0 t=611s
+polish: Rwp 0.6749 -> 0.4832 (accepted) restraint cost=0.00
+LeBail Rwp=0.0650 chi2=9755.1 cell= 16.263970916614774 9.321021451551523 11.39275673073229 90.0
+  molecule mol0_0: 21 atoms, 22 bonds, 30 angles, 25 dihedral restraints, 4 free torsions
+run 0: cost=88788.1 Rwp=0.2240 chi2=115889.1 t=610s
+run 1: cost=87793.1 Rwp=0.2255 chi2=117275.6 t=633s
+8.62000 787.663 28.0653
+8.62100 727.208 26.9668
+8.61900 718.203 26.7993

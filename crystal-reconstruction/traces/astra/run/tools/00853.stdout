@@ -1,0 +1,63 @@
+X263b09a Nat 72 molecule sizes [29, 29, 7, 7]
+  component COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1 matches 2
+  component O=C1CCCCN1 matches 2
+  bond range 1.2189376299376065 1.713114858187584
+  min intermolecular distance 2.599898519136489
+Cell (5.16430294, 11.77040433, 20.5682618, 83.74535064, 89.51859637, 86.71035114) n 72 components [29, 29, 7, 7]
+2.5999 70 O30 O 2 71 O30 O 3
+2.7485 45 C32 C 3 70 O30 O 2
+2.8742 64 O16 O 0 70 O30 O 2
+3.0355 42 C31 C 2 71 O30 O 3
+3.0522 1 C1 C 1 16 C10 C 0
+3.0550 54 N36 N 2 64 O16 O 0
+3.0895 50 C35 C 2 56 Cl27 Cl 0
+3.2759 46 C33 C 2 61 O12 O 1
+3.3948 42 C31 C 2 64 O16 O 0
+3.4047 44 C32 C 2 67 O17 O 1
+3.4366 4 C4 C 0 5 C4 C 1
+3.4511 45 C32 C 3 64 O16 O 0
+3.4802 0 C1 C 0 63 O13 O 1
+3.4857 66 O17 O 0 70 O30 O 2
+3.5305 54 N36 N 2 71 O30 O 3
+3.5366 59 O2 O 1 62 O13 O 0
+3.5429 54 N36 N 2 56 Cl27 Cl 0
+3.5715 4 C4 C 0 69 O22 O 1
+3.5723 22 C15 C 0 70 O30 O 2
+3.6158 42 C31 C 2 43 C31 C 3
+3.7135 46 C33 C 2 67 O17 O 1
+3.7268 49 C34 C 3 60 O12 O 0
+3.7500 42 C31 C 2 55 N36 N 3
+3.7737 1 C1 C 1 12 C8 C 0
+3.7918 49 C34 C 3 70 O30 O 2
+N36 H63 Cl27 DA 3.5429 HA 3.1218 DHA 105.62
+N36 H63 O16 DA 3.0550 HA 2.1674 DHA 142.73
+N36 H63 O30 DA 2.2343 HA 2.4409 DHA 66.22
+O17 H47 O12 DA 3.1588 HA 2.8939 DHA 94.89
+O17 H47 O13 DA 2.5155 HA 2.9198 DHA 57.36
+O17 H47 O16 DA 2.2294 HA 2.7961 DHA 47.57
+#  1:ScatteringPowerAtom(C)
+ObjRegistry<T>::Find(N): Not found !!
+List of Crystal ScatteringPowers :3 object registered:
+#  0:ScatteringPowerAtom(ion_C)
+#  1:ScatteringPowerAtom(C)
+#  2:ScatteringPowerAtom(O)
+ObjRegistry<T>::Find(Cl): Not found !!
+List of Crystal ScatteringPowers :4 object registered:
+#  0:ScatteringPowerAtom(ion_C)
+#  1:ScatteringPowerAtom(C)
+#  2:ScatteringPowerAtom(O)
+#  3:ScatteringPowerAtom(N)
+TRANSFER X263b09a X14a2b08 Rw 0.2628213178471614
+/app/work/submit.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+X14a2b08 Nat 74 molecule sizes [29, 29, 8, 8]
+  component COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1 matches 2
+  component O=C1CCCCCN1 matches 2
+  bond range 1.2189386866427732 1.7131193408257126
+  min intermolecular distance 2.555616352545091
+CYCLE 1 2 Rw 0.05425144874973536 chi2 2102.281746644937 geom 86.82126739149555 LSQ 2395.75987959818
+PACKING_STAGE 1 0.0
+CYCLE 2 0 Rw 0.05351049343456103 chi2 2045.248818837177 geom 119.28591351236638 LSQ 2381.4473757591536
+CYCLE 2 1 Rw 0.053124883299039305 chi2 2015.8778692942165 geom 129.90955914994527 LSQ 2359.201376737473
+CYCLE 2 2 Rw 0.05288308654577884 chi2 1997.5691813938267 geom 132.878515115797 LSQ 2345.74279421309
+PACKING_STAGE 2 0.0

@@ -1,0 +1,5 @@
+LeBail Rwp=0.0562 chi2=24253.7 cell= 14.00409751256923 9.323203675472188 11.028167997880457 90.0
+  conformers: 4 distinct; energies [103.8, 124.9, 127.4, 132.9]; using rank 0 (E=103.8)
+  molecule mol0_0: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions
+  conformers: 4 distinct; energies [103.8, 128.9, 129.8, 132.0]; using rank 0 (E=103.8)
+  molecule mol0_1: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions

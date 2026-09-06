@@ -1,0 +1,9 @@
+BEFORE 0.14651265410155234
+Refinable Object:TextureMarchDollase, with 0 parameters
+Refinable Object:TextureMarchDollase, with 5 parameters
+#0#Fraction_0:     1.000000000000 Fixed
+#1#MarchCoeff_0:     1.322950000000 Fixed
+#2#H_0:     0.000000000000 Fixed
+#3#K_0:     0.000000000000 Fixed
+#4#L_0:     1.000000000000 Fixed
+FIXED_MARCH 1.32295 (0.0, 0.0, 1.0) 0.10689023353087944

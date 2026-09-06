@@ -1,0 +1,28 @@
+LeBail Rwp=0.0764 chi2=44603.9 cell= 14.003982316854657 9.322347904668458 11.028140744857504 90.0
+  molecule mol0_0: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions
+run 0: cost=257158.7 Rwp=0.1979 chi2=300631.5 t=149s
+ISO 0 P c a b Zp=1: 0.1979
+LeBail Rwp=0.0764 chi2=44603.9 cell= 14.003982316854604 9.322347904668417 11.02814074485747 90.0
+  molecule mol0_0: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions
+run 0: cost=345349.6 Rwp=0.2245 chi2=383016.5 t=145s
+ISO 1 P c a b Zp=1: 0.2245
+LeBail Rwp=0.0764 chi2=44603.9 cell= 14.003982316854758 9.322347904668533 11.028140744857586 90.0
+  molecule mol0_0: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions
+run 0: cost=413195.5 Rwp=0.2694 chi2=543066.2 t=146s
+ISO 2 P c a b Zp=1: 0.2694
+LeBail Rwp=0.0764 chi2=44603.9 cell= 14.003982316854753 9.322347904668517 11.028140744857565 90.0
+  molecule mol0_0: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions
+run 0: cost=610259.0 Rwp=0.3730 chi2=989095.7 t=145s
+ISO 3 P c a b Zp=1: 0.3730
+LeBail Rwp=0.0764 chi2=44603.9 cell= 14.003982316854591 9.322347904668426 11.028140744857456 90.0
+  molecule mol0_0: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions
+run 0: cost=456377.7 Rwp=0.2990 chi2=654458.3 t=145s
+ISO 4 P c a b Zp=1: 0.2990
+LeBail Rwp=0.0764 chi2=44603.9 cell= 14.003982316854753 9.322347904668517 11.028140744857565 90.0
+  molecule mol0_0: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions
+run 0: cost=558123.5 Rwp=0.3214 chi2=755070.2 t=146s
+ISO 5 P c a b Zp=1: 0.3214
+LeBail Rwp=0.0764 chi2=44603.9 cell= 14.00398231685458 9.32234790466839 11.028140744857428 90.0
+  molecule mol0_0: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions
+run 0: cost=706788.3 Rwp=0.3584 chi2=939541.5 t=147s
+ISO 8 P c a b Zp=1: 0.3584

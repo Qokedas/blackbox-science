@@ -1,0 +1,161 @@
+CANDIDATE 0
+{'sg': 'P 1', 'number': 1, 'Rw': 5.779641190400275, 'GoF': 5.838498525213219, 'nGoF': 1.9688518662027807, 'mult': 1}
+{'sg': 'P -1', 'number': 2, 'Rw': 5.779641190400275, 'GoF': 5.838498525213219, 'nGoF': 1.9688518662027812, 'mult': 2}
+CANDIDATE 1
+{'sg': 'P 1 2 1', 'number': 3, 'Rw': 5.692859464250935, 'GoF': 5.261317769476531, 'nGoF': 0.0, 'mult': 2}
+{'sg': 'P 1 m 1', 'number': 6, 'Rw': 5.692859464250935, 'GoF': 5.261317769476531, 'nGoF': 0.0, 'mult': 2}
+{'sg': 'P 1 2/m 1', 'number': 10, 'Rw': 5.692859464250935, 'GoF': 5.261317769476531, 'nGoF': 0.0, 'mult': 4}
+{'sg': 'P 1 a 1', 'number': 7, 'Rw': 5.710696645899489, 'GoF': 5.283892918891786, 'nGoF': 0.0, 'mult': 2}
+{'sg': 'P 1 2/a 1', 'number': 13, 'Rw': 5.710696645899489, 'GoF': 5.283892918891786, 'nGoF': 0.0, 'mult': 4}
+{'sg': 'P 1 21 1', 'number': 4, 'Rw': 5.975681374195871, 'GoF': 5.77423694316022, 'nGoF': 0.0, 'mult': 2}
+{'sg': 'P 1 21/m 1', 'number': 11, 'Rw': 5.975681374195871, 'GoF': 5.77423694316022, 'nGoF': 0.0, 'mult': 4}
+{'sg': 'P 1 21/a 1', 'number': 14, 'Rw': 5.985676027488597, 'GoF': 5.782181818566941, 'nGoF': 0.0, 'mult': 4}
+{'sg': 'P 1 n 1', 'number': 7, 'Rw': 6.980550046600747, 'GoF': 7.895054206291613, 'nGoF': 0.0, 'mult': 2}
+{'sg': 'P 1 2/n 1', 'number': 13, 'Rw': 6.980550046600747, 'GoF': 7.895054206291613, 'nGoF': 0.0, 'mult': 4}
+{'sg': 'P 1 c 1', 'number': 7, 'Rw': 6.993316090340423, 'GoF': 7.927085882559784, 'nGoF': 0.0, 'mult': 2}
+{'sg': 'P 1 2/c 1', 'number': 13, 'Rw': 6.993316090340423, 'GoF': 7.927085882559784, 'nGoF': 0.0, 'mult': 4}
+{'sg': 'P 1 21/n 1', 'number': 14, 'Rw': 7.172625261051974, 'GoF': 8.302743329146583, 'nGoF': 0.0, 'mult': 4}
+{'sg': 'P 1 21/c 1', 'number': 14, 'Rw': 7.178977805137285, 'GoF': 8.32072746854964, 'nGoF': 0.0, 'mult': 4}
+{'sg': 'I 1 2 1', 'number': 5, 'Rw': 7.956002987061929, 'GoF': 9.926649081322688, 'nGoF': 0.0, 'mult': 4}
+{'sg': 'I 1 m 1', 'number': 8, 'Rw': 7.956002987061929, 'GoF': 9.926649081322688, 'nGoF': 0.0, 'mult': 4}
+{'sg': 'I 1 2/m 1', 'number': 12, 'Rw': 7.956002987061929, 'GoF': 9.926649081322688, 'nGoF': 0.0, 'mult': 8}
+{'sg': 'I 1 a 1', 'number': 9, 'Rw': 7.970993421270389, 'GoF': 9.956485064313537, 'nGoF': 0.0, 'mult': 4}
+{'sg': 'I 1 2/a 1', 'number': 15, 'Rw': 7.970993421270389, 'GoF': 9.956485064313537, 'nGoF': 0.0, 'mult': 8}
+{'sg': 'I 1 c 1', 'number': 9, 'Rw': 7.9709934212704, 'GoF': 9.956485064313569, 'nGoF': 0.0, 'mult': 4}
+{'sg': 'I 1 2/c 1', 'number': 15, 'Rw': 7.9709934212704, 'GoF': 9.956485064313569, 'nGoF': 0.0, 'mult': 8}
+{'sg': 'C 1 2 1', 'number': 5, 'Rw': 8.620560756034113, 'GoF': 11.636457380854376, 'nGoF': 0.0, 'mult': 4}
+{'sg': 'C 1 m 1', 'number': 8, 'Rw': 8.620560756034113, 'GoF': 11.636457380854376, 'nGoF': 0.0, 'mult': 4}
+{'sg': 'C 1 2/m 1', 'number': 12, 'Rw': 8.620560756034113, 'GoF': 11.636457380854376, 'nGoF': 0.0, 'mult': 8}
+{'sg': 'C 1 c 1', 'number': 9, 'Rw': 10.45322817757055, 'GoF': 17.0969824842437, 'nGoF': 0.0, 'mult': 4}
+{'sg': 'C 1 n 1', 'number': 9, 'Rw': 10.45322817757055, 'GoF': 17.0969824842437, 'nGoF': 0.0, 'mult': 4}
+{'sg': 'C 1 2/c 1', 'number': 15, 'Rw': 10.45322817757055, 'GoF': 17.0969824842437, 'nGoF': 0.0, 'mult': 8}
+{'sg': 'C 1 2/n 1', 'number': 15, 'Rw': 10.45322817757055, 'GoF': 17.0969824842437, 'nGoF': 0.0, 'mult': 8}
+{'sg': 'A 1 2 1', 'number': 5, 'Rw': 12.793692563002754, 'GoF': 25.69819166182433, 'nGoF': 0.0, 'mult': 4}
+{'sg': 'A 1 m 1', 'number': 8, 'Rw': 12.793692563002754, 'GoF': 25.69819166182433, 'nGoF': 0.0, 'mult': 4}
+CANDIDATE 2
+{'sg': 'P 2 21 2', 'number': 17, 'Rw': 4.900141296170561, 'GoF': 4.053555020264068, 'nGoF': 0.0, 'mult': 4}
+{'sg': 'P m m n:1', 'number': 59, 'Rw': 4.904731254265953, 'GoF': 4.052820221391232, 'nGoF': 0.0, 'mult': 8}
+{'sg': 'P 21 21 2', 'number': 18, 'Rw': 4.907564221870345, 'GoF': 4.06417416525462, 'nGoF': 0.0, 'mult': 4}
+{'sg': 'P 2 21 21', 'number': 18, 'Rw': 4.922069297519083, 'GoF': 4.074835722058883, 'nGoF': 0.0, 'mult': 4}
+{'sg': 'P 21 21 21', 'number': 19, 'Rw': 4.929656612447828, 'GoF': 4.08573423701296, 'nGoF': 0.0, 'mult': 4}
+{'sg': 'P 2 2 2', 'number': 16, 'Rw': 4.94709476192454, 'GoF': 4.135010547698321, 'nGoF': 0.0, 'mult': 4}
+{'sg': 'P 21 2 2', 'number': 17, 'Rw': 4.954475470317042, 'GoF': 4.145651996670816, 'nGoF': 0.0, 'mult': 4}
+{'sg': 'P 2 2 21', 'number': 17, 'Rw': 4.971627315412907, 'GoF': 4.160713070510499, 'nGoF': 0.0, 'mult': 4}
+{'sg': 'P 21 2 21', 'number': 18, 'Rw': 4.979177578661307, 'GoF': 4.171649776673346, 'nGoF': 0.0, 'mult': 4}
+{'sg': 'P m c b', 'number': 55, 'Rw': 5.140502338032502, 'GoF': 4.399471273456522, 'nGoF': 0.0, 'mult': 8}
+{'sg': 'P m c n', 'number': 62, 'Rw': 5.149888920220183, 'GoF': 4.41555285432916, 'nGoF': 0.0, 'mult': 8}
+{'sg': 'P 21 c n', 'number': 33, 'Rw': 5.149888920220191, 'GoF': 4.415552854329172, 'nGoF': 0.0, 'mult': 4}
+{'sg': 'P m c a', 'number': 57, 'Rw': 5.1957783816969485, 'GoF': 4.496418749757463, 'nGoF': 0.0, 'mult': 8}
+{'sg': 'P 21 c a', 'number': 29, 'Rw': 5.195778381696951, 'GoF': 4.496418749757464, 'nGoF': 0.0, 'mult': 4}
+{'sg': 'P c 21 b', 'number': 29, 'Rw': 5.2040719638637, 'GoF': 4.465495709973248, 'nGoF': 0.0, 'mult': 4}
+{'sg': 'P c m b', 'number': 57, 'Rw': 5.2040719638637425, 'GoF': 4.465495709973321, 'nGoF': 0.0, 'mult': 8}
+{'sg': 'P c 21 n', 'number': 33, 'Rw': 5.211483403487047, 'GoF': 4.478223942373848, 'nGoF': 0.0, 'mult': 4}
+{'sg': 'P c m n', 'number': 62, 'Rw': 5.211483403487064, 'GoF': 4.478223942373871, 'nGoF': 0.0, 'mult': 8}
+{'sg': 'P c m a', 'number': 55, 'Rw': 5.263084496108295, 'GoF': 4.569179554595832, 'nGoF': 0.0, 'mult': 8}
+{'sg': 'P m a n', 'number': 53, 'Rw': 5.299413749152586, 'GoF': 4.687086686537642, 'nGoF': 0.0, 'mult': 8}
+{'sg': 'P 21 a b', 'number': 29, 'Rw': 5.304087505717679, 'GoF': 4.693449869386162, 'nGoF': 0.0, 'mult': 4}
+{'sg': 'P m a b', 'number': 57, 'Rw': 5.3040875057176855, 'GoF': 4.693449869386171, 'nGoF': 0.0, 'mult': 8}
+{'sg': 'P m n n', 'number': 58, 'Rw': 5.434943816333874, 'GoF': 4.919892695714626, 'nGoF': 0.0, 'mult': 8}
+{'sg': 'P 21 n b', 'number': 33, 'Rw': 5.469047548499244, 'GoF': 4.979809881746308, 'nGoF': 0.0, 'mult': 4}
+{'sg': 'P m n b', 'number': 62, 'Rw': 5.469047548499299, 'GoF': 4.97980988174641, 'nGoF': 0.0, 'mult': 8}
+{'sg': 'P m n a', 'number': 53, 'Rw': 5.479478798087216, 'GoF': 5.002881713915652, 'nGoF': 0.0, 'mult': 8}
+{'sg': 'P m n m:1', 'number': 59, 'Rw': 5.517085481539568, 'GoF': 5.0821014900369255, 'nGoF': 0.0, 'mult': 8}
+{'sg': 'P b m a', 'number': 57, 'Rw': 5.683077587248228, 'GoF': 5.331799648571523, 'nGoF': 0.0, 'mult': 8}
+{'sg': 'P b 21 a', 'number': 29, 'Rw': 5.683077587248274, 'GoF': 5.331799648571621, 'nGoF': 0.0, 'mult': 4}
+{'sg': 'P b m n', 'number': 53, 'Rw': 5.68415299338793, 'GoF': 5.335963249566613, 'nGoF': 0.0, 'mult': 8}
+Candidates:
+[
+ {
+  "cell": [
+   9.652,
+   10.076,
+   10.249,
+   66.84500000000001,
+   88.804,
+   82.18500000000002
+  ],
+  "volume": 907.3644946546219,
+  "score": 19.44,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 9,
+  "source": "index_raw_TRICLINIC_P_partial.json",
+  "sg": "P-1"
+ },
+ {
+  "cell": [
+   4.49,
+   38.23,
+   4.748,
+   90.0,
+   96.807,
+   90.0
+  ],
+  "volume": 809.2620635807468,
+  "score": 14.4,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9,
+  "source": "index_raw_MONOCLINIC_P_partial.json",
+  "sg": "P2/m"
+ },
+ {
+  "cell": [
+   5.061854839324949,
+   9.43370246887207,
+   38.232627868652344,
+   90.0,
+   90.0,
+   90.0
+  ],
+  "volume": 1825.6856883459345,
+  "score": 13.355050086975098,
+  "system": "ORTHOROMBIC",
+  "centering": "P",
+  "mode": 4,
+  "source": "index_ORTHOROMBIC_P_4_700_3200_z-.04_peaks_raw.json",
+  "sg": "Pmmm"
+ }
+]
+import os,json,glob,sys
+import numpy as np,spglib
+from pymatgen.core import Lattice
+ids=sys.argv[1:] or json.load(open('/app/data/instances.json'))['ids']
+for sid in ids:
+ W='/app/work/'+sid;alls=[]
+ for f in glob.glob(W+'/index*.json'):
+  ss=json.load(open(f))
+  for s in ss:s['source']=os.path.basename(f)
+  alls+=ss
+ alls.sort(key=lambda s:-s['score']);out=[];nig=[]
+ for s in alls:
+  if s['score']<max(8,alls[0]['score']*.65):continue
+  cp=np.array(s['cell']);L=Lattice.from_parameters(*cp)
+  cen=s['centering'];pos={'P':[[0,0,0]],'C':[[0,0,0],[.5,.5,0]],'I':[[0,0,0],[.5,.5,.5]],'A':[[0,0,0],[0,.5,.5]],'B':[[0,0,0],[.5,0,.5]],'F':[[0,0,0],[.5,.5,0],[.5,0,.5],[0,.5,.5]]}[cen]
+  try:
+   std=spglib.standardize_cell((L.matrix,pos,[1]*len(pos)),to_primitive=False,no_idealize=False,symprec=.025)
+   prim=spglib.standardize_cell((L.matrix,pos,[1]*len(pos)),to_primitive=True,no_idealize=False,symprec=.025)
+   primL=Lattice(prim[0]).get_niggli_reduced_lattice();n=np.array(primL.parameters)
+   if any(np.allclose(n[:3],n2[:3],rtol=.006) and np.allclose(n[3:],n2[3:],atol=.5) for n2 in nig):continue
+   nig.append(n)
+   ds=spglib.get_symmetry_dataset(std,symprec=.015)
+   L=Lattice(std[0]);cp=list(L.parameters);num=ds.number;sg=ds.international;cen=sg[0]
+   sys='TRICLINIC' if num<=2 else 'MONOCLINIC' if num<=15 else 'ORTHOROMBIC' if num<=74 else 'TETRAGONAL' if num<=142 else 'HEXAGONAL' if num<=194 else 'CUBIC'
+  except Exception as e:print(sid,e);continue
+  new=dict(s,cell=cp,volume=L.volume,system=sys,centering=cen,sg=sg)
+  out.append(new)
+  if len(out)>=8:break
+ json.dump(out,open(W+'/candidates.json','w'),indent=1)
+ if out:print(sid,len(out),out[0]['score'],[round(x,4) for x in out[0]['cell']],out[0]['sg'])
+--Xeb
+Imported powder pattern: 7578 points, 2theta=  4.678 ->  23.621, step= 0.002
+RESCALED_BASE 1.0004644785769743 0.046395222945572724 7577.999999999983
+INITIAL Xeb393f9 1 Rw 0.2688026345500707 LLK 186500.52827408884 Integrated 185153.28212240367 DOF -1
+RUN 0 steps 100000 time 29.4878511428833 total 29.487924814224243 LLK 37728.519233669984 Rw 0.1369213554625328 Integrated 36290.14913488902
+RUN 1 steps 4000000 time 600.0131418704987 total 629.6252927780151 LLK 13985.610211307898 Rw 0.09508150311094965 Integrated 12509.513964364744
+--status long--
+8306 State: S (sleeping)
+9670 State: R (running)
+9976 State: R (running)
+8971 State: R (running)
+10494 State: R (running)

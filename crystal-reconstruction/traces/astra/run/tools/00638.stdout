@@ -1,0 +1,32 @@
+P 2 2 2 1.6154275499502546e-06
+P 2 2 21 2.0700128970929654e-06
+P 2 21 21 1.611217840036261e-06
+P 21 21 2 3.054062062801677e-06
+P 21 21 21 2.4316439066751627e-06
+D7_NEW_PID=33679
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/17408/status ]] && ! grep -q '^State:.*Z' /proc/17408/status; do sleep 5;done
+# Independently test the two-screw orthorhombic group: 100 observed; 010 and 003 absent for X1a.
+python - <<'PY'
+import json
+W='/app/work/X1a56c78';j=json.load(open(W+'/fit_1.json'));j['sg']='P 2 21 21';json.dump([j],open(W+'/candidates_sg18.json','w'))
+PY
+SG_SCAN=0 CANDIDATE_FILE=/app/work/X1a56c78/candidates_sg18.json CANDIDATE_INDEX=0 python /app/work/fit_candidate.py X1a56c78 sg18 .30 > /app/work/X1a56c78/fit_sg18.log 2>&1
+mkdir -p /app/work/X1a56c78/gallop_18; cp /app/work/X1a56c78/fit_sg18.xml /app/work/X1a56c78/gallop_18/base.xml
+BASE_XML=/app/work/X1a56c78/gallop_18/base.xml SEARCH_TIME=1700 PARTICLES=128 ITERATIONS=400 GALLOP_STOL=.24 CONF_RANK=1 python /app/work/search_gallop.py X1a56c78 18 1 --prepare --hscatter --packing > /app/work/X1a56c78/gallop18.log 2>&1
+python /app/work/import_gallop.py X1a56c78 18 > /app/work/X1a56c78/import_g18.log 2>&1
+python /app/work/refine_obj.py X1a56c78 g18 /app/work/X1a56c78/search_g18/best.xml --scale --tight > /app/work/X1a56c78/refine_g18.log 2>&1
+for id in Xd8634a2 Xb7088cf; do
+ START_REFL=90 RAMP_REF_EVERY=5 RAMP_REF_STEP=40 SEARCH_TIME=1700 PARTICLES=128 ITERATIONS=400 GALLOP_STOL=.25 CONF_RANK=4 python /app/work/search_gallop.py $id 31 1 --prepare --hscatter --packing > /app/work/$id/gallop31.log 2>&1
+ python /app/work/import_gallop.py $id 31 > /app/work/$id/import_g31.log 2>&1
+ python /app/work/refine_obj.py $id g31 /app/work/$id/search_g31/best.xml --scale --tight > /app/work/$id/refine_g31.log 2>&1
+GALLOP 25 Nref 333 seconds 67.41137051582336 best 87.11347 q25 170.49565 median 290.09088 total 1631.121379852295
+GALLOP 26 Nref 333 seconds 60.80160307884216 best 87.113594 q25 193.13489 median 282.96313 total 1691.9844269752502
+GALLOP 27 Nref 333 seconds 58.883052110672 best 87.1135 q25 129.25113 median 280.74545 total 1750.8914637565613
+GALLOP 28 Nref 333 seconds 82.58952617645264 best 87.11363 q25 90.94242 median 223.81873 total 1833.5079164505005
+GALLOP 29 Nref 333 seconds 80.12707996368408 best 87.11363 q25 89.23677 median 216.58698 total 1913.7026624679565
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 258 seconds 289.330260515213 best 156.84973 q25 229.23752 median 264.09723 total 289.33667850494385
+GALLOP 1 Nref 258 seconds 290.4711470603943 best 143.52464 q25 201.20781 median 271.7748 total 579.8950345516205
+GALLOP 2 Nref 258 seconds 277.29493522644043 best 143.52423 q25 199.49522 median 261.5844 total 857.2395694255829

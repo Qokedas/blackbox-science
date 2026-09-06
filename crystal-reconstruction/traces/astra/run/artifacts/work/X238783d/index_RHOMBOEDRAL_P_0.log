@@ -1,0 +1,25 @@
+X238783d RHOMBOEDRAL P 0 peaks [5.70811, 7.34877, 8.54857, 9.48246, 10.87815, 11.49221, 11.89138, 12.39744, 13.20314, 13.78466, 14.12249, 15.19893, 15.54966, 16.53157, 16.94413, 17.32364, 17.58326, 18.12556, 18.3898, 19.07527, 19.90561, 20.50743] V 2493.54248046875 9360 Lmax 59.00878160965933
+3->59.0088,2.24036,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+2493.54->9360,686.714,9.999
+Starting: V=2493.54->3180.26
+Finished: V=2493.54->3180.26 A^3, 0 unit cells tested, 0 tests/s,   Elapsed time=5.6e-05s
+Starting: V=3180.26->3866.97
+Finished: V=3180.26->3866.97 A^3, 0 unit cells tested, 0 tests/s,   Elapsed time=0.000106s
+Starting: V=3866.97->4553.69
+Finished: V=3866.97->4553.69 A^3, 0 unit cells tested, 0 tests/s,   Elapsed time=0.000176s
+Starting: V=4553.69->5240.4
+Finished: V=4553.69->5240.4 A^3, 0 unit cells tested, 0 tests/s,   Elapsed time=0.000226s
+Starting: V=5240.4->5927.11
+Finished: V=5240.4->5927.11 A^3, 0 unit cells tested, 0 tests/s,   Elapsed time=0.000276s
+Starting: V=5927.11->6613.83
+Finished: V=5927.11->6613.83 A^3, 0 unit cells tested, 0 tests/s,   Elapsed time=0.000326s
+Starting: V=6613.83->7300.54
+Finished: V=6613.83->7300.54 A^3, 0 unit cells tested, 0 tests/s,   Elapsed time=0.000376s
+Starting: V=7300.54->7987.26
+Finished: V=7300.54->7987.26 A^3, 0 unit cells tested, 0 tests/s,   Elapsed time=0.000433s
+Starting: V=7987.26->8673.97
+Finished: V=7987.26->8673.97 A^3, 0 unit cells tested, 0 tests/s,   Elapsed time=0.000483s
+Starting: V=8673.97->9360
+Finished: V=8673.97->9360 A^3, 0 unit cells tested, 0 tests/s,   Elapsed time=0.000533s
+DONE X238783d RHOMBOEDRAL P 0 0.0006434917449951172 []

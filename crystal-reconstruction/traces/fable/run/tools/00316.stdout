@@ -1,0 +1,7 @@
+kill 9514: python inositol_scan.py P m n m 1 0,1,2,3,4,5,8 400000 1 pmnm 
+down-weighting 17.5-17.95 deg (44 points) by sigma x30.0
+down-weighting 18.85-19.2 deg (34 points) by sigma x30.0
+Imported powder pattern: 4301 points, 2theta=  2.000 ->  45.000, step= 0.010
+LeBail Rwp=0.0432 chi2=13549.5 cell= 14.004243682578249 9.323448777803357 11.028444725212003 90.0
+  conformers: 4 distinct; energies [103.8, 124.9, 127.4, 132.9]; using rank 0 (E=103.8)
+Sun Sep  6 07:10:50 UTC 2026

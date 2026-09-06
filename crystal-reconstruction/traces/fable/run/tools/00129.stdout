@@ -1,0 +1,5 @@
+step ['background'] Rwp=0.0828
+step ['Zero', 'W', 'U', 'V', 'Eta0', 'background', 'a', 'b', 'c', 'alpha', 'beta', 'gamma'] Rwp=0.0790
+LeBail Rwp=0.0781 chi2=11694.4 cell= 5.177851333359381 8.252224511769358 32.94592735343639 92.75134280172806
+  molecule mol0_0: 18 atoms, 18 bonds, 23 angles, 19 dihedral restraints, 4 free torsions
+  single atom Cl

@@ -1,0 +1,59 @@
+3:    <Par Refined="0" Limited="1" Min="1" Max="100" Name="a">6.02252</Par>
+4:    <Par Refined="0" Limited="1" Min="1" Max="100" Name="b">5.52817</Par>
+5:    <Par Refined="0" Limited="1" Min="1" Max="100" Name="c">28.0032</Par>
+6:    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="alpha">90</Par>
+7:    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="beta">93.1186</Par>
+8:    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="gamma">90</Par>
+11:    <Option Name="Use Dynamical Occupancy Correction" Choice="1" ChoiceName="Yes"/>
+19:    <Par Refined="0" Limited="1" Min="-2.86479" Max="2.86479" Name="Zero">0.00231893</Par>
+20:    <Par Refined="0" Limited="1" Min="-2.86479" Max="2.86479" Name="2ThetaDisplacement">0</Par>
+21:    <Par Refined="0" Limited="1" Min="-2.86479" Max="2.86479" Name="2ThetaTransparency">0</Par>
+22:    <Option Name="Use Integrated Profiles" Choice="0" ChoiceName="Yes (recommended)"/>
+28:      <Par Refined="0" Limited="1" Min="0.05" Max="20" Name="Wavelength">0.728302</Par>
+33:      <ReflectionProfilePseudoVoigt>
+34:        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="U">0.0212759</Par>
+35:        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="V">0.00608401</Par>
+36:        <Par Refined="0" Limited="1" Min="0" Max="1" Name="W">0</Par>
+37:        <Par Refined="0" Limited="1" Min="0" Max="1" Name="Eta0">0.527734</Par>
+38:        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="Eta1">0.702797</Par>
+39:        <Par Refined="0" Limited="1" Min="0.01" Max="10" Name="Asym0">1.18489</Par>
+40:        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="Asym1">-0.0258221</Par>
+41:        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="Asym2">0</Par>
+42:      </ReflectionProfilePseudoVoigt>
+43:      <Par Refined="0" Limited="1" Min="-1" Max="1" Name="globalBiso">0</Par>
+45:        <Par Refined="0" Limited="0" Min="1e-10" Max="1e+10" Name="Scale factor">1</Par>
+50:          <Par Refined="0" Limited="1" Min="0.05" Max="20" Name="Wavelength">1</Par>
+52:        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="globalBiso">0</Par>
+56:        <HKLIobsSigmaWeightList>
+206:        </HKLIobsSigmaWeightList>
+210:    <PowderPatternComponent Scale="7.15009e-05" Name=""/>
+214:      <XIntensityList>
+244:      </XIntensityList>
+247:    <PowderPatternComponent Scale="1" Name=""/>
+249:    <XIobsSigmaWeightList>
+4435:    </XIobsSigmaWeightList>
+
+GetReflX( (ScatteringData)arg1) -> object :
+
+    C++ signature :
+        CrystVector<double> GetReflX(ObjCryst::ScatteringData {lvalue})
+
+GetLSQCalc( (RefinableObj)arg1, (int)arg2) -> object :
+
+    C++ signature :
+        CrystVector<double> GetLSQCalc(ObjCryst::RefinableObj {lvalue},unsigned int)
+
+GetLSQCalc( (RefinableObj)arg1, (int)arg2) -> object :
+
+    C++ signature :
+        CrystVector<double> GetLSQCalc((anonymous namespace)::RefinableObjWrap {lvalue},unsigned int)
+Use Integrated Profiles
+0 0.8364896465600437 nan 4185 4185 4185
+1 nan nan 4185 4185 4185
+(149,)   C_CONTIGUOUS : True
+  F_CONTIGUOUS : True
+  OWNDATA : True
+  WRITEABLE : True
+  ALIGNED : True
+  WRITEBACKIFCOPY : False
+

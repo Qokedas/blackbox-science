@@ -1,0 +1,6 @@
+Xbfeeda9 Nat 140 molecule sizes [34, 34, 34, 34, 1, 1, 1, 1]
+  component CN(C)C(=O)C(CC[NH+]1CCC(O)(c2ccc(Cl)cc2)CC1)(c1ccccc1)c1ccccc1 matches 4
+  component [Cl-] matches 4
+  bond range 1.2461845410165124 1.7108536550105846
+  min intermolecular distance 3.0024684246937374
+SUBMITTED Xbfeeda9

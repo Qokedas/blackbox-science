@@ -1,0 +1,252 @@
+16742 1 S bash /app/work/queue_gallop_C4.sh 
+16777 1 S bash /app/work/queue_gallop_A4.sh 
+22512 1 S bash /app/work/queue_acm_warm.sh 
+29859 1 S bash /app/work/queue_gallop_B5.sh 
+32867 1 S bash /app/work/queue_gallop_A5.sh 
+34757 1 S bash /app/work/queue_guided_acm.sh 
+39221 1 S bash /app/work/queue_heavy_anchor4.sh 
+41048 29859 R python /app/work/search_gallop.py X238783d 20 1 --prepare --hscatter 
+41254 1 S bash /app/work/queue_bfee_po.sh 
+41285 16777 R python /app/work/search_gallop.py X35b7fbc 11 1 --prepare --hscatter --model=/app/work/X35b7fbc/cis.json 
+41900 1 S bash /app/work/queue_edd_low.sh 
+43088 16742 R python /app/work/search_gallop.py X1db5091 11 1 --prepare --hscatter 
+43321 1 S bash /app/work/queue_gallop_D8.sh 
+43632 1 S bash /app/work/queue_fcj_index8.sh 
+44157 41254 R python /app/work/search_gallop.py Xbfeeda9 60 1 --hscatter --packing 
+44613 43321 R python /app/work/search_gallop.py X1a56c78 18 1 --prepare --hscatter --packing 
+44768 39221 R python /app/work/search_gallop.py X4f6fe58 41 2 --prepare --hscatter --packing 
+45038 43632 R python /app/work/index_metric.py X8a6f5a8 MONOCLINIC P 
+45109 34757 R python /app/work/refine_obj.py X263b09a g71 /app/work/X263b09a/search_g71/best.xml --scale --tight --stol=.38 
+45112 0 S timeout --signal=TERM --kill-after=5s 30 bash -lc python - <<'PY'
+import os,glob
+for p in glob.glob('/proc/[0-9]*'):
+ try:
+  cmd=open(p+'/cmdline','rb').read().replace(b'\0',b' ').decode(); s=open(p+'/stat').read().split()
+  if ('
+45119 45112 S bash -lc python - <<'PY'
+import os,glob
+for p in glob.glob('/proc/[0-9]*'):
+ try:
+  cmd=open(p+'/cmdline','rb').read().replace(b'\0',b' ').decode(); s=open(p+'/stat').read().split()
+  if ('/app/work/' in cmd or 'python' in cmd) an
+45132 45119 R python - 
+LATEST
+
+==== /app/work/X263b09a/refine_g71.log
+#  0:ScatteringPowerAtom(C)
+#  1:ScatteringPowerAtom(O)
+#  2:ScatteringPowerAtom(N)
+#  3:ScatteringPowerAtom(Cl)
+Imported powder pattern: 6786 points, 2theta=  3.810 ->  71.660, step= 0.010
+EXTENDED 0.38 6786 Rw 0.14137235445626406
+WITH_H 0.1411696639473657 44450486.61263835
+
+==== /app/work/X263b09a/import_g71.log
+IMPORTED X263b09a 71 Rw 0.1414943060133552 Chi2 50138.00027625327
+
+==== /app/work/X263b09a/gallop71.log
+GALLOP 2 Nref 409 seconds 126.20969319343567 best 131.77054 q25 365.99628 median 537.1018 total 467.96964740753174
+GALLOP 3 Nref 409 seconds 166.62681889533997 best 131.75261 q25 345.67648 median 522.2008 total 634.7908084392548
+GALLOP 4 Nref 409 seconds 166.6850152015686 best 131.7522 q25 314.9769 median 437.7152 total 801.6652145385742
+GALLOP 5 Nref 409 seconds 216.59508204460144 best 131.75453 q25 375.95554 median 522.49036 total 1018.4850316047668
+GALLOP 6 Nref 409 seconds 196.23130178451538 best 131.75136 q25 346.7422 median 531.90076 total 1214.8057160377502
+GALLOP 7 Nref 409 seconds 194.0907769203186 best 131.75473 q25 334.06192 median 545.2863 total 1409.0892033576965
+FINISHED X263b09a 131.75135803222656
+
+==== /app/work/X8a6f5a8/index_fcj4z4.log
+METRIC_INDEX X8a6f5a8 MONOCLINIC P peaks [5.622577289738095, 8.270696857539853, 11.251592912095276, 11.604597225496597, 12.28101575518233, 13.326477172221114, 14.28259842090325, 15.365340650102471, 15.971941078915338, 16.56391841998421, 16.905112374161586, 18.375776274671978, 18.813197152775274, 19.720760188913395, 20.32587832452108, 20.80583710882177, 21.752114275216215, 22.23139750964417, 23.04000620939197, 23.39003281344763, 25.168000235908636, 26.843405707213503, 27.47701596230883] bounds [(0.022222222222222223, 0.2857142857142857), (0.022222222222222223, 0.2857142857142857), (0.022222222222222223, 0.2857142857142857), (0.0, 0.7), (-0.08, 0.08)] volume 2100.0 3800.0
+
+==== /app/work/X8a6f5a8/index_fcj4z2.log
+TRIAL 46 sec 443.39612340927124 cost 1.2346128271512289 score 3.106090756104742 vol 1101.5489100533675 cell [ 16.2195   5.1904  13.4895  90.     104.0691  90.    ] zero 0.007566709985165918 best 1.234576059230141 diff [-0.0023 -0.581  -0.0051  0.0253 -0.6338  0.0041  0.1944 -0.0039 -0.0922
+  0.0426 -0.005   0.0059 -0.0727 -0.0049  0.0261 -0.0681 -0.0296  0.1962
+  0.0037  0.0073 -0.0039 -0.0053  0.004 ]
+TRIAL 47 sec 456.2719626426697 cost 1.4754606204238603 score 2.4117679064470092 vol 1007.2363657079183 cell [13.3646  4.7865 15.828  90.     95.847  90.    ] zero 0.021946347717982064 best 1.234576059230141 diff [ 7.600e-03 -1.000e-04  2.000e-04 -3.468e-01  2.013e-01  3.900e-03
+ -3.445e-01 -3.657e-01  6.003e-01 -1.500e-03 -4.400e-03 -4.520e-02
+ -7.800e-03 -1.700e-03  1.500e-03 -1.001e-01 -1.820e-02  1.752e-01
+  5.120e-02 -1.291e-01  1.410e-02  4.000e-04  6.500e-03]
+
+==== /app/work/X1a56c78/gallop18.log
+  0%|          | 0/4 [00:00<?, ?it/s]
+100%|██████████| 4/4 [00:00<00:00, 1854.25it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 90 seconds 123.70289969444275 best 152.48442 q25 295.19763 median 347.2475 total 123.70815062522888
+
+==== /app/work/X238783d/gallop20.log
+100%|██████████| 4/4 [00:00<00:00, 1545.29it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 280 seconds 509.20463728904724 best 220.96054 q25 348.96423 median 408.37878 total 509.2622435092926
+GALLOP 1 Nref 280 seconds 530.0258412361145 best 216.10155 q25 275.82028 median 335.5713 total 1039.503006696701
+
+==== /app/work/X1db5091/gallop11.log
+100%|██████████| 5/5 [00:00<00:00, 1644.95it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 335 seconds 293.6448085308075 best 188.18683 q25 238.83028 median 263.26508 total 293.7042899131775
+GALLOP 1 Nref 335 seconds 318.20438385009766 best 162.85994 q25 209.59836 median 250.23596 total 612.1009156703949
+
+==== /app/work/X4f6fe58/gallop41.log
+
+  0%|          | 0/4 [00:00<?, ?it/s]
+100%|██████████| 4/4 [00:00<00:00, 1849.75it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+
+==== /app/work/Xbfeeda9/gallop60.log
+  0%|          | 0/4 [00:00<?, ?it/s]
+100%|██████████| 4/4 [00:00<00:00, 1181.00it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 442 seconds 251.39163732528687 best 10.270865 q25 304.12317 median 397.11667 total 251.4017391204834
+
+==== /app/work/X3f4781b/refine_g50.log
+CYCLE 2 2 Rw 0.14622527395796592 chi2 3165.7104049179798 geom 16.95846609920233 LSQ 3315.9010813513264
+PACKING_STAGE 2 1.4979971882942689
+CYCLE 3 0 Rw 0.14154354168647684 chi2 2966.240858440726 geom 17.94499590253012 LSQ 3115.3093939177606
+CYCLE 3 1 Rw 0.13988684659725464 chi2 2897.210540920681 geom 19.063987900930115 LSQ 3058.3908226725607
+CYCLE 3 2 Rw 0.13883133564151603 chi2 2853.653903715562 geom 20.455600448772415 LSQ 3024.178054103026
+PACKING_STAGE 3 2.47079378969338
+FINISHED X3f4781b 0.13883133564151603
+
+==== /app/work/X35b7fbc/gallop11.log
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 196 seconds 248.67129516601562 best 208.91447 q25 299.39755 median 346.1958 total 248.68118834495544
+GALLOP 1 Nref 196 seconds 253.37459754943848 best 186.69449 q25 248.21637 median 315.79453 total 502.1845266819
+GALLOP 2 Nref 196 seconds 235.46995949745178 best 162.46185 q25 251.65599 median 313.36005 total 737.7819201946259
+GALLOP 3 Nref 196 seconds 258.0718982219696 best 143.8517 q25 254.06339 median 310.346 total 995.9741108417511
+
+==== /app/work/X1a56c78/fit_sg18.log
+Imported powder pattern: 2487 points, 2theta=  5.380 ->  55.100, step= 0.020
+STARTFIT X1a56c78 sg18 Rw 0.07878311569937185
+GROUPS [{"sg": "P 2 21 21", "number": 18, "Rw": 8.123917939691406, "GoF": 189.34034512106456, "nGoF": 0.0, "mult": 4}]
+DONE X1a56c78 sg18 0.07069285221208464 [5.905248814300708, 11.252070606740055, 30.08138947876488, 90.0, 90.0, 90.0]
+
+==== /app/work/X8a06d7a/refine_g11.log
+CYCLE 2 2 Rw 0.23587512067528005 chi2 2576.4345112643887 geom 14.302325026871918 LSQ 2685.650023330643
+PACKING_STAGE 2 7.286892311118285
+CYCLE 3 0 Rw 0.2240311568206916 chi2 2324.1902770022334 geom 24.739210531404837 LSQ 2445.7234912427925
+CYCLE 3 1 Rw 0.21772628416665948 chi2 2195.212457706035 geom 26.8182799485898 LSQ 2312.8814501636934
+CYCLE 3 2 Rw 0.21586909874810314 chi2 2157.922254378455 geom 44.59022299774888 LSQ 2298.68824217337
+PACKING_STAGE 3 5.857371706075368
+FINISHED X8a06d7a 0.21586909874810314
+
+==== /app/work/X8a06d7a/import_g11.log
+#  1:ScatteringPowerAtom(O)
+ObjRegistry<T>::Find(Cl): Not found !!
+List of Crystal ScatteringPowers :3 object registered:
+#  0:ScatteringPowerAtom(C)
+#  1:ScatteringPowerAtom(O)
+#  2:ScatteringPowerAtom(N)
+IMPORTED X8a06d7a 11 Rw 0.26491510395783635 Chi2 48676000.866467826
+
+==== /app/work/X3f4781b/import_g50.log
+IMPORTED X3f4781b 50 Rw 0.1616418157558438 Chi2 3868.4210414809736
+
+==== /app/work/X8a06d7a/gallop11.log
+
+  0%|          | 0/4 [00:00<?, ?it/s]
+100%|██████████| 4/4 [00:00<00:00, 996.63it/s]
+GALLOP 12 Nref 200 seconds 177.60449862480164 best 142.65065 q25 300.52844 median 386.9665 total 1894.0330398082733
+GALLOP 13 Nref 200 seconds 161.6967535018921 best 142.65071 q25 248.9802 median 391.70215 total 2055.911632299423
+GALLOP 14 Nref 200 seconds 186.0006172657013 best 142.65083 q25 210.48203 median 366.88507 total 2242.0012118816376
+FINISHED X8a06d7a 142.65065002441406
+
+==== /app/work/X3f4781b/gallop50.log
+GALLOP 3 Nref 196 seconds 209.26303911209106 best 192.38934 q25 229.56866 median 307.08728 total 663.3759801387787
+GALLOP 4 Nref 235 seconds 212.4995424747467 best 187.25981 q25 212.08624 median 301.24188 total 875.986389875412
+GALLOP 5 Nref 276 seconds 208.10361862182617 best 187.04715 q25 239.93417 median 317.34982 total 1084.1857640743256
+GALLOP 6 Nref 298 seconds 288.16859698295593 best 186.48587 q25 246.82549 median 301.09436 total 1372.5686542987823
+GALLOP 7 Nref 298 seconds 293.29724192619324 best 165.51534 q25 221.45695 median 313.5926 total 1666.0686075687408
+GALLOP 8 Nref 298 seconds 305.70667362213135 best 132.46101 q25 206.0721 median 291.01315 total 1971.9926660060883
+FINISHED X3f4781b 132.4610137939453
+
+==== /app/work/Xedd9c7b/warm52.log
+PREPARED Xedd9c7b Nref 258 PawleyRw 0.09064984261516006 SG P 1 21/a 1
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+RESTART_ERROR max/rms 1.953298830778754e-06 1.1753424308078288e-06
+WARM_READY /app/work/Xedd9c7b/gallop_52
+
+==== /app/work/Xbfeeda9/warm60.log
+PREPARED Xbfeeda9 Nref 442 PawleyRw 0.036948551858085835 SG P 1 21/a 1
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+RESTART_ERROR max/rms 1.3694704390771797e-06 8.722646548948728e-07
+WARM_READY /app/work/Xbfeeda9/gallop_60
+
+==== /app/work/Xedd9c7b/extend_low51.log
+Imported powder pattern: 2818 points, 2theta=  3.007 ->  39.994, step= 0.013
+RESTORED_LOW_RANGE Xedd9c7b 3.00657 10.6088 39.9938 2818 Rw 0.09087939818470202
+RESTORED_STRUCTURAL_MODE /app/work/Xedd9c7b/search_low51/best.xml 0.15856913952429944
+
+==== /app/work/Xedd9c7b/check_g51.log
+/app/work/submit.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+Xedd9c7b Nat 152 molecule sizes [19, 19, 19, 19, 19, 19, 19, 19]
+  component C[NH+](C)CCc1c[nH]c2cccc(OP(=O)([O-])O)c12 matches 8
+  bond range 1.3628915639931847 1.6199952684026306
+  min intermolecular distance 2.456654792276503
+
+==== /app/work/Xedd9c7b/refine_g51.log
+CYCLE 2 2 Rw 0.10984716394366299 chi2 1851.592498093971 geom 2.550686564583352 LSQ 1900.6442454933065
+PACKING_STAGE 2 5.337664883139231
+CYCLE 3 0 Rw 0.10886958518978902 chi2 1818.782854584142 geom 2.5608469426155462 LSQ 1867.2975608666616
+CYCLE 3 1 Rw 0.10872523248885635 chi2 1813.9629196324172 geom 2.569189063845718 LSQ 1861.5936555617573
+CYCLE 3 2 Rw 0.1086768093134661 chi2 1812.3475028181292 geom 2.651838472078762 LSQ 1860.6903164570804
+PACKING_STAGE 3 4.976583968816502
+FINISHED Xedd9c7b 0.1086768093134661
+
+==== /app/work/X8a6f5a8/fcj_refine_cells.log
+ -0.0033  0.0095  0.0126 -0.0054  0.0222]
+BEST 0.9289141117245792 15 P 1 [ 10.55169  15.55004   7.87679  83.65937 103.98142  91.21448] -0.10622017700346316 index_emg1.json:14 [-0.0142  0.2599  0.0858 -0.0737  0.0138  0.0083 -0.0005 -0.0421  0.0223
+ -0.0234  0.1901 -0.0787  0.0114 -0.0999  0.0011 -0.0604 -0.0058  0.0037
+  0.0047 -0.0162 -0.0072  0.0169  0.0139]
+BEST 0.9331663212647838 15 P 1 [16.07742 12.9429   8.42478 95.66064 95.22482 98.39623] 0.06327013622578928 index_TRICLINIC_P_3.json:17 [ 0.0249 -0.0034 -0.0066 -0.0918 -0.0066  0.0065 -0.058   0.0053  0.0187
+  0.0287 -0.0358 -0.0033  0.0743  0.0108 -0.0034  0.002  -0.0353 -0.0017
+  0.0366 -0.0026  0.0395 -0.0024 -0.0727]
+
+==== /app/work/Xedd9c7b/import_g51.log
+IMPORTED Xedd9c7b 51 Rw 0.1257148890680535 Chi2 3583.285329315882
+
+==== /app/work/Xedd9c7b/gallop51.log
+GALLOP 1 Nref 258 seconds 219.46652483940125 best 95.40519 q25 192.96796 median 246.36617 total 412.6985981464386
+GALLOP 2 Nref 258 seconds 200.91106581687927 best 95.283676 q25 177.37473 median 241.2572 total 613.7026996612549
+GALLOP 3 Nref 258 seconds 205.39423990249634 best 95.257286 q25 197.61597 median 254.52036 total 819.2262365818024
+GALLOP 4 Nref 258 seconds 209.73134660720825 best 95.255035 q25 168.11342 median 240.00322 total 1029.1311852931976
+GALLOP 5 Nref 258 seconds 191.58263039588928 best 95.25454 q25 183.22324 median 246.42422 total 1220.8965365886688
+GALLOP 6 Nref 258 seconds 228.7933361530304 best 95.25488 q25 201.49603 median 250.89835 total 1449.8295991420746
+FINISHED Xedd9c7b 95.2545394897461
+
+==== /app/work/X8a6f5a8/fcj_global.log
+PEAK 40 28.09812798168846 -> 28.21165517793209 sig 192.49695717551666 gam 41.0744419106688 area 5965.990537434775 err 0.008640396537590803
+PEAK 41 28.783869248791206 -> 28.860904671916497 sig 35.704789597391944 gam 39.81238540388019 area 3889.00450482259 err 0.005204501267126385
+PEAK 42 29.262793356332036 -> 29.254186873896916 sig 7.727795794121868 gam 27.473350145917333 area 2074.081906118535 err 0.0077777213292810335
+PEAK 43 29.516152041220202 -> 29.579472635916442 sig 12.040111427707537 gam 35.60192852409579 area 5788.253003637826 err 0.004615016560956798
+PEAK 44 30.115914173034508 -> 30.000684071174938 sig 185.99135649293237 gam 4.924611879004048 area 951.520335783809 err 0.02089342468746328
+PEAK 45 30.21301300289911 -> 30.272212808840774 sig 75.85629115181112 gam 1.8438751431251763 area 290.7207505336574 err 0.02652965965950514
+DONE 155.0118887424469 SHL 0.11143008551564297 Rw 0.019369247817288902
+
+==== /app/work/X1db5091/basefresh.log
+ObjRegistry<T>::Find(ion_C): Not found !!
+List of Crystal ScatteringPowers :0 object registered:
+Imported powder pattern: 5536 points, 2theta=  3.720 ->  59.070, step= 0.010
+FRESH_BASE X1db5091 P 1 21/c 1 0.08393986606639924 158069.5992844066
+Imported powder pattern: 5536 points, 2theta=  3.720 ->  59.070, step= 0.010
+SCALED 53.43615721820278 Rw 0.08393993472928879 Chi2 5536.009056910117

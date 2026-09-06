@@ -1,0 +1,23 @@
+ObjRegistry<T>::Find(C): Not found !!
+List of Crystal ScatteringPowers :0 object registered:
+ObjRegistry<T>::Find(O): Not found !!
+List of Crystal ScatteringPowers :1 object registered:
+#  0:ScatteringPowerAtom(C)
+ObjRegistry<T>::Find(N): Not found !!
+List of Crystal ScatteringPowers :2 object registered:
+#  0:ScatteringPowerAtom(C)
+#  1:ScatteringPowerAtom(O)
+ObjRegistry<T>::Find(Cl): Not found !!
+List of Crystal ScatteringPowers :3 object registered:
+#  0:ScatteringPowerAtom(C)
+#  1:ScatteringPowerAtom(O)
+#  2:ScatteringPowerAtom(N)
+Imported powder pattern: 6786 points, 2theta=  3.810 ->  71.660, step= 0.010
+RESCALED_BASE 1.0 0.05205499189078589 6785.999883885567
+INITIAL X263b09a 1 Rw 0.37274178298676747 LLK 305205.1794084129 Integrated 258602.3102179509 DOF -1
+RUN 0 steps 100000 time 39.54579472541809 total 39.5458767414093 LLK 109115.17805206757 Rw 0.20698222283090326 Integrated 76318.33215754927
+RUN 1 steps 4000000 time 600.0302834510803 total 639.7450065612793 LLK 68696.16988769385 Rw 0.15174037672999569 Integrated 40796.06250023201
+RUN 2 steps 4000000 time 600.0647654533386 total 1239.9077064990997 LLK 69773.1664038229 Rw 0.15340961868122466 Integrated 39400.95872735074
+RUN 3 steps 4000000 time 600.0346896648407 total 1839.9478795528412 LLK 68742.05199655266 Rw 0.1516232752813093 Integrated 38910.66554360046
+RUN 4 steps 4000000 time 600.0838050842285 total 2440.037152528763 LLK 66990.42006500921 Rw 0.148781216550082 Integrated 37674.90399024056
+FINISHED 66990.42006500921

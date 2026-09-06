@@ -1,0 +1,26 @@
+{
+ "radiation": {
+  "type": "Cu Kalpha1 (laboratory, monochromatic per the paper: Bruker D8 Advance, LynxEye)",
+  "wavelength_A": 1.540598,
+  "wavelengths_A": [
+   1.540598
+  ],
+  "wavelength_weights": null,
+  "monochromator": "monochromatic incident beam (paper)",
+  "source": "sealed X-ray tube"
+ },
+ "geometry": "reflection (flat plate / Bragg-Brentano)",
+ "geometry_source_text": null,
+ "temperature_K": 300.0,
+ "two_theta_range_deg": [
+  3.0066,
+  39.9938
+ ],
+ "n_points": 2818,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": [
+  "depositors tagged the radiation K-alpha1,2; the paper states monochromatic 1.5406 A and the deposited profile is consistent with a single wavelength"
+ ]
+}

@@ -1,0 +1,86 @@
+import os,sys,json,numpy as np,gemmi
+import matplotlib
+matplotlib.use('Agg')
+from pyobjcryst.crystal import Crystal
+from pyobjcryst.powderpattern import PowderPattern,ReflectionProfileType
+from pyobjcryst.io import xml_cryst_file_save_global
+sid=sys.argv[1];tag=sys.argv[2];sg=sys.argv[3];W='/app/work/'+sid
+j=json.load(open(W+'/fit_'+tag+'.json'));cp=j['cell'];ins=json.load(open('/app/data/instances/'+sid+'/instrument.json'));wl=ins['radiation']['wavelength_A'];rad=ins['radiation']
+c=Crystal(*cp[:3],*np.deg2rad(cp[3:]),sg);c.SetName(sid)
+data=np.loadtxt('/app/data/instances/'+sid+'/pattern.xye');peaks=json.load(open(W+'/peaks.json'));mh=max(p['height'] for p in peaks);valid=[p for p in peaks if p['height']>.015*mh];xmin=max(data[0,0],min(p['two_theta'] for p in valid)-.5*wl/1.54)
+if os.path.exists(W+'/peak_select.json'):xmin=max(xmin,json.load(open(W+'/peak_select.json')).get('min_two_theta',xmin))
+stol=float(os.environ.get('MAX_STOL','.25'));data=data[(data[:,0]>=xmin)&(data[:,0]<np.rad2deg(2*np.arcsin(stol*wl)))]
+if len(data)>12000:
+ n=len(data)//2*2;data=np.column_stack([data[:n,0].reshape(-1,2).mean(1),data[:n,1].reshape(-1,2).mean(1),np.sqrt((data[:n,2]**2).reshape(-1,2).sum(1))/2])
+# A constant uncertainty rescaling preserves all diffraction relative weights and prevents disproportionate molecular restraint weighting.
+scale=max(1.,np.median(np.sqrt(np.clip(data[:,1],1,None))/data[:,2]));data[:,2]*=scale
+np.savetxt(W+'/base_profile.xye',data)
+p=PowderPattern();p.SetName(sid);p.ImportPowderPattern2ThetaObsSigma(W+'/base_profile.xye');p.SetWavelength(wl);p.SetMaxSinThetaOvLambda(stol)
+if len(rad.get('wavelengths_A') or [])>1:p.SetWavelength('Mo' if wl<1 else 'Cu')
+d=p.AddPowderPatternDiffraction(c)
+wid=np.median([v['fwhm'] for v in sorted(valid,key=lambda z:-z['height'])[:25]])
+d.SetReflectionProfilePar(ReflectionProfileType.PROFILE_PSEUDO_VOIGT,np.deg2rad(wid)**2,0,0,.5,0)
+b=p.AddPowderPatternBackground();nbkg=max(20,int((data[-1,0]-data[0,0])/(1.2*wl/1.54)));bx=np.linspace(np.deg2rad(data[0,0]),np.deg2rad(data[-1,0]),nbkg);raw=np.load(W+'/processed.npz');by=np.interp(np.rad2deg(bx),raw['x'],raw['background']);b.SetInterpPoints(bx,by)
+p.Prepare();p.quick_fit_profile(pdiff=d,auto_background=False,init_profile=False,plot=False,asym=True,verbose=False);p.FitScaleFactorForRw()
+print('FRESH_BASE',sid,sg,p.GetRw(),p.GetChi2(),flush=True)
+# Save the actual optimum reached. Excessive multiplicative Le Bail cycles can destabilize heavily overlapped lines.
+scale2=max(1.,np.sqrt(p.GetChi2()/len(data)));data[:,2]*=scale2;np.savetxt(W+'/base_profile.xye',data);p.ImportPowderPattern2ThetaObsSigma(W+'/base_profile.xye');p.Prepare();p.FitScaleFactorForRw()
+print('SCALED',scale*scale2,'Rw',p.GetRw(),'Chi2',p.GetChi2(),flush=True)
+cell={n:float(c.GetPar(n).GetHumanValue()) for n in ['a','b','c','alpha','beta','gamma']};out={'cell':cell,'space_group':sg,'space_group_number':gemmi.find_spacegroup_by_name(sg).number}
+json.dump(out,open(W+'/lattice.json','w'),indent=1)
+if '--submit' in sys.argv:json.dump(out,open('/app/results/submission/'+sid+'.json','w'),indent=1)
+xml_cryst_file_save_global(W+'/base.xml');np.savez_compressed(W+'/lebail.npz',h=d.GetH(),k=d.GetK(),l=d.GetL(),stol=d.GetSinThetaOverLambda(),f2=d.GetFhklObsSq(),x=p.GetPowderPatternX(),obs=p.GetPowderPatternObs(),calc=p.GetPowderPatternCalc())
+p.plot(diff=True,hkl=False);p.figure.savefig(W+'/base.png',dpi=140)
+import os,sys,json,numpy as np
+import matplotlib
+matplotlib.use('Agg')
+from pyobjcryst.io import xml_cryst_file_load_all_object,xml_cryst_file_save_global
+from pyobjcryst.powderpattern import PowderPattern,wrap_boost_powderpattern
+from pyobjcryst.crystal import Crystal
+from pyobjcryst._pyobjcryst import LSQ
+sid=sys.argv[1];tag=sys.argv[2];sg=sys.argv[3];W='/app/work/'+sid
+startxml=W+('/pre_scan_' if os.path.exists(W+'/pre_scan_'+tag+'.xml') else '/fit_')+tag+'.xml'
+objs=xml_cryst_file_load_all_object(startxml);c=[x for x in objs if x.GetClassName()=='Crystal'][0];p=[x for x in objs if x.GetClassName()=='PowderPattern'][0]
+import pyobjcryst.powderpattern as ppmod
+from types import MethodType
+ppmod.MethodType=MethodType
+wrap_boost_powderpattern(p)
+c.ChangeSpaceGroup(sg);c.SetName(sid);p.SetName(sid);d=p.get_crystalline_components()[0]
+d.SetExtractionMode(True,True);d.ExtractLeBail(10)
+p.quick_fit_profile(pdiff=d,init_profile=False,auto_background=False,plot=False,asym=True,verbose=False)
+print('BEFORE_EXTRACTION',p.GetRw(),flush=True)
+p.FitScaleFactorForRw()
+print('BASE',sid,sg,'Rw',p.GetRw(),'chi2',p.GetChi2(),flush=True)
+cell={n:float(c.GetPar(n).GetHumanValue()) for n in ['a','b','c','alpha','beta','gamma']}
+import gemmi
+out={'cell':cell,'space_group':sg,'space_group_number':gemmi.find_spacegroup_by_name(sg).number}
+json.dump(out,open(W+'/lattice.json','w'),indent=1)
+# This is a supported lattice hypothesis, updated if later solution tests reject it.
+os.makedirs('/app/results/submission',exist_ok=True)
+if '--submit' in sys.argv:json.dump(out,open('/app/results/submission/'+sid+'.json','w'),indent=1)
+xml_cryst_file_save_global(W+'/base.xml')
+np.savez_compressed(W+'/lebail.npz',h=d.GetH(),k=d.GetK(),l=d.GetL(),stol=d.GetSinThetaOverLambda(),f2=d.GetFhklObsSq(),x=p.GetPowderPatternX(),obs=p.GetPowderPatternObs(),calc=p.GetPowderPatternCalc())
+p.plot(diff=True,hkl=False);p._plot_fig.savefig(W+'/base.png',dpi=140)
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+SEARCH_TIME=1600 MC_STEPS=3000000 TARGET_RW=.13 python /app/work/search_obj.py Xd4c1a35 2 2 --rescale --profile > /app/work/Xd4c1a35/search2.log 2>&1
+python /app/work/refine_obj.py Xd4c1a35 2 /app/work/Xd4c1a35/search_2/best.xml --scale > /app/work/Xd4c1a35/refine_2.log 2>&1
+SEARCH_TIME=1600 PARTICLES=128 ITERATIONS=400 GALLOP_STOL=.23 python /app/work/search_gallop.py X13023e3 11 1 --prepare > /app/work/X13023e3/gallop11.log 2>&1
+python /app/work/import_gallop.py X13023e3 11 > /app/work/X13023e3/import_g11.log 2>&1
+python /app/work/refine_obj.py X13023e3 g11 /app/work/X13023e3/search_g11/best.xml --scale > /app/work/X13023e3/refine_g11.log 2>&1
+SEARCH_TIME=2200 MC_STEPS=4000000 TARGET_RW=.12 python /app/work/search_obj.py X263b09a 1 1 --rescale --profile > /app/work/X263b09a/search1.log 2>&1
+python /app/work/refine_obj.py X263b09a 1 /app/work/X263b09a/search_1/best.xml --scale > /app/work/X263b09a/refine_1.log 2>&1
+SEARCH_TIME=2200 MC_STEPS=4000000 TARGET_RW=.12 python /app/work/search_obj.py X14a2b08 1 1 --rescale --profile > /app/work/X14a2b08/search1.log 2>&1
+python /app/work/refine_obj.py X14a2b08 1 /app/work/X14a2b08/search_1/best.xml --scale > /app/work/X14a2b08/refine_1.log 2>&1
+CYCLE 1 1 ok True Rw 0.08568573199318383 chi2 2007.9604552620165 LSQ before/after 2295.28644222665 2268.091934316778 geom 5137.729510423204
+CYCLE 1 2 ok True Rw 0.08982530187356819 chi2 2206.6604136169503 LSQ before/after 2268.091934316778 3605.4456372997142 geom 3152.16255455392
+AFTER_END Rw 0.08982530187356817 chi2 2206.660413616949 geom 3152.1625545539205
+CYCLE 2 0 ok True Rw 0.0976549678522355 chi2 2608.1154752205775 LSQ before/after 3605.4456372997142 3732.67228623217 geom 6158.97393069654
+CYCLE 2 1 ok True Rw 0.09512317825779318 chi2 2474.6332176173505 LSQ before/after 3732.67228623217 3703.983488579678 geom 15059.282214130344
+CYCLE 2 2 ok True Rw 0.10621820955734877 chi2 3085.574852566349 LSQ before/after 3703.983488579678 7413.563264204517 geom 19594.685051777196
+AFTER_END Rw 0.10621820955734863 chi2 3085.5748525663394 geom 19594.685051777204
+CYCLE 3 0 ok True Rw 0.081132218317816 chi2 1800.216900262901 LSQ before/after 7413.563264204517 6772.833844426134 geom 26061.159223681443
+CYCLE 3 1 ok True Rw 0.08482604397103877 chi2 1967.870701669726 LSQ before/after 6772.833844426134 9254.351621198399 geom 33032.20724227483
+CYCLE 3 2 ok True Rw 0.08352579269253096 chi2 1908.0042825942733 LSQ before/after 9254.351621198399 8545.130293126085 geom 26511.563156813976
+AFTER_END Rw 0.08352579269253099 chi2 1908.0042825942744 geom 26511.56315681398
+FINISHED X13023e3 0.083525792692531
+===indexext===

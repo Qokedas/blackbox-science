@@ -1,0 +1,41 @@
+{
+  "schema": "qokedas.harness_validation.v1",
+  "author": "Qokedas",
+  "validated_utc": "2026-09-05T00:52:18.469283+00:00",
+  "runtime_source_sha256": {
+    "run_agent.py": "9956e9a6b70512e8cc9effc91a58927131b2067d463d2a48dedeb45fa8d5b7c7",
+    "protocol.py": "eeb073bb0991712dfefffcce58e4c84e4588c83427a1a79db0208b6c24f48c69",
+    "container_tools.py": "77f4b5adbaedcc4bb3a027315f2cff40b65d94ad8135281e583b67923bd7cd8a",
+    "deadline_guard.py": "031298e66c900fb04e52732bbe23b65c0006da4dd5a4339c37292f6f6e624e84"
+  },
+  "offline_suite": {
+    "command": "python3 -m unittest -q test_harness.py",
+    "tests": 39,
+    "status": "passed",
+    "test_file_sha256": "98dced7aa2400af081da27119a0b074ce0cf918f41d19c8a473d144ca867e9b5"
+  },
+  "docker_integration": {
+    "status": "passed",
+    "cases": [
+      "blocked-event-loop",
+      "deadline",
+      "natural"
+    ],
+    "evidence": {
+      "validation/docker/blocked-event-loop/integration_result.json": "343efd70b9e25b652a2dd9d3c3b29820b2b04fe428f7b5117108954e305e7a8f",
+      "validation/docker/deadline/integration_result.json": "5f079962d7c7537b97ee47f8bb8b415a2083bdbc49d989cbcaf25a95c7d28048",
+      "validation/docker/natural/integration_result.json": "cef743be4c92bb0597c8a8ca85b6699912329b3e6a8bf59fb0e5dfbea96b17bd"
+    },
+    "vm": "<preflight-vm>",
+    "benchmark_inputs_used": false,
+    "provider_calls": 0,
+    "synthetic_containers_and_image_removed": true
+  },
+  "provider_smoke": {
+    "performed_by": "parent campaign agent",
+    "astra_record": "<preflight>/smoke-astra/trial_record.json",
+    "fable_record": "<preflight>/smoke-fable/trial_record.json",
+    "benchmark_inputs_used": false
+  },
+  "scoring_performed": false
+}

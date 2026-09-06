@@ -1,0 +1,42 @@
+* \note It may be a good idea to separate in 3 namespaces for ObjCryst, WXObjCryst,
+* and RefinableObj
+*/
+namespace ObjCryst
+{
+
+#ifndef M_PI
+#define M_PI 3.14159265358979323846264338327950288
+#endif
+
+#define DEG2RAD (M_PI/180.)
+#define RAD2DEG (180./M_PI)
+
+#ifndef REAL
+#define REAL float
+#endif
+
+// Implemented in IO.cpp
+/// Function to convert a substring to a floating point value, imposing a C locale (using '.' as decimal separator).
+/// This is used for input/output from data file, which are only using the C locale, contrary to the GUI.
+float string2floatC(const string &s);
+BEFORE 0.13125810078879624
+RET 0
+AFTER 0.13348140778880263
+ReflectionProfilePseudoVoigtAnisotropic
+U 0.00010887239926285933 0.35740700364112854
+V 1.3262890674764166e-05 0.04353950172662735
+W 3.7382650709083933e-06 0.012272000312805176
+P 0.0 0.0
+X 0.001933459353311673 0.11077906080485235
+Y 0.010434193752411315 0.5978352646349397
+G_HH 0.0 0.0
+G_KK 0.0 0.0
+G_LL 0.0 0.0
+G_HK 0.0 0.0
+G_HL 0.0 0.0
+G_KL 0.0 0.0
+Eta0 0.6719449758529663 0.6719449758529663
+Eta1 -1.0 -1.0
+Asym0 1.1749299764633179 1.1749299764633179
+Asym1 0.16570399701595306 0.16570399701595306
+Asym2 0.0 0.0

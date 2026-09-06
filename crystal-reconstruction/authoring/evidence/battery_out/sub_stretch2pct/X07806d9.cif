@@ -1,0 +1,67 @@
+data_ref
+_cell_length_a 8.20862(9)
+_cell_length_b 11.22253(10)
+_cell_length_c 16.85949(21)
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+_cell_volume 1553.12(4)
+_symmetry_cell_setting orthorhombic
+_space_group_name_H-M_alt "P b c a"
+_space_group_name_Hall "-P 2ac 2ab"
+
+loop_
+_space_group_symop_id
+_space_group_symop_operation_xyz
+1 x,y,z
+2 1/2-x,1/2+y,z
+3 x,1/2-y,1/2+z
+4 1/2-x,-y,1/2+z
+5 -x,-y,-z
+6 1/2+x,1/2-y,-z
+7 -x,1/2+y,1/2-z
+8 1/2+x,y,1/2-z
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+_atom_site_adp_type
+_atom_site_U_iso_or_equiv
+_atom_site_site_symmetry_multiplicity
+Cl1 Cl -0.08722(19) -0.38073(14) 0.41224(10) 1.0000 Uani 0.0481 8
+O2 O 0.0446(6) 0.1463(3) 0.44517(28) 1.0000 Uiso 0.0436(19) 8
+O3 O 0.1421(6) -0.1790(3) 0.36656(31) 1.0000 Uiso 0.0720(21) 8
+O4 O -0.0889(6) -0.0777(4) 0.33612(24) 1.0000 Uiso 0.0608(22) 8
+N5 N -0.1619(6) 0.3359(4) 0.4450(3) 1.0000 Uiso 0.0446(21) 8
+C6 C -0.0760(7) 0.3045(5) 0.3692(4) 1.0000 Uiso 0.0360(25) 8
+C7 C 0.0829(8) 0.1383(5) 0.3041(4) 1.0000 Uiso 0.0276(21) 8
+C8 C 0.0181(8) 0.1909(6) 0.3815(5) 1.0000 Uiso 0.0294(24) 8
+C9 C 0.1717(9) 0.0206(6) 0.3188(4) 1.0000 Uiso 0.0365(25) 8
+C10 C 0.0637(10) -0.0816(7) 0.3375(4) 1.0000 Uiso 0.0570(31) 8
+H11 H -0.16952 0.29163 0.31995 1.0000 Uiso 0.0432 8
+H12 H 0.01136 0.37928 0.35232 1.0000 Uiso 0.0432 8
+H13 H -0.07194 0.37918 0.48770 1.0000 Uiso 0.0535 8
+H14 H -0.21369 0.25158 0.47304 1.0000 Uiso 0.0535 8
+H15 H 0.17071 0.20435 0.27562 1.0000 Uiso 0.0332 8
+H16 H -0.02297 0.12117 0.26185 1.0000 Uiso 0.0332 8
+H17 H 0.26049 0.03343 0.37008 1.0000 Uiso 0.0438 8
+H18 H 0.24389 -0.00500 0.26360 1.0000 Uiso 0.0438 8
+H19 H -0.26527 0.40077 0.43180 1.0000 Uiso 0.0535 8
+H20 H 0.07050 -0.24190 0.38070 1.0000 Uiso 0.0865 8
+
+loop_
+_atom_type_symbol
+_atom_type_scat_source
+_atom_type_scat_dispersion_real
+_atom_type_scat_dispersion_imag
+C https://raw.githubusercontent.com/AdvancedPhotonSource/GSAS-II/refs/heads/main/GSASII/atmdata.py 0.005 0.002
+H https://raw.githubusercontent.com/AdvancedPhotonSource/GSAS-II/refs/heads/main/GSASII/atmdata.py 0.000 0.000
+Cl https://raw.githubusercontent.com/AdvancedPhotonSource/GSAS-II/refs/heads/main/GSASII/atmdata.py 0.184 0.211
+N https://raw.githubusercontent.com/AdvancedPhotonSource/GSAS-II/refs/heads/main/GSASII/atmdata.py 0.009 0.005
+O https://raw.githubusercontent.com/AdvancedPhotonSource/GSAS-II/refs/heads/main/GSASII/atmdata.py 0.015 0.008
+
+_cell_formula_units_Z 8

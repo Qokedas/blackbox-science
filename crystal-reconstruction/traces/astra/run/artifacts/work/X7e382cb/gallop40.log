@@ -1,0 +1,19 @@
+ATTACHED_H_SCATTERING 40 heavy atoms 32 H atoms
+PACKING_ENABLED 40 atoms 638 pair terms coefficient 80.0 active_only True
+HBOND_PRIOR 4 donors 8 acceptors coefficient 10.0
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 2329.52it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 211 seconds 132.50905990600586 best 115.1236 q25 130.32442 median 313.28015 total 132.5147933959961
+GALLOP 1 Nref 211 seconds 156.58692169189453 best 114.448845 q25 120.041084 median 181.02628 total 289.29072880744934
+GALLOP 2 Nref 211 seconds 140.7935619354248 best 114.448654 q25 116.356804 median 187.1404 total 430.1727316379547
+GALLOP 3 Nref 211 seconds 148.22085237503052 best 114.44858 q25 116.39818 median 146.95322 total 578.5653789043427
+GALLOP 4 Nref 211 seconds 166.42979621887207 best 114.44862 q25 116.06258 median 138.26114 total 745.1219501495361
+GALLOP 5 Nref 211 seconds 156.52205777168274 best 114.448555 q25 114.44906 median 248.85468 total 901.7644107341766
+GALLOP 6 Nref 211 seconds 153.97449254989624 best 114.44857 q25 115.521866 median 208.32304 total 1055.867610692978
+GALLOP 7 Nref 211 seconds 175.89129638671875 best 114.44855 q25 115.5221 median 143.90756 total 1231.7907819747925
+GALLOP 8 Nref 211 seconds 164.75930762290955 best 114.44856 q25 114.73724 median 155.98993 total 1396.6669232845306
+GALLOP 9 Nref 211 seconds 144.61862540245056 best 114.44857 q25 114.83343 median 142.97554 total 1541.3174946308136
+FINISHED X7e382cb 114.44854736328125

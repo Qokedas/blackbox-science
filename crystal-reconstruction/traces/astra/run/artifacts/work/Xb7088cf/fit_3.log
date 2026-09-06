@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/app/work/fit_candidate.py", line 12, in <module>
+    sol=spec[int(os.environ.get('CANDIDATE_INDEX',tag if tag.isdigit() else '0'))]
+        ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+IndexError: list index out of range

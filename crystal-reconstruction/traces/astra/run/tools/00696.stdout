@@ -1,0 +1,119 @@
+Cell (7.5659703, 13.032351249999998, 15.27358233, 72.29559682000001, 83.26410780000002, 77.70976198) n 80 components [20, 20, 20, 20]
+2.6361 64 N4 N 0 67 N20 N 1
+2.7470 13 C9 C 1 79 O31 O 3
+2.7535 6 C6 C 0 77 O1 O 1
+2.8228 0 C2 C 0 65 N4 N 1
+2.8897 14 C10 C 0 78 O31 O 2
+2.9417 10 C8 C 0 32 C33 C 2
+2.9480 12 C9 C 0 32 C33 C 2
+2.9551 20 C14 C 0 55 C47 C 3
+2.9861 8 C7 C 0 77 O1 O 1
+3.0424 26 C18 C 0 74 Cl42 Cl 2
+3.0519 0 C2 C 0 5 C5 C 1
+3.0537 12 C9 C 0 30 C32 C 2
+3.0771 11 C8 C 1 79 O31 O 3
+3.1059 33 C33 C 3 62 Br46 Br 2
+3.1297 4 C5 C 0 77 O1 O 1
+3.1637 73 Cl12 Cl 1 74 Cl42 Cl 2
+3.1644 27 C18 C 1 43 C39 C 3
+3.1813 16 C11 C 0 77 O1 O 1
+3.1992 1 C2 C 1 6 C6 C 0
+3.2205 25 C17 C 1 47 C41 C 3
+3.2875 10 C8 C 0 63 Br46 Br 3
+3.3100 67 N20 N 1 72 Cl12 Cl 0
+3.3181 76 O1 O 0 77 O1 O 1
+3.3287 64 N4 N 0 77 O1 O 1
+3.3407 4 C5 C 0 67 N20 N 1
+AT 240
+AT 270
+AT 300
+GALLOP 3 Nref 204 seconds 222.09518456459045 best 187.45094 q25 327.1311 median 414.35654 total 874.1395015716553
+GALLOP 4 Nref 240 seconds 233.9164800643921 best 186.19278 q25 317.51562 median 394.69452 total 1108.2346739768982
+GALLOP 5 Nref 277 seconds 224.52726554870605 best 183.895 q25 319.86774 median 458.11368 total 1332.9399344921112
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+"""Patterson/partial-structure search for two inversion-related heavy-atom pairs.
+Only used as a source of direct-space starting positions, not a final model.
+"""
+import os,sys,json,time,numpy as np,torch,gemmi
+from gallop.structure import Structure
+from rdkit import Chem
+sid=sys.argv[1];run=sys.argv[2];G='/app/work/'+sid+'/gallop_'+run
+s=Structure();s.from_json(open(G+'/structure.json').read());md=json.load(open(G+'/model.json'));assert s.original_sg_number==2
+els=[e for z in s.zmatrices for e in z.elements_no_H];atomic=np.array([gemmi.Element(e).atomic_number for e in els]);idx=np.flatnonzero(atomic==atomic.max());assert len(idx)==2
+T=lambda x:torch.tensor(x,dtype=torch.float32)
+torch.set_num_threads(1);torch.set_num_interop_threads(1)
+ss=np.linalg.norm(s.hkl@s.lattice.reciprocal_lattice_crystallographic.matrix,axis=1)/2
+sf=np.array([[gemmi.Element(el).it92.calculate_sf(float(v*v)) for el in els] for v in ss])*np.exp(-3*ss[:,None]**2)
+fh=T(2*sf[:,idx[0]]);wilson=T(2*np.sum(np.delete(sf,idx,axis=1)**2,axis=1));hk=T(s.hkl);nm=T(s.inverse_covariance_matrix/(len(s.hkl)-2));obs=T(s.intensities);no=nm@obs;oo=obs@no;lm=T(s.lattice.matrix)
+def score(x):
+ f=(torch.cos(2*np.pi*(x@hk.T)).sum(1)*fh)**2+wilson
+ nf=f@nm;of=f@no;cost=oo-of.clamp(min=0)**2/(f*nf).sum(1).clamp(min=1e-20)
+ # Suppress merged Br sites; this is a partial heavy atom model, not chemistry.
+ df=x[:,0]-x[:,1];df-=torch.round(df).detach();dr=x[:,0]+x[:,1];dr-=torch.round(dr).detach()
+ penalty=200*(torch.clamp(2.6-torch.linalg.norm(df@lm,dim=-1),min=0)**2+torch.clamp(2.6-torch.linalg.norm(dr@lm,dim=-1),min=0)**2)
+ return cost+penalty
+N=int(os.environ.get('PARTICLES','384'));IT=int(os.environ.get('ITERATIONS','450'));maxsec=float(os.environ.get('SEARCH_TIME','300'));t0=time.time();pool=[];best=None
+for batch in range(99):
+ x=T(np.random.rand(N,2,3))
+ if best is not None:x[:N//4]=T(best)[None]+torch.randn_like(x[:N//4])*.045
+ x.requires_grad_(True);opt=torch.optim.Adam([x],lr=.025)
+ for it in range(IT):
+  opt.zero_grad();loss=score(x).sum();loss.backward();opt.step()
+  if it==IT*3//4:
+   for g in opt.param_groups:g['lr']=.003
+ with torch.no_grad():
+  vals=score(x).numpy();positions=x.numpy()%1
+ for j in np.argsort(vals)[:80]:pool.append((float(vals[j]),positions[j].copy()))
+ pool.sort(key=lambda a:a[0]);pool=pool[:120];best=pool[0][1]
+ np.savez_compressed(G+'/heavy_pool.npz',positions=np.array([v[1] for v in pool]),chi2=np.array([v[0] for v in pool]),indices=idx)
+ print('HEAVY',batch,'best',pool[0][0],'q25',np.quantile(vals,.25),'elapsed',time.time()-t0,flush=True)
+ if time.time()-t0>maxsec:break
+"""Optional soft donor/acceptor proximity prior for ionic and H-bonded solids.
+This does not prescribe a particular intermolecular synthon: each donor may
+choose any chemically possible acceptor, including a distant topological
+intramolecular acceptor. Steric lower bounds are supplied separately.
+"""
+import os,json,itertools,numpy as np,torch
+from rdkit import Chem
+from rdkit.Chem import Lipinski
+from gallop import chi2,zm_to_cart
+
+def enable_hbonds(s,model_path,coefficient=None):
+ mods=json.load(open(model_path));donors=[];donor_counts={};acceptors=[];groups=[];ids=[];dm=[];off=0;els=[]
+ for k,m in enumerate(mods):
+  r=Chem.MolFromSmiles(m['smiles']);order=m['order'];inv={j:i for i,j in enumerate(order)};dm.append(Chem.GetDistanceMatrix(r))
+  for a in Lipinski._HDonors(r):
+   ix=off+inv[a[0]];donors.append(ix);atom=r.GetAtomWithIdx(a[0]);donor_counts[ix]=min(3,atom.GetTotalNumHs()) if os.getenv('HBOND_MULTIPLE','0')=='1' else 1
+  for a in Lipinski._HAcceptors(r):acceptors.append(off+inv[a[0]])
+  for a in r.GetAtoms():
+   if a.GetSymbol() in ['Cl','Br'] and a.GetFormalCharge()<0:acceptors.append(off+inv[a.GetIdx()])
+  groups.extend([k]*len(order));ids.extend(order);els.extend([r.GetAtomWithIdx(i).GetSymbol() for i in order]);off+=len(order)
+ if not donors or not acceptors:return
+ LM=torch.tensor(s.lattice.matrix,dtype=torch.float32);shifts=torch.tensor(np.array(list(itertools.product([-1,0,1],repeat=3)))@s.lattice.matrix,dtype=torch.float32);ss=(shifts*shifts).sum(-1)
+ tensors=[]
+ for i in donors:
+  jj=[];rt=[];tr=[];target=[]
+  for op in s.space_group.symmetry_ops:
+   R=op.rotation_matrix;T=op.translation_vector;ident=np.allclose(R,np.eye(3)) and np.allclose(T%1,0)
+   for j in acceptors:
+    if ident and groups[i]==groups[j] and dm[groups[i]][ids[i],ids[j]]<=3:continue
+    jj.append(j);rt.append(R);tr.append(T);target.append(3.25 if els[j] in ['Cl','Br'] else 3.05)
+  tensors.append((i,torch.tensor(jj,dtype=torch.long),torch.tensor(np.array(rt),dtype=torch.float32),torch.tensor(np.array(tr),dtype=torch.float32),torch.tensor(target,dtype=torch.float32)))
+ cf=float(coefficient if coefficient is not None else os.getenv('HBOND_COEFF','20'))
+ def penalty(fr):
+  val=torch.zeros(len(fr),device=fr.device)
+  for i,jj,rr,tt,target in tensors:
+   right=torch.einsum('nki,kji->nkj',fr[:,jj,:],rr)+tt;dd=fr[:,i,None]-right;dd=dd-torch.round(dd).detach();cart=dd@LM
+   with torch.no_grad():corr=shifts[(2*(cart.detach()@shifts.T)+ss).argmin(-1)]
+   dist=torch.sqrt(((cart+corr)**2).sum(-1)+1e-8);near=torch.topk(dist-target,k=min(donor_counts[i],len(jj)),dim=-1,largest=False).values;val+=(torch.clamp(near,min=0)**2).sum(-1)
+  return cf*val
+ old=chi2.get_chi_2
+ def calc(zm,int_tensors,chisqd_tensors,profile=None):
+  fr=zm_to_cart.get_asymmetric_coords(**zm)
+  return old(zm,int_tensors,chisqd_tensors,profile=profile)+penalty(fr)
+ chi2.get_chi_2=calc;s.hbond_penalty=penalty
+ print('HBOND_PRIOR',len(donors),'donors',len(acceptors),'acceptors','coefficient',cf,flush=True)
+ return penalty

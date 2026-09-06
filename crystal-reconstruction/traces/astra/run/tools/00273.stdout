@@ -1,0 +1,32 @@
+
+SetRefinedObj( (LSQ)arg1, (RefinableObj)obj [, (int)LSQFuncIndex=0 [, (bool)init=True [, (bool)recursive=False]]]) -> None :
+
+    C++ signature :
+        void SetRefinedObj(ObjCryst::LSQNumObj {lvalue},ObjCryst::RefinableObj {lvalue} [,unsigned int=0 [,bool=True [,bool=False]]])
+
+PrepareRefParList( (LSQ)arg1 [, (bool)copy_param=False]) -> None :
+
+    C++ signature :
+        void PrepareRefParList(ObjCryst::LSQNumObj {lvalue} [,bool=False])
+
+ search_g12/best.xml
+m0 geo 0.0 nbonds 15
+m1 geo 0.0 nbonds 9
+
+ refine_g12_stage0.xml
+m0 geo 0.0 nbonds 33
+m1 geo 0.0 nbonds 15
+
+ refine_g12_stage1.xml
+m0 geo 433.5514355776473 nbonds 33
+bad m0_C4-m0_C5 1.51005 1.7620260487495638 0.02 0.025
+bad m0_C8-m0_C9 1.518 1.3551492566193586 0.02 0.025
+m1 geo 226.8045276273006 nbonds 15
+bad m1_C2-m1_C4 1.47979 1.8000628718369809 0.02 0.025
+
+ refined_g12.xml
+m0 geo 1168.3775227693795 nbonds 33
+bad m0_C4-m0_C5 1.51005 1.739095937484186 0.02 0.025
+bad m0_C7-m0_C8 1.40206 1.4930076471666178 0.02 0.025
+m1 geo 500.2689147257634 nbonds 15
+bad m1_C2-m1_C4 1.47979 1.9042771379633794 0.02 0.025

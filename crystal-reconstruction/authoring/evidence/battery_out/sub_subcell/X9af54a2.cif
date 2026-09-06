@@ -1,0 +1,81 @@
+data_ref
+_symmetry_cell_setting monoclinic
+_space_group_name_H-M_alt "P 21/c"
+_space_group_name_Hall "-P 2ybc"
+
+loop_
+_space_group_symop_id
+_space_group_symop_operation_xyz
+1 x,y,z
+2 -x,1/2+y,1/2-z
+3 -x,-y,-z
+4 x,1/2-y,1/2+z
+
+_cell_length_a 5.17893(2)
+_cell_length_b 8.25455(3)
+_cell_length_c 32.95227(15)
+_cell_angle_alpha 90
+_cell_angle_beta 87.2465(3)
+_cell_angle_gamma 90
+_cell_volume 1407.075(10)
+_cell_formula_units_Z 4
+
+loop_
+_atom_type_symbol
+_atom_type_scat_dispersion_real
+_atom_type_scat_dispersion_imag
+_atom_type_scat_source
+C 0.000 0.000 https://raw.githubusercontent.com/AdvancedPhotonSource/GSAS-II/refs/heads/main/GSASII/atmdata.py
+H 0.000 0.000 https://raw.githubusercontent.com/AdvancedPhotonSource/GSAS-II/refs/heads/main/GSASII/atmdata.py
+Cl 0.055 0.053 https://raw.githubusercontent.com/AdvancedPhotonSource/GSAS-II/refs/heads/main/GSASII/atmdata.py
+N 0.000 0.001 https://raw.githubusercontent.com/AdvancedPhotonSource/GSAS-II/refs/heads/main/GSASII/atmdata.py
+O 0.002 0.002 https://raw.githubusercontent.com/AdvancedPhotonSource/GSAS-II/refs/heads/main/GSASII/atmdata.py
+
+loop_
+_atom_site_type_symbol
+_atom_site_label
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_U_iso_or_equiv
+_atom_site_adp_type
+_atom_site_occupancy
+_atom_site_site_symmetry_multiplicity
+O O1 1.0970(4) 0.7465(3) 0.57295(6) 0.0323(4) Uiso 1.0000 4
+O O2 0.6632(4) 0.9002(2) 0.67443(6) 0.0391(5) Uiso 1.0000 4
+O O3 1.3249(4) 0.3806(2) 0.68910(6) 0.0391(5) Uiso 1.0000 4
+O O4 1.5002(4) 1.0459(3) 0.54902(6) 0.0323(4) Uiso 1.0000 4
+N N5 1.0987(4) 1.0938(3) 0.57585(7) 0.0323(4) Uiso 1.0000 4
+N N6 1.4661(5) 1.2607(3) 0.48827(8) 0.0323(4) Uiso 1.0000 4
+C C7 0.9770(5) 0.8305(3) 0.60708(6) 0.0323(4) Uiso 1.0000 4
+C C8 0.9847(5) 0.7310(3) 0.64575(6) 0.0311(5) Uiso 1.0000 4
+C C9 1.1161(5) 0.9912(3) 0.61138(8) 0.0323(4) Uiso 1.0000 4
+C C10 0.8228(5) 0.7694(3) 0.67930(6) 0.0311(5) Uiso 1.0000 4
+C C11 1.1581(5) 0.6018(3) 0.64869(7) 0.0311(5) Uiso 1.0000 4
+C C12 1.1601(5) 0.5099(3) 0.68409(8) 0.0311(5) Uiso 1.0000 4
+C C13 0.8299(6) 0.6787(3) 0.71481(7) 0.0311(5) Uiso 1.0000 4
+C C14 0.9978(6) 0.5498(3) 0.71712(7) 0.0311(5) Uiso 1.0000 4
+C C15 1.2919(5) 1.1156(4) 0.54837(8) 0.0323(4) Uiso 1.0000 4
+C C16 1.2304(5) 1.2225(4) 0.51286(9) 0.0323(4) Uiso 1.0000 4
+C C17 0.4688(6) 0.9328(4) 0.70550(9) 0.0391(5) Uiso 1.0000 4
+C C18 1.5119(6) 0.3451(4) 0.65719(9) 0.0391(5) Uiso 1.0000 4
+H H19 0.76985 0.86202 0.60297 0.0388(5) Uiso 1.0000 4
+H H20 1.32549 0.96936 0.61586 0.0388(5) Uiso 1.0000 4
+H H21 1.04032 1.05789 0.63909 0.0388(5) Uiso 1.0000 4
+H H22 1.28492 0.57675 0.62242 0.0373(6) Uiso 1.0000 4
+H H23 0.93892 1.17104 0.57467 0.0388(5) Uiso 1.0000 4
+H H24 0.70477 0.71120 0.74223 0.0373(6) Uiso 1.0000 4
+H H25 1.00097 0.47574 0.74497 0.0373(6) Uiso 1.0000 4
+H H26 0.98954 0.64869 0.56984 0.0388(5) Uiso 1.0000 4
+H H27 1.09480 1.16753 0.49287 0.0388(5) Uiso 1.0000 4
+H H28 1.13894 1.33833 0.52442 0.0388(5) Uiso 1.0000 4
+H H29 0.35462 1.03463 0.69851 0.0469(6) Uiso 1.0000 4
+H H30 0.34623 0.82426 0.71243 0.0469(6) Uiso 1.0000 4
+H H31 0.55160 0.95960 0.73490 0.0469(6) Uiso 1.0000 4
+H H32 1.41042 0.31642 0.62801 0.0469(6) Uiso 1.0000 4
+H H33 1.61746 0.24085 0.66595 0.0469(6) Uiso 1.0000 4
+H H34 1.63568 0.44937 0.65061 0.0469(6) Uiso 1.0000 4
+H H35 1.60707 1.30873 0.50782 0.0388(5) Uiso 1.0000 4
+H H36 1.42630 1.35768 0.46795 0.0388(5) Uiso 1.0000 4
+H H37 1.53415 1.16293 0.47244 0.0388(5) Uiso 1.0000 4
+Cl Cl38 0.2652(2) 0.55463(11) 0.44075(3) 0.0394 Uani 1.0000 4

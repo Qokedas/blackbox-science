@@ -1,0 +1,27 @@
+lebail.py:10:def make_pattern(iid, tt_max=None, tt_min=None, nbg=24):
+lebail.py:60:def add_crystal(p, cell, spg, name='cryst'):
+lebail.py:67:def fit_sequence(p, pd, steps, verbose=False, ncycle=10):
+lebail.py:107:def lebail(iid, cell, spg='P1', tt_max=None, plot=None, verbose=False, nbg=24, asym=False, refine_cell=True):
+solve.py:16:def embed(smiles, seed=42, nconf=30):
+solve.py:40:def classify_bonds(mol):
+solve.py:72:def add_molecule(cr, mol, confid, name, sps, allH=False):
+solve.py:128:def setup(iid, cell, spg, ttmax=None, components=None, verbose=True, nbg=24, lebail_first=True, asym=False):
+solve.py:164:def polish(p, cr, ncycle=20, verbose=True):
+solve.py:204:def optimize(p, cr, nsteps=1e6, nruns=1, seed=None, maxtime=-1, save_prefix=None, do_polish=True):
+solve.py:232:def restore_from_cif(cr, mols, ciffile):
+solve.py:258:def write_cif(cr, fn):
+abs_ortho.log
+config.json
+g2_monoC.log
+g2_monoP.log
+g2index_monoC_20.txt
+g2index_monoP_20.txt
+peaks.png
+peaks.txt
+peaks_clean.txt
+sol_a
+sol_c2
+sol_c2b
+solve_a.log
+solve_c2.log
+solve_c2b.log

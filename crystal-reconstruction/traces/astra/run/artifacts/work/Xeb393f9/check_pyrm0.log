@@ -1,0 +1,6 @@
+Xeb393f9 Nat 37 molecule sizes [27, 10]
+  component O=C(O)CCC[NH+]1CCC(O[C@@H](c2ccc(Cl)cc2)c2ccccn2)CC1 matches 1
+  component O=S(=O)([O-])c1ccccc1 matches 1
+  bond range 1.2237979761221625 1.8501410019321376
+  min intermolecular distance 2.7548789574687116
+Xeb393f9 root 31 expected {11: 'S'} actual {11: 'S'} OK True

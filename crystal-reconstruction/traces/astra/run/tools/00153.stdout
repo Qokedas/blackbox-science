@@ -1,0 +1,42 @@
+
+XMLInput( (RefinableObj)arg1, (object)file, (XMLCrystTag)tag) -> None :
+
+    C++ signature :
+        void XMLInput(ObjCryst::RefinableObj {lvalue},boost::python::api::object,ObjCryst::XMLCrystTag {lvalue})
+
+XMLInput( (RefinableObj)arg1, (object)arg2, (XMLCrystTag)arg3) -> None :
+
+    C++ signature :
+        void XMLInput(ObjCryst::RefinableObj {lvalue},std::istream {lvalue},ObjCryst::XMLCrystTag)
+
+XMLInput( (RefinableObj)arg1, (object)arg2, (XMLCrystTag)arg3) -> None :
+
+    C++ signature :
+        void XMLInput((anonymous namespace)::RefinableObjWrap {lvalue},std::istream {lvalue},ObjCryst::XMLCrystTag)
+
+XMLInput( (RefinableObj)arg1, (str)xml) -> None :
+
+    C++ signature :
+        void XMLInput(ObjCryst::RefinableObj {lvalue},std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)
+
+XMLOutput( (RefinableObj)arg1, (object)file [, (int)indent=0]) -> None :
+
+    C++ signature :
+        void XMLOutput(ObjCryst::RefinableObj,boost::python::api::object [,int=0])
+
+XMLOutput( (RefinableObj)arg1, (object)arg2, (int)arg3) -> None :
+
+    C++ signature :
+        void XMLOutput(ObjCryst::RefinableObj {lvalue},std::ostream {lvalue},int)
+
+XMLOutput( (RefinableObj)arg1, (object)arg2, (int)arg3) -> None :
+
+    C++ signature :
+        void XMLOutput((anonymous namespace)::RefinableObjWrap {lvalue},std::ostream {lvalue},int)
+
+    Load all objects from an ObjCryst-formatted .xml or .xmlgz file
+    :param file: the filename or python file object (need to open with mode='rb')
+    :param verbose: if True, some information about the loaded objects is printed
+    :return: a list of the imported top-level objects (Crystal,
+             DiffractionDataSingleCrystal, PowderPattern)
+    

@@ -1,0 +1,1 @@
+/app/work/queue_subother7.sh: line 3: 39838 Aborted                 (core dumped) CANDIDATE_INDEX=$i python /app/work/fit_candidate.py X7e382cb subother$i .35 > /app/work/X7e382cb/fit_subother$i.log 2>&1

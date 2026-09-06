@@ -1,0 +1,4 @@
+same Molecule 378.8554021492995 378.8554021492995
+additional single atom 2378.5258509252935 2378.5258509252935
+['GetBondValenceCost', 'GetBumpMergeCost', 'GetBumpMergeParList', 'GetMinDistanceTable', 'GetRestraintCost', 'PrintMinDistanceTable', 'RemoveBumpMergeDistance', 'SetBumpMergeDistance']
+['AddBondAngle', 'AddDihedralAngle', 'AddRigidGroup', 'BondAngleRandomChange', 'BuildStretchModeBondAngle', 'DihedralAngleRandomChange', 'FindBondAngle', 'FindDihedralAngle', 'GetBondAngle', 'GetBondAngleList', 'GetClockScattCompList', 'GetClockScatterer', 'GetDihedralAngle', 'GetDihedralAngleList', 'GetNbBondAngles', 'GetNbDihedralAngles', 'GetNbRigidGroups', 'GetRigidGroupClock', 'GetRigidGroupList', 'GetScatteringComponentList', 'GetStretchModeBondAngleList', 'IterBondAngle', 'IterDihedralAngle', 'RemoveBondAngle', 'RemoveDihedralAngle', 'RemoveRigidGroup', 'RigidifyWithDihedralAngles', 'UpdateScattCompList']

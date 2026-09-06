@@ -1,0 +1,9 @@
+11:def load_peaks(iid, nmax=20, min_snr=8.0, pkfile=None):
+15:    fn = pkfile or f'/app/work/{iid}/peaks_clean.txt'
+25:def run(iid, nmax=20, brav=None, ncno=4, V1=25.0, timeout=300, zero=0.0, min_snr=8.0, M20_min=2.0, pkfile=None):
+26:    peaks, wl = load_peaks(iid, nmax, min_snr, pkfile)
+49:    tag = sys.argv[5] if len(sys.argv) > 5 else ''
+50:    pkfile = sys.argv[6] if len(sys.argv) > 6 else None
+51:    cells = run(iid, nmax, brav, timeout=timeout, pkfile=pkfile)
+52:    with open(f'/app/work/{iid}/g2index_{bravsel}{tag}_{nmax}.txt', 'w') as f:
+6:    for fn in glob.glob(f'/app/work/{iid}/g2index_*_20.txt') + glob.glob(f'/app/work/{iid}/g2index_*_25.txt') + glob.glob(f'/app/work/{iid}/g2index_*_15.txt') + glob.glob(f'/app/work/{iid}/g2index_*_30.txt') + glob.glob(f'/app/work/{iid}/extra_cells.txt'):

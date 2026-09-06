@@ -1,0 +1,16 @@
+  conformers: 27 distinct; energies [23.1, 23.3, 26.1, 26.3, 26.5, 28.3]; using rank 0 (E=23.1)
+rank 0 E=23.1 ring subst angles ['C12:71', 'C16:74', 'C7:74'] amide cAr-N-C=O -1 ring planarity sv 0.57
+  conformers: 27 distinct; energies [23.1, 23.3, 26.1, 26.3, 26.5, 28.3]; using rank 1 (E=23.3)
+rank 1 E=23.3 ring subst angles ['C12:71', 'C16:73', 'C7:68'] amide cAr-N-C=O 2 ring planarity sv 0.56
+  conformers: 27 distinct; energies [23.1, 23.3, 26.1, 26.3, 26.5, 28.3]; using rank 2 (E=26.1)
+rank 2 E=26.1 ring subst angles ['C12:73', 'C16:66', 'C7:69'] amide cAr-N-C=O -3 ring planarity sv 0.55
+  conformers: 27 distinct; energies [23.1, 23.3, 26.1, 26.3, 26.5, 28.3]; using rank 3 (E=26.3)
+rank 3 E=26.3 ring subst angles ['C12:15', 'C16:10', 'C7:14'] amide cAr-N-C=O -4 ring planarity sv 0.53
+  conformers: 27 distinct; energies [23.1, 23.3, 26.1, 26.3, 26.5, 28.3]; using rank 4 (E=26.5)
+rank 4 E=26.5 ring subst angles ['C12:73', 'C16:62', 'C7:61'] amide cAr-N-C=O 3 ring planarity sv 0.54
+  conformers: 27 distinct; energies [23.1, 23.3, 26.1, 26.3, 26.5, 28.3]; using rank 5 (E=28.3)
+rank 5 E=28.3 ring subst angles ['C12:18', 'C16:10', 'C7:18'] amide cAr-N-C=O 5 ring planarity sv 0.53
+  conformers: 27 distinct; energies [23.1, 23.3, 26.1, 26.3, 26.5, 28.3]; using rank 6 (E=28.8)
+rank 6 E=28.8 ring subst angles ['C12:43', 'C16:52', 'C7:13'] amide cAr-N-C=O -2 ring planarity sv 0.71
+  conformers: 27 distinct; energies [23.1, 23.3, 26.1, 26.3, 26.5, 28.3]; using rank 7 (E=28.9)
+rank 7 E=28.9 ring subst angles ['C12:13', 'C16:81', 'C7:42'] amide cAr-N-C=O -1 ring planarity sv 0.71

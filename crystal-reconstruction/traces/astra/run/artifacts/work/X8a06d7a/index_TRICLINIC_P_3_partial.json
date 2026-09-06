@@ -1,0 +1,347 @@
+[
+ {
+  "cell": [
+   21.748,
+   11.862,
+   5.061,
+   92.17,
+   91.916,
+   93.96
+  ],
+  "volume": 1300.85,
+  "score": 47.37,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 3
+ },
+ {
+  "cell": [
+   21.746,
+   11.859,
+   5.061,
+   92.159,
+   91.93,
+   93.94
+  ],
+  "volume": 1300.18,
+  "score": 44.72,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 3
+ },
+ {
+  "cell": [
+   21.738,
+   11.89,
+   5.043,
+   94.657,
+   88.937,
+   94.097
+  ],
+  "volume": 1295.58,
+  "score": 40.59,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 3
+ },
+ {
+  "cell": [
+   21.931,
+   11.856,
+   4.906,
+   92.057,
+   82.287,
+   94.221
+  ],
+  "volume": 1260.21,
+  "score": 37.0,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 3
+ },
+ {
+  "cell": [
+   21.734,
+   11.872,
+   4.892,
+   93.512,
+   89.827,
+   93.992
+  ],
+  "volume": 1256.93,
+  "score": 34.39,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 3
+ },
+ {
+  "cell": [
+   21.736,
+   11.888,
+   5.042,
+   94.627,
+   88.971,
+   94.055
+  ],
+  "volume": 1295.11,
+  "score": 34.26,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 3
+ },
+ {
+  "cell": [
+   21.792,
+   11.849,
+   4.939,
+   90.319,
+   85.757,
+   93.997
+  ],
+  "volume": 1268.61,
+  "score": 32.06,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 3
+ },
+ {
+  "cell": [
+   21.917,
+   11.867,
+   5.182,
+   93.125,
+   82.534,
+   94.373
+  ],
+  "volume": 1331.06,
+  "score": 30.75,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 3
+ },
+ {
+  "cell": [
+   21.79,
+   11.851,
+   4.945,
+   90.787,
+   85.951,
+   94.035
+  ],
+  "volume": 1270.58,
+  "score": 29.7,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 3
+ },
+ {
+  "cell": [
+   21.918,
+   11.866,
+   5.181,
+   93.113,
+   82.53,
+   94.346
+  ],
+  "volume": 1330.9,
+  "score": 27.85,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 3
+ },
+ {
+  "cell": [
+   21.935,
+   11.853,
+   5.223,
+   90.87,
+   82.334,
+   94.073
+  ],
+  "volume": 1342.48,
+  "score": 17.17,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 3
+ },
+ {
+  "cell": [
+   21.927,
+   11.853,
+   5.219,
+   90.953,
+   82.442,
+   94.112
+  ],
+  "volume": 1341.24,
+  "score": 15.68,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 3
+ },
+ {
+  "cell": [
+   21.923,
+   11.841,
+   5.225,
+   90.524,
+   81.945,
+   93.914
+  ],
+  "volume": 1339.76,
+  "score": 13.54,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 3
+ },
+ {
+  "cell": [
+   21.869,
+   11.85,
+   5.19,
+   92.351,
+   83.019,
+   94.133
+  ],
+  "volume": 1330.73,
+  "score": 13.54,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 3
+ },
+ {
+  "cell": [
+   21.869,
+   11.85,
+   5.189,
+   92.363,
+   83.019,
+   94.134
+  ],
+  "volume": 1330.62,
+  "score": 13.54,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 3
+ },
+ {
+  "cell": [
+   21.821,
+   11.85,
+   5.229,
+   92.3,
+   84.142,
+   94.09
+  ],
+  "volume": 1340.79,
+  "score": 13.35,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 3
+ },
+ {
+  "cell": [
+   12.377,
+   11.042,
+   9.824,
+   100.477,
+   106.599,
+   90.73
+  ],
+  "volume": 1262.31,
+  "score": 7.75,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 3
+ },
+ {
+  "cell": [
+   12.393,
+   11.042,
+   9.828,
+   100.485,
+   106.623,
+   90.611
+  ],
+  "volume": 1264.36,
+  "score": 7.41,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 3
+ },
+ {
+  "cell": [
+   11.861,
+   10.864,
+   9.106,
+   95.03,
+   87.527,
+   94.254
+  ],
+  "volume": 1164.95,
+  "score": 5.36,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 3
+ },
+ {
+  "cell": [
+   12.018,
+   10.923,
+   8.32,
+   99.201,
+   99.146,
+   92.718
+  ],
+  "volume": 1061.38,
+  "score": 5.35,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 3
+ },
+ {
+  "cell": [
+   11.879,
+   10.845,
+   9.135,
+   95.516,
+   87.756,
+   94.5
+  ],
+  "volume": 1167.2,
+  "score": 5.26,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 3
+ },
+ {
+  "cell": [
+   12.353,
+   11.003,
+   9.797,
+   100.808,
+   106.366,
+   90.74
+  ],
+  "volume": 1251.97,
+  "score": 5.22,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 3
+ },
+ {
+  "cell": [
+   12.084,
+   10.979,
+   8.1,
+   100.721,
+   100.353,
+   91.838
+  ],
+  "volume": 1036.37,
+  "score": 4.38,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 3
+ }
+]

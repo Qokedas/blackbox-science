@@ -1,0 +1,92 @@
+X019b9a4 P -1 1628.7 MW 676.8 Hvy 48 Zgen 2 rho(zp1) 1.38 zp2 2.76
+X07806d9 P b c a 1554.2 MW 167.6 Hvy 10 Zgen 8 rho(zp1) 1.432 zp2 2.865
+X13023e3 P 1 21 1 930.7 MW 328.4 Hvy 24 Zgen 2 rho(zp1) 1.172 zp2 2.344
+X14a2b08 P -1 1287.7 MW 529.0 Hvy 37 Zgen 2 rho(zp1) 1.364 zp2 2.729
+X1a56c78 P 2 2 21 2000.0 MW 337.9 Hvy 23 Zgen 4 rho(zp1) 1.122 zp2 2.245
+X1db5091 P 1 21/c 1 2544.9 MW 538.0 Hvy 38 Zgen 4 rho(zp1) 1.404 zp2 2.808
+X2327841 P 1 21 1 1531.5 MW 450.9 Hvy 32 Zgen 2 rho(zp1) 0.978 zp2 1.955
+X238783d P 21 21 21 4264.2 MW 748.0 Hvy 52 Zgen 4 rho(zp1) 1.165 zp2 2.33
+X263b09a P -1 1242.7 MW 515.0 Hvy 36 Zgen 2 rho(zp1) 1.376 zp2 2.752
+X35b7fbc P 21 21 21 2415.8 MW 455.5 Hvy 33 Zgen 4 rho(zp1) 1.252 zp2 2.505
+X3c176e2 P 21 21 21 1443.7 MW 180.2 Hvy 12 Zgen 4 rho(zp1) 0.829 zp2 1.658
+X3f4781b P 1 21 1 1856.9 MW 419.9 Hvy 26 Zgen 2 rho(zp1) 0.751 zp2 1.502
+X4f6fe58 P -1 1411.8 MW 349.6 Hvy 20 Zgen 2 rho(zp1) 0.822 zp2 1.645
+X7e382cb P -1 641.5 MW 276.3 Hvy 20 Zgen 2 rho(zp1) 1.43 zp2 2.861
+X8a06d7a P -1 1285.9 MW 538.0 Hvy 38 Zgen 2 rho(zp1) 1.389 zp2 2.779
+X8a6f5a8 P 1 21 1 6416.7 MW 564.6 Hvy 39 Zgen 2 rho(zp1) 0.292 zp2 0.584
+X9af54a2 P 1 21 1 1406.8 MW 290.7 Hvy 19 Zgen 2 rho(zp1) 0.686 zp2 1.373
+Xb7088cf P 21 21 21 1799.4 MW 376.4 Hvy 28 Zgen 4 rho(zp1) 1.389 zp2 2.779
+Xbfc6d2c P 1 21/a 1 1277.6 MW 232.3 Hvy 18 Zgen 4 rho(zp1) 1.208 zp2 2.415
+Xbfeeda9 P 1 21/a 1 2669.6 MW 513.5 Hvy 35 Zgen 4 rho(zp1) 1.278 zp2 2.555
+Xd4c1a35 P 21 21 21 3427.7 MW 352.8 Hvy 24 Zgen 4 rho(zp1) 0.684 zp2 1.367
+Xd8634a2 P -1 1015.2 MW 471.5 Hvy 33 Zgen 2 rho(zp1) 1.542 zp2 3.085
+Xdcc971e P 1 21 1 1433.4 MW 422.8 Hvy 30 Zgen 2 rho(zp1) 0.98 zp2 1.959
+Xe1fb77b P 1 21 1 1188.0 MW 534.5 Hvy 38 Zgen 2 rho(zp1) 1.494 zp2 2.988
+Xe3a2935 P 21 21 21 1417.5 MW 280.3 Hvy 21 Zgen 4 rho(zp1) 1.313 zp2 2.627
+Xeb393f9 P 1 679.7 MW 547.1 Hvy 37 Zgen 1 rho(zp1) 1.336 zp2 2.673
+Xebbd488 C 1 2 1 5252.0 MW 1027.0 Hvy 71 Zgen 4 rho(zp1) 1.299 zp2 2.598
+Xedd9c7b P 1 21/a 1 2739.8 MW 284.3 Hvy 19 Zgen 4 rho(zp1) 0.689 zp2 1.378
+Xf8ac963 P 21 21 21 1727.4 MW 289.4 Hvy 21 Zgen 4 rho(zp1) 1.113 zp2 2.226
+Xfca9f3c P 1 21 1 1258.0 MW 366.7 Hvy 26 Zgen 2 rho(zp1) 0.968 zp2 1.936
+{
+ "cell": [
+  8.910224529671574,
+  9.47853854706852,
+  13.245448446774777,
+  83.9828213031522,
+  81.77582566596926,
+  66.67860706119507
+ ],
+ "volume": 1015.4071525252757,
+ "score": 316.59490966796875,
+ "system": "TRICLINIC",
+ "centering": "P",
+ "mode": 3,
+ "source": "index_TRICLINIC_P_3.json",
+ "sg": "P-1",
+ "sgstart": "P-1",
+ "Rw": 0.08728370169030533,
+ "groups": [
+  {
+   "sg": "P 1",
+   "number": 1,
+   "Rw": 9.079638626238488,
+   "GoF": 1.2949643282171392,
+   "nGoF": 0.18728316918231544,
+   "mult": 1
+  },
+  {
+   "sg": "P -1",
+   "number": 2,
+   "Rw": 9.079638626238488,
+   "GoF": 1.2949643282171392,
+   "nGoF": 0.18728316918231544,
+   "mult": 2
+  }
+{
+ "cell": [
+  9.691904663198521,
+  10.08390919395141,
+  10.227997488571564,
+  66.8219216186884,
+  88.92709026852326,
+  82.40355503372527
+ ],
+ "volume": 907.3644946546219,
+ "score": 19.44,
+ "system": "TRICLINIC",
+ "centering": "P",
+ "mode": 9,
+ "source": "index_raw_TRICLINIC_P_partial.json",
+ "sg": "P-1",
+ "sgstart": "P-1",
+ "Rw": 0.049858263366713784,
+ "groups": [
+  {
+   "sg": "P 1",
+   "number": 1,
+   "Rw": 5.650915998587176,
+   "GoF": 5.583699619963545,
+   "nGoF": 1.693680880176796,
+ -0.0664  0.003  -0.0641 -0.0116  0.0087 -0.0557 -0.0372  0.0204  0.0035
+ -0.0018  0.0122  0.0385  0.0031 -0.0098]

@@ -1,0 +1,16 @@
+=== X8a06d7a
+[{"smiles":"COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1","count":1,"charge":0},{"smiles":"NC(=O)c1ccccn1","count":1,"charge":0}]
+{"radiation":{"type":"CuK","wavelength_A":1.5418,"wavelengths_A":[1.5418],"wavelength_weights":null,"monochromator":null,"source":"Fine focus X-ray tube"},"geometry":"reflection (flat plate / Bragg-Brentano)","temperature_K":298,"intensity_column":"observed net intensity (instrument background subtracted by the depositors)","notes":["the depositors recorded Cu K-alpha as a single wavelength 1.5418 A (the K-alpha1/K-alpha2 weighted mean); whether the K-alpha2 component is present in the data is not stated"]}
+=== X8a6f5a8
+[{"smiles":"COc1ccccc1OCC[NH2+]C[C@@H](O)COc1cccc2[nH]c3ccccc3c12","count":1,"charge":1},{"smiles":"O=P([O-])(O)O","count":1,"charge":-1},{"smiles":"CC(C)O","count":1,"charge":0}]
+{"radiation":{"type":"CuK1","wavelength_A":1.54059,"wavelengths_A":[1.54059],"wavelength_weights":null,"monochromator":null,"source":null},"geometry":"transmission (capillary / Debye-Scherrer)","temperature_K":295,"intensity_column":"observed net intensity (instrument background subtracted by the depositors)","notes":[]}
+# columns: two_theta_deg intensity sigma
+0.50080 5586.64 74.7438
+0.50330 5658.36 75.2221
+0.50580 5716.96 75.6106
+0.50830 5761.23 75.9028
+# columns: two_theta_deg intensity sigma
+3.00000 1685 41.1693
+3.02000 1675 40.8248
+3.04000 1634 40.4888
+3.06000 1696 41.1693

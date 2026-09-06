@@ -1,0 +1,340 @@
+{
+ "X238783d:25": {
+  "START_REFL": 100,
+  "RAMP_REF_EVERY": 4,
+  "RAMP_REF_STEP": 50,
+  "ENABLE_PACKING": 1,
+  "HBOND_COEFF": 4
+ },
+ "Xbfeeda9:11": {
+  "START_REFL": 100,
+  "RAMP_REF_EVERY": 5,
+  "RAMP_REF_STEP": 50,
+  "ENABLE_PACKING": 1,
+  "HBOND_COEFF": 10
+ },
+ "X019b9a4:11": {
+  "START_REFL": 100,
+  "RAMP_REF_EVERY": 5,
+  "RAMP_REF_STEP": 50,
+  "ENABLE_PACKING": 1,
+  "HBOND_COEFF": 10,
+  "MODEL_JSON": "/app/work/X019b9a4/isomer0.json"
+ },
+ "Xeb393f9:51": {
+  "HBOND_COEFF": 25
+ },
+ "X8a06d7a:11": {
+  "BASE_XML": "/app/work/X8a06d7a/gallop_11/base.xml",
+  "HBOND_COEFF": 15,
+  "START_REFL": 100,
+  "RAMP_REF_EVERY": 4,
+  "RAMP_REF_STEP": 40,
+  "ENABLE_PACKING": 1
+ },
+ "X14a2b08:11": {
+  "HBOND_COEFF": 12,
+  "ENABLE_PACKING": 1
+ },
+ "X1db5091:11": {
+  "HBOND_COEFF": 12,
+  "ENABLE_PACKING": 1
+ },
+ "X7e382cb:40": {
+  "HBOND_MULTIPLE": 1
+ },
+ "X35b7fbc:11": {
+  "ENABLE_PACKING": 1,
+  "HBOND_COEFF": 10
+ },
+ "Xe1fb77b:11": {
+  "ENABLE_PACKING": 1,
+  "HBOND_COEFF": 10
+ },
+ "X019b9a4:12": {
+  "MODEL_JSON": "/app/work/X019b9a4/isomer1.json",
+  "ENABLE_PACKING": 1,
+  "HBOND_COEFF": 10,
+  "START_REFL": 100,
+  "RAMP_REF_EVERY": 3,
+  "RAMP_REF_STEP": 60
+ },
+ "X1a56c78:18": {
+  "HBOND_COEFF": 15,
+  "START_REFL": 90,
+  "RAMP_REF_EVERY": 4,
+  "RAMP_REF_STEP": 40
+ },
+ "X238783d:20": {
+  "ENABLE_PACKING": 1,
+  "HBOND_COEFF": 4
+ },
+ "Xd8634a2:31": {
+  "HBOND_COEFF": 8
+ },
+ "Xb7088cf:31": {
+  "HBOND_COEFF": 8
+ }
+}export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/22050/status ]] && ! grep -q '^State:.*Z' /proc/22050/status; do sleep 5;done
+python /app/work/extend_low_base.py X3f4781b /app/work/X3f4781b/refined_g11.xml /app/work/X3f4781b/refined_low11.xml > /app/work/X3f4781b/extend_low11.log 2>&1
+GALLOP_STOL=.26 python /app/work/warm_gallop.py X3f4781b 50 /app/work/X3f4781b/refined_low11.xml /app/work/X3f4781b/search_g11/model.json > /app/work/X3f4781b/warm50.log 2>&1
+SEARCH_TIME=1800 PARTICLES=128 ITERATIONS=400 START_REFL=110 RAMP_REF_EVERY=4 RAMP_REF_STEP=40 START_NPZ=/app/work/X3f4781b/gallop_50/warm.npz START_JITTER=.09 START_TOR_JITTER=.40 MACRO_ELITE_FRAC=.30 python /app/work/search_gallop.py X3f4781b 50 2 --hscatter --packing > /app/work/X3f4781b/gallop50.log 2>&1
+python /app/work/import_gallop.py X3f4781b 50 > /app/work/X3f4781b/import_g50.log 2>&1
+python /app/work/refine_obj.py X3f4781b g50 /app/work/X3f4781b/search_g50/best.xml --scale --tight > /app/work/X3f4781b/refine_g50.log 2>&1
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/31937/status ]] && ! grep -q '^State:.*Z' /proc/31937/status; do sleep 5;done
+for id in X263b09a X14a2b08;do
+ while [[ ! -f /app/work/$id/refined_g11.json ]];do sleep 5;done
+ python /app/work/guided_synthon.py $id g11 synseed > /app/work/$id/guided_synthon.log 2>&1
+ GALLOP_STOL=.27 python /app/work/warm_gallop.py $id 71 /app/work/$id/search_synseed/best.xml /app/work/$id/search_synseed/model.json > /app/work/$id/warm71.log 2>&1
+ SEARCH_TIME=1400 PARTICLES=128 ITERATIONS=450 HBOND_COEFF=8 BUMP_COEFF=60 START_NPZ=/app/work/$id/gallop_71/warm.npz START_JITTER=.08 START_TOR_JITTER=.35 MACRO_ELITE_FRAC=.35 python /app/work/search_gallop.py $id 71 1 --hscatter --packing > /app/work/$id/gallop71.log 2>&1
+ python /app/work/import_gallop.py $id 71 > /app/work/$id/import_g71.log 2>&1
+ python /app/work/refine_obj.py $id g71 /app/work/$id/search_g71/best.xml --scale --tight --stol=.38 > /app/work/$id/refine_g71.log 2>&1
+ python /app/work/submit.py $id /app/work/$id/refined_g71.cif --check > /app/work/$id/check_g71.log 2>&1
+done
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/16742/status ]] && ! grep -q '^State:.*Z' /proc/16742/status; do sleep 5;done
+for id in X263b09a X14a2b08 X1db5091; do
+ old=$(python - "$id" <<'PY'
+import json,sys,os
+W='/app/work/'+sys.argv[1]
+ans=[]
+for run in ['g11','1']:
+ if os.path.exists(W+'/refined_'+run+'.json'):ans.append((json.load(open(W+'/refined_'+run+'.json'))['Rw'],run))
+print(min(ans)[1])
+PY
+)
+ GALLOP_STOL=.27 python /app/work/warm_gallop.py $id 50 /app/work/$id/refined_$old.xml /app/work/$id/search_$old/model.json > /app/work/$id/warm50.log 2>&1
+ SEARCH_TIME=1500 PARTICLES=128 ITERATIONS=400 MACRO_ELITE_FRAC=.30 START_NPZ=/app/work/$id/gallop_50/warm.npz START_JITTER=.05 START_TOR_JITTER=.30 python /app/work/search_gallop.py $id 50 1 --hscatter --packing > /app/work/$id/gallop50.log 2>&1
+ python /app/work/import_gallop.py $id 50 > /app/work/$id/import_g50.log 2>&1
+ python /app/work/refine_obj.py $id g50 /app/work/$id/search_g50/best.xml --scale --tight --stol=.35 > /app/work/$id/refine_g50.log 2>&1
+ done
+base.log
+base.png
+base.xml
+base_old.xml
+base_profile.xye
+basefresh.log
+candidates.json
+fit_0.json
+fit_0.log
+fit_0.png
+fit_0.xml
+fit_0.xye
+gallop11.log
+gallop31.log
+gallop40.log
+gallop_11
+gallop_31
+gallop_40
+heavy11.log
+import_g11.log
+import_g31.log
+index_CUBIC_F_0.json
+index_CUBIC_F_0.log
+index_CUBIC_I_0.json
+index_CUBIC_I_0.log
+index_CUBIC_P_0.json
+index_CUBIC_P_0.log
+index_HEXAGONAL_P_0.json
+index_HEXAGONAL_P_0.log
+index_MONOCLINIC_C_0.json
+index_MONOCLINIC_C_0.log
+index_MONOCLINIC_C_2.json
+index_MONOCLINIC_C_2.log
+index_MONOCLINIC_P_0.json
+index_MONOCLINIC_P_0.log
+index_MONOCLINIC_P_2.json
+index_MONOCLINIC_P_2.log
+index_ORTHOROMBIC_C_0.json
+index_ORTHOROMBIC_C_0.log
+index_ORTHOROMBIC_I_0.json
+index_ORTHOROMBIC_I_0.log
+index_ORTHOROMBIC_P_0.json
+index_ORTHOROMBIC_P_0.log
+index_ORTHOROMBIC_P_2.json
+index_ORTHOROMBIC_P_2.log
+index_RHOMBOEDRAL_P_0.json
+index_RHOMBOEDRAL_P_0.log
+index_TETRAGONAL_I_0.json
+index_TETRAGONAL_I_0.log
+index_TETRAGONAL_P_0.json
+index_TETRAGONAL_P_0.log
+index_TRICLINIC_P_3.json
+index_TRICLINIC_P_3.log
+lattice.json
+lebail.npz
+peaks.json
+peaks.png
+processed.npz
+refine_1.log
+refine_1_stage0.cif
+refine_1_stage0.xml
+refine_1_stage1.cif
+refine_1_stage1.xml
+refine_1_stage2.cif
+refine_1_stage2.xml
+refine_1_stage3.cif
+refine_1_stage3.xml
+refine_2.log
+refine_3.log
+refine_3_stage0.cif
+refine_3_stage0.xml
+refine_3_stage1.cif
+refine_3_stage1.xml
+refine_3_stage2.cif
+refine_3_stage2.xml
+refine_3_stage3.cif
+refine_3_stage3.xml
+refine_g11.log
+refine_g11_stage0.cif
+refine_g11_stage0.xml
+refine_g11_stage1.cif
+refine_g11_stage1.xml
+refine_g11_stage2.cif
+refine_g11_stage2.xml
+refine_g11_stage3.cif
+refine_g11_stage3.xml
+refine_g31.log
+refine_g31_stage0.cif
+refine_g31_stage0.xml
+refine_g31_stage1.cif
+refine_g31_stage1.xml
+refine_g31_stage2.cif
+refine_g31_stage2.xml
+refine_g31_stage3.cif
+refine_g31_stage3.xml
+refine_pre.log
+refined_1.cif
+refined_1.json
+refined_1.png
+refined_1.xml
+refined_3.cif
+refined_3.json
+refined_3.png
+refined_3.xml
+refined_g11.cif
+refined_g11.json
+refined_g11.png
+refined_g11.xml
+refined_g31.cif
+refined_g31.json
+refined_g31.png
+refined_g31.xml
+scaled_refine.xye
+search2.log
+search3.log
+search_1
+search_2
+search_3
+search_g11
+search_g31
+search_long.log
+import os,sys,json,itertools,numpy as np,xml.etree.ElementTree as ET
+from rdkit import Chem
+from rdkit.Chem import Lipinski
+from pymatgen.core import Lattice
+from pymatgen.symmetry.groups import SpaceGroup
+from gallop.structure import Structure
+from gallop.z_matrix import Z_matrix
+from pyobjcryst.io import xml_cryst_file_load_all_object
+from obj_model import make_rdkit
+import gemmi
+
+def make_zmatrix(smiles,path,seed=10,rank=0,rigid=False,coords_override=None,virtual_bonds=None):
+ if coords_override is None:r,xyz,e=make_rdkit(smiles,seed=seed,nconf=30,conf_rank=rank,hydrogen=False)
+ else:r=Chem.MolFromSmiles(smiles);xyz=np.asarray(coords_override);e=0.
+ n=len(xyz)
+ adj={i:[a.GetIdx() for a in r.GetAtomWithIdx(i).GetNeighbors()] for i in range(n)}
+ for i,j in (virtual_bonds or []):adj[i].append(j);adj[j].append(i)
+ # Start at a terminal atom where possible; DFS preserves a reference for all rigid branches.
+ root=min(range(n),key=lambda i:(len(adj[i]),i));parent={root:None};order=[];children={i:[] for i in range(n)}
+ def dfs(i):
+  order.append(i)
+  for j in sorted(adj[i],key=lambda a:(len(adj[a])==1,a)):
+   if j in parent:continue
+   parent[j]=i;children[i].append(j);dfs(j)
+ dfs(root);idx={j:i for i,j in enumerate(order)}
+ flex={frozenset(x) for x in r.GetSubstructMatches(Lipinski.RotatableBondSmarts)}
+ # Amide C-N bonds are planar. Other single bonds retain their internal degree of freedom.
+ for b in r.GetBonds():
+  i,j=b.GetBeginAtomIdx(),b.GetEndAtomIdx();ai=r.GetAtomWithIdx(i);aj=r.GetAtomWithIdx(j)
+  amide=(ai.GetAtomicNum()==7 and aj.GetAtomicNum()==6 and any(z.GetBondTypeAsDouble()==2 and z.GetOtherAtom(aj).GetAtomicNum() in [8,16] for z in aj.GetBonds())) or (aj.GetAtomicNum()==7 and ai.GetAtomicNum()==6 and any(z.GetBondTypeAsDouble()==2 and z.GetOtherAtom(ai).GetAtomicNum() in [8,16] for z in ai.GetBonds()))
+  if (ai.GetAtomicNum()==7 and ai.GetIsAromatic()) or (aj.GetAtomicNum()==7 and aj.GetIsAromatic()):amide=False
+  if amide:flex.discard(frozenset([i,j]))
+ if rigid:flex=set()
+ lines=['Generated from supplied connectivity and an RDKit conformer','1 1 1 90 90 90',f'{n} 0'];zm=[]
+ xyzord=xyz[order]
+ # Transform first three atoms to the NERF initial convention using a proper rotation.
+ if n>=3:
+  ex=xyzord[1]-xyzord[0];ex/=np.linalg.norm(ex);ey=xyzord[2]-xyzord[0];ey-=ey@ex*ex;ey/=np.linalg.norm(ey);ez=np.cross(ex,ey);xyzcanon=(xyzord-xyzord[0])@np.array([ex,ey,ez]).T
+ elif n==2:xyzcanon=np.array([[0,0,0],[np.linalg.norm(xyzord[1]-xyzord[0]),0,0]])
+ else:xyzcanon=np.zeros((1,3))
+ for ii,old in enumerate(order):
+  ref=0
+  if ii==0:R,ang,phi,b,a,t=0,0,0,0,0,0
+  elif ii in [1,2]:
+   v=xyzcanon[ii];R=np.linalg.norm(v);ang=np.rad2deg(np.arccos(np.clip(-v[0]/R,-1,1)));phi=0.;b,a,t=1,0,0
+  else:
+   pp=parent[old];gp=parent[pp]
+   if gp is None:
+    # At a root branch: use another previously placed neighbour as the angle reference.
+    gp=next(o for o in order[:ii] if o!=pp and np.linalg.norm(np.cross(xyz[old]-xyz[pp],xyz[o]-xyz[pp]))>1e-5)
+   siblings=children[pp];first=siblings[0]
+   if old!=first:tp=first
+   else:tp=parent.get(gp)
+   if tp is None or tp in [old,pp,gp] or idx.get(tp,ii)>=ii:
+    tp=max([o for o in order[:ii] if o not in [pp,gp]],key=lambda o:np.linalg.norm(np.cross(xyz[gp]-xyz[o],xyz[pp]-xyz[gp])))
+   C=xyz[pp];B=xyz[gp];A=xyz[tp];bc=C-B;bc/=np.linalg.norm(bc);nv=np.cross(B-A,bc);nv/=np.linalg.norm(nv);nbc=np.cross(nv,bc);v=xyz[old]-C;R=np.linalg.norm(v);ang=np.rad2deg(np.arccos(np.clip(-v@bc/R,-1,1)));phi=np.rad2deg(np.arctan2(v@nv,v@nbc));b,a,t=idx[pp]+1,idx[gp]+1,idx[tp]+1
+   if old==first and frozenset([pp,gp]) in flex:ref=1
+  el=r.GetAtomWithIdx(old).GetSymbol();lines.append(f'{el} {R:.8f} 0 {ang:.8f} 0 {phi:.8f} {ref} {b} {a} {t} 3.0 1.0 {ii+1} {el}{old+1}')
+ open(path,'w').write('\n'.join(lines)+'\n');z=Z_matrix(path)
+ dist=np.max(np.abs(np.linalg.norm(xyzcanon[:,None]-xyzcanon[None,:],axis=2)-np.linalg.norm(z.initial_cartesian[:,None]-z.initial_cartesian[None,:],axis=2)))
+ print('ZM',smiles,'n',n,'torsions',z.internal_degrees_of_freedom,'max_distance_error',dist,flush=True)
+ if dist>.002:raise RuntimeError('Z-matrix failed to reproduce molecular geometry')
+ return z,dict(smiles=smiles,elements=[a.GetSymbol() for a in r.GetAtoms()],order=order,rdkit_coords=xyz.tolist(),energy=e,virtual_bonds=virtual_bonds)
+
+def prepare(sid,run=1,zprime=1,rigid=False,model_path=None,stolmax=.21):
+ W='/app/work/'+sid;G=W+'/gallop_'+str(run);os.makedirs(G,exist_ok=True)
+ objs=xml_cryst_file_load_all_object(os.environ.get('BASE_XML',W+'/base.xml'));c=[o for o in objs if o.GetClassName()=='Crystal'][0];p=[o for o in objs if o.GetClassName()=='PowderPattern'][0];d=p.GetPowderPatternComponent(0)
+ # An atomless loaded Crystal can leave ObjCryst's internal single-crystal scale NaN.
+ # A disposable scatterer stabilizes that cache; it is never included in the GALLOP model.
+ if c.GetNbScatterer()==0:
+  from obj_model import add_component
+  dummy,_=add_component(c,'C','pawley_dummy')
+ d.SetExtractionMode(True,False);p.Prepare();d.ExtractLeBail(20);p.Prepare();p.FitScaleFactorForRw()
+ cp=[c.GetPar(n).GetHumanValue() for n in ['a','b','c','alpha','beta','gamma']];sg=gemmi.find_spacegroup_by_name(c.GetSpaceGroup().GetName());L=Lattice.from_parameters(*cp);ins=json.load(open('/app/data/instances/'+sid+'/instrument.json'));wl=ins['radiation']['wavelength_A']
+ # Read the original Le Bail reflection order before applying a resolution cutoff.
+ hkls=np.array([d.GetH(),d.GetK(),d.GetL()]).T.astype(int);stol=np.array(d.GetSinThetaOverLambda());f2=np.array(d.GetFhklObsSq());xx=np.rad2deg(p.GetPowderPatternX());obs=np.array(p.GetPowderPatternObs());wg=np.array(p.GetLSQWeight(0));tt=np.rad2deg(2*np.arcsin(wl*stol));zero=p.GetPar('Zero').GetHumanValue()
+ sel=(tt+zero>xx[0]-.02)&(tt+zero<xx[-1])&(stol<=stolmax);hkls=hkls[sel];tt=tt[sel];stol=stol[sel];f2=f2[sel]
+ s=Structure(sid,ignore_H_atoms=True);s.lattice=L;s.sg_number=sg.number;s.original_sg_number=sg.number;s.space_group=SpaceGroup(sg.xhm());s.centrosymmetric=sg.is_centrosymmetric();s.affine_matrices=np.array([op.affine_matrix for op in s.space_group.symmetry_ops]);s.wavelength=wl;s.hkl=hkls;s.intensities=f2;s.twotheta=tt;s.dspacing=1/(2*stol);s.data_resolution=float(s.dspacing[-1]);s.source='GSAS';s.PawleyChiSq=1.;s.temperature=ins.get('temperature_K',298.)
+ # Exact fixed-profile Pawley covariance from the ObjCryst reflection profiles.
+ from obj_bridge import exact_pawley
+ pw=exact_pawley(p,d,stolmax=stolmax,rcond=float(os.environ.get('PAWLEY_RCOND','.001')))
+ ii=pw['sel'];hkls=np.array([d.GetH(),d.GetK(),d.GetL()]).T.astype(int)[ii];stol=np.asarray(d.GetSinThetaOverLambda())[ii];tt=np.rad2deg(2*np.arcsin(wl*stol));f2=pw['obs'];A=pw['matrix'];normal=pw['normal']
+ # Only a global normalization is applied: chi2=1000 is the background-subtracted signal variance.
+ normal=normal*((len(hkls)-2)*1000/max(pw['var'],1e-25))
+ s.hkl=hkls;s.intensities=f2;s.twotheta=tt;s.dspacing=1/(2*stol);s.data_resolution=float(s.dspacing[-1]);s.inverse_covariance_matrix=normal
+ comp=json.load(open(model_path or '/app/data/instances/'+sid+'/composition.json'));meta=[]
+ for z in range(zprime):
+  for ic,co in enumerate(comp['components']):
+   for cc in range(co['count']):
+    zm,md=make_zmatrix(co['smiles'],G+f'/m{z}_{ic}_{cc}.zmatrix',seed=1027+run*21+z*11+ic,rank=int(os.environ.get('CONF_RANK',str(run))),rigid=rigid,coords_override=co.get('coords'),virtual_bonds=co.get('virtual_bonds'));s.zmatrices.append(zm);meta.append(md)
+ # GALLOP's analytical structure factors assume its standard setting.
+ # Retain affine operations but request general expansion for non-standard settings.
+ if sg.xhm()!=gemmi.find_spacegroup_by_number(sg.number).xhm():
+  s.sg_number=0
+  print('GENERIC_SYMMETRY',sg.xhm(),flush=True)
+ s.sg_symbol=sg.xhm()
+ s.get_total_degrees_of_freedom(verbose=True)
+ for obj in [s]+s.zmatrices:
+  for key,value in list(obj.__dict__.items()):
+   if isinstance(value,np.generic):setattr(obj,key,value.item())
+ json.dump(meta,open(G+'/model.json','w'),indent=1);open(G+'/structure.json','w').write(s.to_json());np.savez_compressed(G+'/profile_matrix.npz',matrix=A,hkl=hkls,normal=normal,tt=tt,obs=f2)
+ print('PREPARED',sid,'Nref',len(hkls),'PawleyRw',p.GetRw(),'SG',sg.xhm(),flush=True)
+ return s,G
+
+if __name__=='__main__':
+ sid=sys.argv[1];run=int(sys.argv[2]) if len(sys.argv)>2 else 1;zp=int(sys.argv[3]) if len(sys.argv)>3 else 1;mp=next((v.split('=',1)[1] for v in sys.argv if v.startswith('--model=')),None)
+ prepare(sid,run,zp,rigid='--rigid' in sys.argv,model_path=mp,stolmax=float(os.environ.get('GALLOP_STOL','.21')))

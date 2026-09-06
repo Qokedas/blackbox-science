@@ -1,0 +1,2 @@
+['GetDerivStep', 'GetGlobalOptimStep', 'GetHumanMax', 'GetHumanMin', 'GetHumanValue', 'GetMax', 'GetMin', 'GetValue', 'IsLimited', 'SetDerivStep', 'SetGlobalOptimStep', 'SetHumanMax', 'SetHumanMin', 'SetHumanValue', 'SetIsLimited', 'SetLimitsAbsolute', 'SetLimitsProportional', 'SetLimitsRelative', 'SetMax', 'SetMin', 'SetValue']
+1e-09

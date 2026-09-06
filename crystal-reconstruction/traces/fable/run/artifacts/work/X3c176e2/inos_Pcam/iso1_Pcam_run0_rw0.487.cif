@@ -1,0 +1,53 @@
+data_cryst
+
+_computing_structure_solution     'FOX http://objcryst.sourceforge.net'
+
+_symmetry_space_group_name_H-M    'P c a m'
+_symmetry_space_group_name_Hall   '-P 2c 2ac'
+
+_cell_length_a    14.00450
+_cell_length_b     9.32315
+_cell_length_c    11.02848
+_cell_angle_alpha  90.000
+_cell_angle_beta   90.000
+_cell_angle_gamma  90.000
+_cell_volume      1439.94
+loop_
+    _atom_site_label
+    _atom_site_type_symbol
+    _atom_site_fract_x
+    _atom_site_fract_y
+    _atom_site_fract_z
+    _atom_site_U_iso_or_equiv
+    _atom_site_occupancy
+    _atom_site_adp_type
+    O1         O         0.901249  0.097708  0.343372  0.012665 1.0000 Uiso
+    C1         C         0.928130  0.188802  0.445151  0.012665 1.0000 Uiso
+    C2         C         1.036467  0.208056  0.480041  0.012665 1.0000 Uiso
+    O2         O         1.109460  0.241583  0.389664  0.012665 1.0000 Uiso
+    C3         C         1.054144  0.218081  0.613156  0.012665 1.0000 Uiso
+    O3         O         1.149360  0.212458  0.667532  0.012665 1.0000 Uiso
+    C4         C         0.973723  0.312899  0.682756  0.012665 1.0000 Uiso
+    O4         O         0.991616  0.415125  0.774138  0.012665 1.0000 Uiso
+    C5         C         0.883108  0.353116  0.608483  0.012665 1.0000 Uiso
+    O5         O         0.830243  0.483213  0.639689  0.012665 1.0000 Uiso
+    C6         C         0.851914  0.266814  0.509466  0.012665 1.0000 Uiso
+    O6         O         0.768165  0.313239  0.444695  0.012665 1.0000 Uiso
+
+#  Dynamical occupancy corrections found by ObjCryst++:
+#  values below 1. (100%) indicate a correction,
+#  which means either that the atom is on a special position,
+#  or that it is overlapping with another identical atom.
+#   O1               : 1.0000
+#   C1               : 1.0000
+#   C2               : 1.0000
+#   O2               : 1.0000
+#   C3               : 1.0000
+#   O3               : 1.0000
+#   C4               : 1.0000
+#   O4               : 0.5168
+#   C5               : 1.0000
+#   O5               : 1.0000
+#   C6               : 1.0000
+#   O6               : 1.0000
+#

@@ -1,0 +1,53 @@
+[
+ {
+  "cell": [
+   5.446,
+   11.734999999999998,
+   20.667,
+   83.665,
+   84.221,
+   89.05700000000002
+  ],
+  "volume": 1306.0473533285274,
+  "score": 36.87,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 3,
+  "source": "index_TRICLINIC_P_3_partial.json",
+  "sg": "P-1"
+ },
+ {
+  "cell": [
+   5.016,
+   11.772999999999998,
+   20.541000000000004,
+   96.126,
+   91.421,
+   94.525
+  ],
+  "volume": 1201.6537114776656,
+  "score": 29.51,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 3,
+  "source": "index_TRICLINIC_P_3_partial.json",
+  "sg": "P-1"
+ },
+ {
+  "cell": [
+   5.024,
+   11.764999999999999,
+   20.593000000000004,
+   96.147,
+   92.019,
+   93.586
+  ],
+  "volume": 1206.7513022144278,
+  "score": 24.88,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 3,
+  "source": "index_TRICLINIC_P_3_partial.json",
+  "sg": "P-1"
+ }
+]

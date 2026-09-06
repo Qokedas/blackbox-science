@@ -1,0 +1,61 @@
+        hd2 = sum(1 for n in a2.GetNeighbors() if n.GetAtomicNum() > 1)
+        if hd1 < 2 or hd2 < 2:
+            fixed.add(b.GetIdx()); continue  # terminal: no torsion needed
+        sp2 = lambda a: a.GetHybridization() in (Chem.HybridizationType.SP2, Chem.HybridizationType.SP)
+        # amide / conjugated sp2-sp2 single bonds
+        if sp2(a1) and sp2(a2):
+            fixed.add(b.GetIdx()); continue
+        # amide N (N attached to C=O) with C: N is often flagged SP2 by RDKit; handled above. Also N-C(=O) where N is sp3-ish:
+        for x, y in ((a1, a2), (a2, a1)):
+            if x.GetAtomicNum() == 7 and y.GetAtomicNum() == 6 and any(nb.GetAtomicNum() == 8 and mol.GetBondBetweenAtoms(y.GetIdx(), nb.GetIdx()).GetBondType() == Chem.BondType.DOUBLE for nb in y.GetNeighbors()):
+                fixed.add(b.GetIdx())
+    return fixed
+
+def add_molecule(cr, mol, confid, name, sps, allH=False):
+    m = Molecule(cr, name)
+    conf = mol.GetConformer(confid)
+    heavy = [a.GetIdx() for a in mol.GetAtoms() if a.GetAtomicNum() > 1 or allH]
+    pos = np.array([list(conf.GetAtomPosition(i)) for i in heavy])
+    pos -= pos.mean(axis=0)
+    idxmap = {}
+    counts = {}
+    for k, i in enumerate(heavy):
+        a = mol.GetAtomWithIdx(i)
+        sym = a.GetSymbol()
+        counts[sym] = counts.get(sym, 0) + 1
+        if sym not in sps:
+            sp = ScatteringPowerAtom(sym, sym)
+            cr.AddScatteringPower(sp)
+            sps[sym] = sp
+        at = m.AddAtom(pos[k,0], pos[k,1], pos[k,2], sps[sym], f'{sym}{counts[sym]}')
+        idxmap[i] = m.GetNbAtoms() - 1
+    getat = lambda i: m.GetAtom(idxmap[i])
+    fixed = classify_bonds(mol)
+    # bonds
+    for b in mol.GetBonds():
+        i, j = b.GetBeginAtomIdx(), b.GetEndAtomIdx()
+        if i in idxmap and j in idxmap:
+            d = np.linalg.norm(pos[heavy.index(i)] - pos[heavy.index(j)])
+            m.AddBond(getat(i), getat(j), d, 0.01, 0.02)
+    # angles
+    from rdkit.Chem import rdMolTransforms as T
+    for a in mol.GetAtoms():
+        if a.GetIdx() not in idxmap: continue
+        nbs = [n.GetIdx() for n in a.GetNeighbors() if n.GetIdx() in idxmap]
+        for x in range(len(nbs)):
+            for y in range(x+1, len(nbs)):
+                ang = T.GetAngleRad(conf, nbs[x], a.GetIdx(), nbs[y])
+                m.AddBondAngle(getat(nbs[x]), getat(a.GetIdx()), getat(nbs[y]), ang, 0.01, 0.02)
+    # dihedrals for fixed bonds
+    ndih = 0; nfree = 0
+    for b in mol.GetBonds():
+        i, j = b.GetBeginAtomIdx(), b.GetEndAtomIdx()
+        if i not in idxmap or j not in idxmap: continue
+        ni = [n.GetIdx() for n in mol.GetAtomWithIdx(i).GetNeighbors() if n.GetIdx() in idxmap and n.GetIdx() != j]
+        nj = [n.GetIdx() for n in mol.GetAtomWithIdx(j).GetNeighbors() if n.GetIdx() in idxmap and n.GetIdx() != i]
+        if not ni or not nj: continue
+        if b.GetIdx() in fixed:
+            # restrain all dihedrals around this bond (one is enough with angles, but add all for robustness)
+            for p in ni:
+                for q in nj:
+                    ang = T.GetDihedralRad(conf, p, i, j, q)

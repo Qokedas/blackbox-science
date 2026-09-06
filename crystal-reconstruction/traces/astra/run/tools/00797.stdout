@@ -1,0 +1,256 @@
+import os,sys,json,time,numpy as np
+from scipy.optimize import least_squares
+from numba import njit
+from pymatgen.core import Lattice
+sid=sys.argv[1];W='/app/work/'+sid;tag=sys.argv[2] if len(sys.argv)>2 else '0';start=json.load(open(W+'/fit_'+tag+'.json'));L=Lattice.from_parameters(*start['cell']);G=L.reciprocal_lattice_crystallographic.metric_tensor;wl=json.load(open('/app/data/instances/'+sid+'/instrument.json'))['radiation']['wavelength_A'];ps=json.load(open(W+'/peaks_raw.json'));selection=json.load(open(W+'/peak_select_ext.json'))['indices'];pp=[ps[i-1] for i in selection];tt=np.array([p['two_theta'] for p in pp]);qobs=(2*np.sin(np.deg2rad(tt/2))/wl)**2;fac=wl*wl/(2*np.sin(np.deg2rad(tt)))*180/np.pi
+kl=np.array([[k,l] for k in range(-8,9) for l in range(-12,13) if k or l],dtype=float);kt=np.array([kl[:,0]**2,kl[:,1]**2,2*kl[:,0]*kl[:,1]]).T
+v=np.array([G[1,1],G[2,2],G[1,2],start.get('p_pars',{}).get('Zero',0)])
+# Low-angle lines below the first possible h != 0 reflection determine the 2D reciprocal net.
+ttmax=float(os.environ.get('PLANE_MAX','17.65'))
+low=tt<ttmax
+for it in range(5):
+ q=kt@v[:3];idx=np.argmin(abs(q[None,:]-(qobs-v[3]/fac)[:,None]),axis=1);err=(q[idx]-qobs)*fac+v[3];sel=low&(abs(err)<float(os.environ.get('PLANE_ERR','.10')))
+ if sel.sum()<5:raise Exception('not enough 2D matches')
+ v=least_squares(lambda x:(kt[idx[sel]]@x[:3]-qobs[sel])*fac[sel]+x[3],v,loss='soft_l1',f_scale=.015,max_nfev=100).x
+q=kt@v[:3];idx=np.argmin(abs(q[None,:]-(qobs-v[3]/fac)[:,None]),axis=1);err=(q[idx]-qobs)*fac+v[3]
+need=np.where((abs(err)>.055)&(~low))[0]
+print('PLANE',sid,'g22,g33,g23,zero',v.tolist(),'nlow',sum(sel),flush=True)
+for i,(t,ee) in enumerate(zip(tt,err)):print('LINE',selection[i],round(t,5),'0kl',kl[idx[i]],'err',round(ee,5),'NEW' if i in need else '',flush=True)
+# Peak ids can be specified manually when a weak impurity lies outside the 2D net.
+if 'H1_IDS' in os.environ:need=np.array([selection.index(int(s)) for s in os.environ['H1_IDS'].split(',')],int)
+if len(need)<3:raise Exception('not enough out-of-plane lines')
+qcor=qobs-v[3]/fac;ks=np.array([[k,l] for k in range(-5,6) for l in range(-9,10) if k or l],dtype=float)
+hkl=np.array([[h,k,l] for h in range(0,4) for k in range(-8,9) for l in range(-12,13) if h or k or l],dtype=float);terms=np.array([hkl[:,0]**2,hkl[:,1]**2,hkl[:,2]**2,2*hkl[:,1]*hkl[:,2],2*hkl[:,0]*hkl[:,2],2*hkl[:,0]*hkl[:,1]]).T
+nspur=int(os.environ.get('NSPUR','1'));vmin=float(os.environ.get('VMIN','1000'));vmax=float(os.environ.get('VMAX','1800'));targetv=float(os.environ.get('VTARGET','1300'));etol=.04
+@njit(cache=False)
+def evaluate(g):
+ sq=np.zeros(len(qobs));vol=1/np.sqrt(g[0]*g[1]*g[2]+2*g[3]*g[4]*g[5]-g[0]*g[3]*g[3]-g[1]*g[4]*g[4]-g[2]*g[5]*g[5]);idx=np.zeros(len(qobs),np.int64)
+ qc=terms@g
+ for i in range(len(qobs)):
+  best=1e20;bj=0
+  for j in range(len(qc)):
+   delta=abs(qc[j]-qcor[i])
+   if delta<best:best=delta;bj=j
+  sq[i]=np.log1p((best*fac[i]/etol)**2);idx[i]=bj
+ sq.sort();res=np.mean(sq[:len(sq)-nspur])*vol/targetv
+ return res,idx
+@njit(cache=False)
+def enumerate_solutions(i1,i2,i3):
+ out=np.zeros((len(ks)*len(ks),7));nout=0;g=np.array([qcor[i1],v[0],v[1],v[2],0.,0.]);area=g[1]*g[2]-g[3]*g[3]
+ for a in range(len(ks)):
+  k,l=ks[a];rhs2=qcor[i2]-g[0]-g[1]*k*k-g[2]*l*l-2*g[3]*k*l
+  for b in range(len(ks)):
+   m,n=ks[b];det=k*n-m*l
+   if abs(det)<.1:continue
+   rhs3=qcor[i3]-g[0]-g[1]*m*m-g[2]*n*n-2*g[3]*m*n
+   g[5]=(rhs2*n-rhs3*l)/(2*det);g[4]=(rhs3*k-rhs2*m)/(2*det)
+   dg=g[0]*area+2*g[3]*g[4]*g[5]-g[1]*g[4]*g[4]-g[2]*g[5]*g[5]
+   if dg<=0:continue
+   vol=1/np.sqrt(dg)
+   if vol<vmin or vol>vmax:continue
+   # Reduce equivalent h=1 origins: the reciprocal (100) line should not be much longer than others.
+   cost,idx=evaluate(g)
+   if cost>.6:continue
+   out[nout,0]=cost;out[nout,1:]=g;nout+=1
+ return out[:nout]
+t0=time.time();out=[]
+# The first extra line is taken as (100); two others span the metric cross terms.
+for i2,i3 in [(need[1],need[2]),(need[1],need[3]) if len(need)>3 else (need[1],need[2])]:
+ rows=enumerate_solutions(need[0],i2,i3);rows=rows[np.argsort(rows[:,0])][:80];print('ENUM',sid,'anchors',tt[[need[0],i2,i3]],'nsolutions',len(rows),'seconds',time.time()-t0,flush=True)
+ for row in rows:
+  g=row[1:];cost,idx=evaluate(g);x=np.r_[g,v[3]]
+  for it in range(3):
+   tr=terms[idx]
+   re=least_squares(lambda xx:(tr@xx[:6]-qobs)*fac+xx[6],x,loss='soft_l1',f_scale=.02,max_nfev=100);x=re.x
+   qc=terms@x[:6];idx=np.argmin(abs(qc[None,:]-(qobs-x[6]/fac)[:,None]),axis=1)
+  g=x[:6];gm=np.array([[g[0],g[5],g[4]],[g[5],g[1],g[3]],[g[4],g[3],g[2]]])
+  if np.linalg.det(gm)<=0:continue
+  cell=Lattice(np.linalg.cholesky(np.linalg.inv(gm))).get_niggli_reduced_lattice();di=(terms[idx]@g-qobs)*fac+x[6];sq=np.sort(np.log1p((di/etol)**2));cost=np.mean(sq[:len(sq)-nspur])*cell.volume/targetv
+  ncal=np.sum((terms@g)<qobs[-1]);score=qobs[-1]/(2*np.mean(abs(di)/fac)*ncal)
+  if any(np.allclose(cell.parameters[:3],s['cell'][:3],rtol=.002) and np.allclose(cell.parameters[3:],s['cell'][3:],atol=.3) for s in out):continue
+  ss=dict(cell=list(cell.parameters),volume=cell.volume,score=float(score),system='TRICLINIC',centering='P',sg='P -1',mode=12,cost=float(cost),zero=float(x[6]),rms=float(np.sqrt(np.mean(di**2))),maxerr=float(max(abs(di))),source='2d_completion');out.append(ss)
+ out.sort(key=lambda s:s['cost']);json.dump(out,open(W+'/index_2d.json','w'),indent=1)
+for s in out[:15]:print('SOLUTION',s,flush=True)
+import os,sys,time,json,numpy as np,gemmi
+from numba import njit
+from scipy.optimize import least_squares
+from pymatgen.core import Lattice
+sid=sys.argv[1];sgname=sys.argv[2] if len(sys.argv)>2 else 'P 1 21 1';W='/app/work/'+sid
+ps=json.load(open(W+'/peaks_raw.json'));sp=os.getenv('SELECT_FILE',W+'/peak_select_raw.json');sel=json.load(open(sp))['indices'] if os.path.exists(sp) else list(range(1,len(ps)+1));sel=sel[:int(os.getenv('NPEAK','26'))];ps=[ps[i-1] for i in sel]
+wl=json.load(open('/app/data/instances/'+sid+'/instrument.json'))['radiation']['wavelength_A'];tt=np.array([p['two_theta'] for p in ps]);q=(2*np.sin(np.deg2rad(tt/2))/wl)**2;fac=wl*wl/(2*np.sin(np.deg2rad(tt)))*180/np.pi;nm=len(q)
+lo=float(os.getenv('VMIN','500'));hi=float(os.getenv('VMAX','6500'));target=float(os.getenv('VTARGET',str((lo+hi)/2)));nspur=int(os.getenv('NSPUR','1'));err=float(os.getenv('TTHERR','.03'));nanchor=min(int(os.getenv('NANCHOR','6')),nm);nbanchor=min(int(os.getenv('NBANCHOR','12')),nm)
+sg=gemmi.find_spacegroup_by_name(sgname);orth=sg.crystal_system_str()=='orthorhombic';ops=sg.operations()
+hk=np.array([[h,k,l] for h in range(0,8) for k in range(0,15) for l in (range(0,8) if orth else range(-7,8)) if (h or k or l) and not (h==0 and l<0) and not ops.is_systematically_absent([h,k,l])],float);T=np.array([hk[:,0]**2,hk[:,1]**2,hk[:,2]**2,2*hk[:,0]*hk[:,2]]).T
+am=np.array([n for n in [1,2,3,4] if not ops.is_systematically_absent([n,0,0])]);bm=np.array([n for n in [1,2,3,4] if not ops.is_systematically_absent([0,n,0])]);cm=np.array([n for n in [1,2,3,4] if not ops.is_systematically_absent([0,0,n])]);am=am[:2];bm=bm[:2];cm=cm[:2]
+hkl3=np.array([[h,k,l] for h in range(1,4) for k in range(0,4) for l in range(-3,4) if l and not ops.is_systematically_absent([h,k,l])],float)
+@njit(cache=False)
+def metricscore(g,z,screen=True):
+ qc=T@g;df=np.zeros(nm);ix=np.zeros(nm,np.int64);bad=0
+ for i in range(nm):
+  diff=1e10
+  for j in range(len(qc)):
+   dd=abs(qc[j]-q[i]+z/fac[i])
+   if dd<diff:diff=dd;ix[i]=j
+  df[i]=(qc[ix[i]]-q[i])*fac[i]+z
+  if i<12 and abs(df[i])>.065:
+   bad+=1
+   if screen and bad>2:return 100.,ix,df
+ vol=1/np.sqrt(g[1]*(g[0]*g[2]-g[3]*g[3]));sq=np.log1p((df/err)**2);sq.sort();score=np.mean(sq[:nm-nspur])*vol/target
+ return score,ix,df
+@njit(cache=False)
+def enumerate_cells(z):
+ qc=q-z/fac;rows=np.zeros((40000,5));nr=0;best=100.
+ for i in range(nanchor):
+  for j in range(i+1,nanchor):
+   for a0 in am:
+    for c0 in cm:
+     A=qc[i]/a0**2;C=qc[j]/c0**2
+     for ip in range(nbanchor):
+      if ip==i or ip==j:continue
+      for b0 in bm:
+       B=qc[ip]/b0**2
+       if orth:
+        vol=1/np.sqrt(A*B*C)
+        if vol<lo or vol>hi:continue
+        g=np.array([A,B,C,0.]);cost,ix,df=metricscore(g,z)
+        if cost<1.5 and nr<40000:rows[nr,0]=cost;rows[nr,1:]=g;nr+=1
+        continue
+       for it in range(min(10,nm)):
+        if it==i or it==j or it==ip:continue
+        for ht,kt,lt in hkl3:
+         D=(qc[it]-A*ht*ht-B*kt*kt-C*lt*lt)/(2*ht*lt)
+         if abs(D)/np.sqrt(A*C)>.72:continue
+         det=B*(A*C-D*D)
+         if det<=0:continue
+         vol=1/np.sqrt(det)
+         if vol<lo or vol>hi:continue
+         g=np.array([A,B,C,D]);cost,ix,df=metricscore(g,z)
+         if cost<1.25 and nr<40000:rows[nr,0]=cost;rows[nr,1:]=g;nr+=1
+ return rows[:nr]
+t0=time.time();out=[];tag=os.getenv('INDEX_TAG','axial_'+str(sg.number))
+for zero in [-.08,0.,.08]:
+ rows=enumerate_cells(zero);rows=rows[np.argsort(rows[:,0])][:160]
+ print('ENUM',sid,sgname,'zero',zero,'rows',len(rows),'seconds',time.time()-t0,flush=True)
+ for row in rows:
+  x=np.r_[row[1:],zero];co,ix,df=metricscore(x[:4],x[4],False)
+  for it in range(5):
+   if orth:
+    R=least_squares(lambda z:(T[ix,:3]@z[:3]-q)*fac+z[3],x[[0,1,2,4]],loss='soft_l1',f_scale=err,max_nfev=80);x=np.r_[R.x[:3],0.,R.x[3]]
+   else:R=least_squares(lambda z:(T[ix]@z[:4]-q)*fac+z[4],x,loss='soft_l1',f_scale=err,max_nfev=80);x=R.x
+   co,ix,df=metricscore(x[:4],x[4],False)
+  g=x[:4];GM=np.array([[g[0],0.,g[3]],[0.,g[1],0.],[g[3],0.,g[2]]])
+  if np.linalg.det(GM)<=0:continue
+  L=Lattice(np.linalg.cholesky(np.linalg.inv(GM)));red=L.get_niggli_reduced_lattice();rv=list(red.parameters)
+  if any(np.allclose(rv[:3],s['reduced'][:3],rtol=.003) and np.allclose(rv[3:],s['reduced'][3:],atol=.3) for s in out):continue
+  o=dict(cell=list(L.parameters),volume=L.volume,system='ORTHOROMBIC' if orth else 'MONOCLINIC',centering=sg.centring_type(),sg=sgname,cost=float(co),score=float(1/max(co,1e-15)),zero=float(x[4]),mode=31,reduced=rv,diff=df.tolist(),hkl=hk[ix].astype(int).tolist(),source='axial_index')
+  out.append(o)
+ out.sort(key=lambda s:s['cost']);json.dump(out,open(W+'/index_'+tag+'.json','w'),indent=1)
+ for o in out[:4]:print('BEST',o['cost'],np.round(o['cell'],4),np.round(o['diff'],4),flush=True)
+print('DONE',sid,time.time()-t0,flush=True)
+import os,sys,json,time,numpy as np,gemmi
+from numba import njit
+from scipy.optimize import least_squares
+from pymatgen.core import Lattice
+sid=sys.argv[1];W='/app/work/'+sid
+ps=json.load(open(W+'/peaks_raw.json'));wl=json.load(open('/app/data/instances/'+sid+'/instrument.json'))['radiation']['wavelength_A']
+sel=[4,10,11,12,13,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,38,39,40,41,43,44,46,49,50,51,52,53]
+tt=np.array([ps[i-1]['two_theta'] for i in sel]);qobs=(2*np.sin(np.deg2rad(tt/2))/wl)**2;fac=wl**2/(2*np.sin(np.deg2rad(tt)))*180/np.pi
+init=np.array([.0005964058906554,.0062107082732483,-.04102578]);kls=np.array([[k,l] for k in range(0,25) for l in range(0,9) if k or l],float);T2=np.array([kls[:,0]**2,kls[:,1]**2]).T
+low=tt<17.65
+for ii in range(4):
+ ix=np.argmin(abs((T2@init[:2])[None,:]-(qobs-init[2]/fac)[:,None]),axis=1)
+ init=least_squares(lambda x:(T2[ix[low]]@x[:2]-qobs[low])*fac[low]+x[2],init,loss='soft_l1',f_scale=.015).x
+print('PLANE',init,flush=True)
+G22,G33,zero=init;qcor=qobs-zero/fac;etol=float(os.getenv('TTHERR','.04'));nspur=int(os.getenv('NSPUR','1'));lo=float(os.getenv('VMIN','1500'));hi=float(os.getenv('VMAX','3400'))
+gnames=['P 1 21/a 1','P 1 21/c 1','P 1 21/n 1','P 1 2/a 1','P 1 2/c 1','P 21 21 21','P 2 2 21','P b c a']
+if len(sys.argv)>2:gnames=sys.argv[2:]
+t0=time.time();outs=[]
+for sgname in gnames:
+ sg=gemmi.find_spacegroup_by_name(sgname);ops=sg.operations();orth=sg.crystal_system_str()=='orthorhombic'
+ hk=np.array([[h,k,l] for h in range(0,5) for k in range(0,25) for l in (range(0,9) if orth else range(-8,9)) if (h or k or l) and not(h==0 and l<0) and not ops.is_systematically_absent([h,k,l])],float)
+ terms=np.array([hk[:,0]**2,hk[:,1]**2,hk[:,2]**2,2*hk[:,0]*hk[:,2]]).T
+ @njit(cache=False)
+ def evaluate(g):
+  qc=terms@g;dif=np.zeros(len(tt));ix=np.zeros(len(tt),np.int64)
+  for i in range(len(tt)):
+   best=1e20
+   for j in range(len(qc)):
+    dd=abs(qc[j]-qcor[i])
+    if dd<best:best=dd;ix[i]=j
+   dif[i]=(qc[ix[i]]-qobs[i])*fac[i]+zero
+  sq=np.log1p((dif/etol)**2);sq.sort();v=1/np.sqrt(g[1]*(g[0]*g[2]-g[3]*g[3]));co=np.mean(sq[:len(sq)-nspur])*v/2500
+  return co,ix,dif
+ @njit(cache=False)
+ def enumeration(i1,i2):
+  rows=np.zeros((150000,5));nr=0
+  for k in range(0,14):
+   for l in range(-5,6):
+    if k==0 and (not orth) and (('21/a' in sgname or '2/a' in sgname) or (('21/c' in sgname or '2/c' in sgname) and l%2) or (('21/n' in sgname) and (l+1)%2)):continue
+    r1=qcor[i1]-G22*k*k-G33*l*l
+    if orth:
+     g=np.array([r1,G22,G33,0.])
+     if r1<=0:continue
+     vol=1/np.sqrt(r1*G22*G33)
+     if lo<vol<hi:
+      cost,ix,dd=evaluate(g)
+      if cost<1.0:rows[nr,0]=cost;rows[nr,1:]=g;nr+=1
+     continue
+    for m in range(0,14):
+     for n in range(-5,6):
+      if n==l:continue
+      if m==0 and (('21/a' in sgname or '2/a' in sgname) or (('21/c' in sgname or '2/c' in sgname) and n%2) or (('21/n' in sgname) and (n+1)%2)):continue
+      r2=qcor[i2]-G22*m*m-G33*n*n
+      cross=(r2-r1)/(2*(n-l));r0=r1-2*l*cross
+      det=G22*(r0*G33-cross**2)
+      if det<=0:continue
+      vol=1/np.sqrt(det)
+      if vol<lo or vol>hi:continue
+      if abs(cross)/np.sqrt(r0*G33)>.6:continue
+      g=np.array([r0,G22,G33,cross]);cost,ix,dd=evaluate(g)
+      if cost<1.0:rows[nr,0]=cost;rows[nr,1:]=g;nr+=1
+  return rows[:nr]
+ candidates=[]
+ for p1,p2 in [(31,35),(27,35),(35,38),(31,38)]:
+  rows=enumeration(sel.index(p1),sel.index(p2));rows=rows[np.argsort(rows[:,0])][:100]
+  for row in rows:
+   if any(np.allclose(row[1:],s[1:],rtol=.0001,atol=1e-7) for s in candidates):continue
+   candidates.append(row)
+ print('ENUM',sgname,len(candidates),time.time()-t0,flush=True)
+ for row in sorted(candidates,key=lambda s:s[0])[:40]:
+  g=row[1:];co,ix,di=evaluate(g);x=np.r_[g,zero]
+  for it in range(4):
+   T=terms[ix]
+   if orth:
+    x[3]=0
+    re=least_squares(lambda z:(T[:,:3]@z[:3]-qobs)*fac+z[3],x[[0,1,2,4]],loss='soft_l1',f_scale=.035,max_nfev=100);x=np.r_[re.x[:3],0.,re.x[3]]
+   else:
+    re=least_squares(lambda z:(T@z[:4]-qobs)*fac+z[4],x,loss='soft_l1',f_scale=.035,max_nfev=100);x=re.x
+   qc=terms@x[:4];ix=np.argmin(abs(qc[None,:]-(qobs-x[4]/fac)[:,None]),axis=1)
+  g=x[:4];GM=np.array([[g[0],0,g[3]],[0,g[1],0],[g[3],0,g[2]]]);L=Lattice(np.linalg.cholesky(np.linalg.inv(GM)));di=(terms[ix]@g-qobs)*fac+x[4];sq=np.sort(np.log1p((di/etol)**2));cost=np.mean(sq[:-nspur] if nspur else sq)*L.volume/2500
+  o=dict(cell=list(L.parameters),volume=L.volume,cost=float(cost),zero=float(x[4]),system='ORTHOROMBIC' if orth else 'MONOCLINIC',centering='P',sg=sgname,score=float(1/max(cost,1e-10)),source='plane_mono',diff=di.tolist(),hkl=hk[ix].astype(int).tolist())
+  if not any(s['sg']==sgname and np.allclose(s['cell'][:3],o['cell'][:3],rtol=.001) and abs(s['cell'][4]-o['cell'][4])<.1 for s in outs):outs.append(o)
+ outs.sort(key=lambda s:s['cost']);json.dump(outs,open(W+'/candidates_planemono.json','w'),indent=1)
+ print('BEST',sgname,[(np.round(s['cell'],4).tolist(),round(s['cost'],5)) for s in outs if s['sg']==sgname][:5],flush=True)
+print('DONE',time.time()-t0,flush=True)
+ -0.0058  0.0261  0.0035 -0.01    0.0039]
+TRIAL 21 sec 318.98823523521423 cost 1.8008529066047443 score 2.519844314894764 vol 2134.061238861947 cell [ 19.019    3.5606  33.3014  90.     108.8604  90.    ] zero 0.017272248544952483 best 0.9496017779617835 diff [-0.001   0.0011 -0.0123 -0.3591  0.0355 -0.0209  0.0385  0.042   0.0094
+  0.0056 -0.0209  0.1355 -0.0336  0.0005 -0.12    0.0192  0.0917 -0.0006
+ -0.0523 -0.0007 -0.001   0.001  -0.0044]
+TRIAL 22 sec 331.7868402004242 cost 1.6215188854479448 score 3.4539252441324346 vol 2171.8205566371057 cell [ 15.7484   4.2895  33.4081  90.     105.7749  90.    ] zero -0.0686151066056483 best 0.9496017779617835 diff [ 0.0363 -0.0955  0.0055 -0.0042 -0.0227  0.0111 -0.1505  0.0142  0.0026
+ -0.1019  0.0228  0.0461  0.1125 -0.0029 -0.0118  0.0012 -0.0065  0.0058
+ -0.0567  0.0024  0.0027 -0.0159  0.0147]
+TRIAL 23 sec 342.6048045158386 cost 1.7332664192499572 score 2.2542431598934973 vol 2229.419986158014 cell [ 16.9469   4.1106  34.5534  90.     112.1489  90.    ] zero -0.025508234432689358 best 0.9496017779617835 diff [-0.0223 -0.0147 -0.0118  0.0165  0.1551  0.4811  0.0017 -0.0049  0.0914
+  0.0173  0.0017 -0.0053 -0.1014 -0.022   0.0484 -0.0726  0.0034 -0.0119
+  0.0279 -0.     -0.0022  0.0028 -0.0109]
+Total degrees of freedom: 15
+Total external degrees of freedom: 7 (pos: 3 rot: 4 )
+Total internal degrees of freedom: 8
+PREPARED X263b09a Nref 409 PawleyRw 0.04986135126043387 SG P -1
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+RESTART_ERROR max/rms 4.928335900716632e-06 2.6891560004998533e-06
+WARM_READY /app/work/X263b09a/gallop_72
+/app/work/gallop_prepare.py:90:    zm,md=make_zmatrix(co['smiles'],G+f'/m{z}_{ic}_{cc}.zmatrix',seed=1027+run*21+z*11+ic,rank=int(os.environ.get('CONF_RANK',str(run))),rigid=rigid,coords_override=co.get('coords'),virtual_bonds=co.get('virtual_bonds'));md['biso_by_atom']=co.get('biso_by_atom');s.zmatrices.append(zm);meta.append(md)
+/app/work/hydrogen_prefix.py:13:            bs.append(float(md['biso_by_atom'][i]) if md.get('biso_by_atom') is not None else np.nan)

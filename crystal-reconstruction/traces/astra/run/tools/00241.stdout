@@ -1,0 +1,10 @@
+4263 S 1 0.1 bash /app/work/queue_structures_B.sh 
+5100 S 1 0.0 bash /app/work/raw_index_queue.sh 
+5191 S 1 0.1 bash /app/work/queue_structures_A2.sh 
+5335 S 1 0.3 bash /app/work/index1db_raw_strict.sh 
+5531 R 5191 1108.5 python /app/work/search_obj.py X35b7fbc 2 1 --rescale --model=/app/work/X35b7fbc/cis.json 
+7272 S 1 0.0 bash /app/work/queue_structures_C_new.sh 
+7274 R 7272 483.1 python /app/work/search_obj.py Xd4c1a35 2 2 --rescale --profile 
+7369 R 4263 374.0 python /app/work/search_obj.py X2327841 10 1 --rigid --hydrogen --model=/app/work/X2327841/alltrans.json --rescale --lsq 
+7620 S 5100 0.0 timeout 420 python /app/work/index_one.py Xb7088cf TRICLINIC P 4 700 3200 
+7621 R 7620 145.9 python /app/work/index_one.py Xb7088cf TRICLINIC P 4 700 3200 

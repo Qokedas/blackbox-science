@@ -1,0 +1,53 @@
+Xe1fb77b ORTHOROMBIC P 2 peaks [1.89676, 2.55344, 3.41773, 3.79629, 3.90974, 4.16379, 4.92482, 5.01239, 5.10964, 5.21378, 5.46831, 5.5036, 5.69691, 5.79036, 5.82228, 5.94774, 5.99619, 6.03799, 6.25007, 6.30541, 6.38247, 6.64498] V 990.2869262695312 6840 Lmax 53.15083176496423
+3->53.1508,2.00604,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+990.287->6840,585.03,9.999
+Starting: V=990.287->1575.32
+Finished: V=990.287->1575.32 A^3, 411 unit cells tested, 222764 tests/s,   Elapsed time=0.001852s
+Starting: V=1575.32->2160.35
+Finished: V=1575.32->2160.35 A^3, 1164 unit cells tested, 248718 tests/s,   Elapsed time=0.004687s
+Starting: V=2160.35->2745.38
+Finished: V=2160.35->2745.38 A^3, 2445 unit cells tested, 284666 tests/s,   Elapsed time=0.008596s
+Starting: V=2745.38->3330.41
+Finished: V=2745.38->3330.41 A^3, 4168 unit cells tested, 305393 tests/s,   Elapsed time=0.013657s
+Starting: V=3330.41->3915.44
+    a= 5.75- 5.81 b=15.29-15.35 c=41.51-41.57 alpha= 90.00- 90.00 beta= 90.00- 90.00 gamma= 90.00- 90.00 V=3650.36-3707.53level=4, indexed=1(0 sol.)
+    a=0.17386-0.17207 b=0.06540-0.06516 c=0.02409-0.02406 alpha=0.00000-0.00000 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(0 sol.)
+ Solution ? a=  5.778 b= 15.296 c= 41.582 alpha= 90.000 beta= 90.000 gamma= 90.000 V= 3675.24 score=  4.93 #   0
+Finished: V=3330.41->3915.44 A^3, 6385 unit cells tested, 315293 tests/s,   Elapsed time=0.02026s
+Starting: V=3915.44->4500.47
+Finished: V=3915.44->4500.47 A^3, 9054 unit cells tested, 333186 tests/s,   Elapsed time=0.027185s
+Starting: V=4500.47->5085.5
+    a= 5.64- 5.69 b=27.58-27.64 c=30.72-30.79 alpha= 90.00- 90.00 beta= 90.00- 90.00 gamma= 90.00- 90.00 V=4775.08-4844.57level=4, indexed=1(1 sol.)
+    a=0.17743-0.17565 b=0.03626-0.03618 c=0.03255-0.03248 alpha=0.00000-0.00000 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(1 sol.)
+ Solution ? a=  5.668 b= 27.587 c= 30.767 alpha= 90.000 beta= 90.000 gamma= 90.000 V= 4810.73 score=  4.33 #   1
+     a=13.79-13.82 b=15.39-15.42 c=25.08-25.11 alpha= 90.00- 90.00 beta= 90.00- 90.00 gamma= 90.00- 90.00 V=5324.20-5352.23level=5, indexed=1(2 sol.)
+     a=0.07250-0.07234 b=0.06498-0.06485 c=0.03987-0.03982 alpha=0.00000-0.00000 beta=0.00000-0.00000 gamma=0.00000-0.00000level=5, indexed=1(2 sol.)
+ Solution ? a= 13.829 b= 15.359 c= 25.097 alpha= 90.000 beta= 90.000 gamma= 90.000 V= 5330.56 score= 48.50 #   2
+      a=13.81-13.84 b=15.35-15.38 c=25.10-25.13 alpha= 90.00- 90.00 beta= 90.00- 90.00 gamma= 90.00- 90.00 V=5318.15-5346.14level=6, indexed=1(3 sol.)
+      a=0.07242-0.07226 b=0.06516-0.06504 c=0.03985-0.03980 alpha=0.00000-0.00000 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(3 sol.)
+ Solution ? a= 13.829 b= 15.359 c= 25.097 alpha= 90.000 beta= 90.000 gamma= 90.000 V= 5330.56 score= 48.50 #   3
+      a=13.81-13.84 b=15.35-15.38 c=25.07-25.10 alpha= 90.00- 90.00 beta= 90.00- 90.00 gamma= 90.00- 90.00 V=5311.99-5339.95level=6, indexed=1(4 sol.)
+      a=0.07242-0.07226 b=0.06516-0.06504 c=0.03989-0.03985 alpha=0.00000-0.00000 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(4 sol.)
+ Solution ? a= 13.829 b= 15.359 c= 25.097 alpha= 90.000 beta= 90.000 gamma= 90.000 V= 5330.56 score= 48.50 #   4
+Finished: V=4500.47->5085.5 A^3, 12842 unit cells tested, 344918 tests/s,   Elapsed time=0.03724s
+Starting: V=5085.5->5670.53
+     a=13.79-13.82 b=15.39-15.42 c=25.08-25.11 alpha= 90.00- 90.00 beta= 90.00- 90.00 gamma= 90.00- 90.00 V=5324.20-5352.23level=5, indexed=1(6 sol.)
+     a=0.07250-0.07234 b=0.06498-0.06485 c=0.03987-0.03982 alpha=0.00000-0.00000 beta=0.00000-0.00000 gamma=0.00000-0.00000level=5, indexed=1(6 sol.)
+ Solution ? a= 13.829 b= 15.359 c= 25.097 alpha= 90.000 beta= 90.000 gamma= 90.000 V= 5330.56 score= 48.50 #   6
+      a=13.81-13.84 b=15.35-15.38 c=25.10-25.13 alpha= 90.00- 90.00 beta= 90.00- 90.00 gamma= 90.00- 90.00 V=5318.15-5346.14level=6, indexed=1(7 sol.)
+      a=0.07242-0.07226 b=0.06516-0.06504 c=0.03985-0.03980 alpha=0.00000-0.00000 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(7 sol.)
+ Solution ? a= 13.829 b= 15.359 c= 25.097 alpha= 90.000 beta= 90.000 gamma= 90.000 V= 5330.56 score= 48.50 #   7
+      a=13.81-13.84 b=15.35-15.38 c=25.07-25.10 alpha= 90.00- 90.00 beta= 90.00- 90.00 gamma= 90.00- 90.00 V=5311.99-5339.95level=6, indexed=1(8 sol.)
+      a=0.07242-0.07226 b=0.06516-0.06504 c=0.03989-0.03985 alpha=0.00000-0.00000 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(8 sol.)
+ Solution ? a= 13.829 b= 15.359 c= 25.097 alpha= 90.000 beta= 90.000 gamma= 90.000 V= 5330.56 score= 48.50 #   8
+Finished: V=5085.5->5670.53 A^3, 17421 unit cells tested, 369826 tests/s,   Elapsed time=0.047114s
+Starting: V=5670.53->6255.56
+Finished: V=5670.53->6255.56 A^3, 23115 unit cells tested, 402245 tests/s,   Elapsed time=0.057472s
+Starting: V=6255.56->6840
+Finished: V=6255.56->6840 A^3, 30496 unit cells tested, 435707 tests/s,   Elapsed time=0.07s
+CellExplorer::ReduceSolutions(): update threshold for report from 8 to 9.69938
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=13.829, b=15.3591, c=25.0968, alpha=90, beta=90, gamma=90, V=5330.56, score=48.4979
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2609 BEST ? a=13.829, b=15.3591, c=25.0968, alpha=90, beta=90, gamma=90, V=5330.56, score=48.4979
+30496unit cells tested, 434732 tests/s,   Elapsed time=0.070156s
+DONE Xe1fb77b ORTHOROMBIC P 1 0.07040262222290039 [{'cell': [13.828964233398438, 15.359076499938965, 25.096784591674805, 90.00000250447816, 90.00000250447816, 90.00000250447816], 'volume': 5330.56005859375, 'score': 48.4979248046875, 'system': 'ORTHOROMBIC', 'centering': 'P', 'mode': 2}]

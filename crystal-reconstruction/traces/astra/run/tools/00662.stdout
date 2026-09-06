@@ -1,0 +1,238 @@
+    save_trajectories=False, save_grad=False, save_loss=False,
+    include_dw_factors=True, chi2_solved=None, use_progress_bar=True,
+    save_CIF=True, streamlit=False, use_restraints=False,
+    restraint_weight_type="min_chi2", include_PO=False, PO_axis=(0, 0, 1),
+    notebook=False, profile=False, step=1):
+    """
+    Main minimiser function used by GALLOP. Take a set of input external and
+    internal degrees of freedom (as numpy arrays) together with the observed
+    intensities and inverse covariance matrix, and optimise the chi-squared
+    factor of agreement between the calculated and observed intensities.
+            If constant, then then instead of weighting the restraints relative
+            to the chi2 value (or minimum of all chi2 values), the weights
+            supplied are used as constant weighting factors. Defaults to min_chi2.
+        include_PO (bool, optional): Include a preferred orientation correction
+            to the intensities during optimization. Defaults to False.
+        PO_axis (tuple, optional): The axis along which to apply the
+            March-Dollase PO correction. Defaults to (0, 0, 1).
+        notebook (bool, optional): If the code is running in a Jupyter notebook,
+            use the tqdm notebook progress bars instead. Defaults to False.
+        profile (bool, optional): If set to True, the profile chisquared will be
+            supplied are used as constant weighting factors. Defaults to min_chi2.
+        include_PO (bool, optional): Include a preferred orientation correction
+            to the intensities during optimization. Defaults to False.
+        PO_axis (tuple, optional): The axis along which to apply the
+            March-Dollase PO correction. Defaults to (0, 0, 1).
+        notebook (bool, optional): If the code is running in a Jupyter notebook,
+            use the tqdm notebook progress bars instead. Defaults to False.
+        profile (bool, optional): If set to True, the profile chisquared will be
+            used instead of intensity chisquared. Defaults to False.
+        step (int, optional): If using profile chisquared, step is the step size
+                                n_samples=n_samples, device=device, dtype=dtype,
+                                n_reflections=n_reflections, verbose=verbose,
+                                include_dw_factors=include_dw_factors)
+    if include_PO:
+        cosP, sinP, factor = tensor_prep.get_PO_tensors(Structure, PO_axis,
+                            n_reflections, tensors["zm"]["external"].shape[0],
+                            device, dtype)
+    # Initialize the optimizer
+    if isinstance(optimizer, str):
+        if learning_rate_schedule.lower() == "array":
+                                n_reflections=n_reflections, verbose=verbose,
+                                include_dw_factors=include_dw_factors)
+    if include_PO:
+        cosP, sinP, factor = tensor_prep.get_PO_tensors(Structure, PO_axis,
+                            n_reflections, tensors["zm"]["external"].shape[0],
+                            device, dtype)
+    # Initialize the optimizer
+    if isinstance(optimizer, str):
+        if learning_rate_schedule.lower() == "array":
+            init_lr = learning_rate[0]
+                else:
+                    param_group['lr'] = learning_rate
+
+    if include_PO:
+        optimizer.add_param_group({"params" : [factor]})
+
+    if start_time is None:
+        t1 = time.time()
+    else:
+        t1 = start_time
+
+        # Forward pass - this gets a tensor of shape (n_samples, 1) with a
+        # chi_2 value for each set of external/internal DoFs.
+        if use_restraints or include_PO or torsion_shadowing:
+            if torsion_shadowing:
+                internal = tensors["zm"]["internal"]
+                all_tors = torch.einsum("ij,ik->ikj",internal,t_permutations
+                        ).reshape(internal.shape[0], internal.shape[1]*Z_prime)
+                zm_tensors = {}
+                zm_tensors.update(tensors["zm"])
+
+            calculated_intensities = intensities.calculate_intensities(
+                        asymmetric_frac_coords, **tensors["int_tensors"])
+            if include_PO:
+                corrected_intensities = intensities.apply_MD_PO_correction(
+                                                calculated_intensities,
+                                                cosP, sinP, factor)
+                if profile:
+                    chi_2 = chi2.calc_prof_chisqd(corrected_intensities, **profile_tensors)
+                else:
+                    chi_2 = chi2.calc_prof_chisqd(corrected_intensities, **profile_tensors)
+                else:
+                    chi_2 = chi2.calc_int_chisqd(corrected_intensities,
+                                        **tensors["chisqd_tensors"])
+            else:
+                if profile:
+                    chi_2 = chi2.calc_prof_chisqd(calculated_intensities, **profile_tensors)
+                else:
+                    chi_2 = chi2.calc_int_chisqd(calculated_intensities,
+                                        **tensors["chisqd_tensors"])
+                    chi_2 = chi2.calc_prof_chisqd(calculated_intensities, **profile_tensors)
+                else:
+                    chi_2 = chi2.calc_int_chisqd(calculated_intensities,
+                                        **tensors["chisqd_tensors"])
+        else:
+            if profile:
+                chi_2 = chi2.get_chi_2(**tensors, profile=profile_tensors)
+            else:
+                chi_2 = chi2.get_chi_2(**tensors)
+
+                                        **tensors["chisqd_tensors"])
+        else:
+            if profile:
+                chi_2 = chi2.get_chi_2(**tensors, profile=profile_tensors)
+            else:
+                chi_2 = chi2.get_chi_2(**tensors)
+
+        if use_restraints:
+            restraint_penalty = restraints.get_restraint_penalties(
+                                asymmetric_frac_coords, **restraint_tensors)
+            if profile:
+                chi_2 = chi2.get_chi_2(**tensors, profile=profile_tensors)
+            else:
+                chi_2 = chi2.get_chi_2(**tensors)
+
+        if use_restraints:
+            restraint_penalty = restraints.get_restraint_penalties(
+                                asymmetric_frac_coords, **restraint_tensors)
+        else:
+            restraint_penalty = 0
+
+        best_intensities = intensities.calculate_intensities(best_asym,
+                                                **best_tensors["int_tensors"])
+        if include_PO:
+            best_intensities = intensities.apply_MD_PO_correction(
+                best_intensities, cosP.cpu(), sinP.cpu(),
+                factor[best][0].cpu().reshape(1,1))
+
+    if ignore_H_setting:
+        chi_2_H = chi2.calc_int_chisqd(best_intensities,
+
+    if ignore_H_setting:
+        chi_2_H = chi2.calc_int_chisqd(best_intensities,
+                                            **best_tensors["chisqd_tensors"])
+
+        result["best_chi_2_with_H"] = chi_2_H.detach().cpu().numpy()[0]
+    else:
+        result["best_chi_2_with_H"] = result["chi_2"].min()
+
+    # Now get the profile chi2 if using DASH data
+    if save_grad:
+        result["gradients"] = gradients
+
+    if include_PO:
+        result["MD_factor"] = factor.detach().cpu().numpy()**2
+        result["PO_axis"] = PO_axis
+        del factor
+        del cosP
+        del sinP
+
+
+    if include_PO:
+        result["MD_factor"] = factor.detach().cpu().numpy()**2
+        result["PO_axis"] = PO_axis
+        del factor
+        del cosP
+        del sinP
+
+    if save_CIF:
+        files.save_CIF_of_best_result(Structure, result, start_time,
+# coding: utf-8
+# Copyright (c) Mark Spillman.
+# Distributed under the terms of the GPL v3 License.
+"""
+Provides functions for local optimisation
+"""
+
+import time
+import torch
+import numpy as np
+import matplotlib.pyplot as plt
+import torch_optimizer as t_optim
+
+from gallop import chi2
+from gallop import tensor_prep
+from gallop import files
+from gallop import intensities
+from gallop import zm_to_cart
+from gallop.optim import restraints
+
+
+
+
+def get_minimiser_settings(Structure):
+    """
+    Get a dictionary of the settings used for the minimise function
+    so it can be easily modified and passed to the function.
+
+    Args:
+        Structure (class): GALLOP structure
+
+    Returns:
+        dict: Dictionary of the settings for the minimise function
+            Keys = n_reflections, include_dw_factors, chi2_solved, n_iterations,
+            n_cooldown, learning_rate, learning_rate_schedule, verbose,
+            use_progress_bar, print_every, check_min, dtype, device,
+            optimizer, loss, eps, save_CIF, streamlit, torsion_shadowing,
+            Z_prime, use_restraints, include_PO, PO_axis
+    """
+    settings = {}
+    settings["n_reflections"] = len(Structure.hkl)
+    settings["include_dw_factors"] = True
+    settings["chi2_solved"] = None
+    settings["n_iterations"] = 500
+    settings["n_cooldown"]   = 100
+    settings["learning_rate"] = 5e-2
+    settings["learning_rate_schedule"] = "1cycle"
+    settings["verbose"] = False
+    settings["use_progress_bar"] = True
+    settings["print_every"] = 10
+    settings["check_min"] = 100
+    settings["dtype"] = torch.float32
+    settings["device"] = None
+    settings["optimizer"] = "adam"
+    settings["loss"] = "xlogx"
+    settings["eps"] = 1e-8
+    settings["save_CIF"] = True
+    settings["streamlit"] = False
+    settings["torsion_shadowing"] = False
+    settings["Z_prime"] = 1
+    settings["use_restraints"] = False
+    settings["include_PO"] = False
+    settings["PO_axis"] = [0, 0, 1]
+    return settings
+
+
+def adjust_lr_1_over_sqrt(optimizer, iteration, learning_rate):
+    """
+    Decay the learning_rate used in the local optimizer by 1/sqrt(iteration+1)
+    Called by the minimise function
+
+    Args:
+        optimizer (pytorch optimizer): A pytorch compatible optimizer
+        iteration (int): The current iteration
+        learning_rate (float): The initial learning rate used
+
+    Returns:
+        float: the new l

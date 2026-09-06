@@ -1,0 +1,1020 @@
+
+-----
+Help on class PeakList in module pyobjcryst._pyobjcryst:
+
+class PeakList(Boost.Python.instance)
+ |  Method resolution order:
+ |      PeakList
+ |      Boost.Python.instance
+ |      builtins.object
+ |  
+ |  Static methods defined here:
+ |  
+ |  ExportDhklDSigmaIntensity(...)
+ |      ExportDhklDSigmaIntensity( (PeakList)arg1, (object)file) -> None :
+ |      
+ |          C++ signature :
+ |              void ExportDhklDSigmaIntensity((anonymous namespace)::PeakListWrap {lvalue},boost::python::api::object)
+ |  
+ |  GetPeakList(...)
+ |      GetPeakList( (PeakList)arg1) -> list :
+ |      
+ |          C++ signature :
+ |              boost::python::list GetPeakList((anonymous namespace)::PeakListWrap {lvalue})
+ |  
+ |  Import2ThetaIntensity(...)
+ |      Import2ThetaIntensity( (PeakList)arg1, (object)file, (float)wavelength) -> None :
+ |      
+ |          C++ signature :
+ |              void Import2ThetaIntensity((anonymous namespace)::PeakListWrap {lvalue},boost::python::api::object,float)
+ |  
+ |  ImportDhkl(...)
+ |      ImportDhkl( (PeakList)arg1, (object)file) -> None :
+ |      
+ |          C++ signature :
+ |              void ImportDhkl(ObjCryst::PeakList {lvalue},std::istream {lvalue})
+ |  
+ |  ImportDhklDSigmaIntensity(...)
+ |      ImportDhklDSigmaIntensity( (PeakList)arg1, (object)file [, (float)defaultsigma=0.001]) -> None :
+ |      
+ |          C++ signature :
+ |              void ImportDhklDSigmaIntensity((anonymous namespace)::PeakListWrap {lvalue},boost::python::api::object [,float=0.001])
+ |  
+ |  ImportDhklIntensity(...)
+ |      ImportDhklIntensity( (PeakList)arg1, (object)file) -> None :
+ |      
+ |          C++ signature :
+ |              void ImportDhklIntensity((anonymous namespace)::PeakListWrap {lvalue},boost::python::api::object)
+ |  
+ |  Simulate(...)
+ |      Simulate( (PeakList)arg1, (float)zero, (float)a, (float)b, (float)c, (float)alpha, (float)beta, (float)gamma, (bool)deg [, (int)nb=20 [, (int)nbspurious=0 [, (float)sigma=0 [, (float)percentMissing=0 [, (bool)verbose=False]]]]]) -> float :
+ |      
+ |          C++ signature :
+ |              float Simulate(ObjCryst::PeakList {lvalue},float,float,float,float,float,float,float,bool [,unsigned int=20 [,unsigned int=0 [,float=0 [,float=0 [,bool=False]]]]])
+ |  
+ |  __init__(...)
+ |      __init__( (object)arg1) -> None :
+ |      
+ |          C++ signature :
+ |              void __init__(_object*)
+ |  
+ |  __iter__(...)
+ |      __iter__( (PeakList)arg1) -> object :
+ |      
+ |          C++ signature :
+ |              boost::python::objects::iterator_range<boost::python::return_value_policy<boost::python::reference_existing_object, boost::python::default_call_policies>, __gnu_cxx::__normal_iterator<ObjCryst::PeakList::hkl const*, std::vector<ObjCryst::PeakList::hkl, std::allocator<ObjCryst::PeakList::hkl> > > > __iter__(boost::python::back_reference<(anonymous namespace)::PeakListWrap&>)
+ |  
+ |  __len__(...)
+ |      __len__( (PeakList)arg1) -> int :
+ |      
+ |          C++ signature :
+ |              unsigned int __len__((anonymous namespace)::PeakListWrap {lvalue})
+ |  
+ |  __reduce__ = <unnamed Boost.Python function>(...)
+ |  
+ |  clear(...)
+ |      clear( (PeakList)arg1) -> None :
+ |      
+ |          C++ signature :
+ |              void clear((anonymous namespace)::PeakListWrap {lvalue})
+ |  
+ |  resize(...)
+ |      resize( (PeakList)arg1 [, (int)nb=20]) -> None :
+ |      
+ |          C++ signature :
+ |              void resize((anonymous namespace)::PeakListWrap {lvalue} [,unsigned int=20])
+ |  
+ |  set_dobs_list(...)
+ |      set_dobs_list( (PeakList)arg1, (list)dobs) -> None :
+ |      
+ |          C++ signature :
+ |              void set_dobs_list((anonymous namespace)::PeakListWrap {lvalue},boost::python::list {lvalue})
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data and other attributes defined here:
+ |  
+ |  __instance_size__ = 80
+ |  
+ |  ----------------------------------------------------------------------
+ |  Static methods inherited from Boost.Python.instance:
+ |  
+ |  __new__(*args, **kwargs) class method of Boost.Python.instance
+ |      Create and return a new object.  See help(type) for accurate signature.
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors inherited from Boost.Python.instance:
+ |  
+ |  __dict__
+ |  
+ |  __weakref__
+
+
+-----
+Help on class PeakList_hkl in module pyobjcryst._pyobjcryst:
+
+class PeakList_hkl(Boost.Python.instance)
+ |  Method resolution order:
+ |      PeakList_hkl
+ |      Boost.Python.instance
+ |      builtins.object
+ |  
+ |  Static methods defined here:
+ |  
+ |  __init__(...)
+ |      __init__( (object)arg1) -> None :
+ |      
+ |          C++ signature :
+ |              void __init__(_object*)
+ |      
+ |      __init__( (object)arg1 [, (float)dobs=1.0 [, (float)iobs=0 [, (float)dobssigma=0 [, (float)iobssigma=0 [, (int)h=0 [, (int)k=0 [, (int)l=0 [, (float)d2calc=0]]]]]]]]) -> None :
+ |      
+ |          C++ signature :
+ |              void __init__(_object* [,float=1.0 [,float=0 [,float=0 [,float=0 [,int=0 [,int=0 [,int=0 [,float=0]]]]]]]])
+ |  
+ |  __reduce__ = <unnamed Boost.Python function>(...)
+ |  
+ |  __repr__(...)
+ |      __repr__( (PeakList_hkl)arg1) -> str :
+ |      
+ |          C++ signature :
+ |              std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > __repr__(ObjCryst::PeakList::hkl {lvalue})
+ |  
+ |  __str__(...)
+ |      __str__( (PeakList_hkl)arg1) -> str :
+ |      
+ |          C++ signature :
+ |              std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > __str__(ObjCryst::PeakList::hkl {lvalue})
+ |  
+ |  ----------------------------------------------------------------------
+ |  Readonly properties defined here:
+ |  
+ |  d2calc
+ |      None( (pyobjcryst._pyobjcryst.PeakList_hkl)arg1) -> float :
+ |      
+ |          C++ signature :
+ |              float {lvalue} None(ObjCryst::PeakList::hkl {lvalue})
+ |  
+ |  d2diff
+ |      None( (pyobjcryst._pyobjcryst.PeakList_hkl)arg1) -> float :
+ |      
+ |          C++ signature :
+ |              float {lvalue} None(ObjCryst::PeakList::hkl {lvalue})
+ |  
+ |  d2obs
+ |      None( (pyobjcryst._pyobjcryst.PeakList_hkl)arg1) -> float :
+ |      
+ |          C++ signature :
+ |              float {lvalue} None(ObjCryst::PeakList::hkl {lvalue})
+ |  
+ |  d2obsmax
+ |      None( (pyobjcryst._pyobjcryst.PeakList_hkl)arg1) -> float :
+ |      
+ |          C++ signature :
+ |              float {lvalue} None(ObjCryst::PeakList::hkl {lvalue})
+ |  
+ |  d2obsmin
+ |      None( (pyobjcryst._pyobjcryst.PeakList_hkl)arg1) -> float :
+ |      
+ |          C++ signature :
+ |              float {lvalue} None(ObjCryst::PeakList::hkl {lvalue})
+ |  
+ |  dobs
+ |      None( (pyobjcryst._pyobjcryst.PeakList_hkl)arg1) -> float :
+ |      
+ |          C++ signature :
+ |              float {lvalue} None(ObjCryst::PeakList::hkl {lvalue})
+ |  
+ |  dobssigma
+ |      None( (pyobjcryst._pyobjcryst.PeakList_hkl)arg1) -> float :
+ |      
+ |          C++ signature :
+ |              float {lvalue} None(ObjCryst::PeakList::hkl {lvalue})
+ |  
+ |  h
+ |      None( (pyobjcryst._pyobjcryst.PeakList_hkl)arg1) -> int :
+ |      
+ |          C++ signature :
+ |              int {lvalue} None(ObjCryst::PeakList::hkl {lvalue})
+ |  
+ |  iobs
+ |      None( (pyobjcryst._pyobjcryst.PeakList_hkl)arg1) -> float :
+ |      
+ |          C++ signature :
+ |              float {lvalue} None(ObjCryst::PeakList::hkl {lvalue})
+ |  
+ |  iobssigma
+ |      None( (pyobjcryst._pyobjcryst.PeakList_hkl)arg1) -> float :
+ |      
+ |          C++ signature :
+ |              float {lvalue} None(ObjCryst::PeakList::hkl {lvalue})
+ |  
+ |  isIndexed
+ |      None( (pyobjcryst._pyobjcryst.PeakList_hkl)arg1) -> bool :
+ |      
+ |          C++ signature :
+ |              bool {lvalue} None(ObjCryst::PeakList::hkl {lvalue})
+ |  
+ |  isSpurious
+ |      None( (pyobjcryst._pyobjcryst.PeakList_hkl)arg1) -> bool :
+ |      
+ |          C++ signature :
+ |              bool {lvalue} None(ObjCryst::PeakList::hkl {lvalue})
+ |  
+ |  k
+ |      None( (pyobjcryst._pyobjcryst.PeakList_hkl)arg1) -> int :
+ |      
+ |          C++ signature :
+ |              int {lvalue} None(ObjCryst::PeakList::hkl {lvalue})
+ |  
+ |  l
+ |      None( (pyobjcryst._pyobjcryst.PeakList_hkl)arg1) -> int :
+ |      
+ |          C++ signature :
+ |              int {lvalue} None(ObjCryst::PeakList::hkl {lvalue})
+ |  
+ |  stats
+ |      None( (pyobjcryst._pyobjcryst.PeakList_hkl)arg1) -> int :
+ |      
+ |          C++ signature :
+ |              unsigned long {lvalue} None(ObjCryst::PeakList::hkl {lvalue})
+ |  
+ |  vDicVolHKL
+ |      None( (pyobjcryst._pyobjcryst.PeakList_hkl)arg1) -> list :
+ |      
+ |          C++ signature :
+ |              boost::python::list None(ObjCryst::PeakList::hkl)
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data and other attributes defined here:
+ |  
+ |  __instance_size__ = 112
+ |  
+ |  ----------------------------------------------------------------------
+ |  Static methods inherited from Boost.Python.instance:
+ |  
+ |  __new__(*args, **kwargs) class method of Boost.Python.instance
+ |      Create and return a new object.  See help(type) for accurate signature.
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors inherited from Boost.Python.instance:
+ |  
+ |  __dict__
+ |  
+ |  __weakref__
+
+
+-----
+Help on class RecUnitCell in module pyobjcryst._pyobjcryst:
+
+class RecUnitCell(Boost.Python.instance)
+ |  Method resolution order:
+ |      RecUnitCell
+ |      Boost.Python.instance
+ |      builtins.object
+ |  
+ |  Static methods defined here:
+ |  
+ |  DirectUnitCell(...)
+ |      DirectUnitCell( (RecUnitCell)arg1 [, (bool)equiv=False [, (bool)degrees=False]]) -> tuple :
+ |      
+ |          C++ signature :
+ |              boost::python::tuple DirectUnitCell(ObjCryst::RecUnitCell [,bool=False [,bool=False]])
+ |  
+ |  __init__(...)
+ |      __init__( (object)arg1) -> None :
+ |      
+ |          C++ signature :
+ |              void __init__(_object*)
+ |      
+ |      __init__( (object)arg1 [, (float)zero=0 [, (float)par0=0 [, (float)par1=0 [, (float)par2=0 [, (float)par3=0 [, (float)par4=0 [, (float)par5=0 [, (CrystalSystem)lattice=pyobjcryst._pyobjcryst.CrystalSystem.CUBIC [, (CrystalCentering)cent=pyobjcryst._pyobjcryst.CrystalCentering.LATTICE_P [, (int)nbspurious=0]]]]]]]]]]) -> None :
+ |      
+ |          C++ signature :
+ |              void __init__(_object* [,float=0 [,float=0 [,float=0 [,float=0 [,float=0 [,float=0 [,float=0 [,ObjCryst::CrystalSystem=pyobjcryst._pyobjcryst.CrystalSystem.CUBIC [,ObjCryst::CrystalCentering=pyobjcryst._pyobjcryst.CrystalCentering.LATTICE_P [,unsigned int=0]]]]]]]]]])
+ |      
+ |      __init__( (object)arg1, (RecUnitCell)old) -> None :
+ |      
+ |          C++ signature :
+ |              void __init__(_object*,ObjCryst::RecUnitCell)
+ |  
+ |  __reduce__ = <unnamed Boost.Python function>(...)
+ |  
+ |  __repr__(...)
+ |      __repr__( (RecUnitCell)arg1) -> str :
+ |      
+ |          C++ signature :
+ |              std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > __repr__(ObjCryst::RecUnitCell {lvalue})
+ |  
+ |  __str__(...)
+ |      __str__( (RecUnitCell)arg1) -> str :
+ |      
+ |          C++ signature :
+ |              std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > __str__(ObjCryst::RecUnitCell {lvalue})
+ |  
+ |  hkl2d(...)
+ |      hkl2d( (RecUnitCell)arg1, (float)h, (float)k, (float)l [, (float)derivpar=0 [, (int)derivhkl=0]]) -> float :
+ |      
+ |          C++ signature :
+ |              float hkl2d(ObjCryst::RecUnitCell {lvalue},float,float,float [,double*=0 [,unsigned int=0]])
+ |  
+ |  ----------------------------------------------------------------------
+ |  Readonly properties defined here:
+ |  
+ |  centering
+ |      None( (pyobjcryst._pyobjcryst.RecUnitCell)arg1) -> pyobjcryst._pyobjcryst.CrystalCentering :
+ |      
+ |          C++ signature :
+ |              ObjCryst::CrystalCentering {lvalue} None(ObjCryst::RecUnitCell {lvalue})
+ |  
+ |  lattice
+ |      None( (pyobjcryst._pyobjcryst.RecUnitCell)arg1) -> pyobjcryst._pyobjcryst.CrystalSystem :
+ |      
+ |          C++ signature :
+ |              ObjCryst::CrystalSystem {lvalue} None(ObjCryst::RecUnitCell {lvalue})
+ |  
+ |  mCentering
+ |      None( (pyobjcryst._pyobjcryst.RecUnitCell)arg1) -> pyobjcryst._pyobjcryst.CrystalCentering :
+ |      
+ |          C++ signature :
+ |              ObjCryst::CrystalCentering {lvalue} None(ObjCryst::RecUnitCell {lvalue})
+ |  
+ |  mNbSpurious
+ |      None( (pyobjcryst._pyobjcryst.RecUnitCell)arg1) -> int :
+ |      
+ |          C++ signature :
+ |              unsigned int {lvalue} None(ObjCryst::RecUnitCell {lvalue})
+ |  
+ |  mlattice
+ |      None( (pyobjcryst._pyobjcryst.RecUnitCell)arg1) -> pyobjcryst._pyobjcryst.CrystalSystem :
+ |      
+ |          C++ signature :
+ |              ObjCryst::CrystalSystem {lvalue} None(ObjCryst::RecUnitCell {lvalue})
+ |  
+ |  nb_spurious
+ |      None( (pyobjcryst._pyobjcryst.RecUnitCell)arg1) -> int :
+ |      
+ |          C++ signature :
+ |              unsigned int {lvalue} None(ObjCryst::RecUnitCell {lvalue})
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data and other attributes defined here:
+ |  
+ |  __instance_size__ = 96
+ |  
+ |  ----------------------------------------------------------------------
+ |  Static methods inherited from Boost.Python.instance:
+ |  
+ |  __new__(*args, **kwargs) class method of Boost.Python.instance
+ |      Create and return a new object.  See help(type) for accurate signature.
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors inherited from Boost.Python.instance:
+ |  
+ |  __dict__
+ |  
+ |  __weakref__
+
+
+-----
+Help on class CellExplorer in module pyobjcryst._pyobjcryst:
+
+class CellExplorer(RefinableObj)
+ |  Method resolution order:
+ |      CellExplorer
+ |      RefinableObj
+ |      Boost.Python.instance
+ |      builtins.object
+ |  
+ |  Static methods defined here:
+ |  
+ |  DicVol(...)
+ |      DicVol( (CellExplorer)arg1 [, (float)minScore=10 [, (int)minScore=10 [, (float)stopOnScore=50 [, (int)stopOnDepth=6 [, (bool)verbose=True]]]]]) -> None :
+ |      
+ |          C++ signature :
+ |              void DicVol(ObjCryst::CellExplorer {lvalue} [,float=10 [,unsigned int=10 [,float=50 [,unsigned int=6 [,bool=True]]]]])
+ |  
+ |  GetBestScore(...)
+ |      GetBestScore( (CellExplorer)arg1) -> float :
+ |      
+ |          C++ signature :
+ |              float GetBestScore(ObjCryst::CellExplorer {lvalue})
+ |  
+ |  GetSolutions(...)
+ |      GetSolutions( (CellExplorer)arg1) -> list :
+ |      
+ |          C++ signature :
+ |              boost::python::list GetSolutions(ObjCryst::CellExplorer {lvalue})
+ |  
+ |  Print(...)
+ |      Print( (CellExplorer)arg1) -> None :
+ |      
+ |          C++ signature :
+ |              void Print(ObjCryst::CellExplorer {lvalue})
+ |  
+ |  ReduceSolutions(...)
+ |      ReduceSolutions( (CellExplorer)arg1 [, (bool)updateReportThreshold=False]) -> None :
+ |      
+ |          C++ signature :
+ |              void ReduceSolutions(ObjCryst::CellExplorer {lvalue} [,bool=False])
+ |  
+ |  SetAngleMinMax(...)
+ |      SetAngleMinMax( (CellExplorer)arg1, (float)arg2, (float)arg3) -> None :
+ |      
+ |          C++ signature :
+ |              void SetAngleMinMax(ObjCryst::CellExplorer {lvalue},float,float)
+ |  
+ |  SetCrystalCentering(...)
+ |      SetCrystalCentering( (CellExplorer)arg1, (CrystalCentering)arg2) -> None :
+ |      
+ |          C++ signature :
+ |              void SetCrystalCentering(ObjCryst::CellExplorer {lvalue},ObjCryst::CrystalCentering)
+ |  
+ |  SetCrystalSystem(...)
+ |      SetCrystalSystem( (CellExplorer)arg1, (CrystalSystem)arg2) -> None :
+ |      
+ |          C++ signature :
+ |              void SetCrystalSystem(ObjCryst::CellExplorer {lvalue},ObjCryst::CrystalSystem)
+ |  
+ |  SetD2Error(...)
+ |      SetD2Error( (CellExplorer)arg1, (float)arg2) -> None :
+ |      
+ |          C++ signature :
+ |              void SetD2Error(ObjCryst::CellExplorer {lvalue},float)
+ |  
+ |  SetLengthMinMax(...)
+ |      SetLengthMinMax( (CellExplorer)arg1, (float)arg2, (float)arg3) -> None :
+ |      
+ |          C++ signature :
+ |              void SetLengthMinMax(ObjCryst::CellExplorer {lvalue},float,float)
+ |  
+ |  SetMinMaxZeroShift(...)
+ |      SetMinMaxZeroShift( (CellExplorer)arg1, (float)arg2, (float)arg3) -> None :
+ |      
+ |          C++ signature :
+ |              void SetMinMaxZeroShift(ObjCryst::CellExplorer {lvalue},float,float)
+ |  
+ |  SetNbSpurious(...)
+ |      SetNbSpurious( (CellExplorer)arg1, (int)arg2) -> None :
+ |      
+ |          C++ signature :
+ |              void SetNbSpurious(ObjCryst::CellExplorer {lvalue},unsigned int)
+ |  
+ |  SetVolumeMinMax(...)
+ |      SetVolumeMinMax( (CellExplorer)arg1, (float)arg2, (float)arg3) -> None :
+ |      
+ |          C++ signature :
+ |              void SetVolumeMinMax(ObjCryst::CellExplorer {lvalue},float,float)
+ |  
+ |  __init__(...)
+ |      __init__( (object)arg1, (PeakList)dhkl, (CrystalSystem)lattice [, (int)nbSpurious=0]) -> None :
+ |      
+ |          C++ signature :
+ |              void __init__(_object*,ObjCryst::PeakList,ObjCryst::CrystalSystem [,unsigned int=0])
+ |  
+ |  __iter__(...)
+ |      __iter__( (CellExplorer)arg1) -> object :
+ |      
+ |          C++ signature :
+ |              boost::python::objects::iterator_range<boost::python::return_value_policy<boost::python::reference_existing_object, boost::python::default_call_policies>, std::_List_const_iterator<std::pair<ObjCryst::RecUnitCell, float> > > __iter__(boost::python::back_reference<ObjCryst::CellExplorer const&>)
+ |  
+ |  __reduce__ = <unnamed Boost.Python function>(...)
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data and other attributes defined here:
+ |  
+ |  __instance_size__ = 3272
+ |  
+ |  ----------------------------------------------------------------------
+ |  Static methods inherited from RefinableObj:
+ |  
+ |  AddPar(...)
+ |      AddPar( (RefinableObj)arg1, (_RefinablePar)par) -> None :
+ |      
+ |          C++ signature :
+ |              void AddPar(ObjCryst::RefinableObj {lvalue},ObjCryst::RefinablePar*)
+ |      
+ |      AddPar( (RefinableObj)arg1, (RefinableObj)newRefParList [, (bool)copyParam=False]) -> None :
+ |      
+ |          C++ signature :
+ |              void AddPar(ObjCryst::RefinableObj {lvalue},ObjCryst::RefinableObj {lvalue} [,bool=False])
+ |  
+ |  AddRestraint(...)
+ |      AddRestraint( (RefinableObj)arg1, (Restraint)arg2) -> None :
+ |      
+ |          C++ signature :
+ |              void AddRestraint(ObjCryst::RefinableObj {lvalue},ObjCryst::Restraint*)
+ |  
+ |  BeginGlobalOptRandomMove(...)
+ |      BeginGlobalOptRandomMove( (RefinableObj)arg1) -> None :
+ |      
+ |          C++ signature :
+ |              void BeginGlobalOptRandomMove(ObjCryst::RefinableObj {lvalue})
+ |  
+ |  BeginOptimization(...)
+ |      BeginOptimization( (RefinableObj)arg1 [, (bool)allowApproximations=False [, (bool)enableRestraints=False]]) -> None :
+ |      
+ |          C++ signature :
+ |              void BeginOptimization(ObjCryst::RefinableObj {lvalue} [,bool=False [,bool=False]])
+ |      
+ |      BeginOptimization( (RefinableObj)arg1 [, (bool)allowApproximations=False [, (bool)enableRestraints=False]]) -> None :
+ |      
+ |          C++ signature :
+ |              void BeginOptimization((anonymous namespace)::RefinableObjWrap {lvalue} [,bool=False [,bool=False]])
+ |  
+ |  ClearParamSet(...)
+ |      ClearParamSet( (RefinableObj)arg1, (int)arg2) -> None :
+ |      
+ |          C++ signature :
+ |              void ClearParamSet(ObjCryst::RefinableObj {lvalue},unsigned long)
+ |  
+ |  CreateParamSet(...)
+ |      CreateParamSet( (RefinableObj)arg1 [, (str)name='']) -> int :
+ |      
+ |          C++ signature :
+ |              unsigned long CreateParamSet(ObjCryst::RefinableObj {lvalue} [,std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >=''])
+ |  
+ |  DeRegisterClient(...)
+ |      DeRegisterClient( (RefinableObj)arg1, (RefinableObj)arg2) -> None :
+ |      
+ |          C++ signature :
+ |              void DeRegisterClient(ObjCryst::RefinableObj {lvalue},ObjCryst::RefinableObj {lvalue})
+ |      
+ |      DeRegisterClient( (RefinableObj)arg1, (RefinableObj)arg2) -> None :
+ |      
+ |          C++ signature :
+ |              void DeRegisterClient((anonymous namespace)::RefinableObjWrap {lvalue},ObjCryst::RefinableObj {lvalue})
+ |  
+ |  EndOptimization(...)
+ |      EndOptimization( (RefinableObj)arg1) -> None :
+ |      
+ |          C++ signature :
+ |              void EndOptimization(ObjCryst::RefinableObj {lvalue})
+ |      
+ |      EndOptimization( (RefinableObj)arg1) -> None :
+ |      
+ |          C++ signature :
+ |              void EndOptimization((anonymous namespace)::RefinableObjWrap {lvalue})
+ |  
+ |  EraseAllParamSet(...)
+ |      EraseAllParamSet( (RefinableObj)arg1) -> None :
+ |      
+ |          C++ signature :
+ |              void EraseAllParamSet((anonymous namespace)::RefinableObjWrap {lvalue})
+ |  
+ |  FixAllPar(...)
+ |      FixAllPar( (RefinableObj)arg1) -> None :
+ |      
+ |          C++ signature :
+ |              void FixAllPar(ObjCryst::RefinableObj {lvalue})
+ |  
+ |  GetClassName(...)
+ |      GetClassName( (RefinableObj)arg1) -> str :
+ |      
+ |          C++ signature :
+ |              std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > GetClassName(ObjCryst::RefinableObj {lvalue})
+ |      
+ |      GetClassName( (RefinableObj)arg1) -> str :
+ |      
+ |          C++ signature :
+ |              std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > GetClassName((anonymous namespace)::RefinableObjWrap {lvalue})
+ |  
+ |  GetClientRegistry(...)
+ |      GetClientRegistry( (RefinableObj)arg1) -> RefinableObjRegistry :
+ |      
+ |          C++ signature :
+ |              ObjCryst::ObjRegistry<ObjCryst::RefinableObj> {lvalue} GetClientRegistry(ObjCryst::RefinableObj {lvalue})
+ |      
+ |      GetClientRegistry( (RefinableObj)arg1) -> RefinableObjRegistry :
+ |      
+ |          C++ signature :
+ |              ObjCryst::ObjRegistry<ObjCryst::RefinableObj> {lvalue} GetClientRegistry((anonymous namespace)::RefinableObjWrap {lvalue})
+ |  
+ |  GetClockMaster(...)
+ |      GetClockMaster( (RefinableObj)arg1) -> RefinableObjClock :
+ |      
+ |          C++ signature :
+ |              ObjCryst::RefinableObjClock GetClockMaster(ObjCryst::RefinableObj {lvalue})
+ |  
+ |  GetGeneGroup(...)
+ |      GetGeneGroup( (RefinableObj)arg1, (RefinableObj)arg2, (object)arg3, (int)arg4) -> None :
+ |      
+ |          C++ signature :
+ |              void GetGeneGroup(ObjCryst::RefinableObj {lvalue},ObjCryst::RefinableObj,CrystVector<unsigned int> {lvalue},unsigned int {lvalue})
+ |      
+ |      GetGeneGroup( (RefinableObj)arg1, (RefinableObj)arg2, (object)arg3, (int)arg4) -> None :
+ |      
+ |          C++ signature :
+ |              void GetGeneGroup((anonymous namespace)::RefinableObjWrap {lvalue},ObjCryst::RefinableObj,CrystVector<unsigned int> {lvalue},unsigned int {lvalue})
+ |  
+ |  GetLSQCalc(...)
+ |      GetLSQCalc( (RefinableObj)arg1, (int)arg2) -> object :
+ |      
+ |          C++ signature :
+ |              CrystVector<double> GetLSQCalc(ObjCryst::RefinableObj {lvalue},unsigned int)
+ |      
+ |      GetLSQCalc( (RefinableObj)arg1, (int)arg2) -> object :
+ |      
+ |          C++ signature :
+ |              CrystVector<double> GetLSQCalc((anonymous namespace)::RefinableObjWrap {lvalue},unsigned int)
+ |  
+ |  GetLSQDeriv(...)
+ |      GetLSQDeriv( (RefinableObj)arg1, (int)arg2, (_RefinablePar)arg3) -> object :
+ |      
+ |          C++ signature :
+ |              CrystVector<double> GetLSQDeriv(ObjCryst::RefinableObj {lvalue},unsigned int,ObjCryst::RefinablePar {lvalue})
+ |      
+ |      GetLSQDeriv( (RefinableObj)arg1, (int)arg2, (_RefinablePar)arg3) -> object :
+ |      
+ |          C++ signature :
+ |              CrystVector<double> GetLSQDeriv((anonymous namespace)::RefinableObjWrap {lvalue},unsigned int,ObjCryst::RefinablePar {lvalue})
+ |  
+ |  GetLSQObs(...)
+ |      GetLSQObs( (RefinableObj)arg1, (int)arg2) -> object :
+ |      
+ |          C++ signature :
+ |              CrystVector<double> GetLSQObs(ObjCryst::RefinableObj {lvalue},unsigned int)
+ |      
+ |      GetLSQObs( (RefinableObj)arg1, (int)arg2) -> object :
+ |      
+ |          C++ signature :
+ |              CrystVector<double> GetLSQObs((anonymous namespace)::RefinableObjWrap {lvalue},unsigned int)
+ |  
+ |  GetLSQWeight(...)
+ |      GetLSQWeight( (RefinableObj)arg1, (int)arg2) -> object :
+ |      
+ |          C++ signature :
+ |              CrystVector<double> GetLSQWeight(ObjCryst::RefinableObj {lvalue},unsigned int)
+ |      
+ |      GetLSQWeight( (RefinableObj)arg1, (int)arg2) -> object :
+ |      
+ |          C++ signature :
+ |              CrystVector<double> GetLSQWeight((anonymous namespace)::RefinableObjWrap {lvalue},unsigned int)
+ |  
+ |  GetLogLikelihood(...)
+ |      GetLogLikelihood( (RefinableObj)arg1) -> float :
+ |      
+ |          C++ signature :
+ |              double GetLogLikelihood(ObjCryst::RefinableObj {lvalue})
+ |      
+ |      GetLogLikelihood( (RefinableObj)arg1) -> float :
+ |      
+ |          C++ signature :
+ |              double GetLogLikelihood((anonymous namespace)::RefinableObjWrap {lvalue})
+ |  
+ |  GetName(...)
+ |      GetName( (RefinableObj)arg1) -> str :
+ |      
+ |          C++ signature :
+ |              std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > GetName(ObjCryst::RefinableObj {lvalue})
+ |      
+ |      GetName( (RefinableObj)arg1) -> str :
+ |      
+ |          C++ signature :
+ |              std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > GetName((anonymous namespace)::RefinableObjWrap {lvalue})
+ |  
+ |  GetNbLSQFunction(...)
+ |      GetNbLSQFunction( (RefinableObj)arg1) -> int :
+ |      
+ |          C++ signature :
+ |              unsigned int GetNbLSQFunction(ObjCryst::RefinableObj {lvalue})
+ |      
+ |      GetNbLSQFunction( (RefinableObj)arg1) -> int :
+ |      
+ |          C++ signature :
+ |              unsigned int GetNbLSQFunction((anonymous namespace)::RefinableObjWrap {lvalue})
+ |  
+ |  GetNbOption(...)
+ |      GetNbOption( (RefinableObj)arg1) -> int :
+ |      
+ |          C++ signature :
+ |              unsigned int GetNbOption(ObjCryst::RefinableObj {lvalue})
+ |  
+ |  GetNbPar(...)
+ |      GetNbPar( (RefinableObj)arg1) -> int :
+ |      
+ |          C++ signature :
+ |              long GetNbPar(ObjCryst::RefinableObj {lvalue})
+ |  
+ |  GetNbParNotFixed(...)
+ |      GetNbParNotFixed( (RefinableObj)arg1) -> int :
+ |      
+ |          C++ signature :
+ |              long GetNbParNotFixed(ObjCryst::RefinableObj {lvalue})
+ |  
+ |  GetOption(...)
+ |      GetOption( (RefinableObj)arg1, (int)arg2) -> RefObjOpt :
+ |      
+ |          C++ signature :
+ |              ObjCryst::RefObjOpt {lvalue} GetOption(ObjCryst::RefinableObj {lvalue},unsigned int)
+ |  
+ |  GetOptionList(...)
+ |      GetOptionList( (RefinableObj)arg1) -> RefObjOpt :
+ |      
+ |          C++ signature :
+ |              ObjCryst::ObjRegistry<ObjCryst::RefObjOpt> {lvalue} GetOptionList(ObjCryst::RefinableObj {lvalue})
+ |  
+ |  GetPar(...)
+ |      GetPar( (RefinableObj)arg1, (int)arg2) -> _RefinablePar :
+ |      
+ |          C++ signature :
+ |              ObjCryst::RefinablePar {lvalue} GetPar(ObjCryst::RefinableObj {lvalue},long)
+ |      
+ |      GetPar( (RefinableObj)arg1, (str)arg2) -> _RefinablePar :
+ |      
+ |          C++ signature :
+ |              ObjCryst::RefinablePar {lvalue} GetPar(ObjCryst::RefinableObj {lvalue},std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)
+ |  
+ |  GetParNotFixed(...)
+ |      GetParNotFixed( (RefinableObj)arg1, (int)arg2) -> _RefinablePar :
+ |      
+ |          C++ signature :
+ |              ObjCryst::RefinablePar {lvalue} GetParNotFixed(ObjCryst::RefinableObj {lvalue},long)
+ |  
+ |  GetParamSet(...)
+ |      GetParamSet( (RefinableObj)arg1, (int)arg2) -> object :
+ |      
+ |          C++ signature :
+ |              CrystVector<double> GetParamSet(ObjCryst::RefinableObj {lvalue},unsigned long)
+ |  
+ |  GetParamSetName(...)
+ |      GetParamSetName( (RefinableObj)arg1, (int)arg2) -> str :
+ |      
+ |          C++ signature :
+ |              std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > GetParamSetName(ObjCryst::RefinableObj {lvalue},unsigned long)
+ |  
+ |  GetParamSet_ParNotFixedHumanValue(...)
+ |      GetParamSet_ParNotFixedHumanValue( (RefinableObj)arg1, (int)arg2, (int)arg3) -> float :
+ |      
+ |          C++ signature :
+ |              double GetParamSet_ParNotFixedHumanValue(ObjCryst::RefinableObj {lvalue},unsigned long,long)
+ |  
+ |  GetRefParListClock(...)
+ |      GetRefParListClock( (RefinableObj)arg1) -> RefinableObjClock :
+ |      
+ |          C++ signature :
+ |              ObjCryst::RefinableObjClock GetRefParListClock(ObjCryst::RefinableObj {lvalue})
+ |  
+ |  GetRestraintCost(...)
+ |      GetRestraintCost( (RefinableObj)arg1) -> float :
+ |      
+ |          C++ signature :
+ |              double GetRestraintCost(ObjCryst::RefinableObj {lvalue})
+ |      
+ |      GetRestraintCost( (RefinableObj)arg1) -> float :
+ |      
+ |          C++ signature :
+ |              double GetRestraintCost((anonymous namespace)::RefinableObjWrap {lvalue})
+ |  
+ |  GetSubObjRegistry(...)
+ |      GetSubObjRegistry( (RefinableObj)arg1) -> RefinableObjRegistry :
+ |      
+ |          C++ signature :
+ |              ObjCryst::ObjRegistry<ObjCryst::RefinableObj> {lvalue} GetSubObjRegistry(ObjCryst::RefinableObj {lvalue})
+ |  
+ |  GlobalOptRandomMove(...)
+ |      GlobalOptRandomMove( (RefinableObj)arg1, (float)mutationAmplitude [, (RefParType)type=<pyobjcryst._pyobjcryst.RefParType object at 0x7be0db7fa320>]) -> None :
+ |      
+ |          C++ signature :
+ |              void GlobalOptRandomMove(ObjCryst::RefinableObj {lvalue},double [,ObjCryst::RefParType const*=<pyobjcryst._pyobjcryst.RefParType object at 0x7be0db7fa320>])
+ |      
+ |      GlobalOptRandomMove( (RefinableObj)arg1, (float)mutationAmplitude [, (RefParType)type=<pyobjcryst._pyobjcryst.RefParType object at 0x7be0db7fa320>]) -> None :
+ |      
+ |          C++ signature :
+ |              void GlobalOptRandomMove((anonymous namespace)::RefinableObjWrap {lvalue},double [,ObjCryst::RefParType const*=<pyobjcryst._pyobjcryst.RefParType object at 0x7be0db7fa320>])
+ |  
+ |  IsBeingRefined(...)
+ |      IsBeingRefined( (RefinableObj)arg1) -> bool :
+ |      
+ |          C++ signature :
+ |              bool IsBeingRefined(ObjCryst::RefinableObj {lvalue})
+ |  
+ |  PrepareForRefinement(...)
+ |      PrepareForRefinement( (RefinableObj)arg1) -> None :
+ |      
+ |          C++ signature :
+ |              void PrepareForRefinement(ObjCryst::RefinableObj {lvalue})
+ |  
+ |  RandomizeConfiguration(...)
+ |      RandomizeConfiguration( (RefinableObj)arg1) -> None :
+ |      
+ |          C++ signature :
+ |              void RandomizeConfiguration(ObjCryst::RefinableObj {lvalue})
+ |      
+ |      RandomizeConfiguration( (RefinableObj)arg1) -> None :
+ |      
+ |          C++ signature :
+ |              void RandomizeConfiguration((anonymous namespace)::RefinableObjWrap {lvalue})
+ |  
+ |  RegisterClient(...)
+ |      RegisterClient( (RefinableObj)arg1, (RefinableObj)arg2) -> None :
+ |      
+ |          C++ signature :
+ |              void RegisterClient(ObjCryst::RefinableObj {lvalue},ObjCryst::RefinableObj {lvalue})
+ |      
+ |      RegisterClient( (RefinableObj)arg1, (RefinableObj)arg2) -> None :
+ |      
+ |          C++ signature :
+ |              void RegisterClient((anonymous namespace)::RefinableObjWrap {lvalue},ObjCryst::RefinableObj {lvalue})
+ |  
+ |  RemovePar(...)
+ |      RemovePar( (RefinableObj)arg1, (_RefinablePar)arg2) -> None :
+ |      
+ |          C++ signature :
+ |              void RemovePar(ObjCryst::RefinableObj {lvalue},ObjCryst::RefinablePar*)
+ |  
+ |  RemoveRestraint(...)
+ |      RemoveRestraint( (RefinableObj)arg1, (Restraint)arg2) -> object :
+ |      
+ |          C++ signature :
+ |              __gnu_cxx::__normal_iterator<ObjCryst::Restraint**, std::vector<ObjCryst::Restraint*, std::allocator<ObjCryst::Restraint*> > > RemoveRestraint(ObjCryst::RefinableObj {lvalue},ObjCryst::Restraint*)
+ |  
+ |  ResetParList(...)
+ |      ResetParList( (RefinableObj)arg1) -> None :
+ |      
+ |          C++ signature :
+ |              void ResetParList(ObjCryst::RefinableObj {lvalue})
+ |  
+ |  RestoreParamSet(...)
+ |      RestoreParamSet( (RefinableObj)arg1, (int)arg2) -> None :
+ |      
+ |          C++ signature :
+ |              void RestoreParamSet(ObjCryst::RefinableObj {lvalue},unsigned long)
+ |  
+ |  SaveParamSet(...)
+ |      SaveParamSet( (RefinableObj)arg1, (int)arg2) -> None :
+ |      
+ |          C++ signature :
+ |              void SaveParamSet(ObjCryst::RefinableObj {lvalue},unsigned long)
+ |  
+ |  SetGlobalOptimStep(...)
+ |      SetGlobalOptimStep( (RefinableObj)arg1, (RefParType)arg2, (float)arg3) -> None :
+ |      
+ |          C++ signature :
+ |              void SetGlobalOptimStep(ObjCryst::RefinableObj {lvalue},ObjCryst::RefParType const*,double)
+ |  
+ |  SetLimitsAbsolute(...)
+ |      SetLimitsAbsolute( (RefinableObj)arg1, (str)arg2, (float)arg3, (float)arg4) -> None :
+ |      
+ |          C++ signature :
+ |              void SetLimitsAbsolute(ObjCryst::RefinableObj {lvalue},std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >,double,double)
+ |      
+ |      SetLimitsAbsolute( (RefinableObj)arg1, (RefParType)arg2, (float)arg3, (float)arg4) -> None :
+ |      
+ |          C++ signature :
+ |              void SetLimitsAbsolute(ObjCryst::RefinableObj {lvalue},ObjCryst::RefParType const*,double,double)
+ |  
+ |  SetLimitsProportional(...)
+ |      SetLimitsProportional( (RefinableObj)arg1, (str)arg2, (float)arg3, (float)arg4) -> None :
+ |      
+ |          C++ signature :
+ |              void SetLimitsProportional(ObjCryst::RefinableObj {lvalue},std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >,double,double)
+ |      
+ |      SetLimitsProportional( (RefinableObj)arg1, (RefParType)arg2, (float)arg3, (float)arg4) -> None :
+ |      
+ |          C++ signature :
+ |              void SetLimitsProportional(ObjCryst::RefinableObj {lvalue},ObjCryst::RefParType const*,double,double)
+ |  
+ |  SetLimitsRelative(...)
+ |      SetLimitsRelative( (RefinableObj)arg1, (str)arg2, (float)arg3, (float)arg4) -> None :
+ |      
+ |          C++ signature :
+ |              void SetLimitsRelative(ObjCryst::RefinableObj {lvalue},std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >,double,double)
+ |      
+ |      SetLimitsRelative( (RefinableObj)arg1, (RefParType)arg2, (float)arg3, (float)arg4) -> None :
+ |      
+ |          C++ signature :
+ |              void SetLimitsRelative(ObjCryst::RefinableObj {lvalue},ObjCryst::RefParType const*,double,double)
+ |  
+ |  SetName(...)
+ |      SetName( (RefinableObj)arg1, (str)arg2) -> None :
+ |      
+ |          C++ signature :
+ |              void SetName(ObjCryst::RefinableObj {lvalue},std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)
+ |      
+ |      SetName( (RefinableObj)arg1, (str)arg2) -> None :
+ |      
+ |          C++ signature :
+ |              void SetName((anonymous namespace)::RefinableObjWrap {lvalue},std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)
+ |  
+ |  SetParIsFixed(...)
+ |      SetParIsFixed( (RefinableObj)arg1, (int)arg2, (bool)arg3) -> None :
+ |      
+ |          C++ signature :
+ |              void SetParIsFixed(ObjCryst::RefinableObj {lvalue},long,bool)
+ |      
+ |      SetParIsFixed( (RefinableObj)arg1, (str)arg2, (bool)arg3) -> None :
+ |      
+ |          C++ signature :
+ |              void SetParIsFixed(ObjCryst::RefinableObj {lvalue},std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >,bool)
+ |      
+ |      SetParIsFixed( (RefinableObj)arg1, (RefParType)arg2, (bool)arg3) -> None :
+ |      
+ |          C++ signature :
+ |              void SetParIsFixed(ObjCryst::RefinableObj {lvalue},ObjCryst::RefParType const*,bool)
+ |  
+ |  SetParIsUsed(...)
+ |      SetParIsUsed( (RefinableObj)arg1, (str)arg2, (bool)arg3) -> None :
+ |      
+ |          C++ signature :
+ |              void SetParIsUsed(ObjCryst::RefinableObj {lvalue},std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >,bool)
+ |      
+ |      SetParIsUsed( (RefinableObj)arg1, (RefParType)arg2, (bool)arg3) -> None :
+ |      
+ |          C++ signature :
+ |              void SetParIsUsed(ObjCryst::RefinableObj {lvalue},ObjCryst::RefParType const*,bool)
+ |  
+ |  TagNewBestConfig(...)
+ |      TagNewBestConfig( (RefinableObj)arg1) -> None :
+ |      
+ |          C++ signature :
+ |              void TagNewBestConfig(ObjCryst::RefinableObj {lvalue})
+ |      
+ |      TagNewBestConfig( (RefinableObj)arg1) -> None :
+ |      
+ |          C++ signature :
+ |              void TagNewBestConfig((anonymous namespace)::RefinableObjWrap {lvalue})
+ |  
+ |  UnFixAllPar(...)
+ |      UnFixAllPar( (RefinableObj)arg1) -> None :
+ |      
+ |          C++ signature :
+ |              void UnFixAllPar(ObjCryst::RefinableObj {lvalue})
+ |  
+ |  UpdateDisplay(...)
+ |      UpdateDisplay( (RefinableObj)arg1) -> None :
+ |      
+ |          C++ signature :
+ |              void UpdateDisplay(ObjCryst::RefinableObj {lvalue})
+ |      
+ |      UpdateDisplay( (RefinableObj)arg1) -> None :
+ |      
+ |          C++ signature :
+ |              void UpdateDisplay((anonymous namespace)::RefinableObjWrap {lvalue})
+ |  
+ |  XMLInput(...)
+ |      XMLInput( (RefinableObj)arg1, (object)file, (XMLCrystTag)tag) -> None :
+ |      
+ |          C++ signature :
+ |              void XMLInput(ObjCryst::RefinableObj {lvalue},boost::python::api::object,ObjCryst::XMLCrystTag {lvalue})
+ |      
+ |      XMLInput( (RefinableObj)arg1, (object)arg2, (XMLCrystTag)arg3) -> None :
+ |      
+ |          C++ signature :
+ |              void XMLInput(ObjCryst::RefinableObj {lvalue},std::istream {lvalue},ObjCryst::XMLCrystTag)
+ |      
+ |      XMLInput( (RefinableObj)arg1, (object)arg2, (XMLCrystTag)arg3) -> None :
+ |      
+ |          C++ signature :
+ |              void XMLInput((anonymous namespace)::RefinableObjWrap {lvalue},std::istream {lvalue},ObjCryst::XMLCrystTag)
+ |      
+ |      XMLInput( (RefinableObj)arg1, (str)xml) -> None :
+ |      
+ |          C++ signature :
+ |              void XMLInput(ObjCryst::RefinableObj {lvalue},std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)
+ |  
+ |  XMLOutput(...)
+ |      XMLOutput( (RefinableObj)arg1, (object)file [, (int)indent=0]) -> None :
+ |      
+ |          C++ signature :
+ |              void XMLOutput(ObjCryst::RefinableObj,boost::python::api::object [,int=0])
+ |      
+ |      XMLOutput( (RefinableObj)arg1, (object)arg2, (int)arg3) -> None :
+ |      
+ |          C++ signature :
+ |              void XMLOutput(ObjCryst::RefinableObj {lvalue},std::ostream {lvalue},int)
+ |      
+ |      XMLOutput( (RefinableObj)arg1, (object)arg2, (int)arg3) -> None :
+ |      
+ |          C++ signature :
+ |              void XMLOutput((anonymous namespace)::RefinableObjWrap {lvalue},std::ostream {lvalue},int)
+ |  
+ |  __str__(...)
+ |      __str__( (RefinableObj)arg1) -> str :
+ |      
+ |          C++ signature :
+ |              std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > __str__(ObjCryst::RefinableObj)
+ |  
+ |  int_ptr(...)
+ |      int_ptr( (RefinableObj)arg1) -> int :
+ |      
+ |          C++ signature :
+ |              unsigned long int_ptr(ObjCryst::RefinableObj {lvalue})
+ |  
+ |  xml(...)
+ |      xml( (RefinableObj)arg1) -> str :
+ |      
+ |          C++ signature :
+ |              std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > xml(ObjCryst::RefinableObj)
+ |  
+ |  ----------------------------------------------------------------------
+ |  Static methods inherited from Boost.Python.instance:
+ |  
+ |  __new__(*args, **kwargs) class method of Boost.Python.instance
+ |      Create and return a new object.  See help(type) for accurate signature.
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors inherited from Boost.Python.instance:
+ |  
+ |  __dict__
+ |  
+ |  __weakref__
+

@@ -1,0 +1,399 @@
+/opt/conda/lib/python3.11/site-packages/gallop/tensor_prep.py:12:def get_zm_related_tensors(Structure, n_samples, dtype, device):
+/opt/conda/lib/python3.11/site-packages/gallop/tensor_prep.py:222:def get_dw_factors(Structure):
+/opt/conda/lib/python3.11/site-packages/gallop/tensor_prep.py:237:def get_data_related_tensors(Structure, n_reflections, dtype, device,
+/opt/conda/lib/python3.11/site-packages/gallop/tensor_prep.py:294:def get_all_required_tensors(Structure, external=None, internal=None,
+/opt/conda/lib/python3.11/site-packages/gallop/tensor_prep.py:439:def get_PO_tensors(Structure, PO_axis, n_reflections, n_samples, device, dtype):
+/opt/conda/lib/python3.11/site-packages/gallop/tensor_prep.py:488:def get_restraint_tensors(Structure, dtype, device):
+/opt/conda/lib/python3.11/site-packages/gallop/tensor_prep.py:571:def get_profile_tensors(Structure, step, dtype, device):
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:13:def modify_D2(tors, D2, refinable_torsion_indices):
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:37:def zm_to_cart(torsions, init_D2, bond_connect, angle_connect, torsion_connect,
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:85:def get_rotation_matrices(rot):
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:123:def rotate_and_translate(cart_coords, R, translation, lattice_inv_matrix):
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:150:def get_asymmetric_coords(external, internal, position, rotation, torsion,
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:231:def get_asymmetric_coords_from_numpy(Structure, external, internal,
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:270:def zm_to_cart_writer(zm_number, samples, atoms, init_D2, bond_connect, angle_connect, torsion_connect, refinable_torsion_indices, usejit=True):
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:311:def unrolled_module_writer(input_tensors, filename="unrolled.py", usejit=True):
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:400:def zm_to_cart_writer(zm_number, samples, atoms, init_D2, bond_connect, angle_connect, torsion_connect, refinable_torsion_indices, usejit=True):
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:441:def unrolled_module_writer(input_tensors, filename="unrolled.py", usejit=True):
+# coding: utf-8
+# Copyright (c) Mark Spillman.
+# Distributed under the terms of the GPL v3 License.
+"""
+Provides functions to generate all of the tensors needed for local optimisation
+"""
+
+import torch
+import numpy as np
+
+
+def get_zm_related_tensors(Structure, n_samples, dtype, device):
+    """
+    Get tensors about the ZMs from the numpy arrays in the Structure.
+
+    The external and internal DoF tensors may contain information
+    pertaining to multiple fragments. The information needs to be indexed
+    such that positions, rotations and torsions are assigned consistently
+    and correctly. Example below has 2 fragments, with 6 torsions each.
+    Each fragment therefore requires:
+        3 x position, 4 x quaternions, 6 x torsions
+    The layout of the DoF of the tensors is as follows:
+        external = n_samples*[pos_1_x, pos_1_y, pos_1_z, pos_2_x, pos_2_y,
+                                pos_2_z, rot_1_q1, rot_1_q2, rot_1_q3, rot_1_q4,
+                                rot_2_q1, rot_2_q2, rot_2_q3, rot_2_q4]
+        internal = n_samples*[tor_1_1, tor_1_2, tor_1_3, tor_1_4, tor_1_5,
+                                tor_1_6, tor_2_1, tor_2_2, tor_2_3, tor_2_4,
+                                tor_2_5, tor_2_6]
+    This function makes lists of numpy arrays: position_indices,
+    rotation_indices, torsion_indices that denote what information
+    pertains to each fragment. In the above example:
+        position_indices = [[0,1,2], [3,4,5]]
+        rotation_indices = [[6,7,8,9], [10,11,12,13]]
+        torsion_indices  = [[0,1,2,3,4,5], [6,7,8,9,10,11]]
+
+    Args:
+        Structure (class): GALLOP structure object
+        n_samples (int): Number of simultaneous samples to load
+        dtype (torch dtype): dtype to use for tensors
+        device (torch device): device to move tensors to
+
+    Returns:
+        dict: Dictionary of the tensors. The complete dict of values returned
+        by this function is given below:
+            tensors = {"zmatrices_degrees_of_freedom" : zm_degrees_of_freedom,
+                    "position" : zm_position_indices,
+                    "rotation" : zm_rotation_indices,
+                    "torsion" : zm_torsion_indices,
+                    "initial_D2" : init_D2,
+                    "torsion_refinable_indices" : torsion_refinable_indices,
+                    "bond_connection" : bond_connection,
+                    "angle_connection" : angle_connection,
+                    "torsion_connection" : torsion_connection,
+                    "init_cart_coords" : init_cart_coords,
+                    "nsamples_ones" : nsamples_ones
+                    }
+    """
+    position_indices = []
+    rotation_indices = []
+    torsion_indices = []
+    zm_degrees_of_freedom = []
+    init_D2 = []
+    torsion_refinable_indices = []
+    bond_connection = []
+    angle_connection = []
+    torsion_connection = []
+    init_cart_coords = []
+    n_atoms_asymmetric = 0
+    i = 0
+    # First loop over each of the z-matrices and get information about
+    # connectivity, degrees of freedom etc
+    for i, zm in enumerate(Structure.zmatrices):
+        # First generate the indices needed
+        if i == 0:
+            position_indices.append(np.arange(zm.position_degrees_of_freedom))
+            rotation_indices.append(np.arange(zm.rotation_degrees_of_freedom))
+            torsion_indices.append(np.arange(zm.internal_degrees_of_freedom))
+        else:
+            try:
+                max_pos = np.hstack(position_indices).max()
+            except ValueError:
+                max_pos = -1
+            try:
+                max_rot = np.hstack(rotation_indices).max()
+            except ValueError:
+                max_rot = -1
+            try:
+                max_tor = np.hstack(torsion_indices).max()
+            except ValueError:
+                max_tor = -1
+            position_indices.append(np.arange(zm.position_degrees_of_freedom)
+                                            + max_pos + 1)
+            rotation_indices.append(np.arange(zm.rotation_degrees_of_freedom)
+                                            + max_rot + 1)
+            torsion_indices.append(np.arange(zm.internal_degrees_of_freedom)
+                                            + max_tor + 1)
+        zm_degrees_of_freedom.append(zm.degrees_of_freedom)
+
+        # Now get initial D2 matrix and torsion refinable indices for
+        # internal -> Cartesian conversion
+        # and get initial Cartesian coordinates for rigid bodies. See (S)NeRF
+        # paper and gallop.z_matrix for more details.
+        if Structure.ignore_H_atoms:
+            init_D2_stacked = zm.initial_D2_no_H.reshape(1,
+                        zm.initial_D2_no_H.shape[0],
+                        zm.initial_D2_no_H.shape[1]).repeat(n_samples,axis=0)
+            torsion_refinable_indices.append(torch.from_numpy(
+                zm.torsion_refinable_indices_no_H).type(torch.long).to(device))
+            if zm.degrees_of_freedom == 7:
+                init_cart_coords.append(torch.from_numpy(
+                        zm.initial_cartesian_no_H.reshape(1,
+                        zm.initial_cartesian_no_H.shape[0],
+                        zm.initial_cartesian_no_H.shape[1])
+                        .repeat(n_samples,axis=0)).type(dtype).to(device))
+            else:
+                init_cart_coords.append([])
+        else:
+            init_D2_stacked = zm.initial_D2.reshape(1,
+                                zm.initial_D2.shape[0],
+                                zm.initial_D2.shape[1]).repeat(n_samples,axis=0)
+            torsion_refinable_indices.append(
+                torch.from_numpy(
+                    zm.torsion_refinable_indices).type(torch.long).to(device)
+                )
+            if zm.degrees_of_freedom == 7:
+                init_cart_coords.append(torch.from_numpy(
+                        zm.initial_cartesian.reshape(1,
+                            zm.initial_cartesian.shape[0],
+                            zm.initial_cartesian.shape[1]).repeat(
+                                n_samples,axis=0)).type(dtype).to(device)
+                                )
+            else:
+                init_cart_coords.append([])
+
+        init_D2.append(torch.from_numpy(init_D2_stacked).type(dtype).to(device))
+
+        # Next get the molecular connectivity information
+        if Structure.ignore_H_atoms:
+            bond_connection.append(
+                torch.from_numpy(
+                    zm.bond_connection_no_H).type(torch.long).to(device)
+                )
+            angle_connection.append(
+                torch.from_numpy(
+                    zm.angle_connection_no_H).type(torch.long).to(device)
+                )
+            torsion_connection.append(
+                torch.from_numpy(
+                    zm.torsion_connection_no_H).type(torch.long).to(device)
+                )
+        else:
+            bond_connection.append(
+                torch.from_numpy(zm.bond_connection).type(torch.long).to(device)
+                )
+            angle_connection.append(
+                torch.from_numpy(
+                    zm.angle_connection).type(torch.long).to(device)
+                )
+            torsion_connection.append(
+                torch.from_numpy(
+                    zm.torsion_connection).type(torch.long).to(device)
+                )
+        if Structure.ignore_H_atoms:
+            n_atoms_asymmetric += zm.coords_no_H.shape[0]
+        else:
+            n_atoms_asymmetric += zm.coords.shape[0]
+
+    # Now correct the external DoF indices for rotations
+    # The external input has the following layout:
+    # pos_zm_1, pos_zm_2, ... , pos_zm_n, rot_zm_1, rot_zm_2, ... , rot_zm_n
+    # so the previously generated indices need to be corrected for the total
+    # number of positional indexes that are also included.
+    for r in rotation_indices:
+        try:
+            r+=np.hstack(position_indices).max()+1
+        except ValueError:
+            pass
+
+    # Add this information to the Structure object for easy access
+    Structure.degrees_of_freedom = zm_degrees_of_freedom
+    Structure.position_indices   = position_indices
+    Structure.rotation_indices   = rotation_indices
+    Structure.torsion_indices    = torsion_indices
+
+    # Create the lists of PyTorch tensors needed. Tensors used for indexing must
+    # be of type torch.long
+    zm_position_indices = []
+    zm_rotation_indices = []
+    zm_torsion_indices  = []
+    for p in position_indices:
+        zm_position_indices.append(
+                                torch.from_numpy(p).type(torch.long).to(device))
+    for r in rotation_indices:
+        zm_rotation_indices.append(
+                                torch.from_numpy(r).type(torch.long).to(device))
+    for t in torsion_indices:
+        zm_torsion_indices.append(
+                                torch.from_numpy(t).type(torch.long).to(device))
+
+    # nsamples_ones needed for fall-back Structure factor calculation method.
+    # It is concatenated with the x,y,z fractional coordinates, which then
+    # allows for multiplication with the affine matrices to generate symmetry
+    # equivalent positions.
+    nsamples_ones = torch.ones(n_samples,
+                                n_atoms_asymmetric,
+                                1).type(dtype).to(device)
+
+    tensors = {"zmatrices_degrees_of_freedom" : zm_degrees_of_freedom,
+                "position" : zm_position_indices,
+                "rotation" : zm_rotation_indices,
+                "torsion" : zm_torsion_indices,
+                "initial_D2" : init_D2,
+                "torsion_refinable_indices" : torsion_refinable_indices,
+                "bond_connection" : bond_connection,
+                "angle_connection" : angle_connection,
+                "torsion_connection" : torsion_connection,
+                "init_cart_coords" : init_cart_coords,
+                "nsamples_ones" : nsamples_ones}
+
+    return tensors
+
+def get_dw_factors(Structure):
+    """
+    Get the Debye-Waller factors for inclusion in the intensity calculations
+
+    Args:
+        Structure (class): GALLOP structure object
+
+    Returns:
+        dict: Debye-Waller factors for each atom in a ZM.
+    Returns:
+        Tensor: Tensor with shape (n_samples, 3, 3) containing the rotation
+            matrices equivalent to the quaternions
+    """
+    a = rot[:,0].unsqueeze(1)
+    b = rot[:,1].unsqueeze(1)
+    c = rot[:,2].unsqueeze(1)
+    d = rot[:,3].unsqueeze(1)
+
+    row_1_1 = 1 - 2*(c**2 + d**2)
+    row_1_2 = 2*(b*c - d*a)
+    row_1_3 = 2*(b*d + c*a)
+
+    row_2_1 = 2*(b*c + d*a)
+    row_2_2 = 1 - 2*(b**2 + d**2)
+    row_2_3 = 2*(c*d - b*a)
+
+    row_3_1 = 2*(b*d - c*a)
+    row_3_2 = 2*(c*d + b*a)
+    row_3_3 = 1 - 2*(b**2 + c**2)
+
+    row_1 = torch.cat((row_1_1, row_1_2, row_1_3), dim=1).unsqueeze(2)
+    row_2 = torch.cat((row_2_1, row_2_2, row_2_3), dim=1).unsqueeze(2)
+    row_3 = torch.cat((row_3_1, row_3_2, row_3_3), dim=1).unsqueeze(2)
+    R = torch.cat((row_1, row_2, row_3), dim=2)
+    return R
+
+@torch.jit.script
+def rotate_and_translate(cart_coords, R, translation, lattice_inv_matrix):
+    """
+    Given a set of Cartesian coordinates, rotate them, convert them to
+    fractional coordinates then translate them.
+
+    Args:
+        cart_coords (Tensor): Cartesian coordinates of the atoms, usually
+            obtained by a ZM->Cart conversion.
+        R (Tensor): Rotation matrices (generally obtained from quaternions
+            which are the refinable parameters)
+        translation (Tensor): Describes the translation of molecues/fragments
+        lattice_inv_matrix (Tensor): Inverse lattice matrix to convert from
+            Cartesian to fractional coords
+
+    Returns:
+        Tensor: Tensor of shape (nsamples, natoms, 3) containing the
+                fractional coordinates of the atoms after rotation and
+                translation.
+    """
+    # Rotate the Cartesian coordinates using rotation matrices, R
+    rot_cart = torch.einsum("bjk,bij->bik", R, cart_coords)
+    # Convert to fractional coords
+    rot_cart = torch.einsum("jk,bij->bik",lattice_inv_matrix,rot_cart)
+    # Translate the sites.
+    fractional_coords = rot_cart + translation.view(translation.shape[0], 1, 3)
+    return fractional_coords
+
+def get_asymmetric_coords(external, internal, position, rotation, torsion,
+    initial_D2, zmatrices_degrees_of_freedom, bond_connection, angle_connection,
+    torsion_connection, torsion_refinable_indices, lattice_inv_matrix,
+    init_cart_coords):
+    """
+    Take in a set of external and internal degrees of freedom and generate the
+    fractional coordinates of
+    all atoms in the asymmetric unit. Uses the NERF method for converting from
+    internal -> Cartesian coordinates.
+
+    Args:
+        external (Tensor): Tensor of shape (n_samples, n_ext_DOF) - The external
+            degrees of freedom for the current problem. Where multiple
+            z-matrices are needed, then the order is
+            pos_1, pos_2 ... pos_n, rot_1, rot_2, ..., rot_n
+        internal (Tensor): Tensor of shape (n_samples, n_int_DOF) - The internal
+            degrees of freedom for the current problem. Where multiple
+            z-matrices are needed, then the order is tor_1, tor_2, ..., tor_n
+        position (List): List of lists, containing the indices of external
+            corresponding to position for each zmatrix
+        rotation (List): List of lists, containing the indices of external
+            corresponding to rotation for each zmatrix
+        torsion (List): List of lists, containing the indices of external
+            corresponding to torsions for each zmatrix
+        zmatrices_degrees_of_freedom (List): List of integers, describing the
+            number of degrees of freedom for each zmatrix.
+            Note that rotations are considered to require 4 DoF due to the use
+            of quaternions. This is in contrast to normally reported values,
+            where Euler angles are usually considered instead.
+        initial_D2 (List): List of tensors of shape (n_samples, n_atoms) for
+            each flexible zmatrix. Needed for internal -> Cartesian
+        bond_connection (List): List of tensors of shape (n_samples, n_atoms)
+            for each flexible zmatrix. Needed for internal -> Cartesian
+        angle_connection (List): List of tensors of shape (n_samples, n_atoms)
+            for each flexible zmatrix. Needed for internal -> Cartesian
+        torsion_connection (List): List of tensors of shape (n_samples, n_atoms)
+            for each flexible zmatrix. Needed for internal -> Cartesian
+        torsion_refinable_indices (List): List of tensors that contain the
+            indices of the refinable torsions for each zmatrix
+        lattice_inv_matrix (Tensor): Inverse of the matrix representation of the
+            lattice. Needed to for Cartesian -> fractional
+        init_cart_coords (List): List of Tensors, with the Cartesian coordinates
+            of the Z-matrices. Needed for rigid-body ZMs.
+
+    Returns:
+        Tensor: Tensor of shape (n_samples, n_atoms_asymmetric), which is the
+                fractional coordinates of all atoms in the asymmetric_unit
+    """
+    asymmetric_unit = []
+    for i, zm_dof in enumerate(zmatrices_degrees_of_freedom):
+        translation = external[:,position[i]].view(external.shape[0],
+                                            1, len(position[i])) # Translations
+        if zm_dof >= 7:
+            rot_in = external[:,rotation[i]] # Quaternions for rotation
+            # Ensure quaternions are unit quaterions then convert to matrices
+            rot = rot_in.div(rot_in.norm(p=2,dim=-1,keepdim=True))
+            R = get_rotation_matrices(rot)
+
+            if zm_dof > 7:
+                # Convert flexible ZM to Cartesian coords
+                cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+                                        bond_connection[i], angle_connection[i],
+                                        torsion_connection[i],
+                                        torsion_refinable_indices[i])
+            else:
+                # Rigid body
+                cart_coords = init_cart_coords[i]
+
+            fractional_coords = rotate_and_translate(cart_coords, R,
+                                                translation, lattice_inv_matrix)
+            asymmetric_unit.append(fractional_coords)
+        else:
+            # Single atoms/ions
+            fractional_coords = translation
+            asymmetric_unit.append(fractional_coords)
+
+    # Collect all atoms in asymmetric unit
+    asymmetric_frac_coords = torch.cat(asymmetric_unit, dim=1)
+    return asymmetric_frac_coords
+
+
+def get_asymmetric_coords_from_numpy(Structure, external, internal,
+    n_samples=None, device=None, dtype=torch.float32, verbose=True):
+    """
+    Convenience function used mostly for saving a CIF at the end of a run.
+
+    Args:
+        Structure (class): Structure object
+        external (numpy array): external degrees of freedom
+        internal (numpy array): internal degrees of freedom
+        n_samples (int, optional): The number of samples. Defaults to None,
+GALLOP 18 Nref 368 seconds 30.855566263198853 best 339.36032 q25 362.59732 median 482.90338 total 591.0767638683319
+GALLOP 19 Nref 368 seconds 27.972814559936523 best 339.36047 q25 362.59723 median 489.6198 total 619.089204788208
+GALLOP 20 Nref 368 seconds 27.498376846313477 best 339.36017 q25 433.8784 median 517.672 total 646.5902202129364
+CYCLE 0 0 Rw 0.30664577885217437 chi2 10443.849016425072 geom 0.0 LSQ 10443.916330678494
+CYCLE 0 1 Rw 0.3066282502569964 chi2 10442.6550605196 geom 0.0 LSQ 10442.655491883048
+CYCLE 0 2 Rw 0.30662678522700826 chi2 10442.555273456539 geom 0.0 LSQ 10442.55550078833

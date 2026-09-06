@@ -1,0 +1,6 @@
+run 0: cost=22956.9 Rwp=0.1399 chi2=37607.6 t=774s
+  molecule mol0_0: 21 atoms, 22 bonds, 29 angles, 30 dihedral restraints, 2 free torsions
+  molecule mol0_0: 21 atoms, 22 bonds, 30 angles, 25 dihedral restraints, 4 free torsions
+F d d 2        # 43 Rwp=1.2915 nrefl=  27 cell=['13.9004', '9.3351', '10.9096', '90.0000', '90.0000', '90.0000']
+F d 2 d        # 43 Rwp=1.3865 nrefl=  27 cell=['14.0004', '9.3701', '10.9564', '90.0000', '90.0000', '90.0000']
+F 2 d d        # 43 Rwp=1.8935 nrefl=  27 cell=['13.9495', '9.3397', '10.9840', '90.0000', '90.0000', '90.0000']

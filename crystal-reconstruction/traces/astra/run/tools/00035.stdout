@@ -1,0 +1,178 @@
+436-      * multiplied by the current mutation amplitude. By default this mutation is equal to 1.,
+437-      * but making bigger steps can be a good idea at the beginning of the refinement. Thus
+438-      * you can choose a schedule for the amplitude, exactly like for the temperature.
+439-      *\param mutMax,mutMin: Max and Min mutation amplitudes.
+440-      * \warning do not use the 'smart' option for the temperature schedule, it is not yet
+441-      * implemented. Later it will be used to set the temperatures as a function of
+442-      * the amplitude schedule, so that we keep accepted move between 30% and 70%.
+443-      * \note this will be removed when we separate the different algorithms in different
+444-      * classes.
+445-      */
+446:      void SetAlgorithmParallTempering(const AnnealingSchedule scheduleTemp,
+447-                                 const REAL tMax, const REAL tMin,
+448-                                 const AnnealingSchedule scheduleMutation=ANNEALING_CONSTANT,
+449-                                 const REAL mutMax=16., const REAL mutMin=.125);
+450-
+451-      virtual void Optimize(long &nbSteps,const bool silent=false,const REAL finalcost=0,
+452-                            const REAL maxTime=-1);
+453-      virtual void MultiRunOptimize(long &nbCycle,long &nbSteps,const bool silent=false,const REAL finalcost=0,
+454-                                    const REAL maxTime=-1);
+455-
+456-      /** \internal Do a single simulated annealing run. This is called by Optimize(...) and
+457-      * MultiRunOptimize(), which must also prepare the optimization (PrepareRefParList(), etc..).
+458-      */
+459-      void RunSimulatedAnnealing(long &nbSteps,const bool silent=false,const REAL finalcost=0,
+460-                                 const REAL maxTime=-1);
+461-      /** \internal Do a single Parallel Tempering run. This is called by Optimize(...) and
+462-      * MultiRunOptimize(), which must also prepare the optimization (PrepareRefParList(), etc..).
+463-      */
+464-      void RunParallelTempering(long &nbSteps,const bool silent=false,const REAL finalcost=0,
+465-                                const REAL maxTime=-1);
+466-
+467-      void RunRandomLSQMethod(long &nbCycle);
+468-
+469-      //Parameter Access by name
+470-      //RefinablePar& GetPar(const string& parName);
+471-
+472-      // Print information about the current state of optimization (parameters value,
+473-      // characteristic figures...)
+474-      //virtual ostream& operator<<(ostream& os)const;
+475-      virtual void XMLOutput(ostream &os,int indent=0)const;
+476-      virtual void XMLInput(istream &is,const XMLCrystTag &tag);
+477-      //virtual void XMLInputOld(istream &is,const IOCrystTag &tag);
+478-      virtual const string GetClassName()const;
+479-      /// Access to the builtin LSQ optimization object
+480-      LSQNumObj & GetLSQObj();
+66:enum AnnealingSchedule
+67-{
+68-   ANNEALING_CONSTANT,
+69-   ANNEALING_BOLTZMANN,
+70-   ANNEALING_CAUCHY,
+71-//   ANNEALING_QUENCHING,
+72-   ANNEALING_EXPONENTIAL,
+73-   ANNEALING_SMART,
+74-   ANNEALING_GAMMA
+75-};
+76-
+77-/** Global optimization type. Eventually it would be better to build
+78-* a base Global Optimization  (or even Optimization) object, and to derive
+79-* it in different classes for Simulated Annealing, Parallel Tempering,
+80-* Genetic Algorithm,...
+81-*/
+82-enum GlobalOptimType
+83-{
+84-   GLOBAL_OPTIM_SIMULATED_ANNEALING,
+85-   GLOBAL_OPTIM_PARALLEL_TEMPERING,
+86-   GLOBAL_OPTIM_RANDOM_LSQ,
+87-   GLOBAL_OPTIM_SIMULATED_ANNEALING_MULTI,
+88-   GLOBAL_OPTIM_PARALLEL_TEMPERING_MULTI,
+89-};
+90-
+91-/** \brief Base object for Optimization methods.
+92-*
+93-* This is an abstract base class, derived for Monte-Cralo type algorithms
+94-* (Simulated Annealing & Parallel Tempering), and hopefully soon
+95-* for Genetic Algorithms.
+96-*
+97-* \remarks Instead of keeping a copy of the list of parameters here,
+98-* maybe it would be better to delegate all parameter handling to the refined
+99-* objects (they would also have to keep in memory the saved parameter sets, so
+100-* that could be difficult to administrate...).
+101-*/
+102-class OptimizationObj
+103-{
+104-   public:
+105-      /// Default constructor
+106-      OptimizationObj();
+107-      /// Constructor
+108-      OptimizationObj(const string name);
+109-      /// Copy constructor
+110-      OptimizationObj(const OptimizationObj &old);
+111-      /// Destructor
+# coding: utf-8
+# Copyright (c) Mark Spillman.
+# Distributed under the terms of the GPL v3 License.
+"""
+Provides functions for local optimisation
+"""
+
+import time
+import torch
+import numpy as np
+import matplotlib.pyplot as plt
+import torch_optimizer as t_optim
+
+from gallop import chi2
+from gallop import tensor_prep
+from gallop import files
+from gallop import intensities
+from gallop import zm_to_cart
+from gallop.optim import restraints
+
+
+
+
+def get_minimiser_settings(Structure):
+    """
+    Get a dictionary of the settings used for the minimise function
+    so it can be easily modified and passed to the function.
+
+    Args:
+        Structure (class): GALLOP structure
+
+    Returns:
+        dict: Dictionary of the settings for the minimise function
+            Keys = n_reflections, include_dw_factors, chi2_solved, n_iterations,
+            n_cooldown, learning_rate, learning_rate_schedule, verbose,
+            use_progress_bar, print_every, check_min, dtype, device,
+            optimizer, loss, eps, save_CIF, streamlit, torsion_shadowing,
+            Z_prime, use_restraints, include_PO, PO_axis
+    """
+    settings = {}
+    settings["n_reflections"] = len(Structure.hkl)
+    settings["include_dw_factors"] = True
+    settings["chi2_solved"] = None
+    settings["n_iterations"] = 500
+    settings["n_cooldown"]   = 100
+    settings["learning_rate"] = 5e-2
+    settings["learning_rate_schedule"] = "1cycle"
+    settings["verbose"] = False
+    settings["use_progress_bar"] = True
+    settings["print_every"] = 10
+    settings["check_min"] = 100
+    settings["dtype"] = torch.float32
+    settings["device"] = None
+    settings["optimizer"] = "adam"
+    settings["loss"] = "xlogx"
+    settings["eps"] = 1e-8
+    settings["save_CIF"] = True
+    settings["streamlit"] = False
+    settings["torsion_shadowing"] = False
+    settings["Z_prime"] = 1
+    settings["use_restraints"] = False
+    settings["include_PO"] = False
+    settings["PO_axis"] = [0, 0, 1]
+    return settings
+
+
+def adjust_lr_1_over_sqrt(optimizer, iteration, learning_rate):
+    """
+    Decay the learning_rate used in the local optimizer by 1/sqrt(iteration+1)
+    Called by the minimise function
+
+    Args:
+        optimizer (pytorch optimizer): A pytorch compatible optimizer
+        iteration (int): The current iteration
+        learning_rate (float): The initial learning rate used
+
+    Returns:
+        float: the new learning rate
+    """
+    lr = learning_rate * 1/np.sqrt((iteration)+1.)
+24:def get_minimiser_settings(Structure):
+67:def adjust_lr_1_over_sqrt(optimizer, iteration, learning_rate):
+86:def adjust_lr_1_cycle(optimizer, iteration, low, high, final, num_iterations,
+139:def get_loss(chi_2, restraint_penalty, loss, restraint_weight_type):
+195:def find_learning_rate(Structure, external=None, internal=None,
+276:def update_learning_rate(i,optimizer,learning_rate,learning_rate_schedule,
+309:def minimise(Structure, external=None, internal=None, n_samples=10000,

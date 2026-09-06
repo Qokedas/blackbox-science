@@ -1,0 +1,17 @@
+Xe3a2935 ORTHOROMBIC P 0 peaks [0.555, 0.62, 0.66506, 0.739, 0.83457, 0.89963, 1.54642, 1.84351, 2.68655, 2.93516, 3.74625, 4.69594, 4.8025, 4.88503, 5.22169, 5.41076, 5.61361, 5.87383, 5.98041, 6.19031, 6.48384, 6.65521] V 1052.661376953125 3780 Lmax 43.616950455549265
+3->43.617,1.62468,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+1052.66->3780,454.564,5.9999
+Starting: V=1052.66->1507.23
+Finished: V=1052.66->1507.23 A^3, 272 unit cells tested, 213668 tests/s,   Elapsed time=0.001279s
+Starting: V=1507.23->1961.79
+Finished: V=1507.23->1961.79 A^3, 579 unit cells tested, 195015 tests/s,   Elapsed time=0.002974s
+Starting: V=1961.79->2416.35
+Finished: V=1961.79->2416.35 A^3, 914 unit cells tested, 179638 tests/s,   Elapsed time=0.005093s
+Starting: V=2416.35->2870.92
+Finished: V=2416.35->2870.92 A^3, 1263 unit cells tested, 167885 tests/s,   Elapsed time=0.007529s
+Starting: V=2870.92->3325.48
+Finished: V=2870.92->3325.48 A^3, 1626 unit cells tested, 157742 tests/s,   Elapsed time=0.010314s
+Starting: V=3325.48->3780
+Finished: V=3325.48->3780 A^3, 1999 unit cells tested, 148294 tests/s,   Elapsed time=0.013485s
+DONE Xe3a2935 ORTHOROMBIC P 0 0.013605594635009766 []

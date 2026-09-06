@@ -1,0 +1,163 @@
+import sys,os,time,json,numpy as np,torch,gemmi
+from gallop.structure import Structure
+from gallop.optim import local
+from gallop.optim.swarm import Swarm
+from gallop import tensor_prep,zm_to_cart,chi2
+from gallop_prepare import prepare
+sid=sys.argv[1];run=int(sys.argv[2]) if len(sys.argv)>2 else 1;zp=int(sys.argv[3]) if len(sys.argv)>3 else 1
+W='/app/work/'+sid;G=W+'/gallop_'+str(run);torch.set_num_threads(int(os.environ.get('TORCH_THREADS',1)));torch.set_num_interop_threads(1)
+if not os.path.exists(G+'/structure.json') or '--prepare' in sys.argv:
+ mp=next((v.split('=',1)[1] for v in sys.argv if v.startswith('--model=')),None);s,G=prepare(sid,run,zp,rigid='--rigid' in sys.argv,model_path=mp,stolmax=float(os.environ.get('GALLOP_STOL','.21')))
+else:s=Structure();s.from_json(open(G+'/structure.json').read())
+np.random.seed((int(time.time())+run)%1000000);NP=int(os.environ.get('PARTICLES','128'));IT=int(os.environ.get('ITERATIONS','450'));ns=max(1,NP//32);max_time=float(os.environ.get('SEARCH_TIME',1800));best=1e100;t0=time.time();i=0
+
+def save_result(result,i):
+ global best
+ mn=result['chi_2'].min();ix=int(result['chi_2'].argmin())
+ if mn>=best:return
+ best=float(mn)
+ np.savez_compressed(G+'/best.npz',external=result['external'][ix:ix+1],internal=result['internal'][ix:ix+1],chi2=mn)
+ t=tensor_prep.get_all_required_tensors(s,external=result['external'][ix:ix+1],internal=result['internal'][ix:ix+1],requires_grad=False,device=torch.device('cpu'),verbose=False)
+ with torch.no_grad():frac=zm_to_cart.get_asymmetric_coords(**t['zm']).detach().numpy()[0]
+ np.save(G+'/best_frac.npy',frac)
+ sg=gemmi.find_spacegroup_by_name(s.space_group.symbol);text='data_solution\n'
+ for name,v in zip(['length_a','length_b','length_c','angle_alpha','angle_beta','angle_gamma'],s.lattice.parameters):text+=f'_cell_{name} {v:.9f}\n'
+ text+=f"_space_group_name_H-M_alt '{sg.xhm()}'\n_space_group_IT_number {sg.number}\nloop_\n_space_group_symop_id\n_space_group_symop_operation_xyz\n"
+ for j,op in enumerate(sg.operations()):text+=f"{j+1} '{op.triplet()}'\n"
+ text+='loop_\n_atom_site_label\n_atom_site_type_symbol\n_atom_site_fract_x\n_atom_site_fract_y\n_atom_site_fract_z\n_atom_site_occupancy\n'
+ els=[el for z in s.zmatrices for el in z.elements_no_H]
+ for j,(el,v) in enumerate(zip(els,frac)):text+=f'{el}{j+1} {el} {v[0]%1:.9f} {v[1]%1:.9f} {v[2]%1:.9f} 1\n'
+ open(G+'/best.cif','w').write(text);json.dump({'chi2':float(mn),'Rint':float(np.sqrt(mn/1000)),'iteration':i,'elapsed':time.time()-t0},open(G+'/best.json','w'),indent=1)
+
+while time.time()-t0<max_time and not os.path.exists(G+'/STOP'):
+ if i%12==0:
+  swarm=Swarm(s,n_particles=NP,n_swarms=ns,global_update=True,global_update_freq=5);ext,intr=swarm.get_initial_positions()
+ ti=time.time()
+ nref=min(len(s.hkl),int(os.environ.get('START_REFL',str(len(s.hkl))))+40*(i//12))
+ result=local.minimise(s,external=ext,internal=intr,n_reflections=nref,n_iterations=IT,n_cooldown=IT//4,learning_rate=.04,device=torch.device('cpu'),loss='sum',use_progress_bar=False,save_CIF=False,run=i,verbose=False,check_min=25)
+ if nref<len(s.hkl):
+  ft=tensor_prep.get_all_required_tensors(s,external=result['external'],internal=result['internal'],requires_grad=False,device=torch.device('cpu'),verbose=False)
+  with torch.no_grad():full_chi=chi2.get_chi_2(ft['zm'],ft['int_tensors'],ft['chisqd_tensors']).numpy()
+  result['low_chi_2']=result['chi_2'].copy();result['chi_2']=full_chi
+ print('GALLOP',i,'Nref',nref,'seconds',time.time()-ti,'best',result['chi_2'].min(),'q25',np.quantile(result['chi_2'],.25),'median',np.median(result['chi_2']),'total',time.time()-t0,flush=True)
+ save_result(result,i)
+ if 'low_chi_2' in result:result['chi_2']=result['low_chi_2']
+ ext,intr=swarm.update_position(result=result,verbose=False)
+ np.savez_compressed(G+'/last_population.npz',external=result['external'],internal=result['internal'],chi2=result['chi_2'])
+ i+=1
+ if '--test' in sys.argv or best<float(os.environ.get('TARGET_CHI','2.0')):break
+print('FINISHED',sid,best,flush=True)
+import sys,os,json,numpy as np
+from pyobjcryst.io import xml_cryst_file_load_all_object,xml_cryst_file_save_global
+from pyobjcryst.refinableobj import refpartype_scattpow_temperature,refpartype_scatt_occup
+from obj_model import add_component,export_cif
+sid=sys.argv[1];run=sys.argv[2];W='/app/work/'+sid;G=W+'/gallop_'+run;R=W+'/search_g'+run;os.makedirs(R,exist_ok=True)
+objs=xml_cryst_file_load_all_object(W+'/base.xml');c=[o for o in objs if o.GetClassName()=='Crystal'][0];p=[o for o in objs if o.GetClassName()=='PowderPattern'][0];d=p.GetPowderPatternComponent(0)
+meta=json.load(open(G+'/model.json'));frac=np.load(G+'/best_frac.npy');offset=0;models=[]
+for j,md in enumerate(meta):
+ n=len(md['order']);xyz=np.zeros((n,3));f=frac[offset:offset+n];offset+=n
+ for i,old in enumerate(md['order']):xyz[old]=c.FractionalToOrthonormalCoords(*map(float,f[i]))
+ m,newmd=add_component(c,md['smiles'],'m'+str(j),coords_override=md['rdkit_coords'])
+ if m.GetClassName()=='Molecule':
+  center=xyz.mean(axis=0);xyz-=center
+  for i,v in enumerate(xyz):a=m.GetAtom(i);a.X,a.Y,a.Z=v
+  m.Q0,m.Q1,m.Q2,m.Q3=1.,0.,0.,0.;m.X,m.Y,m.Z=c.OrthonormalToFractionalCoords(*center)
+ else:m.X,m.Y,m.Z=f[0]
+ models.append(newmd)
+c.GetOption(1).SetChoice(0);c.SetParIsFixed(refpartype_scattpow_temperature,True);c.SetParIsFixed(refpartype_scatt_occup,True)
+d.SetExtractionMode(False);p.Prepare();p.FitScaleFactorForRw();print('IMPORTED',sid,run,'Rw',p.GetRw(),'Chi2',p.GetChi2(),flush=True)
+json.dump(models,open(R+'/model.json','w'),indent=1);export_cif(c,R+'/best.cif');xml_cryst_file_save_global(R+'/best.xml');json.dump({'Rw':p.GetRw()},open(R+'/best.json','w'))
+import numpy as np,itertools,io,re
+from rdkit import Chem
+
+def add_antibump(c,models,full=False,scale=10.):
+ types=[];pt=Chem.GetPeriodicTable()
+ for ic,md in enumerate(models):
+  m=c.GetScatterer(ic);r=Chem.MolFromSmiles(md['smiles'])
+  if m.GetClassName()=='Atom':types.append((m.GetScatteringPower(),ic,0,None));continue
+  if m.GetNbAtoms()>r.GetNumAtoms():r=Chem.AddHs(r)
+  mat=Chem.GetDistanceMatrix(r)
+  for ia in range(m.GetNbAtoms()):
+   a=m.GetAtom(ia);sp=a.GetScatteringPower()
+   if sp.GetSymbol()!='H':types.append((sp,ic,ia,mat))
+ for i,(s,ic,ia,dm) in enumerate(types):
+  for t,jc,ja,dmat in types[i:]:
+   e1=s.GetSymbol();e2=t.GetSymbol()
+   if e1=='H' or e2=='H':continue
+   r0=pt.GetRvdw(e1)+pt.GetRvdw(e2)-.7
+   r0=max(2.35,r0)
+   if full and ic==jc and dm is not None and ia!=ja:
+    if dm[ia,ja]<=2:
+     xyz=np.array(models[ic]['rdkit_coords']);r0=min(r0,np.linalg.norm(xyz[ia]-xyz[ja])*.86)
+   elif not full:
+    if not (s.GetName().startswith('ion_') or t.GetName().startswith('ion_')):continue
+   c.SetBumpMergeDistance(s,t,float(r0),False)
+ # Safely adjust the existing object through a compiled C++ bridge, without XMLInput.
+ from obj_bridge import set_bump_scale
+ set_bump_scale(c,scale)
+ print('ANTIBUMP',len(c.GetBumpMergeParList()),'Scale',scale,'Initial cost',c.GetBumpMergeCost(),flush=True)
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 PEAK_FILE=peaks_raw.json NPEAK=18 NSPUR=1 INDEX_SCORE=55 INDEX_DEPTH=6 LMAX=80
+while [[ -r /proc/3434/status ]] && ! grep -q '^State:.*Z' /proc/3434/status; do sleep 5; done
+for id in X1db5091 Xebbd488 X8a6f5a8 X7e382cb Xb7088cf Xedd9c7b; do
+ case "$id" in
+  X7e382cb) vol='250 1800';export TTHERR=.016 TTHSHIFT=-.02 NPEAK=13;;
+  Xb7088cf) vol='700 3200';export TTHERR=.016 TTHSHIFT=-.04 NPEAK=18;;
+  Xedd9c7b) vol='400 2600';export TTHERR=.03 TTHSHIFT=0 NPEAK=18;;
+  X1db5091) vol='1050 1800';export TTHERR=.03 TTHSHIFT=0 NPEAK=18;;
+  Xebbd488) vol='1200 6500';export TTHERR=.03 TTHSHIFT=0 NPEAK=18;;
+  X8a6f5a8) vol='1000 5500';export TTHERR=.03 TTHSHIFT=0 NPEAK=18;;
+ esac
+ for system in ORTHOROMBIC MONOCLINIC; do
+  for center in P C; do
+   timeout 150 python /app/work/index_one.py $id $system $center 4 $vol > /app/work/$id/index_raw_${system}_${center}.log 2>&1
+  done
+ done
+ if [[ "$id" == X1db5091 || "$id" == Xedd9c7b || "$id" == X7e382cb || "$id" == Xb7088cf ]]; then
+  timeout 420 python /app/work/index_one.py $id TRICLINIC P 4 $vol > /app/work/$id/index_raw_TRICLINIC_P.log 2>&1
+ fi
+done
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 PEAK_FILE=peaks_raw.json NPEAK=18 NSPUR=0 INDEX_SCORE=55 INDEX_DEPTH=6 LMAX=34 TTHERR=.025 MAXERR=.06 INDEX_TAG=strict
+while [[ -r /proc/5100/status ]] && ! grep -q '^State:.*Z' /proc/5100/status; do sleep 5; done
+for shift in 0 0.02 -0.02; do
+ TTHSHIFT=$shift timeout 500 python /app/work/index_one.py X1db5091 TRICLINIC P 3 1000 1800 > /app/work/X1db5091/index_raw_strict_$shift.log 2>&1
+done
+python /app/work/collect_candidates.py X1db5091 X8a6f5a8 Xebbd488 X7e382cb Xb7088cf Xedd9c7b
+SEARCH_TIME=2600 MC_STEPS=4000000 TARGET_RW=.07 python /app/work/search_obj.py Xeb393f9 1 1 --rescale > /app/work/Xeb393f9/search1.log 2>&1
+python /app/work/refine_obj.py Xeb393f9 1 /app/work/Xeb393f9/search_1/best.xml --scale > /app/work/Xeb393f9/refine_1.log 2>&1
+import sys,json,numpy as np,networkx as nx
+from rdkit import Chem
+from rdkit.Chem import AllChem,rdMolTransforms
+for sid in ['Xfca9f3c','Xdcc971e','X2327841']:
+ comp=json.load(open('/app/data/instances/'+sid+'/composition.json'));smi=comp['components'][0]['smiles'];r=Chem.AddHs(Chem.MolFromSmiles(smi));AllChem.EmbedMolecule(r,randomSeed=29)
+ g=nx.Graph();g.add_edges_from((b.GetBeginAtomIdx(),b.GetEndAtomIdx()) for b in r.GetBonds() if b.GetBeginAtom().GetSymbol()=='C' and b.GetEndAtom().GetSymbol()=='C')
+ paths=dict(nx.all_pairs_shortest_path(g));path=max([p for di in paths.values() for p in di.values()],key=len);cf=r.GetConformer()
+ for k in range(len(path)-3):rdMolTransforms.SetDihedralDeg(cf,*path[k:k+4],180)
+ props=AllChem.MMFFGetMoleculeProperties(r);ff=AllChem.MMFFGetMoleculeForceField(r,props)
+ for k in range(len(path)-3):ff.MMFFAddTorsionConstraint(*path[k:k+4],False,178,182,100)
+ ff.Initialize();ff.Minimize(maxIts=1000)
+ xyz=Chem.RemoveHs(r).GetConformer().GetPositions();comp['components'][0]['coords']=xyz.tolist()
+ json.dump(comp,open('/app/work/'+sid+'/alltrans.json','w'));print(sid,len(path),np.linalg.norm(xyz[path[-1]]-xyz[path[0]]))
+{
+ "radiation": {
+  "type": "synchrotron",
+  "wavelength_A": 1.23922,
+  "wavelengths_A": [
+   1.23922
+  ],
+  "wavelength_weights": null,
+  "monochromator": "?",
+  "source": "?"
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 293.0,
+ "two_theta_range_deg": [
+  5.05,
+  60.04
+ ],
+ "n_points": 5499,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}

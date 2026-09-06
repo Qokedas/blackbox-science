@@ -1,0 +1,54 @@
+aniso_init.xml
+aniso_test00.xml
+base.xml
+fit_0.xml
+fit_1.xml
+fit_sg18.xml
+fit_sg18doublet.xml
+fit_sg18mono.xml
+pre_scan_sg18.xml
+candidates_sg18.json
+fit_0.json
+fit_1.json
+fit_sg18.json
+fit_sg18doublet.json
+fit_sg18mono.json
+refined_g18.json
+<ObjCryst Date="2026-09-06T08:32:05GMT" Revision="2024001">
+  <Crystal Name="X1a56c78_sg18" SpaceGroup="P 2 21 21">
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="a">5.90525</Par>
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="b">11.2521</Par>
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="c">30.0814</Par>
+    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="alpha">90</Par>
+set -e
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 HBOND_DIRECTIONAL=1 HBOND_ANGLE_WEIGHT=3
+while [[ -r /proc/55226/status ]] && ! grep -q '^State:.*Z' /proc/55226/status;do sleep 5;done
+id=X1a56c78
+for pair in '90 chair84m00' '91 chair84m10';do
+ set -- $pair;run=$1;tag=$2
+ GALLOP_STOL=.29 python /app/work/warm_gallop.py $id $run /app/work/$id/refined_$tag.xml /app/work/$id/search_$tag/model.json > /app/work/$id/warm$run.log 2>&1
+ SEARCH_TIME=800 PARTICLES=128 ITERATIONS=350 BUMP_COEFF=80 HBOND_COEFF=15 MACRO_ELITE_FRAC=.4 START_NPZ=/app/work/$id/gallop_$run/warm.npz START_JITTER=.1 START_TOR_JITTER=.4 python /app/work/search_gallop.py $id $run 1 --hscatter --packing > /app/work/$id/gallop$run.log 2>&1
+ python /app/work/import_gallop.py $id $run > /app/work/$id/import_g$run.log 2>&1
+ python /app/work/refine_obj.py $id g$run /app/work/$id/search_g$run/best.xml --scale --tight --stol=.4 > /app/work/$id/refine_g$run.log 2>&1
+ python /app/work/submit.py $id /app/work/$id/refined_g$run.cif --check > /app/work/$id/check_g$run.log 2>&1
+ python /app/work/check_stereo.py $id /app/work/$id/refined_g$run.cif >> /app/work/$id/check_g$run.log 2>&1
+done
+/app/work/submit.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+X3f4781b Nat 104 molecule sizes [21, 21, 21, 21, 5, 5, 5, 5]
+  component COC(=O)[C@H](c1ccccc1Cl)[NH+]1CCc2sccc2C1 matches 4
+  component O=S(=O)([O-])O matches 4
+  bond range 1.2222915038416582 1.7487818274100082
+  min intermolecular distance 2.4477373201641153
+/app/work/check_stereo.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(fn).parse_structures(primitive=False)[0];s.remove_species(['H']);rad=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<1.2*(rad[:,None]+rad[None,:]));g=nx.from_numpy_array(A)
+X3f4781b root 0 expected {4: 'S'} actual {4: 'S'} OK True
+X3f4781b root 1 expected {4: 'S'} actual {4: 'S'} OK True
+X3f4781b root 32 expected {4: 'S'} actual {4: 'S'} OK True
+X3f4781b root 33 expected {4: 'S'} actual {4: 'S'} OK True
+  s=CifParser(fn).parse_structures(primitive=False)[0];s.remove_species(['H']);rad=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<1.2*(rad[:,None]+rad[None,:]));g=nx.from_numpy_array(A)
+X3f4781b root 0 expected {4: 'S'} actual {4: 'S'} OK True
+X3f4781b root 1 expected {4: 'S'} actual {4: 'S'} OK True
+X3f4781b root 32 expected {4: 'S'} actual {4: 'S'} OK True
+X3f4781b root 33 expected {4: 'S'} actual {4: 'S'} OK True
+Sun Sep  6 11:12:37 UTC 2026

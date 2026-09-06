@@ -1,0 +1,86 @@
+{
+ "components": [
+  {
+   "smiles": "CC(=O)C(=NNc1ccc(C(=O)Nc2ccc(C(N)=O)cc2)cc1)C(=O)Nc1ccc2[nH]c(=O)[nH]c2c1",
+   "count": 1,
+   "charge": 0
+  },
+  {
+   "smiles": "CN1CCCC1=O",
+   "count": 1,
+   "charge": 0
+  },
+  {
+   "smiles": "C[S+](C)[O-]",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}{
+ "radiation": {
+  "type": "Cu K1",
+  "wavelength_A": 1.54056,
+  "wavelengths_A": [
+   1.54056
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": "sealed x-ray tube"
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 298.0,
+ "two_theta_range_deg": [
+  3.0,
+  33.98
+ ],
+ "n_points": 1550,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}/app/work/X019b9a4/candidates.json
+/app/work/X019b9a4/fit_0.json
+/app/work/X019b9a4/index_CUBIC_F_0.json
+/app/work/X019b9a4/index_CUBIC_I_0.json
+/app/work/X019b9a4/index_CUBIC_P_0.json
+/app/work/X019b9a4/index_HEXAGONAL_P_0.json
+/app/work/X019b9a4/index_MONOCLINIC_C_0.json
+/app/work/X019b9a4/index_MONOCLINIC_C_2.json
+/app/work/X019b9a4/index_MONOCLINIC_P_0.json
+/app/work/X019b9a4/index_MONOCLINIC_P_2.json
+/app/work/X019b9a4/index_ORTHOROMBIC_C_0.json
+/app/work/X019b9a4/index_ORTHOROMBIC_I_0.json
+/app/work/X019b9a4/index_ORTHOROMBIC_P_0.json
+/app/work/X019b9a4/index_ORTHOROMBIC_P_2.json
+/app/work/X019b9a4/index_RHOMBOEDRAL_P_0.json
+/app/work/X019b9a4/index_TETRAGONAL_I_0.json
+/app/work/X019b9a4/index_TETRAGONAL_P_0.json
+/app/work/X019b9a4/index_TRICLINIC_P_3.json
+/app/work/X019b9a4/lattice.json
+/app/work/X019b9a4/peaks.json
+{
+ "cell": {
+  "a": 8.445005750645986,
+  "b": 10.921928016393805,
+  "c": 18.442412835425692,
+  "alpha": 90.2884626890573,
+  "beta": 94.00614168977307,
+  "gamma": 106.23346558366082
+ },
+ "space_group": "P -1",
+ "space_group_number": 2
+}{
+ "Rw": 0.1690845755039577,
+ "chi2": 3265.690922326668
+}GALLOP 1 Nref 300 seconds 91.66193175315857 best 47.502228 q25 47.638092 median 212.04114 total 197.58746528625488
+GALLOP 2 Nref 300 seconds 107.77584600448608 best 47.50218 q25 47.54129 median 194.92873 total 305.4974639415741
+GALLOP 3 Nref 300 seconds 71.20502877235413 best 47.502056 q25 47.53339 median 198.05232 total 376.7875061035156
+GALLOP 4 Nref 300 seconds 118.85234379768372 best 47.501705 q25 47.513603 median 158.25714 total 495.6910457611084
+GALLOP 6 Nref 258 seconds 229.62621188163757 best 48.663754 q25 117.61514 median 151.30258 total 1569.4801785945892
+GALLOP 7 Nref 258 seconds 210.32634925842285 best 48.352425 q25 115.751724 median 139.53574 total 1779.8873686790466
+GALLOP 8 Nref 258 seconds 158.19637513160706 best 48.34617 q25 119.18648 median 149.28922 total 1938.2591376304626
+GALLOP 9 Nref 258 seconds 102.779221534729 best 48.345776 q25 112.96901 median 139.76474 total 2041.1752729415894

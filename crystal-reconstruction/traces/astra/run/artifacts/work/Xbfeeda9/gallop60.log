@@ -1,0 +1,14 @@
+/opt/conda/lib/python3.11/site-packages/monty/design_patterns.py:76: UserWarning: Full symbol not available, falling back to short Hermann Mauguin symbol P12_1/a1 instead
+  orig_init(instance, *args, **kwargs)
+FAST_SYMMETRY P 1 21/a 1 mono14 max_relative_error 1.7798283806769177e-06
+ATTACHED_H_SCATTERING 35 heavy atoms 34 H atoms
+PACKING_ENABLED 35 atoms 4120 pair terms coefficient 60.0 active_only True
+HBOND_PRIOR 2 donors 3 acceptors coefficient 12.0
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1181.00it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 442 seconds 251.39163732528687 best 10.270865 q25 304.12317 median 397.11667 total 251.4017391204834
+GALLOP 1 Nref 442 seconds 261.7337427139282 best 10.264007 q25 243.60956 median 359.99988 total 513.3428692817688
+FINISHED Xbfeeda9 10.264006614685059

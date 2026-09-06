@@ -1,0 +1,162 @@
+import sys,os,json,numpy as np
+from pyobjcryst.io import xml_cryst_file_load_all_object,xml_cryst_file_save_global
+from pyobjcryst.refinableobj import refpartype_scattpow_temperature,refpartype_scatt_occup
+from obj_model import add_component,export_cif
+sid=sys.argv[1];run=sys.argv[2];W='/app/work/'+sid;G=W+'/gallop_'+run;R=W+'/search_g'+run;os.makedirs(R,exist_ok=True)
+objs=xml_cryst_file_load_all_object(W+'/base.xml');c=[o for o in objs if o.GetClassName()=='Crystal'][0];p=[o for o in objs if o.GetClassName()=='PowderPattern'][0];d=p.GetPowderPatternComponent(0)
+meta=json.load(open(G+'/model.json'));frac=np.load(G+'/best_frac.npy');offset=0;models=[]
+for j,md in enumerate(meta):
+ n=len(md['order']);xyz=np.zeros((n,3));f=frac[offset:offset+n];offset+=n
+ for i,old in enumerate(md['order']):xyz[old]=c.FractionalToOrthonormalCoords(*map(float,f[i]))
+ m,newmd=add_component(c,md['smiles'],'m'+str(j),coords_override=md['rdkit_coords'])
+ if m.GetClassName()=='Molecule':
+  center=xyz.mean(axis=0);xyz-=center
+  for i,v in enumerate(xyz):a=m.GetAtom(i);a.X,a.Y,a.Z=v
+  m.Q0,m.Q1,m.Q2,m.Q3=1.,0.,0.,0.;m.X,m.Y,m.Z=c.OrthonormalToFractionalCoords(*center)
+ else:m.X,m.Y,m.Z=map(float,f[0])
+ models.append(newmd)
+c.GetOption(1).SetChoice(0);c.SetParIsFixed(refpartype_scattpow_temperature,True);c.SetParIsFixed(refpartype_scatt_occup,True)
+d.SetExtractionMode(False);p.Prepare();p.FitScaleFactorForRw();print('IMPORTED',sid,run,'Rw',p.GetRw(),'Chi2',p.GetChi2(),flush=True)
+json.dump(models,open(R+'/model.json','w'),indent=1);export_cif(c,R+'/best.cif');xml_cryst_file_save_global(R+'/best.xml');json.dump({'Rw':p.GetRw()},open(R+'/best.json','w'))
+[
+ {
+  "smiles": "CC(C)Cc1ccc([C@@H](C)C(=O)O)cc1",
+  "elements": [
+   "C",
+   "C",
+   "C",
+   "C",
+   "C",
+   "C",
+   "C",
+   "C",
+   "C",
+   "C",
+   "C",
+   "O",
+   "O",
+   "C",
+   "C"
+  ],
+  "rdkit_coords": [
+   [
+    5.319738435049394,
+    -0.29651465872527083,
+    -0.5709336940530885
+   ],
+   [
+    3.8538492372482915,
+    0.09117250894885849,
+    -0.7803088305437693
+   ],
+   [
+    3.766274390407692,
+    1.5517570136775334,
+    -1.230375001290812
+   ],
+   [
+    3.0568115535774423,
+    -0.16327833216314147,
+    0.514117851554061
+    <Molecule Name="m0" MDMoveFreq="0" MDMoveEnergy="40" LogLikelihoodScale="1">
+      <Quaternion Q0="0.999865" Q1="0.00273268" Q2="0.000543486" Q3="-0.0162224" IsUnitQuaternion="1"/>
+      <Par Refined="1" Limited="0" Min="0" Max="1" Name="x">0.379518</Par>
+      <Par Refined="1" Limited="0" Min="0" Max="1" Name="y">0.0121041</Par>
+      <Par Refined="1" Limited="0" Min="0" Max="1" Name="z">0.164873</Par>
+      <Par Refined="0" Limited="1" Min="0" Max="1" Name="Occup">1</Par>
+
+      <Option Name="Flexibility Model" Choice="2" ChoiceName="Automatic from Restraints, strict"/>
+      <Option Name="Enable Flipping" Choice="1" ChoiceName="No"/>
+      <Option Name="Auto Optimize Starting Conformation" Choice="1" ChoiceName="No"/>
+      <Option Name="Optimize Orientation" Choice="0" ChoiceName="Yes"/>
+      <Option Name="Rotation Center" Choice="0" ChoiceName="Geometrical center (recommended)"/>
+
+      <Atom Name="m0_C1" ScattPow="C" x="2.24993" y="1.07872" z="-2.32981" Occup="1"/>
+      <Atom Name="m0_C2" ScattPow="C" x="2.2993" y="-0.450194" z="-2.31403" Occup="1"/>
+      <Atom Name="m0_C3" ScattPow="C" x="3.04095" y="-0.950449" z="-3.55434" Occup="1"/>
+      <Atom Name="m0_C4" ScattPow="C" x="0.859629" y="-0.995931" z="-2.23846" Occup="1"/>
+      <Atom Name="m0_C5" ScattPow="C" x="0.0912518" y="-0.533672" z="-1.01839" Occup="1"/>
+      <Atom Name="m0_C6" ScattPow="C" x="-0.480296" y="-1.45812" z="-0.140905" Occup="1"/>
+      <Atom Name="m0_C7" ScattPow="C" x="-0.889977" y="-1.03898" z="1.12493" Occup="1"/>
+      <Atom Name="m0_C8" ScattPow="C" x="-1.20195" y="0.31234" z="1.34777" Occup="1"/>
+      <Atom Name="m0_C9" ScattPow="C" x="-2.05186" y="0.73966" z="2.53294" Occup="1"/>
+      <Atom Name="m0_C10" ScattPow="C" x="-3.02096" y="-0.363235" z="2.978" Occup="1"/>
+      <Atom Name="m0_C11" ScattPow="C" x="-1.19875" y="1.26329" z="3.67821" Occup="1"/>
+      <Atom Name="m0_O12" ScattPow="O" x="-0.333593" y="2.12447" z="3.5889" Occup="1"/>
+      <Atom Name="m0_O13" ScattPow="O" x="-1.33574" y="0.572575" z="4.8285" Occup="1"/>
+      <Atom Name="m0_C14" ScattPow="C" x="-0.925549" y="1.21988" z="0.314143" Occup="1"/>
+      <Atom Name="m0_C15" ScattPow="C" x="-0.126109" y="0.825481" z="-0.769716" Occup="1"/>
+      <Atom Name="m0_H16" ScattPow="H" x="2.26195" y="1.47174" z="-1.30325" Occup="1"/>
+      <Atom Name="m0_H17" ScattPow="H" x="3.13018" y="1.45354" z="-2.87529" Occup="1"/>
+      <Atom Name="m0_H18" ScattPow="H" x="1.32858" y="1.41142" z="-2.83862" Occup="1"/>
+      <Atom Name="m0_H19" ScattPow="H" x="2.86032" y="-0.816843" z="-1.43759" Occup="1"/>
+      <Atom Name="m0_H20" ScattPow="H" x="4.07546" y="-1.23429" z="-3.26165" Occup="1"/>
+      <Atom Name="m0_H21" ScattPow="H" x="2.51406" y="-1.81471" z="-3.98721" Occup="1"/>
+      <Atom Name="m0_H22" ScattPow="H" x="3.0814" y="-0.145208" z="-4.30267" Occup="1"/>
+      <Atom Name="m0_H23" ScattPow="H" x="0.314465" y="-0.667065" z="-3.14179" Occup="1"/>
+      <Atom Name="m0_H24" ScattPow="H" x="0.950269" y="-2.09267" z="-2.18011" Occup="1"/>
+    <Molecule Name="m1" MDMoveFreq="0" MDMoveEnergy="40" LogLikelihoodScale="1">
+      <Quaternion Q0="0.998385" Q1="0.00594266" Q2="-0.0516233" Q3="-0.0229572" IsUnitQuaternion="1"/>
+      <Par Refined="1" Limited="0" Min="0" Max="1" Name="x">0.27451</Par>
+      <Par Refined="1" Limited="0" Min="0" Max="1" Name="y">0.614445</Par>
+      <Par Refined="1" Limited="0" Min="0" Max="1" Name="z">0.56065</Par>
+      <Par Refined="0" Limited="1" Min="0" Max="1" Name="Occup">1</Par>
+
+      <Option Name="Flexibility Model" Choice="2" ChoiceName="Automatic from Restraints, strict"/>
+      <Option Name="Enable Flipping" Choice="1" ChoiceName="No"/>
+      <Option Name="Auto Optimize Starting Conformation" Choice="1" ChoiceName="No"/>
+      <Option Name="Optimize Orientation" Choice="0" ChoiceName="Yes"/>
+      <Option Name="Rotation Center" Choice="0" ChoiceName="Geometrical center (recommended)"/>
+
+      <Atom Name="m1_N1" ScattPow="N" x="-1.36169" y="1.8174" z="1.10559" Occup="1"/>
+      <Atom Name="m1_C2" ScattPow="C" x="-0.14537" y="1.26254" z="1.34821" Occup="1"/>
+      <Atom Name="m1_O3" ScattPow="O" x="0.637093" y="1.87137" z="2.05902" Occup="1"/>
+      <Atom Name="m1_C4" ScattPow="C" x="0.329292" y="0.241399" z="0.383014" Occup="1"/>
+      <Atom Name="m1_C5" ScattPow="C" x="-0.292852" y="0.144534" z="-0.867031" Occup="1"/>
+      <Atom Name="m1_C6" ScattPow="C" x="0.039181" y="-0.902306" z="-1.72831" Occup="1"/>
+      <Atom Name="m1_C7" ScattPow="C" x="0.711258" y="-1.9846" z="-1.19025" Occup="1"/>
+      <Atom Name="m1_N8" ScattPow="N" x="1.18987" y="-2.00188" z="0.0745127" Occup="1"/>
+      <Atom Name="m1_C9" ScattPow="C" x="1.1502" y="-0.819896" z="0.745119" Occup="1"/>
+      <Atom Name="m1_H10" ScattPow="H" x="-2.19928" y="1.21716" z="1.08601" Occup="1"/>
+      <Atom Name="m1_H11" ScattPow="H" x="-1.45684" y="2.83522" z="1.20059" Occup="1"/>
+      <Atom Name="m1_H12" ScattPow="H" x="-1.27419" y="0.634784" z="-0.993019" Occup="1"/>
+      <Atom Name="m1_H13" ScattPow="H" x="-0.39378" y="-0.967904" z="-2.73532" Occup="1"/>
+      <Atom Name="m1_H14" ScattPow="H" x="1.06586" y="-2.75562" z="-1.89097" Occup="1"/>
+      <Atom Name="m1_H15" ScattPow="H" x="2.00123" y="-0.592186" z="1.40283" Occup="1"/>
+      <Bond Atom1="m1_N1" Atom2="m1_C2" Length="1.36794" Delta="0.008" Sigma="0.006" BondOrder="1" FreeTorsion="0"/>
+      <Bond Atom1="m1_C2" Atom2="m1_O3" Length="1.22464" Delta="0.008" Sigma="0.006" BondOrder="2" FreeTorsion="0"/>
+C14 C 0.23545081 0.23775567 0.17638505 1.0 5.0000
+C15 C 0.35598935 0.16283931 0.13751041 1.0 5.0000
+H16 H 0.75088034 0.26618933 0.11845408 1.0 5.0000
+H17 H 0.88038448 0.25936417 0.06219019 1.0 5.0000
+H18 H 0.58152281 0.26228228 0.06356909 1.0 5.0000
+H19 H 0.83650017 0.84907703 0.11317829 1.0 5.0000
+H20 H 0.01908043 0.76828929 0.04780843 1.0 5.0000
+H21 H 0.75013210 0.67324137 0.02181158 1.0 5.0000
+H22 H 0.85045168 0.97204032 0.01083028 1.0 5.0000
+H23 H 0.39914095 0.89278136 0.05236395 1.0 5.0000
+H24 H 0.50575781 0.63037335 0.08645380 1.0 5.0000
+H25 H 0.19978906 0.59581828 0.14409355 1.0 5.0000
+H26 H 0.18499117 0.69156810 0.23088931 1.0 5.0000
+H27 H 0.96652603 0.31266371 0.24376957 1.0 5.0000
+H28 H 0.86009256 0.99971242 0.30838315 1.0 5.0000
+H29 H 0.75322632 0.96069437 0.24744064 1.0 5.0000
+H30 H 0.98348881 0.78202192 0.27042550 1.0 5.0000
+H31 H 0.08009664 0.15102176 0.35857506 1.0 5.0000
+H32 H 0.17382555 0.42573156 0.17866734 1.0 5.0000
+H33 H 0.47053178 0.29113811 0.12111706 1.0 5.0000
+N34 N 0.05343939 0.95234856 0.59589730 1.0 5.0000
+C35 C 0.24902558 0.84146205 0.60871759 1.0 5.0000
+O36 O 0.37769415 0.94366716 0.63718998 1.0 0.7145
+C37 C 0.32786086 0.65463545 0.57560871 1.0 5.0000
+C38 C 0.23410550 0.64450903 0.52880472 1.0 5.0000
+C39 C 0.28823168 0.45405908 0.49885469 1.0 5.0000
+C40 C 0.38707863 0.25194225 0.51991487 1.0 5.0000
+N41 N 0.45602805 0.24262646 0.56665668 1.0 5.0000
+C42 C 0.45299905 0.45536476 0.59096773 1.0 5.0000
+H43 H 0.91004586 0.85097113 0.59181555 1.0 5.0000
+H44 H 0.04465129 0.13688184 0.59944520 1.0 5.0000
+H45 H 0.07606102 0.74154770 0.52096433 1.0 5.0000
+H46 H 0.22411884 0.44757471 0.46140770 1.0 5.0000
+H47 H 0.44574488 0.11086096 0.49590005 1.0 5.0000
+H48 H 0.59056624 0.48822602 0.61760927 1.0 5.0000

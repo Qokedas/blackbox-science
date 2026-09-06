@@ -1,0 +1,148 @@
+-rw-r--r-- 1 root root  80304 Sep  6 04:11 index_TRICLINIC_P_3.log
+-rw-r--r-- 1 root root   4208 Sep  6 04:11 index_TRICLINIC_P_3_partial.json
+-rw-r--r-- 1 root root   5206 Sep  6 05:12 index_de_ext.json
+-rw-r--r-- 1 root root   4010 Sep  6 04:41 index_de_raw.json
+-rw-r--r-- 1 root root   3198 Sep  6 04:37 index_de_raw.json.invalid_cached
+-rw-r--r-- 1 root root    236 Sep  6 05:20 lattice.json
+-rw-r--r-- 1 root root  81473 Sep  6 05:20 lebail.npz
+drwxr-xr-x 2 root root   4096 Sep  6 05:13 oldbase1
+-rw-r--r-- 1 root root    133 Sep  6 04:55 peak_select_ext.json
+-rw-r--r-- 1 root root    109 Sep  6 04:34 peak_select_raw.json
+-rw-r--r-- 1 root root  14848 Sep  6 03:25 peaks.json
+-rw-r--r-- 1 root root 151731 Sep  6 03:25 peaks.png
+-rw-r--r-- 1 root root  21213 Sep  6 04:18 peaks_raw.json
+-rw-r--r-- 1 root root 157669 Sep  6 04:18 peaks_raw.png
+-rw-r--r-- 1 root root  92418 Sep  6 04:12 pre_scan_0.xml
+-rw-r--r-- 1 root root  92299 Sep  6 04:12 pre_scan_1.xml
+-rw-r--r-- 1 root root  92196 Sep  6 04:12 pre_scan_2.xml
+-rw-r--r-- 1 root root 156237 Sep  6 05:10 pre_scan_2d0.xml
+-rw-r--r-- 1 root root 171012 Sep  6 05:10 pre_scan_2d1.xml
+-rw-r--r-- 1 root root  92031 Sep  6 04:12 pre_scan_3.xml
+-rw-r--r-- 1 root root  92281 Sep  6 04:12 pre_scan_4.xml
+-rw-r--r-- 1 root root 106862 Sep  6 04:47 pre_scan_de0.xml
+-rw-r--r-- 1 root root 106832 Sep  6 04:47 pre_scan_de1.xml
+-rw-r--r-- 1 root root 107107 Sep  6 04:47 pre_scan_de2.xml
+-rw-r--r-- 1 root root 199075 Sep  6 05:01 pre_scan_deh0.xml
+-rw-r--r-- 1 root root 199194 Sep  6 05:02 pre_scan_deh1.xml
+-rw-r--r-- 1 root root 199695 Sep  6 05:02 pre_scan_deh2.xml
+-rw-r--r-- 1 root root 127990 Sep  6 06:07 pre_scan_force_mono.xml
+-rw-r--r-- 1 root root 186602 Sep  6 05:02 pre_scan_oldh0.xml
+-rw-r--r-- 1 root root  71709 Sep  6 03:25 processed.npz
+[
+ {
+  "cell": [
+   5.061,
+   11.861999999999998,
+   21.748,
+   93.96,
+   91.916,
+   92.17
+  ],
+  "volume": 1300.7078912620793,
+  "score": 47.37,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 3,
+  "source": "index_TRICLINIC_P_3_partial.json",
+  "sg": "P-1"
+ },
+ {
+  "cell": [
+   5.043,
+   11.890000000000002,
+   21.737999999999996,
+   85.903,
+   88.937,
+   85.34300000000002
+  ],
+  "volume": 1295.7084192597426,
+  "score": 40.59,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 3,
+  "source": "index_TRICLINIC_P_3_partial.json",
+  "sg": "P-1"
+ },
+ {
+  "cell": [
+   4.906,
+   11.855999999999996,
+   21.821025000604596,
+   93.7788018305055,
+   95.16024745103357,
+   92.057
+  ],
+  "volume": 1260.2218481328173,
+  "score": 37.0,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 3,
+  "source": "index_TRICLINIC_P_3_partial.json",
+  "sg": "P-1"
+ },
+ {
+  "cell": [
+   4.892,
+   11.872,
+   21.734000000000005,
+   86.008,
+   89.827,
+   86.48800000000001
+  ],
+  "volume": 1256.8351245822369,
+  "score": 34.39,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 3,
+  "source": "index_TRICLINIC_P_3_partial.json",
+  "sg": "P-1"
+ },
+ {
+  "cell": [
+   4.939,
+   11.849,
+   21.792000000000005,
+   86.00300000000001,
+   85.757,
+   89.681
+  ],
+  "volume": 1268.7271207205683,
+  "score": 32.06,
+  "system": "TRICLINIC",
+  "centering": "P",
+  "mode": 3,
+  "source": "index_TRICLINIC_P_3_partial.json",
+  "sg": "P-1"
+ }
+]{
+ "radiation": {
+  "type": "CuK",
+  "wavelength_A": 1.5418,
+  "wavelengths_A": [
+   1.5418
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": "Fine focus X-ray tube"
+ },
+ "geometry": "reflection (flat plate / Bragg-Brentano)",
+ "geometry_source_text": null,
+ "temperature_K": 298.0,
+ "two_theta_range_deg": [
+  3.001,
+  80.011
+ ],
+ "n_points": 4531,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": [
+  "the depositors recorded Cu K-alpha as a single wavelength 1.5418 A (the K-alpha1/K-alpha2 weighted mean); whether the K-alpha2 component is present in the data is not stated"
+ ]
+}index_TRICLINIC_P_3_partial.json 23 [{"cell": [21.748, 11.862, 5.061, 92.17, 91.916, 93.96], "volume": 1300.85, "score": 47.37, "system": "TRICLINIC", "centering": "P", "mode": 3}, {"cell": [21.746, 11.859, 5.061, 92.159, 91.93, 93.94], "volume": 1300.18, "score": 44.72, "system": "TRICLINIC", "centering": "P", "mode": 3}]
+index_MONOCLINIC_C_2.json 28 [{"cell": [23.677371978759766, 10.014005661010742, 25.409591674804688, 90.00000250447816, 121.58598692495953, 90.00000250447816], "volume": 5132.2138671875, "score": 13.88257122039795, "system": "MONOCLINIC", "centering": "C", "mode": 2}, {"cell": [23.677371978759766, 10.014005661010742, 24.000465393066406, 90.00000250447816, 115.5950777397796, 90.00000250447816], "volume": 5132.21435546875, "score": 13.882547378540039, "system": "MONOCLINIC", "centering": "C", "mode": 2}]
+index_de_ext.json 13 [{"cell": [5.01520615950162, 11.849281743294501, 22.31518113073816, 93.83379149875415, 76.95173473132883, 90.04855245479081], "volume": 1288.8456989145927, "score": 7.790923586003415, "system": "TRICLINIC", "centering": "P", "mode": 9, "cost": 0.05732401225683994, "zero": 0.0041277929390894945, "maxerr": 0.3904600459914006, "rms": 0.06947684761365681}, {"cell": [5.015206159500169, 11.849281743294833, 21.739020226539782, 93.92433107257646, 89.93956042880241, 90.04855245482877], "volume": 1288.845698914078, "score": 7.7909235863208, "system": "TRICLINIC", "centering": "P", "mode": 9, "cost": 0.05732401227718646, "zero": 0.004127792941885007, "maxerr": 0.39046004599593975, "rms": 0.06947684761430631}]
+index_MONOCLINIC_P_0.json 12 [{"cell": [11.849055290222168, 7.602943420410156, 44.24807357788086, 90.00000250447816, 101.45879913914429, 90.00000250447816], "volume": 3906.753662109375, "score": 15.222075462341309, "system": "MONOCLINIC", "centering": "P", "mode": 0}, {"cell": [11.849056243896484, 7.6029438972473145, 43.473846435546875, 90.00000250447816, 94.03436302077291, 90.00000250447816], "volume": 3906.75439453125, "score": 15.222029685974121, "system": "MONOCLINIC", "centering": "P", "mode": 0}]
+index_2d.json 45 [{"cell": [5.015300539154026, 11.848551096845144, 21.736249409548716, 86.07372267291029, 89.93741489382735, 89.94949452576567], "volume": 1288.6231248965883, "score": 5.577571255771557, "system": "TRICLINIC", "centering": "P", "sg": "P -1", "mode": 12, "cost": 0.021123819291047376, "zero": 0.003785092194334565, "rms": 0.06968464654410775, "maxerr": 0.3917635317154294, "source": "2d_completion"}, {"cell": [5.013920389416924, 11.848691767879906, 21.732420668930466, 93.93273478307279, 89.99603528901154, 89.93831716863569], "volume": 1288.04733920152, "score": 5.156285963131948, "system": "TRICLINIC", "centering": "P", "sg": "P -1", "mode": 12, "cost": 0.02686863871222503, "zero": 0.002867643806648101, "rms": 0.06999832694676308, "maxerr": 0.39317190946660735, "source": "2d_completion"}]
+index_MONOCLINIC_P_2.json 40 [{"cell": [11.838685989379883, 5.007002830505371, 21.69516944885254, 90.00000250447816, 93.8859293497302, 90.00000250447816], "volume": 1283.053466796875, "score": 21.56756591796875, "system": "MONOCLINIC", "centering": "P", "mode": 2}, {"cell": [11.838685989379883, 5.007002830505371, 24.000465393066406, 90.00000250447816, 115.5950777397796, 90.00000250447816], "volume": 1283.0535888671875, "score": 21.567440032958984, "system": "MONOCLINIC", "centering": "P", "mode": 2}]
+index_de_raw.json 10 [{"cell": [6.5823459954599235, 12.350915215427259, 21.737378609254012, 85.34164444760395, 86.77689033822949, 73.39526393505177], "volume": 1686.908116155588, "score": 6.506433763702532, "system": "TRICLINIC", "centering": "P", "mode": 9, "cost": 0.07147679694578979, "zero": -0.013222135363572361, "maxerr": 0.3938611082468781, "rms": 0.08243800768153754}, {"cell": [6.582345995248365, 12.223245123156003, 21.737378608370296, 87.03160806594661, 93.22310966077863, 75.53680005056214], "volume": 1686.9081159719772, "score": 6.506433763009836, "system": "TRICLINIC", "centering": "P", "mode": 9, "cost": 0.07147679740114998, "zero": -0.013222136059674585, "maxerr": 0.39386110805470365, "rms": 0.08243800764548431}]

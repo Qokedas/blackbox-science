@@ -1,0 +1,287 @@
+START 0.20685075623206065 14051.046882011615
+ObjRegistry<T>::Find(H): Not found !!
+List of Crystal ScatteringPowers :3 object registered:
+#  0:ScatteringPowerAtom(C)
+#  1:ScatteringPowerAtom(O)
+#  2:ScatteringPowerAtom(Cl)
+WITH_H 0.20106570119774625 14021.914084447355
+Imported powder pattern: 3063 points, 2theta=  5.450 ->  36.080, step= 0.010
+SCALED_SIGMA 2.139587995132528 3062.9999999999645
+TIGHT_RESTRAINTS
+EXCLUDING flip group (breaking a rigid group): m0_0_0_C7,exchanging bonds with m0_0_0_H29 and m0_0_0_H30, resulting in a 180deg rotation of atoms : m0_0_0_H29  m0_0_0_H30  
+EXCLUDING flip group (breaking a rigid group): m0_0_0_C8,exchanging bonds with m0_0_0_C9 and m0_0_0_H31, resulting in a 180deg rotation of atoms : m0_0_0_C9  m0_0_0_H34  m0_0_0_H31  m0_0_0_H32  m0_0_0_H33  
+EXCLUDING flip group (breaking a rigid group): m0_0_0_C9,exchanging bonds with m0_0_0_H34 and m0_0_0_H32, resulting in a 180deg rotation of atoms : m0_0_0_H34  m0_0_0_H32  
+EXCLUDING flip group (breaking a rigid group): m0_0_0_C9,exchanging bonds with m0_0_0_H34 and m0_0_0_H33, resulting in a 180deg rotation of atoms : m0_0_0_H34  m0_0_0_H33  
+EXCLUDING flip group (breaking a rigid group): m0_0_0_C9,exchanging bonds with m0_0_0_H32 and m0_0_0_H33, resulting in a 180deg rotation of atoms : m0_0_0_H32  m0_0_0_H33  
+EXCLUDING flip group (breaking a rigid group): m0_0_0_C10,exchanging bonds with m0_0_0_C3 and m0_0_0_C8, resulting in a 180deg rotation of atoms : m0_0_0_C1  m0_0_0_O2  m0_0_0_C4  m0_0_0_C3  m0_0_0_C5  m0_0_0_O6  m0_0_0_C7  m0_0_0_C8  m0_0_0_C9  m0_0_0_H34  m0_0_0_H25  m0_0_0_H26  m0_0_0_H27  m0_0_0_H28  m0_0_0_H29  m0_0_0_H30  m0_0_0_H31  m0_0_0_H32  m0_0_0_H33  
+Flip group from atom m0_0_0_C1,exchanging bonds with m0_0_0_H25 and m0_0_0_H26, resulting in a 180� rotation of atoms : m0_0_0_H25  m0_0_0_H26  
+Flip group from atom m0_0_0_C1,exchanging bonds with m0_0_0_H25 and m0_0_0_H27, resulting in a 180� rotation of atoms : m0_0_0_H25  m0_0_0_H27  
+Flip group from atom m0_0_0_C1,exchanging bonds with m0_0_0_H26 and m0_0_0_H27, resulting in a 180� rotation of atoms : m0_0_0_H26  m0_0_0_H27  
+Flip group from atom m0_0_0_C17,exchanging bonds with m0_0_0_H35 and m0_0_0_H36, resulting in a 180� rotation of atoms : m0_0_0_H35  m0_0_0_H36  
+Flip group from atom m0_0_0_C17,exchanging bonds with m0_0_0_H35 and m0_0_0_H37, resulting in a 180� rotation of atoms : m0_0_0_H35  m0_0_0_H37  
+Flip group from atom m0_0_0_C17,exchanging bonds with m0_0_0_H36 and m0_0_0_H37, resulting in a 180� rotation of atoms : m0_0_0_H36  m0_0_0_H37  
+Flip group from atom m0_0_0_C21,exchanging bonds with m0_0_0_H39 and m0_0_0_H40, resulting in a 180� rotation of atoms : m0_0_0_H39  m0_0_0_H40  
+Flip group from atom m0_0_0_C21,exchanging bonds with m0_0_0_H39 and m0_0_0_H41, resulting in a 180� rotation of atoms : m0_0_0_H39  m0_0_0_H41  
+Flip group from atom m0_0_0_C21,exchanging bonds with m0_0_0_H40 and m0_0_0_H41, resulting in a 180� rotation of atoms : m0_0_0_H40  m0_0_0_H41  
+Found ring:m0_0_0_C3 m0_0_0_C4 m0_0_0_C5 m0_0_0_C7 m0_0_0_C8 m0_0_0_C10 
+Found ring:m0_0_0_C10 m0_0_0_O11 m0_0_0_C12 m0_0_0_C13 m0_0_0_C15 m0_0_0_C18 m0_0_0_C19 m0_0_0_C22 m0_0_0_C23 
+Found ring:m0_0_0_C12 m0_0_0_C13 m0_0_0_C15 m0_0_0_C18 m0_0_0_C19 m0_0_0_C22 
+Found ring:m0_0_0_C10 m0_0_0_O11 m0_0_0_C12 m0_0_0_C22 m0_0_0_C23 
+Rings found :4, 4 unique.
+List of Bond Length stretch modes
+   Bond:m0_0_0_O2-m0_0_0_C1, Translated Atoms:  m0_0_0_C1,m0_0_0_H25,m0_0_0_H26,m0_0_0_H27, ; restrained to length=1.42338, sigma=0.006, delta=0.008
+       Broken bonds:m0_0_0_C1-m0_0_0_O2, 
+   Bond:m0_0_0_C3-m0_0_0_O2, Translated Atoms:  m0_0_0_C1,m0_0_0_O2,m0_0_0_H25,m0_0_0_H26,m0_0_0_H27, ; restrained to length=1.386, sigma=0.006, delta=0.008
+       Broken bonds:m0_0_0_O2-m0_0_0_C3, 
+   Bond:m0_0_0_C15-m0_0_0_O16, Translated Atoms:  m0_0_0_O16,m0_0_0_C17,m0_0_0_H35,m0_0_0_H36,m0_0_0_H37, ; restrained to length=1.37254, sigma=0.006, delta=0.008
+       Broken bonds:m0_0_0_C15-m0_0_0_O16, 
+   Bond:m0_0_0_O16-m0_0_0_C17, Translated Atoms:  m0_0_0_C17,m0_0_0_H35,m0_0_0_H36,m0_0_0_H37, ; restrained to length=1.42109, sigma=0.006, delta=0.008
+       Broken bonds:m0_0_0_O16-m0_0_0_C17, 
+   Bond:m0_0_0_C19-m0_0_0_O20, Translated Atoms:  m0_0_0_O20,m0_0_0_C21,m0_0_0_H39,m0_0_0_H40,m0_0_0_H41, ; restrained to length=1.3616, sigma=0.006, delta=0.008
+       Broken bonds:m0_0_0_C19-m0_0_0_O20, 
+   Bond:m0_0_0_O20-m0_0_0_C21, Translated Atoms:  m0_0_0_C21,m0_0_0_H39,m0_0_0_H40,m0_0_0_H41, ; restrained to length=1.42112, sigma=0.006, delta=0.008
+       Broken bonds:m0_0_0_O20-m0_0_0_C21, 
+   Bond:m0_0_0_C1-m0_0_0_H25, Translated Atoms:  m0_0_0_H25, ; restrained to length=1.1, sigma=0.02, delta=0.015
+       Broken bonds:m0_0_0_C1-m0_0_0_H25, 
+   Bond:m0_0_0_C1-m0_0_0_H26, Translated Atoms:  m0_0_0_H26, ; restrained to length=1.1, sigma=0.02, delta=0.015
+       Broken bonds:m0_0_0_C1-m0_0_0_H26, 
+   Bond:m0_0_0_C1-m0_0_0_H27, Translated Atoms:  m0_0_0_H27, ; restrained to length=1.1, sigma=0.02, delta=0.015
+       Broken bonds:m0_0_0_C1-m0_0_0_H27, 
+   Bond:m0_0_0_C17-m0_0_0_H35, Translated Atoms:  m0_0_0_H35, ; restrained to length=1.1, sigma=0.02, delta=0.015
+       Broken bonds:m0_0_0_C17-m0_0_0_H35, 
+   Bond:m0_0_0_C17-m0_0_0_H36, Translated Atoms:  m0_0_0_H36, ; restrained to length=1.1, sigma=0.02, delta=0.015
+       Broken bonds:m0_0_0_C17-m0_0_0_H36, 
+   Bond:m0_0_0_C17-m0_0_0_H37, Translated Atoms:  m0_0_0_H37, ; restrained to length=1.1, sigma=0.02, delta=0.015
+       Broken bonds:m0_0_0_C17-m0_0_0_H37, 
+   Bond:m0_0_0_C21-m0_0_0_H39, Translated Atoms:  m0_0_0_H39, ; restrained to length=1.1, sigma=0.02, delta=0.015
+       Broken bonds:m0_0_0_C21-m0_0_0_H39, 
+   Bond:m0_0_0_C21-m0_0_0_H40, Translated Atoms:  m0_0_0_H40, ; restrained to length=1.1, sigma=0.02, delta=0.015
+       Broken bonds:m0_0_0_C21-m0_0_0_H40, 
+   Bond:m0_0_0_C21-m0_0_0_H41, Translated Atoms:  m0_0_0_H41, ; restrained to length=1.1, sigma=0.02, delta=0.015
+       Broken bonds:m0_0_0_C21-m0_0_0_H41, 
+Rejecting StretchModeBondAngle (ring) m0_0_0_C8-m0_0_0_C10-m0_0_0_C3, Rotated Atoms:m0_0_0_C1,m0_0_0_O2,m0_0_0_C4,m0_0_0_C3,m0_0_0_C5,m0_0_0_O6,m0_0_0_C7,m0_0_0_C8,m0_0_0_C9,m0_0_0_H34,m0_0_0_H25,m0_0_0_H26,m0_0_0_H27,m0_0_0_H28,m0_0_0_H29,m0_0_0_H30,m0_0_0_H31,m0_0_0_H32,m0_0_0_H33,
+Rejecting StretchModeBondAngle (ring) m0_0_0_C3-m0_0_0_C10-m0_0_0_C8, Rotated Atoms:m0_0_0_C1,m0_0_0_O2,m0_0_0_C4,m0_0_0_C3,m0_0_0_C5,m0_0_0_O6,m0_0_0_C7,m0_0_0_C8,m0_0_0_C9,m0_0_0_H34,m0_0_0_H25,m0_0_0_H26,m0_0_0_H27,m0_0_0_H28,m0_0_0_H29,m0_0_0_H30,m0_0_0_H31,m0_0_0_H32,m0_0_0_H33,
+ANGLE :m0_0_0_O2-m0_0_0_C1-m0_0_0_H25:m0_0_0_H25,: base rotation=0.974028 free=0
+ANGLE :m0_0_0_O2-m0_0_0_C1-m0_0_0_H26:m0_0_0_H26,: base rotation=0.974028 free=0
+ANGLE :m0_0_0_O2-m0_0_0_C1-m0_0_0_H27:m0_0_0_H27,: base rotation=0.974028 free=0
+ANGLE :m0_0_0_H26-m0_0_0_C1-m0_0_0_H25:m0_0_0_H25,: base rotation=0.974028 free=0
+ANGLE :m0_0_0_H25-m0_0_0_C1-m0_0_0_H26:m0_0_0_H26,: base rotation=0.974028 free=0
+ANGLE :m0_0_0_H27-m0_0_0_C1-m0_0_0_H25:m0_0_0_H25,: base rotation=0.974028 free=0
+ANGLE :m0_0_0_H25-m0_0_0_C1-m0_0_0_H27:m0_0_0_H27,: base rotation=0.974028 free=0
+ANGLE :m0_0_0_H27-m0_0_0_C1-m0_0_0_H26:m0_0_0_H26,: base rotation=0.974028 free=0
+ANGLE :m0_0_0_H26-m0_0_0_C1-m0_0_0_H27:m0_0_0_H27,: base rotation=0.974028 free=0
+ANGLE :m0_0_0_C3-m0_0_0_O2-m0_0_0_C1:m0_0_0_C1,m0_0_0_H25,m0_0_0_H26,m0_0_0_H27,: base rotation=0.974028 free=0
+ANGLE :m0_0_0_C4-m0_0_0_C3-m0_0_0_O2:m0_0_0_C1,m0_0_0_O2,m0_0_0_H25,m0_0_0_H26,m0_0_0_H27,: base rotation=0.974028 free=0
+ANGLE :m0_0_0_C10-m0_0_0_C3-m0_0_0_O2:m0_0_0_C1,m0_0_0_O2,m0_0_0_H25,m0_0_0_H26,m0_0_0_H27,: base rotation=0.974028 free=0
+ANGLE :m0_0_0_C13-m0_0_0_C15-m0_0_0_O16:m0_0_0_O16,m0_0_0_C17,m0_0_0_H35,m0_0_0_H36,m0_0_0_H37,: base rotation=0.974028 free=0
+ANGLE :m0_0_0_C18-m0_0_0_C15-m0_0_0_O16:m0_0_0_O16,m0_0_0_C17,m0_0_0_H35,m0_0_0_H36,m0_0_0_H37,: base rotation=0.974028 free=0
+ANGLE :m0_0_0_C15-m0_0_0_O16-m0_0_0_C17:m0_0_0_C17,m0_0_0_H35,m0_0_0_H36,m0_0_0_H37,: base rotation=0.974028 free=0
+ANGLE :m0_0_0_O16-m0_0_0_C17-m0_0_0_H35:m0_0_0_H35,: base rotation=0.974028 free=0
+ANGLE :m0_0_0_O16-m0_0_0_C17-m0_0_0_H36:m0_0_0_H36,: base rotation=0.974028 free=0
+ANGLE :m0_0_0_O16-m0_0_0_C17-m0_0_0_H37:m0_0_0_H37,: base rotation=0.974028 free=0
+ANGLE :m0_0_0_H36-m0_0_0_C17-m0_0_0_H35:m0_0_0_H35,: base rotation=0.974028 free=0
+ANGLE :m0_0_0_H35-m0_0_0_C17-m0_0_0_H36:m0_0_0_H36,: base rotation=0.974028 free=0
+ANGLE :m0_0_0_H37-m0_0_0_C17-m0_0_0_H35:m0_0_0_H35,: base rotation=0.974028 free=0
+ANGLE :m0_0_0_H35-m0_0_0_C17-m0_0_0_H37:m0_0_0_H37,: base rotation=0.974028 free=0
+ANGLE :m0_0_0_H37-m0_0_0_C17-m0_0_0_H36:m0_0_0_H36,: base rotation=0.974028 free=0
+ANGLE :m0_0_0_H36-m0_0_0_C17-m0_0_0_H37:m0_0_0_H37,: base rotation=0.974028 free=0
+ANGLE :m0_0_0_C18-m0_0_0_C19-m0_0_0_O20:m0_0_0_O20,m0_0_0_C21,m0_0_0_H39,m0_0_0_H40,m0_0_0_H41,: base rotation=0.974028 free=0
+ANGLE :m0_0_0_C22-m0_0_0_C19-m0_0_0_O20:m0_0_0_O20,m0_0_0_C21,m0_0_0_H39,m0_0_0_H40,m0_0_0_H41,: base rotation=0.974028 free=0
+ANGLE :m0_0_0_C19-m0_0_0_O20-m0_0_0_C21:m0_0_0_C21,m0_0_0_H39,m0_0_0_H40,m0_0_0_H41,: base rotation=0.974028 free=0
+ANGLE :m0_0_0_O20-m0_0_0_C21-m0_0_0_H39:m0_0_0_H39,: base rotation=0.974028 free=0
+ANGLE :m0_0_0_O20-m0_0_0_C21-m0_0_0_H40:m0_0_0_H40,: base rotation=0.974028 free=0
+ANGLE :m0_0_0_O20-m0_0_0_C21-m0_0_0_H41:m0_0_0_H41,: base rotation=0.974028 free=0
+ANGLE :m0_0_0_H40-m0_0_0_C21-m0_0_0_H39:m0_0_0_H39,: base rotation=0.974028 free=0
+ANGLE :m0_0_0_H39-m0_0_0_C21-m0_0_0_H40:m0_0_0_H40,: base rotation=0.974028 free=0
+ANGLE :m0_0_0_H41-m0_0_0_C21-m0_0_0_H39:m0_0_0_H39,: base rotation=0.974028 free=0
+ANGLE :m0_0_0_H39-m0_0_0_C21-m0_0_0_H41:m0_0_0_H41,: base rotation=0.974028 free=0
+ANGLE :m0_0_0_H41-m0_0_0_C21-m0_0_0_H40:m0_0_0_H40,: base rotation=0.974028 free=0
+ANGLE :m0_0_0_H40-m0_0_0_C21-m0_0_0_H41:m0_0_0_H41,: base rotation=0.974028 free=0
+TORSION :m0_0_0_C1-m0_0_0_O2:m0_0_0_H25,m0_0_0_H26,m0_0_0_H27,: base rotation=9.74028 free=1
+TORSION :m0_0_0_O2-m0_0_0_C3:m0_0_0_C1,m0_0_0_H25,m0_0_0_H26,m0_0_0_H27,: base rotation=9.74028 free=1
+TORSION :m0_0_0_C15-m0_0_0_O16:m0_0_0_C17,m0_0_0_H35,m0_0_0_H36,m0_0_0_H37,: base rotation=9.74028 free=1
+TORSION :m0_0_0_O16-m0_0_0_C17:m0_0_0_H35,m0_0_0_H36,m0_0_0_H37,: base rotation=9.74028 free=1
+TORSION :m0_0_0_C19-m0_0_0_O20:m0_0_0_C21,m0_0_0_H39,m0_0_0_H40,m0_0_0_H41,: base rotation=9.74028 free=1
+TORSION :m0_0_0_O20-m0_0_0_C21:m0_0_0_H39,m0_0_0_H40,m0_0_0_H41,: base rotation=9.74028 free=1
+TORSION :m0_0_0_C1-m0_0_0_O2:m0_0_0_H25,: base rotation=0.974028 free=0
+TORSION :m0_0_0_C1-m0_0_0_O2:m0_0_0_H26,: base rotation=0.974028 free=0
+TORSION :m0_0_0_C1-m0_0_0_O2:m0_0_0_H27,: base rotation=0.974028 free=0
+TORSION :m0_0_0_C3-m0_0_0_C4:m0_0_0_C1,m0_0_0_O2,m0_0_0_H25,m0_0_0_H26,m0_0_0_H27,: base rotation=0.974028 free=0
+TORSION :m0_0_0_C13-m0_0_0_C15:m0_0_0_O16,m0_0_0_C17,m0_0_0_H35,m0_0_0_H36,m0_0_0_H37,: base rotation=0.974028 free=0
+TORSION :m0_0_0_O16-m0_0_0_C17:m0_0_0_H35,: base rotation=0.974028 free=0
+TORSION :m0_0_0_O16-m0_0_0_C17:m0_0_0_H36,: base rotation=0.974028 free=0
+TORSION :m0_0_0_O16-m0_0_0_C17:m0_0_0_H37,: base rotation=0.974028 free=0
+TORSION :m0_0_0_C15-m0_0_0_C18:m0_0_0_O16,m0_0_0_C17,m0_0_0_H35,m0_0_0_H36,m0_0_0_H37,: base rotation=0.974028 free=0
+TORSION :m0_0_0_C18-m0_0_0_C19:m0_0_0_O20,m0_0_0_C21,m0_0_0_H39,m0_0_0_H40,m0_0_0_H41,: base rotation=0.974028 free=0
+TORSION :m0_0_0_O20-m0_0_0_C21:m0_0_0_H39,: base rotation=0.974028 free=0
+TORSION :m0_0_0_O20-m0_0_0_C21:m0_0_0_H40,: base rotation=0.974028 free=0
+TORSION :m0_0_0_O20-m0_0_0_C21:m0_0_0_H41,: base rotation=0.974028 free=0
+TORSION :m0_0_0_C19-m0_0_0_C22:m0_0_0_O20,m0_0_0_C21,m0_0_0_H39,m0_0_0_H40,m0_0_0_H41,: base rotation=0.974028 free=0
+TORSION :m0_0_0_C10-m0_0_0_C3:m0_0_0_C1,m0_0_0_O2,m0_0_0_H25,m0_0_0_H26,m0_0_0_H27,: base rotation=0.974028 free=0
+TORSION :m0_0_0_C1-m0_0_0_H25:m0_0_0_H26,: base rotation=0.974028 free=0
+TORSION :m0_0_0_C1-m0_0_0_H25:m0_0_0_H27,: base rotation=0.974028 free=0
+TORSION :m0_0_0_C1-m0_0_0_H26:m0_0_0_H25,: base rotation=0.974028 free=0
+TORSION :m0_0_0_C1-m0_0_0_H26:m0_0_0_H27,: base rotation=0.974028 free=0
+TORSION :m0_0_0_C1-m0_0_0_H27:m0_0_0_H25,: base rotation=0.974028 free=0
+TORSION :m0_0_0_C1-m0_0_0_H27:m0_0_0_H26,: base rotation=0.974028 free=0
+TORSION :m0_0_0_C17-m0_0_0_H35:m0_0_0_H36,: base rotation=0.974028 free=0
+TORSION :m0_0_0_C17-m0_0_0_H35:m0_0_0_H37,: base rotation=0.974028 free=0
+TORSION :m0_0_0_C17-m0_0_0_H36:m0_0_0_H35,: base rotation=0.974028 free=0
+TORSION :m0_0_0_C17-m0_0_0_H36:m0_0_0_H37,: base rotation=0.974028 free=0
+TORSION :m0_0_0_C17-m0_0_0_H37:m0_0_0_H35,: base rotation=0.974028 free=0
+TORSION :m0_0_0_C17-m0_0_0_H37:m0_0_0_H36,: base rotation=0.974028 free=0
+TORSION :m0_0_0_C21-m0_0_0_H39:m0_0_0_H40,: base rotation=0.974028 free=0
+TORSION :m0_0_0_C21-m0_0_0_H39:m0_0_0_H41,: base rotation=0.974028 free=0
+TORSION :m0_0_0_C21-m0_0_0_H40:m0_0_0_H39,: base rotation=0.974028 free=0
+TORSION :m0_0_0_C21-m0_0_0_H40:m0_0_0_H41,: base rotation=0.974028 free=0
+TORSION :m0_0_0_C21-m0_0_0_H41:m0_0_0_H39,: base rotation=0.974028 free=0
+TORSION :m0_0_0_C21-m0_0_0_H41:m0_0_0_H40,: base rotation=0.974028 free=0
+Full MD atom group:
+ m0_0_0_C1 m0_0_0_O2 m0_0_0_O16 m0_0_0_C17 m0_0_0_O20 m0_0_0_C21 m0_0_0_H25 m0_0_0_H26 m0_0_0_H27 m0_0_0_H35 m0_0_0_H36 m0_0_0_H37 m0_0_0_H39 m0_0_0_H40 m0_0_0_H41 
+EXCLUDING flip group (breaking a rigid group): m1_0_0_C7,exchanging bonds with m1_0_0_H29 and m1_0_0_H30, resulting in a 180deg rotation of atoms : m1_0_0_H29  m1_0_0_H30  
+EXCLUDING flip group (breaking a rigid group): m1_0_0_C8,exchanging bonds with m1_0_0_C9 and m1_0_0_H31, resulting in a 180deg rotation of atoms : m1_0_0_C9  m1_0_0_H31  m1_0_0_H33  m1_0_0_H34  m1_0_0_H32  
+EXCLUDING flip group (breaking a rigid group): m1_0_0_C9,exchanging bonds with m1_0_0_H33 and m1_0_0_H34, resulting in a 180deg rotation of atoms : m1_0_0_H33  m1_0_0_H34  
+EXCLUDING flip group (breaking a rigid group): m1_0_0_C9,exchanging bonds with m1_0_0_H33 and m1_0_0_H32, resulting in a 180deg rotation of atoms : m1_0_0_H33  m1_0_0_H32  
+EXCLUDING flip group (breaking a rigid group): m1_0_0_C9,exchanging bonds with m1_0_0_H34 and m1_0_0_H32, resulting in a 180deg rotation of atoms : m1_0_0_H34  m1_0_0_H32  
+EXCLUDING flip group (breaking a rigid group): m1_0_0_C10,exchanging bonds with m1_0_0_C3 and m1_0_0_C8, resulting in a 180deg rotation of atoms : m1_0_0_C1  m1_0_0_O2  m1_0_0_C4  m1_0_0_C3  m1_0_0_C5  m1_0_0_O6  m1_0_0_C7  m1_0_0_C8  m1_0_0_C9  m1_0_0_H28  m1_0_0_H29  m1_0_0_H27  m1_0_0_H26  m1_0_0_H25  m1_0_0_H31  m1_0_0_H30  m1_0_0_H33  m1_0_0_H34  m1_0_0_H32  
+Flip group from atom m1_0_0_C1,exchanging bonds with m1_0_0_H27 and m1_0_0_H26, resulting in a 180� rotation of atoms : m1_0_0_H27  m1_0_0_H26  
+Flip group from atom m1_0_0_C1,exchanging bonds with m1_0_0_H27 and m1_0_0_H25, resulting in a 180� rotation of atoms : m1_0_0_H27  m1_0_0_H25  
+Flip group from atom m1_0_0_C1,exchanging bonds with m1_0_0_H26 and m1_0_0_H25, resulting in a 180� rotation of atoms : m1_0_0_H26  m1_0_0_H25  
+Flip group from atom m1_0_0_C17,exchanging bonds with m1_0_0_H35 and m1_0_0_H36, resulting in a 180� rotation of atoms : m1_0_0_H35  m1_0_0_H36  
+Flip group from atom m1_0_0_C17,exchanging bonds with m1_0_0_H35 and m1_0_0_H37, resulting in a 180� rotation of atoms : m1_0_0_H35  m1_0_0_H37  
+Flip group from atom m1_0_0_C17,exchanging bonds with m1_0_0_H36 and m1_0_0_H37, resulting in a 180� rotation of atoms : m1_0_0_H36  m1_0_0_H37  
+Flip group from atom m1_0_0_C21,exchanging bonds with m1_0_0_H40 and m1_0_0_H39, resulting in a 180� rotation of atoms : m1_0_0_H40  m1_0_0_H39  
+Flip group from atom m1_0_0_C21,exchanging bonds with m1_0_0_H40 and m1_0_0_H41, resulting in a 180� rotation of atoms : m1_0_0_H40  m1_0_0_H41  
+Flip group from atom m1_0_0_C21,exchanging bonds with m1_0_0_H39 and m1_0_0_H41, resulting in a 180� rotation of atoms : m1_0_0_H39  m1_0_0_H41  
+Found ring:m1_0_0_C3 m1_0_0_C4 m1_0_0_C5 m1_0_0_C7 m1_0_0_C8 m1_0_0_C10 
+Found ring:m1_0_0_C10 m1_0_0_O11 m1_0_0_C12 m1_0_0_C22 m1_0_0_C23 
+Found ring:m1_0_0_C10 m1_0_0_O11 m1_0_0_C12 m1_0_0_C13 m1_0_0_C15 m1_0_0_C18 m1_0_0_C19 m1_0_0_C22 m1_0_0_C23 
+Found ring:m1_0_0_C12 m1_0_0_C22 m1_0_0_C19 m1_0_0_C18 m1_0_0_C15 m1_0_0_C13 
+Rings found :4, 4 unique.
+List of Bond Length stretch modes
+   Bond:m1_0_0_O2-m1_0_0_C1, Translated Atoms:  m1_0_0_C1,m1_0_0_H27,m1_0_0_H26,m1_0_0_H25, ; restrained to length=1.42339, sigma=0.006, delta=0.008
+       Broken bonds:m1_0_0_C1-m1_0_0_O2, 
+   Bond:m1_0_0_C3-m1_0_0_O2, Translated Atoms:  m1_0_0_C1,m1_0_0_O2,m1_0_0_H27,m1_0_0_H26,m1_0_0_H25, ; restrained to length=1.386, sigma=0.006, delta=0.008
+       Broken bonds:m1_0_0_O2-m1_0_0_C3, 
+   Bond:m1_0_0_C15-m1_0_0_O16, Translated Atoms:  m1_0_0_O16,m1_0_0_C17,m1_0_0_H35,m1_0_0_H36,m1_0_0_H37, ; restrained to length=1.37254, sigma=0.006, delta=0.008
+       Broken bonds:m1_0_0_C15-m1_0_0_O16, 
+   Bond:m1_0_0_O16-m1_0_0_C17, Translated Atoms:  m1_0_0_C17,m1_0_0_H35,m1_0_0_H36,m1_0_0_H37, ; restrained to length=1.42108, sigma=0.006, delta=0.008
+       Broken bonds:m1_0_0_O16-m1_0_0_C17, 
+   Bond:m1_0_0_C19-m1_0_0_O20, Translated Atoms:  m1_0_0_O20,m1_0_0_C21,m1_0_0_H40,m1_0_0_H39,m1_0_0_H41, ; restrained to length=1.3616, sigma=0.006, delta=0.008
+       Broken bonds:m1_0_0_C19-m1_0_0_O20, 
+   Bond:m1_0_0_O20-m1_0_0_C21, Translated Atoms:  m1_0_0_C21,m1_0_0_H40,m1_0_0_H39,m1_0_0_H41, ; restrained to length=1.42112, sigma=0.006, delta=0.008
+       Broken bonds:m1_0_0_O20-m1_0_0_C21, 
+   Bond:m1_0_0_C1-m1_0_0_H25, Translated Atoms:  m1_0_0_H25, ; restrained to length=1.1, sigma=0.02, delta=0.015
+       Broken bonds:m1_0_0_C1-m1_0_0_H25, 
+   Bond:m1_0_0_C1-m1_0_0_H26, Translated Atoms:  m1_0_0_H26, ; restrained to length=1.1, sigma=0.02, delta=0.015
+       Broken bonds:m1_0_0_C1-m1_0_0_H26, 
+   Bond:m1_0_0_C1-m1_0_0_H27, Translated Atoms:  m1_0_0_H27, ; restrained to length=1.1, sigma=0.02, delta=0.015
+       Broken bonds:m1_0_0_C1-m1_0_0_H27, 
+   Bond:m1_0_0_C17-m1_0_0_H35, Translated Atoms:  m1_0_0_H35, ; restrained to length=1.1, sigma=0.02, delta=0.015
+       Broken bonds:m1_0_0_C17-m1_0_0_H35, 
+   Bond:m1_0_0_C17-m1_0_0_H36, Translated Atoms:  m1_0_0_H36, ; restrained to length=1.1, sigma=0.02, delta=0.015
+       Broken bonds:m1_0_0_C17-m1_0_0_H36, 
+   Bond:m1_0_0_C17-m1_0_0_H37, Translated Atoms:  m1_0_0_H37, ; restrained to length=1.1, sigma=0.02, delta=0.015
+       Broken bonds:m1_0_0_C17-m1_0_0_H37, 
+   Bond:m1_0_0_C21-m1_0_0_H39, Translated Atoms:  m1_0_0_H39, ; restrained to length=1.1, sigma=0.02, delta=0.015
+       Broken bonds:m1_0_0_C21-m1_0_0_H39, 
+   Bond:m1_0_0_C21-m1_0_0_H40, Translated Atoms:  m1_0_0_H40, ; restrained to length=1.1, sigma=0.02, delta=0.015
+       Broken bonds:m1_0_0_C21-m1_0_0_H40, 
+   Bond:m1_0_0_C21-m1_0_0_H41, Translated Atoms:  m1_0_0_H41, ; restrained to length=1.1, sigma=0.02, delta=0.015
+       Broken bonds:m1_0_0_C21-m1_0_0_H41, 
+Rejecting StretchModeBondAngle (ring) m1_0_0_C8-m1_0_0_C10-m1_0_0_C3, Rotated Atoms:m1_0_0_C1,m1_0_0_O2,m1_0_0_C4,m1_0_0_C3,m1_0_0_C5,m1_0_0_O6,m1_0_0_C7,m1_0_0_C8,m1_0_0_C9,m1_0_0_H28,m1_0_0_H29,m1_0_0_H27,m1_0_0_H26,m1_0_0_H25,m1_0_0_H31,m1_0_0_H30,m1_0_0_H33,m1_0_0_H34,m1_0_0_H32,
+Rejecting StretchModeBondAngle (ring) m1_0_0_C3-m1_0_0_C10-m1_0_0_C8, Rotated Atoms:m1_0_0_C1,m1_0_0_O2,m1_0_0_C4,m1_0_0_C3,m1_0_0_C5,m1_0_0_O6,m1_0_0_C7,m1_0_0_C8,m1_0_0_C9,m1_0_0_H28,m1_0_0_H29,m1_0_0_H27,m1_0_0_H26,m1_0_0_H25,m1_0_0_H31,m1_0_0_H30,m1_0_0_H33,m1_0_0_H34,m1_0_0_H32,
+ANGLE :m1_0_0_O2-m1_0_0_C1-m1_0_0_H27:m1_0_0_H27,: base rotation=0.974028 free=0
+ANGLE :m1_0_0_O2-m1_0_0_C1-m1_0_0_H26:m1_0_0_H26,: base rotation=0.974028 free=0
+ANGLE :m1_0_0_O2-m1_0_0_C1-m1_0_0_H25:m1_0_0_H25,: base rotation=0.974028 free=0
+ANGLE :m1_0_0_H26-m1_0_0_C1-m1_0_0_H27:m1_0_0_H27,: base rotation=0.974028 free=0
+ANGLE :m1_0_0_H27-m1_0_0_C1-m1_0_0_H26:m1_0_0_H26,: base rotation=0.974028 free=0
+ANGLE :m1_0_0_H25-m1_0_0_C1-m1_0_0_H27:m1_0_0_H27,: base rotation=0.974028 free=0
+ANGLE :m1_0_0_H27-m1_0_0_C1-m1_0_0_H25:m1_0_0_H25,: base rotation=0.974028 free=0
+ANGLE :m1_0_0_H25-m1_0_0_C1-m1_0_0_H26:m1_0_0_H26,: base rotation=0.974028 free=0
+ANGLE :m1_0_0_H26-m1_0_0_C1-m1_0_0_H25:m1_0_0_H25,: base rotation=0.974028 free=0
+ANGLE :m1_0_0_C3-m1_0_0_O2-m1_0_0_C1:m1_0_0_C1,m1_0_0_H27,m1_0_0_H26,m1_0_0_H25,: base rotation=0.974028 free=0
+ANGLE :m1_0_0_C4-m1_0_0_C3-m1_0_0_O2:m1_0_0_C1,m1_0_0_O2,m1_0_0_H27,m1_0_0_H26,m1_0_0_H25,: base rotation=0.974028 free=0
+ANGLE :m1_0_0_C10-m1_0_0_C3-m1_0_0_O2:m1_0_0_C1,m1_0_0_O2,m1_0_0_H27,m1_0_0_H26,m1_0_0_H25,: base rotation=0.974028 free=0
+ANGLE :m1_0_0_C13-m1_0_0_C15-m1_0_0_O16:m1_0_0_O16,m1_0_0_C17,m1_0_0_H35,m1_0_0_H36,m1_0_0_H37,: base rotation=0.974028 free=0
+ANGLE :m1_0_0_C18-m1_0_0_C15-m1_0_0_O16:m1_0_0_O16,m1_0_0_C17,m1_0_0_H35,m1_0_0_H36,m1_0_0_H37,: base rotation=0.974028 free=0
+ANGLE :m1_0_0_C15-m1_0_0_O16-m1_0_0_C17:m1_0_0_C17,m1_0_0_H35,m1_0_0_H36,m1_0_0_H37,: base rotation=0.974028 free=0
+ANGLE :m1_0_0_O16-m1_0_0_C17-m1_0_0_H35:m1_0_0_H35,: base rotation=0.974028 free=0
+ANGLE :m1_0_0_O16-m1_0_0_C17-m1_0_0_H36:m1_0_0_H36,: base rotation=0.974028 free=0
+ANGLE :m1_0_0_O16-m1_0_0_C17-m1_0_0_H37:m1_0_0_H37,: base rotation=0.974028 free=0
+ANGLE :m1_0_0_H36-m1_0_0_C17-m1_0_0_H35:m1_0_0_H35,: base rotation=0.974028 free=0
+ANGLE :m1_0_0_H35-m1_0_0_C17-m1_0_0_H36:m1_0_0_H36,: base rotation=0.974028 free=0
+ANGLE :m1_0_0_H37-m1_0_0_C17-m1_0_0_H35:m1_0_0_H35,: base rotation=0.974028 free=0
+ANGLE :m1_0_0_H35-m1_0_0_C17-m1_0_0_H37:m1_0_0_H37,: base rotation=0.974028 free=0
+ANGLE :m1_0_0_H37-m1_0_0_C17-m1_0_0_H36:m1_0_0_H36,: base rotation=0.974028 free=0
+ANGLE :m1_0_0_H36-m1_0_0_C17-m1_0_0_H37:m1_0_0_H37,: base rotation=0.974028 free=0
+ANGLE :m1_0_0_C22-m1_0_0_C19-m1_0_0_O20:m1_0_0_O20,m1_0_0_C21,m1_0_0_H40,m1_0_0_H39,m1_0_0_H41,: base rotation=0.974028 free=0
+ANGLE :m1_0_0_C18-m1_0_0_C19-m1_0_0_O20:m1_0_0_O20,m1_0_0_C21,m1_0_0_H40,m1_0_0_H39,m1_0_0_H41,: base rotation=0.974028 free=0
+ANGLE :m1_0_0_C19-m1_0_0_O20-m1_0_0_C21:m1_0_0_C21,m1_0_0_H40,m1_0_0_H39,m1_0_0_H41,: base rotation=0.974028 free=0
+ANGLE :m1_0_0_O20-m1_0_0_C21-m1_0_0_H40:m1_0_0_H40,: base rotation=0.974028 free=0
+ANGLE :m1_0_0_O20-m1_0_0_C21-m1_0_0_H39:m1_0_0_H39,: base rotation=0.974028 free=0
+ANGLE :m1_0_0_O20-m1_0_0_C21-m1_0_0_H41:m1_0_0_H41,: base rotation=0.974028 free=0
+ANGLE :m1_0_0_H39-m1_0_0_C21-m1_0_0_H40:m1_0_0_H40,: base rotation=0.974028 free=0
+ANGLE :m1_0_0_H40-m1_0_0_C21-m1_0_0_H39:m1_0_0_H39,: base rotation=0.974028 free=0
+ANGLE :m1_0_0_H41-m1_0_0_C21-m1_0_0_H40:m1_0_0_H40,: base rotation=0.974028 free=0
+ANGLE :m1_0_0_H40-m1_0_0_C21-m1_0_0_H41:m1_0_0_H41,: base rotation=0.974028 free=0
+ANGLE :m1_0_0_H41-m1_0_0_C21-m1_0_0_H39:m1_0_0_H39,: base rotation=0.974028 free=0
+ANGLE :m1_0_0_H39-m1_0_0_C21-m1_0_0_H41:m1_0_0_H41,: base rotation=0.974028 free=0
+TORSION :m1_0_0_C1-m1_0_0_O2:m1_0_0_H27,m1_0_0_H26,m1_0_0_H25,: base rotation=9.74028 free=1
+TORSION :m1_0_0_O2-m1_0_0_C3:m1_0_0_C1,m1_0_0_H27,m1_0_0_H26,m1_0_0_H25,: base rotation=9.74028 free=1
+TORSION :m1_0_0_C15-m1_0_0_O16:m1_0_0_C17,m1_0_0_H35,m1_0_0_H36,m1_0_0_H37,: base rotation=9.74028 free=1
+TORSION :m1_0_0_O16-m1_0_0_C17:m1_0_0_H35,m1_0_0_H36,m1_0_0_H37,: base rotation=9.74028 free=1
+TORSION :m1_0_0_C19-m1_0_0_O20:m1_0_0_C21,m1_0_0_H40,m1_0_0_H39,m1_0_0_H41,: base rotation=9.74028 free=1
+TORSION :m1_0_0_O20-m1_0_0_C21:m1_0_0_H40,m1_0_0_H39,m1_0_0_H41,: base rotation=9.74028 free=1
+TORSION :m1_0_0_C1-m1_0_0_O2:m1_0_0_H27,: base rotation=0.974028 free=0
+TORSION :m1_0_0_C1-m1_0_0_O2:m1_0_0_H26,: base rotation=0.974028 free=0
+TORSION :m1_0_0_C1-m1_0_0_O2:m1_0_0_H25,: base rotation=0.974028 free=0
+TORSION :m1_0_0_C3-m1_0_0_C4:m1_0_0_C1,m1_0_0_O2,m1_0_0_H27,m1_0_0_H26,m1_0_0_H25,: base rotation=0.974028 free=0
+TORSION :m1_0_0_C13-m1_0_0_C15:m1_0_0_O16,m1_0_0_C17,m1_0_0_H35,m1_0_0_H36,m1_0_0_H37,: base rotation=0.974028 free=0
+TORSION :m1_0_0_O16-m1_0_0_C17:m1_0_0_H35,: base rotation=0.974028 free=0
+TORSION :m1_0_0_O16-m1_0_0_C17:m1_0_0_H36,: base rotation=0.974028 free=0
+TORSION :m1_0_0_O16-m1_0_0_C17:m1_0_0_H37,: base rotation=0.974028 free=0
+TORSION :m1_0_0_C15-m1_0_0_C18:m1_0_0_O16,m1_0_0_C17,m1_0_0_H35,m1_0_0_H36,m1_0_0_H37,: base rotation=0.974028 free=0
+TORSION :m1_0_0_C18-m1_0_0_C19:m1_0_0_O20,m1_0_0_C21,m1_0_0_H40,m1_0_0_H39,m1_0_0_H41,: base rotation=0.974028 free=0
+TORSION :m1_0_0_O20-m1_0_0_C21:m1_0_0_H40,: base rotation=0.974028 free=0
+TORSION :m1_0_0_O20-m1_0_0_C21:m1_0_0_H39,: base rotation=0.974028 free=0
+TORSION :m1_0_0_O20-m1_0_0_C21:m1_0_0_H41,: base rotation=0.974028 free=0
+TORSION :m1_0_0_C19-m1_0_0_C22:m1_0_0_O20,m1_0_0_C21,m1_0_0_H40,m1_0_0_H39,m1_0_0_H41,: base rotation=0.974028 free=0
+TORSION :m1_0_0_C10-m1_0_0_C3:m1_0_0_C1,m1_0_0_O2,m1_0_0_H27,m1_0_0_H26,m1_0_0_H25,: base rotation=0.974028 free=0
+TORSION :m1_0_0_C1-m1_0_0_H25:m1_0_0_H27,: base rotation=0.974028 free=0
+TORSION :m1_0_0_C1-m1_0_0_H25:m1_0_0_H26,: base rotation=0.974028 free=0
+TORSION :m1_0_0_C1-m1_0_0_H26:m1_0_0_H27,: base rotation=0.974028 free=0
+TORSION :m1_0_0_C1-m1_0_0_H26:m1_0_0_H25,: base rotation=0.974028 free=0
+TORSION :m1_0_0_C1-m1_0_0_H27:m1_0_0_H26,: base rotation=0.974028 free=0
+TORSION :m1_0_0_C1-m1_0_0_H27:m1_0_0_H25,: base rotation=0.974028 free=0
+TORSION :m1_0_0_C17-m1_0_0_H35:m1_0_0_H36,: base rotation=0.974028 free=0
+TORSION :m1_0_0_C17-m1_0_0_H35:m1_0_0_H37,: base rotation=0.974028 free=0
+TORSION :m1_0_0_C17-m1_0_0_H36:m1_0_0_H35,: base rotation=0.974028 free=0
+TORSION :m1_0_0_C17-m1_0_0_H36:m1_0_0_H37,: base rotation=0.974028 free=0
+TORSION :m1_0_0_C17-m1_0_0_H37:m1_0_0_H35,: base rotation=0.974028 free=0
+TORSION :m1_0_0_C17-m1_0_0_H37:m1_0_0_H36,: base rotation=0.974028 free=0
+TORSION :m1_0_0_C21-m1_0_0_H39:m1_0_0_H40,: base rotation=0.974028 free=0
+TORSION :m1_0_0_C21-m1_0_0_H39:m1_0_0_H41,: base rotation=0.974028 free=0
+TORSION :m1_0_0_C21-m1_0_0_H40:m1_0_0_H39,: base rotation=0.974028 free=0
+TORSION :m1_0_0_C21-m1_0_0_H40:m1_0_0_H41,: base rotation=0.974028 free=0
+TORSION :m1_0_0_C21-m1_0_0_H41:m1_0_0_H40,: base rotation=0.974028 free=0
+TORSION :m1_0_0_C21-m1_0_0_H41:m1_0_0_H39,: base rotation=0.974028 free=0
+Full MD atom group:
+ m1_0_0_C1 m1_0_0_O2 m1_0_0_O16 m1_0_0_C17 m1_0_0_O20 m1_0_0_C21 m1_0_0_H27 m1_0_0_H26 m1_0_0_H25 m1_0_0_H40 m1_0_0_H35 m1_0_0_H36 m1_0_0_H37 m1_0_0_H39 m1_0_0_H41 
+CYCLE 0 0 ok True Rw 0.1741919074480022 chi2 2298.9364223696293 LSQ before/after 0.0 3862.6566165640843 geom 1235.880025392365
+CYCLE 0 1 ok True Rw 0.17113303469638003 chi2 2218.905030538597 LSQ before/after 3862.6566165640843 3785.0267850944497 geom 1235.880025392365
+CYCLE 0 2 ok True Rw 0.170589784341279 chi2 2204.839859732878 LSQ before/after 3785.0267850944497 3769.4710668843554 geom 1235.880025392365
+AFTER_END Rw 0.17058978434127903 chi2 2204.8398597328787 geom 1235.8800253923635
+CYCLE 1 0 ok True Rw 0.14650764566246857 chi2 1626.2660288605596 LSQ before/after 3769.4710668843554 1687.1981003874232 geom 21636.97569938993
+CYCLE 1 1 ok True Rw 0.14618377236602803 chi2 1619.0838512354953 LSQ before/after 1687.1981003874232 2926.526039390441 geom 15867.588417968807
+CYCLE 1 2 ok True Rw 0.1410539519253359 chi2 1507.4451816525616 LSQ before/after 2926.526039390441 1980.4137230832457 geom 15759.652324059181
+AFTER_END Rw 0.14105395192533593 chi2 1507.4451816525623 geom 15759.652324059187
+CYCLE 2 0 ok True Rw 0.14957849741598672 chi2 1695.1547218801618 LSQ before/after 1980.4137230832457 2390.3344462009245 geom 16105.154086635343
+CYCLE 2 1 ok True Rw 0.1455347941870896 chi2 1604.7400196780281 LSQ before/after 2390.3344462009245 2112.9848414983426 geom 19408.64617324843
+CYCLE 2 2 ok True Rw 0.14098470992980924 chi2 1505.9655649256597 LSQ before/after 2112.9848414983426 2556.4430721025387 geom 21354.62632695313
+AFTER_END Rw 0.1409847099298094 chi2 1505.965564925663 geom 21354.626326953134
+CYCLE 3 0 ok True Rw 0.12865358636625934 chi2 1254.0498645565433 LSQ before/after 2556.4430721025387 2147.9512624150098 geom 20705.607797548455
+CYCLE 3 1 ok True Rw 0.12840950579826327 chi2 1249.296031307674 LSQ before/after 2147.9512624150098 1987.401610285795 geom 19512.60043175343
+CYCLE 3 2 ok True Rw 0.12847580804260608 chi2 1250.5864733896647 LSQ before/after 1987.401610285795 2006.3763802493065 geom 18719.089544115275
+AFTER_END Rw 0.12847580804260608 chi2 1250.5864733896656 geom 18719.08954411528
+FINISHED Xd4c1a35 0.12847580804260608

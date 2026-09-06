@@ -1,0 +1,89 @@
+#include <bits/stdc++.h>
+#define private public
+#include <ObjCryst/ObjCryst/PowderPattern.h>
+#include <ObjCryst/ObjCryst/Crystal.h>
+#include <ObjCryst/ObjCryst/DiffractionDataSingleCrystal.h>
+#include <algorithm>
+#include <cstdio>
+#undef private
+using namespace ObjCryst;
+struct AccessDiff : PowderPatternDiffraction {
+ int matrix(double* out, long npoint,long nref) {
+  GetPowderPatternCalc();
+  if(nref>long(mvReflProfile.size())) return -1;
+  std::fill(out,out+npoint*nref,0.0);
+  for(long j=0;j<nref;j++) {
+   auto &r=mvReflProfile[j];
+   double corr=mIntensityCorr(j)*mMultiplicity(j);
+   for(long i=std::max(0L,r.first);i<=std::min(npoint-1,r.last);i++) out[i*nref+j]=r.profile(i-r.first)*corr;
+  }
+  return long(mvReflProfile.size());
+ }
+ void setobs(double *v,long n) {
+  CrystVector_REAL vv(n);for(long i=0;i<n;i++)vv(i)=v[i];
+  mpLeBailData->SetFhklObsSq(vv);
+  SetExtractionMode(true,false);
+ }
+ void march(double frac,double coeff,double h,double k,double l) {mCorrTextureMarchDollase.AddPhase(frac,coeff,h,k,l);}
+};
+struct AccessCrystal: Crystal {void bumpscale(double scale){mBumpMergeScale=scale; mBumpMergeParClock.Click();}};
+extern "C" {
+ int bridge_kind(void *ptr) {auto *r=reinterpret_cast<RefinableObj*>(ptr);std::printf("Object: %s %s\n",r->GetClassName().c_str(),r->GetName().c_str()); return sizeof(REAL);}
+ int bridge_matrix(void *ptr,double *out,long np,long nr) {auto*d=dynamic_cast<PowderPatternDiffraction*>(reinterpret_cast<RefinableObj*>(ptr));if(!d)return -2;return reinterpret_cast<AccessDiff*>(d)->matrix(out,np,nr);}
+ void bridge_setobs(void*ptr,double*v,long n) {auto*d=dynamic_cast<PowderPatternDiffraction*>(reinterpret_cast<RefinableObj*>(ptr));reinterpret_cast<AccessDiff*>(d)->setobs(v,n);}
+ void bridge_march(void*ptr,double frac,double coeff,double h,double k,double l) {auto*d=dynamic_cast<PowderPatternDiffraction*>(reinterpret_cast<RefinableObj*>(ptr));reinterpret_cast<AccessDiff*>(d)->march(frac,coeff,h,k,l);}
+ void bridge_bumpscale(void*ptr,double scale) {auto*c=dynamic_cast<Crystal*>(reinterpret_cast<RefinableObj*>(ptr));reinterpret_cast<AccessCrystal*>(c)->bumpscale(scale);}
+}
+    be faster or use less memory than the fallback method - testing is advised!
+
+    Args:
+        asymmetric_frac_coords (Tensor): The fractional coordinates of the atoms
+            in the asymmetric unit
+        hkl (Tensor): The hkl Miller indices of the observed reflections
+        intensity_calc_prefix_fs (Tensor): The atomic scattering factors,
+            occupancies and DW-factors of all atoms in the unit cell.
+            Only used in fallback method, generated with a Structure object.
+        intensity_calc_prefix_fs_asymmetric (Tensor): The atomic scattering
+            factors, occupancies and DW-factors of atoms in the asymmetric unit.
+            Generated with a Structure object.
+        nsamples_ones (Tensor): a tensor of ones, with the
+            shape(nsamples, natoms, 1). Only used in fallback method
+        affine_matrices (Tensor): Tensor of affine matrices obtained from
+            pymatgen. Only used in fallback method
+        centrosymmetric (bool): True if the space group is centrosymmetric
+            else False
+        space_group_number (integer): The space group number for the current
+            crystal
+
+    Returns:
+        intensities: A tensor of shape (n_samples, n_reflections) containing
+                    the calculated intensities for all hkl's.
+    """
+    pi = 3.141592653589793
+    peaks = hkl.shape[1]
+    if space_group_number == 1:
+        # P1
+        hxkylz = 2 * pi * torch.einsum("ji,klj->kil", hkl, asymmetric_frac_coords)
+        Asqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,torch.cos(hxkylz)).sum(dim=2)**2
+        Bsqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,torch.sin(hxkylz)).sum(dim=2)**2
+        # (a + ib) * (a - ib) = a^2 + b^2
+        intensities = Asqd + Bsqd
+
+    elif space_group_number == 2:
+        # P-1
+        hxkylz = 2 * pi * torch.einsum("ji,klj->kil", hkl, asymmetric_frac_coords)
+        A = 2 * torch.cos(hxkylz)
+        intensities = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,A).sum(dim=2)**2
+
+matrix bridge 0.9953559153945191
+scale Zero 0.001052914831428384
+relTcalc 0.2521484642196341
+start 0.3504335150227262
+lb 1 0.32049094510717635
+prepared 0.07819784684284535
+lb 2 0.07735596077950117
+prepared 0.07735460433188415
+lb 3 0.07713174996145357
+prepared 0.07712940234124983
+lb 4 0.07702260954212448
+prepared 0.0770206888543779

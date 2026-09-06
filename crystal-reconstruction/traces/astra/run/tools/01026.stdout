@@ -1,0 +1,40 @@
+X019b9a4 JSON only P -1
+X07806d9 CIF graph/stereo/cell/SG validated Nat 80
+X13023e3 CIF graph/stereo/cell/SG validated Nat 48
+X14a2b08 JSON only P -1
+X1a56c78 JSON only P 2 21 21
+X1db5091 JSON only P 1 21/c 1
+X2327841 CIF graph/stereo/cell/SG validated Nat 64
+X238783d JSON only P 21 21 21
+X263b09a CIF graph/stereo/cell/SG validated Nat 72
+X35b7fbc JSON only P 21 21 21
+X3c176e2 CIF graph/stereo/cell/SG validated Nat 96
+X3f4781b CIF graph/stereo/cell/SG validated Nat 104
+X4f6fe58 JSON only P -1
+X7e382cb JSON only P -1
+X8a06d7a JSON only P -1
+X8a6f5a8 JSON only P 1
+X9af54a2 JSON only P 1 21 1
+Xb7088cf CIF graph/stereo/cell/SG validated Nat 112
+Xbfc6d2c CIF graph/stereo/cell/SG validated Nat 72
+Xbfeeda9 CIF graph/stereo/cell/SG validated Nat 140
+Xd4c1a35 CIF graph/stereo/cell/SG validated Nat 192
+Xd8634a2 JSON only P -1
+Xdcc971e CIF graph/stereo/cell/SG validated Nat 60
+Xe1fb77b JSON only P 1 21 1
+Xe3a2935 CIF graph/stereo/cell/SG validated Nat 84
+Xeb393f9 CIF graph/stereo/cell/SG validated Nat 37
+Xebbd488 JSON only C 1 2 1
+Xedd9c7b CIF graph/stereo/cell/SG validated Nat 152
+Xf8ac963 CIF graph/stereo/cell/SG validated Nat 84
+Xfca9f3c CIF graph/stereo/cell/SG validated Nat 52
+DONE 30 instances 16 CIFs
+58591 R 542.31 python /app/work/search_conditional.py X9af54a2 86 87 
+58715 R 544.78 python /app/work/search_gallop.py Xb7088cf 31 1 --prepare --hscatter --packing 
+60012 R 337.52 python /app/work/search_gallop.py X7e382cb 88 1 --prepare --hscatter --packing 
+61146 R 142.97 python /app/work/search_gallop.py X019b9a4 12 1 --prepare --hscatter 
+61298 R 104.35 python /app/work/search_conditional.py Xeb393f9 89 90 
+61404 R 75.39 python /app/work/refine_obj.py X3f4781b ninv94m01 /app/work/X3f4781b/search_ninv94m01/best.xml --scale --tight --stol=.4 
+61631 R 4.88 python /app/work/refine_obj.py X14a2b08 ring94c3 /app/work/X14a2b08/search_ring94c3/best.xml --scale --tight --stol=.4 
+61635 R 3.79 python /app/work/warm_gallop.py X1db5091 50 /app/work/X1db5091/search_split50/best.xml /app/work/X1db5091/search_split50/model.json 
+61643 R 0.11 python /app/work/check_stereo.py X1a56c78 /app/work/X1a56c78/refined_g90.cif 

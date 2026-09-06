@@ -1,0 +1,75 @@
+import numpy as np, gemmi, json, types, os
+from rdkit import Chem
+
+def enable_hydrogen_prefix(s, model):
+    """Spherical attached-H scattering, without adding search degrees of freedom.
+    The radial average is sin(2 pi g r)/(2 pi g r), with g=2 sin(theta)/lambda.
+    """
+    metadata=json.load(open(model)) if isinstance(model,str) else model
+    elements=[];counts=[];radii=[]
+    for md in metadata:
+        r=Chem.MolFromSmiles(md['smiles'])
+        for i in md['order']:
+            a=r.GetAtomWithIdx(i);elements.append(a.GetSymbol());counts.append(a.GetTotalNumHs(includeNeighbors=True));radii.append({'C':1.09,'N':1.01,'O':.98,'S':1.34}.get(a.GetSymbol(),1.09))
+    elements=np.array(elements);counts=np.array(counts);radii=np.array(radii)
+    hweight=float(os.environ.get('H_SCATTER_WEIGHT','1.0'))
+    def prefix(self,debye_waller_factors=None,just_asymmetric=False,from_cif=False):
+        if from_cif:raise ValueError('Attached-H prefix is for molecular search models, not CIFs')
+        ss=np.sqrt(np.sum((self.hkl@self.lattice.reciprocal_lattice_crystallographic.matrix)**2,axis=1))/2
+        sf=np.array([[gemmi.Element(str(el)).it92.calculate_sf(float(x*x)) for el in elements] for x in ss])
+        hf=np.array([gemmi.Element('H').it92.calculate_sf(float(x*x)) for x in ss])
+        sf+=hweight*hf[:,None]*counts[None,:]*np.sinc(4*ss[:,None]*radii[None,:])
+        dw=debye_waller_factors or {};B=np.array([dw.get(str(el),3.0) for el in elements]);sf*=np.exp(-ss[:,None]**2*B[None,:])
+        self.fs=sf;self.prefix=sf
+        return sf if just_asymmetric else np.tile(sf,(1,len(self.affine_matrices)))
+    s.generate_intensity_calculation_prefix=types.MethodType(prefix,s)
+    print('ATTACHED_H_SCATTERING',len(elements),'heavy atoms',int(counts.sum()),'H atoms',flush=True)
+[
+ {
+  "smiles": "CN(C)C(=O)C(CC[NH+]1CCC(O)(c2ccc(Cl)cc2)CC1)(c1ccccc1)c1ccccc1",
+  "elements": [
+   "C",
+   "N",
+   "C",
+   "C",
+   "O",
+   "C",
+   "C",
+   "C",
+   "N",
+   "C",
+   "C",
+   "C",
+   "O",
+   "C",
+   "C",
+   "C",
+   "C",
+   "Cl",
+16:      <Par Refined="0" Limited="1" Min="0.3" Max="10" Name="Biso">0.828437</Par>
+23:      <Par Refined="0" Limited="1" Min="0.3" Max="10" Name="Biso">0.556367</Par>
+30:      <Par Refined="0" Limited="1" Min="0.3" Max="10" Name="Biso">1.86083</Par>
+37:      <Par Refined="0" Limited="1" Min="0.3" Max="10" Name="Biso">8.98547</Par>
+44:      <Par Refined="0" Limited="1" Min="0.3" Max="10" Name="Biso">2.94326</Par>
+51:      <Par Refined="0" Limited="1" Min="0.3" Max="10" Name="Biso">5.75482</Par>
+84:      <Par Refined="0" Limited="1" Min="-1" Max="1" Name="globalBiso">0.857482</Par>
+85:      <TextureMarchDollase>
+86:        <TexturePhaseMarchDollase>
+88:          <Par Refined="0" Limited="1" Min="0.1" Max="10" Name="MarchCoeff">1.34244</Par>
+92:        </TexturePhaseMarchDollase>
+93:      </TextureMarchDollase>
+102:        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="globalBiso">0</Par>
+HEAVY_ANCHOR 2 coef 30.0 tolerance_A 0.35
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1849.75it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 442 seconds 251.39163732528687 best 10.270865 q25 304.12317 median 397.11667 total 251.4017391204834
+GALLOP 3 Nref 409 seconds 166.62681889533997 best 131.75261 q25 345.67648 median 522.2008 total 634.7908084392548
+GALLOP 4 Nref 409 seconds 166.6850152015686 best 131.7522 q25 314.9769 median 437.7152 total 801.6652145385742
+GALLOP 5 Nref 409 seconds 216.59508204460144 best 131.75453 q25 375.95554 median 522.49036 total 1018.4850316047668
+GALLOP 6 Nref 409 seconds 196.23130178451538 best 131.75136 q25 346.7422 median 531.90076 total 1214.8057160377502

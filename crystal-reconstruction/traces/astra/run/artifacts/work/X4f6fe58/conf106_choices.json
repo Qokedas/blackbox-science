@@ -1,0 +1,30 @@
+[
+ {
+  "tag": "conf106c0",
+  "energy": 101.24870219179857,
+  "index": 13,
+  "reflected": false,
+  "Rw": 0.13667152455922998
+ },
+ {
+  "tag": "conf106c1",
+  "energy": 101.24870219179857,
+  "index": 13,
+  "reflected": true,
+  "Rw": 0.23058893177019213
+ },
+ {
+  "tag": "conf106c2",
+  "energy": 103.23175079028148,
+  "index": 12,
+  "reflected": false,
+  "Rw": 0.19360843543499373
+ },
+ {
+  "tag": "conf106c3",
+  "energy": 103.23175079028148,
+  "index": 12,
+  "reflected": true,
+  "Rw": 0.14130375342725893
+ }
+]

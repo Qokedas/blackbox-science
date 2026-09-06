@@ -1,0 +1,916 @@
+{
+ "cell": [
+  11.859878191858613,
+  5.01369621206577,
+  21.734570616650437,
+  90.0,
+  86.05010540353668,
+  90.0
+ ],
+ "volume": 1288.6231248965883,
+ "score": 5.577571255771557,
+ "system": "MONOCLINIC",
+ "centering": "P",
+ "sg": "P 1 2/m 1",
+ "mode": 12,
+ "cost": 0.021123819291047376,
+ "zero": 0.003785092194334565,
+ "rms": 0.06968464654410775,
+ "maxerr": 0.3917635317154294,
+ "source": "2d_completion",
+ "sgstart": "P 1 2/m 1",
+ "Rw": 0.0744753038416127,
+ "groups": [
+  {
+   "sg": "P 1 2 1",
+   "number": 3,
+   "Rw": 8.588691853348305,
+   "GoF": 1707.8307424887735,
+   "nGoF": 0.0,
+   "mult": 2
+  },
+  {
+   "sg": "P 1 m 1",
+   "number": 6,
+   "Rw": 8.588691853348305,
+   "GoF": 1707.8307424887735,
+   "nGoF": 0.0,
+   "mult": 2
+  },
+  {
+   "sg": "P 1 2/m 1",
+   "number": 10,
+   "Rw": 8.588691853348305,
+   "GoF": 1707.8307424887735,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 1 21 1",
+   "number": 4,
+   "Rw": 8.620349810170703,
+   "GoF": 1719.3437097823464,
+   "nGoF": 0.0,
+   "mult": 2
+  },
+  {
+   "sg": "P 1 21/m 1",
+   "number": 11,
+   "Rw": 8.620349810170703,
+   "GoF": 1719.3437097823464,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 1 21/c 1",
+   "number": 14,
+   "Rw": 40.018730896634764,
+   "GoF": 35973.00390970604,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 1 c 1",
+   "number": 7,
+   "Rw": 40.02419619872839,
+   "GoF": 36005.18667323809,
+   "nGoF": 0.0,
+   "mult": 2
+  },
+  {
+   "sg": "P 1 2/c 1",
+   "number": 13,
+   "Rw": 40.02419619872839,
+   "GoF": 36005.18667323809,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "A 1 2 1",
+   "number": 5,
+   "Rw": 40.85289701762472,
+   "GoF": 35276.02367397855,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "A 1 m 1",
+   "number": 8,
+   "Rw": 40.85289701762472,
+   "GoF": 35276.02367397855,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "A 1 2/m 1",
+   "number": 12,
+   "Rw": 40.85289701762472,
+   "GoF": 35276.02367397855,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "P 1 21/a 1",
+   "number": 14,
+   "Rw": 46.9262356141149,
+   "GoF": 49478.48211455793,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 1 a 1",
+   "number": 7,
+   "Rw": 46.93131871177188,
+   "GoF": 49519.959553160916,
+   "nGoF": 0.0,
+   "mult": 2
+  },
+  {
+   "sg": "P 1 2/a 1",
+   "number": 13,
+   "Rw": 46.93131871177188,
+   "GoF": 49519.959553160916,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "C 1 2 1",
+   "number": 5,
+   "Rw": 47.73350588235615,
+   "GoF": 48258.03236110595,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "C 1 m 1",
+   "number": 8,
+   "Rw": 47.73350588235615,
+   "GoF": 48258.03236110595,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "C 1 2/m 1",
+   "number": 12,
+   "Rw": 47.73350588235615,
+   "GoF": 48258.03236110595,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "P 1 21/n 1",
+   "number": 14,
+   "Rw": 51.0277069105476,
+   "GoF": 58432.95879254815,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 1 n 1",
+   "number": 7,
+   "Rw": 51.03137859698212,
+   "GoF": 58477.64460867767,
+   "nGoF": 0.0,
+   "mult": 2
+  },
+  {
+   "sg": "P 1 2/n 1",
+   "number": 13,
+   "Rw": 51.03137859698212,
+   "GoF": 58477.64460867767,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "I 1 2 1",
+   "number": 5,
+   "Rw": 51.62616629748469,
+   "GoF": 56383.81429122222,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "I 1 m 1",
+   "number": 8,
+   "Rw": 51.62616629748469,
+   "GoF": 56383.81429122222,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "I 1 2/m 1",
+   "number": 12,
+   "Rw": 51.62616629748469,
+   "GoF": 56383.81429122222,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "A 1 n 1",
+   "number": 9,
+   "Rw": 52.41511977334512,
+   "GoF": 57216.87797923498,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "A 1 a 1",
+   "number": 9,
+   "Rw": 52.41511977334512,
+   "GoF": 57216.877979234974,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "A 1 2/n 1",
+   "number": 15,
+   "Rw": 52.41511977334512,
+   "GoF": 57216.87797923498,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "A 1 2/a 1",
+   "number": 15,
+   "Rw": 52.41511977334512,
+   "GoF": 57216.877979234974,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "C 1 c 1",
+   "number": 9,
+   "Rw": 52.454598786313525,
+   "GoF": 57369.15727202837,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "C 1 n 1",
+   "number": 9,
+   "Rw": 52.454598786313525,
+   "GoF": 57369.15727202837,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "C 1 2/c 1",
+   "number": 15,
+   "Rw": 52.454598786313525,
+   "GoF": 57369.15727202837,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "C 1 2/n 1",
+   "number": 15,
+   "Rw": 52.454598786313525,
+   "GoF": 57369.15727202837,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "I 1 a 1",
+   "number": 9,
+   "Rw": 55.3669068228308,
+   "GoF": 63897.91912958726,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "I 1 c 1",
+   "number": 9,
+   "Rw": 55.3669068228308,
+   "GoF": 63897.91912958724,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "I 1 2/a 1",
+   "number": 15,
+   "Rw": 55.3669068228308,
+   "GoF": 63897.91912958726,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "I 1 2/c 1",
+   "number": 15,
+   "Rw": 55.3669068228308,
+   "GoF": 63897.91912958724,
+   "nGoF": 0.0,
+   "mult": 8
+  }
+ ],
+ "stol": 0.38,
+ "p_pars": {
+  "Zero": 0.014712365113115886,
+  "2ThetaDispl": 0.0,
+  "2ThetaTransp": 0.0,
+  "DIFC": 48277.14,
+  "DIFA": -6.7,
+  "MuR": 0.0,
+  "Scale_": 0.0003036432304148716
+ },
+ "d_pars": {
+  "Global Biso": 0.0
+ }
+}{
+ "cell": [
+  5.0091383238525715,
+  11.848563275546834,
+  21.71794934646855,
+  86.05896163393095,
+  89.84305466129743,
+  89.82859972805159
+ ],
+ "volume": 1288.6231248965883,
+ "score": 5.577571255771557,
+ "system": "TRICLINIC",
+ "centering": "P",
+ "sg": "P -1",
+ "mode": 12,
+ "cost": 0.021123819291047376,
+ "zero": 0.003785092194334565,
+ "rms": 0.06968464654410775,
+ "maxerr": 0.3917635317154294,
+ "source": "2d_completion",
+ "sgstart": "P -1",
+ "Rw": 0.06761190137761997,
+ "groups": [
+  {
+   "sg": "P 1",
+   "number": 1,
+   "Rw": 8.104956144040095,
+   "GoF": 1687.156220372542,
+   "nGoF": 598.994173661858,
+   "mult": 1
+  },
+  {
+   "sg": "P -1",
+   "number": 2,
+   "Rw": 8.104956144040095,
+   "GoF": 1687.156220372542,
+   "nGoF": 598.9941736618578,
+   "mult": 2
+  }
+ ],
+ "stol": 0.38,
+ "p_pars": {
+  "Zero": 0.00214664006591424,
+  "2ThetaDispl": 0.0,
+  "2ThetaTransp": 0.0,
+  "DIFC": 48277.14,
+  "DIFA": -6.7,
+  "MuR": 0.0,
+  "Scale_": 0.000303859749717399
+ },
+ "d_pars": {
+  "Global Biso": 0.0
+ }
+}{
+ "cell": [
+  11.838503525695577,
+  5.004072815900225,
+  21.694320968178932,
+  90.0,
+  86.06823685026342,
+  90.0
+ ],
+ "system": "MONOCLINIC",
+ "centering": "P",
+ "sg": "P 1 21 1",
+ "score": 0,
+ "volume": 1300,
+ "sgstart": "P 1 21 1",
+ "Rw": 0.09635277107538187,
+ "groups": [
+  {
+   "sg": "P 1 2 1",
+   "number": 3,
+   "Rw": 11.527605591114801,
+   "GoF": 3408.5759925615744,
+   "nGoF": 0.0,
+   "mult": 2
+  },
+  {
+   "sg": "P 1 m 1",
+   "number": 6,
+   "Rw": 11.527605591114801,
+   "GoF": 3408.5759925615744,
+   "nGoF": 0.0,
+   "mult": 2
+  },
+  {
+   "sg": "P 1 2/m 1",
+   "number": 10,
+   "Rw": 11.527605591114801,
+   "GoF": 3408.5759925615744,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 1 21 1",
+   "number": 4,
+   "Rw": 11.53013314118825,
+   "GoF": 3407.5505118765677,
+   "nGoF": 0.0,
+   "mult": 2
+  },
+  {
+   "sg": "P 1 21/m 1",
+   "number": 11,
+   "Rw": 11.53013314118825,
+   "GoF": 3407.5505118765677,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 1 21/c 1",
+   "number": 14,
+   "Rw": 41.79591163905984,
+   "GoF": 43630.79989661689,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 1 c 1",
+   "number": 7,
+   "Rw": 41.799240599207316,
+   "GoF": 43669.20101490952,
+   "nGoF": 0.0,
+   "mult": 2
+  },
+  {
+   "sg": "P 1 2/c 1",
+   "number": 13,
+   "Rw": 41.799240599207316,
+   "GoF": 43669.20101490952,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "A 1 2 1",
+   "number": 5,
+   "Rw": 42.406069096699724,
+   "GoF": 43053.55208432231,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "A 1 m 1",
+   "number": 8,
+   "Rw": 42.406069096699724,
+   "GoF": 43053.55208432231,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "A 1 2/m 1",
+   "number": 12,
+   "Rw": 42.406069096699724,
+   "GoF": 43053.55208432231,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "P 1 21/a 1",
+   "number": 14,
+   "Rw": 47.98311022144895,
+   "GoF": 57421.859407284544,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 1 a 1",
+   "number": 7,
+   "Rw": 47.986650518999255,
+   "GoF": 57471.66479152852,
+   "nGoF": 0.0,
+   "mult": 2
+  },
+  {
+   "sg": "P 1 2/a 1",
+   "number": 13,
+   "Rw": 47.986650518999255,
+   "GoF": 57471.66479152852,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "C 1 2 1",
+   "number": 5,
+   "Rw": 48.56957265115987,
+   "GoF": 56187.36220754791,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "C 1 m 1",
+   "number": 8,
+   "Rw": 48.56957265115987,
+   "GoF": 56187.36220754791,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "C 1 2/m 1",
+   "number": 12,
+   "Rw": 48.56957265115987,
+   "GoF": 56187.36220754791,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "P 1 21/n 1",
+   "number": 14,
+   "Rw": 51.75881621123594,
+   "GoF": 66742.25701189156,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 1 n 1",
+   "number": 7,
+   "Rw": 51.761081840855894,
+   "GoF": 66796.08582792898,
+   "nGoF": 0.0,
+   "mult": 2
+  },
+  {
+   "sg": "P 1 2/n 1",
+   "number": 13,
+   "Rw": 51.761081840855894,
+   "GoF": 66796.08582792898,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "I 1 2 1",
+   "number": 5,
+   "Rw": 52.43441202346012,
+   "GoF": 65665.55857289136,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "I 1 m 1",
+   "number": 8,
+   "Rw": 52.43441202346012,
+   "GoF": 65665.55857289136,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "I 1 2/m 1",
+   "number": 12,
+   "Rw": 52.43441202346012,
+   "GoF": 65665.55857289136,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "A 1 n 1",
+   "number": 9,
+   "Rw": 53.746951909483485,
+   "GoF": 68218.97391495832,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "A 1 2/n 1",
+   "number": 15,
+   "Rw": 53.746951909483485,
+   "GoF": 68218.97391495832,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "A 1 a 1",
+   "number": 9,
+   "Rw": 53.7469519094835,
+   "GoF": 68218.97391495835,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "A 1 2/a 1",
+   "number": 15,
+   "Rw": 53.7469519094835,
+   "GoF": 68218.97391495835,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "C 1 c 1",
+   "number": 9,
+   "Rw": 53.80636690930658,
+   "GoF": 68068.59269380727,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "C 1 n 1",
+   "number": 9,
+   "Rw": 53.80636690930658,
+   "GoF": 68068.59269380727,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "C 1 2/c 1",
+   "number": 15,
+   "Rw": 53.80636690930658,
+   "GoF": 68068.59269380727,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "C 1 2/n 1",
+   "number": 15,
+   "Rw": 53.80636690930658,
+   "GoF": 68068.59269380727,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "I 1 a 1",
+   "number": 9,
+   "Rw": 56.263695939859545,
+   "GoF": 74681.08767824003,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "I 1 c 1",
+   "number": 9,
+   "Rw": 56.263695939859545,
+   "GoF": 74681.08767824006,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "I 1 2/a 1",
+   "number": 15,
+   "Rw": 56.263695939859545,
+   "GoF": 74681.08767824003,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "I 1 2/c 1",
+   "number": 15,
+   "Rw": 56.263695939859545,
+   "GoF": 74681.08767824006,
+   "nGoF": 0.0,
+   "mult": 8
+  }
+ ],
+ "stol": 0.33,
+ "p_pars": {
+  "Zero": -0.01708525190845462,
+  "2ThetaDispl": 0.0,
+  "2ThetaTransp": 0.0,
+  "DIFC": 48277.14,
+  "DIFA": -6.7,
+  "MuR": 0.0,
+  "Scale_": 0.0003070035578559243
+ },
+ "d_pars": {
+  "Global Biso": 0.0
+ }
+}{
+ "radiation": {
+  "type": "CuK",
+  "wavelength_A": 1.5418,
+  "wavelengths_A": [
+   1.5418
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": "Fine focus X-ray tube"
+ },
+ "geometry": "reflection (flat plate / Bragg-Brentano)",
+ "geometry_source_text": null,
+ "temperature_K": 298.0,
+ "two_theta_range_deg": [
+  3.001,
+  80.011
+ ],
+ "n_points": 4531,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": [
+  "the depositors recorded Cu K-alpha as a single wavelength 1.5418 A (the K-alpha1/K-alpha2 weighted mean); whether the K-alpha2 component is present in the data is not stated"
+ ]
+}index_ORTHOROMBIC_P_0.log
+index_ORTHOROMBIC_P_2.json
+index_ORTHOROMBIC_P_2.log
+index_RHOMBOEDRAL_P_0.json
+index_RHOMBOEDRAL_P_0.log
+index_TETRAGONAL_I_0.json
+index_TETRAGONAL_I_0.log
+index_TETRAGONAL_P_0.json
+index_TETRAGONAL_P_0.log
+index_TRICLINIC_P_3.log
+index_TRICLINIC_P_3_partial.json
+index_de_ext.json
+index_de_raw.json
+index_de_raw.json.invalid_cached
+lattice.json
+lebail.npz
+oldbase1
+peak_select_ext.json
+peak_select_raw.json
+peaks.json
+peaks.png
+peaks_raw.json
+peaks_raw.png
+pre_scan_0.xml
+pre_scan_1.xml
+pre_scan_2.xml
+pre_scan_2d0.xml
+pre_scan_2d1.xml
+pre_scan_3.xml
+pre_scan_4.xml
+pre_scan_de0.xml
+pre_scan_de1.xml
+pre_scan_de2.xml
+pre_scan_deh0.xml
+pre_scan_deh1.xml
+pre_scan_deh2.xml
+pre_scan_force_mono.xml
+pre_scan_oldh0.xml
+processed.npz
+refine_g11.log
+refine_g11_stage0.cif
+refine_g11_stage0.xml
+refine_g11_stage1.cif
+refine_g11_stage1.xml
+refine_g11_stage2.cif
+refine_g11_stage2.xml
+refine_g11_stage3.cif
+refine_g11_stage3.xml
+refined_g11.cif
+refined_g11.json
+refined_g11.png
+refined_g11.xml
+scaled_refine.xye
+search_g11
+submission_before_sgaudit.json
+{
+ "baseline_Rw": 0.05860717799289177,
+ "baseline_chi2": 2246.399159607852,
+ "scan": [
+  {
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "MD": 1.0778021460420646,
+   "chi2": 2228.876927360463,
+   "Rw": 0.058377659452834595
+  },
+  {
+   "axis": [
+    1,
+    -1,
+    0
+   ],
+   "MD": 1.0461622440362601,
+   "chi2": 2231.1291970475795,
+   "Rw": 0.05840714718102706
+  },
+  {
+   "axis": [
+    1,
+    -1,
+    1
+   ],
+   "MD": 1.0369629375770943,
+   "chi2": 2232.595005887826,
+   "Rw": 0.05842633021528671
+  },
+  {
+   "axis": [
+    1,
+    -1,
+    -1
+   ],
+   "MD": 1.0462423589773615,
+   "chi2": 2236.312340049619,
+   "Rw": 0.05847495073555797
+  },
+  {
+   "axis": [
+    1,
+    0,
+    -1
+   ],
+   "MD": 0.9506834866745667,
+   "chi2": 2237.834215553252,
+   "Rw": 0.05849484430281943
+  },
+  {
+   "axis": [
+    0,
+    1,
+    -1
+   ],
+   "MD": 1.0331873682881991,
+   "chi2": 2239.327510451785,
+   "Rw": 0.0585143576976867
+  },
+  {
+   "axis": [
+    1,
+    1,
+    -1
+   ],
+   "MD": 0.9762193696381757,
+   "chi2": 2240.108221044895,
+   "Rw": 0.058524556919934655
+  },
+  {
+   "axis": [
+    1,
+    1,
+    0
+   ],
+   "MD": 0.9789412469853799,
+   "chi2": 2240.9598207394665,
+   "Rw": 0.05853568021265852
+  },
+  {
+   "axis": [
+    1,
+    0,
+    1
+   ],
+   "MD": 1.0195864013097864,
+   "chi2": 2241.255959369293,
+   "Rw": 0.058539547774969405
+  },
+  {
+   "axis": [
+    0,
+    1,
+    1
+   ],
+   "MD": 1.0362465373825265,
+   "chi2": 2242.0489504740253,
+   "Rw": 0.05854990295886647
+  },
+  {
+   "axis": [
+    1,
+    1,
+    1
+   ],
+   "MD": 0.9826696212878792,
+   "chi2": 2243.3388223522306,
+   "Rw": 0.058566742692516015
+  },
+  {
+   "axis": [
+    1,
+    0,
+    0
+   ],
+   "MD": 1.0119934910133164,
+   "chi2": 2245.5253317694296,
+   "Rw": 0.05859527729129561
+  },
+  {
+   "axis": [
+    0,
+    0,
+    1
+   ],
+   "MD": 0.997519863874946,
+   "chi2": 2246.342153949976,
+   "Rw": 0.05860593349939352
+  }
+ ]
+}ATTACHED_H_SCATTERING 40 heavy atoms 20 H atoms
+PACKING_ENABLED 40 atoms 2204 pair terms coefficient 70.0 active_only True
+HBOND_PRIOR 2 donors 4 acceptors coefficient 12.0
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X4f6fe58 164.42037963867188
+CONDITIONAL 0 [0] best 161.30221557617188 q25 439.87305 sec 194.72371339797974
+CONDITIONAL 1 [1] best 151.372314453125 q25 455.48807 sec 415.999653339386
+ATTACHED_H_SCATTERING 38 heavy atoms 24 H atoms
+PACKING_ENABLED 38 atoms 4884 pair terms coefficient 70.0 active_only True
+HBOND_PRIOR 2 donors 8 acceptors coefficient 40.0
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X1db5091 165.75013732910156
+CONDITIONAL 0 [1] best 163.57705688476562 q25 180.29877 sec 174.9730508327484
+CONDITIONAL 1 [1] best 163.5774688720703 q25 173.80092 sec 357.3564784526825

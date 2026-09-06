@@ -1,0 +1,14 @@
+Elapsed time : 2.12 s.
+Finished Optimization, final cost=    33246.03 (dt=2.1s)
+Finished optimizing initial conformation of Molecule:mol0_0
+xyz 0.605 0.302 0.137  Rwp dyn=0.568 nodyn=0.568
+xyz 0.026 0.344 0.709  Rwp dyn=0.570 nodyn=0.570
+xyz 0.193 0.457 0.475  Rwp dyn=0.570 nodyn=0.570
+xyz 0.270 0.859 0.942  Rwp dyn=0.569 nodyn=0.569
+xyz 0.485 0.768 0.810  Rwp dyn=0.569 nodyn=0.569
+xyz 0.089 0.202 0.896  Rwp dyn=0.569 nodyn=0.569
+n components 12
+  occ 1.000 dynpop 1.000  xyz 0.125 0.393 1.008
+  occ 1.000 dynpop 1.000  xyz 0.032 0.317 0.981
+  occ 1.000 dynpop 1.000  xyz 0.031 0.343 0.838
+  occ 1.000 dynpop 1.000  xyz 0.081 0.469 0.806

@@ -1,0 +1,33 @@
+Xe3a2935 ORTHOROMBIC P 2 peaks [2.68655, 2.93516, 3.74625, 4.69594, 4.8025, 4.88503, 5.22169, 5.41076, 5.61361, 5.87383, 6.19031, 6.48384, 6.65521, 7.05371, 7.20834, 7.49647, 7.81117, 7.92689, 8.28267, 8.346, 8.48027, 8.51462] V 504.9749450683594 3780 Lmax 43.616950455549265
+3->43.617,1.62468,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+504.975->3780,467.867,6.9999
+Starting: V=504.975->972.842
+Finished: V=504.975->972.842 A^3, 287 unit cells tested, 141869 tests/s,   Elapsed time=0.002035s
+Starting: V=972.842->1440.71
+    a= 6.89- 6.94 b=10.27-10.32 c=19.95-20.00 alpha= 90.00- 90.00 beta= 90.00- 90.00 gamma= 90.00- 90.00 V=1412.94-1433.74level=4, indexed=1(0 sol.)
+    a=0.14505-0.14402 b=0.09735-0.09687 c=0.05012-0.05000 alpha=0.00000-0.00000 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(0 sol.)
+ Solution ? a=  6.880 b= 10.295 c= 19.980 alpha= 90.000 beta= 90.000 gamma= 90.000 V= 1415.18 score= 16.87 #   0
+Finished: V=972.842->1440.71 A^3, 995 unit cells tested, 170406 tests/s,   Elapsed time=0.005846s
+Starting: V=1440.71->1908.58
+    a= 6.89- 6.94 b=10.27-10.32 c=19.95-20.00 alpha= 90.00- 90.00 beta= 90.00- 90.00 gamma= 90.00- 90.00 V=1412.94-1433.74level=4, indexed=1(1 sol.)
+    a=0.14505-0.14402 b=0.09735-0.09687 c=0.05012-0.05000 alpha=0.00000-0.00000 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(1 sol.)
+ Solution ? a=  6.880 b= 10.295 c= 19.980 alpha= 90.000 beta= 90.000 gamma= 90.000 V= 1415.18 score= 16.87 #   1
+Finished: V=1440.71->1908.58 A^3, 2164 unit cells tested, 202945 tests/s,   Elapsed time=0.010672s
+Starting: V=1908.58->2376.44
+Finished: V=1908.58->2376.44 A^3, 4221 unit cells tested, 251835 tests/s,   Elapsed time=0.016767s
+Starting: V=2376.44->2844.31
+Finished: V=2376.44->2844.31 A^3, 7560 unit cells tested, 295798 tests/s,   Elapsed time=0.025566s
+Starting: V=2844.31->3312.18
+Finished: V=2844.31->3312.18 A^3, 11376 unit cells tested, 317819 tests/s,   Elapsed time=0.035802s
+Starting: V=3312.18->3780
+Finished: V=3312.18->3780 A^3, 16228 unit cells tested, 346915 tests/s,   Elapsed time=0.046786s
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=6.88002, b=10.2949, c=19.9801, alpha=90, beta=90, gamma=90, V=1415.18, score=16.8728
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=6.90238, b=20.6294, c=19.9843, alpha=90, beta=90, gamma=90, V=2845.6, score=5.76123
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=6.90238, b=19.9843, c=20.6294, alpha=90, beta=90, gamma=90, V=2845.6, score=5.76123
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=6.9156, b=10.3167, c=40.0344, alpha=90, beta=90, gamma=90, V=2856.31, score=4.94765
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=7.4508, b=10.2993, c=39.9277, alpha=90, beta=90, gamma=90, V=3063.98, score=4.68134
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=10.2889, b=13.6121, c=19.9507, alpha=90, beta=90, gamma=90, V=2794.18, score=3.49115
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2609 BEST ? a=6.88002, b=10.2949, c=19.9801, alpha=90, beta=90, gamma=90, V=1415.18, score=16.8728
+16228unit cells tested, 343537 tests/s,   Elapsed time=0.047244s
+DONE Xe3a2935 ORTHOROMBIC P 6 0.04755115509033203 [{'cell': [6.88002347946167, 10.294910430908203, 19.980104446411133, 90.00000250447816, 90.00000250447816, 90.00000250447816], 'volume': 1415.17529296875, 'score': 16.872819900512695, 'system': 'ORTHOROMBIC', 'centering': 'P', 'mode': 2}, {'cell': [6.902384281158447, 20.6294002532959, 19.984291076660156, 90.00000250447816, 90.00000250447816, 90.00000250447816], 'volume': 2845.60400390625, 'score': 5.761233329772949, 'system': 'ORTHOROMBIC', 'centering': 'P', 'mode': 2}, {'cell': [6.902384281158447, 19.984291076660156, 20.6294002532959, 90.00000250447816, 90.00000250447816, 90.00000250447816], 'volume': 2845.60400390625, 'score': 5.761233329772949, 'system': 'ORTHOROMBIC', 'centering': 'P', 'mode': 2}, {'cell': [6.915600776672363, 10.316739082336426, 40.03438949584961, 90.00000250447816, 90.00000250447816, 90.00000250447816], 'volume': 2856.3115234375, 'score': 4.947649955749512, 'system': 'ORTHOROMBIC', 'centering': 'P', 'mode': 2}, {'cell': [7.450796604156494, 10.299321174621582, 39.927730560302734, 90.00000250447816, 90.00000250447816, 90.00000250447816], 'volume': 3063.97998046875, 'score': 4.6813435554504395, 'system': 'ORTHOROMBIC', 'centering': 'P', 'mode': 2}]

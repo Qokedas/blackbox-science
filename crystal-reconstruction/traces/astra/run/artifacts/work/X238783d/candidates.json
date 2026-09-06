@@ -1,0 +1,53 @@
+[
+ {
+  "cell": [
+   8.858759880065918,
+   20.162130355834954,
+   23.97988891601562,
+   90.0,
+   90.06368035811019,
+   90.0
+  ],
+  "volume": 4283.080600121341,
+  "score": 21.981035232543945,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 0,
+  "source": "index_MONOCLINIC_P_0.json",
+  "sg": "P2/m"
+ },
+ {
+  "cell": [
+   8.857086181640625,
+   23.971006393432614,
+   40.31337356567383,
+   90.0,
+   90.0,
+   90.0
+  ],
+  "volume": 8559.064145790744,
+  "score": 17.0938720703125,
+  "system": "ORTHOROMBIC",
+  "centering": "P",
+  "mode": 0,
+  "source": "index_ORTHOROMBIC_P_0.json",
+  "sg": "Pmmm"
+ },
+ {
+  "cell": [
+   8.858759880065918,
+   20.162130355834954,
+   23.97988891601562,
+   90.0,
+   90.0,
+   90.0
+  ],
+  "volume": 4283.080600121341,
+  "score": 0,
+  "system": "ORTHOROMBIC",
+  "centering": "P",
+  "mode": 0,
+  "source": "index_MONOCLINIC_P_0.json",
+  "sg": "Pmmm"
+ }
+]

@@ -1,0 +1,38 @@
+['AddBondValenceRo', 'GetBondValenceCost', 'GetBondValenceRoList', 'GetBumpMergeCost', 'GetBumpMergeParList', 'GetMinDistanceTable', 'GetRestraintCost', 'PrintMinDistanceTable', 'RemoveBondValenceRo', 'RemoveBumpMergeDistance', 'SetBumpMergeDistance']
+GetBumpMergeCost 
+GetBumpMergeCost( (Crystal)arg1) -> float :
+
+    C++ signature :
+        double GetBumpMergeCost(ObjCryst::Crystal {lvalue})
+GetBumpMergeParList 
+GetBumpMergeParList( (Crystal)arg1) -> mapsppairtobmp :
+
+    C++ signature :
+        std::map<std::pair<ObjCryst::ScatteringPower const*, ObjCryst::ScatteringPower const*>, ObjCryst::Crystal::BumpMergePar, std::less<std::pair<ObjCryst::ScatteringPower const*, ObjCryst::ScatteringPower const*> >, std::allocator<std::pair<std::pair<ObjCryst::ScatteringPower const*, ObjCryst::ScatteringPower const*> const, ObjCryst::Crystal::BumpMergePar> > > {lvalue} GetBumpMergeParList(ObjCryst::Crystal {lvalue})
+RemoveBumpMergeDistance 
+RemoveBumpMergeDistance( (Crystal)arg1, (ScatteringPower)arg2, (ScatteringPower)arg3) -> None :
+
+    C++ signature :
+        void RemoveBumpMergeDistance(ObjCryst::Crystal {lvalue},ObjCryst::ScatteringPower,ObjCryst::ScatteringPower)
+SetBumpMergeDistance 
+SetBumpMergeDistance( (Crystal)arg1, (ScatteringPower)scatt1, (ScatteringPower)scatt2 [, (float)dist=1.5]) -> None :
+
+    C++ signature :
+        void SetBumpMergeDistance(ObjCryst::Crystal {lvalue},ObjCryst::ScatteringPower,ObjCryst::ScatteringPower [,double=1.5])
+
+SetBumpMergeDistance( (Crystal)arg1, (ScatteringPower)scatt1, (ScatteringPower)scatt2, (float)dist, (bool)allowMerge) -> None :
+
+    C++ signature :
+        void SetBumpMergeDistance(ObjCryst::Crystal {lvalue},ObjCryst::ScatteringPower,ObjCryst::ScatteringPower,double,bool)
+Atom.h
+CIF.h
+Colours.h
+Crystal.h
+DiffractionDataSingleCrystal.h
+General.h
+GeomStructFactor.h
+IO.h
+Indexing.h
+Molecule.h
+/opt/conda/conda-meta/libobjcryst-2024.2.1-h2b4839b_1.json
+/opt/conda/pkgs/libobjcryst-2024.2.1-h2b4839b_1

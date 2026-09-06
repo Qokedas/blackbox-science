@@ -1,0 +1,21 @@
+/app/work/obj_bridge.cpp: In member function ‘void AccessCrystal::bumpscale(double)’:
+/app/work/obj_bridge.cpp:26:61: error: ‘double ObjCryst::Crystal::mBumpMergeScale’ is private within this context
+   26 | struct AccessCrystal: Crystal {void bumpscale(double scale){mBumpMergeScale=scale; mBumpMergeParClock.Click();}};
+      |                                                             ^~~~~~~~~~~~~~~
+In file included from /opt/conda/include/ObjCryst/ObjCryst/PowderPattern.h:28,
+                 from /app/work/obj_bridge.cpp:1:
+/opt/conda/include/ObjCryst/ObjCryst/Crystal.h:573:12: note: declared private here
+  573 |       REAL mBumpMergeScale;
+      |            ^~~~~~~~~~~~~~~
+/app/work/obj_bridge.cpp:26:84: error: ‘ObjCryst::RefinableObjClock ObjCryst::Crystal::mBumpMergeParClock’ is private within this context
+   26 | struct AccessCrystal: Crystal {void bumpscale(double scale){mBumpMergeScale=scale; mBumpMergeParClock.Click();}};
+      |                                                                                    ^~~~~~~~~~~~~~~~~~
+/opt/conda/include/ObjCryst/ObjCryst/Crystal.h:567:25: note: declared private here
+  567 |       RefinableObjClock mBumpMergeParClock;
+      |                         ^~~~~~~~~~~~~~~~~~
+Traceback (most recent call last):
+  File "<stdin>", line 4, in <module>
+  File "/opt/conda/lib/python3.11/ctypes/__init__.py", line 376, in __init__
+    self._handle = _dlopen(self._name, mode)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: /app/work/obj_bridge.so: cannot open shared object file: No such file or directory

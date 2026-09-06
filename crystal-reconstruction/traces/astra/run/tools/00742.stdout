@@ -1,0 +1,471 @@
+{
+ "radiation": {
+  "type": "CuK1",
+  "wavelength_A": 1.54059,
+  "wavelengths_A": [
+   1.54059
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 295.0,
+ "two_theta_range_deg": [
+  3.5,
+  85.0
+ ],
+ "n_points": 8151,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}{"indices": [2, 6, 9, 10, 12, 13, 15, 16, 17, 19, 20, 22, 23, 25, 26, 27, 30, 31, 33, 34, 36, 38, 39]}[
+ {
+  "two_theta": 3.893150439343604,
+  "height": 222.90191498299774,
+  "fwhm": 0.03594538152761878,
+  "eta": 4.3636122857064413e-13,
+  "error": 0.0031885774475274597,
+  "d": 22.67733788402392,
+  "area": 8.012294377300698,
+  "peak_max": 3.9,
+  "widthL": 0.015266943598555271,
+  "widthR": 0.05662381945668229,
+  "fit_chi": 1.20322558952502
+ },
+ {
+  "two_theta": 5.650347367125667,
+  "height": 34033.25855769742,
+  "fwhm": 0.17623957736516271,
+  "eta": 0.9184482034579804,
+  "error": 0.0015875105808263752,
+  "d": 15.628257538719206,
+  "area": 5998.0071045679015,
+  "peak_max": 5.59,
+  "widthL": 0.26939857394853495,
+  "widthR": 0.0830805807817905,
+  "fit_chi": 30.50488640226124,
+  "raw_two_theta": 5.610893729899515,
+  "emg_area": 9093.70718815472,
+  "emg_sigma": 0.03752681855099384,
+  "emg_tau": 0.18934200036652127,
+  "emg_error": 0.000606948242420744
+ },
+ {
+  "two_theta": 6.606010407747444,
+  "height": 99.8124171227872,
+  "fwhm": 0.05076154767221855,
+  "eta": 1.3593573472682018e-11,
+  "error": 0.022832261702766195,
+  "d": 13.369372705366892,
+  "area": 5.066632770057725,
+  "peak_max": 6.38,
+  "widthL": 0.007746278335897345,
+  "widthR": 0.09377681700853975,
+  "fit_chi": 1.062739189852115,
+  "raw_two_theta": 6.361700973425682,
+  "emg_area": 1332.6837801950917,
+  "emg_sigma": 0.13999999999999999,
+  "emg_tau": 0.17815235783039143,
+  "emg_error": 0.087864176752301
+ },
+ {
+  "two_theta": 6.995166396832085,
+  "height": 277.8163926465757,
+  "fwhm": 0.1860064850255443,
+  "eta": 1.895452916962382e-14,
+  "error": 0.012506110491187302,
+  "d": 12.626454481350441,
+  "area": 51.67565067866602,
+  "peak_max": 6.87,
+  "widthL": 0.09925272554346941,
+  "widthR": 0.27276024450761915,
+  "fit_chi": 1.650028912471354,
+  "raw_two_theta": 6.828270549170318,
+  "emg_area": 1415.324176069943,
+  "emg_sigma": 0.13999999999999999,
+  "emg_tau": 0.24613998015666153,
+  "emg_error": 0.1675520026648881
+ },
+ {
+  "two_theta": 7.4842276672963015,
+  "height": 115.50564635633539,
+  "fwhm": 0.018317534345264223,
+  "eta": 1.369090744164965e-06,
+  "error": 0.034872779845735856,
+  "d": 11.802432390480787,
+  "area": 2.115778644204117,
+  "peak_max": 7.24,
+  "widthL": 0.009632622608380402,
+  "widthR": 0.027002446082148045,
+  "fit_chi": 1.0563905213640392,
+  "raw_two_theta": 7.234227667296302,
+  "emg_area": 1371.9542889515408,
+  "emg_sigma": 0.13999999999999999,
+  "emg_tau": 0.350538587066185,
+  "emg_error": 0.11242903687224493
+ },
+ {
+  "two_theta": 8.310740238985344,
+  "height": 6396.043120418467,
+  "fwhm": 0.18342132523104426,
+  "eta": 0.9999999999999526,
+  "error": 0.0018861889784019324,
+  "d": 10.630428893687638,
+  "area": 1173.170705382059,
+  "peak_max": 8.24,
+  "widthL": 0.26676549316454456,
+  "widthR": 0.10007715729754395,
+  "fit_chi": 5.887185725556559,
+  "raw_two_theta": 8.255909903341088,
+  "emg_area": 2586.7266366426375,
+  "emg_sigma": 0.02966895047169423,
+  "emg_tau": 0.4099530482624262,
+  "emg_error": 0.002296374459887749
+ },
+ {
+  "two_theta": 8.513609454204675,
+  "height": 145.62255878047856,
+  "fwhm": 0.037848221738174065,
+  "eta": 0.9999999999999999,
+  "error": 0.00646021556292209,
+candidates.json
+candidates_emgrefine.json
+candidates_metric.json
+candidates_wide.json
+complete_axis0.log
+emg_global.log
+emg_global.npz
+emg_global.png
+emg_refine_cells.log
+emg_test.json
+emg_test.png
+find_zones.log
+fit_0.json
+fit_0.log
+fit_0.png
+fit_0.xml
+fit_0.xye
+fit_1.json
+fit_1.log
+fit_1.png
+fit_1.xml
+fit_1.xye
+fit_2.json
+fit_2.log
+fit_2.png
+fit_2.xml
+fit_2.xye
+fit_3.json
+fit_3.log
+fit_3.png
+fit_3.xml
+fit_3.xye
+fit_axis0.json
+fit_axis0.log
+fit_axis0.png
+fit_axis0.xml
+fit_axis0.xye
+fit_axis3.json
+fit_axis3.log
+fit_axis3.png
+fit_axis3.xml
+fit_axis3.xye
+fit_axis7.json
+fit_axis7.log
+fit_axis7.png
+fit_axis7.xml
+fit_axis7.xye
+fit_metric0.json
+fit_metric0.log
+fit_metric0.png
+fit_metric0.xml
+fit_metric0.xye
+fit_metric1.json
+fit_metric1.log
+fit_metric1.png
+fit_metric1.xml
+fit_metric1.xye
+fit_metric2.json
+fit_metric2.log
+fit_metric2.png
+fit_metric2.xml
+fit_metric2.xye
+fit_metric3.json
+fit_metric3.log
+fit_metric3.png
+fit_metric3.xml
+fit_metric3.xye
+fit_metric4.json
+fit_metric4.log
+fit_metric4.png
+fit_metric4.xml
+fit_metric4.xye
+fit_triwide0.json
+fit_triwide0.log
+fit_triwide0.png
+fit_triwide0.xml
+fit_triwide0.xye
+fit_triwide1.json
+fit_triwide1.log
+fit_triwide1.png
+fit_triwide1.xml
+fit_triwide1.xye
+fit_triwide2.json
+fit_triwide2.log
+fit_triwide2.png
+fit_triwide2.xml
+fit_triwide2.xye
+fit_triwide5.json
+fit_triwide5.log
+fit_triwide5.png
+fit_triwide5.xml
+fit_triwide5.xye
+fit_wide0.json
+fit_wide0.log
+fit_wide0.png
+fit_wide0.xml
+fit_wide0.xye
+fit_wide1.json
+fit_wide1.log
+fit_wide1.png
+fit_wide1.xml
+fit_wide1.xye
+fit_wide2.json
+fit_wide2.log
+fit_wide2.png
+fit_wide2.xml
+fit_wide2.xye
+fit_wide3.json
+fit_wide3.log
+fit_wide3.png
+fit_wide3.xml
+fit_wide3.xye
+index_CUBIC_F_0.json
+index_CUBIC_F_0.log
+index_CUBIC_I_0.json
+index_CUBIC_I_0.log
+index_CUBIC_P_0.json
+index_CUBIC_P_0.log
+index_HEXAGONAL_P_0.json
+index_HEXAGONAL_P_0.log
+index_MONOCLINIC_C_0.json
+index_MONOCLINIC_C_0.log
+index_MONOCLINIC_C_2.json
+index_MONOCLINIC_C_2.log
+index_MONOCLINIC_C_4_1000_5500_z0_peaks_raw.json
+index_MONOCLINIC_P_0.json
+index_MONOCLINIC_P_0.log
+index_MONOCLINIC_P_2.json
+index_MONOCLINIC_P_2.log
+index_ORTHOROMBIC_C_0.json
+index_ORTHOROMBIC_C_0.log
+index_ORTHOROMBIC_C_4_1000_5500_z0_peaks_raw.json
+index_ORTHOROMBIC_I_0.json
+index_ORTHOROMBIC_I_0.log
+index_ORTHOROMBIC_P_0.json
+index_ORTHOROMBIC_P_0.log
+index_ORTHOROMBIC_P_2.json
+index_ORTHOROMBIC_P_2.log
+index_ORTHOROMBIC_P_4_1000_5500_z0_peaks_raw.json
+index_RHOMBOEDRAL_P_0.json
+index_RHOMBOEDRAL_P_0.log
+index_TETRAGONAL_I_0.json
+index_TETRAGONAL_I_0.log
+index_TETRAGONAL_P_0.json
+index_TETRAGONAL_P_0.log
+index_TRICLINIC_P_3.json
+index_TRICLINIC_P_3.log
+index_axis0.json
+index_emg1.json
+index_emg1.log
+index_emg19.json
+index_emg19.log
+index_emg4.json
+index_emg4.log
+index_emgaxis0.json
+index_emgaxis0.log
+index_emgaxis1.json
+index_emgaxis1.log
+index_metric_MONOCLINIC_P.json
+index_metric_ORTHOROMBIC_P.json
+index_raw_MONOCLINIC_C.log
+index_raw_MONOCLINIC_P.log
+index_raw_MONOCLINIC_P_partial.json
+index_raw_ORTHOROMBIC_C.log
+index_raw_ORTHOROMBIC_P.log
+index_triwide.json
+index_triwide_p1.json
+index_wide21.json
+index_wide5.json
+metric_MONOCLINIC.log
+metric_ORTHOROMBIC.log
+metric_triwide.log
+metric_wide21.log
+metric_wide5.log
+peak_select.json
+peak_select_emg.json
+peak_select_ext2.json
+peak_select_raw.json
+peaks.json
+peaks.png
+peaks_asymcorr.json
+peaks_emg.json
+peaks_raw.json
+peaks_raw.png
+pre_scan_0.xml
+pre_scan_1.xml
+pre_scan_2.xml
+pre_scan_3.xml
+pre_scan_axis0.xml
+pre_scan_axis3.xml
+pre_scan_axis7.xml
+pre_scan_metric0.xml
+pre_scan_metric1.xml
+pre_scan_metric2.xml
+pre_scan_metric3.xml
+pre_scan_metric4.xml
+pre_scan_triwide0.xml
+pre_scan_triwide1.xml
+pre_scan_triwide2.xml
+pre_scan_triwide5.xml
+pre_scan_wide0.xml
+pre_scan_wide1.xml
+pre_scan_wide2.xml
+pre_scan_wide3.xml
+processed.npz
+selected_detail.png
+zones.json
+zones_small.json
+zones_small.log
+import sys,os,json,time,itertools,numpy as np
+from numba import njit
+from scipy.optimize import differential_evolution,least_squares
+from pymatgen.core import Lattice
+sid=sys.argv[1];system=sys.argv[2] if len(sys.argv)>2 else 'MONOCLINIC';center=sys.argv[3] if len(sys.argv)>3 else 'P';W='/app/work/'+sid
+wl=json.load(open('/app/data/instances/'+sid+'/instrument.json'))['radiation']['wavelength_A'];ps=json.load(open(W+'/'+os.environ.get('PEAK_FILE','peaks_raw.json')))
+sp=os.environ.get('SELECT_FILE',W+'/peak_select_raw.json')
+if os.path.exists(sp):si=json.load(open(sp));ps=[ps[i-1] for i in si['indices']] if 'indices' in si else [p for p in ps if p['two_theta']>=si.get('min_two_theta',0)]
+ps=ps[int(os.environ.get('PEAK_SKIP','0')):][:int(os.environ.get('NPEAK','25'))];tt=np.array([p['two_theta'] for p in ps]);qobs=(2*np.sin(np.deg2rad(tt/2))/wl)**2;fac=wl**2/(2*np.sin(np.deg2rad(tt)))*180/np.pi
+import gemmi
+sg_filter=gemmi.find_spacegroup_by_name(os.environ['SG_FILTER']).operations() if 'SG_FILTER' in os.environ else None
+hkl=[];R=int(os.environ.get('HMAX','10'))
+for h in range(0,R+1):
+ for k in (range(0,R+1) if system!='TRICLINIC' else range(-R,R+1)):
+  for l in (range(0,R+1) if system=='ORTHOROMBIC' else range(-R,R+1)):
+   if not(h or k or l):continue
+   if h==0 and (k<0 or (k==0 and l<0)):continue
+   if system=='MONOCLINIC' and h==0 and l<0:continue
+   if sg_filter is not None and sg_filter.is_systematically_absent([h,k,l]):continue
+   if center=='C' and (h+k)%2:continue
+   if center=='I' and (h+k+l)%2:continue
+   if center=='F' and ((h+k)%2 or (h+l)%2):continue
+   hkl.append((h,k,l))
+hkl=np.array(hkl,dtype=float);terms=np.array([hkl[:,0]**2,hkl[:,1]**2,hkl[:,2]**2,2*hkl[:,1]*hkl[:,2],2*hkl[:,0]*hkl[:,2],2*hkl[:,0]*hkl[:,1]]).T
+lo=float(os.environ.get('VMIN','700'));hi=float(os.environ.get('VMAX','3200'));tar=float(os.environ.get('VTARGET',np.sqrt(lo*hi)));err=float(os.environ.get('TTHERR','.025'));nspur=int(os.environ.get('NSPUR','1'));max_time=float(os.environ.get('INDEX_TIME','300'));ndim={'ORTHOROMBIC':4,'MONOCLINIC':5,'TRICLINIC':7}[system];sgn={'ORTHOROMBIC':'P m m m','MONOCLINIC':'P 1 2/m 1','TRICLINIC':'P -1'}[system]
+@njit(cache=False)
+def metric(x):
+ g=np.zeros(6);g[:3]=x[:3]**2
+ if ndim==5:g[4]=x[3]*x[0]*x[2]
+ if ndim==7:g[3]=x[3]*x[1]*x[2];g[4]=x[4]*x[0]*x[2];g[5]=x[5]*x[0]*x[1]
+ return g
+@njit(cache=False)
+def diffs(x):
+ g=metric(x);qc=terms@g;ix=np.zeros(len(tt),np.int64);dif=np.zeros(len(tt))
+ for i in range(len(tt)):
+  qq=qobs[i]-x[-1]/fac[i];bd=1e10
+  for j in range(len(qc)):
+   dd=abs(qc[j]-qq)
+   if dd<bd:bd=dd;ix[i]=j
+  dif[i]=(qc[ix[i]]-qobs[i])*fac[i]+x[-1]
+ return dif,ix
+@njit(cache=False)
+def cost(x):
+ g=metric(x);det=g[0]*g[1]*g[2]+2*g[3]*g[4]*g[5]-g[0]*g[3]**2-g[1]*g[4]**2-g[2]*g[5]**2
+ if det<=0:return 1000.
+ vol=1/np.sqrt(det);dc,ix=diffs(x);sq=np.log1p((dc/err)**2);sq.sort();co=np.mean(sq[:len(sq)-nspur])*vol/tar
+ for i in range(len(ix)):
+  for j in range(i):
+   if ix[i]==ix[j]:co+=.06
+ if vol<lo:co+=100*np.log(lo/vol)**2
+ if vol>hi:co+=100*np.log(vol/hi)**2
+ return co
+amin=float(os.environ.get('AMIN','3.5'));amax=float(os.environ.get('AMAX','50'));bounds=[(1/amax,1/amin)]*3
+if system=='MONOCLINIC':bounds+=[(0.,.7)]
+if system=='TRICLINIC':bounds+=[(-.45,.45)]*3
+bounds+=[(-float(os.environ.get('ZEROMAX','.10')),float(os.environ.get('ZEROMAX','.10')))]
+if 'BOUNDS_FILE' in os.environ:bounds=json.load(open(os.environ['BOUNDS_FILE']))
+print('METRIC_INDEX',sid,system,center,'peaks',tt.tolist(),'bounds',bounds,'volume',lo,hi,flush=True);cost(np.mean(bounds,axis=1));t0=time.time();sol=[];tag=os.environ.get('INDEX_TAG','metric_'+system+'_'+center)
+for trial in range(int(os.environ.get('TRIALS','60'))):
+ kw={}
+ if sol and trial%3:
+  ss=sol[0]['parameters'];pop=np.random.uniform(np.array(bounds)[:,0],np.array(bounds)[:,1],size=(max(60,18*ndim),ndim));half=len(pop)//2;pop[:half]=np.clip(np.array(ss)*(1+np.random.normal(size=(half,ndim))*.15),np.array(bounds)[:,0],np.array(bounds)[:,1]);kw['init']=pop
+ res=differential_evolution(cost,bounds,popsize=int(os.environ.get('POPSIZE','18')),maxiter=int(os.environ.get('MAXITER','700')),polish=False,tol=.0001,workers=1,**kw);x=res.x
+ for j in range(6):
+  _,ix=diffs(x);tr=terms[ix]
+  re=least_squares(lambda xx:(tr@metric(xx)-qobs)*fac+xx[-1],x,bounds=np.array(bounds).T,loss='soft_l1',f_scale=err,max_nfev=100)
+  if cost(re.x)>cost(x)+.05:break
+  x=re.x
+ g=metric(x);GM=np.array([[g[0],g[5],g[4]],[g[5],g[1],g[3]],[g[4],g[3],g[2]]]);L=Lattice(np.linalg.cholesky(np.linalg.inv(GM)));df,ix=diffs(x);nc=np.sum(terms@g<qobs[-1]);sc=qobs[-1]/(2*max(1e-10,np.mean(abs(df)/fac))*nc);cell=list(L.parameters)
+ if system=='ORTHOROMBIC':cell[:3]=sorted(cell[:3]) if center=='P' else cell[:3]
+ o=dict(cell=cell,system=system,centering=center,volume=L.volume,score=float(sc),cost=float(cost(x)),mode=21,zero=float(x[-1]),rms=float(np.sqrt(np.mean(df**2))),maxerr=float(max(abs(df))),parameters=x.tolist(),diff=df.tolist(),hkl=hkl[ix].astype(int).tolist())
+ if not any(np.allclose(o['cell'][:3],s['cell'][:3],rtol=.003) and np.allclose(o['cell'][3:],s['cell'][3:],atol=.3) for s in sol):sol.append(o)
+ sol.sort(key=lambda s:s['cost']);json.dump(sol,open(W+'/index_'+tag+'.json','w'),indent=1)
+ print('TRIAL',trial,'sec',time.time()-t0,'cost',o['cost'],'score',sc,'vol',L.volume,'cell',np.round(cell,4),'zero',x[-1],'best',sol[0]['cost'],'diff',np.round(df,4),flush=True)
+ if o['maxerr']<.05 and o['cost']<.06 and sc>30:break
+ if time.time()-t0>max_time:break
+import sys,os,json,time,numpy as np,gemmi
+from scipy.optimize import least_squares
+from pymatgen.core import Lattice
+from numba import njit
+sid=sys.argv[1];W='/app/work/'+sid;idx=int(sys.argv[2]) if len(sys.argv)>2 else 0
+start=json.load(open(os.getenv('START_CELLS',W+'/candidates_metric.json')))[idx];L=Lattice.from_parameters(*start['cell']);G=L.reciprocal_lattice_crystallographic.metric_tensor
+ps=json.load(open(W+'/'+os.getenv('PEAK_FILE','peaks_raw.json')));select=json.load(open(os.getenv('SELECT_FILE',W+'/peak_select_raw.json')))['indices'];ps=[ps[i-1] for i in select];tt=np.array([p['two_theta'] for p in ps]);wl=json.load(open('/app/data/instances/'+sid+'/instrument.json'))['radiation']['wavelength_A'];q=(2*np.sin(np.deg2rad(tt/2))/wl)**2;fac=wl*wl/(2*np.sin(np.deg2rad(tt)))*180/np.pi
+n=len(q);hl=np.array([[h,l] for h in range(0,10) for l in range(-12,13) if h or l>0],float);T0=np.array([hl[:,0]**2,hl[:,1]**2,2*hl[:,0]*hl[:,1]]).T
+x=np.array([G[0,0],G[2,2],G[0,2],start.get('zero',0.)]);fixed_ids=[int(i) for i in os.getenv('PLANE_IDS','').split(',') if i]
+for it in range(5):
+ dif=(T0@x[:3]-q[:,None])*fac[:,None]+x[3];ix=np.argmin(abs(dif),axis=1);di=dif[np.arange(n),ix];use=np.array([i in fixed_ids for i in select]) if fixed_ids else abs(di)<float(os.getenv('PLANE_ERR','.05'))
+ fit=least_squares(lambda v:(T0[ix[use]]@v[:3]-q[use])*fac[use]+v[3],x,loss='soft_l1',f_scale=.015);x=fit.x
+print('PLANE',idx,x.tolist(),'USE',[s for s,u in zip(select,use) if u],flush=True)
+print('DIFFS',np.round((T0@x[:3]-q[:,None])[np.arange(n),ix]*fac+x[3],4),flush=True)
+lo=float(os.getenv('VMIN','1100'));hi=float(os.getenv('VMAX','8000'));tar=float(os.getenv('VTARGET','2800'));err=float(os.getenv('TTHERR','.035'));nspur=int(os.getenv('NSPUR','0'));out=[]
+for sgname in os.getenv('SG_NAMES','P 1 21 1;C 1 2 1').split(';'):
+ sg=gemmi.find_spacegroup_by_name(sgname);ops=sg.operations();vfac=.5 if sg.centring_type()=='C' else 1.;hkl=np.array([[h,k,l] for h in range(0,12) for k in range(0,17) for l in range(-12,13) if (h or k or l>0) and not ops.is_systematically_absent([h,k,l])],float);T=np.array([hkl[:,0]**2,hkl[:,1]**2,hkl[:,2]**2,2*hkl[:,0]*hkl[:,2]]).T
+ @njit(cache=False)
+ def score(v):
+  qc=T@v[:4];df=np.zeros(n);ii=np.zeros(n,np.int64)
+  for i in range(n):
+   bd=1e20
+   for j in range(len(qc)):
+    d=abs((qc[j]-q[i])*fac[i]+v[4])
+    if d<bd:bd=d;ii[i]=j
+   df[i]=(qc[ii[i]]-q[i])*fac[i]+v[4]
+  det=v[1]*(v[0]*v[2]-v[3]*v[3])
+  if det<=0:return 1e5,ii,df
+  vol=1/np.sqrt(det);ss=np.log1p((df/err)**2);ss.sort();cost=np.mean(ss[:n-nspur])*vol/tar*vfac
+  if vol<lo or vol>hi:cost+=10
+  return cost,ii,df
+ for hmult in [1,2]:
+  xx=x.copy();xx[0]/=hmult**2;xx[2]/=hmult
+  AC=np.array([xx[0],xx[1],xx[2]]);pterms=T[:,[0,2,3]]@AC
+  bs=[]
+  for qq,fa in zip(q,fac):
+   vals=(qq-xx[3]/fa-pterms)/(T[:,1]+1e-20);bs.extend(vals[(T[:,1]>0)&(vals>1/40**2)&(vals<1/3.0**2)])
+  bs=np.unique(np.round(bs,8));rows=[]
+  for bb in bs:
+   v=np.array([xx[0],bb,xx[1],xx[2],xx[3]]);cost,ii,di=score(v)
+   if cost<2.:rows.append((cost,v))
+  rows.sort(key=lambda z:z[0]);print('ENUM',sgname,hmult,len(bs),len(rows),flush=True)
+  for c0,v in rows[:80]:
+   for it in range(4):
+    cc,ii,di=score(v);v=least_squares(lambda vv:(T[ii]@vv[:4]-q)*fac+vv[4],v,loss='soft_l1',f_scale=err,max_nfev=80).x
+   co,ii,di=score(v);g=v[:4];GM=np.array([[g[0],0,g[3]],[0,g[1],0],[g[3],0,g[2]]])
+   if np.linalg.det(GM)<=0:continue
+   lat=Lattice(np.linalg.cholesky(np.linalg.inv(GM)));re=list(lat.get_niggli_reduced_lattice().parameters)
+   if lat.volume<lo or lat.volume>hi:continue
+   if any(s['sg']==sgname and np.allclose(re[:3],s['reduced'][:3],rtol=.003) and np.allclose(re[3:],s['reduced'][3:],atol=.3) for s in out):continue
+   out.append(dict(cell=list(lat.parameters),system='MONOCLINIC',centering=sg.centring_type(),sg=sgname,score=1/max(co,1e-12),cost=co,volume=lat.volume,zero=float(v[4]),diff=di.tolist(),hkl=hkl[ii].astype(int).tolist(),reduced=re,plane_index=idx,hmult=hmult,mode=32))
+  out.sort(key=lambda s:s['cost']);json.dump(out,open(W+'/index_'+os.getenv('INDEX_TAG','axis'+str(idx))+'.json','w'),indent=1)
+for o in out[:12]:print('BEST',o['cost'],o['sg'],np.round(o['cell'],5),o['zero'],np.round(o['diff'],4),flush=True)

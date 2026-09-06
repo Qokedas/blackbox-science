@@ -1,0 +1,13 @@
+Xf8ac963/sol_L0:
+P212121_run0_lsq_rw0.217.cif
+P212121_run0_rw0.228.cif
+
+Xf8ac963/sol_L1:
+P212121_run0_lsq_rw0.218.cif
+P212121_run0_rw0.229.cif
+rms(normalized), max: (np.float64(0.02976622722626622), np.float64(0.07507237248859745))
+approx rms Å = 0.082  max Å = 0.206
+  s = CifParser(f'{outdir}/{iid}.cif').parse_structures(primitive=False)[0]
+Xf8ac963: wrote CIF with 21 asym atoms -> 84 atoms in cell; spg P 21 21 21 (19); formula C72 N4 O8
+Xf8ac963: 84 atoms in cell; fragments=4; matched counts=[4] (expected ratio [1]); unmatched=0; OK=True
+   min interatomic distance in cell: 1.20 A

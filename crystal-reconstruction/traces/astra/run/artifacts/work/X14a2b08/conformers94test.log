@@ -1,0 +1,3 @@
+CONFORMERS 50 distinct 2 anchors [0, 1, 7]
+{'tag': 'ring94testc0', 'energy': -21.21360077473178, 'index': 1, 'reflected': False, 'Rw': 0.16611640228041302}
+{'tag': 'ring94testc1', 'energy': -21.21360077473178, 'index': 1, 'reflected': True, 'Rw': 0.1599312147439556}

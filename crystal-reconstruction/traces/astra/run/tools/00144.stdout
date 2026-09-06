@@ -1,0 +1,13 @@
+ObjRegistry<T>::Find(C): Not found !!
+List of Crystal ScatteringPowers :0 object registered:
+ObjRegistry<T>::Find(N): Not found !!
+List of Crystal ScatteringPowers :1 object registered:
+#  0:ScatteringPowerAtom(C)
+0 Flexibility Model 3 ['Automatic from Restraints, relaxed - RECOMMENDED', 'Rigid Body', 'Automatic from Restraints, strict']
+1 Enable Flipping 2 ['Yes', 'No']
+2 Auto Optimize Starting Conformation 2 ['Yes', 'No']
+3 Optimize Orientation 2 ['Yes', 'No']
+4 Rotation Center 2 ['Geometrical center (recommended)', 'User-chosen Atom']
+0 Constrain Lattice to SpaceGroup Symmetry 2 ['Yes (Default)', 'No (Allow Crystallographic Pseudo-Symmetry)']
+1 Use Dynamical Occupancy Correction 2 ['No', 'Yes']
+2 Display Enantiomer 2 ['No', 'Yes']

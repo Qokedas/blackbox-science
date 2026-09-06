@@ -1,0 +1,37 @@
+====X1a56c78 chair84m00
+N5 H28 Cl55 DA 3.1682 HA 2.6380 DHA 112.22 nearest (np.float64(0.0), np.float64(0.0), np.float64(0.0))
+N5 H28 O1 DA 3.3237 HA 2.7825 DHA 113.47 nearest (np.float64(0.0), np.float64(0.0), np.float64(0.0))
+====X3f4781b ninv94m00
+N13 H30 O4 DA 3.1145 HA 2.5322 DHA 114.81 nearest (np.float64(0.0), np.float64(0.0), np.float64(0.0))
+N13 H30 O83 DA 3.0823 HA 2.0663 DHA 165.14 nearest (np.float64(0.0), np.float64(0.0), np.float64(1.0))
+O43 H44 O4 DA 2.4555 HA 1.6006 DHA 141.05 nearest (np.float64(0.0), np.float64(0.0), np.float64(0.0))
+O43 H44 O83 DA 3.5612 HA 2.8133 DHA 132.41 nearest (np.float64(0.0), np.float64(0.0), np.float64(1.0))
+O87 H88 O4 DA 2.9895 HA 2.0935 DHA 150.26 nearest (np.float64(0.0), np.float64(0.0), np.float64(1.0))
+====X4f6fe58 g84
+N20 H30 O1 DA 3.3807 HA 2.5313 DHA 138.98 nearest (np.float64(-1.0), np.float64(1.0), np.float64(-1.0))
+N50 H60 O31 DA 2.4942 HA 1.7380 DHA 126.52 nearest (np.float64(0.0), np.float64(0.0), np.float64(1.0))
+====Xeb393f9 chem51
+N7 H35 N25 DA 3.2748 HA 2.7779 DHA 110.01 nearest (np.float64(0.0), np.float64(0.0), np.float64(-1.0))
+Sun Sep  6 10:29:36 UTC 2026
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 470 seconds 219.7923686504364 best 61.217808 q25 63.3435 median 237.255 total 219.8115692138672
+GALLOP 1 Nref 470 seconds 172.01301407814026 best 61.218513 q25 109.60196 median 236.323 total 392.10888957977295
+GALLOP 2 Nref 470 seconds 171.83985304832458 best 61.218185 q25 126.17807 median 245.55646 total 564.0880587100983
+GALLOP 3 Nref 470 seconds 221.79292583465576 best 61.21816 q25 97.48438 median 235.06699 total 785.9154651165009
+FINISHED X14a2b08 61.21780776977539
+CYCLE 0 1 Rw 0.12225340607843073 chi2 8508.040657487085 geom 117.33107932123134 LSQ 8966.80588209382
+CYCLE 0 2 Rw 0.12224878072111492 chi2 8507.39688018999 geom 117.33107932123134 LSQ 8962.198211033494
+PACKING_STAGE 0 120.2628757551043
+CYCLE 1 0 Rw 0.11873213272308633 chi2 8024.983697859041 geom 190.2798154734297 LSQ 8616.424338560179
+CYCLE 1 1 Rw 0.11735264607458365 chi2 7839.5907926755335 geom 219.8977083307618 LSQ 8489.710937316844
+EXTENDED_BACKGROUND 0.14308659822541794
+CYCLE 0 0 Rw 0.13862566052299788 chi2 3256.0957174203054 geom 174.15261489695618 LSQ 3628.2815868971193
+CYCLE 0 1 Rw 0.1384622284781638 chi2 3248.4227268466584 geom 174.15261489695618 LSQ 3614.057796280154
+CYCLE 0 2 Rw 0.1384416763028658 chi2 3247.458461006798 geom 174.15261489695618 LSQ 3611.9764000242412
+PACKING_STAGE 0 0.0
+HBOND_PRIOR 2 donors 6 acceptors coefficient 30.0 directional True
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL Xeb393f9 50.29778289794922

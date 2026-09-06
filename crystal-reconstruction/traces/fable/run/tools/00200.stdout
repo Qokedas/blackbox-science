@@ -1,0 +1,7 @@
+best conf 29 E 23.078452947808458 Emin.. [23.078452947808458, 23.278731549060243, 26.09158543676089, 26.340071698665113, 26.49476619936095]
+amide dihedral c_ar-N-C-O: -0.7519403776190564
+amide dihedral c_ar-N-C-Cring: 179.4088053339923
+ring atom 11 subst C12: angle to normal 71 -> equatorial
+ring atom 15 subst C16: angle to normal 74 -> equatorial
+ring atom 9 subst C7: angle to normal 74 -> equatorial
+0 E=31.4 cis | 1 E=29.2 cis | 2 E=29.3 cis | 3 E=29.2 cis | 4 E=30.2 cis | 5 E=30.6 cis | 6 E=26.5 cis | 7 E=28.9 cis | 8 E=31.5 cis | 9 E=29.6 cis | 10 E=30.2 cis | 11 E=32.6 cis | 12 E=28.8 cis | 13 E=28.3 cis | 14 E=29.9 cis | 15 E=29.9 cis | 16 E=29.1 cis | 17 E=31.4 cis | 18 E=29.4 cis | 19 E=30.7 cis | 20 E=26.3 cis | 21 E=29.6 cis | 22 E=29.2 cis | 23 E=26.1 cis | 24 E=32.4 cis | 25 E=33.2 cis | 26 E=29.5 cis | 27 E=23.3 cis | 28 E=30.9 cis | 29 E=23.1 cis | 

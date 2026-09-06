@@ -1,0 +1,36 @@
+['GetLSQWeight', 'ImportPowderPattern2ThetaObsSigma', 'ImportPowderPatternTOF_ISIS_XYSigma']
+
+if __name__ == '__main__':
+    ap = argparse.ArgumentParser()
+    ap.add_argument('iid'); ap.add_argument('cell', nargs=6, type=float); ap.add_argument('spg')
+    ap.add_argument('--nsteps', type=float, default=2e6); ap.add_argument('--nruns', type=int, default=1)
+    ap.add_argument('--ttmax', type=float, default=None); ap.add_argument('--tag', default='a')
+    ap.add_argument('--maxtime', type=float, default=-1)
+    ap.add_argument('--restore', default=None, help='CIF from a previous run: restore and polish only')
+    ap.add_argument('--zprime', type=int, default=1)
+    ap.add_argument('--conf', type=int, default=0, help='rank of distinct conformer to use (0 = lowest MMFF energy)')
+    a = ap.parse_args()
+    seed = int(time.time()*1000) % 2**31
+    np.random.seed(seed)
+    import ctypes; ctypes.CDLL(None).srand(seed)  # ObjCryst uses libc rand()
+    print('seed', seed, flush=True)
+    CONF_RANK = a.conf
+    globals()['CONF_RANK'] = a.conf
+    comps = None
+    if a.zprime > 1:
+        comps = [dict(c, count=c['count']*a.zprime) for c in json.load(open(f'/app/data/instances/{a.iid}/composition.json'))['components']]
+    p, cr, pd, mols, lsq = setup(a.iid, a.cell, a.spg, ttmax=a.ttmax, components=comps)
+    outdir = f'/app/work/{a.iid}/sol_{a.tag}'
+    os.makedirs(outdir, exist_ok=True)
+    if a.restore:
+        restore_from_cif(cr, mols, a.restore)
+        p.FitScaleFactorForRw()
+        print(f'restored from {a.restore}: Rwp={p.GetRw():.4f} restraint cost={cr.GetRestraintCost():.2f}', flush=True)
+        write_cif(cr, f'{outdir}/restored_check.cif')
+        ok = polish(p, cr, ncycle=30)
+        write_cif(cr, f'{outdir}/restored_lsq_rw{p.GetRw():.3f}.cif')
+        print('RESTORE-POLISH', a.iid, p.GetRw(), flush=True)
+        os._exit(0)
+    mc, res = optimize(p, cr, nsteps=a.nsteps, nruns=a.nruns, maxtime=a.maxtime, save_prefix=f'{outdir}/{a.spg.replace(" ","").replace("/","_")}')
+    print('RESULTS', a.iid, a.spg, res, flush=True)
+    os._exit(0)

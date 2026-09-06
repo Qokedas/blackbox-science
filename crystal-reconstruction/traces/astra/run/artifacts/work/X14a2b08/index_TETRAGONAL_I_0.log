@@ -1,0 +1,15 @@
+X14a2b08 TETRAGONAL I 0 peaks [4.14163, 7.36177, 8.19233, 8.75645, 9.64642, 10.67163, 11.55567, 12.46509, 14.00244, 15.03325, 15.75575, 16.44591, 17.69189, 18.00862, 18.55837, 18.99712, 19.31202, 19.57009, 20.22737, 21.0432, 21.49873, 21.72319] V 4517.853515625 6660 Lmax 52.68044575287472
+3->52.6804,1.98723,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+4517.85->6660,428.438,4.9999
+Starting: V=4517.85->4946.29
+Finished: V=4517.85->4946.29 A^3, 49 unit cells tested, 144970 tests/s,   Elapsed time=0.000343s
+Starting: V=4946.29->5374.73
+Finished: V=4946.29->5374.73 A^3, 97 unit cells tested, 148092 tests/s,   Elapsed time=0.000661s
+Starting: V=5374.73->5803.17
+Finished: V=5374.73->5803.17 A^3, 147 unit cells tested, 144401 tests/s,   Elapsed time=0.001024s
+Starting: V=5803.17->6231.61
+Finished: V=5803.17->6231.61 A^3, 198 unit cells tested, 142960 tests/s,   Elapsed time=0.00139s
+Starting: V=6231.61->6660
+Finished: V=6231.61->6660 A^3, 248 unit cells tested, 141391 tests/s,   Elapsed time=0.00176s
+DONE X14a2b08 TETRAGONAL I 0 0.0018634796142578125 []

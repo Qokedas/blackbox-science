@@ -1,0 +1,43 @@
+ATTACHED_H_SCATTERING 20 heavy atoms 16 H atoms
+PACKING_ENABLED 20 atoms 519 pair terms coefficient 150.0 active_only True
+HBOND_PRIOR 2 donors 4 acceptors coefficient 20.0 directional False
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X7e382cb 977.0011596679688
+ATTACHED_H_SCATTERING 37 heavy atoms 29 H atoms
+PACKING_ENABLED 37 atoms 1887 pair terms coefficient 100.0 active_only True
+HBOND_PRIOR 2 donors 7 acceptors coefficient 30.0 directional True
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X14a2b08 53.008026123046875
+ATTACHED_H_SCATTERING 52 heavy atoms 36 H atoms
+PACKING_ENABLED 52 atoms 3834 pair terms coefficient 80.0 active_only True
+HBOND_PRIOR 4 donors 12 acceptors coefficient 20.0 directional False
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X3f4781b 40.86460876464844
+32867 bash /app/work/queue_gallop_A5.sh 
+51094 bash /app/work/queue_acm_warm.sh 
+56479 bash /app/work/queue_salt_conditional86.sh 
+61050 bash /app/work/queue_clop98.sh 
+61745 python /app/work/search_gallop.py X1db5091 50 1 --hscatter --packing 
+62051 bash /app/work/queue_brconditional101.sh 
+62592 python /app/work/search_conditional.py X35b7fbc 86 87 
+62599 python /app/work/search_conditional.py X4f6fe58 100 101 
+62649 bash /app/work/queue_caprolactam95_typed.sh 
+63285 python /app/work/search_conditional.py X14a2b08 94 95 
+63286 python /app/work/search_conditional.py X3f4781b 97 98 
+63353 bash /app/work/queue_x7_centro101.sh 
+63384 bash /app/work/queue_x1a_sub101.sh 
+63394 python /app/work/refine_obj.py X1a56c78 sub101 /app/work/X1a56c78/search_sub101/best.xml --scale --tight --stol=.4 
+63395 python /app/work/search_conditional.py X7e382cb 100 101 
+63457 python /app/work/refine_obj.py X019b9a4 g12 /app/work/X019b9a4/search_g12/best.xml --scale --tight --packing 
+63546 bash -lc tail -8 /app/work/X7e382cb/conditional101.log; tail -8 /app/work/X14a2b08/conditional95.log; tail -8 /app/work/X3f4781b/conditional98.log; tail -8 /app/work/X1db5091/refine_g50.log 2>/dev/null; python - <<'PY'
+import os
+f

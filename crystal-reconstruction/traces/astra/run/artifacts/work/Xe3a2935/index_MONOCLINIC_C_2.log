@@ -1,0 +1,15 @@
+Xe3a2935 MONOCLINIC C 2 peaks [2.68655, 2.93516, 3.74625, 4.69594, 4.8025, 4.88503, 5.22169, 5.41076, 5.61361, 5.87383, 6.19031, 6.48384, 6.65521, 7.05371, 7.20834, 7.49647, 7.81117, 7.92689, 8.28267, 8.346, 8.48027, 8.51462] V 775.7847290039062 3024 Lmax 40.49039003814386
+3->40.4904,1.49962,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+775.785->3024,449.652,4.9999
+Starting: V=775.785->1225.44
+Finished: V=775.785->1225.44 A^3, 5583 unit cells tested, 160597 tests/s,   Elapsed time=0.034771s
+Starting: V=1225.44->1675.09
+Finished: V=1225.44->1675.09 A^3, 14931 unit cells tested, 167330 tests/s,   Elapsed time=0.089239s
+Starting: V=1675.09->2124.74
+Finished: V=1675.09->2124.74 A^3, 32881 unit cells tested, 196083 tests/s,   Elapsed time=0.167698s
+Starting: V=2124.74->2574.39
+Finished: V=2124.74->2574.39 A^3, 66955 unit cells tested, 244009 tests/s,   Elapsed time=0.274406s
+Starting: V=2574.39->3024
+Finished: V=2574.39->3024 A^3, 118728 unit cells tested, 290593 tests/s,   Elapsed time=0.408581s
+DONE Xe3a2935 MONOCLINIC C 0 0.40873003005981445 []

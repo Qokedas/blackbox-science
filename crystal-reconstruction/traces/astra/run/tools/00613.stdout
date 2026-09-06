@@ -1,0 +1,17 @@
+SYNTHON_PARENT=31937
+26821 python /app/work/search_gallop.py X9af54a2 11 2 --prepare --hscatter 
+27484 python /app/work/search_gallop.py X263b09a 11 1 --prepare --hscatter 
+30840 python /app/work/search_gallop.py X1a56c78 11 1 --prepare --hscatter 
+30904 python /app/work/search_gallop.py Xedd9c7b 50 1 --hscatter --packing 
+31853 python /app/work/refine_obj.py Xeb393f9 g51 /app/work/Xeb393f9/search_g51/best.xml --scale --tight 
+31941 python /app/work/search_gallop.py X263b09a 70 1 --prepare --hscatter --packing --model=/app/work/X263b09a/synthon.json 
+GALLOP 8 Nref 300 seconds 71.83695912361145 best 47.501926 q25 47.507374 median 94.27811 total 825.3239362239838
+GALLOP 9 Nref 300 seconds 99.33722734451294 best 47.4935 q25 47.51098 median 124.84108 total 924.6804552078247
+FINISHED Xeb393f9 47.493499755859375
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 258 seconds 289.330260515213 best 156.84973 q25 229.23752 median 264.09723 total 289.33667850494385
+ -0.0022  0.0043 -0.0268 -0.0238  0.0111  0.0504  0.0114  0.2102 -0.0145
+ -0.0138 -0.1567 -0.0248  0.0507 -0.0197 -0.0095 -0.0088  0.06   -0.0069
+ -0.0312  0.0175 -0.0038]
+Sun Sep  6 07:21:03 UTC 2026

@@ -1,0 +1,341 @@
+      //LSQ functions
+         /// Number of LSQ functions
+         virtual unsigned int GetNbLSQFunction()const;
+         // Get a Cost function name from its id#.
+         //virtual const string& GetLSQFunctionName(const unsigned int)const;
+         // Get the (short) description of a cost function
+         //virtual const string& GetLSQFunctionDescription(const unsigned int)const;
+         /// Get the current calculated value for the LSQ function
+         virtual const CrystVector_REAL& GetLSQCalc(const unsigned int) const;
+         /// Get the observed values for the LSQ function
+         virtual const CrystVector_REAL& GetLSQObs(const unsigned int) const;
+         /// Get the weight values for the LSQ function
+         virtual const CrystVector_REAL& GetLSQWeight(const unsigned int) const;
+         /** Get the first derivative values for the LSQ function, for a given
+         * parameter. Note that the default method in the base RefinableObj
+         * class is to use numerical derivatives, so it should be
+         * overridden for better precision.
+         *
+         * \todo This should be a const method, and the given RefPar should be const too...
+         */
+         virtual const CrystVector_REAL& GetLSQDeriv(const unsigned int, RefinablePar&);
+         /** Get the first derivative for the LSQ function for each parameter supplied
+         * in a list.
+         *
+         *  \return: a map, with a RefinablePar pointer as key, and as value the corresponding
+         * derivative vector. Note that the value of the map for the NULL key is the current value
+         * for the LSQ function, which is also returned. The map will include derivatives
+         * only for parameters which have been supplied in vPar - but if a parameter
+         * is listed in vPar and has a null derivative, the returned vecor will be empty.
+         *
+         * \warning: currently in development, to provide faster, analytic derivatives
+         *
+         * \note:ideally, this function should be const - but since numerical derivatives
+         * may be used before all analytical formulas are entered, a non-const version is
+         * required.
+         * \todo
+         */
+         virtual std::map<RefinablePar*, CrystVector_REAL> & GetLSQ_FullDeriv(const unsigned int,std::set<RefinablePar *> &vPar);
+
+      /// Re-init the list of refinable parameters, removing all parameters.
+      /// This does \e not delete the RefinablePar if
+      /// RefinableObj::mDeleteRefParInDestructor is false
+      void ResetParList();
+
+      /** \brief Output to stream in well-formed XML
+      *
+         * \param groupIndex a vector of unsigned integers, one for each parameter in the
+         * input object, giving an unsigned integer value as gene group index.
+         * At the beginning this vector should contain only zeros (no group assigned).
+         * \param firstGroup this is the number of groups which have already been assigned,
+         * plus one. The gene groups returned by this object will start from this
+         * value, and increment \b firstGroup for each gene group used, so that
+         * different RefinableObj cannot share a gene group.
+         * \note this function is not optimized, and should only be called at the beginning
+         * of a refinement.
+         */
+         virtual void GetGeneGroup(const RefinableObj &obj,
+                                   CrystVector_uint & groupIndex,
+                                   unsigned int &firstGroup) const;
+      /** Set this object not to delete its list of parameters when destroyed.
+      *
+      * This is used for the RefinableObj in algorithms objects (OptimizationObj),
+      * which only hold copies of parameters from the refined objects.
+      */
+      void SetDeleteRefParInDestructor(const bool b);
+      /** What was the last time a RefinablePar was added/removed ?
+      *
+      */
+      const RefinableObjClock& GetRefParListClock()const;
+      // Restraints
+         /** Get the restraint cost (overall penalty of all restraints)
+         *
+         * By default this returns 0, so this \e must be overloaded by any
+         * object which actually uses restraint.
+         * \note Instead, we could return by default the sum of the restraints,
+         * but this is dangerous since we \e want to have derived objects fully
+         * responsible for handling restraints.
+         */
+         virtual REAL GetRestraintCost()const;
+         /** Add a new restraint
+         *
+         * This returns an iterator pointing to the next Restraint in the vector.
+         */
+         void AddRestraint(Restraint *pNewRestraint);
+         /** Remove a restraint from the list of known restraints. This does not
+         * delete the Restraint object.
+         */
+         vector<Restraint*>::iterator RemoveRestraint(Restraint *pRestraint);
+      /** During a global optimization, tells the object that the current config is
+      * the latest "best" config.
+      *
+      * This can be used by the object to make more intellingent random moves (use with
+      * caution: highly experimental !).
+      */
+      virtual void TagNewBestConfig()const;
+      /// This clocks records _any_ change in the object. See refinableObj::mClockMaster
+      const RefinableObjClock& GetClockMaster()const;
+      /// Access to the integer address of this object, for unique identification from python
+      size_t int_ptr() const;
+   protected:
+      /// Find a refinable parameter with a given name
+      long FindPar(const string &name) const;
+      /// Find a refinable parameter from the adress of its value
+      long FindPar(const REAL*) const;
+
+      /// \internal Add an object in the registry of used objects.
+      void AddSubRefObj(RefinableObj &);
+      /// \internal Remove an object in the registry of used objects.
+      void RemoveSubRefObj(RefinableObj &);
+
+      /// \internal Add an option for this parameter
+      void AddOption(RefObjOpt *opt);
+      /// \internal Prepare everything (if necessary) for an optimization/calculation.
+      virtual void Prepare();
+
+      /// Find a parameter set with a given id (and check if it is there)
+      map<unsigned long,pair<CrystVector_REAL,string> >::iterator FindParamSet(unsigned long id)const;
+
+      ///Name for this RefinableObject. Should be unique, at least in the same scope.+
+      string mName;
+      // Parameters
+         /// Vector of pointers to the refinable parameters
+#include "ObjCryst/ObjCryst/Scatterer.h"
+#include "ObjCryst/ObjCryst/Crystal.h"
+
+//#include <stdlib.h>
+#include <string>
+//#include <iomanip>
+//#include <cmath>
+//#include <typeinfo>
+//#include <fstream>
+//#include <ctime>
+
+namespace ObjCryst
+{
+#ifndef HAVE_SSE_MATHFUN
+//initialize tabulated values of cosine
+void InitLibCrystTabulCosine();
+void DeleteLibCrystTabulCosine();
+void InitLibCrystTabulExp();
+void DeleteLibCrystTabulExp();
+#endif
+/// Generic type for scattering data
+extern const RefParType *gpRefParTypeScattData;
+/// Type for scattering data scale factors
+extern const RefParType *gpRefParTypeScattDataScale;
+/// Type for reflection profile
+extern const RefParType *gpRefParTypeScattDataProfile;
+/// Type for reflection profiles type (e.g. gaussian/lorentzian mix)
+extern const RefParType *gpRefParTypeScattDataProfileType;
+/// Type for reflection profile width
+extern const RefParType *gpRefParTypeScattDataProfileWidth;
+/// Type for reflection profile asymmetry
+extern const RefParType *gpRefParTypeScattDataProfileAsym;
+/// Generic type for scattering data correction parameter
+extern const RefParType *gpRefParTypeScattDataCorr;
+/// Generic type for correction to calculated intensities
+extern const RefParType *gpRefParTypeScattDataCorrInt;
+/// Parameter type for preferred orientation direction
+extern const RefParType *gpRefParTypeScattDataCorrIntPO_Direction;
+/// Parameter type for fraction of preferred orientation
+extern const RefParType *gpRefParTypeScattDataCorrIntPO_Fraction;
+/// Parameter type for the amplitude of preferred orientation
+extern const RefParType *gpRefParTypeScattDataCorrIntPO_Amplitude;
+/// Parameter type for the ellipsoid coefficient
+extern const RefParType *gpRefParTypeScattDataCorrInt_Ellipsoid;
+/// Parameter type for absorption correction
+extern const RefParType *gpRefParTypeScattDataCorrIntAbsorp;
+/// Parameter type for polarization correction
+extern const RefParType *gpRefParTypeScattDataCorrIntPolar;
+/// Parameter type for extinction correction
+extern const RefParType *gpRefParTypeScattDataCorrIntExtinc;
+/// Parameter type for correction to peak positions
+extern const RefParType *gpRefParTypeScattDataCorrPos;
+/// Parameter type for background intensity
+extern const RefParType *gpRefParTypeScattDataBackground;
+
+extern const RefParType *gpRefParTypeRadiation;
+extern const RefParType *gpRefParTypeRadiationWavelength;
+
+class NiftyStaticGlobalObjectsInitializer_ScatteringData
+{
+   public:
+      NiftyStaticGlobalObjectsInitializer_ScatteringData()
+      {
+         if (mCount++ == 0)
+         {
+            #ifndef HAVE_SSE_MATHFUN
+            InitLibCrystTabulCosine();
+            InitLibCrystTabulExp();
+            #endif
+            gpRefParTypeScattData= new RefParType(gpRefParTypeObjCryst,"Scattering Data");
+            gpRefParTypeScattDataScale= new RefParType(gpRefParTypeObjCryst,"Scale Factor");
+            gpRefParTypeScattDataProfile= new RefParType(gpRefParTypeScattData,"Profile");
+            gpRefParTypeScattDataProfileType= new RefParType(gpRefParTypeScattDataProfile,"Type");
+            gpRefParTypeScattDataProfileWidth= new RefParType(gpRefParTypeScattDataProfile,"Width");
+            gpRefParTypeScattDataProfileAsym= new RefParType(gpRefParTypeScattDataProfile,"Asymmetry");
+            gpRefParTypeScattDataCorr= new RefParType(gpRefParTypeScattData,"Correction");
+            gpRefParTypeScattDataCorrInt= new RefParType(gpRefParTypeScattDataCorr,"Intensities");
+            gpRefParTypeScattDataCorrIntPO_Direction= new RefParType(gpRefParTypeScattDataCorrIntPO_Direction,"Preferred orientation direction");
+            gpRefParTypeScattDataCorrIntPO_Fraction= new RefParType(gpRefParTypeScattDataCorrIntPO_Fraction,"Preferred orientation fraction");
+            gpRefParTypeScattDataCorrIntPO_Amplitude= new RefParType(gpRefParTypeScattDataCorrIntPO_Amplitude,"Preferred orientation amplitude");
+            gpRefParTypeScattDataCorrInt_Ellipsoid= new RefParType(gpRefParTypeScattDataCorrInt_Ellipsoid,"Preferred orientation ellipsoid");
+            gpRefParTypeScattDataCorrIntAbsorp= new RefParType(gpRefParTypeScattDataCorrInt,"Absorption");
+            gpRefParTypeScattDataCorrIntPolar= new RefParType(gpRefParTypeScattDataCorrInt,"Polarization");
+/opt/conda/include/ObjCryst/ObjCryst/ScatteringPower.h:467:struct ScatteringComponent
+/opt/conda/include/ObjCryst/ObjCryst/ScatteringPower.h:505:class ScatteringComponentList
+extern const RefParType *gpRefParTypeScattOrient;
+extern const RefParType *gpRefParTypeScattConform;
+extern const RefParType *gpRefParTypeScattConformBondLength;
+extern const RefParType *gpRefParTypeScattConformBondAngle;
+extern const RefParType *gpRefParTypeScattConformDihedAngle;
+extern const RefParType *gpRefParTypeScattConformX;
+extern const RefParType *gpRefParTypeScattConformY;
+extern const RefParType *gpRefParTypeScattConformZ;
+extern const RefParType *gpRefParTypeScattOccup;
+class NiftyStaticGlobalObjectsInitializer_Scatterer
+{
+   public:
+      NiftyStaticGlobalObjectsInitializer_Scatterer()
+      {
+         if (mCount++ == 0)
+         {
+            gpRefParTypeScatt=new RefParType(gpRefParTypeObjCryst,"Scatterer");
+            gpRefParTypeScattTransl=new RefParType(gpRefParTypeScatt,"Translation");
+            gpRefParTypeScattTranslX=new RefParType(gpRefParTypeScattTransl,"Translation along X");
+            gpRefParTypeScattTranslY=new RefParType(gpRefParTypeScattTransl,"Translation along Y");
+            gpRefParTypeScattTranslZ=new RefParType(gpRefParTypeScattTransl,"Translation along Z");
+            gpRefParTypeScattOrient=new RefParType(gpRefParTypeScatt,"Orientation");
+            gpRefParTypeScattConform=new RefParType(gpRefParTypeScatt,"Conformation");
+            gpRefParTypeScattConformBondLength=new RefParType(gpRefParTypeScattConform,"BondLengths");
+            gpRefParTypeScattConformBondAngle=new RefParType(gpRefParTypeScattConform,"Bond Angles");
+            gpRefParTypeScattConformDihedAngle=new RefParType(gpRefParTypeScattConform,"Dihedral Angles ");
+            gpRefParTypeScattConformX=new RefParType(gpRefParTypeScattConform,"Orth. X coordinates");
+            gpRefParTypeScattConformY=new RefParType(gpRefParTypeScattConform,"Orth. Y coordinates");
+            gpRefParTypeScattConformZ=new RefParType(gpRefParTypeScattConform,"Orth. Z coordinates");
+            gpRefParTypeScattOccup=new RefParType(gpRefParTypeScatt,"Occupancy");
+         }
+      }
+      ~NiftyStaticGlobalObjectsInitializer_Scatterer()
+      {
+         if (--mCount == 0)
+         {
+            delete gpRefParTypeScatt;
+            delete gpRefParTypeScattTransl;
+            delete gpRefParTypeScattTranslX;
+            delete gpRefParTypeScattTranslY;
+            delete gpRefParTypeScattTranslZ;
+            delete gpRefParTypeScattOrient;
+            delete gpRefParTypeScattConform;
+            delete gpRefParTypeScattConformBondLength;
+            delete gpRefParTypeScattConformBondAngle;
+            delete gpRefParTypeScattConformDihedAngle;
+            delete gpRefParTypeScattConformX;
+            delete gpRefParTypeScattConformY;
+            delete gpRefParTypeScattConformZ;
+            delete gpRefParTypeScattOccup;
+            gpRefParTypeScatt=0;
+            gpRefParTypeScattTransl=0;
+            gpRefParTypeScattTranslX=0;
+            gpRefParTypeScattTranslY=0;
+            gpRefParTypeScattTranslZ=0;
+            gpRefParTypeScattOrient=0;
+            gpRefParTypeScattConform=0;
+            gpRefParTypeScattConformBondLength=0;
+            gpRefParTypeScattConformBondAngle=0;
+            gpRefParTypeScattConformDihedAngle=0;
+            gpRefParTypeScattConformX=0;
+            gpRefParTypeScattConformY=0;
+            gpRefParTypeScattConformZ=0;
+            gpRefParTypeScattOccup=0;
+         }
+      }
+   private:
+      static long mCount;
+};
+static NiftyStaticGlobalObjectsInitializer_Scatterer NiftyStaticGlobalObjectsInitializer_Scatterer_counter;
+
+
+//######################################################################
+//
+//      SCATTERER
+/** \brief Generic type of scatterer: can be an atom, or a more complex assembly of atoms.
+*
+* A Scatterer is able to give its position (in fractionnal coordinates)
+* in the unit cell, and more generally the position of all point
+* scattering centers (ScatteringComponent), along with the ScatteringPower
+* associated with each position.
+*
+* For simple atoms, there is only one scattering position with the associated
+* scattering power (scattering factor, anomalous, thermic). For complex
+* scatterers (molecules: ZScatterer) there are as many positions as atoms.
+*
+* A scatterer also has a few functions to display itself in 3D
+*
+177:      const std::vector<SpaceGroup::SMx>& GetSymmetryOperations()const;
+200:      CrystMatrix_REAL GetAllSymmetrics(const REAL x, const REAL y, const REAL z,
+231:      int GetNbSymmetrics(const bool noCenter=false,const bool noTransl=false)const;
+      */
+      const std::vector<SpaceGroup::TRx>& GetTranslationVectors()const;
+
+      /** Get all symmetry operations stored in vector of struct SMx.
+       */
+      const std::vector<SpaceGroup::SMx>& GetSymmetryOperations()const;
+
+      /** \brief Get all equivalent positions of a (xyz) position
+      *
+      *  \param x,y,z fractional coordinates of the position
+      *  \param  noCenter if set to 'false' (the default), then the center of
+      * symmetry (if any) is used to generate ALL positions. If 'true', then
+      * only one half of equivalent positions are generated. This has
+      * no influence if the group is not centrosymmetric. (\b note Not generating
+      * symmetrical positions from center of symmetry is useful to speed up computation
+      * of structure factor, but is a bit tricky if the inversion is not at the origin.
+      * This is taken into account)
+      *  \param  noTransl if set to 'false' (the default), then translation are
+      * taken into account to generate all atom positions. This affect
+      * only body or face(s)-centered spacegroups.
+      *  \param  noIdentical if set to true, then atom in special positions
+      * will only return the distinct atomic positions. Currently two atoms are considered
+      * distinct if the difference for all of their fractionnal coordinates is less than 1e-5
+      *  \return a 3-column (x,y,z) matrix with as many rows as symmetric atoms
+      *  \warning 'special' positions are not taken into account. (ie an
+      * atom in special position will return duplicate entries. This may be
+      * corrected automatically later.) You can use the 'noIdentical' option for that,
+      */
+      CrystMatrix_REAL GetAllSymmetrics(const REAL x, const REAL y, const REAL z,
+                                const bool noCenter=false,const bool noTransl=false,
+                                const bool noIdentical=false) const;
+      /** \brief Get all equivalent positions of a (xyz) position
+      *
+      * \param x,y,z: fractional coordinates of the position. On return,
+      * these will contain the new values.
+      * \param  noCenter if set to 'false' (the default), then the center of
+      * symmetry (if any) is used to generate ALL positions. If 'true', then
+      * only one half of equivalent positions are generated. This has
+      * no influence if the group is not centrosymmetric. (\b note Not generating
+      * symmetrical positions from center of symmetry is useful to speed up computation
+      * of structure factor, but is a bit tricky if the inversion is not at the origin.
+114:      const CrystMatrix_REAL& GetOrthMatrix() const;
+132:      void FractionalToOrthonormalCoords(REAL &x,REAL &y,REAL &z) const;

@@ -1,0 +1,126 @@
+----- <class 'pyobjcryst.powderpattern.PowderPattern'>
+__init__ None
+SetPowderPatternX 
+SetPowderPatternX( (PowderPattern)arg1, (object)x) -> None :
+
+    C++ signature :
+        void SetPowderPatternX(ObjCryst::PowderPattern {lvalue},boost::python::api::object)
+SetPowderPatternObs 
+SetPowderPatternObs( (PowderPattern)arg1, (object)obs) -> None :
+
+    C++ signature :
+        void SetPowderPatternObs(ObjCryst::PowderPattern {lvalue},boost::python::api::object)
+NO SetPowderPatternSigma
+SetWavelength 
+SetWavelength( (PowderPattern)arg1, (float)wavelength) -> None :
+
+    C++ signature :
+        void SetWavelength(ObjCryst::PowderPattern {lvalue},double)
+
+SetWavelength( (PowderPattern)arg1, (str)XRayTubeElementName [, (float)alpha2Alpha2ratio=0.5]) -> None :
+
+    C++ signature :
+        void SetWavelength(ObjCryst::PowderPattern {lvalue},std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > [,double=0.5])
+AddPowderPatternDiffraction 
+AddPowderPatternDiffraction( (PowderPattern)arg1, (Crystal)arg2) -> PowderPatternDiffraction :
+
+    C++ signature :
+        ObjCryst::PowderPatternDiffraction {lvalue} AddPowderPatternDiffraction(ObjCryst::PowderPattern {lvalue},ObjCryst::Crystal {lvalue})
+SetRadiationType 
+SetRadiationType( (PowderPattern)arg1, (RadiationType)arg2) -> None :
+
+    C++ signature :
+        void SetRadiationType(ObjCryst::PowderPattern {lvalue},ObjCryst::RadiationType)
+SetMaxSinThetaOvLambda 
+SetMaxSinThetaOvLambda( (PowderPattern)arg1, (float)max) -> None :
+
+    C++ signature :
+        void SetMaxSinThetaOvLambda(ObjCryst::PowderPattern {lvalue},double)
+GetRw 
+GetRw( (PowderPattern)arg1) -> float :
+
+    C++ signature :
+        double GetRw(ObjCryst::PowderPattern {lvalue})
+----- <class 'pyobjcryst._pyobjcryst.PowderPatternDiffraction'>
+__init__ Raises an exception
+This class cannot be instantiated from Python
+
+SetCrystal 
+SetCrystal( (PowderPatternDiffraction)arg1, (Crystal)crystal) -> None :
+
+    C++ signature :
+        void SetCrystal(ObjCryst::PowderPatternDiffraction {lvalue},ObjCryst::Crystal {lvalue})
+SetReflectionProfilePar 
+SetReflectionProfilePar( (PowderPatternDiffraction)arg1 [, (ReflectionProfileType)type=pyobjcryst._pyobjcryst.ReflectionProfileType.PROFILE_PSEUDO_VOIGT [, (float)fwhmCagliotiW=1e-06 [, (float)fwhmCagliotiU=0 [, (float)fwhmCagliotiV=0 [, (float)eta0=0.5 [, (float)eta1=0]]]]]]) -> None :
+
+    C++ signature :
+        void SetReflectionProfilePar(ObjCryst::PowderPatternDiffraction {lvalue} [,ObjCryst::ReflectionProfileType=pyobjcryst._pyobjcryst.ReflectionProfileType.PROFILE_PSEUDO_VOIGT [,double=1e-06 [,double=0 [,double=0 [,double=0.5 [,double=0]]]]]])
+ExtractLeBail 
+ExtractLeBail( (PowderPatternDiffraction)arg1 [, (int)nbcycle=1]) -> None :
+
+    C++ signature :
+        void ExtractLeBail(ObjCryst::PowderPatternDiffraction {lvalue} [,unsigned int=1])
+GetFhklObsSq 
+GetFhklObsSq( (PowderPatternDiffraction)arg1) -> object :
+
+    C++ signature :
+        CrystVector<double> GetFhklObsSq(ObjCryst::PowderPatternDiffraction {lvalue})
+GetFhklCalcSq 
+GetFhklCalcSq( (ScatteringData)arg1) -> object :
+
+    C++ signature :
+        CrystVector<double> GetFhklCalcSq(ObjCryst::ScatteringData {lvalue})
+SetExtractionMode 
+SetExtractionMode( (PowderPatternDiffraction)arg1 [, (bool)extract=True [, (bool)init=False]]) -> None :
+
+    C++ signature :
+        void SetExtractionMode(ObjCryst::PowderPatternDiffraction {lvalue} [,bool=True [,bool=False]])
+----- <class 'pyobjcryst._pyobjcryst.SpaceGroupExplorer'>
+__init__ 
+__init__( (object)arg1, (PowderPatternDiffraction)powdiff) -> None :
+
+    C++ signature :
+        void __init__(_object*,ObjCryst::PowderPatternDiffraction*)
+Run 
+Run( (SpaceGroupExplorer)arg1, (str)spg [, (bool)fitprofile=False [, (bool)verbose=False [, (bool)restore_orig=False [, (bool)update_display=False [, (float)relative_length_tolerance=0.01 [, (float)absolute_angle_tolerance_degree=1]]]]]]) -> SPGScore :
+
+    C++ signature :
+        ObjCryst::SPGScore Run(ObjCryst::SpaceGroupExplorer {lvalue},std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > [,bool=False [,bool=False [,bool=False [,bool=False [,double=0.01 [,double=1]]]]]])
+GetScores 
+GetScores( (SpaceGroupExplorer)arg1) -> list :
+
+    C++ signature :
+        boost::python::list GetScores(ObjCryst::SpaceGroupExplorer)
+RunAll 
+RunAll( (SpaceGroupExplorer)arg1 [, (bool)fitprofile_all=False [, (bool)verbose=True [, (bool)keep_best=True [, (bool)update_display=True [, (bool)fitprofile_p1=True [, (float)relative_length_tolerance=0.01 [, (float)absolute_angle_tolerance_degree=1]]]]]]]) -> None :
+
+    C++ signature :
+        void RunAll(ObjCryst::SpaceGroupExplorer {lvalue} [,bool=False [,bool=True [,bool=True [,bool=True [,bool=True [,double=0.01 [,double=1]]]]]]])
+----- <class 'pyobjcryst.crystal.Crystal'>
+__init__ 
+__init__( (object)arg1) -> None :
+
+    C++ signature :
+        void __init__(_object*)
+
+__init__( (object)arg1, (float)a, (float)b, (float)c, (str)SpaceGroupId) -> None :
+
+    C++ signature :
+        void __init__(_object*,double,double,double,std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)
+
+__init__( (object)arg1, (float)a, (float)b, (float)c, (float)alpha, (float)beta, (float)gamma, (str)SpaceGroupId) -> None :
+
+    C++ signature :
+        void __init__(_object*,double,double,double,double,double,double,std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)
+
+__init__( (object)arg1, (Crystal)oldCryst) -> None :
+
+    C++ signature :
+        void __init__(_object*,ObjCryst::Crystal)
+CIFOutput Save the crystal structure to a CIF file.
+
+        :param file: either a filename, or a python file object opened
+            in write mode
+        
+NO SetSpaceGroup
+['GetScores', 'Run', 'RunAll', '__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getstate__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__instance_size__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__']

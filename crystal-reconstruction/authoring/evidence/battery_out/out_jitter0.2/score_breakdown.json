@@ -1,0 +1,1175 @@
+{
+ "status": "SCORED",
+ "score": 0.688889,
+ "points": 62,
+ "max_points": 90,
+ "n_instances": 30,
+ "L_passes": 2,
+ "S_passes": 30,
+ "hedged": 0,
+ "by_dof_bin": {
+  "hard_dof25_or_Z2": {
+   "n": 9,
+   "L": 0,
+   "S": 9
+  },
+  "calib_lt15": {
+   "n": 10,
+   "L": 1,
+   "S": 10
+  },
+  "mid_15_25": {
+   "n": 11,
+   "L": 1,
+   "S": 11
+  }
+ },
+ "tolerances": {
+  "L_length_frac": 0.01,
+  "L_angle_deg": 1.0,
+  "S_rmsd_A": 0.35,
+  "S_dmax_A": 1.0
+ },
+ "instances": [
+  {
+   "id": "X019b9a4",
+   "dof": 26.0,
+   "dof_bin": "hard_dof25_or_Z2",
+   "L": false,
+   "S": true,
+   "points": 2,
+   "L_detail": {
+    "reference_niggli": [
+     8.4454,
+     10.9223,
+     18.4436,
+     90.268,
+     94.002,
+     106.255
+    ],
+    "reference_sg_type": 2,
+    "submitted_niggli": [
+     8.4454,
+     10.9223,
+     18.4436,
+     90.268,
+     94.002,
+     106.255
+    ],
+    "submitted_sg_type": 1,
+    "cell_ok": true,
+    "sg_ok": false
+   },
+   "S_detail": {
+    "identity": "ok (formula units per cell: 2)",
+    "matched": true,
+    "rmsd": 0.1994,
+    "dmax": 0.2149,
+    "det": -1.0
+   },
+   "hedge": false
+  },
+  {
+   "id": "X07806d9",
+   "dof": 13.0,
+   "dof_bin": "calib_lt15",
+   "L": false,
+   "S": true,
+   "points": 2,
+   "L_detail": {
+    "reference_niggli": [
+     8.2086,
+     11.2225,
+     16.8595,
+     90.0,
+     90.0,
+     90.0
+    ],
+    "reference_sg_type": 61,
+    "submitted_niggli": [
+     8.2086,
+     11.2225,
+     16.8595,
+     90.0,
+     90.0,
+     90.0
+    ],
+    "submitted_sg_type": 1,
+    "cell_ok": true,
+    "sg_ok": false
+   },
+   "S_detail": {
+    "identity": "ok (formula units per cell: 8)",
+    "matched": true,
+    "rmsd": 0.1996,
+    "dmax": 0.211,
+    "det": -1.0
+   },
+   "hedge": false
+  },
+  {
+   "id": "X13023e3",
+   "dof": 17.0,
+   "dof_bin": "mid_15_25",
+   "L": false,
+   "S": true,
+   "points": 2,
+   "L_detail": {
+    "reference_niggli": [
+     5.5286,
+     6.0213,
+     27.9925,
+     93.112,
+     90.0,
+     90.0
+    ],
+    "reference_sg_type": 4,
+    "submitted_niggli": [
+     5.5286,
+     6.0213,
+     27.9925,
+     93.112,
+     90.0,
+     90.0
+    ],
+    "submitted_sg_type": 1,
+    "cell_ok": true,
+    "sg_ok": false
+   },
+   "S_detail": {
+    "identity": "ok (formula units per cell: 2)",
+    "matched": true,
+    "rmsd": 0.196,
+    "dmax": 0.2354,
+    "det": 1.0
+   },
+   "hedge": false
+  },
+  {
+   "id": "X14a2b08",
+   "dof": 18.0,
+   "dof_bin": "mid_15_25",
+   "L": false,
+   "S": true,
+   "points": 2,
+   "L_detail": {
+    "reference_niggli": [
+     5.103,
+     11.9406,
+     21.3081,
+     85.308,
+     87.627,
+     86.997
+    ],
+    "reference_sg_type": 2,
+    "submitted_niggli": [
+     5.103,
+     11.9406,
+     21.3081,
+     85.308,
+     87.627,
+     86.997
+    ],
+    "submitted_sg_type": 1,
+    "cell_ok": true,
+    "sg_ok": false
+   },
+   "S_detail": {
+    "identity": "ok (formula units per cell: 2)",
+    "matched": true,
+    "rmsd": 0.1976,
+    "dmax": 0.2301,
+    "det": 1.0
+   },
+   "hedge": false
+  },
+  {
+   "id": "X1a56c78",
+   "dof": 14.0,
+   "dof_bin": "calib_lt15",
+   "L": false,
+   "S": true,
+   "points": 2,
+   "L_detail": {
+    "reference_niggli": [
+     5.8931,
+     11.2297,
+     30.0265,
+     90.0,
+     90.0,
+     90.0
+    ],
+    "reference_sg_type": 18,
+    "submitted_niggli": [
+     5.8931,
+     11.2297,
+     30.0265,
+     90.0,
+     90.0,
+     90.0
+    ],
+    "submitted_sg_type": 1,
+    "cell_ok": true,
+    "sg_ok": false
+   },
+   "S_detail": {
+    "identity": "ok (formula units per cell: 4)",
+    "matched": true,
+    "rmsd": 0.1992,
+    "dmax": 0.2171,
+    "det": 1.0
+   },
+   "hedge": false
+  },
+  {
+   "id": "X1db5091",
+   "dof": 19.0,
+   "dof_bin": "mid_15_25",
+   "L": false,
+   "S": true,
+   "points": 2,
+   "L_detail": {
+    "reference_niggli": [
+     4.8977,
+     12.8874,
+     40.914,
+     90.0,
+     90.0,
+     100.328
+    ],
+    "reference_sg_type": 14,
+    "submitted_niggli": [
+     4.8977,
+     12.8874,
+     40.914,
+     90.0,
+     90.0,
+     100.328
+    ],
+    "submitted_sg_type": 1,
+    "cell_ok": true,
+    "sg_ok": false
+   },
+   "S_detail": {
+    "identity": "ok (formula units per cell: 4)",
+    "matched": true,
+    "rmsd": 0.1993,
+    "dmax": 0.216,
+    "det": 1.0
+   },
+   "hedge": false
+  },
+  {
+   "id": "X2327841",
+   "dof": 34.0,
+   "dof_bin": "hard_dof25_or_Z2",
+   "L": false,
+   "S": true,
+   "points": 2,
+   "L_detail": {
+    "reference_niggli": [
+     4.9338,
+     12.3899,
+     25.04,
+     90.8033,
+     90.0,
+     90.0
+    ],
+    "reference_sg_type": 4,
+    "submitted_niggli": [
+     4.9338,
+     12.3899,
+     25.04,
+     90.8033,
+     90.0,
+     90.0
+    ],
+    "submitted_sg_type": 1,
+    "cell_ok": true,
+    "sg_ok": false
+   },
+   "S_detail": {
+    "identity": "ok (formula units per cell: 2)",
+    "matched": true,
+    "rmsd": 0.1985,
+    "dmax": 0.2237,
+    "det": 1.0
+   },
+   "hedge": false
+  },
+  {
+   "id": "X238783d",
+   "dof": 14.0,
+   "dof_bin": "calib_lt15",
+   "L": false,
+   "S": true,
+   "points": 2,
+   "L_detail": {
+    "reference_niggli": [
+     8.8534,
+     20.1492,
+     23.9545,
+     90.0,
+     90.0,
+     90.0
+    ],
+    "reference_sg_type": 19,
+    "submitted_niggli": [
+     8.8534,
+     20.1492,
+     23.9545,
+     90.0,
+     90.0,
+     90.0
+    ],
+    "submitted_sg_type": 1,
+    "cell_ok": true,
+    "sg_ok": false
+   },
+   "S_detail": {
+    "identity": "ok (formula units per cell: 4)",
+    "matched": true,
+    "rmsd": 0.1987,
+    "dmax": 0.2228,
+    "det": 1.0
+   },
+   "hedge": false
+  },
+  {
+   "id": "X263b09a",
+   "dof": 18.0,
+   "dof_bin": "mid_15_25",
+   "L": false,
+   "S": true,
+   "points": 2,
+   "L_detail": {
+    "reference_niggli": [
+     5.1627,
+     11.7638,
+     20.5548,
+     83.724,
+     89.543,
+     86.7
+    ],
+    "reference_sg_type": 2,
+    "submitted_niggli": [
+     5.1627,
+     11.7638,
+     20.5548,
+     83.724,
+     89.543,
+     86.7
+    ],
+    "submitted_sg_type": 1,
+    "cell_ok": true,
+    "sg_ok": false
+   },
+   "S_detail": {
+    "identity": "ok (formula units per cell: 2)",
+    "matched": true,
+    "rmsd": 0.1985,
+    "dmax": 0.2237,
+    "det": -1.0
+   },
+   "hedge": false
+  },
+  {
+   "id": "X35b7fbc",
+   "dof": 18.0,
+   "dof_bin": "mid_15_25",
+   "L": false,
+   "S": true,
+   "points": 2,
+   "L_detail": {
+    "reference_niggli": [
+     5.7103,
+     12.7698,
+     33.1455,
+     90.0,
+     90.0,
+     90.0
+    ],
+    "reference_sg_type": 19,
+    "submitted_niggli": [
+     5.7103,
+     12.7698,
+     33.1455,
+     90.0,
+     90.0,
+     90.0
+    ],
+    "submitted_sg_type": 1,
+    "cell_ok": true,
+    "sg_ok": false
+   },
+   "S_detail": {
+    "identity": "ok (formula units per cell: 4)",
+    "matched": true,
+    "rmsd": 0.1989,
+    "dmax": 0.22,
+    "det": 1.0
+   },
+   "hedge": false
+  },
+  {
+   "id": "X3c176e2",
+   "dof": 12.0,
+   "dof_bin": "hard_dof25_or_Z2",
+   "L": false,
+   "S": true,
+   "points": 2,
+   "L_detail": {
+    "reference_niggli": [
+     9.3319,
+     11.0378,
+     14.0148,
+     90.0,
+     90.0,
+     90.0
+    ],
+    "reference_sg_type": 19,
+    "submitted_niggli": [
+     9.3319,
+     11.0378,
+     14.0148,
+     90.0,
+     90.0,
+     90.0
+    ],
+    "submitted_sg_type": 1,
+    "cell_ok": true,
+    "sg_ok": false
+   },
+   "S_detail": {
+    "identity": "ok (formula units per cell: 8)",
+    "matched": true,
+    "rmsd": 0.1996,
+    "dmax": 0.2119,
+    "det": 1.0
+   },
+   "hedge": false
+  },
+  {
+   "id": "X3f4781b",
+   "dof": 30.0,
+   "dof_bin": "hard_dof25_or_Z2",
+   "L": false,
+   "S": true,
+   "points": 2,
+   "L_detail": {
+    "reference_niggli": [
+     10.4315,
+     12.632,
+     15.3345,
+     90.0,
+     90.0,
+     113.28
+    ],
+    "reference_sg_type": 4,
+    "submitted_niggli": [
+     10.4315,
+     12.632,
+     15.3345,
+     90.0,
+     90.0,
+     113.28
+    ],
+    "submitted_sg_type": 1,
+    "cell_ok": true,
+    "sg_ok": false
+   },
+   "S_detail": {
+    "identity": "established by the geometric match (distance-based perception: component with atoms CCCCCCCCCCCC... matches no supplied component)",
+    "matched": true,
+    "rmsd": 0.1992,
+    "dmax": 0.2169,
+    "det": 1.0
+   },
+   "hedge": false
+  },
+  {
+   "id": "X4f6fe58",
+   "dof": 7.0,
+   "dof_bin": "calib_lt15",
+   "L": false,
+   "S": true,
+   "points": 2,
+   "L_detail": {
+    "reference_niggli": [
+     8.4769,
+     11.6756,
+     14.8006,
+     90.0,
+     93.679,
+     90.0
+    ],
+    "reference_sg_type": 14,
+    "submitted_niggli": [
+     8.4769,
+     11.6756,
+     14.8006,
+     90.0,
+     93.679,
+     90.0
+    ],
+    "submitted_sg_type": 1,
+    "cell_ok": true,
+    "sg_ok": false
+   },
+   "S_detail": {
+    "identity": "ok (formula units per cell: 4)",
+    "matched": true,
+    "rmsd": 0.1988,
+    "dmax": 0.2214,
+    "det": -1.0
+   },
+   "hedge": false
+  },
+  {
+   "id": "X7e382cb",
+   "dof": 15.0,
+   "dof_bin": "calib_lt15",
+   "L": true,
+   "S": true,
+   "points": 3,
+   "L_detail": {
+    "reference_niggli": [
+     4.677,
+     5.2306,
+     14.387,
+     90.57,
+     91.41,
+     92.775
+    ],
+    "reference_sg_type": 1,
+    "submitted_niggli": [
+     4.677,
+     5.2306,
+     14.387,
+     90.57,
+     91.41,
+     92.775
+    ],
+    "submitted_sg_type": 1,
+    "cell_ok": true,
+    "sg_ok": true
+   },
+   "S_detail": {
+    "identity": "ok (formula units per cell: 1)",
+    "matched": true,
+    "rmsd": 0.1881,
+    "dmax": 0.2531,
+    "det": 1.0
+   },
+   "hedge": false
+  },
+  {
+   "id": "X8a06d7a",
+   "dof": 19.0,
+   "dof_bin": "mid_15_25",
+   "L": false,
+   "S": true,
+   "points": 2,
+   "L_detail": {
+    "reference_niggli": [
+     5.0077,
+     11.8457,
+     21.7202,
+     93.954,
+     90.0,
+     90.0
+    ],
+    "reference_sg_type": 4,
+    "submitted_niggli": [
+     5.0077,
+     11.8457,
+     21.7202,
+     93.954,
+     90.0,
+     90.0
+    ],
+    "submitted_sg_type": 1,
+    "cell_ok": true,
+    "sg_ok": false
+   },
+   "S_detail": {
+    "identity": "ok (formula units per cell: 2)",
+    "matched": true,
+    "rmsd": 0.1974,
+    "dmax": 0.2311,
+    "det": 1.0
+   },
+   "hedge": false
+  },
+  {
+   "id": "X8a6f5a8",
+   "dof": 28.0,
+   "dof_bin": "hard_dof25_or_Z2",
+   "L": false,
+   "S": true,
+   "points": 2,
+   "L_detail": {
+    "reference_niggli": [
+     7.8643,
+     11.5516,
+     16.6523,
+     71.247,
+     84.596,
+     85.365
+    ],
+    "reference_sg_type": 2,
+    "submitted_niggli": [
+     7.8643,
+     11.5516,
+     16.6523,
+     71.247,
+     84.596,
+     85.365
+    ],
+    "submitted_sg_type": 1,
+    "cell_ok": true,
+    "sg_ok": false
+   },
+   "S_detail": {
+    "identity": "ok (formula units per cell: 2)",
+    "matched": true,
+    "rmsd": 0.1997,
+    "dmax": 0.2102,
+    "det": -1.0
+   },
+   "hedge": false
+  },
+  {
+   "id": "X9af54a2",
+   "dof": 15.0,
+   "dof_bin": "mid_15_25",
+   "L": false,
+   "S": true,
+   "points": 2,
+   "L_detail": {
+    "reference_niggli": [
+     5.1789,
+     8.2546,
+     32.9523,
+     90.0,
+     92.7535,
+     90.0
+    ],
+    "reference_sg_type": 14,
+    "submitted_niggli": [
+     5.1789,
+     8.2546,
+     32.9523,
+     90.0,
+     92.7535,
+     90.0
+    ],
+    "submitted_sg_type": 1,
+    "cell_ok": true,
+    "sg_ok": false
+   },
+   "S_detail": {
+    "identity": "ok (formula units per cell: 4)",
+    "matched": true,
+    "rmsd": 0.1995,
+    "dmax": 0.2131,
+    "det": -1.0
+   },
+   "hedge": false
+  },
+  {
+   "id": "Xb7088cf",
+   "dof": 12.0,
+   "dof_bin": "calib_lt15",
+   "L": false,
+   "S": true,
+   "points": 2,
+   "L_detail": {
+    "reference_niggli": [
+     5.0673,
+     9.4459,
+     38.236,
+     90.0,
+     90.0,
+     90.0
+    ],
+    "reference_sg_type": 33,
+    "submitted_niggli": [
+     5.0673,
+     9.4459,
+     38.236,
+     90.0,
+     90.0,
+     90.0
+    ],
+    "submitted_sg_type": 1,
+    "cell_ok": true,
+    "sg_ok": false
+   },
+   "S_detail": {
+    "identity": "ok (formula units per cell: 4)",
+    "matched": true,
+    "rmsd": 0.1996,
+    "dmax": 0.2129,
+    "det": -1.0
+   },
+   "hedge": false
+  },
+  {
+   "id": "Xbfc6d2c",
+   "dof": 7.0,
+   "dof_bin": "calib_lt15",
+   "L": false,
+   "S": true,
+   "points": 2,
+   "L_detail": {
+    "reference_niggli": [
+     7.6167,
+     11.9045,
+     14.6235,
+     90.0,
+     90.0,
+     105.483
+    ],
+    "reference_sg_type": 14,
+    "submitted_niggli": [
+     7.6167,
+     11.9045,
+     14.6235,
+     90.0,
+     90.0,
+     105.483
+    ],
+    "submitted_sg_type": 1,
+    "cell_ok": true,
+    "sg_ok": false
+   },
+   "S_detail": {
+    "identity": "ok (formula units per cell: 4)",
+    "matched": true,
+    "rmsd": 0.1977,
+    "dmax": 0.2295,
+    "det": 1.0
+   },
+   "hedge": false
+  },
+  {
+   "id": "Xbfeeda9",
+   "dof": 16.0,
+   "dof_bin": "mid_15_25",
+   "L": false,
+   "S": true,
+   "points": 2,
+   "L_detail": {
+    "reference_niggli": [
+     12.3773,
+     13.2135,
+     16.7095,
+     101.642,
+     90.0,
+     90.0
+    ],
+    "reference_sg_type": 14,
+    "submitted_niggli": [
+     12.3773,
+     13.2135,
+     16.7095,
+     101.642,
+     90.0,
+     90.0
+    ],
+    "submitted_sg_type": 1,
+    "cell_ok": true,
+    "sg_ok": false
+   },
+   "S_detail": {
+    "identity": "ok (formula units per cell: 4)",
+    "matched": true,
+    "rmsd": 0.1988,
+    "dmax": 0.2203,
+    "det": -1.0
+   },
+   "hedge": false
+  },
+  {
+   "id": "Xd4c1a35",
+   "dof": 18.0,
+   "dof_bin": "hard_dof25_or_Z2",
+   "L": false,
+   "S": true,
+   "points": 2,
+   "L_detail": {
+    "reference_niggli": [
+     11.7625,
+     12.0031,
+     24.2755,
+     90.0,
+     90.0,
+     90.0
+    ],
+    "reference_sg_type": 19,
+    "submitted_niggli": [
+     11.7625,
+     12.0031,
+     24.2755,
+     90.0,
+     90.0,
+     90.0
+    ],
+    "submitted_sg_type": 1,
+    "cell_ok": true,
+    "sg_ok": false
+   },
+   "S_detail": {
+    "identity": "ok (formula units per cell: 8)",
+    "matched": true,
+    "rmsd": 0.1985,
+    "dmax": 0.2239,
+    "det": 1.0
+   },
+   "hedge": false
+  },
+  {
+   "id": "Xd8634a2",
+   "dof": 13.0,
+   "dof_bin": "calib_lt15",
+   "L": false,
+   "S": true,
+   "points": 2,
+   "L_detail": {
+    "reference_niggli": [
+     8.911,
+     9.4793,
+     13.2464,
+     83.9821,
+     81.7759,
+     66.6767
+    ],
+    "reference_sg_type": 2,
+    "submitted_niggli": [
+     8.911,
+     9.4793,
+     13.2464,
+     83.9821,
+     81.7759,
+     66.6767
+    ],
+    "submitted_sg_type": 1,
+    "cell_ok": true,
+    "sg_ok": false
+   },
+   "S_detail": {
+    "identity": "established by the geometric match (distance-based perception: component with atoms CCCCCCCCCCCC... matches no supplied component)",
+    "matched": true,
+    "rmsd": 0.1993,
+    "dmax": 0.2156,
+    "det": -1.0
+   },
+   "hedge": false
+  },
+  {
+   "id": "Xdcc971e",
+   "dof": 32.0,
+   "dof_bin": "hard_dof25_or_Z2",
+   "L": false,
+   "S": true,
+   "points": 2,
+   "L_detail": {
+    "reference_niggli": [
+     7.176,
+     11.0207,
+     18.4338,
+     101.9743,
+     90.0,
+     90.0
+    ],
+    "reference_sg_type": 4,
+    "submitted_niggli": [
+     7.176,
+     11.0207,
+     18.4338,
+     101.9743,
+     90.0,
+     90.0
+    ],
+    "submitted_sg_type": 1,
+    "cell_ok": true,
+    "sg_ok": false
+   },
+   "S_detail": {
+    "identity": "ok (formula units per cell: 2)",
+    "matched": true,
+    "rmsd": 0.1982,
+    "dmax": 0.226,
+    "det": 1.0
+   },
+   "hedge": false
+  },
+  {
+   "id": "Xe1fb77b",
+   "dof": 16.0,
+   "dof_bin": "mid_15_25",
+   "L": false,
+   "S": true,
+   "points": 2,
+   "L_detail": {
+    "reference_niggli": [
+     5.5934,
+     13.8812,
+     15.3608,
+     90.0,
+     90.0,
+     94.9763
+    ],
+    "reference_sg_type": 4,
+    "submitted_niggli": [
+     5.5934,
+     13.8812,
+     15.3608,
+     90.0,
+     90.0,
+     94.9763
+    ],
+    "submitted_sg_type": 1,
+    "cell_ok": true,
+    "sg_ok": false
+   },
+   "S_detail": {
+    "identity": "ok (formula units per cell: 2)",
+    "matched": true,
+    "rmsd": 0.1983,
+    "dmax": 0.2244,
+    "det": 1.0
+   },
+   "hedge": false
+  },
+  {
+   "id": "Xe3a2935",
+   "dof": 9.0,
+   "dof_bin": "calib_lt15",
+   "L": false,
+   "S": true,
+   "points": 2,
+   "L_detail": {
+    "reference_niggli": [
+     6.8812,
+     10.2909,
+     19.9896,
+     90.0,
+     90.0,
+     90.0
+    ],
+    "reference_sg_type": 19,
+    "submitted_niggli": [
+     6.8812,
+     10.2909,
+     19.9896,
+     90.0,
+     90.0,
+     90.0
+    ],
+    "submitted_sg_type": 1,
+    "cell_ok": true,
+    "sg_ok": false
+   },
+   "S_detail": {
+    "identity": "ok (formula units per cell: 4)",
+    "matched": true,
+    "rmsd": 0.1977,
+    "dmax": 0.2299,
+    "det": 1.0
+   },
+   "hedge": false
+  },
+  {
+   "id": "Xeb393f9",
+   "dof": 21.0,
+   "dof_bin": "mid_15_25",
+   "L": true,
+   "S": true,
+   "points": 3,
+   "L_detail": {
+    "reference_niggli": [
+     8.0153,
+     9.8179,
+     10.2345,
+     74.8692,
+     68.9624,
+     65.9333
+    ],
+    "reference_sg_type": 1,
+    "submitted_niggli": [
+     8.0153,
+     9.8179,
+     10.2345,
+     74.8692,
+     68.9624,
+     65.9333
+    ],
+    "submitted_sg_type": 1,
+    "cell_ok": true,
+    "sg_ok": true
+   },
+   "S_detail": {
+    "identity": "ok (formula units per cell: 1)",
+    "matched": true,
+    "rmsd": 0.1992,
+    "dmax": 0.2174,
+    "det": 1.0
+   },
+   "hedge": false
+  },
+  {
+   "id": "Xebbd488",
+   "dof": 23.5,
+   "dof_bin": "mid_15_25",
+   "L": false,
+   "S": true,
+   "points": 2,
+   "L_detail": {
+    "reference_niggli": [
+     12.3767,
+     14.6692,
+     16.5101,
+     105.0678,
+     90.0,
+     114.9521
+    ],
+    "reference_sg_type": 15,
+    "submitted_niggli": [
+     12.3767,
+     16.5101,
+     26.6,
+     106.662,
+     90.0,
+     90.0
+    ],
+    "submitted_sg_type": 1,
+    "cell_ok": false,
+    "sg_ok": false
+   },
+   "S_detail": {
+    "identity": "ok (formula units per cell: 4)",
+    "matched": true,
+    "rmsd": 0.1325,
+    "dmax": 0.2058,
+    "det": 1.0
+   },
+   "hedge": false
+  },
+  {
+   "id": "Xedd9c7b",
+   "dof": 22.0,
+   "dof_bin": "hard_dof25_or_Z2",
+   "L": false,
+   "S": true,
+   "points": 2,
+   "L_detail": {
+    "reference_niggli": [
+     10.3986,
+     15.4823,
+     17.209,
+     90.0,
+     95.6,
+     90.0
+    ],
+    "reference_sg_type": 14,
+    "submitted_niggli": [
+     10.3986,
+     15.4823,
+     17.209,
+     90.0,
+     95.6,
+     90.0
+    ],
+    "submitted_sg_type": 1,
+    "cell_ok": true,
+    "sg_ok": false
+   },
+   "S_detail": {
+    "identity": "established by the geometric match (distance-based perception: component with atoms CCCCCCCCCCCC... matches no supplied component)",
+    "matched": true,
+    "rmsd": 0.1994,
+    "dmax": 0.2146,
+    "det": 1.0
+   },
+   "hedge": false
+  },
+  {
+   "id": "Xf8ac963",
+   "dof": 10.0,
+   "dof_bin": "calib_lt15",
+   "L": false,
+   "S": true,
+   "points": 2,
+   "L_detail": {
+    "reference_niggli": [
+     9.3202,
+     11.3911,
+     16.2628,
+     90.0,
+     90.0,
+     90.0
+    ],
+    "reference_sg_type": 19,
+    "submitted_niggli": [
+     9.3202,
+     11.3911,
+     16.2628,
+     90.0,
+     90.0,
+     90.0
+    ],
+    "submitted_sg_type": 1,
+    "cell_ok": true,
+    "sg_ok": false
+   },
+   "S_detail": {
+    "identity": "ok (formula units per cell: 4)",
+    "matched": true,
+    "rmsd": 0.1991,
+    "dmax": 0.2188,
+    "det": 1.0
+   },
+   "hedge": false
+  },
+  {
+   "id": "Xfca9f3c",
+   "dof": 28.0,
+   "dof_bin": "hard_dof25_or_Z2",
+   "L": false,
+   "S": true,
+   "points": 2,
+   "L_detail": {
+    "reference_niggli": [
+     4.9374,
+     12.3456,
+     21.4439,
+     105.6247,
+     90.0,
+     90.0
+    ],
+    "reference_sg_type": 4,
+    "submitted_niggli": [
+     4.9374,
+     12.3456,
+     21.4439,
+     105.6247,
+     90.0,
+     90.0
+    ],
+    "submitted_sg_type": 1,
+    "cell_ok": true,
+    "sg_ok": false
+   },
+   "S_detail": {
+    "identity": "ok (formula units per cell: 2)",
+    "matched": true,
+    "rmsd": 0.1994,
+    "dmax": 0.2148,
+    "det": 1.0
+   },
+   "hedge": false
+  }
+ ]
+}

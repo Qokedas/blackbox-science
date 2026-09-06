@@ -1,0 +1,88 @@
+{
+ "components": [
+  {
+   "smiles": "COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1",
+   "count": 1,
+   "charge": 0
+  },
+  {
+   "smiles": "NC(=O)c1ccccn1",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}{
+ "cell": [
+  11.838503525695577,
+  5.004072815900225,
+  21.694320968178932,
+  90.0,
+  86.06823685026342,
+  90.0
+ ],
+ "system": "MONOCLINIC",
+ "centering": "P",
+ "sg": "P 1 21 1",
+ "score": 0,
+ "volume": 1300,
+ "sgstart": "P 1 21 1",
+ "Rw": 0.09635277107538187,
+ "groups": [
+  {
+   "sg": "P 1 2 1",
+   "number": 3,
+   "Rw": 11.527605591114801,
+   "GoF": 3408.5759925615744,
+   "nGoF": 0.0,
+   "mult": 2
+  },
+  {
+   "sg": "P 1 m 1",
+   "number": 6,
+   "Rw": 11.527605591114801,
+   "GoF": 3408.5759925615744,
+/app/work/X8a06d7a/fit_0.json
+/app/work/X8a06d7a/fit_1.json
+/app/work/X8a06d7a/fit_2.json
+/app/work/X8a06d7a/fit_2d0.json
+/app/work/X8a06d7a/fit_2d1.json
+/app/work/X8a06d7a/fit_3.json
+/app/work/X8a06d7a/fit_4.json
+/app/work/X8a06d7a/fit_de0.json
+/app/work/X8a06d7a/fit_de1.json
+/app/work/X8a06d7a/fit_de2.json
+/app/work/X8a06d7a/fit_deh0.json
+/app/work/X8a06d7a/fit_deh1.json
+/app/work/X8a06d7a/fit_deh2.json
+/app/work/X8a06d7a/fit_force_mono.json
+/app/work/X8a06d7a/fit_oldh0.json
+{
+ "cell": [
+  4.930805337574092,
+  11.827538766581554,
+  21.73219753977565,
+  86.01698427466174,
+  85.62545869340512,
+  89.3113520555868
+ ],
+ "volume": 1268.7271207205683,
+ "score": 32.06,
+ "system": "TRICLINIC",
+ "centering": "P",
+ "mode": 3,
+ "source": "index_TRICLINIC_P_3_partial.json",
+{
+ "cell": {
+  "a": 5.0091400146484375,
+  "b": 11.848600387573242,
+  "c": 21.717899322509766,
+  "alpha": 86.05899810791016,
+  "beta": 89.84310150146484,
+  "gamma": 89.82859802246094
+ },
+ "space_group": "P -1",
+ "space_group_number": 2
+}

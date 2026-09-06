@@ -1,0 +1,316 @@
+import sys,os,json,time,itertools,numpy as np
+from numba import njit
+from scipy.optimize import differential_evolution,least_squares
+from pymatgen.core import Lattice
+sid=sys.argv[1];system=sys.argv[2] if len(sys.argv)>2 else 'MONOCLINIC';center=sys.argv[3] if len(sys.argv)>3 else 'P';W='/app/work/'+sid
+wl=json.load(open('/app/data/instances/'+sid+'/instrument.json'))['radiation']['wavelength_A'];ps=json.load(open(W+'/'+os.environ.get('PEAK_FILE','peaks_raw.json')))
+sp=os.environ.get('SELECT_FILE',W+'/peak_select_raw.json')
+if os.path.exists(sp):si=json.load(open(sp));ps=[ps[i-1] for i in si['indices']] if 'indices' in si else [p for p in ps if p['two_theta']>=si.get('min_two_theta',0)]
+ps=ps[int(os.environ.get('PEAK_SKIP','0')):][:int(os.environ.get('NPEAK','25'))];tt=np.array([p['two_theta'] for p in ps]);qobs=(2*np.sin(np.deg2rad(tt/2))/wl)**2;fac=wl**2/(2*np.sin(np.deg2rad(tt)))*180/np.pi
+import gemmi
+sg_filter=gemmi.find_spacegroup_by_name(os.environ['SG_FILTER']).operations() if 'SG_FILTER' in os.environ else None
+hkl=[];R=int(os.environ.get('HMAX','10'))
+for h in range(0,R+1):
+ for k in (range(0,R+1) if system!='TRICLINIC' else range(-R,R+1)):
+  for l in (range(0,R+1) if system=='ORTHOROMBIC' else range(-R,R+1)):
+   if not(h or k or l):continue
+   if h==0 and (k<0 or (k==0 and l<0)):continue
+   if system=='MONOCLINIC' and h==0 and l<0:continue
+   if sg_filter is not None and sg_filter.is_systematically_absent([h,k,l]):continue
+   if center=='C' and (h+k)%2:continue
+   if center=='I' and (h+k+l)%2:continue
+   if center=='F' and ((h+k)%2 or (h+l)%2):continue
+   hkl.append((h,k,l))
+hkl=np.array(hkl,dtype=float);terms=np.array([hkl[:,0]**2,hkl[:,1]**2,hkl[:,2]**2,2*hkl[:,1]*hkl[:,2],2*hkl[:,0]*hkl[:,2],2*hkl[:,0]*hkl[:,1]]).T
+lo=float(os.environ.get('VMIN','700'));hi=float(os.environ.get('VMAX','3200'));tar=float(os.environ.get('VTARGET',np.sqrt(lo*hi)));err=float(os.environ.get('TTHERR','.025'));nspur=int(os.environ.get('NSPUR','1'));max_time=float(os.environ.get('INDEX_TIME','300'));ndim={'ORTHOROMBIC':4,'MONOCLINIC':5,'TRICLINIC':7}[system];sgn={'ORTHOROMBIC':'P m m m','MONOCLINIC':'P 1 2/m 1','TRICLINIC':'P -1'}[system]
+@njit(cache=False)
+def metric(x):
+ g=np.zeros(6);g[:3]=x[:3]**2
+ if ndim==5:g[4]=x[3]*x[0]*x[2]
+ if ndim==7:g[3]=x[3]*x[1]*x[2];g[4]=x[4]*x[0]*x[2];g[5]=x[5]*x[0]*x[1]
+ return g
+@njit(cache=False)
+def diffs(x):
+ g=metric(x);qc=terms@g;ix=np.zeros(len(tt),np.int64);dif=np.zeros(len(tt))
+ for i in range(len(tt)):
+  qq=qobs[i]-x[-1]/fac[i];bd=1e10
+  for j in range(len(qc)):
+   dd=abs(qc[j]-qq)
+   if dd<bd:bd=dd;ix[i]=j
+  dif[i]=(qc[ix[i]]-qobs[i])*fac[i]+x[-1]
+ return dif,ix
+@njit(cache=False)
+def cost(x):
+ g=metric(x);det=g[0]*g[1]*g[2]+2*g[3]*g[4]*g[5]-g[0]*g[3]**2-g[1]*g[4]**2-g[2]*g[5]**2
+ if det<=0:return 1000.
+ vol=1/np.sqrt(det);dc,ix=diffs(x);sq=np.log1p((dc/err)**2);sq.sort();co=np.mean(sq[:len(sq)-nspur])*vol/tar
+ for i in range(len(ix)):
+  for j in range(i):
+   if ix[i]==ix[j]:co+=.06
+ if vol<lo:co+=100*np.log(lo/vol)**2
+ if vol>hi:co+=100*np.log(vol/hi)**2
+ return co
+amin=float(os.environ.get('AMIN','3.5'));amax=float(os.environ.get('AMAX','50'));bounds=[(1/amax,1/amin)]*3
+if system=='MONOCLINIC':bounds+=[(0.,.7)]
+if system=='TRICLINIC':bounds+=[(-.45,.45)]*3
+bounds+=[(-float(os.environ.get('ZEROMAX','.10')),float(os.environ.get('ZEROMAX','.10')))]
+if 'BOUNDS_FILE' in os.environ:bounds=json.load(open(os.environ['BOUNDS_FILE']))
+print('METRIC_INDEX',sid,system,center,'peaks',tt.tolist(),'bounds',bounds,'volume',lo,hi,flush=True);cost(np.mean(bounds,axis=1));t0=time.time();sol=[];tag=os.environ.get('INDEX_TAG','metric_'+system+'_'+center)
+for trial in range(int(os.environ.get('TRIALS','60'))):
+ kw={}
+ if sol and trial%3:
+  ss=sol[0]['parameters'];pop=np.random.uniform(np.array(bounds)[:,0],np.array(bounds)[:,1],size=(max(60,18*ndim),ndim));half=len(pop)//2;pop[:half]=np.clip(np.array(ss)*(1+np.random.normal(size=(half,ndim))*.15),np.array(bounds)[:,0],np.array(bounds)[:,1]);kw['init']=pop
+ res=differential_evolution(cost,bounds,popsize=int(os.environ.get('POPSIZE','18')),maxiter=int(os.environ.get('MAXITER','700')),polish=False,tol=.0001,workers=1,**kw);x=res.x
+ for j in range(6):
+  _,ix=diffs(x);tr=terms[ix]
+  re=least_squares(lambda xx:(tr@metric(xx)-qobs)*fac+xx[-1],x,bounds=np.array(bounds).T,loss='soft_l1',f_scale=err,max_nfev=100)
+  if cost(re.x)>cost(x)+.05:break
+  x=re.x
+ g=metric(x);GM=np.array([[g[0],g[5],g[4]],[g[5],g[1],g[3]],[g[4],g[3],g[2]]]);L=Lattice(np.linalg.cholesky(np.linalg.inv(GM)));df,ix=diffs(x);nc=np.sum(terms@g<qobs[-1]);sc=qobs[-1]/(2*max(1e-10,np.mean(abs(df)/fac))*nc);cell=list(L.parameters)
+ if system=='ORTHOROMBIC':cell[:3]=sorted(cell[:3]) if center=='P' else cell[:3]
+ o=dict(cell=cell,system=system,centering=center,volume=L.volume,score=float(sc),cost=float(cost(x)),mode=21,zero=float(x[-1]),rms=float(np.sqrt(np.mean(df**2))),maxerr=float(max(abs(df))),parameters=x.tolist(),diff=df.tolist(),hkl=hkl[ix].astype(int).tolist())
+ if not any(np.allclose(o['cell'][:3],s['cell'][:3],rtol=.003) and np.allclose(o['cell'][3:],s['cell'][3:],atol=.3) for s in sol):sol.append(o)
+ sol.sort(key=lambda s:s['cost']);json.dump(sol,open(W+'/index_'+tag+'.json','w'),indent=1)
+ print('TRIAL',trial,'sec',time.time()-t0,'cost',o['cost'],'score',sc,'vol',L.volume,'cell',np.round(cell,4),'zero',x[-1],'best',sol[0]['cost'],'diff',np.round(df,4),flush=True)
+ if o['maxerr']<.05 and o['cost']<.06 and sc>30:break
+ if time.time()-t0>max_time:break
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 CANDIDATE_FILE=/app/work/X8a6f5a8/candidates_metric.json
+while [[ -r /proc/15347/status ]] && ! grep -q '^State:.*Z' /proc/15347/status; do sleep 2;done
+for i in 0 1 2 3 4;do CANDIDATE_INDEX=$i python /app/work/fit_candidate.py X8a6f5a8 metric$i .33 > /app/work/X8a6f5a8/fit_metric$i.log 2>&1;done
+import os,sys,json,glob,time
+import numpy as np,gemmi,spglib
+from pymatgen.core import Lattice
+import matplotlib
+matplotlib.use('Agg')
+from pyobjcryst.crystal import Crystal
+from pyobjcryst.powderpattern import PowderPattern,ReflectionProfileType,SpaceGroupExplorer
+from pyobjcryst.io import xml_cryst_file_save_global
+from pyobjcryst.refinableobj import refpartype_scattdata_background
+sid=sys.argv[1];tag=sys.argv[2] if len(sys.argv)>2 else 'best';W='/app/work/'+sid
+spec=json.load(open(os.environ.get('CANDIDATE_FILE',W+'/candidates.json')))
+sol=spec[int(os.environ.get('CANDIDATE_INDEX',tag if tag.isdigit() else '0'))]
+cp=sol['cell'];sgstart=sol.get('sg','P m m m' if sol['system']=='ORTHOROMBIC' else 'P 1 2/m 1' if sol['system']=='MONOCLINIC' else 'P -1')
+ins=json.load(open('/app/data/instances/'+sid+'/instrument.json'));wl=ins['radiation']['wavelength_A'];comp=json.load(open('/app/data/instances/'+sid+'/composition.json'));chiral=any('@' in m['smiles'] for m in comp['components'])
+# cell angles are constrained using the corresponding metric symmetry
+c=Crystal(*cp[:3],*np.deg2rad(cp[3:]),sgstart);c.SetName(sid+'_'+tag)
+data=np.loadtxt('/app/data/instances/'+sid+'/pattern.xye');peaks=json.load(open(W+'/peaks.json'));mx=max(v['height'] for v in peaks);valid=[v for v in peaks if v['height']>mx*.015];xmin=max(data[0,0],min(v['two_theta'] for v in valid)-.5*wl/1.54)
+
+if os.path.exists(W+'/peak_select.json'):
+ manual=json.load(open(W+'/peak_select.json'));xmin=max(xmin,manual.get('min_two_theta',xmin))
+stol=float(sys.argv[3]) if len(sys.argv)>3 else .25
+sel=(data[:,0]>=xmin)&(data[:,0]<min(data[-1,0]+.001,np.rad2deg(2*np.arcsin(wl*stol))));data=data[sel]
+# reduce oversampling at very fine synchrotron steps, preserving counting errors appropriately
+step=1
+if len(data)>12000: step=2
+if step>1:
+ n=len(data)//step*step;data=np.column_stack([data[:n,0].reshape(-1,step).mean(1),data[:n,1].reshape(-1,step).mean(1),np.sqrt((data[:n,2]**2).reshape(-1,step).sum(1))/step])
+np.savetxt(W+'/fit_'+tag+'.xye',data)
+p=PowderPattern();p.SetName(sid+'_'+tag);p.ImportPowderPattern2ThetaObsSigma(W+'/fit_'+tag+'.xye');p.SetWavelength(wl);p.SetMaxSinThetaOvLambda(stol)
+rad=ins['radiation']
+if len(rad.get('wavelengths_A') or [])>1: p.SetWavelength('Mo' if wl<1 else 'Cu')
+d=p.AddPowderPatternDiffraction(c)
+wid=np.median([v['fwhm'] for v in sorted(valid,key=lambda z:-z['height'])[:25]])
+d.SetReflectionProfilePar(ReflectionProfileType.PROFILE_PSEUDO_VOIGT,np.deg2rad(wid)**2,0,0,.5,0)
+b=p.AddPowderPatternBackground();nbkg=max(20,int((data[-1,0]-data[0,0])/(1.2*wl/1.54)))
+bx=np.linspace(np.deg2rad(data[0,0]),np.deg2rad(data[-1,0]),nbkg);orig=np.load(W+'/processed.npz');by=np.interp(np.rad2deg(bx),orig['x'],orig['background']);b.SetInterpPoints(bx,by)
+p.Prepare()
+p.quick_fit_profile(pdiff=d,auto_background=False,init_profile=False,plot=False,asym=True,verbose=False)
+print('STARTFIT',sid,tag,'Rw',p.GetRw(),flush=True)
+xml_cryst_file_save_global(W+'/pre_scan_'+tag+'.xml')
+# Enumerate meaningful settings with compatible symmetry; absences alone do not prove chirality/centrosymmetry.
+system=sol['system'];cent=sol['centering']
+if system=='ORTHOROMBIC':
+ nums=[16,17,18,19,20,21,22,23,24] if chiral else [16,17,18,19,20,21,22,23,24,29,33,36,37,38,39,40,41,42,43,46,50,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74]
+elif system=='MONOCLINIC': nums=[3,4,5] if chiral else list(range(3,16))
+else:nums=[1] if chiral else [1,2]
+groups=[]
+for sg in gemmi.spacegroup_table():
+ if sg.number not in nums:continue
+ if system=='MONOCLINIC' and sg.monoclinic_unique_axis()!='b':continue
+ name=sg.xhm()
+ # Avoid alternate origin choices (irrelevant extinctions)
+ if ':2' in name:continue
+ if name not in groups:groups.append(name)
+if os.environ.get('SG_SCAN','1')=='0':groups=[sgstart]
+sgex=SpaceGroupExplorer(d);scores=[]
+for name in groups:
+ try:
+  r=sgex.Run(name,False,False,True,False)
+  scores.append(dict(sg=name,number=gemmi.find_spacegroup_by_name(name).number,Rw=float(r.Rw),GoF=float(r.GoF),nGoF=float(r.nGoF),mult=len(gemmi.find_spacegroup_by_name(name).operations())))
+ except Exception as e:print('ERRORSG',name,str(e),flush=True)
+scores.sort(key=lambda x:x['Rw'])
+print('GROUPS',json.dumps(scores),flush=True)
+d.SetExtractionMode(True,True);d.ExtractLeBail(40)
+# save baseline refined parameters and candidate scan without arbitrarily finalising SG
+cp=[float(c.GetPar(n).GetHumanValue()) for n in ['a','b','c','alpha','beta','gamma']]
+result=dict(sol,cell=cp,sgstart=sgstart,Rw=float(p.GetRw()),groups=scores,stol=stol)
+json.dump(result,open(W+'/fit_'+tag+'.json','w'),indent=1)
+p.plot(diff=True,hkl=False);p.figure.savefig(W+'/fit_'+tag+'.png',dpi=130)
+xml_cryst_file_save_global(W+'/fit_'+tag+'.xml')
+# Profile values for custom intensity/model code
+try:
+ pp={p.GetPar(i).GetName():p.GetPar(i).GetHumanValue() for i in range(p.GetNbPar())}
+ dp={d.GetPar(i).GetName():d.GetPar(i).GetHumanValue() for i in range(d.GetNbPar())}
+ result['p_pars']=pp;result['d_pars']=dp
+ json.dump(result,open(W+'/fit_'+tag+'.json','w'),indent=1)
+except:pass
+print('DONE',sid,tag,p.GetRw(),cp,flush=True)
+{"indices": [2, 6, 9, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 30, 31, 33, 34, 36, 38, 39, 41, 43]}{
+ "radiation": {
+  "type": "CuK1",
+  "wavelength_A": 1.54059,
+  "wavelengths_A": [
+   1.54059
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 295.0,
+ "two_theta_range_deg": [
+  3.5,
+  85.0
+ ],
+ "n_points": 8151,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}candidates.json
+candidates_metric.json
+complete_axis0.log
+find_zones.log
+fit_0.json
+fit_0.log
+fit_0.png
+fit_0.xml
+fit_0.xye
+fit_1.json
+fit_1.log
+fit_1.png
+fit_1.xml
+fit_1.xye
+fit_2.json
+fit_2.log
+fit_2.png
+fit_2.xml
+fit_2.xye
+fit_3.json
+fit_3.log
+fit_3.png
+fit_3.xml
+fit_3.xye
+fit_axis0.json
+fit_axis0.log
+fit_axis0.png
+fit_axis0.xml
+fit_axis0.xye
+fit_axis3.json
+fit_axis3.log
+fit_axis3.png
+fit_axis3.xml
+fit_axis3.xye
+fit_axis7.json
+fit_axis7.log
+fit_axis7.png
+fit_axis7.xml
+fit_axis7.xye
+fit_metric0.json
+fit_metric0.log
+fit_metric0.png
+fit_metric0.xml
+fit_metric0.xye
+fit_metric1.json
+fit_metric1.log
+fit_metric1.png
+fit_metric1.xml
+fit_metric1.xye
+fit_metric2.json
+fit_metric2.log
+fit_metric2.png
+fit_metric2.xml
+fit_metric2.xye
+fit_metric3.json
+fit_metric3.log
+fit_metric3.png
+fit_metric3.xml
+fit_metric3.xye
+fit_metric4.json
+fit_metric4.log
+fit_metric4.png
+fit_metric4.xml
+fit_metric4.xye
+index_CUBIC_F_0.json
+index_CUBIC_F_0.log
+index_CUBIC_I_0.json
+index_CUBIC_I_0.log
+index_CUBIC_P_0.json
+index_CUBIC_P_0.log
+index_HEXAGONAL_P_0.json
+index_HEXAGONAL_P_0.log
+index_MONOCLINIC_C_0.json
+index_MONOCLINIC_C_0.log
+index_MONOCLINIC_C_2.json
+index_MONOCLINIC_C_2.log
+index_MONOCLINIC_C_4_1000_5500_z0_peaks_raw.json
+index_MONOCLINIC_P_0.json
+index_MONOCLINIC_P_0.log
+index_MONOCLINIC_P_2.json
+index_MONOCLINIC_P_2.log
+index_ORTHOROMBIC_C_0.json
+index_ORTHOROMBIC_C_0.log
+index_ORTHOROMBIC_C_4_1000_5500_z0_peaks_raw.json
+index_ORTHOROMBIC_I_0.json
+index_ORTHOROMBIC_I_0.log
+index_ORTHOROMBIC_P_0.json
+index_ORTHOROMBIC_P_0.log
+index_ORTHOROMBIC_P_2.json
+index_ORTHOROMBIC_P_2.log
+index_ORTHOROMBIC_P_4_1000_5500_z0_peaks_raw.json
+index_RHOMBOEDRAL_P_0.json
+index_RHOMBOEDRAL_P_0.log
+index_TETRAGONAL_I_0.json
+index_TETRAGONAL_I_0.log
+index_TETRAGONAL_P_0.json
+index_TETRAGONAL_P_0.log
+index_TRICLINIC_P_3.json
+index_TRICLINIC_P_3.log
+index_axis0.json
+index_metric_MONOCLINIC_P.json
+index_metric_ORTHOROMBIC_P.json
+index_raw_MONOCLINIC_C.log
+index_raw_MONOCLINIC_P.log
+index_raw_MONOCLINIC_P_partial.json
+index_raw_ORTHOROMBIC_C.log
+index_raw_ORTHOROMBIC_P.log
+index_wide21.json
+index_wide5.json
+metric_MONOCLINIC.log
+metric_ORTHOROMBIC.log
+metric_wide21.log
+metric_wide5.log
+peak_select.json
+peak_select_ext2.json
+peak_select_raw.json
+peaks.json
+peaks.png
+peaks_raw.json
+peaks_raw.png
+pre_scan_0.xml
+pre_scan_1.xml
+pre_scan_2.xml
+pre_scan_3.xml
+pre_scan_axis0.xml
+pre_scan_axis3.xml
+pre_scan_axis7.xml
+pre_scan_metric0.xml
+pre_scan_metric1.xml
+pre_scan_metric2.xml
+pre_scan_metric3.xml
+pre_scan_metric4.xml
+processed.npz
+zones.json
+zones_small.json
+zones_small.log

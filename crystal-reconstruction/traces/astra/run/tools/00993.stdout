@@ -1,0 +1,47 @@
+====== 00
+X3f4781b root 0 expected {4: 'S'} actual {4: 'S'} OK True
+X3f4781b root 1 expected {4: 'S'} actual {4: 'S'} OK True
+X3f4781b root 32 expected {4: 'S'} actual {4: 'S'} OK True
+X3f4781b root 33 expected {4: 'S'} actual {4: 'S'} OK True
+====== 01
+X3f4781b root 0 expected {4: 'S'} actual {4: 'S'} OK True
+X3f4781b root 1 expected {4: 'S'} actual {4: 'S'} OK True
+X3f4781b root 32 expected {4: 'S'} actual {4: 'S'} OK True
+X3f4781b root 33 expected {4: 'S'} actual {4: 'S'} OK True
+====== 10
+X3f4781b root 0 expected {4: 'S'} actual {4: 'S'} OK True
+X3f4781b root 1 expected {4: 'S'} actual {4: 'S'} OK True
+X3f4781b root 32 expected {4: 'S'} actual {4: 'S'} OK True
+X3f4781b root 33 expected {4: 'S'} actual {4: 'S'} OK True
+====== 11
+X3f4781b root 0 expected {4: 'S'} actual {4: 'S'} OK True
+X3f4781b root 1 expected {4: 'S'} actual {4: 'S'} OK True
+X3f4781b root 32 expected {4: 'S'} actual {4: 'S'} OK True
+X3f4781b root 33 expected {4: 'S'} actual {4: 'S'} OK True
+X7e382cb Nat 40 molecule sizes [18, 18, 1, 1, 1, 1]
+  component O=C([O-])c1ccc(-c2ccc(C(=O)[O-])cc2)cc1 matches 2
+  component [NH4+] matches 4
+  bond range 1.2657962428260026 1.5184224063622542
+  min intermolecular distance 2.511812448364564
+AROMATIC_PLANARITY 0
+LSQ_PACKING 36 atoms 1784 terms sigma 0.01 cost 0.0
+EXTENDED_BACKGROUND 0.040272487327953965
+CYCLE 0 0 Rw 0.04014671499310453 chi2 6928.497804258882 geom 2353.540151162212 LSQ 10066.509503113408
+CYCLE 0 1 Rw 0.040137333413748665 chi2 6925.260047083814 geom 2353.540151162212 LSQ 10062.079403598804
+CYCLE 0 2 Rw 0.04013323439378581 chi2 6923.8456367447125 geom 2353.540151162212 LSQ 10060.094433379616
+PACKING_STAGE 0 0.0
+CYCLE 1 0 Rw 0.04090767037822253 chi2 7193.6375073246145 geom 1203.3496951224738 LSQ 9148.888701080552
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 279 seconds 231.5870382785797 best 52.731766 q25 233.13261 median 305.46753 total 231.59774208068848
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+CYCLE 1 0 Rw 0.0519643551174522 chi2 3208.2187555237992 geom 83.49410290412298 LSQ 3403.742929033172
+CYCLE 1 1 Rw 0.05172714497785664 chi2 3178.9954528706394 geom 5.594697298756414 LSQ 3259.0193100877473
+CYCLE 1 2 Rw 0.05159804687327415 chi2 3163.1472881774075 geom 5.06840631005548 LSQ 3240.7918268775347
+PACKING_STAGE 1 3.41356846168134
+CYCLE 2 0 Rw 0.0515935042401661 chi2 3162.590352946254 geom 5.070384106705941 LSQ 3239.929689542985
+Sun Sep  6 10:16:50 UTC 2026

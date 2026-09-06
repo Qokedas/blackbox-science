@@ -1,0 +1,8 @@
+  single atom Cl
+  molecule mol0_0: 21 atoms, 22 bonds, 29 angles, 30 dihedral restraints, 2 free torsions
+M20=   52.0 X20= 5 Nc= 20 Monoclinic-P     a=  6.0208 b=  4.1132 c= 28.3119 al= 90.000 be= 99.158 ga= 90.000 V=   692.2 Z~1.60
+M20=   52.0 X20= 5 Nc= 20 Monoclinic-P     a=  6.0208 b=  4.1132 c= 29.8676 al= 90.000 be=110.638 ga= 90.000 V=   692.2 Z~1.60
+M20=   45.1 X20=12 Nc=  9 Monoclinic-P     a=  8.4290 b=  9.3173 c=  7.0123 al= 90.000 be=124.007 ga= 90.000 V=   456.5 Z~1.06
+M20=   28.6 X20= 3 Nc= 31 Monoclinic-P     a= 27.9909 b=  7.2129 c=  6.0211 al= 90.000 be= 93.097 ga= 90.000 V=  1213.9 Z~2.81
+M20=   28.6 X20= 3 Nc= 31 Monoclinic-P     a=  6.0211 b=  7.2129 c= 31.0632 al= 90.000 be=115.871 ga= 90.000 V=  1213.9 Z~2.81
+done ('Xedd9c7b', 'monoC', 90)

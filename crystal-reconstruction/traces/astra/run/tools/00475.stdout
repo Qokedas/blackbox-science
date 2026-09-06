@@ -1,0 +1,324 @@
+import os,sys,json,itertools,numpy as np,xml.etree.ElementTree as ET
+from rdkit import Chem
+from rdkit.Chem import Lipinski
+from pymatgen.core import Lattice
+from pymatgen.symmetry.groups import SpaceGroup
+from gallop.structure import Structure
+from gallop.z_matrix import Z_matrix
+from pyobjcryst.io import xml_cryst_file_load_all_object
+from obj_model import make_rdkit
+import gemmi
+
+def make_zmatrix(smiles,path,seed=10,rank=0,rigid=False,coords_override=None):
+ if coords_override is None:r,xyz,e=make_rdkit(smiles,seed=seed,nconf=30,conf_rank=rank,hydrogen=False)
+ else:r=Chem.MolFromSmiles(smiles);xyz=np.asarray(coords_override);e=0.
+ n=len(xyz)
+ adj={i:[a.GetIdx() for a in r.GetAtomWithIdx(i).GetNeighbors()] for i in range(n)}
+ # Start at a terminal atom where possible; DFS preserves a reference for all rigid branches.
+ root=min(range(n),key=lambda i:(len(adj[i]),i));parent={root:None};order=[];children={i:[] for i in range(n)}
+ def dfs(i):
+  order.append(i)
+  for j in sorted(adj[i],key=lambda a:(len(adj[a])==1,a)):
+   if j in parent:continue
+   parent[j]=i;children[i].append(j);dfs(j)
+ dfs(root);idx={j:i for i,j in enumerate(order)}
+ flex={frozenset(x) for x in r.GetSubstructMatches(Lipinski.RotatableBondSmarts)}
+ # Amide C-N bonds are planar. Other single bonds retain their internal degree of freedom.
+ for b in r.GetBonds():
+  i,j=b.GetBeginAtomIdx(),b.GetEndAtomIdx();ai=r.GetAtomWithIdx(i);aj=r.GetAtomWithIdx(j)
+  amide=(ai.GetAtomicNum()==7 and aj.GetAtomicNum()==6 and any(z.GetBondTypeAsDouble()==2 and z.GetOtherAtom(aj).GetAtomicNum() in [8,16] for z in aj.GetBonds())) or (aj.GetAtomicNum()==7 and ai.GetAtomicNum()==6 and any(z.GetBondTypeAsDouble()==2 and z.GetOtherAtom(ai).GetAtomicNum() in [8,16] for z in ai.GetBonds()))
+  if (ai.GetAtomicNum()==7 and ai.GetIsAromatic()) or (aj.GetAtomicNum()==7 and aj.GetIsAromatic()):amide=False
+  if amide:flex.discard(frozenset([i,j]))
+ if rigid:flex=set()
+ lines=['Generated from supplied connectivity and an RDKit conformer','1 1 1 90 90 90',f'{n} 0'];zm=[]
+ xyzord=xyz[order]
+ # Transform first three atoms to the NERF initial convention using a proper rotation.
+ if n>=3:
+  ex=xyzord[1]-xyzord[0];ex/=np.linalg.norm(ex);ey=xyzord[2]-xyzord[0];ey-=ey@ex*ex;ey/=np.linalg.norm(ey);ez=np.cross(ex,ey);xyzcanon=(xyzord-xyzord[0])@np.array([ex,ey,ez]).T
+ elif n==2:xyzcanon=np.array([[0,0,0],[np.linalg.norm(xyzord[1]-xyzord[0]),0,0]])
+ else:xyzcanon=np.zeros((1,3))
+ for ii,old in enumerate(order):
+  ref=0
+  if ii==0:R,ang,phi,b,a,t=0,0,0,0,0,0
+  elif ii in [1,2]:
+   v=xyzcanon[ii];R=np.linalg.norm(v);ang=np.rad2deg(np.arccos(np.clip(-v[0]/R,-1,1)));phi=0.;b,a,t=1,0,0
+  else:
+   pp=parent[old];gp=parent[pp]
+   if gp is None:
+    # At a root branch: use another previously placed neighbour as the angle reference.
+    gp=next(o for o in order[:ii] if o!=pp and np.linalg.norm(np.cross(xyz[old]-xyz[pp],xyz[o]-xyz[pp]))>1e-5)
+   siblings=children[pp];first=siblings[0]
+   if old!=first:tp=first
+   else:tp=parent.get(gp)
+   if tp is None or tp in [old,pp,gp] or idx.get(tp,ii)>=ii:
+    tp=max([o for o in order[:ii] if o not in [pp,gp]],key=lambda o:np.linalg.norm(np.cross(xyz[gp]-xyz[o],xyz[pp]-xyz[gp])))
+   C=xyz[pp];B=xyz[gp];A=xyz[tp];bc=C-B;bc/=np.linalg.norm(bc);nv=np.cross(B-A,bc);nv/=np.linalg.norm(nv);nbc=np.cross(nv,bc);v=xyz[old]-C;R=np.linalg.norm(v);ang=np.rad2deg(np.arccos(np.clip(-v@bc/R,-1,1)));phi=np.rad2deg(np.arctan2(v@nv,v@nbc));b,a,t=idx[pp]+1,idx[gp]+1,idx[tp]+1
+   if old==first and frozenset([pp,gp]) in flex:ref=1
+  el=r.GetAtomWithIdx(old).GetSymbol();lines.append(f'{el} {R:.8f} 0 {ang:.8f} 0 {phi:.8f} {ref} {b} {a} {t} 3.0 1.0 {ii+1} {el}{old+1}')
+ open(path,'w').write('\n'.join(lines)+'\n');z=Z_matrix(path)
+ dist=np.max(np.abs(np.linalg.norm(xyzcanon[:,None]-xyzcanon[None,:],axis=2)-np.linalg.norm(z.initial_cartesian[:,None]-z.initial_cartesian[None,:],axis=2)))
+ print('ZM',smiles,'n',n,'torsions',z.internal_degrees_of_freedom,'max_distance_error',dist,flush=True)
+ if dist>.002:raise RuntimeError('Z-matrix failed to reproduce molecular geometry')
+ return z,dict(smiles=smiles,elements=[a.GetSymbol() for a in r.GetAtoms()],order=order,rdkit_coords=xyz.tolist(),energy=e)
+
+def prepare(sid,run=1,zprime=1,rigid=False,model_path=None,stolmax=.21):
+ W='/app/work/'+sid;G=W+'/gallop_'+str(run);os.makedirs(G,exist_ok=True)
+ objs=xml_cryst_file_load_all_object(W+'/base.xml');c=[o for o in objs if o.GetClassName()=='Crystal'][0];p=[o for o in objs if o.GetClassName()=='PowderPattern'][0];d=p.GetPowderPatternComponent(0)
+ # An atomless loaded Crystal can leave ObjCryst's internal single-crystal scale NaN.
+ # A disposable scatterer stabilizes that cache; it is never included in the GALLOP model.
+ if c.GetNbScatterer()==0:
+  from obj_model import add_component
+  dummy,_=add_component(c,'C','pawley_dummy')
+ d.SetExtractionMode(True,False);p.Prepare();d.ExtractLeBail(20);p.Prepare();p.FitScaleFactorForRw()
+ cp=[c.GetPar(n).GetHumanValue() for n in ['a','b','c','alpha','beta','gamma']];sg=gemmi.find_spacegroup_by_name(c.GetSpaceGroup().GetName());L=Lattice.from_parameters(*cp);ins=json.load(open('/app/data/instances/'+sid+'/instrument.json'));wl=ins['radiation']['wavelength_A']
+ # Read the original Le Bail reflection order before applying a resolution cutoff.
+ hkls=np.array([d.GetH(),d.GetK(),d.GetL()]).T.astype(int);stol=np.array(d.GetSinThetaOverLambda());f2=np.array(d.GetFhklObsSq());xx=np.rad2deg(p.GetPowderPatternX());obs=np.array(p.GetPowderPatternObs());wg=np.array(p.GetLSQWeight(0));tt=np.rad2deg(2*np.arcsin(wl*stol));zero=p.GetPar('Zero').GetHumanValue()
+ sel=(tt+zero>xx[0]-.02)&(tt+zero<xx[-1])&(stol<=stolmax);hkls=hkls[sel];tt=tt[sel];stol=stol[sel];f2=f2[sel]
+ s=Structure(sid,ignore_H_atoms=True);s.lattice=L;s.sg_number=sg.number;s.original_sg_number=sg.number;s.space_group=SpaceGroup(sg.xhm());s.centrosymmetric=sg.is_centrosymmetric();s.affine_matrices=np.array([op.affine_matrix for op in s.space_group.symmetry_ops]);s.wavelength=wl;s.hkl=hkls;s.intensities=f2;s.twotheta=tt;s.dspacing=1/(2*stol);s.data_resolution=float(s.dspacing[-1]);s.source='GSAS';s.PawleyChiSq=1.;s.temperature=ins.get('temperature_K',298.)
+ # Exact fixed-profile Pawley covariance from the ObjCryst reflection profiles.
+ from obj_bridge import exact_pawley
+ pw=exact_pawley(p,d,stolmax=stolmax,rcond=float(os.environ.get('PAWLEY_RCOND','.001')))
+ ii=pw['sel'];hkls=np.array([d.GetH(),d.GetK(),d.GetL()]).T.astype(int)[ii];stol=np.asarray(d.GetSinThetaOverLambda())[ii];tt=np.rad2deg(2*np.arcsin(wl*stol));f2=pw['obs'];A=pw['matrix'];normal=pw['normal']
+ # Only a global normalization is applied: chi2=1000 is the background-subtracted signal variance.
+ normal=normal*((len(hkls)-2)*1000/max(pw['var'],1e-25))
+ s.hkl=hkls;s.intensities=f2;s.twotheta=tt;s.dspacing=1/(2*stol);s.data_resolution=float(s.dspacing[-1]);s.inverse_covariance_matrix=normal
+ comp=json.load(open(model_path or '/app/data/instances/'+sid+'/composition.json'));meta=[]
+ for z in range(zprime):
+  for ic,co in enumerate(comp['components']):
+   for cc in range(co['count']):
+    zm,md=make_zmatrix(co['smiles'],G+f'/m{z}_{ic}_{cc}.zmatrix',seed=1027+run*21+z*11+ic,rank=int(os.environ.get('CONF_RANK',str(run))),rigid=rigid,coords_override=co.get('coords'));s.zmatrices.append(zm);meta.append(md)
+ # GALLOP's analytical structure factors assume its standard setting.
+ # Retain affine operations but request general expansion for non-standard settings.
+ if sg.xhm()!=gemmi.find_spacegroup_by_number(sg.number).xhm():
+  s.sg_number=0
+  print('GENERIC_SYMMETRY',sg.xhm(),flush=True)
+ s.get_total_degrees_of_freedom(verbose=True)
+ for obj in [s]+s.zmatrices:
+  for key,value in list(obj.__dict__.items()):
+   if isinstance(value,np.generic):setattr(obj,key,value.item())
+ json.dump(meta,open(G+'/model.json','w'),indent=1);open(G+'/structure.json','w').write(s.to_json());np.savez_compressed(G+'/profile_matrix.npz',matrix=A,hkl=hkls,normal=normal,tt=tt,obs=f2)
+ print('PREPARED',sid,'Nref',len(hkls),'PawleyRw',p.GetRw(),'SG',sg.xhm(),flush=True)
+ return s,G
+
+if __name__=='__main__':
+ sid=sys.argv[1];run=int(sys.argv[2]) if len(sys.argv)>2 else 1;zp=int(sys.argv[3]) if len(sys.argv)>3 else 1;mp=next((v.split('=',1)[1] for v in sys.argv if v.startswith('--model=')),None)
+ prepare(sid,run,zp,rigid='--rigid' in sys.argv,model_path=mp,stolmax=float(os.environ.get('GALLOP_STOL','.21')))
+[
+ {
+  "smiles": "O=C1CN=C(c2ccccc2Cl)c2cc(Br)ccc2N1",
+  "elements": [
+   "O",
+   "C",
+   "C",
+   "N",
+   "C",
+   "C",
+   "C",
+   "C",
+   "C",
+   "C",
+   "C",
+   "Cl",
+   "C",
+   "C",
+   "C",
+   "Br",
+   "C",
+   "C",
+   "C",
+   "N"
+  ],
+  "order": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   11,
+   12,
+   13,
+   14,
+   16,
+   17,
+   18,
+   19,
+   15
+  ],
+  "rdkit_coords": [
+   [
+    -2.5424444606575562,
+    -2.4154167548437546,
+    2.7941984778796933
+   ],
+   [
+    -2.100619132310096,
+    -1.8722683509244358,
+    1.780403698525153
+   ],
+   [
+    -1.2171942180311706,
+    -2.5982407324990158,
+    0.7833470933378758
+   ],
+   [
+    0.09666455101504462,
+    -1.9732616023233145,
+    0.6991511625737299
+   ],
+   [
+    0.20609515428062555,
+    -0.7916449271187321,
+    0.19507510984134088
+   ],
+   [
+    1.5899885724280274,
+    -0.23306768833723415,
+    0.12862613073350165
+   ],
+   [
+    2.5570994769911226,
+    -1.0066416156060833,
+    -0.5316972791991691
+   ],
+   [
+    3.867421697988166,
+    -0.5426591931502325,
+    -0.6502223119719092
+   ],
+   [
+    4.2212425077487925,
+{
+ "cell": [
+  7.555477033684864,
+  13.072865019837627,
+  15.417504879610412,
+  72.25496173074335,
+  83.44145094599322,
+  77.58872908217276
+ ],
+ "volume": 1422.8258782326423,
+ "score": 13.456541061401367,
+ "system": "TRICLINIC",
+ "centering": "P",
+ "mode": 3,
+ "source": "index_TRICLINIC_P_3.json",
+ "sg": "P-1",
+ "sgstart": "P-1",
+ "Rw": 0.0332905465894755,
+ "groups": [
+  {
+   "sg": "P 1",
+   "number": 1,
+   "Rw": 4.216245368349747,
+   "GoF": 1969.3661255173743,
+   "nGoF": 1132.7470553562616,
+   "mult": 1
+  },
+  {
+   "sg": "P -1",
+   "number": 2,
+   "Rw": 4.216245368349747,
+   "GoF": 1969.3661255173743,
+   "nGoF": 1132.7470553562612,
+   "mult": 2
+  }
+ ],
+ "stol": 0.25,
+ "p_pars": {
+  "Zero": -0.03579328788749743,
+  "2ThetaDispl": 0.0,
+  "2ThetaTransp": 0.0,
+  "DIFC": 48277.14,
+  "DIFA": -6.7,
+  "MuR": 0.0,
+  "Scale_": 0.00017837158444282452
+ },
+ "d_pars": {
+  "Global Biso": 0.0
+ }
+}Imported powder pattern: 4959 points, 2theta=  5.470 ->  55.050, step= 0.010
+FRESH_BASE X4f6fe58 P -1 0.03237102329951919 47354.69367490604
+Imported powder pattern: 4959 points, 2theta=  5.470 ->  55.050, step= 0.010
+SCALED 30.902907975390292 Rw 0.032371029602771516 Chi2 4959.001931222945
+import sys,os,json,time,itertools,numpy as np
+from numba import njit
+from scipy.optimize import differential_evolution,least_squares
+from pymatgen.core import Lattice
+sid=sys.argv[1];system=sys.argv[2] if len(sys.argv)>2 else 'MONOCLINIC';center=sys.argv[3] if len(sys.argv)>3 else 'P';W='/app/work/'+sid
+wl=json.load(open('/app/data/instances/'+sid+'/instrument.json'))['radiation']['wavelength_A'];ps=json.load(open(W+'/'+os.environ.get('PEAK_FILE','peaks_raw.json')))
+sp=os.environ.get('SELECT_FILE',W+'/peak_select_raw.json')
+if os.path.exists(sp):si=json.load(open(sp));ps=[ps[i-1] for i in si['indices']] if 'indices' in si else [p for p in ps if p['two_theta']>=si.get('min_two_theta',0)]
+ps=ps[int(os.environ.get('PEAK_SKIP','0')):][:int(os.environ.get('NPEAK','25'))];tt=np.array([p['two_theta'] for p in ps]);qobs=(2*np.sin(np.deg2rad(tt/2))/wl)**2;fac=wl**2/(2*np.sin(np.deg2rad(tt)))*180/np.pi
+import gemmi
+sg_filter=gemmi.find_spacegroup_by_name(os.environ['SG_FILTER']).operations() if 'SG_FILTER' in os.environ else None
+hkl=[];R=int(os.environ.get('HMAX','10'))
+for h in range(0,R+1):
+ for k in (range(0,R+1) if system!='TRICLINIC' else range(-R,R+1)):
+  for l in (range(0,R+1) if system=='ORTHOROMBIC' else range(-R,R+1)):
+   if not(h or k or l):continue
+   if h==0 and (k<0 or (k==0 and l<0)):continue
+   if system=='MONOCLINIC' and h==0 and l<0:continue
+   if sg_filter is not None and sg_filter.is_systematically_absent([h,k,l]):continue
+   if center=='C' and (h+k)%2:continue
+   if center=='I' and (h+k+l)%2:continue
+   if center=='F' and ((h+k)%2 or (h+l)%2):continue
+   hkl.append((h,k,l))
+hkl=np.array(hkl,dtype=float);terms=np.array([hkl[:,0]**2,hkl[:,1]**2,hkl[:,2]**2,2*hkl[:,1]*hkl[:,2],2*hkl[:,0]*hkl[:,2],2*hkl[:,0]*hkl[:,1]]).T
+lo=float(os.environ.get('VMIN','700'));hi=float(os.environ.get('VMAX','3200'));tar=float(os.environ.get('VTARGET',np.sqrt(lo*hi)));err=float(os.environ.get('TTHERR','.025'));nspur=int(os.environ.get('NSPUR','1'));max_time=float(os.environ.get('INDEX_TIME','300'));ndim={'ORTHOROMBIC':4,'MONOCLINIC':5,'TRICLINIC':7}[system];sgn={'ORTHOROMBIC':'P m m m','MONOCLINIC':'P 1 2/m 1','TRICLINIC':'P -1'}[system]
+@njit(cache=False)
+def metric(x):
+ g=np.zeros(6);g[:3]=x[:3]**2
+ if ndim==5:g[4]=x[3]*x[0]*x[2]
+ if ndim==7:g[3]=x[3]*x[1]*x[2];g[4]=x[4]*x[0]*x[2];g[5]=x[5]*x[0]*x[1]
+ return g
+@njit(cache=False)
+def diffs(x):
+ g=metric(x);qc=terms@g;ix=np.zeros(len(tt),np.int64);dif=np.zeros(len(tt))
+ for i in range(len(tt)):
+  qq=qobs[i]-x[-1]/fac[i];bd=1e10
+  for j in range(len(qc)):
+   dd=abs(qc[j]-qq)
+   if dd<bd:bd=dd;ix[i]=j
+  dif[i]=(qc[ix[i]]-qobs[i])*fac[i]+x[-1]
+ return dif,ix
+@njit(cache=False)
+def cost(x):
+ g=metric(x);det=g[0]*g[1]*g[2]+2*g[3]*g[4]*g[5]-g[0]*g[3]**2-g[1]*g[4]**2-g[2]*g[5]**2
+ if det<=0:return 1000.
+ vol=1/np.sqrt(det);dc,ix=diffs(x);sq=np.log1p((dc/err)**2);sq.sort();co=np.mean(sq[:len(sq)-nspur])*vol/tar
+ for i in range(len(ix)):
+  for j in range(i):
+   if ix[i]==ix[j]:co+=.06
+ if vol<lo:co+=100*np.log(lo/vol)**2
+ if vol>hi:co+=100*np.log(vol/hi)**2
+ return co
+amin=float(os.environ.get('AMIN','3.5'));amax=float(os.environ.get('AMAX','50'));bounds=[(1/amax,1/amin)]*3
+if system=='MONOCLINIC':bounds+=[(0.,.7)]
+if system=='TRICLINIC':bounds+=[(-.45,.45)]*3
+bounds+=[(-float(os.environ.get('ZEROMAX','.10')),float(os.environ.get('ZEROMAX','.10')))]
+if 'BOUNDS_FILE' in os.environ:bounds=json.load(open(os.environ['BOUNDS_FILE']))
+print('METRIC_INDEX',sid,system,center,'peaks',tt.tolist(),'bounds',bounds,'volume',lo,hi,flush=True);cost(np.mean(bounds,axis=1));t0=time.time();sol=[];tag=os.environ.get('INDEX_TAG','metric_'+system+'_'+center)
+for trial in range(int(os.environ.get('TRIALS','60'))):
+ kw={}
+ if sol and trial%3:
+  ss=sol[0]['parameters'];pop=np.random.uniform(np.array(bounds)[:,0],np.array(bounds)[:,1],size=(max(60,18*ndim),ndim));half=len(pop)//2;pop[:half]=np.clip(np.array(ss)*(1+np.random.normal(size=(half,ndim))*.15),np.array(bounds)[:,0],np.array(bounds)[:,1]);kw['init']=pop
+ res=differential_evolution(cost,bounds,popsize=int(os.environ.get('POPSIZE','18')),maxiter=int(os.environ.get('MAXITER','700')),polish=False,tol=.0001,workers=1,**kw);x=res.x
+ for j in range(6):
+  _,ix=diffs(x);tr=terms[ix]
+  re=least_squares(lambda xx:(tr@metric(xx)-qobs)*fac+xx[-1],x,bounds=np.array(bounds).T,loss='soft_l1',f_scale=err,max_nfev=100)
+  if cost(re.x)>cost(x)+.05:break
+  x=re.x
+ g=metric(x);GM=np.array([[g[0],g[5],g[4]],[g[5],g[1],g[3]],[g[4],g[3],g[2]]]);L=Lattice(np.linalg.cholesky(np.linalg.inv(GM)));df,ix=diffs(x);nc=np.sum(terms@g<qobs[-1]);sc=qobs[-1]/(2*max(1e-10,np.mean(abs(df)/fac))*nc);cell=list(L.parameters)
+ if system=='ORTHOROMBIC':cell[:3]=sorted(cell[:3]) if center=='P' else cell[:3]
+ o=dict(cell=cell,system=system,centering=center,volume=L.volume,score=float(sc),cost=float(cost(x)),mode=21,zero=float(x[-1]),rms=float(np.sqrt(np.mean(df**2))),maxerr=float(max(abs(df))),parameters=x.tolist(),diff=df.tolist(),hkl=hkl[ix].astype(int).tolist())
+ if not any(np.allclose(o['cell'][:3],s['cell'][:3],rtol=.003) and np.allclose(o['cell'][3:],s['cell'][3:],atol=.3) for s in sol):sol.append(o)
+ sol.sort(key=lambda s:s['cost']);json.dump(sol,open(W+'/index_'+tag+'.json','w'),indent=1)
+ print('TRIAL',trial,'sec',time.time()-t0,'cost',o['cost'],'score',sc,'vol',L.volume,'cell',np.round(cell,4),'zero',x[-1],'best',sol[0]['cost'],'diff',np.round(df,4),flush=True)
+ if o['maxerr']<.05 and o['cost']<.06 and sc>30:break
+ if time.time()-t0>max_time:break

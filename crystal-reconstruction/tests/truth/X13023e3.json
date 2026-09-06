@@ -1,0 +1,26 @@
+{
+ "id": "X13023e3",
+ "reference_cif": "data_ref\n_symmetry_cell_setting monoclinic\n_symmetry_space_group_name_H-M 'P 1 21 1'\n_symmetry_space_group_name_Hall 'P 2yb'\n\nloop_\n_space_group_symop_id\n_space_group_symop_operation_xyz\n1 x,y,z\n2 -x,y+1/2,-z\n\n_cell_length_a 27.9925(13)\n_cell_length_b 5.5286(2)\n_cell_length_c 6.0213(2)\n_cell_angle_alpha 90\n_cell_angle_beta 93.112(2)\n_cell_angle_gamma 90\n_cell_volume 930.48(7)\n_cell_formula_units_Z 2\n\nloop_\n_atom_type_symbol\n_atom_type_scat_dispersion_real\n_atom_type_scat_dispersion_imag\n_atom_type_scat_source\nC 0.0037 0.0018 'International Tables Vol C tables 4.2.6.8 and 6.1.1.1'\nH 0.0000 0.0000 'International Tables Vol C tables 4.2.6.8 and 6.1.1.1'\nN 0.0071 0.0036 'International Tables Vol C tables 4.2.6.8 and 6.1.1.1'\nO 0.0121 0.0066 'International Tables Vol C tables 4.2.6.8 and 6.1.1.1'\n\nloop_\n_atom_site_type_symbol\n_atom_site_label\n_atom_site_fract_x\n_atom_site_fract_y\n_atom_site_fract_z\n_atom_site_U_iso_or_equiv\n_atom_site_adp_type\n_atom_site_calc_flag\n_atom_site_occupancy\n_atom_site_site_symmetry_multiplicity\n_atom_site_disorder_assembly\n_atom_site_disorder_group\nC C1 0.10542 0.78781 0.96105 0.038 Uiso d 1 2 . .\nC C2 0.0715 0.89643 0.81798 0.038 Uiso d 1 2 . .\nC C3 0.06348 0.79785 0.60733 0.038 Uiso d 1 2 . .\nC C4 0.09017 0.6005 0.5454 0.038 Uiso d 1 2 . .\nC C5 0.1233 0.50458 0.69961 0.038 Uiso d 1 2 . .\nC C6 0.04223 1.10996 0.87776 0.038 Uiso d 1 2 . .\nN N1 0.13085 0.59378 0.90493 0.038 Uiso d 1 2 . .\nN N2 -0.00513 1.09704 0.83783 0.038 Uiso d 1 2 . .\nO O1 0.06198 1.28875 0.96245 0.038 Uiso d 1 2 . .\nH H1 0.11221 0.85118 1.12828 0.045 Uiso d 1 2 . .\nH H2 0.03549 0.87684 0.49651 0.045 Uiso d 1 2 . .\nH H3 0.08505 0.52005 0.38215 0.045 Uiso d 1 2 . .\nH H4 0.14473 0.35115 0.65726 0.045 Uiso d 1 2 . .\nH H5 -0.0212 0.94052 0.79667 0.057 Uiso d 1 2 . .\nH H6 -0.02542 1.23961 0.88113 0.057 Uiso d 1 2 . .\nO O2 0.16899 0.95336 0.25132 0.038 Uiso d 1 2 . .\nO O3 0.21438 0.65622 0.13975 0.038 Uiso d 1 2 . .\nH H7 0.46113 1.10245 -0.52283 0.057 Uiso d 1 2 . .\nH H8 0.43613 0.73029 -0.15812 0.057 Uiso d 1 2 . .\nH H9 0.46217 1.34307 -0.34301 0.057 Uiso d 1 2 . .\nH H10 0.49269 1.08351 -0.24456 0.057 Uiso d 1 2 . .\nH H11 0.25627 1.11609 0.72662 0.057 Uiso d 1 2 . .\nH H12 0.39447 1.18708 -0.32484 0.045 Uiso d 1 2 . .\nH H13 0.44578 1.12008 0.07107 0.057 Uiso d 1 2 . .\nH H14 0.20411 1.03769 0.6767 0.057 Uiso d 1 2 . .\nH H15 0.41706 1.35289 -0.01217 0.057 Uiso d 1 2 . .\nH H16 0.37915 0.80001 -0.22382 0.057 Uiso d 1 2 . .\nH H17 0.41041 0.7791 -0.42849 0.057 Uiso d 1 2 . .\nH H18 0.36321 1.3927 0.20728 0.045 Uiso d 1 2 . .\nH H19 0.25054 0.75264 0.51399 0.045 Uiso d 1 2 . .\nH H20 0.38007 0.72943 0.07552 0.045 Uiso d 1 2 . .\nH H21 0.31025 0.63289 0.24243 0.045 Uiso d 1 2 . .\nH H22 0.28275 1.29856 0.36714 0.045 Uiso d 1 2 . .\nH H23 0.1904 0.65201 0.02652 0.057 Uiso d 1 2 . .\nH H24 0.21628 1.24069 0.53278 0.057 Uiso d 1 2 . .\nC C7 0.20574 0.83543 0.27205 0.038 Uiso d 1 2 . .\nC C8 0.24468 0.89242 0.44365 0.038 Uiso d 1 2 . .\nC C9 0.22863 1.08503 0.6075 0.038 Uiso d 1 2 . .\nC C10 0.28917 0.96305 0.3253 0.038 Uiso d 1 2 . .\nC C11 0.30315 1.20264 0.31605 0.038 Uiso d 1 2 . .\nC C12 0.34435 1.26828 0.21381 0.038 Uiso d 1 2 . .\nC C13 0.3731 1.09936 0.11913 0.038 Uiso d 1 2 . .\nC C14 0.35935 0.86131 0.13181 0.038 Uiso d 1 2 . .\nC C15 0.31843 0.79521 0.23264 0.038 Uiso d 1 2 . .\nC C16 0.41667 1.1768 -0.00151 0.038 Uiso d 1 2 . .\nC C17 0.41689 1.08938 -0.24017 0.038 Uiso d 1 2 . .\nC C18 0.41052 0.8192 -0.25505 0.038 Uiso d 1 2 . .\nC C19 0.46232 1.16374 -0.34906 0.038 Uiso d 1 2 . .\n",
+ "space_group_number": 4,
+ "space_group_symbol": "P 1 21 1",
+ "centring": "P",
+ "sohncke": true,
+ "chiral": true,
+ "L_graded": true,
+ "dof": 17.0,
+ "dof_bin": "mid_15_25",
+ "zprime": 1.0,
+ "n_heavy_asym": 24.0,
+ "components": [
+  {
+   "smiles": "CC(C)Cc1ccc([C@@H](C)C(=O)O)cc1",
+   "count": 1
+  },
+  {
+   "smiles": "NC(=O)c1cccnc1",
+   "count": 1
+  }
+ ],
+ "radiation_class": "synchrotron",
+ "candidate_name": "<i>S</i>-Ibuprofen--nicotinamide"
+}

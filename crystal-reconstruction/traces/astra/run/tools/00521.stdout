@@ -1,0 +1,77 @@
+===Xb7088cf
+{
+ "components": [
+  {
+   "smiles": "Nc1ccccc1NC(=O)c1ccc(CNC(=O)OCc2cccnc2)cc1",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}===X238783d
+{
+ "components": [
+  {
+   "smiles": "CC[C@H]1OC(=O)[C@H](C)[C@@H](O[C@H]2C[C@@](C)(OC)[C@@H](O)[C@H](C)O2)[C@H](C)[C@@H](O[C@@H]2O[C@H](C)C[C@H](N(C)C)[C@H]2O)[C@](C)(OC)C[C@@H](C)C(=O)[C@H](C)[C@@H](O)[C@]1(C)O",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}===X019b9a4
+{
+ "components": [
+  {
+   "smiles": "CC(=O)C(=NNc1ccc(C(=O)Nc2ccc(C(N)=O)cc2)cc1)C(=O)Nc1ccc2[nH]c(=O)[nH]c2c1",
+   "count": 1,
+   "charge": 0
+  },
+  {
+   "smiles": "CN1CCCC1=O",
+   "count": 1,
+   "charge": 0
+  },
+  {
+   "smiles": "C[S+](C)[O-]",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}===Xe1fb77b
+{
+ "components": [
+  {
+   "smiles": "O=C(/C=C/c1ccc(O)c(O)c1)O[C@@H]1C[C@@](OC(=O)/C=C/c2ccc(O)c(O)c2)(C(=O)O)C[C@@H](O)[C@@H]1O",
+   "count": 1,
+   "charge": 0
+  },
+  {
+   "smiles": "O",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}GALLOP 1 Nref 267 seconds 133.82947778701782 best 169.32321 q25 217.7769 median 254.2067 total 271.2055938243866
+GALLOP 2 Nref 267 seconds 107.30818819999695 best 162.67778 q25 199.83994 median 255.11423 total 378.6056809425354
+GALLOP 3 Nref 267 seconds 134.44951367378235 best 157.06743 q25 222.64279 median 261.052 total 513.1559150218964
+GALLOP 4 Nref 267 seconds 142.78439593315125 best 144.24614 q25 202.52325 median 255.81241 total 656.080039024353
+GALLOP 5 Nref 267 seconds 147.6430721282959 best 143.09782 q25 211.53996 median 250.64194 total 803.8560545444489
+GALLOP 10 Nref 286 seconds 145.56647753715515 best 11.776471 q25 116.708435 median 213.28616 total 1584.5916600227356
+GALLOP 11 Nref 286 seconds 115.91089749336243 best 11.789794 q25 51.53717 median 192.3953 total 1700.5632739067078
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1076.98it/s]
+GALLOP 12 Nref 286 seconds 114.56075859069824 best 11.778974 q25 164.83977 median 282.857 total 1815.1335000991821
+GALLOP 13 Nref 286 seconds 114.62697434425354 best 11.781437 q25 141.38516 median 247.70105 total 1929.7639985084534
+{
+ "Rw": 0.07041520212328696,
+ "chi2": 2258.985045644054
+}

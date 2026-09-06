@@ -1,0 +1,13 @@
+ObjRegistry<T>::Find(C): Not found !!
+List of Crystal ScatteringPowers :0 object registered:
+ObjRegistry<T>::Find(O): Not found !!
+List of Crystal ScatteringPowers :1 object registered:
+#  0:ScatteringPowerAtom(C)
+ObjRegistry<T>::Find(Cl): Not found !!
+List of Crystal ScatteringPowers :2 object registered:
+#  0:ScatteringPowerAtom(C)
+#  1:ScatteringPowerAtom(O)
+Imported powder pattern: 3063 points, 2theta=  5.450 ->  36.080, step= 0.010
+RESCALED_BASE 1326.5905926244063 0.22788751763707085 3063.0108003985524
+INITIAL Xd4c1a35 1 Rw 0.8221154448211628 LLK 8501.45652798853 Integrated 6882.947397421645 DOF -1
+RUN 0 steps 100000 time 60.74912476539612 total 60.749197244644165 LLK 2998.0876122404206 Rw 0.6248288922270844 Integrated 1378.2319672231313

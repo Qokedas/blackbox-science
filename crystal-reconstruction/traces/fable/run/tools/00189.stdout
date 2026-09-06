@@ -1,0 +1,43 @@
+free: mol0_0_Q1 0.0
+free: mol0_0_Q2 0.0
+free: mol0_0_Q3 0.0
+free: B11 0.0
+free: B22 0.0
+free: B33 0.0
+free: B12 0.0
+free: B13 0.0
+free: B23 0.0
+free: ML Error 0.0
+free: Formal Charge 0.0
+free: B11~ 0.0
+free: B22~ 0.0
+free: B33~ 0.0
+free: B12~ 0.0
+free: B13~ 0.0
+free: B23~ 0.0
+free: ML Error~ 0.0
+free: Formal Charge~ 0.0
+free: B11~~ 0.0
+free: B22~~ 0.0
+free: B33~~ 0.0
+free: B12~~ 0.0
+free: B13~~ 0.0
+free: B23~~ 0.0
+free: ML Error~~ 0.0
+free: Formal Charge~~ 0.0
+free: B11~~~ 0.0
+free: B22~~~ 0.0
+free: B33~~~ 0.0
+free: B12~~~ 0.0
+free: B13~~~ 0.0
+free: B23~~~ 0.0
+free: ML Error~~~ 0.0
+free: Formal Charge~~~ 0.0
+free: x 0.776711
+free: y 0.053456
+free: z 0.557873
+nfree 93
+after Refine 0.12043024504237052 chi2 27424.27235021644 restraint 0.0
+fit: True
+rms(normalized), max: (np.float64(0.01033972931606336), np.float64(0.014951640633104212))
+approx rms Å = 0.027  max Å = 0.040

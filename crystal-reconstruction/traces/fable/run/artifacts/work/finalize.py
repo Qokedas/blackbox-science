@@ -1,0 +1,64 @@
+import sys, json, os, numpy as np, gemmi
+from pymatgen.core import Structure, Lattice
+from pymatgen.io.cif import CifParser, CifWriter
+from pymatgen.symmetry.groups import SpaceGroup
+
+def read_objcryst_cif(fn):
+    doc = gemmi.cif.read(fn)
+    blk = doc.sole_block()
+    cell = [float(blk.find_value(k).split('(')[0]) for k in ['_cell_length_a', '_cell_length_b', '_cell_length_c', '_cell_angle_alpha', '_cell_angle_beta', '_cell_angle_gamma']]
+    hm = blk.find_value('_space_group_name_H-M_alt') or blk.find_value('_symmetry_space_group_name_H-M')
+    hm = hm.strip("'\"")
+    ops = []
+    for tag in ['_space_group_symop_operation_xyz', '_symmetry_equiv_pos_as_xyz']:
+        col = blk.find_values(tag)
+        if col:
+            ops = [gemmi.cif.as_string(v) for v in col]
+            break
+    tab = blk.find(['_atom_site_label', '_atom_site_type_symbol', '_atom_site_fract_x', '_atom_site_fract_y', '_atom_site_fract_z'])
+    atoms = []
+    for row in tab:
+        lab, sym = row[0], row[1]
+        xyz = [float(gemmi.cif.as_string(row[i]).split('(')[0]) for i in (2, 3, 4)]
+        atoms.append((lab, sym, xyz))
+    return cell, hm, ops, atoms
+
+def write_cif(fn, cell, hm, ops, atoms, sgnum=None):
+    """atoms: list of (label, symbol, [x,y,z]); ops: list of xyz strings"""
+    lines = ['data_structure', f'_cell_length_a {cell[0]:.5f}', f'_cell_length_b {cell[1]:.5f}', f'_cell_length_c {cell[2]:.5f}',
+             f'_cell_angle_alpha {cell[3]:.4f}', f'_cell_angle_beta {cell[4]:.4f}', f'_cell_angle_gamma {cell[5]:.4f}',
+             f"_space_group_name_H-M_alt '{hm}'", f"_symmetry_space_group_name_H-M '{hm}'"]
+    if sgnum: lines.append(f'_space_group_IT_number {sgnum}'); lines.append(f'_symmetry_Int_Tables_number {sgnum}')
+    lines += ['loop_', '_space_group_symop_id', '_space_group_symop_operation_xyz']
+    for i, op in enumerate(ops):
+        lines.append(f"{i+1} '{op}'")
+    lines += ['loop_', '_atom_site_label', '_atom_site_type_symbol', '_atom_site_fract_x', '_atom_site_fract_y', '_atom_site_fract_z', '_atom_site_occupancy']
+    for lab, sym, xyz in atoms:
+        lines.append(f'{lab} {sym} {xyz[0]:.5f} {xyz[1]:.5f} {xyz[2]:.5f} 1.0')
+    open(fn, 'w').write('\n'.join(lines) + '\n')
+
+def ops_from_hm(hm):
+    sg = gemmi.find_spacegroup_by_name(hm)
+    if sg is None:
+        raise ValueError('unknown spg ' + hm)
+    return [op.triplet() for op in sg.operations()], sg.number, sg.hm
+
+def finalize(iid, cif_in, hm=None, drop_h=True, outdir='/app/results/submission'):
+    cell, hm0, ops0, atoms = read_objcryst_cif(cif_in)
+    hm = hm or hm0
+    ops, num, hm_full = ops_from_hm(hm)
+    if drop_h:
+        atoms = [a for a in atoms if a[1] not in ('H', 'D')]
+    write_cif(f'{outdir}/{iid}.cif', cell, hm_full, ops, atoms, num)
+    js = {"cell": {"a": cell[0], "b": cell[1], "c": cell[2], "alpha": cell[3], "beta": cell[4], "gamma": cell[5]},
+          "space_group": hm_full, "space_group_number": num}
+    json.dump(js, open(f'{outdir}/{iid}.json', 'w'), indent=1)
+    # verify with pymatgen
+    s = CifParser(f'{outdir}/{iid}.cif').parse_structures(primitive=False)[0]
+    print(f'{iid}: wrote CIF with {len(atoms)} asym atoms -> {len(s)} atoms in cell; spg {hm_full} ({num}); formula {s.composition.formula}')
+    return s
+
+if __name__ == '__main__':
+    iid, cif_in = sys.argv[1], sys.argv[2]
+    hm = sys.argv[3] if len(sys.argv) > 3 else None
+    finalize(iid, cif_in, hm)

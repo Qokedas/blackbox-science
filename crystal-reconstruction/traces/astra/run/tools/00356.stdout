@@ -1,0 +1,17 @@
+CHECKZM 13332
+Imported powder pattern: 6365 points, 2theta=  3.720 ->  67.360, step= 0.010
+STARTFIT X1db5091 plane0 Rw 0.06347243789118943
+ERRORSG I 1 21 1 Space group symbol 'I 1 21 1' not recognized
+ERRORSG C 1 21 1 Space group symbol 'C 1 21 1' not recognized
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 266 seconds 46.58451008796692 best 483.76123 q25 579.0052 median 624.40814 total 46.590912103652954
+/app/work/search_gallop.py:20: RuntimeWarning: overflow encountered in cast
+  if mn>=best:return
+CYCLE 2 1 Rw 0.20295288607898868 chi2 5306.6024571494545 geom 532.0696205530686 LSQ 6401.084609648843
+CYCLE 2 2 Rw 0.19976992659535672 chi2 5141.458216461182 geom 575.96257880191 LSQ 6302.502645396081
+CYCLE 3 0 Rw 0.19515528398748472 chi2 4906.6685273617295 geom 553.5810058763715 LSQ 6032.860876916345
+CYCLE 3 1 Rw 0.19400691825310798 chi2 4849.093126771856 geom 574.369143850644 LSQ 5992.504423247231
+CYCLE 3 2 Rw 0.19097255385349643 chi2 4698.594894872138 geom 516.0452752173262 LSQ 5757.02474269456
+FINISHED Xe1fb77b 0.19097255385349643

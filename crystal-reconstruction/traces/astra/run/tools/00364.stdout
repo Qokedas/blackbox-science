@@ -1,0 +1,140 @@
+import sys,os,json,numpy as np
+from pyobjcryst.io import xml_cryst_file_load_all_object,xml_cryst_file_save_global
+from pyobjcryst.refinableobj import refpartype_scattpow_temperature,refpartype_scatt_occup
+from obj_model import add_component,export_cif
+sid=sys.argv[1];run=sys.argv[2];W='/app/work/'+sid;G=W+'/gallop_'+run;R=W+'/search_g'+run;os.makedirs(R,exist_ok=True)
+objs=xml_cryst_file_load_all_object(W+'/base.xml');c=[o for o in objs if o.GetClassName()=='Crystal'][0];p=[o for o in objs if o.GetClassName()=='PowderPattern'][0];d=p.GetPowderPatternComponent(0)
+meta=json.load(open(G+'/model.json'));frac=np.load(G+'/best_frac.npy');offset=0;models=[]
+for j,md in enumerate(meta):
+ n=len(md['order']);xyz=np.zeros((n,3));f=frac[offset:offset+n];offset+=n
+ for i,old in enumerate(md['order']):xyz[old]=c.FractionalToOrthonormalCoords(*map(float,f[i]))
+ m,newmd=add_component(c,md['smiles'],'m'+str(j),coords_override=md['rdkit_coords'])
+ if m.GetClassName()=='Molecule':
+  center=xyz.mean(axis=0);xyz-=center
+  for i,v in enumerate(xyz):a=m.GetAtom(i);a.X,a.Y,a.Z=v
+  m.Q0,m.Q1,m.Q2,m.Q3=1.,0.,0.,0.;m.X,m.Y,m.Z=c.OrthonormalToFractionalCoords(*center)
+ else:m.X,m.Y,m.Z=map(float,f[0])
+ models.append(newmd)
+c.GetOption(1).SetChoice(0);c.SetParIsFixed(refpartype_scattpow_temperature,True);c.SetParIsFixed(refpartype_scatt_occup,True)
+d.SetExtractionMode(False);p.Prepare();p.FitScaleFactorForRw();print('IMPORTED',sid,run,'Rw',p.GetRw(),'Chi2',p.GetChi2(),flush=True)
+json.dump(models,open(R+'/model.json','w'),indent=1);export_cif(c,R+'/best.cif');xml_cryst_file_save_global(R+'/best.xml');json.dump({'Rw':p.GetRw()},open(R+'/best.json','w'))
+                all_atoms_n_H_connected = np.hstack(all_atoms_n_H_connected)
+            else:
+                all_atoms_n_H_connected = np.array(all_atoms_n_H_connected)
+            fractional_coords = np.dot(all_atoms_coords,
+                                                    self.lattice.inv_matrix)
+        else:
+            if self.ignore_H_atoms:
+                fractional_coords = self.cif_frac_coords_no_H
+                all_atoms_elements = self.cif_species_no_H
+            else:
+                fractional_coords = self.cif_frac_coords
+                all_atoms_elements = self.cif_species
+            just_asymmetric = True
+            all_atoms_coords = fractional_coords
+            all_atoms_n_H_connected = None
+            all_occus = np.ones(all_atoms_coords.shape[0])
+        return all_atoms_coords, all_atoms_elements, all_atoms_n_H_connected, \
+            all_occus, fractional_coords, just_asymmetric
+
+    def get_coeffs_dwfactors_occus(self, dummy_structure, debye_waller_factors, n_H_connected_expanded, from_cif, just_asymmetric):
+        """_summary_
+
+        Args:
+            dummy_structure (_type_): _description_
+            debye_waller_factors (_type_): _description_
+            n_H_connected_expanded (_type_): _description_
+            from_cif (_type_): _description_
+            just_asymmetric (_type_): _description_
+            radiation (_type_): _description_
+
+        Raises:
+            ValueError: _description_
+        """
+        if "neutron" in self.radiation:
+            scattering_factor_file = os.path.join(os.path.dirname(__file__),
+                                    "neutron_scattering_length.json")
+        else:
+            scattering_factor_file = os.path.join(os.path.dirname(__file__),
+                                    "atomic_scattering_params.json")
+        with open(scattering_factor_file) as f:
+                    ATOMIC_SCATTERING_PARAMS = json.load(f)
+        f.close()
+
+        zs = []
+        coeffs = []
+        occus = []
+        dwfactors = []
+
+        for i, site in enumerate(dummy_structure):
+            for sp in site.species:
+                if ((not from_cif) and self.ignore_H_atoms \
+                        and self.absorb_H_Z_increase
+                        and "neutron" not in self.radiation):
+                    zs.append(sp.Z+n_H_connected_expanded[i])
+                else:
+                    zs.append(sp.Z)
+                try:
+                    if ((not from_cif)
+                        and self.ignore_H_atoms
+                        and self.absorb_H_Z_increase
+                        and "neutron" not in self.radiation):
+                        new_Z = sp.Z+n_H_connected_expanded[i]
+                        c = ATOMIC_SCATTERING_PARAMS[atomic_numbers[new_Z]]
+                    else:
+                        c = ATOMIC_SCATTERING_PARAMS[sp.symbol]
+                except KeyError as no_key:
+                    raise ValueError("Unable to calculate intensity \
+                                    calculation prefix arrays"
+                                    "there are no scattering coefficients\
+                                    for:" " %s." % sp.symbol) from no_key
+                if "neutron" in self.radiation:
+                    coeffs.append([c])
+                else:
+                    coeffs.append(c)
+                dwfactors.append(debye_waller_factors.get(sp.symbol, 0))
+        internal (Numpy array, optional): Either a numpy array of the internal
+            DoF or None.
+            If None, then the external DoF will be generated randomly.
+            Defaults to None.
+        n_samples (int, optional): If external is None, sets how many samples
+            of external DoF to take. Defaults to 10000.
+        device (torch device, optional): Where to run the code. If None, will
+            check for a GPU and run on that if one is available.
+        n_reflections (int, optional): Number of reflections to consider in
+            chi^2 calculations. If None, will use all available.
+        verbose (bool, optional): Print out some information or not. Defaults
+            to False.
+        include_dw_factors (bool, optional): Include Debye-Waller factors in
+            the intensity calculations. Defaults to True.
+        requires_grad (bool, optional): Gradients are required if parameters
+            (external, internal) need to be optimised. Defaults to True.
+        from_CIF (bool, optional): If reading coordinates from a CIF, need to
+            change which tensors are required. Defaults to False.
+
+    Returns:
+        dict: A dictionary of the required Tensors
+    """
+    assert len(Structure.zmatrices) > 0 or from_CIF, "No Z-matrices have been added!"
+
+    if Structure.total_external_degrees_of_freedom is None:
+        Structure.get_total_degrees_of_freedom()
+
+    if device is None:
+        device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    if dtype is None:
+        dtype = torch.float32
+
+    if external is None:
+        pos = torch.rand(
+                    (n_samples, Structure.total_position_degrees_of_freedom))
+        rot = torch.rand(
+                    (n_samples, Structure.total_rotation_degrees_of_freedom))
+        rot -= 0.5
+        rot *= 2
+        external = torch.cat([pos, rot], dim=1)
+        external = external.type(dtype).to(device)
+        if requires_grad:
+            external.requires_grad = True
+    else:
+        n_samples = external.shape[0]

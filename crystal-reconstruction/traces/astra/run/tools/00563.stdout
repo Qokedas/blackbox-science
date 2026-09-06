@@ -1,0 +1,22 @@
+PID 27614
+Traceback (most recent call last):
+  File "/app/work/refine_obj.py", line 87, in <module>
+    import lsq_packing
+  File "/app/work/lsq_packing.py", line 7, in <module>
+    lib=ctypes.CDLL('/app/work/liblsq_packing.so')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.11/ctypes/__init__.py", line 376, in __init__
+    self._handle = _dlopen(self._name, mode)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: /app/work/liblsq_packing.so: undefined symbol: _ZN8ObjCryst12RefinableObj19GlobalOptRandomMoveEfPKNS_10RefParTypeE
+GALLOP 6 Nref 300 seconds 51.69837546348572 best 47.27984 q25 47.285942 median 91.42374 total 444.1148099899292
+GALLOP 7 Nref 300 seconds 64.59047532081604 best 47.279736 q25 47.28619 median 119.53244 total 508.7694170475006
+GALLOP 8 Nref 300 seconds 43.68913412094116 best 47.279785 q25 47.28806 median 139.2551 total 552.4883961677551
+GALLOP 9 Nref 300 seconds 46.868223667144775 best 47.27969 q25 47.2818 median 120.4837 total 599.3730001449585
+BATCH 6 best 164.80992126464844 diffraction 156.39532470703125 p25 428.84368896484375 seconds 408.1730511188507 centre [0.  0.5 0.5]
+BATCH 7 best 155.0325927734375 diffraction 146.5526123046875 p25 453.666259765625 seconds 475.66691637039185 centre [0.  0.5 0.5]
+BATCH 8 best 155.0325164794922 diffraction 146.55255126953125 p25 464.62847900390625 seconds 538.3997128009796 centre [0.  0.5 0.5]
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 221 seconds 119.89439105987549 best 246.72224 q25 316.7724 median 348.00537 total 119.9018144607544

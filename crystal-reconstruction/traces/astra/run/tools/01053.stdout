@@ -1,0 +1,108 @@
+{
+ "Rw": 0.08766205258416344,
+ "chi2": 6104.119223191419
+}{
+ "Rw": 0.08605142253053939,
+ "chi2": 5441.314464672526
+}{
+ "Rw": 0.08736722299775049,
+ "chi2": 5837.113351066971
+}{
+ "Rw": 0.08466095979570996,
+ "chi2": 5323.320705532202
+}-rw-r--r-- 1 root root   4881 Sep  6 10:37 refine_ninv94m10_stage1.cif
+-rw-r--r-- 1 root root 336020 Sep  6 10:37 refine_ninv94m10_stage1.xml
+-rw-r--r-- 1 root root   4881 Sep  6 10:39 refine_ninv94m10_stage2.cif
+-rw-r--r-- 1 root root 336026 Sep  6 10:39 refine_ninv94m10_stage2.xml
+-rw-r--r-- 1 root root   4881 Sep  6 10:41 refine_ninv94m10_stage3.cif
+-rw-r--r-- 1 root root 336011 Sep  6 10:41 refine_ninv94m10_stage3.xml
+-rw-r--r-- 1 root root   4881 Sep  6 10:41 refined_ninv94m10.cif
+-rw-r--r-- 1 root root 336011 Sep  6 10:41 refined_ninv94m10.xml
+-rw-r--r-- 1 root root     58 Sep  6 10:41 refined_ninv94m10.json
+-rw-r--r-- 1 root root  88656 Sep  6 10:41 refined_ninv94m10.png
+-rw-r--r-- 1 root root   1880 Sep  6 10:41 refine_ninv94m10.log
+-rw-r--r-- 1 root root   1398 Sep  6 10:41 check_ninv94m10.log
+-rw-r--r-- 1 root root    643 Sep  6 10:41 stereoseed_ninv94m11.log
+-rw-r--r-- 1 root root 540675 Sep  6 10:42 extended_ninv94m11.xye
+-rw-r--r-- 1 root root 540675 Sep  6 10:42 scaled_refine.xye
+-rw-r--r-- 1 root root   4881 Sep  6 10:42 refine_ninv94m11_stage0.cif
+-rw-r--r-- 1 root root 335756 Sep  6 10:42 refine_ninv94m11_stage0.xml
+-rw-r--r-- 1 root root   4881 Sep  6 10:44 refine_ninv94m11_stage1.cif
+-rw-r--r-- 1 root root 335747 Sep  6 10:44 refine_ninv94m11_stage1.xml
+-rw-r--r-- 1 root root   4881 Sep  6 10:45 refine_ninv94m11_stage2.cif
+-rw-r--r-- 1 root root 335740 Sep  6 10:45 refine_ninv94m11_stage2.xml
+-rw-r--r-- 1 root root   4881 Sep  6 10:47 refine_ninv94m11_stage3.cif
+-rw-r--r-- 1 root root 335740 Sep  6 10:47 refine_ninv94m11_stage3.xml
+-rw-r--r-- 1 root root   4881 Sep  6 10:47 refined_ninv94m11.cif
+-rw-r--r-- 1 root root 335740 Sep  6 10:47 refined_ninv94m11.xml
+-rw-r--r-- 1 root root     58 Sep  6 10:47 refined_ninv94m11.json
+-rw-r--r-- 1 root root  88190 Sep  6 10:47 refined_ninv94m11.png
+-rw-r--r-- 1 root root   1883 Sep  6 10:47 refine_ninv94m11.log
+-rw-r--r-- 1 root root   1397 Sep  6 10:47 check_ninv94m11.log
+-rw-r--r-- 1 root root      0 Sep  6 10:48 warm97.log
+/app/work/submit.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+X3f4781b Nat 104 molecule sizes [21, 21, 21, 21, 5, 5, 5, 5]
+  component COC(=O)[C@H](c1ccccc1Cl)[NH+]1CCc2sccc2C1 matches 4
+  component O=S(=O)([O-])O matches 4
+  bond range 1.221565457949704 1.7397654688537854
+  min intermolecular distance 2.450696607474612
+/app/work/check_stereo.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(fn).parse_structures(primitive=False)[0];s.remove_species(['H']);rad=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<1.2*(rad[:,None]+rad[None,:]));g=nx.from_numpy_array(A)
+X3f4781b root 0 expected {4: 'S'} actual {4: 'S'} OK True
+X3f4781b root 1 expected {4: 'S'} actual {4: 'S'} OK True
+X3f4781b root 32 expected {4: 'S'} actual {4: 'S'} OK True
+X3f4781b root 33 expected {4: 'S'} actual {4: 'S'} OK True
+CYCLE 0 2 Rw 0.09245331484856695 chi2 6348.355371584976 geom 3562.9993429827714 LSQ 10635.617437574496
+PACKING_STAGE 0 48.4731029076802
+CYCLE 1 0 Rw 0.08754896748105459 chi2 5692.700200932861 geom 1133.1280961721845 LSQ 7636.753981475016
+CYCLE 1 1 Rw 0.08666190496826535 chi2 5577.925614164959 geom 847.7723470761292 LSQ 7123.786787178573
+CYCLE 1 2 Rw 0.08580315640756592 chi2 5467.927964606309 geom 799.1736559840874 LSQ 7011.935881663407
+PACKING_STAGE 1 50.69296183241722
+CYCLE 2 0 Rw 0.08630233284875541 chi2 5531.734484541514 geom 731.7444015378443 LSQ 6928.6048785193
+CYCLE 2 1 Rw 0.08589533695484988 chi2 5479.682948063014 geom 730.3413697877703 LSQ 6875.951876900108
+CYCLE 2 2 Rw 0.08566387317642787 chi2 5450.190329630729 geom 730.9095489960084 LSQ 6849.0081155594435
+PACKING_STAGE 2 33.32470715971038
+CYCLE 3 0 Rw 0.08508131049657873 chi2 5376.313648424299 geom 730.0641005056362 LSQ 6780.836469238751
+CYCLE 3 1 Rw 0.08482140835847081 chi2 5343.517228633517 geom 728.9278087021811 LSQ 6747.914522299936
+CYCLE 3 2 Rw 0.08466095979570996 chi2 5323.320705532202 geom 728.3494681328394 LSQ 6728.717698667378
+PACKING_STAGE 3 39.48042152716216
+FINISHED X3f4781b 0.08466095979570996
+BEST_SOURCE ninv94m11
+/app/work/check_stereo.py
+/app/work/check_stereo_v1.py
+/app/work/clop98_queue.log
+/app/work/clop_n94_queue.log
+/app/work/clopidogrel_cond.log
+/app/work/queue_clop98.sh
+/app/work/queue_clop_n94.sh
+/app/work/queue_clopidogrel_cond.sh
+PACKING_STAGE 1 20.355954147748157
+CYCLE 2 0 Rw 0.11664723943899646 chi2 3924.880062735696 geom 174.56052587098858 LSQ 4434.34065379476
+CYCLE 2 1 Rw 0.11644793212307496 chi2 3911.4791623959786 geom 174.6867533520122 LSQ 4418.90977721737
+CYCLE 2 2 Rw 0.11637871644852243 chi2 3906.830643486577 geom 174.6858576274603 LSQ 4411.459943233999
+PACKING_STAGE 2 18.247252511639545
+CYCLE 3 0 Rw 0.11605956816228989 chi2 3885.4324240011697 geom 174.73134423404528 LSQ 4389.460852075937
+CYCLE 3 1 Rw 0.11579678277250963 chi2 3867.8573293839695 geom 171.0681740574684 LSQ 4362.217849167682
+CYCLE 3 2 Rw 0.11555201973783163 chi2 3851.5234048598754 geom 170.69055882020683 LSQ 4345.040642276131
+PACKING_STAGE 3 15.548266011567938
+FINISHED X14a2b08 0.11555201973783163
+{
+ "Rw": 0.11193971482836189,
+ "chi2": 5088.738302716861
+}{
+ "Rw": 0.11152012202582089,
+ "chi2": 4343.021833530274
+}{
+ "Rw": 0.10959958102044629,
+ "chi2": 6517.136502598825
+}{
+ "Rw": 0.10651189263101832,
+ "chi2": 7095.501184942778
+}{
+ "Rw": 0.11555201973783163,
+ "chi2": 3851.5234048598754
+}{
+ "Rw": 0.11500281715939131,
+ "chi2": 4602.424553377057
+}

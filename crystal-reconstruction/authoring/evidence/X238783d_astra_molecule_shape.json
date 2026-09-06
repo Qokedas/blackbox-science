@@ -1,0 +1,341 @@
+{
+ "rmsd": 2.720226692451502,
+ "dmax": 6.717983219934238,
+ "n_over_1A": 40,
+ "n_atoms": 52,
+ "per_atom": [
+  {
+   "sub": "C1",
+   "ref": "C15",
+   "el": "C",
+   "dist_A": 0.734
+  },
+  {
+   "sub": "C2",
+   "ref": "C14",
+   "el": "C",
+   "dist_A": 0.976
+  },
+  {
+   "sub": "C3",
+   "ref": "C13",
+   "el": "C",
+   "dist_A": 1.21
+  },
+  {
+   "sub": "O4",
+   "ref": "O8",
+   "el": "O",
+   "dist_A": 0.521
+  },
+  {
+   "sub": "C5",
+   "ref": "C1",
+   "el": "C",
+   "dist_A": 0.839
+  },
+  {
+   "sub": "O6",
+   "ref": "O1",
+   "el": "O",
+   "dist_A": 1.2
+  },
+  {
+   "sub": "C7",
+   "ref": "C2",
+   "el": "C",
+   "dist_A": 0.904
+  },
+  {
+   "sub": "C8",
+   "ref": "C16",
+   "el": "C",
+   "dist_A": 1.173
+  },
+  {
+   "sub": "C9",
+   "ref": "C3",
+   "el": "C",
+   "dist_A": 1.331
+  },
+  {
+   "sub": "O10",
+   "ref": "O2",
+   "el": "O",
+   "dist_A": 2.105
+  },
+  {
+   "sub": "C11",
+   "ref": "C31",
+   "el": "C",
+   "dist_A": 2.571
+  },
+  {
+   "sub": "C12",
+   "ref": "C32",
+   "el": "C",
+   "dist_A": 2.661
+  },
+  {
+   "sub": "C13",
+   "ref": "C33",
+   "el": "C",
+   "dist_A": 2.227
+  },
+  {
+   "sub": "C14",
+   "ref": "C37",
+   "el": "C",
+   "dist_A": 4.114
+  },
+  {
+   "sub": "O15",
+   "ref": "O11",
+   "el": "O",
+   "dist_A": 4.178
+  },
+  {
+   "sub": "C16",
+   "ref": "C38",
+   "el": "C",
+   "dist_A": 6.506
+  },
+  {
+   "sub": "C17",
+   "ref": "C34",
+   "el": "C",
+   "dist_A": 1.066
+  },
+  {
+   "sub": "O18",
+   "ref": "O12",
+   "el": "O",
+   "dist_A": 3.826
+  },
+  {
+   "sub": "C19",
+   "ref": "C35",
+   "el": "C",
+   "dist_A": 2.958
+  },
+  {
+   "sub": "C20",
+   "ref": "C36",
+   "el": "C",
+   "dist_A": 5.043
+  },
+  {
+   "sub": "O21",
+   "ref": "O13",
+   "el": "O",
+   "dist_A": 3.29
+  },
+  {
+   "sub": "C22",
+   "ref": "C4",
+   "el": "C",
+   "dist_A": 1.1
+  },
+  {
+   "sub": "C23",
+   "ref": "C17",
+   "el": "C",
+   "dist_A": 1.692
+  },
+  {
+   "sub": "C24",
+   "ref": "C5",
+   "el": "C",
+   "dist_A": 1.136
+  },
+  {
+   "sub": "O25",
+   "ref": "O3",
+   "el": "O",
+   "dist_A": 1.193
+  },
+  {
+   "sub": "C26",
+   "ref": "C23",
+   "el": "C",
+   "dist_A": 1.356
+  },
+  {
+   "sub": "O27",
+   "ref": "O10",
+   "el": "O",
+   "dist_A": 3.096
+  },
+  {
+   "sub": "C28",
+   "ref": "C27",
+   "el": "C",
+   "dist_A": 4.029
+  },
+  {
+   "sub": "C29",
+   "ref": "C28",
+   "el": "C",
+   "dist_A": 6.718
+  },
+  {
+   "sub": "C30",
+   "ref": "C26",
+   "el": "C",
+   "dist_A": 2.879
+  },
+  {
+   "sub": "C31",
+   "ref": "C25",
+   "el": "C",
+   "dist_A": 0.696
+  },
+  {
+   "sub": "N32",
+   "ref": "N1",
+   "el": "N",
+   "dist_A": 2.953
+  },
+  {
+   "sub": "C33",
+   "ref": "C30",
+   "el": "C",
+   "dist_A": 4.53
+  },
+  {
+   "sub": "C34",
+   "ref": "C29",
+   "el": "C",
+   "dist_A": 2.8
+  },
+  {
+   "sub": "C35",
+   "ref": "C24",
+   "el": "C",
+   "dist_A": 1.063
+  },
+  {
+   "sub": "O36",
+   "ref": "O9",
+   "el": "O",
+   "dist_A": 3.324
+  },
+  {
+   "sub": "C37",
+   "ref": "C6",
+   "el": "C",
+   "dist_A": 0.852
+  },
+  {
+   "sub": "C38",
+   "ref": "C18",
+   "el": "C",
+   "dist_A": 0.971
+  },
+  {
+   "sub": "O39",
+   "ref": "O4",
+   "el": "O",
+   "dist_A": 0.624
+  },
+  {
+   "sub": "C40",
+   "ref": "C22",
+   "el": "C",
+   "dist_A": 1.292
+  },
+  {
+   "sub": "C41",
+   "ref": "C7",
+   "el": "C",
+   "dist_A": 0.795
+  },
+  {
+   "sub": "C42",
+   "ref": "C8",
+   "el": "C",
+   "dist_A": 0.721
+  },
+  {
+   "sub": "C43",
+   "ref": "C19",
+   "el": "C",
+   "dist_A": 1.42
+  },
+  {
+   "sub": "C44",
+   "ref": "C9",
+   "el": "C",
+   "dist_A": 1.13
+  },
+  {
+   "sub": "O45",
+   "ref": "O5",
+   "el": "O",
+   "dist_A": 2.282
+  },
+  {
+   "sub": "C46",
+   "ref": "C10",
+   "el": "C",
+   "dist_A": 1.082
+  },
+  {
+   "sub": "C47",
+   "ref": "C20",
+   "el": "C",
+   "dist_A": 2.831
+  },
+  {
+   "sub": "C48",
+   "ref": "C11",
+   "el": "C",
+   "dist_A": 0.843
+  },
+  {
+   "sub": "O49",
+   "ref": "O6",
+   "el": "O",
+   "dist_A": 1.787
+  },
+  {
+   "sub": "C50",
+   "ref": "C12",
+   "el": "C",
+   "dist_A": 2.444
+  },
+  {
+   "sub": "C51",
+   "ref": "C21",
+   "el": "C",
+   "dist_A": 5.046
+  },
+  {
+   "sub": "O52",
+   "ref": "O7",
+   "el": "O",
+   "dist_A": 4.401
+  }
+ ],
+ "id": "X238783d",
+ "name": "Clarithromycin",
+ "maps_examined": 2,
+ "submitted_cif": "traces/astra/run/artifacts/results/submission/X238783d.cif",
+ "reference_cell": [
+  20.14922,
+  23.95453,
+  8.85344,
+  90.0,
+  90.0,
+  90.0
+ ],
+ "submitted_cell": [
+  8.85266791,
+  20.14283922,
+  23.92173386,
+  90.0,
+  90.0,
+  90.0
+ ],
+ "method": "connectivity-matched rigid superposition of one unwrapped molecule; proper rotations only; hydrogens omitted; not the grader metric"
+}

@@ -1,0 +1,111 @@
+/app/work/chair84_queue.log
+/app/work/flip_chairs.py
+/app/work/queue_x1a_chair84.sh
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X4f6fe58 117.37014770507812
+CONDITIONAL 0 [0] best 115.25947570800781 q25 473.91473 sec 250.45061016082764
+CONDITIONAL 1 [1] best 114.69178009033203 q25 446.67358 sec 447.80043387413025
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+RESTART_ERROR max/rms 1.3155045074442244e-06 6.832122443572016e-07
+WARM_READY /app/work/X7e382cb/gallop_100
+SUBGROUP X1a56c78 heavy-only initial Rw 0.15693494119148962
+All geom 201.44325333115623
+(49.31997911778195, 'angle', ['m0_N4', 'm0_C5', 'm0_C6'])
+(13.587505315842128, 'angle', ['m0_Br16', 'm0_C15', 'm0_C17'])
+(10.647601301348733, 'angle', ['m0_C19', 'm0_N20', 'm0_C2'])
+(10.161298140387101, 'angle', ['m1_O1', 'm1_C2', 'm1_C3'])
+(7.407447223335796, 'angle', ['m0_C14', 'm0_C15', 'm0_Br16'])
+(5.703110734190269, 'angle', ['m0_C6', 'm0_C5', 'm0_C13'])
+(5.403162395429965, 'bond', ['m0_C18', 'm0_C19'])
+(5.265596232432792, 'angle', ['m1_C5', 'm1_C13', 'm1_C14'])
+(5.222527809896689, 'angle', ['m0_H28', 'm0_C17', 'm0_C15'])
+(4.711610036875744, 'angle', ['m1_N4', 'm1_C5', 'm1_C6'])
+(4.584311122371398, 'angle', ['m0_C5', 'm0_C13', 'm0_C14'])
+(4.257155455466495, 'dihedral', ['m0_N20', 'm0_C19', 'm0_C13', 'm0_C14'])
+(4.254652686108142, 'angle', ['m1_C5', 'm1_C6', 'm1_C7'])
+(3.789021639452093, 'angle', ['m0_C18', 'm0_C19', 'm0_N20'])
+(3.4214911701014867, 'angle', ['m0_H30', 'm0_N20', 'm0_C2'])
+(3.4061783218532717, 'dihedral', ['m0_C17', 'm0_C18', 'm0_C19', 'm0_N20'])
+(3.286182237442657, 'angle', ['m0_C10', 'm0_C11', 'm0_Cl12'])
+(3.179381630163071, 'angle', ['m0_H30', 'm0_N20', 'm0_C19'])
+(2.917320328394147, 'bond', ['m0_C3', 'm0_N4'])
+(2.7584832808343824, 'angle', ['m0_Cl12', 'm0_C11', 'm0_C6'])
+(2.6340973421186464, 'bond', ['m1_C7', 'm1_C8'])
+(2.627016084256448, 'angle', ['m0_H24', 'm0_C8', 'm0_C7'])
+(2.5766927399681108, 'angle', ['m1_C5', 'm1_C6', 'm1_C11'])
+(2.447897320549114, 'angle', ['m1_Cl12', 'm1_C11', 'm1_C6'])
+(2.4391966874661146, 'angle', ['m1_O1', 'm1_C2', 'm1_N20'])
+(2.4141804115320733, 'dihedral', ['m0_N20', 'm0_C19', 'm0_C13', 'm0_C5'])
+(2.3589203140860078, 'angle', ['m1_C6', 'm1_C5', 'm1_C13'])
+(2.306077326809081, 'angle', ['m0_H25', 'm0_C9', 'm0_C8'])
+(2.1896254740613568, 'bond', ['m1_O1', 'm1_C2'])
+(1.7980779541601202, 'bond', ['m1_C2', 'm1_C3'])
+N20 H30 O1 DA 3.3807 HA 2.5313 DHA 138.98 nearest (np.float64(-1.0), np.float64(1.0), np.float64(-1.0))
+N50 H60 O31 DA 2.4942 HA 1.7380 DHA 126.52 nearest (np.float64(0.0), np.float64(0.0), np.float64(1.0))
+[
+ {
+  "smiles": "O=C1CN=C(c2ccccc2Cl)c2cc(Br)ccc2N1",
+  "elements": [
+   "O",
+   "C",
+   "C",
+   "N",
+   "C",
+   "C",
+   "C",
+   "C",
+   "C",
+   "C",
+   "C",
+   "Cl",
+   "C",
+   "C",
+   "C",
+   "Br",
+   "C",
+   "C",
+   "C",
+   "N"
+  ],
+  "rdkit_coords": [
+   [
+    -2.4258800737256117,
+    -2.4964499158586273,
+    2.7259946399035524
+   ],
+   [
+    -1.984054745378151,
+    -1.9533015119393087,
+    1.712199860549012
+   ],
+   [
+    -1.1006298310992257,
+    -2.6792738935138884,
+    0.7151432553617351
+{
+ "radiation": {
+  "type": "CuK1",
+  "wavelength_A": 1.54059,
+  "wavelengths_A": [
+   1.54059
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 295.0,
+ "two_theta_range_deg": [
+  5.0,
+  80.0
+ ],
+ "n_points": 7501,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}

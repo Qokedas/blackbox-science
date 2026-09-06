@@ -1,0 +1,170 @@
+---- <class 'pyobjcryst._pyobjcryst.Molecule'>
+__init__ 
+__init__( (object)arg1, (Molecule)oldMolecule) -> None :
+
+    C++ signature :
+        void __init__(_object*,ObjCryst::Molecule)
+
+__init__( (object)arg1, (Crystal)cryst [, (str)name='']) -> None :
+
+    C++ signature :
+        void __init__(_object*,ObjCryst::Crystal {lvalue} [,std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >=''])
+AddAtom 
+AddAtom( (Molecule)arg1, (float)x, (float)y, (float)z, (ScatteringPower)pPow, (str)name [, (bool)updateDisplay=True]) -> MolAtom :
+
+    C++ signature :
+        ObjCryst::MolAtom {lvalue} AddAtom(ObjCryst::Molecule {lvalue},double,double,double,ObjCryst::ScatteringPower const*,std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > [,bool=True])
+AddBond 
+AddBond( (Molecule)arg1, (MolAtom)atom1, (MolAtom)atom2, (float)length, (float)sigma, (float)delta [, (float)bondOrder=1 [, (bool)updateDisplay=True]]) -> MolBond :
+
+    C++ signature :
+        ObjCryst::MolBond {lvalue} AddBond(ObjCryst::Molecule {lvalue},ObjCryst::MolAtom {lvalue},ObjCryst::MolAtom {lvalue},double,double,double [,double=1 [,bool=True]])
+AddBondAngle 
+AddBondAngle( (Molecule)arg1, (MolAtom)atom1, (MolAtom)atom2, (MolAtom)atom3, (float)angle, (float)sigma, (float)delta [, (bool)updateDisplay=True]) -> MolBondAngle :
+
+    C++ signature :
+        ObjCryst::MolBondAngle {lvalue} AddBondAngle(ObjCryst::Molecule {lvalue},ObjCryst::MolAtom {lvalue},ObjCryst::MolAtom {lvalue},ObjCryst::MolAtom {lvalue},double,double,double [,bool=True])
+AddDihedralAngle 
+AddDihedralAngle( (Molecule)arg1, (MolAtom)atom1, (MolAtom)atom2, (MolAtom)atom3, (MolAtom)atom4, (float)angle, (float)sigma, (float)delta [, (bool)updateDisplay=True]) -> MolDihedralAngle :
+
+    C++ signature :
+        ObjCryst::MolDihedralAngle {lvalue} AddDihedralAngle(ObjCryst::Molecule {lvalue},ObjCryst::MolAtom {lvalue},ObjCryst::MolAtom {lvalue},ObjCryst::MolAtom {lvalue},ObjCryst::MolAtom {lvalue},double,double,double [,bool=True])
+AddRigidGroup 
+AddRigidGroup( (Molecule)arg1, (RigidGroup)group [, (bool)updateDisplay=True]) -> RigidGroup :
+
+    C++ signature :
+        ObjCryst::RigidGroup {lvalue} AddRigidGroup(ObjCryst::Molecule {lvalue},ObjCryst::RigidGroup [,bool=True])
+
+AddRigidGroup( (Molecule)arg1, (object)group [, (bool)updateDisplay=True]) -> RigidGroup :
+
+    C++ signature :
+        ObjCryst::RigidGroup {lvalue} AddRigidGroup(ObjCryst::Molecule {lvalue},boost::python::api::object {lvalue} [,bool=True])
+BuildRingList 
+BuildRingList( (Molecule)arg1) -> None :
+
+    C++ signature :
+        void BuildRingList(ObjCryst::Molecule {lvalue})
+GetNbOption 
+GetNbOption( (RefinableObj)arg1) -> int :
+
+    C++ signature :
+        unsigned int GetNbOption(ObjCryst::RefinableObj {lvalue})
+SetOccupancy 
+SetOccupancy( (Scatterer)arg1, (float)arg2) -> None :
+
+    C++ signature :
+        void SetOccupancy(ObjCryst::Scatterer {lvalue},double)
+
+SetOccupancy( (Scatterer)arg1, (float)arg2) -> None :
+
+    C++ signature :
+        void SetOccupancy((anonymous namespace)::ScattererWrap {lvalue},double)
+RotateAtomGroup 
+RotateAtomGroup( (Molecule)arg1, (MolAtom)at1, (MolAtom)at2, (object)atoms, (float)angle [, (bool)keepCenter=True]) -> None :
+
+    C++ signature :
+        void RotateAtomGroup(ObjCryst::Molecule {lvalue},ObjCryst::MolAtom,ObjCryst::MolAtom,boost::python::api::object,double [,bool=True])
+
+RotateAtomGroup( (Molecule)arg1, (MolAtom)at1, (float)vx, (float)vy, (float)vz, (object)atoms, (float)angle [, (bool)keepCenter=True]) -> None :
+
+    C++ signature :
+        void RotateAtomGroup(ObjCryst::Molecule {lvalue},ObjCryst::MolAtom,double,double,double,boost::python::api::object,double [,bool=True])
+
+RotateAtomGroup( (Molecule)arg1, (object)v1, (object)v2, (object)atoms, (float)angle [, (bool)keepCenter=True]) -> None :
+
+    C++ signature :
+        void RotateAtomGroup(ObjCryst::Molecule {lvalue},boost::python::api::object {lvalue},boost::python::api::object {lvalue},boost::python::api::object,double [,bool=True])
+---- <class 'pyobjcryst.globaloptim.MonteCarlo'>
+__init__ 
+__init__( (object)arg1) -> None :
+
+    C++ signature :
+        void __init__(_object*)
+
+__init__( (object)arg1) -> None :
+
+    C++ signature :
+        void __init__(_object*)
+
+__init__( (object)arg1, (MonteCarlo)old) -> None :
+
+    C++ signature :
+        void __init__(_object*,ObjCryst::MonteCarloObj)
+
+__init__( (object)arg1, (str)name) -> None :
+
+    C++ signature :
+        void __init__(_object*,std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)
+AddRefinableObj 
+AddRefinableObj( (MonteCarlo)arg1, (RefinableObj)obj) -> None :
+
+    C++ signature :
+        void AddRefinableObj(ObjCryst::MonteCarloObj {lvalue},ObjCryst::RefinableObj {lvalue})
+SetAlgorithmParallTempering 
+SetAlgorithmParallTempering( (MonteCarlo)arg1, (AnnealingSchedule)scheduleTemp, (float)tMax, (float)tMin [, (AnnealingSchedule)scheduleMutation=pyobjcryst._pyobjcryst.AnnealingSchedule.SMART [, (float)mutMax=16 [, (float)mutMin=0.125]]]) -> None :
+
+    C++ signature :
+        void SetAlgorithmParallTempering(ObjCryst::MonteCarloObj {lvalue},ObjCryst::AnnealingSchedule,double,double [,ObjCryst::AnnealingSchedule=pyobjcryst._pyobjcryst.AnnealingSchedule.SMART [,double=16 [,double=0.125]]])
+SetAlgorithmSimulAnnealing 
+SetAlgorithmSimulAnnealing( (MonteCarlo)arg1, (AnnealingSchedule)scheduleTemp, (float)tMax, (float)tMin [, (AnnealingSchedule)scheduleMutation=pyobjcryst._pyobjcryst.AnnealingSchedule.SMART [, (float)mutMax=16 [, (float)mutMin=0.125 [, (int)nbTrialRetry=0 [, (float)minCostRetry=0.0]]]]]) -> None :
+
+    C++ signature :
+        void SetAlgorithmSimulAnnealing(ObjCryst::MonteCarloObj {lvalue},ObjCryst::AnnealingSchedule,double,double [,ObjCryst::AnnealingSchedule=pyobjcryst._pyobjcryst.AnnealingSchedule.SMART [,double=16 [,double=0.125 [,long=0 [,double=0.0]]]]])
+SetParIsFixed 
+SetParIsFixed( (MonteCarlo)arg1, (str)arg2, (bool)arg3) -> None :
+
+    C++ signature :
+        void SetParIsFixed(ObjCryst::MonteCarloObj {lvalue},std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >,bool)
+
+SetParIsFixed( (MonteCarlo)arg1, (RefParType)arg2, (bool)arg3) -> None :
+
+    C++ signature :
+        void SetParIsFixed(ObjCryst::MonteCarloObj {lvalue},ObjCryst::RefParType const*,bool)
+GetLogLikelihood 
+GetLogLikelihood( (MonteCarlo)arg1) -> float :
+
+    C++ signature :
+        double GetLogLikelihood(ObjCryst::MonteCarloObj {lvalue})
+RestoreBestConfiguration 
+RestoreBestConfiguration( (MonteCarlo)arg1) -> None :
+
+    C++ signature :
+        void RestoreBestConfiguration(ObjCryst::MonteCarloObj {lvalue})
+---- <class 'pyobjcryst._pyobjcryst.ScatteringPowerAtom'>
+__init__ 
+__init__( (object)arg1, (ScatteringPowerAtom)arg2) -> None :
+
+    C++ signature :
+        void __init__(_object*,ObjCryst::ScatteringPowerAtom)
+
+__init__( (object)arg1, (str)name, (str)symbol [, (float)bIso=1.0]) -> None :
+
+    C++ signature :
+        void __init__(_object*,std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >,std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > [,double=1.0])
+SetBiso 
+SetBiso( (ScatteringPower)arg1, (float)arg2) -> None :
+
+    C++ signature :
+        void SetBiso(ObjCryst::ScatteringPower {lvalue},double)
+
+SetBiso( (ScatteringPower)arg1, (float)arg2) -> None :
+
+    C++ signature :
+        void SetBiso((anonymous namespace)::ScatteringPowerWrap {lvalue},double)
+---- <class 'pyobjcryst._pyobjcryst.Atom'>
+__init__ 
+__init__( (object)arg1, (Atom)old) -> None :
+
+    C++ signature :
+        void __init__(_object*,ObjCryst::Atom)
+
+__init__( (object)arg1, (float)x, (float)y, (float)z, (str)name, (ScatteringPower)pow [, (float)popu]) -> None :
+
+    C++ signature :
+        void __init__(_object*,double,double,double,std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >,ObjCryst::ScatteringPower const* [,double])
+['AddRefinableObj', 'FixAllPar', 'GetClassName', 'GetFullRefinableObj', 'GetLSQObj', 'GetLastOptimElapsedTime', 'GetLogLikelihood', 'GetName', 'GetNbOption', 'GetNbParamSet', 'GetOption', 'GetParamSetCost', 'GetParamSetIndex', 'InitLSQ', 'IsOptimizing', 'MultiRunOptimize', 'Optimize', 'Print', 'RandomizeStartingConfig', 'RestoreBestConfiguration', 'RestoreParamSet', 'RunParallelTempering', 'RunSimulatedAnnealing', 'SetAlgorithmParallTempering', 'SetAlgorithmSimulAnnealing', 'SetLimitsAbsolute', 'SetLimitsRelative', 'SetName', 'SetParIsFixed', 'SetParIsUsed', 'StopAfterCycle', 'UnFixAllPar', 'UpdateDisplay', 'disable_display_update', 'enable_display_update', 'llk', 'run', 'trial', 'widget']
+0 Flexibility Model ['Automatic from Restraints, relaxed - RECOMMENDED', 'Rigid Body', 'Automatic from Restraints, strict']
+1 Enable Flipping ['Yes', 'No']
+2 Auto Optimize Starting Conformation ['Yes', 'No']
+3 Optimize Orientation ['Yes', 'No']
+4 Rotation Center ['Geometrical center (recommended)', 'User-chosen Atom']

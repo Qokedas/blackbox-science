@@ -1,0 +1,17 @@
+  File "/opt/conda/lib/python3.11/site-packages/pymatgen/core/sites.py", line 87, in __getattr__
+    raise AttributeError(f"{attr=} not found on {type(self).__name__}")
+AttributeError: attr='specie' not found on PeriodicSite. Did you mean: 'species'?
+  s = CifParser(f'{outdir}/{iid}.cif').parse_structures(primitive=False)[0]
+Xe3a2935: wrote CIF with 21 asym atoms -> 84 atoms in cell; spg P 21 21 21 (19); formula C56 N24 O4
+{
+ "cell": {
+  "a": 10.29233,
+  "b": 6.88044,
+  "c": 19.98978,
+  "alpha": 90.0,
+  "beta": 90.0,
+  "gamma": 90.0
+ },
+ "space_group": "P 21 21 21",
+ "space_group_number": 19
+}

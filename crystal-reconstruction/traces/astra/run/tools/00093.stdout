@@ -1,0 +1,56 @@
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="V">0.00346546</Par>
+        <Par Refined="0" Limited="1" Min="0" Max="1" Name="W">5.79996e-05</Par>
+        <Par Refined="0" Limited="1" Min="0" Max="1" Name="Eta0">0.497288</Par>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="Eta1">0.957756</Par>
+        <Par Refined="0" Limited="1" Min="0.01" Max="10" Name="Asym0">1.01681</Par>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="Asym1">0.00761231</Par>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="Asym2">0</Par>
+      </ReflectionProfilePseudoVoigt>
+      <Par Refined="0" Limited="1" Min="-1" Max="1" Name="globalBiso">0</Par>
+      <DiffractionDataSingleCrystal Name="" Crystal="X13023e3_2">
+        <Par Refined="0" Limited="0" Min="1e-10" Max="1e+10" Name="Scale factor">1</Par>
+        <Radiation>
+          <Option Name="Radiation" Choice="1" ChoiceName="X-Ray"/>
+          <Option Name="Spectrum" Choice="0" ChoiceName="Monochromatic"/>
+          <LinearPolarRate>0</LinearPolarRate>
+          <Par Refined="0" Limited="1" Min="0.05" Max="20" Name="Wavelength">1</Par>
+        </Radiation>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="globalBiso">0</Par>
+        <Option Name="Group Reflections" Choice="0" ChoiceName="No"/>
+        <MaxSinThetaOvLambda>10</MaxSinThetaOvLambda>
+
+        <HKLIobsSigmaWeightList>
+          0 0 1 0 1 1 
+          0 0 2 0 1 1 
+          0 0 3 150.71 1 1 
+          0 0 4 235.784 1 1 
+          1 0 0 392.583 1 1 
+          -1 0 1 1093.65 1 1 
+          1 0 1 323.075 1 1 
+          -1 0 2 2.0606e-33 1 1 
+          0 0 5 34.0014 1 1 
+          2 2 0 2.938 1 1 
+          -2 2 2 10.2485 1 1 
+          2 2 1 16.8366 1 1 
+          1 2 8 17.6102 1 1 
+          -3 0 1 33.6559 1 1 
+          0 1 13 10.9625 1 1 
+          3 0 0 12.3777 1 1 
+          -2 2 3 48.1084 1 1 
+          2 2 2 90.3203 1 1 
+        </HKLIobsSigmaWeightList>
+      </DiffractionDataSingleCrystal>
+    </PowderPatternCrystal>
+
+    <PowderPatternComponent Scale="7.17891e-05" Name=""/>
+
+    <PowderPatternBackground Name="">
+      <Option Name="Interpolation Model" Choice="1" ChoiceName="Spline"/>
+      <XIntensityList>
+        4.243 6616.09 0 
+        4.84071 6418.79 0 
+        5.43843 6502.45 0 
+        6.03614 6174.08 0 
+        6.63386 6615.64 0 
+        7.23157 5980.5 0 
+        7.82929 9177.74 0 

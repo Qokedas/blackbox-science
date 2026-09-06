@@ -1,0 +1,101 @@
+15174 bash /app/work/queue_gallop_A3.sh 
+16742 bash /app/work/queue_gallop_C4.sh 
+16777 bash /app/work/queue_gallop_A4.sh 
+17408 bash /app/work/queue_gallop_D6.sh 
+26196 bash /app/work/queue_gallop_D7.sh 
+26821 python /app/work/search_gallop.py X9af54a2 11 2 --prepare --hscatter 
+27484 python /app/work/search_gallop.py X263b09a 11 1 --prepare --hscatter 
+29859 bash /app/work/queue_gallop_B5.sh 
+30840 python /app/work/search_gallop.py X1a56c78 11 1 --prepare --hscatter 
+30904 python /app/work/search_gallop.py Xedd9c7b 50 1 --hscatter --packing 
+31941 python /app/work/search_gallop.py X263b09a 70 1 --prepare --hscatter --packing --model=/app/work/X263b09a/synthon.json 
+32736 python /app/work/search_gallop.py X4f6fe58 40 2 --prepare --hscatter 
+32803 timeout --signal=TERM --kill-after=5s 30 bash -lc python - <<'PY'
+import glob,os
+for p in glob.glob('/proc/[0-9]*'):
+ try:
+  s=open(p+'/status').read(); cmd=open(p+'/cmdline','rb').read().replace(b'\0',b' ').decode()
+  if 'State:\tZ' in s or not cmd:continue
+  if any(t in cmd for t in ['gallop','solve_heavy','refine_obj','fit_candidate','index_']):print(os.path.basename(p),cmd[:400])
+ except:pass
+
+32809 bash -lc python - <<'PY'
+import glob,os
+for p in glob.glob('/proc/[0-9]*'):
+ try:
+  s=open(p+'/status').read(); cmd=open(p+'/cmdline','rb').read().replace(b'\0',b' ').decode()
+  if 'State:\tZ' in s or not cmd:continue
+  if any(t in cmd for t in ['gallop','solve_heavy','refine_obj','fit_candidate','index_']):print(os.path.basename(p),cmd[:400])
+ except:pass
+PY
+for f in /app/work/queue_gallop_{A3,A4
+===/app/work/queue_gallop_A3.log
+===/app/work/queue_gallop_A4.log
+===/app/work/queue_gallop_B5.log
+===/app/work/queue_gallop_C4.log
+===/app/work/queue_gallop_D6.log
+===/app/work/queue_gallop_D7.log
+===/app/work/queue_synthon_acm.log
+{
+ "Rw": 0.059328247101192076,
+ "chi2": 6521.507640543694
+}[
+ {
+  "smiles": "O=C(O)CCC[NH+]1CCC(O[C@@H](c2ccc(Cl)cc2)c2ccccn2)CC1",
+  "elements": [
+   "O",
+   "C",
+   "O",
+   "C",
+   "C",
+   "C",
+   "N",
+   "C",
+   "C",
+   "C",
+   "O",
+   "C",
+   "C",
+   "C",
+   "C",
+   "C",
+   "Cl",
+   "C",
+   "C",
+   "C",
+   "C",
+   "C",
+   "C",
+   "C",
+   "N",
+   "C",
+   "C"
+  ],
+  "rdkit_coords": [
+   [
+    5.85911297710087,
+    1.1706020612526133,
+    -0.38748984053582725
+   ],
+   [
+    6.366551105026201,
+    1.6669267853109622,
+    -1.383749977050743
+   ],
+   [
+    7.690889629017568,
+    1.68366972425076,
+    -1.5814203698240692
+   ],
+   [
+    5.602812899037433,
+    2.2681754347727767,
+    -2.5299793022359163
+   ],
+   [
+    4.183984834210743,
+    2.7063209420285097,
+    -2.1438515376869383
+   ],
+   [
+    3.1955148822123824,

@@ -1,0 +1,15 @@
+X1a56c78 MONOCLINIC C 0 peaks [5.87458, 8.37569, 11.79464, 14.15707, 14.99658, 15.29396, 15.74291, 16.1214, 16.80836, 17.20776, 17.70678, 17.97177, 19.14, 19.39601, 19.72196, 20.69094, 21.08593, 21.84, 22.57878, 23.26621, 23.7545, 24.61491] V 1167.01953125 3312 Lmax 41.73702351683667
+3->41.737,1.54949,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+1167.02->3312,429.005,4.9999
+Starting: V=1167.02->1596.02
+Finished: V=1167.02->1596.02 A^3, 5443 unit cells tested, 181621 tests/s,   Elapsed time=0.029977s
+Starting: V=1596.02->2025.03
+Finished: V=1596.02->2025.03 A^3, 12333 unit cells tested, 171358 tests/s,   Elapsed time=0.071981s
+Starting: V=2025.03->2454.03
+Finished: V=2025.03->2454.03 A^3, 21387 unit cells tested, 171215 tests/s,   Elapsed time=0.12492s
+Starting: V=2454.03->2883.04
+Finished: V=2454.03->2883.04 A^3, 32941 unit cells tested, 173303 tests/s,   Elapsed time=0.190085s
+Starting: V=2883.04->3312
+Finished: V=2883.04->3312 A^3, 48160 unit cells tested, 179674 tests/s,   Elapsed time=0.268049s
+DONE X1a56c78 MONOCLINIC C 0 0.26819849014282227 []

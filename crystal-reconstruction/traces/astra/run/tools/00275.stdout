@@ -1,0 +1,43 @@
+State:	Z (zombie)
+Pid:	5100
+PPid:	1
+
+State:	S (sleeping)
+Pid:	8306
+PPid:	1
+bash /app/work/index1db_raw_strict.sh 
+State:	Z (zombie)
+Pid:	7989
+PPid:	1
+
+State:	Z (zombie)
+Pid:	8407
+PPid:	1
+
+State:	Z (zombie)
+Pid:	7958
+PPid:	1
+
+State:	S (sleeping)
+Pid:	8545
+PPid:	1
+bash /app/work/queue_next_small.sh 
+ZM [NH4+] n 1 torsions 0 max_distance_error 0.0
+ZM [NH4+] n 1 torsions 0 max_distance_error 0.0
+Total degrees of freedom: 16
+Total external degrees of freedom: 13 (pos: 9 rot: 4 )
+Total internal degrees of freedom: 3
+PREPARED X7e382cb Nref 169 PawleyRw 0.0349602201944722 SG P -1
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 2126.12it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 169 seconds 45.256914377212524 best 116.40494 q25 236.41756 median 492.67084 total 45.2636194229126
+/app/work/search_gallop.py:17: RuntimeWarning: overflow encountered in cast
+  if mn>=best:return
+GALLOP 1 Nref 169 seconds 38.809531927108765 best 116.40486 q25 155.44537 median 391.54095 total 84.18978977203369
+-> 100 remaining
+1853 solutions ! Redparing...
+CellExplorer::ReduceSolutions(): update threshold for report from 9.46885 to 9.64901
+-> 100 remaining

@@ -1,0 +1,38 @@
+=====X1a56c78/gallop11
+GALLOP 26 Nref 165 seconds 78.5073401927948 best 129.53181 q25 203.6093 median 299.0967 total 1826.2153117656708
+GALLOP 27 Nref 165 seconds 74.51552724838257 best 129.5318 q25 165.60634 median 241.67131 total 1900.7924745082855
+GALLOP 28 Nref 165 seconds 75.53238987922668 best 129.53181 q25 129.53256 median 220.61877 total 1976.3464727401733
+GALLOP 29 Nref 165 seconds 71.72793912887573 best 129.53175 q25 129.53265 median 253.32794 total 2048.136939048767
+GALLOP 30 Nref 165 seconds 80.10750317573547 best 129.53188 q25 129.53247 median 227.31921 total 2128.336853981018
+=====X8a06d7a/gallop11
+=====X4f6fe58/gallop40
+GALLOP 16 Nref 368 seconds 82.67813229560852 best 330.53125 q25 448.3992 median 540.2262 total 1087.9928255081177
+GALLOP 17 Nref 368 seconds 81.16786432266235 best 330.5304 q25 416.7342 median 524.40405 total 1169.3113145828247
+GALLOP 18 Nref 368 seconds 79.40746450424194 best 330.5307 q25 414.45645 median 490.38275 total 1248.9245381355286
+GALLOP 19 Nref 368 seconds 80.65986061096191 best 330.53055 q25 389.79306 median 494.22736 total 1329.6064553260803
+GALLOP 20 Nref 368 seconds 88.27996611595154 best 330.53046 q25 388.24786 median 503.11664 total 1417.91699051857
+=====X14a2b08/gallop70
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 140 seconds 102.50527262687683 best 287.04816 q25 410.33307 median 469.2141 total 102.55251288414001
+GALLOP 1 Nref 166 seconds 137.7867968082428 best 217.67592 q25 344.57834 median 428.75177 total 240.47493886947632
+=====X14a2b08/gallop11
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 342 seconds 142.13309144973755 best 197.72577 q25 313.66644 median 360.94916 total 142.1377351284027
+GALLOP 1 Nref 342 seconds 116.30261969566345 best 192.74487 q25 250.1945 median 335.54742 total 258.5383496284485
+GALLOP 2 Nref 342 seconds 132.68928503990173 best 185.1358 q25 218.11816 median 291.87173 total 391.3215878009796
+GALLOP 3 Nref 342 seconds 133.4148621559143 best 182.4217 q25 210.24268 median 270.0054 total 524.9179248809814
+=====X7e382cb/gallop40
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 211 seconds 132.50905990600586 best 115.1236 q25 130.32442 median 313.28015 total 132.5147933959961
+=====Xeb393f9/refine_chem50
+CYCLE 3 0 Rw 0.059405159105231246 chi2 6486.626828722225 geom 452.7770190998458 LSQ 7488.90212742824
+CYCLE 3 1 Rw 0.05940032821681158 chi2 6485.571873335968 geom 451.91082779532525 LSQ 7485.965806256762
+CYCLE 3 2 Rw 0.05939738864024412 chi2 6484.929979126202 geom 451.18698124860515 LSQ 7483.8609087684745
+PACKING_STAGE 3 30.96038003927895
+FINISHED Xeb393f9 0.05939738864024412
+Sun Sep  6 07:52:02 UTC 2026

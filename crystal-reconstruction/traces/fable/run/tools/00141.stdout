@@ -1,0 +1,21 @@
+LeBail Rwp=0.0793 chi2=10560.3 cell= 10.292389294279328 6.880566165094606 19.98989173467916 90.0
+  molecule mol0_0: 21 atoms, 22 bonds, 29 angles, 30 dihedral restraints, 2 free torsions
+Xf8ac963 P 2 2 2 Rwp=0.0854 nrefl=119 cell= 16.26352 9.32080 11.39244 90.0000 90.0000 90.0000
+--- absences : 20 reflections used (stol<=0.111)
+0kl: k odd (b_a)             3    0.248     3    2.122   0.117 (weak)
+0kl: k+l odd (n_a)           3    0.008     3    2.362   0.003 <== ABSENT?
+hk0: h odd (a_c)             4    0.148     4    1.895   0.078 <== ABSENT?
+--- absences : 119 reflections used (stol<=0.223)
+h00: h odd (2_1 a)           4    0.031     3    1.536   0.020 <== ABSENT?
+0k0: k odd (2_1 b)           2    0.008     2    3.806   0.002 <== ABSENT?
+00l: l odd (2_1 c)           3    0.004     2    2.772   0.002 <== ABSENT?
+0kl: k odd (b_a)             9    0.264    12    3.352   0.079 <== ABSENT?
+    1   0   0    1.651         0.5
+    0   0   1    2.358         0.0
+    0   1   0    2.882         0.2
+    2   0   0    3.303         0.2
+    0   0   2    4.716        17.7
+    3   0   0    4.955         0.6
+    0   2   0    5.765        91.7
+    4   0   0    6.609        51.6
+    0   0   3    7.077         0.2

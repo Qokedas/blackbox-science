@@ -1,0 +1,167 @@
+#  3:ScatteringPowerAtom(Cl)
+WITH_H 0.11830365837361444 35049.79087766733
+Imported powder pattern: 6786 points, 2theta=  3.810 ->  71.660, step= 0.010
+SCALED_SIGMA 2.2726669059843845 6785.999999999992
+TIGHT_RESTRAINTS
+FLEXIBLE_RINGS
+AROMATIC_PLANARITY 0
+LSQ_PACKING 36 atoms 1784 terms sigma 0.01 cost 6430.8117969319555
+CYCLE 0 0 Rw 0.12119198166536749 chi2 7121.398348495091 geom 314.7141508572974 LSQ 8059.274436793914
+CYCLE 0 1 Rw 0.12170502158841214 chi2 7181.81975410482 geom 314.7141508572974 LSQ 7760.839200377616
+CYCLE 0 2 Rw 0.12167179070238861 chi2 7177.898376853163 geom 314.7141508572974 LSQ 7746.872919152973
+PACKING_STAGE 0 80.39090549792412
+CYCLE 1 0 Rw 0.11627589539370208 chi2 6555.3651926096145 geom 19.9316675112093 LSQ 6760.510338012104
+CYCLE 1 1 Rw 0.11316556144741637 chi2 6209.349004350665 geom 94.2383349231988 LSQ 6536.954115742717
+CYCLE 1 2 Rw 0.11236823304886161 chi2 6122.159067080106 geom 21.133394342036475 LSQ 6340.15997326817
+PACKING_STAGE 1 28.686478655820245
+CYCLE 2 0 Rw 0.11027566711747849 chi2 5896.2636306748145 geom 28.02170446089745 LSQ 6121.005498609621
+CYCLE 2 1 Rw 0.10481440739191643 chi2 5326.7151379253155 geom 44.44135389073673 LSQ 5674.030986983738
+CYCLE 2 2 Rw 0.10316595293578673 chi2 5160.482313134296 geom 51.47507052531831 LSQ 5444.384865274025
+PACKING_STAGE 2 20.742366962383706
+CYCLE 3 0 Rw 0.09978861161135684 chi2 4828.135680372531 geom 21.528444455290547 LSQ 5035.903975192571
+CYCLE 3 1 Rw 0.09814114601595116 chi2 4670.030917761506 geom 19.29303808685855 LSQ 4893.378179766962
+CYCLE 3 2 Rw 0.09639882245640392 chi2 4505.686424715249 geom 17.65027226535637 LSQ 4695.001697659505
+PACKING_STAGE 3 16.298782753444613
+FINISHED X263b09a 0.09639882245640392
+#  2:ScatteringPowerAtom(O)
+WITH_H 0.06534938495287866 5143.896118816035
+Imported powder pattern: 2717 points, 2theta=  1.876 ->  24.570, step= 0.008
+SCALED_SIGMA 1.3759456371257448 2717.000000000003
+TIGHT_RESTRAINTS
+FLEXIBLE_RINGS
+AROMATIC_PLANARITY 0
+CYCLE 0 0 Rw 0.0652845848147533 chi2 2711.6143430636293 geom 119.22120720859348 LSQ 2903.110210006552
+CYCLE 0 1 Rw 0.06517021851536264 chi2 2702.122189131268 geom 119.22120720859348 LSQ 2894.000696215301
+CYCLE 0 2 Rw 0.06516313497519802 chi2 2701.5348180507594 geom 119.22120720859348 LSQ 2892.8094574966485
+CYCLE 1 0 Rw 0.06469514827926166 chi2 2662.8705499509856 geom 12.472292879858257 LSQ 2710.9303122772344
+CYCLE 1 1 Rw 0.06413443797809641 chi2 2616.9125864037783 geom 11.336475465030698 LSQ 2672.593431453689
+CYCLE 1 2 Rw 0.06399520067892318 chi2 2605.562169296522 geom 2.222674482996228 LSQ 2642.477363035391
+CYCLE 2 0 Rw 0.06379319266962755 chi2 2589.1386347560974 geom 1.5362331453916602 LSQ 2624.217950225254
+CYCLE 2 1 Rw 0.06368609921990967 chi2 2580.4528476520372 geom 1.5719023637839113 LSQ 2614.8020534183033
+CYCLE 2 2 Rw 0.06362905763596997 chi2 2575.832461054292 geom 1.5684616202848813 LSQ 2609.919173764008
+CYCLE 3 0 Rw 0.06324437698531092 chi2 2544.7813125489556 geom 0.725101582554659 LSQ 2593.367745630213
+CYCLE 3 1 Rw 0.06303861641870695 chi2 2528.2497599057756 geom 0.5164740240969887 LSQ 2562.0910138255513
+CYCLE 3 2 Rw 0.062212910388657325 chi2 2462.451393070905 geom 0.4588865301209073 LSQ 2492.5295316037764
+FINISHED Xb7088cf 0.062212910388657325
+import sys,os,json,numpy as np
+from pyobjcryst.io import xml_cryst_file_load_all_object,xml_cryst_file_save_global
+from pyobjcryst.refinableobj import refpartype_scattpow_temperature,refpartype_scatt_occup
+from obj_model import add_component,export_cif
+sid=sys.argv[1];run=sys.argv[2];W='/app/work/'+sid;G=W+'/gallop_'+run;R=W+'/search_g'+run;os.makedirs(R,exist_ok=True)
+objs=xml_cryst_file_load_all_object(G+'/base.xml' if os.path.exists(G+'/base.xml') else W+'/base.xml');c=[o for o in objs if o.GetClassName()=='Crystal'][0];p=[o for o in objs if o.GetClassName()=='PowderPattern'][0];d=p.GetPowderPatternComponent(0)
+meta=json.load(open(G+'/model.json'));frac=np.load(G+'/best_frac.npy');offset=0;models=[]
+for j,md in enumerate(meta):
+ n=len(md['order']);xyz=np.zeros((n,3));f=frac[offset:offset+n];offset+=n
+ for i,old in enumerate(md['order']):xyz[old]=c.FractionalToOrthonormalCoords(*map(float,f[i]))
+ m,newmd=add_component(c,md['smiles'],'m'+str(j),coords_override=md.get('restraint_coords',md['rdkit_coords']))
+ if m.GetClassName()=='Molecule':
+  center=xyz.mean(axis=0);xyz-=center
+  for i,v in enumerate(xyz):a=m.GetAtom(i);a.X,a.Y,a.Z=v
+  m.Q0,m.Q1,m.Q2,m.Q3=1.,0.,0.,0.;m.X,m.Y,m.Z=c.OrthonormalToFractionalCoords(*center)
+ else:m.X,m.Y,m.Z=map(float,f[0])
+ newmd['virtual_bonds']=md.get('virtual_bonds');models.append(newmd)
+c.GetOption(1).SetChoice(0);c.SetParIsFixed(refpartype_scattpow_temperature,True);c.SetParIsFixed(refpartype_scatt_occup,True)
+d.SetExtractionMode(False);p.Prepare();p.FitScaleFactorForRw();print('IMPORTED',sid,run,'Rw',p.GetRw(),'Chi2',p.GetChi2(),flush=True)
+json.dump(models,open(R+'/model.json','w'),indent=1);export_cif(c,R+'/best.cif');xml_cryst_file_save_global(R+'/best.xml');json.dump({'Rw':p.GetRw()},open(R+'/best.json','w'))
+"""Heavy-atom steric lower bounds as genuine ObjCryst least-squares residuals.
+Topology-preserving 1-2/1-3/1-4 pairs are excluded; 27 lattice images are
+checked for all contacts.  Crystal anti-bump itself is not an LSQ function.
+"""
+import ctypes,os,numpy as np,gemmi
+from rdkit import Chem
+lib=ctypes.CDLL('/app/work/liblsq_packing.so')
+lib.packing_attach.argtypes=[ctypes.c_void_p,ctypes.c_void_p,ctypes.c_long]+[ctypes.c_void_p]*6
+lib.packing_attach.restype=ctypes.c_void_p
+lib.packing_cost.argtypes=[ctypes.c_void_p];lib.packing_cost.restype=ctypes.c_double
+lib.packing_detach.argtypes=[ctypes.c_void_p,ctypes.c_void_p]
+def attach_packing(p,c,mods,sigma=None):
+ sigma=float(os.getenv('PACKING_SIGMA','.01')) if sigma is None else sigma
+ els=[];index=[];groups=[];local=[];dm=[];off=0
+ for k,md in enumerate(mods):
+  m=c.GetScatterer(k);r=Chem.MolFromSmiles(md['smiles']);n=r.GetNumAtoms();dm.append(Chem.GetDistanceMatrix(r))
+  for i,a in enumerate(r.GetAtoms()):
+   els.append(a.GetSymbol());index.append(off+i);groups.append(k);local.append(i)
+  off+=len(list(m.GetScatteringComponentList()))
+ radii={'C':1.48,'N':1.35,'O':1.28,'F':1.32,'S':1.55,'P':1.52,'Cl':1.58,'Br':1.67,'I':1.78}
+ ii=[];jj=[];rots=[];trans=[];limits=[];weights=[];sg=gemmi.find_spacegroup_by_name(c.GetSpaceGroup().GetName());N=len(index)
+ for op in sg.operations():
+  R=np.asarray(op.rot)/op.DEN;T=np.asarray(op.tran)/op.DEN;ident=np.allclose(R,np.eye(3)) and np.allclose(T%1,0)
+  for i in range(N):
+   for j in range(N):
+    if ident and (i>=j or (groups[i]==groups[j] and dm[groups[i]][local[i],local[j]]<=3)):continue
+    limit=radii.get(els[i],1.4)+radii.get(els[j],1.4)
+    if els[i] in ['N','O'] and els[j] in ['N','O']:limit-=.10
+    ii.append(index[i]);jj.append(index[j]);rots.append(R);trans.append(T);limits.append(limit);weights.append((1. if ident else .5)/sigma**2)
+ arrays=[np.ascontiguousarray(ii,dtype=np.int64),np.ascontiguousarray(jj,dtype=np.int64),np.ascontiguousarray(rots,dtype=np.float64),np.ascontiguousarray(trans,dtype=np.float64),np.ascontiguousarray(limits,dtype=np.float64),np.ascontiguousarray(weights,dtype=np.float64)]
+ obj=lib.packing_attach(p.int_ptr(),c.int_ptr(),len(ii),*[a.ctypes.data for a in arrays])
+ if not obj:raise RuntimeError('Packing attachment failed')
+ print('LSQ_PACKING',N,'atoms',len(ii),'terms','sigma',sigma,'cost',lib.packing_cost(obj),flush=True)
+ return obj
+
+def cost(obj):return lib.packing_cost(obj)
+def detach(p,obj):lib.packing_detach(p.int_ptr(),obj)
+X019b9a4
+X07806d9
+X13023e3
+X14a2b08
+X1a56c78
+X1db5091
+X2327841
+X238783d
+X263b09a
+X35b7fbc
+X3c176e2
+X3f4781b
+X4f6fe58
+X7e382cb
+X8a06d7a
+X8a6f5a8
+X9af54a2
+Xb7088cf
+Xbfc6d2c
+Xbfeeda9
+Xd4c1a35
+Xd8634a2
+Xdcc971e
+Xe1fb77b
+Xe3a2935
+Xeb393f9
+Xebbd488
+Xedd9c7b
+Xf8ac963
+Xfca9f3c
+Zprime_notes.txt
+__pycache__
+add_fixed_march.py
+adopt_fit.py
+alkane_fits.log
+alkane_models.py
+alkane_reindex.log
+analyze_lattice.py
+analyze_po.py
+antibump.py
+antibump_v1.py
+audit_base.py
+audit_bases.log
+audit_zm.py
+check_stereo.py
+check_zmat.py
+collect_candidates.py
+complete_2d.py
+complete_2d_general.py
+complete_mono_axis.py
+complete_mono_axis_emg.py
+complete_plane_mono.py
+contacts.py
+create_base.py
+create_stable_base.py
+emg_global8.py
+emg_refine_cells.py
+enumerate_methoxy.py
+enumerate_methoxy_v1.py
+enumerate_rotations.py
+enumerate_rotations_v1.py
+eval_cif.py
+expand_p1.py
+extend_low_base.py
+extend_low_base_v1.py

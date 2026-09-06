@@ -1,0 +1,6 @@
+run 0: cost=88788.1 Rwp=0.2240 chi2=115889.1 t=610s
+run 1: cost=87793.1 Rwp=0.2255 chi2=117275.6 t=633s
+RESULTS Xf8ac963 P 21 21 21 [(88788.10027350487, 0.22402434130472124, 115889.08059707965), (87793.12541881848, 0.22550113319897463, 117275.57905926876)]
+LeBail Rwp=0.0532 chi2=25046.4 cell= 14.004162663037159 9.323391284396054 11.028193211960794 90.0
+  molecule mol0_0: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions
+  molecule mol0_1: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions

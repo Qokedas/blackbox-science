@@ -1,0 +1,12 @@
+X263b09a [4.3076, 7.5485, 8.2659, 9.1032, 10.8377, 12.0828, 12.9646, 14.2878, 15.3081, 15.7383, 16.26, 16.6286, 17.7137, 18.3824]
+X14a2b08 [3.024, 3.4906, 4.1416, 4.8684, 5.5843, 5.7872, 7.3618, 8.1923, 8.7564, 9.6464, 10.6716, 11.5557, 12.4651, 14.0024]
+X8a06d7a [7.4511, 8.2378, 8.7294, 10.6538, 11.4323, 11.8311, 12.2363, 13.884, 14.7856, 15.2446, 16.5569, 17.5817, 17.765, 18.1556]
+X1db5091 [4.2107, 7.214, 8.1247, 8.5662, 9.4372, 12.8836, 13.9, 14.0752, 14.5571, 15.3261, 16.3609, 17.2632, 17.6273, 18.6113]
+/proc/4650: python /app/work/search_obj.py X13023e3 2 1 --rescale --lsq
+/proc/5531: python /app/work/search_obj.py X35b7fbc 2 1 --rescale --model=/app/work/X35b7fbc/cis.json
+/proc/6101: python /app/work/search_obj.py Xdcc971e 10 1 --rigid --hydrogen --model=/app/work/Xdcc971e/alltrans.json --rescale --lsq
+/proc/6402: timeout 420 python /app/work/index_one.py X7e382cb TRICLINIC P 4 250 1800
+/proc/6403: python /app/work/index_one.py X7e382cb TRICLINIC P 4 250 1800
+/proc/6442: timeout --signal=TERM --kill-after=5s 60 bash -lc python - <<'PY' import json for id in ['X263b09a','X14a2b08','X8a06d7a','X1db5091']: print(id,[round(x['two_theta'],4) for x in j
+/proc/6448: bash -lc python - <<'PY' import json for id in ['X263b09a','X14a2b08','X8a06d7a','X1db5091']: print(id,[round(x['two_theta'],4) for x in json.load(open('/app/work/'+id+'/peaks.jso
+/proc/6462: bash -lc python - <<'PY' import json for id in ['X263b09a','X14a2b08','X8a06d7a','X1db5091']: print(id,[round(x['two_theta'],4) for x in json.load(open('/app/work/'+id+'/peaks.jso

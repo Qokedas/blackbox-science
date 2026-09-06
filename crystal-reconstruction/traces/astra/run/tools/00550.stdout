@@ -1,0 +1,254 @@
+import os,sys,json,time,copy,numpy as np
+sys.path.insert(0,'/opt/g2/GSAS-II/GSASII')
+from GSASII import GSASIIindex as gi
+from GSASII import GSASIIlattice as gl
+sid=sys.argv[1];W='/app/work/'+sid;P=json.load(open(W+'/peaks_raw.json'));wl=json.load(open('/app/data/instances/'+sid+'/instrument.json'))['radiation']['wavelength_A']
+selpath=os.environ.get('SELECT_FILE',W+'/peak_select_raw.json')
+if os.path.exists(selpath):s=json.load(open(selpath));P=[P[i-1] for i in s['indices']]
+P=P[int(os.environ.get('PEAK_SKIP',0)):][:int(os.environ.get('NPEAK',20))];zero=float(os.environ.get('ZERO',0));peaks=[[p['two_theta']-zero,p['height'],True,False,0,0,0,wl/(2*np.sin(np.deg2rad((p['two_theta']-zero)/2))),0] for p in P];brav=[False]*18
+for i in sys.argv[2].split(','):brav[int(i)]=True
+control=[False,zero,int(os.environ.get('NCMAX',20)),float(os.environ.get('VMIN',500))]
+print('START',sid,'PEAKS',[p[0] for p in peaks],flush=True)
+r=gi.DoIndexPeaks(peaks,control,brav,None,ifX20=True,timeout=float(os.environ.get('INDEX_TIME',120)),M20_min=2,X20_max=5,return_Nc=True)
+if r[0]:
+ cands=[]
+ for c in r[2]:
+  typ=['CUBIC','CUBIC','CUBIC','RHOMBOEDRAL','HEXAGONAL','TETRAGONAL','TETRAGONAL']+['ORTHOROMBIC']*6+['MONOCLINIC']*4+['TRICLINIC'];ct=['F','I','P','P','P','I','P','F','I','A','B','C','P','I','A','C','P','P'];cands.append(dict(cell=c[3:9],volume=c[9],score=c[0],system=typ[c[2]],centering=ct[c[2]],mode=19,unindexed=c[1],nc=c[-1],zero=zero))
+ cands.sort(key=lambda c:-c['score']);json.dump(cands,open(W+'/index_gsas_'+os.environ.get('INDEX_TAG',sys.argv[2])+'.json','w'),indent=1)
+ print('RESULTS',cands[:10],flush=True)
+else:print('NOT_FOUND',flush=True)
+import sys,os,json,subprocess,time,concurrent.futures
+ids=json.load(open('/app/data/instances.json'))['ids']
+if len(sys.argv)>1:ids=sys.argv[1:]
+else:
+ ids=[x for x in ids if not json.load(open('/app/work/'+x+'/candidates.json')) or json.load(open('/app/work/'+x+'/candidates.json'))[0]['score']<16]
+mode=2
+jobs=[(s,'ORTHOROMBIC','P') for s in ids]+[(s,'MONOCLINIC','P') for s in ids]+[(s,'MONOCLINIC','C') for s in ids]
+def run(job):
+ s,sy,ce=job;out=f'/app/work/{s}/index_{sy}_{ce}_{mode}.json';log=out.replace('.json','.log')
+ with open(log,'w') as f:
+  try:subprocess.run([sys.executable,'/app/work/index_one.py',s,sy,ce,str(mode)],stdout=f,stderr=subprocess.STDOUT,timeout=240)
+  except Exception as e:print(s,sy,str(e),flush=True)
+ if os.path.exists(out):
+  sols=json.load(open(out));val=max([s['score'] for s in sols]+[0]);print(s,sy,ce,val,flush=True)
+with concurrent.futures.ThreadPoolExecutor(max_workers=3) as ex:list(ex.map(run,jobs))
+import os,sys,time,json,numpy as np,gemmi
+from numba import njit
+from scipy.optimize import least_squares
+from pymatgen.core import Lattice
+sid=sys.argv[1];sgname=sys.argv[2] if len(sys.argv)>2 else 'P 1 21 1';W='/app/work/'+sid
+ps=json.load(open(W+'/peaks_raw.json'));sp=os.getenv('SELECT_FILE',W+'/peak_select_raw.json');sel=json.load(open(sp))['indices'] if os.path.exists(sp) else list(range(1,len(ps)+1));sel=sel[:int(os.getenv('NPEAK','26'))];ps=[ps[i-1] for i in sel]
+wl=json.load(open('/app/data/instances/'+sid+'/instrument.json'))['radiation']['wavelength_A'];tt=np.array([p['two_theta'] for p in ps]);q=(2*np.sin(np.deg2rad(tt/2))/wl)**2;fac=wl*wl/(2*np.sin(np.deg2rad(tt)))*180/np.pi;nm=len(q)
+lo=float(os.getenv('VMIN','500'));hi=float(os.getenv('VMAX','6500'));target=float(os.getenv('VTARGET',str((lo+hi)/2)));nspur=int(os.getenv('NSPUR','1'));err=float(os.getenv('TTHERR','.03'));nanchor=min(int(os.getenv('NANCHOR','6')),nm);nbanchor=min(int(os.getenv('NBANCHOR','12')),nm)
+sg=gemmi.find_spacegroup_by_name(sgname);orth=sg.crystal_system_str()=='orthorhombic';ops=sg.operations()
+hk=np.array([[h,k,l] for h in range(0,8) for k in range(0,15) for l in (range(0,8) if orth else range(-7,8)) if (h or k or l) and not (h==0 and l<0) and not ops.is_systematically_absent([h,k,l])],float);T=np.array([hk[:,0]**2,hk[:,1]**2,hk[:,2]**2,2*hk[:,0]*hk[:,2]]).T
+am=np.array([n for n in [1,2,3,4] if not ops.is_systematically_absent([n,0,0])]);bm=np.array([n for n in [1,2,3,4] if not ops.is_systematically_absent([0,n,0])]);cm=np.array([n for n in [1,2,3,4] if not ops.is_systematically_absent([0,0,n])]);am=am[:2];bm=bm[:2];cm=cm[:2]
+hkl3=np.array([[h,k,l] for h in range(1,4) for k in range(0,4) for l in range(-3,4) if l and not ops.is_systematically_absent([h,k,l])],float)
+@njit(cache=False)
+def metricscore(g,z,screen=True):
+ qc=T@g;df=np.zeros(nm);ix=np.zeros(nm,np.int64);bad=0
+ for i in range(nm):
+  diff=1e10
+  for j in range(len(qc)):
+   dd=abs(qc[j]-q[i]+z/fac[i])
+   if dd<diff:diff=dd;ix[i]=j
+  df[i]=(qc[ix[i]]-q[i])*fac[i]+z
+  if i<12 and abs(df[i])>.065:
+   bad+=1
+   if screen and bad>2:return 100.,ix,df
+ vol=1/np.sqrt(g[1]*(g[0]*g[2]-g[3]*g[3]));sq=np.log1p((df/err)**2);sq.sort();score=np.mean(sq[:nm-nspur])*vol/target
+ return score,ix,df
+@njit(cache=False)
+def enumerate_cells(z):
+ qc=q-z/fac;rows=np.zeros((40000,5));nr=0;best=100.
+ for i in range(nanchor):
+  for j in range(i+1,nanchor):
+   for a0 in am:
+    for c0 in cm:
+     A=qc[i]/a0**2;C=qc[j]/c0**2
+     for ip in range(nbanchor):
+      if ip==i or ip==j:continue
+      for b0 in bm:
+       B=qc[ip]/b0**2
+       if orth:
+        vol=1/np.sqrt(A*B*C)
+        if vol<lo or vol>hi:continue
+        g=np.array([A,B,C,0.]);cost,ix,df=metricscore(g,z)
+        if cost<1.5 and nr<40000:rows[nr,0]=cost;rows[nr,1:]=g;nr+=1
+        continue
+       for it in range(min(10,nm)):
+        if it==i or it==j or it==ip:continue
+        for ht,kt,lt in hkl3:
+         D=(qc[it]-A*ht*ht-B*kt*kt-C*lt*lt)/(2*ht*lt)
+         if abs(D)/np.sqrt(A*C)>.72:continue
+         det=B*(A*C-D*D)
+         if det<=0:continue
+         vol=1/np.sqrt(det)
+         if vol<lo or vol>hi:continue
+         g=np.array([A,B,C,D]);cost,ix,df=metricscore(g,z)
+         if cost<1.25 and nr<40000:rows[nr,0]=cost;rows[nr,1:]=g;nr+=1
+ return rows[:nr]
+t0=time.time();out=[];tag=os.getenv('INDEX_TAG','axial_'+str(sg.number))
+for zero in [-.08,0.,.08]:
+ rows=enumerate_cells(zero);rows=rows[np.argsort(rows[:,0])][:160]
+ print('ENUM',sid,sgname,'zero',zero,'rows',len(rows),'seconds',time.time()-t0,flush=True)
+ for row in rows:
+  x=np.r_[row[1:],zero];co,ix,df=metricscore(x[:4],x[4],False)
+  for it in range(5):
+   if orth:
+    R=least_squares(lambda z:(T[ix,:3]@z[:3]-q)*fac+z[3],x[[0,1,2,4]],loss='soft_l1',f_scale=err,max_nfev=80);x=np.r_[R.x[:3],0.,R.x[3]]
+   else:R=least_squares(lambda z:(T[ix]@z[:4]-q)*fac+z[4],x,loss='soft_l1',f_scale=err,max_nfev=80);x=R.x
+   co,ix,df=metricscore(x[:4],x[4],False)
+  g=x[:4];GM=np.array([[g[0],0.,g[3]],[0.,g[1],0.],[g[3],0.,g[2]]])
+  if np.linalg.det(GM)<=0:continue
+  L=Lattice(np.linalg.cholesky(np.linalg.inv(GM)));red=L.get_niggli_reduced_lattice();rv=list(red.parameters)
+  if any(np.allclose(rv[:3],s['reduced'][:3],rtol=.003) and np.allclose(rv[3:],s['reduced'][3:],atol=.3) for s in out):continue
+  o=dict(cell=list(L.parameters),volume=L.volume,system='ORTHOROMBIC' if orth else 'MONOCLINIC',centering=sg.centring_type(),sg=sgname,cost=float(co),score=float(1/max(co,1e-15)),zero=float(x[4]),mode=31,reduced=rv,diff=df.tolist(),hkl=hk[ix].astype(int).tolist(),source='axial_index')
+  out.append(o)
+ out.sort(key=lambda s:s['cost']);json.dump(out,open(W+'/index_'+tag+'.json','w'),indent=1)
+ for o in out[:4]:print('BEST',o['cost'],np.round(o['cell'],4),np.round(o['diff'],4),flush=True)
+print('DONE',sid,time.time()-t0,flush=True)
+/app/work/X8a6f5a8/fit_metric4.log:DONE X8a6f5a8 metric4 0.2195793931513172 [16.810936481764752, 7.714736339491977, 22.968651361941358, 90.0, 112.64683312556497, 90.0]
+/app/work/X8a6f5a8/index_CUBIC_F_0.log:DONE X8a6f5a8 CUBIC F 0 0.00043129920959472656 []
+/app/work/X8a6f5a8/index_CUBIC_I_0.log:DONE X8a6f5a8 CUBIC I 0 0.00037479400634765625 []
+/app/work/X8a6f5a8/index_CUBIC_P_0.log:DONE X8a6f5a8 CUBIC P 0 0.00020313262939453125 []
+/app/work/X8a6f5a8/index_HEXAGONAL_P_0.log:DONE X8a6f5a8 HEXAGONAL P 0 0.009773731231689453 []
+/app/work/X8a6f5a8/index_MONOCLINIC_C_0.log:DONE X8a6f5a8 MONOCLINIC C 0 0.33535003662109375 []
+/app/work/X8a6f5a8/index_MONOCLINIC_C_2.log:DONE X8a6f5a8 MONOCLINIC C 0 0.4253668785095215 []
+/app/work/X8a6f5a8/index_MONOCLINIC_P_0.log:DONE X8a6f5a8 MONOCLINIC P 0 0.8032608032226562 []
+/app/work/X8a6f5a8/index_MONOCLINIC_P_2.log:build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2609 BEST ? a=26.8639, b=3.69935, c=47.6857, alpha=90, beta=91.4341, gamma=90, V=4737.47, score=4.09842
+/app/work/X8a6f5a8/index_MONOCLINIC_P_2.log:DONE X8a6f5a8 MONOCLINIC P 19 2.5414817333221436 [{'cell': [26.86388397216797, 3.699347496032715, 47.68570327758789, 90.00000250447816, 91.43414415469492, 90.00000250447816], 'volume': 4737.4658203125, 'score': 4.098421573638916, 'system': 'MONOCLINIC', 'centering': 'P', 'mode': 2}, {'cell': [26.86388397216797, 3.6453921794891357, 47.68570327758789, 90.00000250447816, 91.43414415469492, 90.00000250447816], 'volume': 4668.369140625, 'score': 4.098421573638916, 'system': 'MONOCLINIC', 'centering': 'P', 'mode': 2}, {'cell': [26.86388397216797, 3.5929877758026123, 47.68570327758789, 90.00000250447816, 91.43414415469492, 90.00000250447816], 'volume': 4601.25927734375, 'score': 4.098421573638916, 'system': 'MONOCLINIC', 'centering': 'P', 'mode': 2}, {'cell': [26.86388397216797, 3.54206919670105, 47.68570327758789, 90.00000250447816, 91.43414415469492, 90.00000250447816], 'volume': 4536.0517578125, 'score': 4.098421573638916, 'system': 'MONOCLINIC', 'centering': 'P', 'mode': 2}, {'cell': [26.86388397216797, 3.4925730228424072, 47.68570327758789, 90.00000250447816, 91.43414415469492, 90.00000250447816], 'volume': 4472.66552734375, 'score': 4.098421573638916, 'system': 'MONOCLINIC', 'centering': 'P', 'mode': 2}]
+/app/work/X8a6f5a8/index_ORTHOROMBIC_C_0.log:DONE X8a6f5a8 ORTHOROMBIC C 0 0.017309188842773438 []
+/app/work/X8a6f5a8/index_ORTHOROMBIC_I_0.log:DONE X8a6f5a8 ORTHOROMBIC I 0 0.018588542938232422 []
+/app/work/X8a6f5a8/index_ORTHOROMBIC_P_0.log:DONE X8a6f5a8 ORTHOROMBIC P 0 0.03425312042236328 []
+/app/work/X8a6f5a8/index_ORTHOROMBIC_P_2.log:DONE X8a6f5a8 ORTHOROMBIC P 0 0.045263051986694336 []
+/app/work/X8a6f5a8/index_RHOMBOEDRAL_P_0.log:DONE X8a6f5a8 RHOMBOEDRAL P 0 0.0005621910095214844 []
+/app/work/X8a6f5a8/index_TETRAGONAL_I_0.log:DONE X8a6f5a8 TETRAGONAL I 0 0.001150369644165039 []
+/app/work/X8a6f5a8/index_TETRAGONAL_P_0.log:DONE X8a6f5a8 TETRAGONAL P 0 0.0060727596282958984 []
+/app/work/X8a6f5a8/index_TRICLINIC_P_3.log:build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2609 BEST ? a=16.3296, b=13.5009, c=10.939, alpha=100.73, beta=84.451, gamma=104.069, V=2295.06, score=9.43746
+/app/work/X8a6f5a8/index_TRICLINIC_P_3.log:DONE X8a6f5a8 TRICLINIC P 25 3.9137890338897705 [{'cell': [16.329559326171875, 13.50088882446289, 10.93901252746582, 100.73018870943318, 84.45098606803056, 104.06901740216719], 'volume': 2295.059326171875, 'score': 9.43746280670166, 'system': 'TRICLINIC', 'centering': 'P', 'mode': 3}, {'cell': [16.31125259399414, 13.498133659362793, 10.928177833557129, 100.68346338532112, 84.38739700685774, 104.08471317687989], 'volume': 2289.780517578125, 'score': 8.394527435302734, 'system': 'TRICLINIC', 'centering': 'P', 'mode': 3}, {'cell': [16.663312911987305, 13.374011993408203, 11.120488166809082, 95.81245933721317, 101.6626051537883, 102.26174251759265], 'volume': 2344.64892578125, 'score': 8.32153034210205, 'system': 'TRICLINIC', 'centering': 'P', 'mode': 3}, {'cell': [16.364049911499023, 12.837005615234375, 11.04998779296875, 95.0688976234089, 103.2129897934895, 90.98545536773844], 'volume': 2249.259033203125, 'score': 6.557584285736084, 'system': 'TRICLINIC', 'centering': 'P', 'mode': 3}, {'cell': [17.120515823364258, 13.604799270629883, 11.288259506225586, 99.31315668308731, 72.0970863124451, 107.1596233600846], 'volume': 2383.26318359375, 'score': 6.5155158042907715, 'system': 'TRICLINIC', 'centering': 'P', 'mode': 3}]
+/app/work/X8a6f5a8/index_raw_MONOCLINIC_C.log:build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2609 BEST ? a=12.4424, b=31.4315, c=15.1837, alpha=90, beta=108.341, gamma=90, V=5636.47, score=13.3705
+/app/work/X8a6f5a8/index_raw_MONOCLINIC_C.log:DONE X8a6f5a8 MONOCLINIC C 38 1.9357383251190186 [{'cell': [12.44243335723877, 31.431488037109375, 15.183707237243652, 90.00000250447816, 108.34057672795815, 90.00000250447816], 'volume': 5636.46923828125, 'score': 13.370471000671387, 'system': 'MONOCLINIC', 'centering': 'C', 'mode': 4}, {'cell': [7.751583576202393, 63.11197280883789, 11.788716316223145, 90.00000250447816, 94.2034648442441, 90.00000250447816], 'volume': 5751.7353515625, 'score': 11.174103736877441, 'system': 'MONOCLINIC', 'centering': 'C', 'mode': 4}, {'cell': [16.26034927368164, 31.341751098632812, 14.693044662475586, 90.00000250447816, 137.65402060779286, 90.00000250447816], 'volume': 5043.94970703125, 'score': 9.51508903503418, 'system': 'MONOCLINIC', 'centering': 'C', 'mode': 4}, {'cell': [7.747590065002441, 63.07828903198242, 11.740194320678711, 90.00000250447816, 94.40853444388456, 90.00000250447816], 'volume': 5720.51318359375, 'score': 9.2440824508667, 'system': 'MONOCLINIC', 'centering': 'C', 'mode': 4}, {'cell': [12.460591316223145, 31.465839385986328, 15.239709854125977, 90.00000250447816, 108.58688017961798, 90.00000250447816], 'volume': 5663.5712890625, 'score': 9.17793083190918, 'system': 'MONOCLINIC', 'centering': 'C', 'mode': 4}]
+/app/work/X8a6f5a8/index_raw_ORTHOROMBIC_C.log:DONE X8a6f5a8 ORTHOROMBIC C 0 0.013649940490722656 []
+/app/work/X8a6f5a8/index_raw_ORTHOROMBIC_P.log:build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2609 BEST ? a=7.85775, b=14.6394, c=47.2676, alpha=90, beta=90, gamma=90, V=5437.32, score=6.49327
+/app/work/X8a6f5a8/index_raw_ORTHOROMBIC_P.log:DONE X8a6f5a8 ORTHOROMBIC P 25 0.1246483325958252 [{'cell': [7.857752799987793, 14.639388084411621, 47.26764678955078, 90.00000250447816, 90.00000250447816, 90.00000250447816], 'volume': 5437.32470703125, 'score': 6.49326753616333, 'system': 'ORTHOROMBIC', 'centering': 'P', 'mode': 4}, {'cell': [11.844910621643066, 14.536100387573242, 15.748642921447754, 90.00000250447816, 90.00000250447816, 90.00000250447816], 'volume': 2711.58251953125, 'score': 5.705056667327881, 'system': 'ORTHOROMBIC', 'centering': 'P', 'mode': 4}, {'cell': [6.742161750793457, 9.458290100097656, 78.78129577636719, 90.00000250447816, 90.00000250447816, 90.00000250447816], 'volume': 5023.82958984375, 'score': 5.378977298736572, 'system': 'ORTHOROMBIC', 'centering': 'P', 'mode': 4}, {'cell': [6.8510966300964355, 14.609208106994629, 47.241390228271484, 90.00000250447816, 90.00000250447816, 90.00000250447816], 'volume': 4728.34814453125, 'score': 5.276413440704346, 'system': 'ORTHOROMBIC', 'centering': 'P', 'mode': 4}, {'cell': [7.711785316467285, 14.631871223449707, 47.233585357666016, 90.00000250447816, 90.00000250447816, 90.00000250447816], 'volume': 5329.736328125, 'score': 5.250471115112305, 'system': 'ORTHOROMBIC', 'centering': 'P', 'mode': 4}]
+/app/work/X8a6f5a8/zones_small.log:DONE 12.877220153808594
+/app/work/X8a6f5a8/candidates_metric.json
+/app/work/X8a6f5a8/fit_metric0.json
+/app/work/X8a6f5a8/fit_metric0.log
+/app/work/X8a6f5a8/fit_metric0.png
+/app/work/X8a6f5a8/fit_metric0.xml
+/app/work/X8a6f5a8/fit_metric0.xye
+/app/work/X8a6f5a8/fit_metric1.json
+/app/work/X8a6f5a8/fit_metric1.log
+/app/work/X8a6f5a8/fit_metric1.png
+/app/work/X8a6f5a8/fit_metric1.xml
+/app/work/X8a6f5a8/fit_metric1.xye
+/app/work/X8a6f5a8/fit_metric2.json
+/app/work/X8a6f5a8/fit_metric2.log
+/app/work/X8a6f5a8/fit_metric2.png
+/app/work/X8a6f5a8/fit_metric2.xml
+/app/work/X8a6f5a8/fit_metric2.xye
+/app/work/X8a6f5a8/fit_metric3.json
+/app/work/X8a6f5a8/fit_metric3.log
+/app/work/X8a6f5a8/fit_metric3.png
+/app/work/X8a6f5a8/fit_metric3.xml
+/app/work/X8a6f5a8/fit_metric3.xye
+/app/work/X8a6f5a8/fit_metric4.json
+/app/work/X8a6f5a8/fit_metric4.log
+/app/work/X8a6f5a8/fit_metric4.png
+/app/work/X8a6f5a8/fit_metric4.xml
+/app/work/X8a6f5a8/fit_metric4.xye
+/app/work/X8a6f5a8/index_metric_MONOCLINIC_P.json
+/app/work/X8a6f5a8/index_metric_ORTHOROMBIC_P.json
+/app/work/X8a6f5a8/metric_MONOCLINIC.log
+/app/work/X8a6f5a8/metric_ORTHOROMBIC.log
+/app/work/X8a6f5a8/metric_wide21.log
+/app/work/X8a6f5a8/metric_wide5.log
+/app/work/X8a6f5a8/pre_scan_metric0.xml
+/app/work/X8a6f5a8/pre_scan_metric1.xml
+/app/work/X8a6f5a8/pre_scan_metric2.xml
+/app/work/X8a6f5a8/pre_scan_metric3.xml
+/app/work/X8a6f5a8/pre_scan_metric4.xml
+import os,sys,time,json,io
+import numpy as np
+from pyobjcryst.indexing import *
+from rdkit import Chem
+sid=sys.argv[1]; system=sys.argv[2] if len(sys.argv)>2 else 'MONOCLINIC'; center=sys.argv[3] if len(sys.argv)>3 else 'P'
+mode=int(sys.argv[4]) if len(sys.argv)>4 else 0
+W='/app/work/'+sid
+ins=json.load(open('/app/data/instances/'+sid+'/instrument.json'));comp=json.load(open('/app/data/instances/'+sid+'/composition.json'));wl=ins['radiation']['wavelength_A']
+peakfile=os.environ.get('PEAK_FILE','peaks.json');peaks=json.load(open(W+'/'+peakfile));data=np.load(W+'/processed.npz');x=data['x'];dx=np.median(np.diff(x))
+maxh=max(p['height'] for p in peaks); medwid=np.median([p['fwhm'] for p in sorted(peaks,key=lambda p:-p['height'])[:25]])
+# strict suppression of baseline artifacts and short single-point spikes
+peaks=[p for p in peaks if p['height']>maxh*(.003 if mode<2 else .007) and p['fwhm']>max(dx*1.5,medwid*.3) and p['fwhm']<max(medwid*3,.055*wl/1.54) and p['two_theta']>x[0]+max(.08*wl/1.54,dx*4)]
+# remove user-marked impurity / blended lines (1-based original peak list indices)
+selectfile='peak_select_raw.json' if peakfile!='peaks.json' and os.path.exists(W+'/peak_select_raw.json') else 'peak_select.json'
+if os.path.exists(W+'/'+selectfile):
+ sel=json.load(open(W+'/'+selectfile)); orig=json.load(open(W+'/'+peakfile))
+ if 'indices' in sel and (peakfile=='peaks.json' or selectfile=='peak_select_raw.json'): peaks=[orig[i-1] for i in sel['indices']]
+ else: peaks=[p for p in peaks if p['two_theta']>=sel.get('min_two_theta',0) and all(abs(p['two_theta']-xx)>.01 for xx in sel.get('exclude',[]))]
+# For indexing low-lying broad peaks in otherwise fine data are suspect
+npeak=int(os.environ.get('NPEAK',22 if mode not in [3,4] else 18))
+peaks=peaks[int(os.environ.get('PEAK_SKIP','0')):][:npeak]
+if len(peaks)<10: sys.exit(1)
+ns=int(os.environ.get('NSPUR',1 if mode in [1,4] else 0))
+# deviations incorporate peak-profile asymmetry and blended maxima
+base_err=(.012 if wl>1.3 else .003 if wl>.65 else .0015)*(2 if mode>=2 else 1)
+base_err=float(os.environ.get('TTHERR',base_err))
+ss=''
+for p in peaks:
+ theta=p['two_theta']-float(os.environ.get('TTHSHIFT',0)); d=wl/(2*np.sin(np.deg2rad(theta/2)));terr=min(float(os.environ.get('MAXERR','100')),max(base_err,p['error']*2,min(p['fwhm']*.15,base_err*2)))
+ dsig=d/np.tan(np.deg2rad(theta/2))*np.deg2rad(terr/2)*2
+ ss+=f"{d:.9f} {dsig:.9f} {p['height']:.3f}\n"
+pl=PeakList();pl.ImportDhklDSigmaIntensity(io.BytesIO(ss.encode()))
+cs=getattr(CrystalSystem,system);cen=getattr(CrystalCentering,'LATTICE_'+center)
+heavy=sum(Chem.MolFromSmiles(c['smiles']).GetNumHeavyAtoms()*c['count'] for c in comp['components'])
+v1=heavy*18
+lo=EstimateCellVolume(1/peaks[-1]['d'],1/(peaks[0]['d']*4),len(peaks),cs,cen,1.4)
+hi=EstimateCellVolume(1/peaks[-1]['d'],1/(peaks[0]['d']*4),len(peaks),cs,cen,.20 if system!='TRICLINIC' else .35)
+lo=max(lo, v1*.65,80);hi=min(hi,v1*(10 if system not in ['MONOCLINIC','TRICLINIC'] else 8 if system=='MONOCLINIC' else 4),15000)
+if hi<lo:hi=lo*1.1
+if len(sys.argv)>5:lo=float(sys.argv[5]);hi=float(sys.argv[6])
+lmax=max(25,min(60,2.8*hi**(1/3)))
+if heavy>25 and all(set(c['smiles'])<=set('C[]@H()') for c in comp['components']): lmax=100
+lmax=float(os.environ.get('LMAX',lmax))
+if system=='TRICLINIC':lmax=min(lmax,float(os.environ.get('LMAX_TRI','40')))
+ex=CellExplorer(pl,cs,ns);ex.SetCrystalCentering(cen);ex.SetLengthMinMax(3,lmax);ex.SetAngleMinMax(np.deg2rad(90),np.deg2rad(135 if system=='TRICLINIC' else 140));ex.SetVolumeMinMax(lo,hi);ex.SetD2Error(0)
+print(sid,system,center,mode,'peaks',[round(p['two_theta'],5) for p in peaks], 'V',lo,hi, 'Lmax',lmax,flush=True)
+start=time.time();ex.DicVol(8,4,float(os.environ.get("INDEX_SCORE",80)),int(os.environ.get("INDEX_DEPTH",7)),True);ex.ReduceSolutions()
+sols=[]
+for cell,score in ex.GetSolutions():
+ c=cell.DirectUnitCell(False,True)
+ if all(np.isfinite(c)):
+  sols.append(dict(cell=list(c[:6]),volume=c[6],score=score,system=cell.lattice.name,centering=cell.centering.name.replace('LATTICE_',''),mode=mode))
+print('DONE',sid,system,center,len(sols),time.time()-start,sols[:5],flush=True)
+tag=system+'_'+center+'_'+str(mode)
+if len(sys.argv)>5:tag+='_'+sys.argv[5]+'_'+sys.argv[6]
+if 'TTHSHIFT' in os.environ:tag+='_z'+os.environ['TTHSHIFT']
+if 'INDEX_TAG' in os.environ:tag+='_'+os.environ['INDEX_TAG']
+if peakfile!='peaks.json':tag+='_'+peakfile.replace('.json','')
+json.dump(sols,open(W+'/index_'+tag+'.json','w'),indent=1)
+import sys,os,json,subprocess,time,concurrent.futures
+ids=json.load(open('/app/data/instances.json'))['ids']
+priority=['X07806d9','X3c176e2','Xbfc6d2c','Xd4c1a35','X4f6fe58','Xedd9c7b','X7e382cb','Xf8ac963','Xe3a2935']
+ids=priority+[x for x in ids if x not in priority]
+if len(sys.argv)>1: ids=sys.argv[1:]
+env=os.environ.copy();env.update(OPENBLAS_NUM_THREADS='1',OMP_NUM_THREADS='1',MKL_NUM_THREADS='1')
+def run(sid):
+ jobs=[('CUBIC','P'),('CUBIC','I'),('CUBIC','F'),('TETRAGONAL','P'),('TETRAGONAL','I'),('HEXAGONAL','P'),('RHOMBOEDRAL','P'),('ORTHOROMBIC','P'),('ORTHOROMBIC','C'),('ORTHOROMBIC','I'),('MONOCLINIC','P'),('MONOCLINIC','C')]
+ best=0
+ for system,cent in jobs:
+  out=f'/app/work/{sid}/index_{system}_{cent}_0.json';log=out.replace('.json','.log')
+  if os.path.exists(out):s=json.load(open(out))
+  else:
+   try:
+    with open(log,'w') as f: p=subprocess.run([sys.executable,'/app/work/index_one.py',sid,system,cent,'0'],stdout=f,stderr=subprocess.STDOUT,timeout=150 if system=='MONOCLINIC' else 40,env=env)
+    s=json.load(open(out)) if os.path.exists(out) else []
+   except subprocess.TimeoutExpired:s=[]
+  val=max([z['score'] for z in s]+[0]); best=max(best,val)
+  print(time.strftime('%H:%M:%S'),sid,system,cent,'best',val,flush=True)
+  if val>120:break
+ return sid,best
+with concurrent.futures.ThreadPoolExecutor(max_workers=3) as ex:
+ for r in ex.map(run,ids):print('FINISHED SAMPLE',r,flush=True)

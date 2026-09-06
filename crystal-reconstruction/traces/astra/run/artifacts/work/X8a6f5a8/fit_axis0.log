@@ -1,0 +1,9 @@
+Imported powder pattern: 5604 points, 2theta=  5.080 ->  61.110, step= 0.010
+STARTFIT X8a6f5a8 axis0 Rw 0.09903390329077998
+ERRORSG I 1 21 1 Space group symbol 'I 1 21 1' not recognized
+ERRORSG C 1 21 1 Space group symbol 'C 1 21 1' not recognized
+ERRORSG B 1 2 1 Space group symbol 'B 1 2 1' not recognized
+ERRORSG B 1 21 1 Space group symbol 'B 1 21 1' not recognized
+ERRORSG F 1 2 1 Space group symbol 'F 1 2 1' not recognized
+GROUPS [{"sg": "P 1 21 1", "number": 4, "Rw": 10.70400056290243, "GoF": 11076.704242360885, "nGoF": 0.0, "mult": 2}, {"sg": "P 1 2 1", "number": 3, "Rw": 10.8256841008106, "GoF": 11337.40123435934, "nGoF": 0.0, "mult": 2}, {"sg": "A 1 2 1", "number": 5, "Rw": 15.335534247849973, "GoF": 20628.66175190264, "nGoF": 0.0, "mult": 4}, {"sg": "I 1 2 1", "number": 5, "Rw": 18.999559874691812, "GoF": 31770.57345732936, "nGoF": 0.0, "mult": 4}, {"sg": "C 1 2 1", "number": 5, "Rw": 24.25171558178544, "GoF": 51681.24904131466, "nGoF": 0.0, "mult": 4}]
+DONE X8a6f5a8 axis0 0.09125412195218047 [16.834404333666555, 9.933299872009393, 22.747324685928238, 90.0, 110.69617393394932, 90.0]

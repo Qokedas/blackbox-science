@@ -1,0 +1,5 @@
+/opt/conda/lib/python3.11/site-packages/pymatgen/io/cif.py:1062: UserWarning: No _symmetry_equiv_pos_as_xyz type key found. Spacegroup from _symmetry_space_group_name_H-M used.
+  self.symmetry_operations = self.get_symops(data)  # type:ignore[assignment]
+/app/work/check_structure.py:40: UserWarning: Issues encountered while parsing CIF: No _symmetry_equiv_pos_as_xyz type key found. Spacegroup from _symmetry_space_group_name_H-M used.
+Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s = CifParser(cif).parse_structures(primitive=False)[0]

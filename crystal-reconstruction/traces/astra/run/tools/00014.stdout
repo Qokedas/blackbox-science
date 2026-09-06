@@ -1,0 +1,16 @@
+3->25,0.880004,24.9999
+1.5708->2.4,0.0737401,0.737394,11.245
+200->1000,400.02,1.9999
+Starting: V=200->600.02
+      a= 6.99- 7.00 b= 8.00- 8.01 c=10.00-10.01 alpha= 90.00- 90.00 beta= 90.00- 90.00 gamma= 90.00- 90.00 V=558.59-561.55level=6, indexed=1(0 sol.)
+      a=0.14311-0.14283 b=0.12503-0.12481 c=0.10005-0.09990 alpha=0.00000-0.00000 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(0 sol.)
+ Solution ? a=  7.000 b=  8.000 c= 10.000 alpha= 90.000 beta= 90.000 gamma= 90.000 V=  559.99 score=3331.17 #   0
+Finished: V=200->600.02 A^3, 517 unit cells tested, 207965 tests/s,   Elapsed time=0.002495s
+Starting: V=600.02->1000
+Finished: V=600.02->1000 A^3, 1174 unit cells tested, 206073 tests/s,   Elapsed time=0.005704s
+CellExplorer::ReduceSolutions(): update threshold for report from 10 to 666.234
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=7.00001, b=7.99988, c=9.99992, alpha=90, beta=90, gamma=90, V=559.987, score=3331.17
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2609 BEST ? a=7.00001, b=7.99988, c=9.99992, alpha=90, beta=90, gamma=90, V=559.987, score=3331.17
+1174unit cells tested, 200787 tests/s,   Elapsed time=0.005854s
+[( 7.00  8.00 10.00  90.0  90.0  90.0 V= 560 ORTHOROMBIC P, 3331.16748046875)]
+(7.000006198883057, 7.999876022338867, 9.999919891357422, 90.00000250447816, 90.00000250447816, 90.00000250447816, 559.9873046875) LATTICE_P ORTHOROMBIC 3331.16748046875

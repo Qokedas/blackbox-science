@@ -1,0 +1,9 @@
+patched
+204:def optimize(p, cr, nsteps=1e6, nruns=1, seed=None, maxtime=-1, save_prefix=None, do_polish=True, norand=False):
+212:        if not (norand and r == 0): mc.RandomizeStartingConfig()
+293:    norand = False
+294:    if a.restore_sa:
+295:        restore_from_cif(cr, mols, a.restore_sa)
+297:        print(f'restored from {a.restore_sa}: Rwp={p.GetRw():.4f} restraint cost={cr.GetRestraintCost():.2f}', flush=True)
+298:        norand = True
+299:    mc, res = optimize(p, cr, nsteps=a.nsteps, nruns=a.nruns, maxtime=a.maxtime, save_prefix=f'{outdir}/{a.spg.replace(" ","").replace("/","_")}', norand=norand)

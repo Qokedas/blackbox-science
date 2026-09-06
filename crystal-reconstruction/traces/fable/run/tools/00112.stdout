@@ -1,0 +1,31 @@
+X35b7fbc P 2 2 2 Rwp=0.3960 nrefl=85
+--- absences : 14 reflections used (stol<=0.087)
+class                     nAbs   <I>abs nPres  <I>pres   ratio
+0k0: k odd (2_1 b)           3    0.154     2    0.214   0.723
+0kl: k odd (b_a)             7    0.540     7    1.460   0.370
+0kl: l odd (c_a)             6    1.364     8    0.727   1.876
+0kl: k+l odd (n_a)           7    0.766     7    1.234   0.620
+hk0: k odd (b_c)             3    0.154     2    0.214   0.723
+hk0: h+k odd (n_c)           3    0.154     2    0.214   0.723
+hkl: h+k odd (C)             7    0.540     7    1.460   0.370
+hkl: h+l odd (B)             6    1.364     8    0.727   1.876
+hkl: k+l odd (A)             7    0.766     7    1.234   0.620
+hkl: h+k+l odd (I)           7    0.766     7    1.234   0.620
+--- absences : 85 reflections used (stol<=0.174)
+class                     nAbs   <I>abs nPres  <I>pres   ratio
+0k0: k odd (2_1 b)           6    0.085     5    1.317   0.064 <== ABSENT?
+00l: l odd (2_1 c)           2    0.413     2    1.624   0.254
+0kl: k odd (b_a)            24    0.510    25    0.923   0.553
+0kl: l odd (c_a)            21    0.911    28    0.578   1.577
+0kl: k+l odd (n_a)          25    0.584    24    0.864   0.676
+h0l: h odd (a_b)             4    0.639     4    1.018   0.628
+h0l: l odd (c_b)             4    0.319     4    1.339   0.238
+h0l: h+l odd (n_b)           4    0.733     4    0.925   0.793
+hk0: h odd (a_c)            10    1.219    11    0.645   1.890
+hk0: k odd (b_c)            11    0.636    10    1.228   0.518
+hk0: h+k odd (n_c)          11    0.564    10    1.308   0.431
+hkl: h+k odd (C)            43    0.907    42    1.095   0.828
+hkl: h+l odd (B)            40    1.201    45    0.821   1.463
+hkl: k+l odd (A)            43    0.813    42    1.191   0.683
+hkl: h+k+l odd (I)          43    1.021    42    0.979   1.043
+lowest-angle reflections (h k l  2theta  I):

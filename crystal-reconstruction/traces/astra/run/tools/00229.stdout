@@ -1,0 +1,55 @@
+100:      * Dummy atoms can be used to mark positions, or for restraints.
+102:      bool IsDummy()const;
+516:/** Rigid groups of atoms inside a molecule.
+522:* Molecule::ResetRigidGroupsPar() \b must be called beforehand -
+526:class RigidGroup:public std::set<MolAtom *>
+563:   virtual void Stretch(const REAL change, const bool keepCenter=true)=0;
+565:   virtual void RandomStretch(const REAL amplitude, const bool keepCenter=true)=0;
+606:   virtual void Stretch(const REAL change, const bool keepCenter=true);
+608:   virtual void RandomStretch(const REAL amplitude, const bool keepCenter=true);
+635:   virtual void Stretch(const REAL change, const bool keepCenter=true);
+637:   virtual void RandomStretch(const REAL amplitude, const bool keepCenter=true);
+666:   virtual void Stretch(const REAL change, const bool keepCenter=true);
+668:   virtual void RandomStretch(const REAL amplitude, const bool keepCenter=true);
+697:   virtual void Stretch(const REAL change, const bool keepCenter=true);
+699:   virtual void RandomStretch(const REAL amplitude, const bool keepCenter=true);
+895:      /** Add a rigid group of atoms. See Molecule::mvRigidGroup
+897:      void AddRigidGroup(const RigidGroup&,const bool updateDisplay=true);
+898:      /** Remove a rigid group of atoms. See Molecule::mvRigidGroup
+900:      * If del is true (default), then the RigidGroup object is deleted.
+902:      std::vector<RigidGroup*>::iterator RemoveRigidGroup(const RigidGroup &group,const bool updateDisplay=true, const bool del = true);
+945:      * for RigidGroup::mX,mY,mZ, and the second are the speed for the angular coordinates
+954:                                   std::map<RigidGroup*,std::pair<XYZ,XYZ> > &vr, REAL nrj0=0);
+972:      /** List of rigid group of atoms. See Molecule::mvRigidGroup
+974:      const std::vector<RigidGroup *>& GetRigidGroupList()const;
+975:      /** List of rigid group of atoms. See Molecule::mvRigidGroup
+977:      std::vector<RigidGroup *>& GetRigidGroupList();
+981:      * \param keepCenter: if true, the coordinates of the molecule are modified
+986:                           const bool keepCenter=true);
+989:      * \param keepCenter: if true, the coordinates of the molecule are modified
+994:                           const bool keepCenter=true);
+997:      * \param keepCenter: if true, the coordinates of the molecule are modified
+1002:                              const bool keepCenter=true);
+1023:      RefinableObjClock& GetRigidGroupClock();
+1026:      const RefinableObjClock& GetRigidGroupClock()const;
+1034:      void RigidifyWithDihedralAngles();
+1061:      const MolAtom* GetCenterAtom()const;
+1064:      void SetCenterAtom(const MolAtom &at);
+1152:      void ResetRigidGroupsPar()const;
+1179:      /** Rigid groups of atoms. This group will be kept \e strictly rigid,
+1183:      std::vector<RigidGroup*> mvRigidGroup;
+1208:         RefinableObjClock mClockRigidGroup;
+1210:         /// mClockDihedralAngleList and mClockRigidGroup. It can be used to determine if
+1257:      RefObjOpt mMoleculeCenter;
+1259:      /** Atom chosen as center of rotation, if mRotationCenter is set to use
+1262:      const MolAtom* mpCenterAtom;
+1348:      void FlipAtomGroup(const FlipGroup&, const bool keepCenter=true);
+['AddAtom', 'AddRigidGroup', 'FindAtom', 'GetAtom', 'GetAtomList', 'GetAtomPositionClock', 'GetCenterAtom', 'GetNbAtoms', 'GetNbRigidGroups', 'GetRigidGroupClock', 'GetRigidGroupList', 'IterAtom', 'RemoveAtom', 'RemoveRigidGroup', 'RigidifyWithDihedralAngles', 'RotateAtomGroup', 'SetCenterAtom', 'TranslateAtomGroup']
+Imported powder pattern: 2205 points, 2theta=  2.007 ->  20.423, step= 0.008
+FRESH_BASE X7e382cb P -1 0.04932708278851508 28788.678141668952
+Imported powder pattern: 2205 points, 2theta=  2.007 ->  20.423, step= 0.008
+SCALED 3.6133211675918493 Rw 0.04930685999160735 Chi2 2203.1923874657755
+Xdcc971e Nat 60 molecule sizes [30, 30]
+  component CCCCCCCCCCCCCCCC[C@@H](C)CCCCCCCCCCCC matches 2
+  bond range 1.535452155886135 1.5720307736290748
+  min intermolecular distance 3.235391749907928

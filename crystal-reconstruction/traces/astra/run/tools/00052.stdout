@@ -1,0 +1,11 @@
+1533
+Traceback (most recent call last):
+  File "/app/work/refine_obj.py", line 15, in <module>
+    print('START',p.GetRw(),p.GetChi2(),flush=True)
+                  ^^^^^^^^^
+pyobjcryst.ObjCrystException: ScatteringData::CalcSinThetaLambda()       Cannot compute sin(theta)/lambda : there are no reflections !
+DONE Xe3a2935 1
+DONE Xe3a2935 2
+DONE X14a2b08 0
+DONE X14a2b08 1
+DONE X14a2b08 2

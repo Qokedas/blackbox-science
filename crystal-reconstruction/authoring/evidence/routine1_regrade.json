@@ -1,0 +1,548 @@
+[
+ {
+  "id": "X019b9a4",
+  "dof": 26.0,
+  "zprime": 1.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": false,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "no periodic mapping within matcher tolerance"
+  },
+  "minutes": 30.9,
+  "trials_total": 2000000,
+  "runs_done": 2,
+  "best_rw": 0.4032793093578164,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X07806d9",
+  "dof": 13.0,
+  "zprime": 1.0,
+  "radiation": "synchrotron",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "identity check failed"
+  },
+  "minutes": 15.6,
+  "trials_total": 2000000,
+  "runs_done": 2,
+  "best_rw": 0.30752504349783444,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X13023e3",
+  "dof": 17.0,
+  "zprime": 1.0,
+  "radiation": "synchrotron",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": false,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "atom count 24 vs reference 48 after primitive reduction"
+  },
+  "minutes": 23.0,
+  "trials_total": 2000000,
+  "runs_done": 2,
+  "best_rw": 0.44536744862375116,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X14a2b08",
+  "dof": 18.0,
+  "zprime": 1.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": false,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "identity check failed"
+  },
+  "minutes": 31.4,
+  "trials_total": 2000000,
+  "runs_done": 2,
+  "best_rw": 0.41632227773980995,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X1a56c78",
+  "dof": 14.0,
+  "zprime": 1.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": false,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "atom count 23 vs reference 92 after primitive reduction"
+  },
+  "minutes": 21.0,
+  "trials_total": 2000000,
+  "runs_done": 2,
+  "best_rw": 0.4265620235051185,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X1db5091",
+  "dof": 19.0,
+  "zprime": 1.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": false,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "identity check failed"
+  },
+  "minutes": 32.6,
+  "trials_total": 2000000,
+  "runs_done": 2,
+  "best_rw": 0.5552132819952011,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X2327841",
+  "dof": 34.0,
+  "zprime": 1.0,
+  "radiation": "synchrotron",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": false,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "identity check failed"
+  },
+  "minutes": 33.2,
+  "trials_total": 1800000,
+  "runs_done": 1,
+  "best_rw": 0.2956104224982671,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X238783d",
+  "dof": 14.0,
+  "zprime": 1.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": false,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "identity check failed"
+  },
+  "minutes": 31.2,
+  "trials_total": 1400000,
+  "runs_done": 1,
+  "best_rw": 0.4857187054085018,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X263b09a",
+  "dof": 18.0,
+  "zprime": 1.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": null,
+   "L": false,
+   "S": false,
+   "reason": "no cell found (indexing returned nothing)"
+  },
+  "minutes": null,
+  "trials_total": 0,
+  "runs_done": 0,
+  "best_rw": null,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X35b7fbc",
+  "dof": 18.0,
+  "zprime": 1.0,
+  "radiation": "synchrotron",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": false,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "identity check failed"
+  },
+  "minutes": 40.3,
+  "trials_total": 600000,
+  "runs_done": 1,
+  "best_rw": 1.3219999600303338,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X3c176e2",
+  "dof": 12.0,
+  "zprime": 2.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": false,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "atom count 12 vs reference 96 after primitive reduction"
+  },
+  "minutes": 7.8,
+  "trials_total": 2000000,
+  "runs_done": 2,
+  "best_rw": 0.5673318077597461,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X3f4781b",
+  "dof": 30.0,
+  "zprime": 2.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": false,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "no periodic mapping within matcher tolerance"
+  },
+  "minutes": 30.7,
+  "trials_total": 2000000,
+  "runs_done": 2,
+  "best_rw": 0.21160458427465637,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X4f6fe58",
+  "dof": 7.0,
+  "zprime": 1.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": null,
+   "L": false,
+   "S": false,
+   "reason": "no cell found (indexing returned nothing)"
+  },
+  "minutes": null,
+  "trials_total": 0,
+  "runs_done": 0,
+  "best_rw": null,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X7e382cb",
+  "dof": 15.0,
+  "zprime": 2.0,
+  "radiation": "lab_Mo",
+  "best": {
+   "cif": null,
+   "L": false,
+   "S": false,
+   "reason": "no cell found (indexing returned nothing)"
+  },
+  "minutes": null,
+  "trials_total": 0,
+  "runs_done": 0,
+  "best_rw": null,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X8a06d7a",
+  "dof": 19.0,
+  "zprime": 1.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": false,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "identity check failed"
+  },
+  "minutes": 30.4,
+  "trials_total": 2000000,
+  "runs_done": 2,
+  "best_rw": 0.3163837762743565,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X8a6f5a8",
+  "dof": 28.0,
+  "zprime": 1.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": null,
+   "L": false,
+   "S": false,
+   "reason": "no cell found (indexing returned nothing)"
+  },
+  "minutes": null,
+  "trials_total": 0,
+  "runs_done": 0,
+  "best_rw": null,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X9af54a2",
+  "dof": 15.0,
+  "zprime": 1.0,
+  "radiation": "synchrotron",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": false,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "atom count 38 vs reference 76 after primitive reduction"
+  },
+  "minutes": 18.8,
+  "trials_total": 2000000,
+  "runs_done": 2,
+  "best_rw": 0.5067398492776062,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "Xb7088cf",
+  "dof": 12.0,
+  "zprime": 1.0,
+  "radiation": "lab_Mo",
+  "best": {
+   "cif": null,
+   "L": false,
+   "S": false,
+   "reason": "no cell found (indexing returned nothing)"
+  },
+  "minutes": null,
+  "trials_total": 0,
+  "runs_done": 0,
+  "best_rw": null,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "Xbfc6d2c",
+  "dof": 7.0,
+  "zprime": 1.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": null,
+   "L": false,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "no CIF produced; "
+  },
+  "minutes": null,
+  "trials_total": 0,
+  "runs_done": 0,
+  "best_rw": null,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "Xbfeeda9",
+  "dof": 16.0,
+  "zprime": 1.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": null,
+   "L": false,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "no CIF produced; "
+  },
+  "minutes": null,
+  "trials_total": 0,
+  "runs_done": 0,
+  "best_rw": null,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "Xd4c1a35",
+  "dof": 18.0,
+  "zprime": 2.0,
+  "radiation": "synchrotron",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": false,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "atom count 96 vs reference 192 after primitive reduction"
+  },
+  "minutes": 29.5,
+  "trials_total": 2000000,
+  "runs_done": 2,
+  "best_rw": 0.9782040516315574,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "Xd8634a2",
+  "dof": 13.0,
+  "zprime": 1.0,
+  "radiation": "synchrotron",
+  "best": {
+   "cif": null,
+   "L": false,
+   "S": false,
+   "reason": "no cell found (indexing returned nothing)"
+  },
+  "minutes": null,
+  "trials_total": 0,
+  "runs_done": 0,
+  "best_rw": null,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "Xdcc971e",
+  "dof": 32.0,
+  "zprime": 1.0,
+  "radiation": "synchrotron",
+  "best": {
+   "cif": null,
+   "L": false,
+   "S": false,
+   "reason": "no cell found (indexing returned nothing)"
+  },
+  "minutes": null,
+  "trials_total": 0,
+  "runs_done": 0,
+  "best_rw": null,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "Xe1fb77b",
+  "dof": 16.0,
+  "zprime": 1.0,
+  "radiation": "synchrotron",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "no periodic mapping within matcher tolerance"
+  },
+  "minutes": 30.4,
+  "trials_total": 2000000,
+  "runs_done": 2,
+  "best_rw": 0.313109341203703,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "Xe3a2935",
+  "dof": 9.0,
+  "zprime": 1.0,
+  "radiation": "synchrotron",
+  "best": {
+   "cif": null,
+   "L": false,
+   "S": false,
+   "reason": "no cell found (indexing returned nothing)"
+  },
+  "minutes": null,
+  "trials_total": 0,
+  "runs_done": 0,
+  "best_rw": null,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "Xeb393f9",
+  "dof": 21.0,
+  "zprime": 1.0,
+  "radiation": "synchrotron",
+  "best": {
+   "cif": null,
+   "L": false,
+   "S": false,
+   "reason": "no cell found (indexing returned nothing)"
+  },
+  "minutes": null,
+  "trials_total": 0,
+  "runs_done": 0,
+  "best_rw": null,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "Xebbd488",
+  "dof": 23.5,
+  "zprime": 1.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": null,
+   "L": false,
+   "S": false,
+   "reason": "no cell found (indexing returned nothing)"
+  },
+  "minutes": null,
+  "trials_total": 0,
+  "runs_done": 0,
+  "best_rw": null,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "Xedd9c7b",
+  "dof": 22.0,
+  "zprime": 2.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": null,
+   "L": false,
+   "S": false,
+   "reason": "no cell found (indexing returned nothing)"
+  },
+  "minutes": null,
+  "trials_total": 0,
+  "runs_done": 0,
+  "best_rw": null,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "Xf8ac963",
+  "dof": 10.0,
+  "zprime": 1.0,
+  "radiation": "synchrotron",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": false,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "atom count 42 vs reference 84 after primitive reduction"
+  },
+  "minutes": 19.8,
+  "trials_total": 2000000,
+  "runs_done": 2,
+  "best_rw": 0.6310661207585768,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "Xfca9f3c",
+  "dof": 28.0,
+  "zprime": 1.0,
+  "radiation": "synchrotron",
+  "best": {
+   "cif": null,
+   "L": false,
+   "S": false,
+   "reason": "no cell found (indexing returned nothing)"
+  },
+  "minutes": null,
+  "trials_total": 0,
+  "runs_done": 0,
+  "best_rw": null,
+  "solved_seconds_inrun": null
+ }
+]

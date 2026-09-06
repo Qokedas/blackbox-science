@@ -1,0 +1,35 @@
+---X35b7fbc
+---Xd4c1a35
+---X2327841
+---Xe1fb77b
+---Xbfeeda9
+X019b9a4 1*CC(=O)C(=NNc1ccc(C(=O)Nc2ccc(C(N)=O)cc2)cc1)C(=O)Nc1ccc2[nH]c(=O)[nH]c2c1;1*CN1CCCC1=O;1*C[S+](C)[O-] {'cell': {'a': 8.445005750645986, 'b': 10.921928016393805, 'c': 18.442412835425692, 'alpha': 90.2884626890573, 'beta': 94.00614168977307, 'gamma': 106.23346558366082}, 'space_group': 'P -1', 'space_group_number': 2}
+X07806d9 1*[NH3+]CC(=O)CCC(=O)O;1*[Cl-] {'cell': {'a': 8.21090121, 'b': 11.22559643, 'c': 16.86316918, 'alpha': 90.0, 'beta': 90.0, 'gamma': 90.0}, 'space_group': 'P b c a', 'space_group_number': 61}
+X13023e3 1*CC(C)Cc1ccc([C@@H](C)C(=O)O)cc1;1*NC(=O)c1cccnc1 {'cell': {'a': 6.02251550901109, 'b': 5.528174664002437, 'c': 28.00322267667898, 'alpha': 90.0, 'beta': 93.11861606022124, 'gamma': 90.0}, 'space_group': 'P 1 21 1', 'space_group_number': 4}
+X14a2b08 1*COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1;1*O=C1CCCCCN1 {'cell': {'a': 5.098258847253705, 'b': 11.927383943994194, 'c': 21.27459008747357, 'alpha': 85.23439879465212, 'beta': 87.63977384063239, 'gamma': 87.02704709514161}, 'space_group': 'P -1', 'space_group_number': 2}
+X1a56c78 1*O[C@](CC[NH+]1CCCCC1)(c1ccccc1)C1CCCCC1;1*[Cl-] {'cell': {'a': 5.90627278679979, 'b': 11.253950622962217, 'c': 30.08996977329099, 'alpha': 90.0, 'beta': 90.0, 'gamma': 90.0}, 'space_group': 'P 2 2 21', 'space_group_number': 17}
+X1db5091 1*COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1;1*NC(=O)c1cccnc1 {}
+X2327841 1*CCCCCCCCCCCCCCCCCCCCCC[C@@H](C)CCCCCCCC {'cell': {'a': 25.040117516961892, 'b': 4.934489037709938, 'c': 12.391312068666151, 'alpha': 90.0, 'beta': 90.78605448139774, 'gamma': 90.0}, 'space_group': 'P 1 21 1', 'space_group_number': 4}
+X238783d 1*CC[C@H]1OC(=O)[C@H](C)[C@@H](O[C@H]2C[C@@](C)(OC)[C@@H](O)[C@H](C)O2)[C@H](C)[C@@H](O[C@@H]2O[C@H](C)C[C@H](N(C)C)[C@H]2O)[C@](C)(OC)C[C@@H](C)C(=O)[C@H](C)[C@@H](O)[C@]1(C)O {'cell': {'a': 8.846657044168616, 'b': 20.132634723580942, 'c': 23.94195584840581, 'alpha': 90.0, 'beta': 90.0, 'gamma': 90.0}, 'space_group': 'P 21 21 21', 'space_group_number': 19}
+X263b09a 1*COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1;1*O=C1CCCCN1 {'cell': {'a': 5.434996465398418, 'b': 11.702879633639943, 'c': 20.69910357218443, 'alpha': 83.64572205598759, 'beta': 84.2253364929317, 'gamma': 89.03477559489419}, 'space_group': 'P -1', 'space_group_number': 2}
+X35b7fbc 1*CC[C@@H](CO)NC(=O)[C@@H]1C=C2c3cccc4[nH]cc(c34)C[C@H]2[NH+](C)C1;1*O=C([O-])C=CC(=O)O {'cell': {'a': 5.709514177833602, 'b': 12.767253130037945, 'c': 33.140742692492864, 'alpha': 90.0, 'beta': 90.0, 'gamma': 90.0}, 'space_group': 'P 21 21 21', 'space_group_number': 19}
+X3c176e2 1*OC1C(O)C(O)C(O)C(O)C1O {'cell': {'a': 9.33206988, 'b': 11.03818309, 'c': 14.0155005, 'alpha': 90.0, 'beta': 90.0, 'gamma': 90.0}, 'space_group': 'P 21 21 21', 'space_group_number': 19}
+X3f4781b 1*COC(=O)[C@H](c1ccccc1Cl)[NH+]1CCc2sccc2C1;1*O=S(=O)([O-])O {'cell': {'a': 10.434459205762266, 'b': 15.340934374738975, 'c': 12.635064353266996, 'alpha': 90.0, 'beta': 113.33529901637961, 'gamma': 90.0}, 'space_group': 'P 1 21 1', 'space_group_number': 4}
+X4f6fe58 1*O=C1CN=C(c2ccccc2Cl)c2cc(Br)ccc2N1 {'cell': {'a': 7.566650781823849, 'b': 13.072975827440688, 'c': 15.429196115899655, 'alpha': 72.39638005310617, 'beta': 83.39054886528757, 'gamma': 77.70460314020802}, 'space_group': 'P -1', 'space_group_number': 2}
+X7e382cb 1*O=C([O-])c1ccc(-c2ccc(C(=O)[O-])cc2)cc1;2*[NH4+] {'cell': {'a': 6.901752626744699, 'b': 6.944169776198561, 'c': 7.839836351792298, 'alpha': 66.24550710839814, 'beta': 83.40764660059311, 'gamma': 67.58102462402104}, 'space_group': 'P -1', 'space_group_number': 2}
+X8a06d7a 1*COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1;1*NC(=O)c1ccccn1 {'cell': {'a': 4.929309088033105, 'b': 11.832815563716597, 'c': 21.737916346566895, 'alpha': 86.03388292241966, 'beta': 85.4933680396183, 'gamma': 89.28613605823027}, 'space_group': 'P -1', 'space_group_number': 2}
+X8a6f5a8 1*COc1ccccc1OCC[NH2+]C[C@@H](O)COc1cccc2[nH]c3ccccc3c12;1*O=P([O-])(O)O;1*CC(C)O {}
+X9af54a2 1*COc1ccc(OC)c([C@H](O)CNC(=O)C[NH3+])c1;1*[Cl-] {'cell': {'a': 5.178728935315927, 'b': 8.253763769789536, 'c': 32.95138585905239, 'alpha': 90.0, 'beta': 92.75227709009262, 'gamma': 90.0}, 'space_group': 'P 1 21 1', 'space_group_number': 4}
+Xb7088cf 1*Nc1ccccc1NC(=O)c1ccc(CNC(=O)OCc2cccnc2)cc1 {}
+Xbfc6d2c 1*[C-]#[N+]c1ccc(-c2ccc([N+]#[C-])c(C)c2)cc1C {'cell': {'a': 7.61557988, 'b': 14.62286879, 'c': 11.90509357, 'alpha': 90.0, 'beta': 105.49752929, 'gamma': 90.0}, 'space_group': 'P 1 21/a 1', 'space_group_number': 14}
+Xbfeeda9 1*CN(C)C(=O)C(CC[NH+]1CCC(O)(c2ccc(Cl)cc2)CC1)(c1ccccc1)c1ccccc1;1*[Cl-] {'cell': {'a': 13.202926946633223, 'b': 12.367019901476281, 'c': 16.69423334559393, 'alpha': 90.0, 'beta': 101.65834198660818, 'gamma': 90.0}, 'space_group': 'P 1 21/a 1', 'space_group_number': 14}
+Xd4c1a35 1*COC1=CC(=O)C[C@@H](C)[C@]12Oc1c(Cl)c(OC)cc(OC)c1C2=O {'cell': {'a': 11.762708133076346, 'b': 12.008605119807607, 'c': 24.280477505069314, 'alpha': 90.0, 'beta': 90.0, 'gamma': 90.0}, 'space_group': 'P 21 21 21', 'space_group_number': 19}
+Xd8634a2 1*CNS(=O)(=O)Nc1nccc(Cc2c(C)c3ccc(Oc4ncccn4)cc3oc2=O)c1F {'cell': {'a': 8.910169100782866, 'b': 9.47845325451745, 'c': 13.245308707674797, 'alpha': 83.98286911524386, 'beta': 81.77580180151384, 'gamma': 66.67862762269598}, 'space_group': 'P -1', 'space_group_number': 2}
+Xdcc971e 1*CCCCCCCCCCCCCCCC[C@@H](C)CCCCCCCCCCCC {'cell': {'a': 11.045316302862348, 'b': 7.179274380166719, 'c': 18.479009331191573, 'alpha': 90.0, 'beta': 101.97953139532386, 'gamma': 90.0}, 'space_group': 'P 1 21 1', 'space_group_number': 4}
+Xe1fb77b 1*O=C(/C=C/c1ccc(O)c(O)c1)O[C@@H]1C[C@@](OC(=O)/C=C/c2ccc(O)c(O)c2)(C(=O)O)C[C@@H](O)[C@@H]1O;1*O {'cell': {'a': 5.593068355245877, 'b': 15.360173538155827, 'c': 13.880661577245984, 'alpha': 90.0, 'beta': 94.97536479377817, 'gamma': 90.0}, 'space_group': 'P 1 21 1', 'space_group_number': 4}
+Xe3a2935 1*C[C@@H]1CC(=O)NN=C1c1ccc(NN=C(C#N)C#N)cc1 {'cell': {'a': 6.88350068, 'b': 10.29612043, 'c': 19.99985781, 'alpha': 90.0, 'beta': 90.0, 'gamma': 90.0}, 'space_group': 'P 21 21 21', 'space_group_number': 19}
+Xeb393f9 1*O=C(O)CCC[NH+]1CCC(O[C@@H](c2ccc(Cl)cc2)c2ccccn2)CC1;1*O=S(=O)([O-])c1ccccc1 {'cell': {'a': 8.013461193432732, 'b': 9.815137431551552, 'c': 10.232145219773672, 'alpha': 74.86933735782323, 'beta': 68.95937825068589, 'gamma': 65.93193345485913}, 'space_group': 'P 1', 'space_group_number': 1}
+Xebbd488 2*COc1ccccc1OCC[NH2+]C[C@H](O)COc1cccc2[nH]c3ccccc3c12;2*O=P([O-])(O)O;1*O {}
+Xedd9c7b 1*C[NH+](C)CCc1c[nH]c2cccc(OP(=O)([O-])O)c12 {}
+Xf8ac963 1*COc1ccc(NC(=O)[C@@H]2C[C@H](C)CC[C@H]2C(C)C)cc1 {'cell': {'a': 9.32158061, 'b': 11.39344493, 'c': 16.26479012, 'alpha': 90.0, 'beta': 90.0, 'gamma': 90.0}, 'space_group': 'P 21 21 21', 'space_group_number': 19}
+Xfca9f3c 1*CCCCCCCCCCCCCCCC[C@@H](C)CCCCCCCC {'cell': {'a': 12.34431256, 'b': 4.93589515, 'c': 21.44503081, 'alpha': 90.0, 'beta': 105.64967607, 'gamma': 90.0}, 'space_group': 'P 1 21 1', 'space_group_number': 4}

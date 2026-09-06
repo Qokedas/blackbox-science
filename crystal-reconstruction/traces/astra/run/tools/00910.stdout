@@ -1,0 +1,4 @@
+BrNew=54499
+PACKING_ENABLED 40 atoms 2204 pair terms coefficient 50.0 active_only True
+HBOND_PRIOR 2 donors 4 acceptors coefficient 20.0 directional True
+Priors tensor([9.3028], grad_fn=<IndexAddBackward0>) tensor([10.4944], grad_fn=<MulBackward0>) gradientfinite tensor(True) tensor(585.6863)

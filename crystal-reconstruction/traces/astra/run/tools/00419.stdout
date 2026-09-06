@@ -1,0 +1,212 @@
+import os,sys,json,numpy as np
+from scipy.ndimage import gaussian_filter1d
+from scipy.signal import find_peaks,peak_widths
+from scipy.optimize import least_squares
+import matplotlib;matplotlib.use('Agg');import matplotlib.pyplot as plt
+for sid in sys.argv[1:]:
+ W='/app/work/'+sid;ins=json.load(open('/app/data/instances/'+sid+'/instrument.json'));rad=ins['radiation'];wl=rad['wavelength_A'];x,y,sig=np.loadtxt('/app/data/instances/'+sid+'/pattern.xye').T;dx=np.median(np.diff(x));noise=np.median(np.abs(np.diff(y,2)))/1.65
+ ys=gaussian_filter1d(y,max(.65,.004*wl/1.54/dx));prom=max(noise*4,np.ptp(y)*.0025);idx,pp=find_peaks(ys,prominence=prom,distance=max(2,int(.025*wl/1.54/dx)))
+ ww=peak_widths(ys,idx,rel_height=.5);wid=ww[0]*dx
+ result=[]
+ for k,i in enumerate(idx):
+  if wid[k]>1.0*wl/1.54 or wid[k]<dx*1.2:continue
+  if x[i]<x[0]+.05:continue
+  half=max(wid[k]*1.7,dx*6);halfL=half;halfR=half
+  if k>0:halfL=min(halfL,(x[i]-x[idx[k-1]])*.48)
+  if k+1<len(idx):halfR=min(halfR,(x[idx[k+1]]-x[i])*.48)
+  mask=(x>=x[i]-halfL)&(x<=x[i]+halfR);xx=x[mask];yy=y[mask];ss=np.maximum(sig[mask],noise)
+  if len(xx)<6:continue
+  double=len(rad.get('wavelengths_A') or [])>1
+  ratio=rad['wavelengths_A'][1]/rad['wavelengths_A'][0] if double else 1.
+  wt=(rad.get('wavelength_weights') or [1,.5])[1] if double else 0.
+  wlft=max(dx,(i-ww[2][k])*2*dx);wrgt=max(dx,(ww[3][k]-i)*2*dx)
+  def func(v):
+   pos,h,w1,w2,eta,b,sl=v
+   def peak(p):
+    z=(xx-p)/np.where(xx<p,w1,w1 if double else w2)
+    return ((1-eta)*np.exp(-4*np.log(2)*z*z)+eta/(1+4*z*z))
+   pos2=np.rad2deg(2*np.arcsin(ratio*np.sin(np.deg2rad(pos/2))))
+   return h*(peak(pos)+wt*peak(pos2))+b+sl*(xx-x[i])
+  start=[x[i]-(np.rad2deg(2*np.arcsin(ratio*np.sin(np.deg2rad(x[i]/2))))-x[i])*wt/(1+wt),pp['prominences'][k],min(wlft,half*2),min(wrgt,half*2),.5,min(yy),0.]
+  lower=[x[i]-max(dx*3,wid[k]*.5),0,dx*.5,dx*.5,0,min(yy)-np.ptp(yy),-np.inf]
+  upper=[x[i]+max(dx*3,wid[k]*.5),np.ptp(yy)*4+pp['prominences'][k],max(wid[k]*4,dx*8),max(wid[k]*4,dx*8),1,max(yy),np.inf]
+  try:
+   fit=least_squares(lambda v:(func(v)-yy)/ss,start,bounds=(lower,upper),max_nfev=200)
+   pos,h,w1,w2,eta,b,sl=fit.x;err=np.sqrt(max(0,np.linalg.pinv(fit.jac.T@fit.jac)[0,0]))*max(1,np.sqrt(np.mean(fit.fun**2)));rw=np.sqrt(np.mean(fit.fun**2))
+  except:pos,h,w1,w2,eta,b,sl=start;err=dx;rw=0.
+  if double:w2=w1
+  if h<prom*.7:continue
+  # eliminate a resolved Ka2 peak with its stronger matching Ka1 line
+  if double:
+   p1=np.rad2deg(2*np.arcsin(np.sin(np.deg2rad(pos/2))/ratio))
+   if any(abs(z['two_theta']-p1)<max(dx*1.8,w1*.2) and .12<h/z['height']<.9 for z in result):continue
+  result.append(dict(two_theta=float(pos),height=float(h),fwhm=float((w1+w2)/2),eta=float(eta),error=float(err),d=float(wl/(2*np.sin(np.deg2rad(pos/2)))),area=float(h*(w1+w2)/2),peak_max=float(x[i]),widthL=float(w1),widthR=float(w2),fit_chi=float(rw)))
+ json.dump(result,open(W+'/peaks_raw.json','w'),indent=1)
+ fig,axs=plt.subplots(2,1,figsize=(15,8));xxmax=min(x[-1],np.rad2deg(2*np.arcsin(wl*.18)))
+ for ax in axs:ax.plot(x,y,lw=.6);ax.set_xlim(x[0],xxmax)
+ axs[1].set_ylim(np.percentile(y,10)-noise, np.percentile(y,10)+.14*np.ptp(y))
+ for j,z in enumerate(result):
+  if z['two_theta']>xxmax:continue
+  for ax in axs:
+   ax.axvline(z['two_theta'],color='r',lw=.4);ax.text(z['two_theta'],np.interp(z['two_theta'],x,y),str(j+1),fontsize=7)
+ axs[0].set_title(sid+' raw-maximum / asymmetric-profile peaks');fig.tight_layout();fig.savefig(W+'/peaks_raw.png',dpi=125);plt.close(fig)
+ print(sid,len(result),[(j+1,round(z['two_theta'],4),round(z['height'])) for j,z in enumerate(result[:25])],flush=True)
+import os,sys,json,time,copy,numpy as np
+sys.path.insert(0,'/opt/g2/GSAS-II/GSASII')
+from GSASII import GSASIIindex as gi
+from GSASII import GSASIIlattice as gl
+sid=sys.argv[1];W='/app/work/'+sid;P=json.load(open(W+'/peaks_raw.json'));wl=json.load(open('/app/data/instances/'+sid+'/instrument.json'))['radiation']['wavelength_A']
+selpath=os.environ.get('SELECT_FILE',W+'/peak_select_raw.json')
+if os.path.exists(selpath):s=json.load(open(selpath));P=[P[i-1] for i in s['indices']]
+P=P[int(os.environ.get('PEAK_SKIP',0)):][:int(os.environ.get('NPEAK',20))];zero=float(os.environ.get('ZERO',0));peaks=[[p['two_theta']-zero,p['height'],True,False,0,0,0,wl/(2*np.sin(np.deg2rad((p['two_theta']-zero)/2))),0] for p in P];brav=[False]*18
+for i in sys.argv[2].split(','):brav[int(i)]=True
+control=[False,zero,int(os.environ.get('NCMAX',20)),float(os.environ.get('VMIN',500))]
+print('START',sid,'PEAKS',[p[0] for p in peaks],flush=True)
+r=gi.DoIndexPeaks(peaks,control,brav,None,ifX20=True,timeout=float(os.environ.get('INDEX_TIME',120)),M20_min=2,X20_max=5,return_Nc=True)
+if r[0]:
+ cands=[]
+ for c in r[2]:
+  typ=['CUBIC','CUBIC','CUBIC','RHOMBOEDRAL','HEXAGONAL','TETRAGONAL','TETRAGONAL']+['ORTHOROMBIC']*6+['MONOCLINIC']*4+['TRICLINIC'];ct=['F','I','P','P','P','I','P','F','I','A','B','C','P','I','A','C','P','P'];cands.append(dict(cell=c[3:9],volume=c[9],score=c[0],system=typ[c[2]],centering=ct[c[2]],mode=19,unindexed=c[1],nc=c[-1],zero=zero))
+ cands.sort(key=lambda c:-c['score']);json.dump(cands,open(W+'/index_gsas_'+os.environ.get('INDEX_TAG',sys.argv[2])+'.json','w'),indent=1)
+ print('RESULTS',cands[:10],flush=True)
+else:print('NOT_FOUND',flush=True)
+import sys,os,json,time,itertools,numpy as np
+from numba import njit
+from scipy.optimize import differential_evolution,least_squares
+from pymatgen.core import Lattice
+sid=sys.argv[1];system=sys.argv[2] if len(sys.argv)>2 else 'MONOCLINIC';center=sys.argv[3] if len(sys.argv)>3 else 'P';W='/app/work/'+sid
+wl=json.load(open('/app/data/instances/'+sid+'/instrument.json'))['radiation']['wavelength_A'];ps=json.load(open(W+'/'+os.environ.get('PEAK_FILE','peaks_raw.json')))
+sp=os.environ.get('SELECT_FILE',W+'/peak_select_raw.json')
+if os.path.exists(sp):si=json.load(open(sp));ps=[ps[i-1] for i in si['indices']] if 'indices' in si else [p for p in ps if p['two_theta']>=si.get('min_two_theta',0)]
+ps=ps[int(os.environ.get('PEAK_SKIP','0')):][:int(os.environ.get('NPEAK','25'))];tt=np.array([p['two_theta'] for p in ps]);qobs=(2*np.sin(np.deg2rad(tt/2))/wl)**2;fac=wl**2/(2*np.sin(np.deg2rad(tt)))*180/np.pi
+hkl=[];R=int(os.environ.get('HMAX','10'))
+for h in range(0,R+1):
+ for k in (range(0,R+1) if system!='TRICLINIC' else range(-R,R+1)):
+  for l in (range(0,R+1) if system=='ORTHOROMBIC' else range(-R,R+1)):
+   if not(h or k or l):continue
+   if h==0 and (k<0 or (k==0 and l<0)):continue
+   if system=='MONOCLINIC' and h==0 and l<0:continue
+   if center=='C' and (h+k)%2:continue
+   if center=='I' and (h+k+l)%2:continue
+   if center=='F' and ((h+k)%2 or (h+l)%2):continue
+   hkl.append((h,k,l))
+hkl=np.array(hkl,dtype=float);terms=np.array([hkl[:,0]**2,hkl[:,1]**2,hkl[:,2]**2,2*hkl[:,1]*hkl[:,2],2*hkl[:,0]*hkl[:,2],2*hkl[:,0]*hkl[:,1]]).T
+lo=float(os.environ.get('VMIN','700'));hi=float(os.environ.get('VMAX','3200'));tar=float(os.environ.get('VTARGET',np.sqrt(lo*hi)));err=float(os.environ.get('TTHERR','.025'));nspur=int(os.environ.get('NSPUR','1'));max_time=float(os.environ.get('INDEX_TIME','300'));ndim={'ORTHOROMBIC':4,'MONOCLINIC':5,'TRICLINIC':7}[system];sgn={'ORTHOROMBIC':'P m m m','MONOCLINIC':'P 1 2/m 1','TRICLINIC':'P -1'}[system]
+@njit(cache=False)
+def metric(x):
+ g=np.zeros(6);g[:3]=x[:3]**2
+ if ndim==5:g[4]=x[3]*x[0]*x[2]
+ if ndim==7:g[3]=x[3]*x[1]*x[2];g[4]=x[4]*x[0]*x[2];g[5]=x[5]*x[0]*x[1]
+ return g
+@njit(cache=False)
+def diffs(x):
+ g=metric(x);qc=terms@g;ix=np.zeros(len(tt),np.int64);dif=np.zeros(len(tt))
+ for i in range(len(tt)):
+  qq=qobs[i]-x[-1]/fac[i];bd=1e10
+  for j in range(len(qc)):
+   dd=abs(qc[j]-qq)
+   if dd<bd:bd=dd;ix[i]=j
+  dif[i]=(qc[ix[i]]-qobs[i])*fac[i]+x[-1]
+ return dif,ix
+@njit(cache=False)
+def cost(x):
+ g=metric(x);det=g[0]*g[1]*g[2]+2*g[3]*g[4]*g[5]-g[0]*g[3]**2-g[1]*g[4]**2-g[2]*g[5]**2
+ if det<=0:return 1000.
+ vol=1/np.sqrt(det);dc,ix=diffs(x);sq=np.log1p((dc/err)**2);sq.sort();co=np.mean(sq[:len(sq)-nspur])*vol/tar
+ for i in range(len(ix)):
+  for j in range(i):
+   if ix[i]==ix[j]:co+=.06
+ if vol<lo:co+=100*np.log(lo/vol)**2
+ if vol>hi:co+=100*np.log(vol/hi)**2
+ return co
+amin=float(os.environ.get('AMIN','3.5'));amax=float(os.environ.get('AMAX','50'));bounds=[(1/amax,1/amin)]*3
+if system=='MONOCLINIC':bounds+=[(0.,.7)]
+if system=='TRICLINIC':bounds+=[(-.45,.45)]*3
+bounds+=[(-float(os.environ.get('ZEROMAX','.10')),float(os.environ.get('ZEROMAX','.10')))]
+if 'BOUNDS_FILE' in os.environ:bounds=json.load(open(os.environ['BOUNDS_FILE']))
+print('METRIC_INDEX',sid,system,center,'peaks',tt.tolist(),'bounds',bounds,'volume',lo,hi,flush=True);cost(np.mean(bounds,axis=1));t0=time.time();sol=[];tag=os.environ.get('INDEX_TAG','metric_'+system+'_'+center)
+for trial in range(int(os.environ.get('TRIALS','60'))):
+ kw={}
+ if sol and trial%3:
+  ss=sol[0]['parameters'];pop=np.random.uniform(np.array(bounds)[:,0],np.array(bounds)[:,1],size=(max(60,18*ndim),ndim));half=len(pop)//2;pop[:half]=np.clip(np.array(ss)*(1+np.random.normal(size=(half,ndim))*.15),np.array(bounds)[:,0],np.array(bounds)[:,1]);kw['init']=pop
+ res=differential_evolution(cost,bounds,popsize=int(os.environ.get('POPSIZE','18')),maxiter=int(os.environ.get('MAXITER','700')),polish=False,tol=.0001,workers=1,**kw);x=res.x
+ for j in range(6):
+  _,ix=diffs(x);tr=terms[ix]
+  re=least_squares(lambda xx:(tr@metric(xx)-qobs)*fac+xx[-1],x,bounds=np.array(bounds).T,loss='soft_l1',f_scale=err,max_nfev=100)
+  if cost(re.x)>cost(x)+.05:break
+  x=re.x
+ g=metric(x);GM=np.array([[g[0],g[5],g[4]],[g[5],g[1],g[3]],[g[4],g[3],g[2]]]);L=Lattice(np.linalg.cholesky(np.linalg.inv(GM)));df,ix=diffs(x);nc=np.sum(terms@g<qobs[-1]);sc=qobs[-1]/(2*max(1e-10,np.mean(abs(df)/fac))*nc);cell=list(L.parameters)
+ if system=='ORTHOROMBIC':cell[:3]=sorted(cell[:3]) if center=='P' else cell[:3]
+ o=dict(cell=cell,system=system,centering=center,volume=L.volume,score=float(sc),cost=float(cost(x)),mode=21,zero=float(x[-1]),rms=float(np.sqrt(np.mean(df**2))),maxerr=float(max(abs(df))),parameters=x.tolist(),diff=df.tolist(),hkl=hkl[ix].astype(int).tolist())
+ if not any(np.allclose(o['cell'][:3],s['cell'][:3],rtol=.003) and np.allclose(o['cell'][3:],s['cell'][3:],atol=.3) for s in sol):sol.append(o)
+ sol.sort(key=lambda s:s['cost']);json.dump(sol,open(W+'/index_'+tag+'.json','w'),indent=1)
+ print('TRIAL',trial,'sec',time.time()-t0,'cost',o['cost'],'score',sc,'vol',L.volume,'cell',np.round(cell,4),'zero',x[-1],'best',sol[0]['cost'],'diff',np.round(df,4),flush=True)
+ if o['maxerr']<.05 and o['cost']<.06 and sc>30:break
+ if time.time()-t0>max_time:break
+import os,sys,json,time,numpy as np
+from numba import njit
+from scipy.optimize import least_squares
+sid=sys.argv[1];W='/app/work/'+sid
+ps=json.load(open(W+'/peaks_raw.json'));sf=os.getenv('SELECT_FILE',W+'/peak_select_raw.json');select=json.load(open(sf))['indices'] if os.path.exists(sf) else list(range(1,len(ps)+1));select=select[:int(os.getenv('NPEAK','24'))];ps=[ps[i-1] for i in select]
+wl=json.load(open('/app/data/instances/'+sid+'/instrument.json'))['radiation']['wavelength_A'];tt=np.array([p['two_theta'] for p in ps]);q=(2*np.sin(np.deg2rad(tt/2))/wl)**2;fac=wl*wl/(2*np.sin(np.deg2rad(tt)))*180/np.pi
+hk=np.array([[h,k] for h in range(0,19) for k in range(-18,19) if h or k>0],float);T=np.array([hk[:,0]**2,hk[:,1]**2,2*hk[:,0]*hk[:,1]]).T
+err=float(os.getenv('TTHERR','.035'));nm=len(tt);amin=float(os.getenv('AREA_MIN','80'));amax=float(os.getenv('AREA_MAX','700'));nlow=min(int(os.getenv('NLOW','14')),len(tt));nh=min(int(os.getenv('NANCHOR','7')),len(tt));vneed=int(os.getenv('NEED','9'))
+@njit(cache=False)
+def ev(g,z):
+ qc=T@g;ix=np.zeros(nm,np.int64);diff=np.zeros(nm);num=0;nlo=0;cost=0.
+ for i in range(nm):
+  mn=1e20
+  for j in range(len(qc)):
+   d=abs(qc[j]-q[i]+z/fac[i])
+   if d<mn:mn=d;ix[i]=j
+  diff[i]=(qc[ix[i]]-q[i])*fac[i]+z
+  if abs(diff[i])<err:
+   num+=1
+   if i<nlow:nlo+=1
+  cost+=min((diff[i]/err)**2,1.)
+ return num,nlo,cost,ix,diff
+@njit(cache=False)
+def enum(z):
+ out=np.zeros((50000,6));nr=0;qc=q-z/fac
+ for i1 in range(nh):
+  for i2 in range(i1+1,nh):
+   for mult1 in [1,2,3]:
+    for mult2 in [1,2,3]:
+     a=qc[i1]/(mult1*mult1);b=qc[i2]/(mult2*mult2)
+     for i3 in range(min(13,nm)):
+      if i3==i1 or i3==i2:continue
+      for h in range(1,5):
+       for k in range(1,5):
+        cross=(qc[i3]-h*h*a-k*k*b)/(2*h*k)
+        if abs(cross)/np.sqrt(a*b)>.95:continue
+        area=1/np.sqrt(a*b-cross*cross)
+        if area<amin or area>amax:continue
+        g=np.array([a,b,cross]);num,nlo,cost,ix,dd=ev(g,z)
+        if nlo<vneed:continue
+        # Reward coverage, but heavily penalize an unnecessarily large net.
+        score=nlo+0.3*(num-nlo)-area/1200-cost*.025
+        out[nr,0]=score;out[nr,1:4]=g;out[nr,4]=z;out[nr,5]=area;nr+=1
+        if nr>=50000:return out[:nr]
+ return out[:nr]
+t0=time.time();rows=[]
+for z in [-.12,-.06,0.,.06,.12]:
+ rr=enum(z);rr=rr[np.argsort(-rr[:,0])][:120]
+ rows.extend(rr);print('ENUM',sid,z,len(rr),time.time()-t0,flush=True)
+rows=sorted(rows,key=lambda r:-r[0]);out=[]
+for row in rows:
+ x=row[1:5];num,nlo,cost,ix,dd=ev(x[:3],x[3])
+ for j in range(4):
+  use=abs(dd)<err*1.5
+  if use.sum()<4:break
+  fit=least_squares(lambda v:(T[ix[use]]@v[:3]-q[use])*fac[use]+v[3],x,loss='soft_l1',f_scale=err*.5,max_nfev=100);x=fit.x;num,nlo,cost,ix,dd=ev(x[:3],x[3])
+ G=np.array([[x[0],x[2]],[x[2],x[1]]]);det=np.linalg.det(G)
+ if det<=0:continue
+ area=1/np.sqrt(det);J=np.linalg.inv(G);a=np.sqrt(J[0,0]);b=np.sqrt(J[1,1]);angle=np.degrees(np.arccos(J[0,1]/(a*b)))
+ if angle<40 or angle>140 or area>amax or area<amin:continue
+ score=nlo+.3*(num-nlo)-area/1200-cost*.025
+ v=dict(plane_metric=x[:3].tolist(),zero=float(x[3]),area=float(area),axes=[a,b,angle],nmatch=int(num),nlow=int(nlo),score=float(score),hkl=hk[ix].astype(int).tolist(),diff=dd.tolist(),indices=select)
+ if any(np.allclose(v['plane_metric'],o['plane_metric'],rtol=.003,atol=1e-6) for o in out):continue
+ out.append(v)
+out.sort(key=lambda r:-r['score']);json.dump(out,open(W+'/zones.json','w'),indent=1)
+for o in out[:12]:print('ZONE',o['score'],o['nlow'],o['nmatch'],o['area'],o['axes'],o['zero'],flush=True)
+print('DONE',time.time()-t0,flush=True)

@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/app/work/expand_p1.py", line 19, in <module>
+    ideal=np.array(md.get('restraint_coords',md['rdkit_coords']))@cartrot
+                                             ~~^^^^^^^^^^^^^^^^
+KeyError: 'rdkit_coords'

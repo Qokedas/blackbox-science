@@ -1,0 +1,17 @@
+seed 1976155108
+step ['Zero'] Rwp=0.3160
+step ['W'] Rwp=0.1230
+step ['a', 'b', 'c', 'alpha', 'beta', 'gamma'] Rwp=0.1140
+step ['U', 'V'] Rwp=0.1058
+step ['Eta0'] Rwp=0.1037
+step ['Eta1'] Rwp=0.1034
+step ['background'] Rwp=0.0927
+step ['Zero', 'W', 'U', 'V', 'Eta0', 'background', 'a', 'b', 'c', 'alpha', 'beta', 'gamma'] Rwp=0.0916
+LeBail Rwp=0.0914 chi2=142143.2 cell= 5.707457843598074 33.13068788146024 12.764364374867714 90.0
+  conformers: 23 distinct; energies [72.1, 72.5, 72.7, 75.7, 75.9, 76.8]; using rank 0 (E=72.1)
+  molecule mol0_0: 25 atoms, 28 bonds, 41 angles, 49 dihedral restraints, 4 free torsions
+  conformers: 2 distinct; energies [-62.8, -46.6]; using rank 0 (E=-62.8)
+  molecule mol1_0: 8 atoms, 7 bonds, 8 angles, 5 dihedral restraints, 0 free torsions
+restored from X35b7fbc/sol_a/P212121_run0_lsq_rw0.163.cif: Rwp=0.1819 restraint cost=0.00
+polish: Rwp 0.1819 -> 0.1454 (accepted) restraint cost=0.00
+RESTORE-POLISH X35b7fbc 0.1454091991588819

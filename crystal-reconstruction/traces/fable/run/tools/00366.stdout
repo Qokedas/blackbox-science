@@ -1,0 +1,43 @@
+data_cryst
+
+_computing_structure_solution     'FOX http://objcryst.sourceforge.net'
+
+_symmetry_space_group_name_H-M    'P 21 21 21'
+_symmetry_space_group_name_Hall   ' P 2ac 2ab'
+
+_cell_length_a     5.70746
+_cell_length_b    33.13069
+_cell_length_c    12.76436
+_cell_angle_alpha  90.000
+_cell_angle_beta   90.000
+_cell_angle_gamma  90.000
+_cell_volume      2413.64
+loop_
+    _atom_site_label
+    _atom_site_type_symbol
+    _atom_site_fract_x
+    _atom_site_fract_y
+    _atom_site_fract_z
+    _atom_site_U_iso_or_equiv
+    _atom_site_occupancy
+    _atom_site_adp_type
+    C1         C         0.550856  0.121808  0.518262  0.012665 0.9630 Uiso
+    C2         C         0.368212  0.145303  0.454538  0.012665 0.9630 Uiso
+    C3         C         0.239732  0.172614  0.542704  0.012665 0.9630 Uiso
+    C4         C         0.043814  0.191418  0.527824  0.012665 0.9630 Uiso
+    O1         O         0.038000  0.188193  0.405027  0.012665 0.9630 Uiso
+    N1         N         0.262768  0.155796  0.658243  0.012665 0.9630 Uiso
+    C5         C         0.067435  0.136675  0.695329  0.012665 0.9630 Uiso
+    O2         O         0.873980  0.125740  0.658096  0.012665 0.9630 Uiso
+    C6         C         0.087823  0.112716  0.796477  0.012665 0.9630 Uiso
+    C7         C         0.221658  0.074839  0.796225  0.012665 0.9630 Uiso
+    C8         C         0.307158  0.057836  0.881617  0.012665 0.9630 Uiso
+    C9         C         0.483982  0.026296  0.872533  0.012665 0.9630 Uiso
+    C10        C         0.602471  0.012083  0.786595  0.012665 0.9630 Uiso
+    C11        C         0.742657 -0.021774  0.792433  0.012665 0.9630 Uiso
+    C12        C         0.753617 -0.046182  0.880187  0.012665 0.9630 Uiso
+    C13        C         0.626016 -0.034025  0.965793  0.012665 0.9630 Uiso
+    N2         N         0.544531 -0.056309  0.059640  0.012665 0.9630 Uiso
+  File "/opt/conda/lib/python3.11/site-packages/pymatgen/core/sites.py", line 87, in __getattr__
+    raise AttributeError(f"{attr=} not found on {type(self).__name__}")
+AttributeError: attr='specie' not found on PeriodicSite. Did you mean: 'species'?

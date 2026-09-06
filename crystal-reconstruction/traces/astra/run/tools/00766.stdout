@@ -1,0 +1,151 @@
+#include <bits/stdc++.h>
+#include <ObjCryst/ObjCryst/PowderPattern.h>
+#include <ObjCryst/ObjCryst/Crystal.h>
+#include <ObjCryst/ObjCryst/ScatteringPower.h>
+using namespace ObjCryst;
+struct AccessRef:RefinableObj {void attach(RefinableObj &r){AddSubRefObj(r);} void detach(RefinableObj&r){RemoveSubRefObj(r);}};
+struct PackingLSQ:RefinableObj {
+ Crystal *c;
+ std::vector<long> ii,jj;
+ std::vector<double> rt,tt,limit;
+ mutable CrystVector_REAL obs,calc,wgt;
+ PackingLSQ(Crystal *cr,long n,long *i,long *j,double *r,double *t,double *l,double *w):c(cr) {
+  SetName("Heavy_atom_packing_restraints");ii.assign(i,i+n);jj.assign(j,j+n);rt.assign(r,r+9*n);tt.assign(t,t+3*n);limit.assign(l,l+n);obs.resize(n);calc.resize(n);wgt.resize(n);
+  for(long k=0;k<n;k++){obs(k)=0;calc(k)=0;wgt(k)=w[k];}
+  AddSubRefObj(*c);
+ }
+ virtual const std::string &GetClassName()const {static const std::string name="PackingLSQ";return name;}
+ virtual unsigned int GetNbLSQFunction()const{return 1;}
+ virtual const CrystVector_REAL& GetLSQObs(const unsigned int)const{return obs;}
+ virtual const CrystVector_REAL& GetLSQWeight(const unsigned int)const{return wgt;}
+ virtual const CrystVector_REAL& GetLSQCalc(const unsigned int)const {
+  auto &sc=c->GetScatteringComponentList();auto &m=c->GetOrthMatrix();
+  for(size_t k=0;k<ii.size();k++){
+   auto &a=sc(ii[k]);auto &b=sc(jj[k]);double x=a.mX-(rt[9*k]*b.mX+rt[9*k+1]*b.mY+rt[9*k+2]*b.mZ+tt[3*k]);
+   double y=a.mY-(rt[9*k+3]*b.mX+rt[9*k+4]*b.mY+rt[9*k+5]*b.mZ+tt[3*k+1]);
+   double z=a.mZ-(rt[9*k+6]*b.mX+rt[9*k+7]*b.mY+rt[9*k+8]*b.mZ+tt[3*k+2]);
+   x-=std::round(x);y-=std::round(y);z-=std::round(z);double best=1.e100;
+   for(int sx=-1;sx<=1;sx++)for(int sy=-1;sy<=1;sy++)for(int sz=-1;sz<=1;sz++){
+    double dx=x+sx,dy=y+sy,dz=z+sz;
+    double u=m(0,0)*dx+m(0,1)*dy+m(0,2)*dz;
+    double v=m(1,0)*dx+m(1,1)*dy+m(1,2)*dz;
+    double w=m(2,0)*dx+m(2,1)*dy+m(2,2)*dz;
+    best=std::min(best,u*u+v*v+w*w);
+   }
+   calc(k)=std::max(0.,limit[k]-std::sqrt(best+1.e-18));
+  }
+  return calc;
+ }
+ double cost()const{auto &v=GetLSQCalc(0);double cost=0;for(long k=0;k<v.numElements();k++)cost+=v(k)*v(k)*wgt(k);return cost;}
+};
+extern "C" {
+void *packing_attach(void *pp,void *cc,long n,long*i,long*j,double*r,double*t,double*l,double*w){
+ auto *c=dynamic_cast<Crystal*>(reinterpret_cast<RefinableObj*>(cc));if(!c)return nullptr;
+ auto *p=reinterpret_cast<AccessRef*>(pp);auto *rest=new PackingLSQ(c,n,i,j,r,t,l,w);p->attach(*rest);return rest;
+}
+double packing_cost(void *p){return reinterpret_cast<PackingLSQ*>(p)->cost();}
+void packing_detach(void *pp,void*rr){auto *p=reinterpret_cast<AccessRef*>(pp);auto *r=reinterpret_cast<PackingLSQ*>(rr);p->detach(*r);delete r;}
+}
+                translation.
+    """
+    # Rotate the Cartesian coordinates using rotation matrices, R
+    rot_cart = torch.einsum("bjk,bij->bik", R, cart_coords)
+    # Convert to fractional coords
+    rot_cart = torch.einsum("jk,bij->bik",lattice_inv_matrix,rot_cart)
+    # Translate the sites.
+    fractional_coords = rot_cart + translation.view(translation.shape[0], 1, 3)
+    return fractional_coords
+
+def get_asymmetric_coords(external, internal, position, rotation, torsion,
+    initial_D2, zmatrices_degrees_of_freedom, bond_connection, angle_connection,
+    torsion_connection, torsion_refinable_indices, lattice_inv_matrix,
+    init_cart_coords):
+    """
+    Take in a set of external and internal degrees of freedom and generate the
+    fractional coordinates of
+    all atoms in the asymmetric unit. Uses the NERF method for converting from
+    internal -> Cartesian coordinates.
+
+    Args:
+        external (Tensor): Tensor of shape (n_samples, n_ext_DOF) - The external
+            degrees of freedom for the current problem. Where multiple
+            z-matrices are needed, then the order is
+            pos_1, pos_2 ... pos_n, rot_1, rot_2, ..., rot_n
+        internal (Tensor): Tensor of shape (n_samples, n_int_DOF) - The internal
+            degrees of freedom for the current problem. Where multiple
+            z-matrices are needed, then the order is tor_1, tor_2, ..., tor_n
+        position (List): List of lists, containing the indices of external
+            corresponding to position for each zmatrix
+        rotation (List): List of lists, containing the indices of external
+            corresponding to rotation for each zmatrix
+        torsion (List): List of lists, containing the indices of external
+            corresponding to torsions for each zmatrix
+        zmatrices_degrees_of_freedom (List): List of integers, describing the
+            number of degrees of freedom for each zmatrix.
+            Note that rotations are considered to require 4 DoF due to the use
+            of quaternions. This is in contrast to normally reported values,
+            where Euler angles are usually considered instead.
+        initial_D2 (List): List of tensors of shape (n_samples, n_atoms) for
+            each flexible zmatrix. Needed for internal -> Cartesian
+        bond_connection (List): List of tensors of shape (n_samples, n_atoms)
+            for each flexible zmatrix. Needed for internal -> Cartesian
+        angle_connection (List): List of tensors of shape (n_samples, n_atoms)
+            for each flexible zmatrix. Needed for internal -> Cartesian
+        torsion_connection (List): List of tensors of shape (n_samples, n_atoms)
+            for each flexible zmatrix. Needed for internal -> Cartesian
+        torsion_refinable_indices (List): List of tensors that contain the
+            indices of the refinable torsions for each zmatrix
+        lattice_inv_matrix (Tensor): Inverse of the matrix representation of the
+            lattice. Needed to for Cartesian -> fractional
+        init_cart_coords (List): List of Tensors, with the Cartesian coordinates
+            of the Z-matrices. Needed for rigid-body ZMs.
+
+    Returns:
+        Tensor: Tensor of shape (n_samples, n_atoms_asymmetric), which is the
+                fractional coordinates of all atoms in the asymmetric_unit
+    """
+    asymmetric_unit = []
+    for i, zm_dof in enumerate(zmatrices_degrees_of_freedom):
+        translation = external[:,position[i]].view(external.shape[0],
+                                            1, len(position[i])) # Translations
+        if zm_dof >= 7:
+            rot_in = external[:,rotation[i]] # Quaternions for rotation
+            # Ensure quaternions are unit quaterions then convert to matrices
+            rot = rot_in.div(rot_in.norm(p=2,dim=-1,keepdim=True))
+            R = get_rotation_matrices(rot)
+
+            if zm_dof > 7:
+                # Convert flexible ZM to Cartesian coords
+                cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+                                        bond_connection[i], angle_connection[i],
+                                        torsion_connection[i],
+                                        torsion_refinable_indices[i])
+            else:
+                # Rigid body
+                cart_coords = init_cart_coords[i]
+
+            fractional_coords = rotate_and_translate(cart_coords, R,
+                                                translation, lattice_inv_matrix)
+            asymmetric_unit.append(fractional_coords)
+        else:
+            # Single atoms/ions
+            fractional_coords = translation
+            asymmetric_unit.append(fractional_coords)
+
+BEST 0.9289141117245792 15 P 1 [ 10.55169  15.55004   7.87679  83.65937 103.98142  91.21448] -0.10622017700346316 index_emg1.json:14 [-0.0142  0.2599  0.0858 -0.0737  0.0138  0.0083 -0.0005 -0.0421  0.0223
+ -0.0234  0.1901 -0.0787  0.0114 -0.0999  0.0011 -0.0604 -0.0058  0.0037
+  0.0047 -0.0162 -0.0072  0.0169  0.0139]
+BEST 0.9331663212647838 15 P 1 [16.07742 12.9429   8.42478 95.66064 95.22482 98.39623] 0.06327013622578928 index_TRICLINIC_P_3.json:17 [ 0.0249 -0.0034 -0.0066 -0.0918 -0.0066  0.0065 -0.058   0.0053  0.0187
+  0.0287 -0.0358 -0.0033  0.0743  0.0108 -0.0034  0.002  -0.0353 -0.0017
+  0.0366 -0.0026  0.0395 -0.0024 -0.0727]
+CYCLE 3 2 Rw 0.1086768093134661 chi2 1812.3475028181292 geom 2.651838472078762 LSQ 1860.6903164570804
+PACKING_STAGE 3 4.976583968816502
+FINISHED Xedd9c7b 0.1086768093134661
+total 7752
+-rw-r--r-- 1 root root  253533 Sep  6 08:28 base.xml
+-rw-r--r-- 1 root root    2340 Sep  6 08:29 m0_0_0.zmatrix
+-rw-r--r-- 1 root root     141 Sep  6 08:29 m0_1_0.zmatrix
+-rw-r--r-- 1 root root    6624 Sep  6 08:29 model.json
+-rw-r--r-- 1 root root 2957440 Sep  6 08:29 profile_matrix.npz
+-rw-r--r-- 1 root root    3301 Sep  6 08:28 restart_model.json
+-rw-r--r-- 1 root root 4700596 Sep  6 08:29 structure.json

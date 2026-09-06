@@ -1,0 +1,26 @@
+57998
+X14a2b08 Nat 74 molecule sizes [29, 29, 8, 8]
+  component COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1 matches 2
+  component O=C1CCCCCN1 matches 2
+  bond range 1.2203170357682382 1.7135587198097773
+  min intermolecular distance 2.6051362642036997
+X14a2b08 Nat 74 molecule sizes [29, 29, 8, 8]
+  component COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1 matches 2
+  component O=C1CCCCCN1 matches 2
+  bond range 1.2203170357682382 1.7135587198097773
+  min intermolecular distance 2.6051362642036997
+CYCLE 0 1 Rw 0.301367545998226 chi2 8984.843508069338 geom 466.7683736449746 LSQ 10283.24644120628
+CYCLE 0 2 Rw 0.3013600515288083 chi2 8984.396639794937 geom 466.7683736449746 LSQ 10282.635642614725
+PACKING_STAGE 0 295.11945913553257
+CYCLE 1 0 Rw 0.302135920300743 chi2 9030.71788245752 geom 329.08171253893215 LSQ 10046.683649175298
+Xeb393f9 CIF graph/stereo/cell/SG validated Nat 37
+Xebbd488 JSON only C 1 2 1
+Xedd9c7b CIF graph/stereo/cell/SG validated Nat 152
+Xf8ac963 CIF graph/stereo/cell/SG validated Nat 84
+Xfca9f3c CIF graph/stereo/cell/SG validated Nat 52
+DONE 30 instances 15 CIFs
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 523 seconds 241.89472556114197 best 116.84064 q25 403.62494 median 489.0633 total 241.9100866317749
+GALLOP 1 Nref 523 seconds 232.22311210632324 best 116.840775 q25 369.25964 median 446.20044 total 474.4332284927368

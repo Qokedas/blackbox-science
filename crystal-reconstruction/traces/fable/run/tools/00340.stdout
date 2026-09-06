@@ -1,0 +1,24 @@
+Sun Sep  6 08:08:12 UTC 2026
+10369 126671 python solve.py Xe3a2935 10.29233 6.88044 19.98978 90 90 90 P 21 21 21 --nsteps 3000000 --nruns 2 --ttmax 16 --tag x3 --conf 2 
+10902 0 bash -lc cd /app/work && nohup python solve.py X35b7fbc 5.7074 33.1312 12.7644 90 90 90 "P 21 21 21" --nsteps 2000000 --nruns 1 --ttmax 16 --tag a_sa --restore-sa X35b7fbc/sol_a/P212121_run0_lsq_rw0.163.cif > X35b7fbc/solve_a_sa.log 2>&1 &
+10904 8811 python solve.py X35b7fbc 5.7074 33.1312 12.7644 90 90 90 P 21 21 21 --nsteps 2000000 --nruns 1 --ttmax 16 --tag a_sa --restore-sa X35b7fbc/sol_a/P212121_run0_lsq_rw0.163.cif 
+8137 430738 python solve.py Xd8634a2 8.9099 9.4782 13.2450 96.0172 98.2243 66.6787 P -1 --nsteps 8000000 --nruns 1 --ttmax 12 --tag e 
+9989 206528 python inositol_scan.py P 21 21 21 2 8,3,1,0 1500000 1 p19x_a 
+9990 206795 python inositol_scan.py P 21 21 21 2 4,5,2 1500000 1 p19x_b 
+
+X07806d9.cif
+X07806d9.json
+X2327841.json
+X238783d.json
+X35b7fbc.json
+X3c176e2.json
+X3f4781b.json
+X9af54a2.cif
+X9af54a2.json
+Xd4c1a35.json
+Xd8634a2.json
+Xdcc971e.json
+Xe1fb77b.json
+Xe3a2935.cif
+Xe3a2935.json
+Xf8ac963.json

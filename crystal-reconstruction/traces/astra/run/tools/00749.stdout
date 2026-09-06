@@ -1,0 +1,83 @@
+/opt/g2/GSAS-II/sources/powsubs/psvfcjo.for:13:      INCLUDE       '../INCLDS/COPYRIGT.FOR' 
+/opt/g2/GSAS-II/sources/powsubs/psvfcjo.for:15:!CALLING ARGUMENTS:
+/opt/g2/GSAS-II/sources/powsubs/psvfcjo.for:26:!INCLUDE STATEMENTS:
+/opt/g2/GSAS-II/sources/powsubs/psvfcjo.for:28:! External function declarations 
+/opt/g2/GSAS-II/sources/powsubs/psvfcjo.for:29:      EXTERNAL SIND,COSD,TAND,ACOSD
+/opt/g2/GSAS-II/sources/powsubs/psvfcjo.for:103:      SAVE      CALCLFG,XP,WP          !VALUES TO BE SAVED ACROSS CALLS
+/opt/g2/GSAS-II/sources/powsubs/psvfcjo.for:194:          CALL GAULEG(-1.,1.,XPT,WPT,NGT)
+/opt/g2/GSAS-II/sources/powsubs/psvfcjo.for:221:          CALL PSVOIGT(DTT+TTHETA-DELTA*100.,SIG,GAM,R,DRDT,DRDS,DRDG)
+/opt/g2/GSAS-II/sources/powsubs/psvfcjo.for:292:        CALL PSVOIGT(DTT,SIG,GAM,R,DRDT,DRDS,DRDG)
+/opt/g2/GSAS-II/sources/powsubs/psvoigt.for:6:      INCLUDE       '../INCLDS/COPYRIGT.FOR' 
+/opt/g2/GSAS-II/sources/powsubs/psvoigt.for:10:!CALLING ARGUMENTS:
+/opt/g2/GSAS-II/sources/powsubs/psvoigt.for:20:!INCLUDE STATEMENTS:
+/opt/g2/GSAS-II/sources/powsubs/psvoigt.for:29:! Local variables saved between calls
+/opt/g2/GSAS-II/sources/powsubs/psvoigt.for:35:!SUBROUTINES CALLED:
+/opt/g2/GSAS-II/sources/powsubs/psvoigt.for:51:! CHECK FOR REPEAT CALL
+/opt/g2/GSAS-II/sources/powsubs/psvoigt.for:80:      CALL LORENTZ(DX,FWHM,TL,DTLDT,DTLDFW)
+/opt/g2/GSAS-II/sources/powsubs/psvoigt.for:107:      INCLUDE       '../INCLDS/COPYRIGT.FOR' 
+/opt/g2/GSAS-II/sources/powsubs/psvoigt.for:111:!CALLING ARGUMENTS:
+/opt/g2/GSAS-II/sources/powsubs/psvoigt.for:121:!INCLUDE STATEMENTS:
+/opt/g2/GSAS-II/sources/powsubs/psvoigt.for:128:!SUBROUTINES CALLED:
+/opt/g2/GSAS-II/sources/powsubs/psvoigt.for:173:      CALL LORENTZ(DX,WL,TL,DTLDT,DTLDFW)
+/opt/g2/GSAS-II/sources/powsubs/lorentz.for:5:      INCLUDE       '../INCLDS/COPYRIGT.FOR' 
+/opt/g2/GSAS-II/sources/powsubs/lorentz.for:9:!CALLING ARGUMENTS:
+/opt/g2/GSAS-II/sources/powsubs/lorentz.for:17:!INCLUDE STATEMENTS:
+/opt/g2/GSAS-II/sources/powsubs/lorentz.for:21:!SUBROUTINES CALLED:
+69:powsubs_src = [
+70:  'powsubs/acosd.for',
+71:  'powsubs/cosd.for',
+72:  'powsubs/epsvoigt.for',
+73:  'powsubs/expint.for',
+74:  'powsubs/gauleg.for',
+75:  'powsubs/gerfc.for',
+76:  'powsubs/hfunc.for',
+77:  'powsubs/lorentz.for',
+78:  'powsubs/psvfcj.f90',
+79:  'powsubs/psvfcjexpo.for',
+80:  'powsubs/psvfcjo.for',
+81:  'powsubs/psvoigt.for',
+82:  'powsubs/sind.for',
+83:  'powsubs/tand.for',
+85:powsubs_lib = static_library('powsubs_lib',
+86: powsubs_src,
+123:  link_with: powsubs_lib
+      subroutine gauleg(x1,x2,x,w,n)
+c Routine from Numerical Recipes (Press, Flannery, Teukolsky and Vetterling,
+c    1986, Cambridge University Press, ISBN 0 521 30811 9)
+c
+c Given the lower and upper limits of integration (X1, X2) and the number
+c  of intervals (N), this routine returns arrays X and W of length N,
+c  containing the abscissas and weights of the Gauss-Legendre N-point
+c  quadrature formula.
+c
+      implicit real*4 (a-h,o-z)
+      REAL*4        X1,X2,X(N),W(N)     
+      parameter (eps=3.e-7)
+C
+      m=(n+1)/2
+      xm=0.5*(x2+x1)
+      xl=0.5*(x2-x1)
+      do i=1,m
+        z=cos(3.141592654*(i-.25)/(n+.5))
+        z1 = 0.0
+        do while (abs(z-z1).gt.eps)
+          p1=1.0
+          p2=0.0
+          do j=1,n
+            p3=p2
+            p2=p1
+            p1=((2.0*j-1.0)*z*p2-(j-1.0)*p3)/j
+          end do
+          pp=n*(z*p1-p2)/(z*z-1.0)
+          z1=z
+          z=z1-p1/pp
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1448.06it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 258 seconds 193.0945746898651 best 106.79296 q25 147.48059 median 224.23096 total 193.10416316986084
+GALLOP 1 Nref 258 seconds 219.46652483940125 best 95.40519 q25 192.96796 median 246.36617 total 412.6985981464386
+GALLOP 2 Nref 258 seconds 200.91106581687927 best 95.283676 q25 177.37473 median 241.2572 total 613.7026996612549
+GALLOP 3 Nref 258 seconds 205.39423990249634 best 95.257286 q25 197.61597 median 254.52036 total 819.2262365818024
+GALLOP 4 Nref 258 seconds 209.73134660720825 best 95.255035 q25 168.11342 median 240.00322 total 1029.1311852931976

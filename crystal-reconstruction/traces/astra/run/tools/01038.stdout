@@ -1,0 +1,57 @@
+62051
+X3f4781b Nat 104 molecule sizes [21, 21, 21, 21, 5, 5, 5, 5]
+  component COC(=O)[C@H](c1ccccc1Cl)[NH+]1CCc2sccc2C1 matches 4
+  component O=S(=O)([O-])O matches 4
+  bond range 1.2243207043365325 1.7367702980051705
+  min intermolecular distance 2.4591539973278103
+X3f4781b root 0 expected {4: 'S'} actual {4: 'S'} OK True
+X3f4781b root 1 expected {4: 'S'} actual {4: 'S'} OK True
+X3f4781b root 32 expected {4: 'S'} actual {4: 'S'} OK True
+X3f4781b root 33 expected {4: 'S'} actual {4: 'S'} OK True
+N13 H30 O4 DA 3.0940 HA 2.5099 DHA 114.95 nearest (np.float64(0.0), np.float64(0.0), np.float64(0.0))
+N13 H30 O83 DA 2.9722 HA 1.9712 DHA 161.17 nearest (np.float64(0.0), np.float64(0.0), np.float64(1.0))
+N57 H74 O41 DA 3.3725 HA 2.6332 DHA 127.65 nearest (np.float64(0.0), np.float64(0.0), np.float64(0.0))
+N57 H74 O43 DA 3.8482 HA 2.8067 DHA 177.12 nearest (np.float64(0.0), np.float64(-1.0), np.float64(0.0))
+N57 H74 O39 DA 3.6096 HA 2.8818 DHA 127.26 nearest (np.float64(0.0), np.float64(-1.0), np.float64(0.0))
+O43 H44 O4 DA 2.4592 HA 1.6242 DHA 138.42 nearest (np.float64(0.0), np.float64(0.0), np.float64(0.0))
+O87 H88 O4 DA 3.0627 HA 2.1464 DHA 154.47 nearest (np.float64(0.0), np.float64(0.0), np.float64(1.0))
+All geom 472.2381867958508
+(55.21380795421931, 'angle', ['m2_C6', 'm2_C5', 'm2_N13'])
+(51.99384705484911, 'angle', ['m2_C3', 'm2_C5', 'm2_N13'])
+(45.096850219905264, 'angle', ['m2_C14', 'm2_N13', 'm2_C21'])
+(32.06321177930569, 'angle', ['m2_C5', 'm2_N13', 'm2_C14'])
+(26.61145698274696, 'bond', ['m2_C5', 'm2_N13'])
+(26.231463104542584, 'angle', ['m2_C20', 'm2_C21', 'm2_N13'])
+(23.165332602117655, 'angle', ['m2_O2', 'm2_C3', 'm2_O4'])
+(19.10498894588194, 'angle', ['m2_C5', 'm2_N13', 'm2_C21'])
+(18.127470179243822, 'angle', ['m2_N13', 'm2_C14', 'm2_C15'])
+(15.235540209912157, 'angle', ['m2_H30', 'm2_N13', 'm2_C14'])
+(11.60867555672097, 'angle', ['m2_C3', 'm2_C5', 'm2_C6'])
+(11.08287625065161, 'angle', ['m2_H25', 'm2_C5', 'm2_C3'])
+(10.784989654466155, 'angle', ['m2_O4', 'm2_C3', 'm2_C5'])
+(9.837043843968024, 'angle', ['m2_C1', 'm2_O2', 'm2_C3'])
+(9.819337688116144, 'bond', ['m2_C5', 'm2_C6'])
+(9.671007455556126, 'bond', ['m2_C3', 'm2_C5'])
+(9.408358762427648, 'angle', ['m0_C6', 'm0_C5', 'm0_N13'])
+Cell (10.43163077, 15.33428443, 12.62504627, 90.0, 113.29760177, 90.0) n 104 components [21, 21, 21, 21, 5, 5, 5, 5]
+2.4592 82 O4 O 0 90 O43 O 4
+2.5603 89 O42 O 5 96 O83 O 6
+2.7493 0 C1 C 0 90 O43 O 4
+2.7593 43 C52 C 3 84 O39 O 4
+2.7748 0 C1 C 0 92 O46 O 2
+2.8280 64 S17 S 0 85 O39 O 5
+2.8320 78 Cl56 Cl 2 100 O86 O 6
+2.8521 77 Cl12 Cl 1 99 O85 O 7
+2.8659 14 C10 C 0 95 O48 O 3
+2.9573 83 O4 O 1 96 O83 O 6
+2.9719 13 C9 C 1 94 O48 O 2
+2.9722 72 N13 N 0 97 O83 O 7
+2.9921 3 C3 C 1 91 O43 O 5
+3.0548 52 C59 C 2 81 O2 O 1
+3.0564 33 C45 C 3 76 Cl12 Cl 0
+3.0627 83 O4 O 1 102 O87 O 6
+3.0891 89 O42 O 5 98 O85 O 6
+3.0977 19 C14 C 1 34 C47 C 2
+3.1031 27 C19 C 1 82 O4 O 0
+3.1106 19 C14 C 1 94 O48 O 2
+3.1129 62 C65 C 2 86 O41 O 4

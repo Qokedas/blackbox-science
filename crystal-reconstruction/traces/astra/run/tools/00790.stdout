@@ -1,0 +1,96 @@
+<ObjCryst Date="2026-09-06T07:41:04GMT" Revision="2024001">
+  <Crystal Name="X263b09a" SpaceGroup="P -1">
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="a">5.16562</Par>
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="b">11.7718</Par>
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="c">20.5746</Par>
+    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="alpha">83.7342</Par>
+    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="beta">89.5131</Par>
+    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="gamma">86.7334</Par>
+    <Option Name="Constrain Lattice to SpaceGroup Symmetry" Choice="0" ChoiceName="Yes (Default)"/>
+
+    <Option Name="Use Dynamical Occupancy Correction" Choice="0" ChoiceName="No"/>
+
+    <Option Name="Display Enantiomer" Choice="0" ChoiceName="No"/>
+
+    <ScatteringPowerAtom Name="C" Symbol="C">
+      <Par Refined="0" Limited="1" Min="0.3" Max="10" Name="Biso">1.70926</Par>
+      <Par Refined="0" Limited="0" Min="0" Max="1" Name="ML Error">0</Par>
+      <Par Refined="0" Limited="1" Min="0" Max="10" Name="ML-NbGhost">0</Par>
+      <Par Refined="0" Limited="1" Min="-10" Max="10" Name="Formal Charge">0</Par>
+      <RGBColour>0.565 0.565 0.565</RGBColour>
+    </ScatteringPowerAtom>
+    <ScatteringPowerAtom Name="O" Symbol="O">
+      <Par Refined="0" Limited="1" Min="0.3" Max="10" Name="Biso">5</Par>
+      <Par Refined="0" Limited="0" Min="0" Max="1" Name="ML Error">0</Par>
+      <Par Refined="0" Limited="1" Min="0" Max="10" Name="ML-NbGhost">0</Par>
+      <Par Refined="0" Limited="1" Min="-10" Max="10" Name="Formal Charge">0</Par>
+      <RGBColour>1 0.051 0.051</RGBColour>
+    </ScatteringPowerAtom>
+    <ScatteringPowerAtom Name="N" Symbol="N">
+      <Par Refined="0" Limited="1" Min="0.3" Max="10" Name="Biso">5</Par>
+      <Par Refined="0" Limited="0" Min="0" Max="1" Name="ML Error">0</Par>
+      <Par Refined="0" Limited="1" Min="0" Max="10" Name="ML-NbGhost">0</Par>
+      <Par Refined="0" Limited="1" Min="-10" Max="10" Name="Formal Charge">0</Par>
+      <RGBColour>0.188 0.314 0.973</RGBColour>
+    </ScatteringPowerAtom>
+    <ScatteringPowerAtom Name="Cl" Symbol="Cl">
+      <Par Refined="0" Limited="1" Min="0.3" Max="10" Name="Biso">5</Par>
+      <Par Refined="0" Limited="0" Min="0" Max="1" Name="ML Error">0</Par>
+      <Par Refined="0" Limited="1" Min="0" Max="10" Name="ML-NbGhost">0</Par>
+      <Par Refined="0" Limited="1" Min="-10" Max="10" Name="Formal Charge">0</Par>
+      <RGBColour>0.122 0.941 0.122</RGBColour>
+    </ScatteringPowerAtom>
+    <ScatteringPowerAtom Name="H" Symbol="H">
+      <Par Refined="0" Limited="1" Min="0.3" Max="10" Name="Biso">0.1</Par>
+      <Par Refined="0" Limited="0" Min="0" Max="1" Name="ML Error">0</Par>
+      <Par Refined="0" Limited="1" Min="0" Max="10" Name="ML-NbGhost">0</Par>
+      <Par Refined="0" Limited="1" Min="-10" Max="10" Name="Formal Charge">0</Par>
+      <RGBColour>1 1 1</RGBColour>
+    </ScatteringPowerAtom>
+
+51:    <Molecule Name="m0" MDMoveFreq="0" MDMoveEnergy="40" LogLikelihoodScale="1">
+52-      <Quaternion Q0="0.999968" Q1="0.006875" Q2="0.00113477" Q3="-0.00401477" IsUnitQuaternion="1"/>
+53-      <Par Refined="1" Limited="0" Min="0" Max="1" Name="x">0.879615</Par>
+54-      <Par Refined="1" Limited="0" Min="0" Max="1" Name="y">0.751988</Par>
+55-      <Par Refined="1" Limited="0" Min="0" Max="1" Name="z">0.170607</Par>
+56-      <Par Refined="0" Limited="1" Min="0" Max="1" Name="Occup">1</Par>
+57-
+58-      <Option Name="Flexibility Model" Choice="2" ChoiceName="Automatic from Restraints, strict"/>
+59-      <Option Name="Enable Flipping" Choice="1" ChoiceName="No"/>
+60-      <Option Name="Auto Optimize Starting Conformation" Choice="1" ChoiceName="No"/>
+61-      <Option Name="Optimize Orientation" Choice="0" ChoiceName="Yes"/>
+62-      <Option Name="Rotation Center" Choice="0" ChoiceName="Geometrical center (recommended)"/>
+63-
+64-      <Atom Name="m0_C1" ScattPow="C" x="3.80774" y="1.09047" z="-4.52423" Occup="1"/>
+65-      <Atom Name="m0_O2" ScattPow="O" x="3.48813" y="-0.257246" z="-4.23442" Occup="1"/>
+66-      <Atom Name="m0_C3" ScattPow="C" x="2.52193" y="-0.494271" z="-3.29683" Occup="1"/>
+67-      <Atom Name="m0_C4" ScattPow="C" x="2.43032" y="-1.8248" z="-2.96261" Occup="1"/>
+68-      <Atom Name="m0_C5" ScattPow="C" x="1.50763" y="-2.29879" z="-2.03781" Occup="1"/>
+69-      <Atom Name="m0_C6" ScattPow="C" x="0.637546" y="-1.39653" z="-1.42882" Occup="1"/>
+70-      <Atom Name="m0_C7" ScattPow="C" x="0.70605" y="-0.0444722" z="-1.74219" Occup="1"/>
+71-      <Atom Name="m0_C8" ScattPow="C" x="1.66334" y="0.416526" z="-2.68847" Occup="1"/>
+72-      <Atom Name="m0_C9" ScattPow="C" x="-0.295078" y="0.610347" z="-0.965975" Occup="1"/>
+73-      <Atom Name="m0_C10" ScattPow="C" x="-0.56796" y="2.08555" z="-0.974534" Occup="1"/>
+74-      <Atom Name="m0_C11" ScattPow="C" x="-0.0122598" y="2.79197" z="0.242596" Occup="1"/>
+75-      <Atom Name="m0_O12" ScattPow="O" x="0.88385" y="2.39275" z="0.957934" Occup="1"/>
+76-      <Atom Name="m0_O13" ScattPow="O" x="-0.369459" y="4.10062" z="0.206999" Occup="1"/>
+77-      <Atom Name="m0_C14" ScattPow="C" x="0.398108" y="4.89776" z="1.0977" Occup="1"/>
+78-      <Atom Name="m0_C15" ScattPow="C" x="-0.0233529" y="4.70546" z="2.5374" Occup="1"/>
+79-      <Atom Name="m0_O16" ScattPow="O" x="0.390719" y="5.33242" z="3.49496" Occup="1"/>
+80-      <Atom Name="m0_O17" ScattPow="O" x="-1.15393" y="3.98444" z="2.63119" Occup="1"/>
+81-      <Atom Name="m0_C18" ScattPow="C" x="-0.950734" y="-0.354481" z="-0.227516" Occup="1"/>
+--
+281:    <Molecule Name="m1" MDMoveFreq="0" MDMoveEnergy="40" LogLikelihoodScale="1">
+282-      <Quaternion Q0="0.998125" Q1="0.0517379" Q2="-0.0272869" Q3="0.018012" IsUnitQuaternion="1"/>
+283-      <Par Refined="1" Limited="0" Min="0" Max="1" Name="x">0.84015</Par>
+284-      <Par Refined="1" Limited="0" Min="0" Max="1" Name="y">0.142796</Par>
+285-      <Par Refined="1" Limited="0" Min="0" Max="1" Name="z">0.530904</Par>
+286-      <Par Refined="0" Limited="1" Min="0" Max="1" Name="Occup">1</Par>
+287-
+288-      <Option Name="Flexibility Model" Choice="2" ChoiceName="Automatic from Restraints, strict"/>
+289-      <Option Name="Enable Flipping" Choice="1" ChoiceName="No"/>
+290-      <Option Name="Auto Optimize Starting Conformation" Choice="1" ChoiceName="No"/>
+291-      <Option Name="Optimize Orientation" Choice="0" ChoiceName="Yes"/>
+292-      <Option Name="Rotation Center" Choice="0" ChoiceName="Geometrical center (recommended)"/>
+293-
+/proc/45485 python /app/work/search_gallop.py X14a2b08 71 1 --hscatter --packing 

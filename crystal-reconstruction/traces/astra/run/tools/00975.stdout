@@ -1,0 +1,45 @@
+      <ReflectionProfilePseudoVoigtAnisotropic>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="U">0.357407</Par>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="V">0.0435395</Par>
+        <Par Refined="0" Limited="1" Min="0" Max="1" Name="W">0.012272</Par>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="P">0</Par>
+        <Par Refined="0" Limited="1" Min="0" Max="1" Name="X">0.110779</Par>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="Y">0.597835</Par>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="G_HH">0</Par>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="G_KK">0</Par>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="G_LL">0</Par>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="G_HK">0</Par>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="G_HL">0</Par>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="G_KL">0</Par>
+        <Par Refined="0" Limited="1" Min="0" Max="1" Name="Eta0">0.671945</Par>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="Eta1">-1</Par>
+        <Par Refined="0" Limited="1" Min="0.01" Max="10" Name="Asym0">1.17493</Par>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="Asym1">0.165704</Par>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="Asym2">0</Par>
+      </ReflectionProfilePseudoVoigtAnisotropic>
+      <Par Refined="0" Limited="1" Min="-1" Max="1" Name="globalBiso">0.970357</Par>
+      <DiffractionDataSingleCrystal Name="" Crystal="X1a56c78_sg18">
+        <Par Refined="0" Limited="0" Min="1e-10" Max="1e+10" Name="Scale factor">1.25299</Par>
+        <Radiation>
+          <Option Name="Radiation" Choice="1" ChoiceName="X-Ray"/>
+GALLOP 0 Nref 226 seconds 219.78252458572388 best 91.41851 q25 195.04846 median 261.28033 total 219.79170966148376
+GALLOP 1 Nref 226 seconds 254.72150015830994 best 83.60841 q25 207.57074 median 264.4898 total 474.70032596588135
+GALLOP 2 Nref 226 seconds 200.89131355285645 best 83.5766 q25 186.54477 median 244.32336 total 675.7708961963654
+GALLOP 3 Nref 226 seconds 223.2173933982849 best 83.53962 q25 180.49092 median 233.15234 total 899.1085605621338
+GALLOP 4 Nref 226 seconds 209.59383344650269 best 83.54174 q25 176.15923 median 249.43236 total 1108.8859839439392
+GALLOP 2 Nref 449 seconds 179.30664801597595 best 17.215584 q25 33.36459 median 215.15195 total 538.9729897975922
+GALLOP 3 Nref 449 seconds 204.80690836906433 best 17.213844 q25 39.725517 median 224.97159 total 743.9931890964508
+GALLOP 4 Nref 449 seconds 186.70795321464539 best 17.21398 q25 45.68431 median 205.86401 total 930.9935121536255
+GALLOP 5 Nref 449 seconds 203.7158489227295 best 17.213789 q25 22.281834 median 221.63986 total 1134.7941434383392
+GALLOP 3 Nref 421 seconds 200.8178973197937 best 148.72356 q25 171.74081 median 362.75256 total 737.1442422866821
+GALLOP 4 Nref 421 seconds 173.77675890922546 best 148.45874 q25 164.20715 median 345.9611 total 911.1956849098206
+GALLOP 5 Nref 421 seconds 189.29187726974487 best 148.31364 q25 171.01108 median 364.60315 total 1100.708612203598
+GALLOP 6 Nref 421 seconds 196.0945484638214 best 146.41888 q25 169.57455 median 353.2822 total 1297.327382326126
+GALLOP 11 Nref 266 seconds 124.59791445732117 best 232.29669 q25 267.79813 median 665.76056 total 1353.316483259201
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 335.25it/s]
+GALLOP 12 Nref 266 seconds 145.88064002990723 best 232.30324 q25 670.00995 median 752.34424 total 1499.5088334083557
+GALLOP 13 Nref 266 seconds 135.75868010520935 best 232.30324 q25 698.6515 median 747.2686 total 1635.2991733551025
+CYCLE 3 1 Rw 0.2956176117457978 chi2 8645.262051792199 geom 226.637733209269 LSQ 9442.412272250984
+CYCLE 3 2 Rw 0.29533114247120956 chi2 8628.514727746642 geom 225.39015746665066 LSQ 9419.109983121507
+PACKING_STAGE 3 174.32705725143333
+FINISHED X9af54a2 0.29533114247120956

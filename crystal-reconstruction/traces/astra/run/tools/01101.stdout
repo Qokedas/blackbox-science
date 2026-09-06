@@ -1,0 +1,19 @@
+N_INVERSION_MOVES [(0, 12, [4, 13, 20], [12, 29]), (2, 12, [4, 13, 20], [12, 29])]
+{'tag': 'ninv110m00', 'mask': (0, 0), 'Rw': 0.07886520627135513}
+{'tag': 'ninv110m01', 'mask': (0, 1), 'Rw': 0.08364720876563383}
+{'tag': 'ninv110m10', 'mask': (1, 0), 'Rw': 0.0786747981284954}
+{'tag': 'ninv110m11', 'mask': (1, 1), 'Rw': 0.08360471221515499}
+N110=64421
+X1db5091 Nat 152 molecule sizes [29, 29, 29, 29, 9, 9, 9, 9]
+  component COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1 matches 4
+  component NC(=O)c1cccnc1 matches 4
+  bond range 1.2174203585043297 1.7123287826402995
+  min intermolecular distance 2.6995625149563542
+SUBMITTED X1db5091
+X7e382cb Nat 40 molecule sizes [18, 18, 1, 1, 1, 1]
+  component O=C([O-])c1ccc(-c2ccc(C(=O)[O-])cc2)cc1 matches 2
+  component [NH4+] matches 4
+  bond range 1.2582608984181771 1.5156873498347891
+  min intermolecular distance 2.640945439350582
+SUBMITTED X7e382cb
+Sun Sep  6 11:10:24 UTC 2026

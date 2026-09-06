@@ -1,0 +1,10 @@
+45:        <Par Refined="0" Limited="0" Min="1e-10" Max="1e+10" Name="Scale factor">1</Par>
+211:    <PowderPatternComponent Scale="7.17891e-05" Name=""/>
+215:      <XIntensityList>
+245:      </XIntensityList>
+248:    <PowderPatternComponent Scale="1" Name=""/>
+      20.975 3927.15 0.195292 26.2199 
+      20.979 3997.71 0.195478 26.17 
+    </XIobsSigmaWeightList>
+  </PowderPattern>
+</ObjCryst>-rw-r--r-- 1 root root 166960 Sep  6 03:47 /app/work/X13023e3/base.xml

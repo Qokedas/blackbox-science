@@ -1,0 +1,496 @@
+[
+ {
+  "id": "X019b9a4",
+  "dof": 26.0,
+  "zprime": 1.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "identity check failed"
+  },
+  "minutes": 150.7,
+  "trials_total": 6400000,
+  "runs_done": 1,
+  "best_rw": 0.26069288026158405,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X13023e3",
+  "dof": 17.0,
+  "zprime": 1.0,
+  "radiation": "synchrotron",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "no periodic mapping within matcher tolerance"
+  },
+  "minutes": 152.3,
+  "trials_total": 10000000,
+  "runs_done": 2,
+  "best_rw": 0.35517621714572867,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X14a2b08",
+  "dof": 18.0,
+  "zprime": 1.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "identity check failed"
+  },
+  "minutes": 151.6,
+  "trials_total": 7200000,
+  "runs_done": 1,
+  "best_rw": 0.3725219155019733,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X1a56c78",
+  "dof": 14.0,
+  "zprime": 1.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "identity check failed"
+  },
+  "minutes": 152.5,
+  "trials_total": 9400000,
+  "runs_done": 1,
+  "best_rw": 0.28532250693170624,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X1db5091",
+  "dof": 19.0,
+  "zprime": 1.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "identity check failed"
+  },
+  "minutes": 150.7,
+  "trials_total": 6400000,
+  "runs_done": 1,
+  "best_rw": 0.30876637730970624,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X2327841",
+  "dof": 34.0,
+  "zprime": 1.0,
+  "radiation": "synchrotron",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": 1.0765,
+   "dmax": 3.1122,
+   "reason": "displacements exceed tolerance"
+  },
+  "minutes": 151.0,
+  "trials_total": 8200000,
+  "runs_done": 1,
+  "best_rw": 0.24583938016167925,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X238783d",
+  "dof": 14.0,
+  "zprime": 1.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "identity check failed"
+  },
+  "minutes": 154.6,
+  "trials_total": 3000000,
+  "runs_done": 1,
+  "best_rw": 0.20496897680509057,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X263b09a",
+  "dof": 18.0,
+  "zprime": 1.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "no periodic mapping within matcher tolerance"
+  },
+  "minutes": 152.7,
+  "trials_total": 7600000,
+  "runs_done": 1,
+  "best_rw": 0.3349810323658694,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X35b7fbc",
+  "dof": 18.0,
+  "zprime": 1.0,
+  "radiation": "synchrotron",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "no periodic mapping within matcher tolerance"
+  },
+  "minutes": 153.3,
+  "trials_total": 7200000,
+  "runs_done": 1,
+  "best_rw": 0.29120763558957624,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X3c176e2",
+  "dof": 12.0,
+  "zprime": 2.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "atom count 48 vs reference 96 after primitive reduction"
+  },
+  "minutes": 106.4,
+  "trials_total": 10000000,
+  "runs_done": 2,
+  "best_rw": 0.5215964704165608,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X3f4781b",
+  "dof": 30.0,
+  "zprime": 2.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "atom count 52 vs reference 104 after primitive reduction"
+  },
+  "minutes": 152.1,
+  "trials_total": 10000000,
+  "runs_done": 2,
+  "best_rw": 0.3786277337001716,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X7e382cb",
+  "dof": 15.0,
+  "zprime": 2.0,
+  "radiation": "lab_Mo",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "identity check failed"
+  },
+  "minutes": 133.8,
+  "trials_total": 10000000,
+  "runs_done": 2,
+  "best_rw": 0.08916068346152842,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X8a06d7a",
+  "dof": 19.0,
+  "zprime": 1.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "identity check failed"
+  },
+  "minutes": 154.0,
+  "trials_total": 6600000,
+  "runs_done": 1,
+  "best_rw": 0.3259836840778421,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X8a6f5a8",
+  "dof": 28.0,
+  "zprime": 1.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "no periodic mapping within matcher tolerance"
+  },
+  "minutes": 150.2,
+  "trials_total": 6800000,
+  "runs_done": 1,
+  "best_rw": 0.2981614465656489,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "X9af54a2",
+  "dof": 15.0,
+  "zprime": 1.0,
+  "radiation": "synchrotron",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "no periodic mapping within matcher tolerance"
+  },
+  "minutes": 150.6,
+  "trials_total": 10000000,
+  "runs_done": 2,
+  "best_rw": 0.35922108083409626,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "Xb7088cf",
+  "dof": 12.0,
+  "zprime": 1.0,
+  "radiation": "lab_Mo",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "no periodic mapping within matcher tolerance"
+  },
+  "minutes": 154.4,
+  "trials_total": 6200000,
+  "runs_done": 1,
+  "best_rw": 0.07795067708473977,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "Xbfeeda9",
+  "dof": 16.0,
+  "zprime": 1.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "identity check failed"
+  },
+  "minutes": 153.1,
+  "trials_total": 6600000,
+  "runs_done": 1,
+  "best_rw": 0.23615089022533242,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "Xd4c1a35",
+  "dof": 18.0,
+  "zprime": 2.0,
+  "radiation": "synchrotron",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "atom count 96 vs reference 192 after primitive reduction"
+  },
+  "minutes": 150.6,
+  "trials_total": 10000000,
+  "runs_done": 2,
+  "best_rw": 0.8997241345593268,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "Xd8634a2",
+  "dof": 13.0,
+  "zprime": 1.0,
+  "radiation": "synchrotron",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": true,
+   "rmsd": 0.1448,
+   "dmax": 0.3598,
+   "reason": null
+  },
+  "minutes": 150.6,
+  "trials_total": 10000000,
+  "runs_done": 1,
+  "best_rw": 0.16040504336020292,
+  "solved_seconds_inrun": 5310.378272533417
+ },
+ {
+  "id": "Xdcc971e",
+  "dof": 32.0,
+  "zprime": 1.0,
+  "radiation": "synchrotron",
+  "best": {
+   "cif": "best_run0.cif",
+   "L": true,
+   "S": false,
+   "rmsd": 1.1819,
+   "dmax": 2.8358,
+   "reason": "displacements exceed tolerance"
+  },
+  "minutes": 151.3,
+  "trials_total": 10000000,
+  "runs_done": 2,
+  "best_rw": 0.4390144178996819,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "Xe1fb77b",
+  "dof": 16.0,
+  "zprime": 1.0,
+  "radiation": "synchrotron",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "identity check failed"
+  },
+  "minutes": 152.6,
+  "trials_total": 10000000,
+  "runs_done": 2,
+  "best_rw": 0.320979044232454,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "Xe3a2935",
+  "dof": 9.0,
+  "zprime": 1.0,
+  "radiation": "synchrotron",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "identity check failed"
+  },
+  "minutes": 150.8,
+  "trials_total": 10000000,
+  "runs_done": 2,
+  "best_rw": 0.23408089818687283,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "Xeb393f9",
+  "dof": 21.0,
+  "zprime": 1.0,
+  "radiation": "synchrotron",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "identity check failed"
+  },
+  "minutes": 151.0,
+  "trials_total": 10000000,
+  "runs_done": 2,
+  "best_rw": 0.18709284625515435,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "Xebbd488",
+  "dof": 23.5,
+  "zprime": 1.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "identity check failed"
+  },
+  "minutes": 150.7,
+  "trials_total": 1800000,
+  "runs_done": 1,
+  "best_rw": 0.22765800836221325,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "Xedd9c7b",
+  "dof": 22.0,
+  "zprime": 2.0,
+  "radiation": "lab_Cu",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": null,
+   "dmax": null,
+   "reason": "atom count 76 vs reference 152 after primitive reduction"
+  },
+  "minutes": 87.3,
+  "trials_total": 10000000,
+  "runs_done": 2,
+  "best_rw": 0.26898822687605395,
+  "solved_seconds_inrun": null
+ },
+ {
+  "id": "Xfca9f3c",
+  "dof": 28.0,
+  "zprime": 1.0,
+  "radiation": "synchrotron",
+  "best": {
+   "cif": "best_overall.cif",
+   "L": true,
+   "S": false,
+   "rmsd": 1.1856,
+   "dmax": 3.4854,
+   "reason": "displacements exceed tolerance"
+  },
+  "minutes": 151.4,
+  "trials_total": 10000000,
+  "runs_done": 2,
+  "best_rw": 0.22436434615312129,
+  "solved_seconds_inrun": null
+ }
+]

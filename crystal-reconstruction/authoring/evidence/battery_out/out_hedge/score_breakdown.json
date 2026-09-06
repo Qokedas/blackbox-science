@@ -1,0 +1,485 @@
+{
+ "status": "SCORED",
+ "score": 0.0,
+ "points": 0,
+ "max_points": 90,
+ "n_instances": 30,
+ "L_passes": 0,
+ "S_passes": 0,
+ "hedged": 30,
+ "by_dof_bin": {
+  "hard_dof25_or_Z2": {
+   "n": 9,
+   "L": 0,
+   "S": 0
+  },
+  "calib_lt15": {
+   "n": 10,
+   "L": 0,
+   "S": 0
+  },
+  "mid_15_25": {
+   "n": 11,
+   "L": 0,
+   "S": 0
+  }
+ },
+ "tolerances": {
+  "L_length_frac": 0.01,
+  "L_angle_deg": 1.0,
+  "S_rmsd_A": 0.35,
+  "S_dmax_A": 1.0
+ },
+ "instances": [
+  {
+   "id": "X019b9a4",
+   "dof": 26.0,
+   "dof_bin": "hard_dof25_or_Z2",
+   "L": false,
+   "S": false,
+   "points": 0,
+   "L_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "S_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "hedge": true
+  },
+  {
+   "id": "X07806d9",
+   "dof": 13.0,
+   "dof_bin": "calib_lt15",
+   "L": false,
+   "S": false,
+   "points": 0,
+   "L_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "S_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "hedge": true
+  },
+  {
+   "id": "X13023e3",
+   "dof": 17.0,
+   "dof_bin": "mid_15_25",
+   "L": false,
+   "S": false,
+   "points": 0,
+   "L_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "S_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "hedge": true
+  },
+  {
+   "id": "X14a2b08",
+   "dof": 18.0,
+   "dof_bin": "mid_15_25",
+   "L": false,
+   "S": false,
+   "points": 0,
+   "L_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "S_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "hedge": true
+  },
+  {
+   "id": "X1a56c78",
+   "dof": 14.0,
+   "dof_bin": "calib_lt15",
+   "L": false,
+   "S": false,
+   "points": 0,
+   "L_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "S_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "hedge": true
+  },
+  {
+   "id": "X1db5091",
+   "dof": 19.0,
+   "dof_bin": "mid_15_25",
+   "L": false,
+   "S": false,
+   "points": 0,
+   "L_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "S_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "hedge": true
+  },
+  {
+   "id": "X2327841",
+   "dof": 34.0,
+   "dof_bin": "hard_dof25_or_Z2",
+   "L": false,
+   "S": false,
+   "points": 0,
+   "L_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "S_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "hedge": true
+  },
+  {
+   "id": "X238783d",
+   "dof": 14.0,
+   "dof_bin": "calib_lt15",
+   "L": false,
+   "S": false,
+   "points": 0,
+   "L_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "S_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "hedge": true
+  },
+  {
+   "id": "X263b09a",
+   "dof": 18.0,
+   "dof_bin": "mid_15_25",
+   "L": false,
+   "S": false,
+   "points": 0,
+   "L_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "S_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "hedge": true
+  },
+  {
+   "id": "X35b7fbc",
+   "dof": 18.0,
+   "dof_bin": "mid_15_25",
+   "L": false,
+   "S": false,
+   "points": 0,
+   "L_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "S_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "hedge": true
+  },
+  {
+   "id": "X3c176e2",
+   "dof": 12.0,
+   "dof_bin": "hard_dof25_or_Z2",
+   "L": false,
+   "S": false,
+   "points": 0,
+   "L_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "S_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "hedge": true
+  },
+  {
+   "id": "X3f4781b",
+   "dof": 30.0,
+   "dof_bin": "hard_dof25_or_Z2",
+   "L": false,
+   "S": false,
+   "points": 0,
+   "L_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "S_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "hedge": true
+  },
+  {
+   "id": "X4f6fe58",
+   "dof": 7.0,
+   "dof_bin": "calib_lt15",
+   "L": false,
+   "S": false,
+   "points": 0,
+   "L_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "S_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "hedge": true
+  },
+  {
+   "id": "X7e382cb",
+   "dof": 15.0,
+   "dof_bin": "calib_lt15",
+   "L": false,
+   "S": false,
+   "points": 0,
+   "L_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "S_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "hedge": true
+  },
+  {
+   "id": "X8a06d7a",
+   "dof": 19.0,
+   "dof_bin": "mid_15_25",
+   "L": false,
+   "S": false,
+   "points": 0,
+   "L_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "S_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "hedge": true
+  },
+  {
+   "id": "X8a6f5a8",
+   "dof": 28.0,
+   "dof_bin": "hard_dof25_or_Z2",
+   "L": false,
+   "S": false,
+   "points": 0,
+   "L_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "S_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "hedge": true
+  },
+  {
+   "id": "X9af54a2",
+   "dof": 15.0,
+   "dof_bin": "mid_15_25",
+   "L": false,
+   "S": false,
+   "points": 0,
+   "L_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "S_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "hedge": true
+  },
+  {
+   "id": "Xb7088cf",
+   "dof": 12.0,
+   "dof_bin": "calib_lt15",
+   "L": false,
+   "S": false,
+   "points": 0,
+   "L_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "S_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "hedge": true
+  },
+  {
+   "id": "Xbfc6d2c",
+   "dof": 7.0,
+   "dof_bin": "calib_lt15",
+   "L": false,
+   "S": false,
+   "points": 0,
+   "L_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "S_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "hedge": true
+  },
+  {
+   "id": "Xbfeeda9",
+   "dof": 16.0,
+   "dof_bin": "mid_15_25",
+   "L": false,
+   "S": false,
+   "points": 0,
+   "L_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "S_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "hedge": true
+  },
+  {
+   "id": "Xd4c1a35",
+   "dof": 18.0,
+   "dof_bin": "hard_dof25_or_Z2",
+   "L": false,
+   "S": false,
+   "points": 0,
+   "L_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "S_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "hedge": true
+  },
+  {
+   "id": "Xd8634a2",
+   "dof": 13.0,
+   "dof_bin": "calib_lt15",
+   "L": false,
+   "S": false,
+   "points": 0,
+   "L_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "S_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "hedge": true
+  },
+  {
+   "id": "Xdcc971e",
+   "dof": 32.0,
+   "dof_bin": "hard_dof25_or_Z2",
+   "L": false,
+   "S": false,
+   "points": 0,
+   "L_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "S_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "hedge": true
+  },
+  {
+   "id": "Xe1fb77b",
+   "dof": 16.0,
+   "dof_bin": "mid_15_25",
+   "L": false,
+   "S": false,
+   "points": 0,
+   "L_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "S_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "hedge": true
+  },
+  {
+   "id": "Xe3a2935",
+   "dof": 9.0,
+   "dof_bin": "calib_lt15",
+   "L": false,
+   "S": false,
+   "points": 0,
+   "L_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "S_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "hedge": true
+  },
+  {
+   "id": "Xeb393f9",
+   "dof": 21.0,
+   "dof_bin": "mid_15_25",
+   "L": false,
+   "S": false,
+   "points": 0,
+   "L_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "S_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "hedge": true
+  },
+  {
+   "id": "Xebbd488",
+   "dof": 23.5,
+   "dof_bin": "mid_15_25",
+   "L": false,
+   "S": false,
+   "points": 0,
+   "L_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "S_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "hedge": true
+  },
+  {
+   "id": "Xedd9c7b",
+   "dof": 22.0,
+   "dof_bin": "hard_dof25_or_Z2",
+   "L": false,
+   "S": false,
+   "points": 0,
+   "L_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "S_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "hedge": true
+  },
+  {
+   "id": "Xf8ac963",
+   "dof": 10.0,
+   "dof_bin": "calib_lt15",
+   "L": false,
+   "S": false,
+   "points": 0,
+   "L_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "S_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "hedge": true
+  },
+  {
+   "id": "Xfca9f3c",
+   "dof": 28.0,
+   "dof_bin": "hard_dof25_or_Z2",
+   "L": false,
+   "S": false,
+   "points": 0,
+   "L_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "S_detail": {
+    "reason": "more than one candidate structure submitted"
+   },
+   "hedge": true
+  }
+ ]
+}

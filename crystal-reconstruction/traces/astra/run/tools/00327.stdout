@@ -1,0 +1,85 @@
+---5191---
+Name:	bash
+Umask:	0022
+State:	S (sleeping)
+9976 
+---4263---
+Name:	bash
+Umask:	0022
+State:	S (sleeping)
+8971 
+---7272---
+Name:	bash
+Umask:	0022
+State:	S (sleeping)
+10494 
+---8306---
+Name:	bash
+Umask:	0022
+State:	S (sleeping)
+9670 
+---8838---
+Name:	bash
+Umask:	0022
+State:	S (sleeping)
+11784 
+---9939---
+Name:	bash
+Umask:	0022
+State:	S (sleeping)
+11937 
+---11568---
+Name:	bash
+Umask:	0022
+State:	S (sleeping)
+11626 
+---11683---
+Name:	python
+State:	Z (zombie)
+Tgid:	11683
+
+---/app/work/queue_structures_A2.sh
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/4659/status ]] && ! grep -q '^State:.*Z' /proc/4659/status; do sleep 5; done
+SEARCH_TIME=2000 MC_STEPS=3000000 TARGET_RW=.09 python /app/work/search_obj.py X35b7fbc 2 1 --rescale --model=/app/work/X35b7fbc/cis.json > /app/work/X35b7fbc/search2.log 2>&1
+python /app/work/refine_obj.py X35b7fbc 2 /app/work/X35b7fbc/search_2/best.xml --scale > /app/work/X35b7fbc/refine_2.log 2>&1
+SEARCH_TIME=1600 MC_STEPS=3000000 TARGET_RW=.07 python /app/work/search_obj.py Xbfeeda9 1 1 --rescale --bump > /app/work/Xbfeeda9/search1.log 2>&1
+python /app/work/refine_obj.py Xbfeeda9 1 /app/work/Xbfeeda9/search_1/best.xml --scale > /app/work/Xbfeeda9/refine_1.log 2>&1
+SEARCH_TIME=1400 MC_STEPS=3000000 TARGET_RW=.07 python /app/work/search_obj.py X4f6fe58 3 2 --rescale --fullbump --profile > /app/work/X4f6fe58/search3.log 2>&1
+python /app/work/refine_obj.py X4f6fe58 3 /app/work/X4f6fe58/search_3/best.xml --scale --fixB > /app/work/X4f6fe58/refine_3.log 2>&1
+---/app/work/queue_structures_C_new.sh
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+SEARCH_TIME=1600 MC_STEPS=3000000 TARGET_RW=.13 python /app/work/search_obj.py Xd4c1a35 2 2 --rescale --profile > /app/work/Xd4c1a35/search2.log 2>&1
+python /app/work/refine_obj.py Xd4c1a35 2 /app/work/Xd4c1a35/search_2/best.xml --scale > /app/work/Xd4c1a35/refine_2.log 2>&1
+SEARCH_TIME=1600 PARTICLES=128 ITERATIONS=400 GALLOP_STOL=.23 python /app/work/search_gallop.py X13023e3 11 1 --prepare > /app/work/X13023e3/gallop11.log 2>&1
+python /app/work/import_gallop.py X13023e3 11 > /app/work/X13023e3/import_g11.log 2>&1
+python /app/work/refine_obj.py X13023e3 g11 /app/work/X13023e3/search_g11/best.xml --scale > /app/work/X13023e3/refine_g11.log 2>&1
+SEARCH_TIME=2200 MC_STEPS=4000000 TARGET_RW=.12 python /app/work/search_obj.py X263b09a 1 1 --rescale --profile > /app/work/X263b09a/search1.log 2>&1
+python /app/work/refine_obj.py X263b09a 1 /app/work/X263b09a/search_1/best.xml --scale > /app/work/X263b09a/refine_1.log 2>&1
+SEARCH_TIME=2200 MC_STEPS=4000000 TARGET_RW=.12 python /app/work/search_obj.py X14a2b08 1 1 --rescale --profile > /app/work/X14a2b08/search1.log 2>&1
+python /app/work/refine_obj.py X14a2b08 1 /app/work/X14a2b08/search_1/best.xml --scale > /app/work/X14a2b08/refine_1.log 2>&1
+---/app/work/queue_twocentre.sh
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/11003/status ]] && ! grep -q '^State:.*Z' /proc/11003/status; do sleep 4;done
+SEARCH_TIME=1400 PARTICLES=224 ITERATIONS=550 BATCHES=60 python /app/work/solve_twocentres.py tc1 > /app/work/X7e382cb/tc1.log 2>&1
+/app/work/X13023e3/gallop11.log
+/app/work/X1db5091/de_ext.log
+/app/work/X263b09a/de_ext.log
+/app/work/X7e382cb/gallop22.log
+/app/work/X7e382cb/import_g22.log
+/app/work/X7e382cb/refine_g22.log
+/app/work/X7e382cb/tc1.log
+/app/work/Xb7088cf/base_raw2.log
+/app/work/Xb7088cf/fit_raw0.log
+/app/work/Xb7088cf/fit_raw1.log
+/app/work/Xb7088cf/fit_raw2.log
+/app/work/Xbfeeda9/search1.log
+/app/work/Xd4c1a35/refine_2free.log
+/app/work/Xd4c1a35/refine_2freeh.log
+/app/work/Xe1fb77b/search2.log
+/app/work/Xeb393f9/search1.log
+/app/work/Xedd9c7b/fit_raw0.log
+/app/work/Xedd9c7b/fit_raw1.log
+/app/work/Xedd9c7b/fit_raw2.log
+/app/work/queue_fit_missing2.log
+/app/work/queue_twocentre.log

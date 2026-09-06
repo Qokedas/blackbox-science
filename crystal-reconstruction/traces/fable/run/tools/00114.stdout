@@ -1,0 +1,60 @@
+import sys, json, numpy as np, time
+import pyobjcryst
+from pyobjcryst.crystal import Crystal
+from pyobjcryst.powderpattern import PowderPattern, PowderPatternBackground, PowderPatternDiffraction, ReflectionProfileType, SpaceGroupExplorer, refpartype_scattdata_background
+from pyobjcryst.lsq import LSQ
+from pyobjcryst.radiation import RadiationType
+import warnings
+warnings.filterwarnings('ignore')
+
+def make_pattern(iid, tt_max=None, tt_min=None, nbg=24):
+    ins = json.load(open(f'/app/data/instances/{iid}/instrument.json'))
+    wls = ins['radiation']['wavelengths_A']
+    d = np.loadtxt(f'/app/data/instances/{iid}/pattern.xye')
+    tt, y, sig = d[:,0], d[:,1], d[:,2]
+    if tt_max is not None:
+        m = tt <= tt_max
+        tt, y, sig = tt[m], y[m], sig[m]
+    if tt_min is not None:
+        m = tt >= tt_min
+        tt, y, sig = tt[m], y[m], sig[m]
+    sig = np.where(sig <= 0, 1.0, sig)
+    p = PowderPattern()
+    p.SetWavelength(wls[0])
+    if len(wls) > 1:
+        # Kalpha1/2 doublet
+        try:
+            p.SetWavelength('Mo' if wls[0] < 1 else 'Cu')
+            rad = p.GetRadiation()
+            rad.SetWavelength(wls[0])  # hmm
+        except Exception as e:
+            print('doublet setup failed', e)
+        p.SetWavelength(wls[0])
+        try:
+            p.GetRadiation().SetXRayTubeName('Mo' if wls[0] < 1 else 'Cu')
+            p.GetRadiation().SetXRayTubeDeltaLambda(wls[1]-wls[0])
+            p.GetRadiation().SetXRayTubeAlpha2Alpha1Ratio(ins['radiation']['wavelength_weights'][1])
+        except Exception as e:
+            print('doublet setup 2 failed', e)
+    p.SetPowderPatternX(np.radians(tt))
+    p.SetPowderPatternObs(y)
+    # sigma: ObjCryst uses obs sigma internally as sqrt(obs)? use SetPowderPatternObsSigma if available
+    try:
+        p.SetPowderPatternObsSigma(sig)
+    except Exception:
+        pass
+    # background
+    bx = np.linspace(np.radians(tt[0]), np.radians(tt[-1]), nbg)
+    by = np.zeros(nbg)
+    b = p.AddPowderPatternBackground()
+    b.SetInterpPoints(bx, by)
+    b.UnFixAllPar()
+    b.OptimizeBayesianBackground()
+    return p, ins
+
+def add_crystal(p, cell, spg, name='cryst'):
+    a, b, c, al, be, ga = cell
+    cr = Crystal(a, b, c, np.radians(al), np.radians(be), np.radians(ga), spg)
+    cr.SetName(name)
+    pd = p.AddPowderPatternDiffraction(cr)
+    return cr, pd

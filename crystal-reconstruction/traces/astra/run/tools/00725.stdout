@@ -1,0 +1,137 @@
+X019b9a4 P -1 (8.445, 10.922, 18.442, 90.288, 94.006, 106.233) 1xCC(=O)C(=NNc1ccc(C(=O)Nc2ccc(C(N)=O)cc2)cc1)C(=O)Nc1ccc2[nH]c(=O)[nH]c2c1;1xCN1CCCC1=O;1xC[S+](C)[O-]
+X07806d9 P b c a (8.211, 11.225, 16.863, 90.0, 90.0, 90.0) 1x[NH3+]CC(=O)CCC(=O)O;1x[Cl-]
+X13023e3 P 1 21 1 (6.022, 5.529, 27.995, 90.0, 93.115, 90.0) 1xCC(C)Cc1ccc([C@@H](C)C(=O)O)cc1;1xNC(=O)c1cccnc1
+X14a2b08 P -1 (5.099, 11.933, 21.28, 85.24, 87.633, 87.024) 1xCOc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1;1xO=C1CCCCCN1
+X1a56c78 P 2 21 21 (5.906, 11.254, 30.09, 90.0, 90.0, 90.0) 1xO[C@](CC[NH+]1CCCCC1)(c1ccccc1)C1CCCCC1;1x[Cl-]
+X1db5091 P 1 21/c 1 (4.903, 40.942, 12.887, 90.0, 100.36, 90.0) 1xCOc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1;1xNC(=O)c1cccnc1
+X2327841 P 1 21 1 (25.048, 4.934, 12.393, 90.0, 90.786, 90.0) 1xCCCCCCCCCCCCCCCCCCCCCC[C@@H](C)CCCCCCCC
+X238783d P 21 21 21 (8.847, 20.133, 23.942, 90.0, 90.0, 90.0) 1xCC[C@H]1OC(=O)[C@H](C)[C@@H](O[C@H]2C[C@@](C)(OC)[C@@H](O)[C@H](C)O2)[C@H](C)[C@@H](O[C@@H]2O[C@H](C)C[C@H](N(C)C)[C@H]2O)[C@](C)(OC)C[C@@H](C)C(=O)[C@H](C)[C@@H](O)[C@]1(C)O
+X263b09a P -1 (5.168, 11.774, 20.578, 83.705, 89.487, 86.845) 1xCOc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1;1xO=C1CCCCN1
+X35b7fbc P 21 21 21 (5.71, 12.767, 33.141, 90.0, 90.0, 90.0) 1xCC[C@@H](CO)NC(=O)[C@@H]1C=C2c3cccc4[nH]cc(c34)C[C@H]2[NH+](C)C1;1xO=C([O-])C=CC(=O)O
+X3c176e2 P 21 21 21 (9.332, 11.038, 14.015, 90.0, 90.0, 90.0) 1xOC1C(O)C(O)C(O)C(O)C1O
+X3f4781b P 1 21 1 (10.434, 15.34, 12.635, 90.0, 113.333, 90.0) 1xCOC(=O)[C@H](c1ccccc1Cl)[NH+]1CCc2sccc2C1;1xO=S(=O)([O-])O
+X4f6fe58 P -1 (7.554, 13.05, 15.403, 72.355, 83.503, 77.691) 1xO=C1CN=C(c2ccccc2Cl)c2cc(Br)ccc2N1
+X7e382cb P -1 (6.951, 6.971, 15.76, 65.62, 82.98, 67.391) 1xO=C([O-])c1ccc(-c2ccc(C(=O)[O-])cc2)cc1;2x[NH4+]
+X8a06d7a P 1 21 1 (11.86, 5.014, 21.735, 90.0, 86.05, 90.0) 1xCOc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1;1xNC(=O)c1ccccn1
+X8a6f5a8 P 1 21 1 (16.864, 17.996, 22.606, 90.0, 110.73, 90.0) 1xCOc1ccccc1OCC[NH2+]C[C@@H](O)COc1cccc2[nH]c3ccccc3c12;1xO=P([O-])(O)O;1xCC(C)O
+X9af54a2 P 1 21 1 (5.179, 8.254, 32.951, 90.0, 92.752, 90.0) 1xCOc1ccc(OC)c([C@H](O)CNC(=O)C[NH3+])c1;1x[Cl-]
+Xb7088cf P 21 21 21 (5.052, 9.356, 38.067, 90.0, 90.0, 90.0) 1xNc1ccccc1NC(=O)c1ccc(CNC(=O)OCc2cccnc2)cc1
+Xbfc6d2c P 1 21/a 1 (7.616, 14.623, 11.905, 90.0, 105.497, 90.0) 1x[C-]#[N+]c1ccc(-c2ccc([N+]#[C-])c(C)c2)cc1C
+Xbfeeda9 P 1 21/a 1 (13.203, 12.367, 16.694, 90.0, 101.658, 90.0) 1xCN(C)C(=O)C(CC[NH+]1CCC(O)(c2ccc(Cl)cc2)CC1)(c1ccccc1)c1ccccc1;1x[Cl-]
+Xd4c1a35 P 21 21 21 (11.763, 12.003, 24.277, 90.0, 90.0, 90.0) 1xCOC1=CC(=O)C[C@@H](C)[C@]12Oc1c(Cl)c(OC)cc(OC)c1C2=O
+Xd8634a2 P -1 (8.91, 9.478, 13.245, 83.983, 81.776, 66.679) 1xCNS(=O)(=O)Nc1nccc(Cc2c(C)c3ccc(Oc4ncccn4)cc3oc2=O)c1F
+Xdcc971e P 1 21 1 (11.039, 7.186, 18.472, 90.0, 101.985, 90.0) 1xCCCCCCCCCCCCCCCC[C@@H](C)CCCCCCCCCCCC
+Xe1fb77b P 1 21 1 (5.593, 15.36, 13.881, 90.0, 94.975, 90.0) 1xO=C(/C=C/c1ccc(O)c(O)c1)O[C@@H]1C[C@@](OC(=O)/C=C/c2ccc(O)c(O)c2)(C(=O)O)C[C@@H](O)[C@@H]1O;1xO
+Xe3a2935 P 21 21 21 (6.884, 10.296, 20.0, 90.0, 90.0, 90.0) 1xC[C@@H]1CC(=O)NN=C1c1ccc(NN=C(C#N)C#N)cc1
+Xeb393f9 P 1 (8.014, 9.815, 10.233, 74.869, 68.958, 65.932) 1xO=C(O)CCC[NH+]1CCC(O[C@@H](c2ccc(Cl)cc2)c2ccccn2)CC1;1xO=S(=O)([O-])c1ccccc1
+Xebbd488 C 1 2 1 (26.654, 12.392, 16.59, 90.0, 106.573, 90.0) 2xCOc1ccccc1OCC[NH2+]C[C@H](O)COc1cccc2[nH]c3ccccc3c12;2xO=P([O-])(O)O;1xO
+Xedd9c7b P 1 21/a 1 (10.378, 15.458, 17.162, 90.0, 95.654, 90.0) 1xC[NH+](C)CCc1c[nH]c2cccc(OP(=O)([O-])O)c12
+Xf8ac963 P 21 21 21 (9.322, 11.393, 16.265, 90.0, 90.0, 90.0) 1xCOc1ccc(NC(=O)[C@@H]2C[C@H](C)CC[C@H]2C(C)C)cc1
+Xfca9f3c P 1 21 1 (12.342, 4.936, 21.445, 90.0, 105.64, 90.0) 1xCCCCCCCCCCCCCCCC[C@@H](C)CCCCCCCC
+class TextureMarchDollase;
+
+/** One texture phase for the March-Dollase model.
+*
+*/
+struct TexturePhaseMarchDollase
+{
+   TexturePhaseMarchDollase(const REAL f, const REAL c,const REAL h,const REAL k, const REAL l,
+                            TextureMarchDollase &);
+   ~TexturePhaseMarchDollase();
+   const string& GetClassName()const;
+   const string& GetName()const;
+   void SetPar(const REAL f, const REAL c,const REAL h,const REAL k, const REAL l);
+   void XMLOutput(ostream &os,int indent=0)const;
+   void XMLInput(istream &is,const XMLCrystTag &tag);
+   REAL mFraction,mMarchCoeff,mH,mK,mL;
+   /// Norm of the (HKL) vector, to keep it constant during optimization
+   mutable REAL mNorm;
+   /// The parent TextureMarchDollase object.
+   TextureMarchDollase *mpTextureMarchDollase;
+   /// Values of parameters towards which the optimization is biased (if biasing
+   /// is used). These are normally dynamically updated to the last "best" values found.
+   mutable REAL mBiasFraction,mBiasMarchCoeff,mBiasH,mBiasK,mBiasL;
+   #ifdef __WX__CRYST__
+      WXCrystObjBasic* WXCreate(wxWindow*);
+      WXCrystObjBasic* WXGet();
+      void WXDelete();
+      void WXNotifyDelete();
+      WXCrystObjBasic *mpWXCrystObj;
+   #endif
+};
+
+/** Texture correction using the March-Dollase model.
+*
+* This can include several phases.
+*
+*/
+class TextureMarchDollase:public ScatteringCorr,public RefinableObj
+{
+   public:
+      TextureMarchDollase(const ScatteringData & data);
+      virtual ~TextureMarchDollase();
+      virtual const string & GetName() const;
+      virtual const string & GetClassName() const;
+      void AddPhase(const REAL fraction, const REAL coeffMarch,
+                    const REAL h,const REAL k, const REAL l);
+      void SetPhasePar(const unsigned int i, const REAL fraction, const REAL coeffMarch,
+                       const REAL h,const REAL k, const REAL l);
+      void DeletePhase(const unsigned int i);
+      unsigned int GetNbPhase() const;
+      REAL GetFraction(const unsigned int i)const;
+      REAL GetMarchCoeff(const unsigned int i)const;
+      REAL GetPhaseH(const unsigned int i)const;
+      REAL GetPhaseK(const unsigned int i)const;
+      REAL GetPhaseL(const unsigned int i)const;
+      virtual void GlobalOptRandomMove(const REAL mutationAmplitude,
+                                       const RefParType *type=gpRefParTypeObjCryst);
+      virtual REAL GetBiasingCost()const;
+      virtual void XMLOutput(ostream &os,int indent=0)const;
+      virtual void XMLInput(istream &is,const XMLCrystTag &tag);
+      virtual void BeginOptimization(const bool allowApproximations=false,
+                                     const bool enableRestraints=false);
+      virtual void TagNewBestConfig()const;
+   protected:
+      virtual void CalcCorr() const;
+      void DeleteAllPhase();
+      ObjRegistry<TexturePhaseMarchDollase> mPhaseRegistry;
+      RefinableObjClock mClockTexturePar;
+      /// Number of reflexion for which the calculation is actually done.
+      /// This is automaticaly updated during CalcCorr, from the parent
+      /// ScatteringData::GetMaxSinThetaOvLambda()
+      mutable unsigned long mNbReflUsed;
+   #ifdef __WX__CRYST__
+   public:
+      virtual WXCrystObjBasic* WXCreate(wxWindow*);
+   friend class WXTextureMarchDollase;
+   #endif
+};
+
+/** Texture correction using the Ellipsoidal preferred orientation function.
+*
+*  Icorr = Iobs[ 1 + (EPR1*h^2 + EPR2*k^2 + EPR3*l^2 + EPR4*2hk + EPR5*2hl + EPR6*2kl) * 0.001d^2 ]^-1.5
+*
+*/
+class TextureEllipsoid:public ScatteringCorr,public RefinableObj
+GALLOP 1 Nref 132 seconds 221.17007756233215 best 311.49615 q25 400.19025 median 473.81384 total 423.22599482536316
+GALLOP 2 Nref 167 seconds 228.50864243507385 best 206.35104 q25 366.97208 median 452.8956 total 651.9196012020111
+GALLOP 3 Nref 204 seconds 222.09518456459045 best 187.45094 q25 327.1311 median 414.35654 total 874.1395015716553
+GALLOP 4 Nref 240 seconds 233.9164800643921 best 186.19278 q25 317.51562 median 394.69452 total 1108.2346739768982
+GALLOP 5 Nref 277 seconds 224.52726554870605 best 183.895 q25 319.86774 median 458.11368 total 1332.9399344921112
+GALLOP 6 Nref 303 seconds 267.1981439590454 best 183.77046 q25 315.00333 median 421.17133 total 1600.310879945755
+GALLOP 7 Nref 303 seconds 253.10305166244507 best 183.77037 q25 278.16922 median 410.4281 total 1853.5449752807617
+GALLOP 8 Nref 303 seconds 278.39205598831177 best 183.77058 q25 201.673 median 386.83435 total 2132.1150455474854
+GALLOP 9 Nref 303 seconds 257.13540840148926 best 183.77058 q25 200.32755 median 390.89252 total 2389.32950091362
+FINISHED Xbfeeda9 183.77037048339844
+CYCLE 1 1 Rw 0.059638148121191135 chi2 2326.167553920686 geom 8.55689933731616 LSQ 2487.945372924719
+CYCLE 1 2 Rw 0.05940886763313099 chi2 2308.315906293752 geom 6.890230582900917 LSQ 2414.2596659974015
+PACKING_STAGE 1 23.52750238663466
+CYCLE 2 0 Rw 0.05939991137162924 chi2 2307.61997239197 geom 6.0581712996756325 LSQ 2394.470141641448
+CYCLE 2 1 Rw 0.05937725170068744 chi2 2305.8597025754084 geom 5.721489843047611 LSQ 2388.735286624028
+CYCLE 2 2 Rw 0.05933631902779697 chi2 2302.6816347019967 geom 5.405871161534524 LSQ 2383.570644733814
+PACKING_STAGE 2 3.6964068824833456
+CYCLE 3 0 Rw 0.05892898553548892 chi2 2271.175134012897 geom 5.103702039748457 LSQ 2349.125800845779
+CYCLE 3 1 Rw 0.05873541741059713 chi2 2256.279066443634 geom 4.8071035308425545 LSQ 2333.128210966778
+CYCLE 3 2 Rw 0.05860661356792875 chi2 2246.3941019048025 geom 4.531022804198338 LSQ 2320.774289206298
+PACKING_STAGE 3 3.117343899849672
+FINISHED X7e382cb 0.05860661356792875

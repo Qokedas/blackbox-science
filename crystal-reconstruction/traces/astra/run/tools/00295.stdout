@@ -1,0 +1,148 @@
+Help on class LSQ in module pyobjcryst._pyobjcryst:
+
+class LSQ(Boost.Python.instance)
+ |  Method resolution order:
+ |      LSQ
+ |      Boost.Python.instance
+ |      builtins.object
+ |  
+ |  Static methods defined here:
+ |  
+ |  BeginOptimization(...)
+ |      BeginOptimization( (LSQ)arg1 [, (bool)allowApproximations=False [, (bool)enableRestraints=False]]) -> None :
+ |      
+ |          C++ signature :
+ |              void BeginOptimization(ObjCryst::LSQNumObj {lvalue} [,bool=False [,bool=False]])
+ |  
+ |  ChiSquare(...)
+ |      ChiSquare( (LSQ)arg1) -> float :
+ |      
+ |          C++ signature :
+ |              double ChiSquare(ObjCryst::LSQNumObj {lvalue})
+ |  
+ |  EndOptimization(...)
+ |      EndOptimization( (LSQ)arg1) -> None :
+ |      
+ |          C++ signature :
+ |              void EndOptimization(ObjCryst::LSQNumObj {lvalue})
+ |  
+ |  GetCompiledRefinedObj(...)
+ |      GetCompiledRefinedObj( (LSQ)arg1) -> RefinableObj :
+ |      
+ |          C++ signature :
+ |              ObjCryst::RefinableObj {lvalue} GetCompiledRefinedObj(ObjCryst::LSQNumObj {lvalue})
+ |  
+ |  GetLSQCalc(...)
+ |      GetLSQCalc( (LSQ)arg1) -> object :
+ |      
+ |          C++ signature :
+ |              CrystVector<double> GetLSQCalc(ObjCryst::LSQNumObj {lvalue})
+ |  
+ |  GetLSQDeriv(...)
+ |      GetLSQDeriv( (LSQ)arg1, (_RefinablePar)par) -> object :
+ |      
+ |          C++ signature :
+ |              CrystVector<double> GetLSQDeriv(ObjCryst::LSQNumObj {lvalue},ObjCryst::RefinablePar {lvalue})
+ |  
+ |  GetLSQObs(...)
+ |      GetLSQObs( (LSQ)arg1) -> object :
+ |      
+ |          C++ signature :
+ |              CrystVector<double> GetLSQObs(ObjCryst::LSQNumObj {lvalue})
+ |  
+ |  GetLSQWeight(...)
+ |      GetLSQWeight( (LSQ)arg1) -> object :
+ |      
+ |          C++ signature :
+ |              CrystVector<double> GetLSQWeight(ObjCryst::LSQNumObj {lvalue})
+ |  
+ |  PrepareRefParList(...)
+ |      PrepareRefParList( (LSQ)arg1 [, (bool)copy_param=False]) -> None :
+ |      
+ |          C++ signature :
+ |              void PrepareRefParList(ObjCryst::LSQNumObj {lvalue} [,bool=False])
+ |  
+ |  PrintRefResults(...)
+ |      PrintRefResults( (LSQ)arg1) -> None :
+ |      
+ |          C++ signature :
+ |              void PrintRefResults(ObjCryst::LSQNumObj {lvalue})
+ |  
+ |  Refine(...)
+ |      Refine( (LSQ)arg1 [, (int)nbCycle=1 [, (bool)useLevenbergMarquardt=False [, (bool)silent=False [, (bool)callBeginEndOptimization=True [, (float)minChi2var=0.01]]]]]) -> None :
+ |      
+ |          C++ signature :
+ |              void Refine(ObjCryst::LSQNumObj {lvalue} [,int=1 [,bool=False [,bool=False [,bool=True [,float=0.01]]]]])
+ |  
+ |  Rfactor(...)
+ |      Rfactor( (LSQ)arg1) -> float :
+ |      
+ |          C++ signature :
+ |              double Rfactor(ObjCryst::LSQNumObj {lvalue})
+ |  
+ |  RwFactor(...)
+ |      RwFactor( (LSQ)arg1) -> float :
+ |      
+ |          C++ signature :
+ |              double RwFactor(ObjCryst::LSQNumObj {lvalue})
+ |  
+ |  SafeRefine(...)
+ |      SafeRefine( (LSQ)arg1 [, (float)maxChi2factor=1.01 [, (int)nbCycle=1 [, (bool)useLevenbergMarquardt=False [, (bool)silent=False [, (bool)callBeginEndOptimization=True [, (float)minChi2var=0.01]]]]]]) -> bool :
+ |      
+ |          C++ signature :
+ |              bool SafeRefine(ObjCryst::LSQNumObj {lvalue} [,double=1.01 [,int=1 [,bool=False [,bool=False [,bool=True [,float=0.01]]]]]])
+ |  
+ |  SetParIsFixed(...)
+ |      SetParIsFixed( (LSQ)arg1, (str)parName, (bool)fix) -> None :
+ |      
+ |          C++ signature :
+ |              void SetParIsFixed(ObjCryst::LSQNumObj {lvalue},std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >,bool)
+ |      
+ |      SetParIsFixed( (LSQ)arg1, (RefParType)type, (bool)fix) -> None :
+ |      
+ |          C++ signature :
+ |              void SetParIsFixed(ObjCryst::LSQNumObj {lvalue},ObjCryst::RefParType const*,bool)
+ |      
+ |      SetParIsFixed( (LSQ)arg1, (_RefinablePar)par, (bool)fix) -> None :
+ |      
+ |          C++ signature :
+ |              void SetParIsFixed(ObjCryst::LSQNumObj {lvalue},ObjCryst::RefinablePar {lvalue},bool)
+ |  
+ |  SetRefinedObj(...)
+ |      SetRefinedObj( (LSQ)arg1, (RefinableObj)obj [, (int)LSQFuncIndex=0 [, (bool)init=True [, (bool)recursive=False]]]) -> None :
+ |      
+ |          C++ signature :
+ |              void SetRefinedObj(ObjCryst::LSQNumObj {lvalue},ObjCryst::RefinableObj {lvalue} [,unsigned int=0 [,bool=True [,bool=False]]])
+ |  
+ |  UnFixAllPar(...)
+ |      UnFixAllPar( (LSQ)arg1) -> None :
+ |      
+ |          C++ signature :
+ |              void UnFixAllPar(ObjCryst::LSQNumObj {lvalue})
+ |  
+ |  __init__(...)
+ |      __init__( (object)arg1) -> None :
+ |      
+ |          C++ signature :
+ |              void __init__(_object*)
+ |  
+ |  __reduce__ = <unnamed Boost.Python function>(...)
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data and other attributes defined here:
+ |  
+ |  __instance_size__ = 1816
+ |  
+ |  ----------------------------------------------------------------------
+ |  Static methods inherited from Boost.Python.instance:
+ |  
+ |  __new__(*args, **kwargs) class method of Boost.Python.instance
+ |      Create and return a new object.  See help(type) for accurate signature.
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors inherited from Boost.Python.instance:
+ |  
+ |  __dict__
+ |  
+ |  __weakref__
+

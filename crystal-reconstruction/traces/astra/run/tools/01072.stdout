@@ -1,0 +1,55 @@
+FALLBACK_PID=63662
+/app/work/import_graph_cif.py:10: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(fn).parse_structures(primitive=False)[0];s.remove_species(['H']);rad=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<1.2*(rad[:,None]+rad[None,:]));g=nx.from_numpy_array(A)
+ObjRegistry<T>::Find(O): Not found !!
+List of Crystal ScatteringPowers :0 object registered:
+ObjRegistry<T>::Find(C): Not found !!
+List of Crystal ScatteringPowers :1 object registered:
+#  0:ScatteringPowerAtom(O)
+ObjRegistry<T>::Find(ion_N): Not found !!
+List of Crystal ScatteringPowers :2 object registered:
+#  0:ScatteringPowerAtom(O)
+#  1:ScatteringPowerAtom(C)
+GRAPH_IMPORTED X7e382cb p1tc103 6 Rw 0.08618996321497456
+CYCLE 0 0 Rw 0.0739682608205302 chi2 3353.290064456084 geom 0.0 LSQ 3804.3522742187324
+CYCLE 0 1 Rw 0.0711721327541568 chi2 3104.5615005162654 geom 0.0 LSQ 3207.3564955909683
+CYCLE 0 2 Rw 0.07133317103727721 chi2 3118.6265241832043 geom 0.0 LSQ 3194.97367942061
+PACKING_STAGE 0 73.47517344574496
+CYCLE 1 0 Rw 0.07054872499968684 chi2 3050.4130193384535 geom 0.0 LSQ 3091.319515979195
+CYCLE 1 1 Rw 0.0691824028935088 chi2 2933.4020527702073 geom 0.0 LSQ 2982.5388201400056
+CYCLE 1 2 Rw 0.06829060338107865 chi2 2858.263129436268 geom 0.0 LSQ 2916.3944079429857
+PACKING_STAGE 1 31.39860280125603
+PACKING_ENABLED 20 atoms 519 pair terms coefficient 150.0 active_only True
+HBOND_PRIOR 2 donors 4 acceptors coefficient 20.0 directional False
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X7e382cb 977.0011596679688
+CONDITIONAL 0 [1, 2] best 136.1173095703125 q25 136.11751 sec 89.13435935974121
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X14a2b08 53.008026123046875
+CONDITIONAL 0 [1] best 52.09033966064453 q25 98.582855 sec 173.164386510849
+HBOND_PRIOR 4 donors 12 acceptors coefficient 20.0 directional False
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X3f4781b 40.86460876464844
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X4f6fe58 117.37014770507812
+CONDITIONAL 0 [0] best 115.25947570800781 q25 473.91473 sec 250.45061016082764
+CONDITIONAL 1 [1] best 114.69178009033203 q25 446.67358 sec 447.80043387413025
+CONDITIONAL 2 [0] best 114.63372039794922 q25 385.61755 sec 662.3234534263611
+CYCLE 0 0 Rw 0.1166857343554498 chi2 4766.475931756713 geom 0.0 LSQ 5026.843396158721
+CYCLE 0 1 Rw 0.11408168068464895 chi2 4556.10472743368 geom 0.0 LSQ 4687.411383562409
+CYCLE 0 2 Rw 0.11390654166464696 chi2 4542.126335783353 geom 0.0 LSQ 4622.2629088185895
+PACKING_STAGE 0 39.49588050521204
+CYCLE 1 0 Rw 0.10731679599943492 chi2 4031.7841488556032 geom 196.90218514560294 LSQ 4468.183905818456
+CYCLE 1 1 Rw 0.10878394858514658 chi2 4142.776595168741 geom 25.76627282252694 LSQ 4358.817517876009

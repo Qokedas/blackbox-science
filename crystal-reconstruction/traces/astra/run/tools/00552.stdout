@@ -1,0 +1,113 @@
+=====X3f4781b
+ "two_theta_range_deg": [
+  4.0,
+  90.0
+ ],
+ "n_points": 8601,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+--
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}
+=====X4f6fe58
+ "two_theta_range_deg": [
+  5.0,
+  80.0
+ ],
+ "n_points": 7501,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+--
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}
+=====X14a2b08
+ "two_theta_range_deg": [
+  3.0,
+  80.0
+ ],
+ "n_points": 9626,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+--
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": [
+  "the depositors recorded Cu K-alpha as a single wavelength 1.5418 A (the K-alpha1/K-alpha2 weighted mean); whether the K-alpha2 component is present in the data is not stated"
+ ]
+}
+=====Xd8634a2
+ "two_theta_range_deg": [
+  0.51,
+  49.995
+ ],
+ "n_points": 49486,
+ "intensity_column": "observed total intensity",
+--
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}
+{"min_two_theta": 3.0}=====Xb7088cf
+ "two_theta_range_deg": [
+  1.0067,
+  49.9958
+ ],
+ "n_points": 5864,
+ "intensity_column": "observed total intensity",
+--
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": [
+  "Kalpha2 weight 0.5 is the standard ratio; the depositors state only Kalpha1,2"
+ ]
+}
+{"indices": [1, 2, 3, 5, 6, 7, 8, 9, 10, 12, 13, 14, 16, 17, 18, 19, 20, 22, 23, 24, 25]}=====X238783d
+ "two_theta_range_deg": [
+  2.0,
+  69.0
+ ],
+ "n_points": 6701,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+--
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}
+=====X1a56c78
+ "two_theta_range_deg": [
+  5.0,
+  104.86
+ ],
+ "n_points": 4994,
+ "intensity_column": "observed total intensity",
+--
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": [
+  "the depositors recorded Cu K-alpha as a single wavelength 1.5418 A (the K-alpha1/K-alpha2 weighted mean); whether the K-alpha2 component is present in the data is not stated"
+ ]
+}
+GALLOP 7 Nref 267 seconds 122.86268997192383 best 142.29141 q25 213.96977 median 255.78464 total 1095.1754004955292
+GALLOP 8 Nref 267 seconds 158.08727169036865 best 142.29129 q25 207.45412 median 254.67966 total 1253.358951330185
+GALLOP 9 Nref 267 seconds 208.71130180358887 best 142.29134 q25 198.81577 median 249.78867 total 1462.1729500293732
+GALLOP 10 Nref 267 seconds 168.21483302116394 best 142.29134 q25 220.85638 median 254.15866 total 1630.4806809425354
+GALLOP 9 Nref 171 seconds 70.22564840316772 best 115.63847 q25 176.61958 median 217.73787 total 656.6717216968536
+GALLOP 10 Nref 171 seconds 47.8960862159729 best 115.6385 q25 192.49063 median 231.71292 total 704.6436364650726
+GALLOP 11 Nref 171 seconds 44.19340467453003 best 115.6384 q25 176.69913 median 223.82744 total 748.8525822162628
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1831.37it/s]
+INITIAL X14a2b08 1 Rw 0.43495083072750723 LLK 141365.90334370104 Integrated 102518.05557336308 DOF -1
+RUN 0 steps 100000 time 54.76651692390442 total 54.76660966873169 LLK 53713.53624809531 Rw 0.22249990802093447 Integrated 24226.553878653
+RUN 1 steps 4000000 time 600.1436653137207 total 655.0974333286285 LLK 45216.95397805873 Rw 0.1896136342573819 Integrated 16480.193864067485
+RUN 2 steps 4000000 time 600.1146972179413 total 1255.3970487117767 LLK 44291.98140368995 Rw 0.1857298426013963 Integrated 16280.719387846224
+RUN 3 steps 4000000 time 600.0630595684052 total 1855.571105480194 LLK 45017.08182521409 Rw 0.1888310251839833 Integrated 15397.438255453812
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 258 seconds 224.84047961235046 best 92.96571 q25 135.07848 median 158.91959 total 224.84836745262146
+GALLOP 1 Nref 258 seconds 212.69318294525146 best 88.8423 q25 121.07606 median 152.25327 total 437.66403102874756
+GALLOP 2 Nref 258 seconds 271.56800627708435 best 84.80454 q25 114.50088 median 139.12009 total 709.3623869419098
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 300 seconds 101.07567691802979 best 47.288975 q25 47.528954 median 177.97278 total 101.08324646949768
+GALLOP 1 Nref 300 seconds 88.1316568851471 best 47.27973 q25 49.828983 median 224.57092 total 189.41787219047546
+GALLOP 2 Nref 300 seconds 44.11635184288025 best 47.280018 q25 47.50309 median 199.57535 total 233.61829710006714
+BATCH 0 best 197.3004913330078 diffraction 178.7236328125 p25 514.7010498046875 seconds 47.60124349594116 centre [0.  0.5 0.5]
+BATCH 1 best 196.6064453125 diffraction 184.9296875 p25 443.92193603515625 seconds 109.55877017974854 centre [0.  0.5 0.5]
+BATCH 2 best 196.606201171875 diffraction 184.92950439453125 p25 464.58599853515625 seconds 172.60234594345093 centre [0.  0.5 0.5]
+PO_SCAN X7e382cb 32 original 136.6937654896833 best [(np.float64(116.76232805031111), (-1, 0, -2), 0.8757982340777606), (np.float64(116.76232805031111), (1, 0, 2), 0.8757982340777606), (np.float64(118.85392412671183), (0, -1, -1), 1.2888969529585865), (np.float64(118.85392412671183), (0, 1, 1), 1.2888969529585865), (np.float64(119.24159285919768), (-1, 0, 2), 1.2375612487243122), (np.float64(119.24159285919768), (1, 0, -2), 1.2375612487243122), (np.float64(119.69058973324502), (-1, 0, -1), 0.859881203166687), (np.float64(119.69058973324502), (1, 0, 1), 0.859881203166687), (np.float64(123.0701286879846), (0, -1, -2), 1.2262442531138376), (np.float64(123.0701286879846), (0, 1, 2), 1.2262442531138376), (np.float64(123.7883591050603), (-1, -2, -1), 1.182143532798129), (np.float64(123.7883591050603), (1, 2, 1), 1.182143532798129)]
+PO_SCAN X4f6fe58 11 original 339.36054130648404 best [(np.float64(284.8287990645508), (-1, 0, -2), 1.4950905505917729), (np.float64(284.8287990645508), (1, 0, 2), 1.4950905505917729), (np.float64(306.52672585476023), (-1, 0, -1), 1.2984921191529002), (np.float64(306.52672585476023), (1, 0, 1), 1.2984921191529002), (np.float64(307.83249334898494), (-1, -1, -2), 1.280706951786674), (np.float64(307.83249334898494), (1, 1, 2), 1.280706951786674), (np.float64(309.3406165024089), (-2, -1, -2), 1.2778571029961934), (np.float64(309.3406165024089), (2, 1, 2), 1.2778571029961934), (np.float64(313.85670653867885), (0, -2, -1), 0.855723567435479), (np.float64(313.85670653867885), (0, 2, 1), 0.855723567435479), (np.float64(315.011801342073), (-1, 1, -2), 1.2423737886208748), (np.float64(315.011801342073), (1, -1, 2), 1.2423737886208748)]
+PO_SCAN Xd8634a2 11 original 162.34211209879015 best [(np.float64(151.67872599254463), (0, -1, -2), 1.083871684827479), (np.float64(151.67872599254463), (0, 1, 2), 1.083871684827479), (np.float64(151.95808923802292), (-1, 2, -2), 0.9094308538392362), (np.float64(151.95808923802292), (1, -2, 2), 0.9094308538392362), (np.float64(152.62441629133411), (-1, 1, -1), 0.8973256277581935), (np.float64(152.62441629133411), (1, -1, 1), 0.8973256277581935), (np.float64(153.54536445821714), (-1, 1, -2), 0.9181511261066576), (np.float64(153.54536445821714), (1, -1, 2), 0.9181511261066576), (np.float64(154.1942447767184), (-2, 1, -2), 0.9096779124668253), (np.float64(154.1942447767184), (2, -1, 2), 0.9096779124668253), (np.float64(154.281921921121), (-1, 0, 2), 1.1016013622638807), (np.float64(154.281921921121), (1, 0, -2), 1.1016013622638807)]
+PO_SCAN Xb7088cf 11 original 115.6384912427203 best [(np.float64(112.6483840465877), (-1, 2, 2), 1.1000497127431244), (np.float64(112.6483840465877), (1, -2, -2), 1.1000497127431244), (np.float64(113.59051316610191), (-1, -1, -2), 0.9611525220210064), (np.float64(113.59051316610191), (1, 1, 2), 0.9611525220210064), (np.float64(113.72479966333321), (-1, -1, -1), 0.9618324867141239), (np.float64(113.72479966333321), (1, 1, 1), 0.9618324867141239), (np.float64(113.7924776517757), (-2, -2, -1), 0.9615748615383716), (np.float64(113.7924776517757), (2, 2, 1), 0.9615748615383716), (np.float64(113.85778238390287), (-1, 0, -2), 0.9672451200489552), (np.float64(113.85778238390287), (1, 0, 2), 0.9672451200489552), (np.float64(113.86207263958227), (-1, -1, 0), 0.9608989600250046), (np.float64(113.86207263958227), (1, 1, 0), 0.9608989600250046)]
+PO_SCAN X3f4781b 11 original 142.2914425343032 best [(np.float64(137.13980135167196), (0, -1, 1), 0.8460317461094169), (np.float64(137.13980135167196), (0, 1, -1), 0.8460317461094169), (np.float64(137.72183829355242), (-1, -2, 2), 0.864197298260815), (np.float64(137.72183829355242), (1, 2, -2), 0.864197298260815), (np.float64(139.25527005743663), (0, -2, 1), 0.9180618673732643), (np.float64(139.25527005743663), (0, 2, -1), 0.9180618673732643), (np.float64(140.33284203130245), (-1, -1, 2), 0.9317160371911806), (np.float64(140.33284203130245), (1, 1, -2), 0.9317160371911806), (np.float64(140.75215751855512), (0, -1, 2), 0.9386892479615644), (np.float64(140.75215751855512), (0, 1, -2), 0.9386892479615644), (np.float64(141.07979587755915), (-1, 2, -2), 0.9246126137306062), (np.float64(141.07979587755915), (1, -2, 2), 0.9246126137306062)]

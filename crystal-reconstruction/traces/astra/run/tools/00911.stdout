@@ -1,0 +1,81 @@
+Sun Sep  6 09:40:58 UTC 2026
+==== X8a06d7a/refine_g12
+CYCLE 2 2 Rw 0.1530608618227421 chi2 1711.1133169421348 geom 35.546633197066555 LSQ 1872.668085743038
+PACKING_STAGE 2 13.50678970053296
+CYCLE 3 0 Rw 0.14748388416276423 chi2 1588.6915883045876 geom 30.630126800664563 LSQ 1741.7903923053068
+CYCLE 3 1 Rw 0.1453762839801177 chi2 1543.6100219130703 geom 15.046391257331734 LSQ 1658.6591354740813
+CYCLE 3 2 Rw 0.14505357408452488 chi2 1536.7645403040879 geom 10.93694800182518 LSQ 1644.2272563319125
+PACKING_STAGE 3 10.040294697751516
+FINISHED X8a06d7a 0.14505357408452488
+==== X14a2b08/gallop73
+GALLOP 0 Nref 427 seconds 150.5018653869629 best 164.78278 q25 205.4889 median 292.41843 total 150.54779291152954
+GALLOP 1 Nref 427 seconds 164.1642575263977 best 164.74203 q25 205.22011 median 289.15744 total 314.8462293148041
+GALLOP 2 Nref 427 seconds 209.9242353439331 best 162.51817 q25 194.98083 median 282.85986 total 524.9767940044403
+GALLOP 3 Nref 427 seconds 215.93280744552612 best 149.84236 q25 178.16629 median 253.95651 total 741.1825435161591
+GALLOP 4 Nref 427 seconds 232.60551381111145 best 149.84232 q25 179.77048 median 248.48178 total 974.0730621814728
+GALLOP 5 Nref 427 seconds 221.3084146976471 best 149.84244 q25 193.94989 median 305.22244 total 1195.6551592350006
+GALLOP 6 Nref 427 seconds 204.3301980495453 best 149.84244 q25 196.16528 median 285.27014 total 1400.0737199783325
+==== Xb7088cf/refine_g50
+CYCLE 2 2 Rw 0.05070816476006018 chi2 2761.0227124740068 geom 2.5619216301735235 LSQ 2828.651481758654
+PACKING_STAGE 2 1.0999857378505702
+CYCLE 3 0 Rw 0.0505087864978848 chi2 2739.353394032387 geom 2.5983933366826077 LSQ 2799.820330124753
+CYCLE 3 1 Rw 0.05044724354821343 chi2 2732.6818744445504 geom 2.7333300603477477 LSQ 2793.7434575529087
+CYCLE 3 2 Rw 0.05038643536964909 chi2 2726.097996042935 geom 2.85289587552549 LSQ 2787.5675700458405
+PACKING_STAGE 3 0.49102067550590967
+FINISHED Xb7088cf 0.05038643536964909
+==== Xedd9c7b/conditional85
+HBOND_PRIOR 6 donors 6 acceptors coefficient 15.0
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL Xedd9c7b 26.511154174804688
+CONDITIONAL 0 [0] best 22.842021942138672 q25 252.8203 sec 227.7043538093567
+==== X1a56c78/conditional83
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X1a56c78 103.96112060546875
+CONDITIONAL 0 [1] best 103.90274810791016 q25 103.90285 sec 135.83893036842346
+CONDITIONAL 1 [0] best 97.12423706054688 q25 278.81183 sec 264.9450900554657
+CONDITIONAL 2 [1] best 96.9311752319336 q25 96.93126 sec 401.5359995365143
+==== Xe1fb77b/refine_g11
+==== X238783d/refine_g25
+CYCLE 0 2 Rw 0.22999187928402232 chi2 4506.54048848034 geom 0.0 LSQ 4729.866610184065
+PACKING_STAGE 0 223.32605057134668
+CYCLE 1 0 Rw 0.2232246322839465 chi2 4245.2425247163455 geom 3.0095599043123262 LSQ 4438.280896246055
+CYCLE 1 1 Rw 0.21783338969489116 chi2 4042.659583083159 geom 26.275860206288385 LSQ 4222.796024447639
+CYCLE 1 2 Rw 0.21408984985075305 chi2 3904.904604004176 geom 11.691477106914594 LSQ 4078.3953716305496
+PACKING_STAGE 1 30.426184178480497
+CYCLE 2 0 Rw 0.21087156552067174 chi2 3788.3868287103696 geom 22.906235987667912 LSQ 3985.2015245950665
+16777 S 1 bash /app/work/queue_gallop_A4.sh 
+29859 S 1 bash /app/work/queue_gallop_B5.sh 
+32867 S 1 bash /app/work/queue_gallop_A5.sh 
+43321 S 1 bash /app/work/queue_gallop_D8.sh 
+47634 S 1 bash /app/work/queue_x7ion.sh 
+48694 R 16777 python /app/work/search_gallop.py Xe1fb77b 11 1 --prepare --hscatter 
+51090 S 1 bash /app/work/queue_acm73.sh 
+51094 S 1 bash /app/work/queue_acm_warm.sh 
+51186 R 51090 python /app/work/search_gallop.py X14a2b08 73 1 --hscatter --packing 
+51425 R 47634 python /app/work/search_gallop.py X7e382cb 41 1 --hscatter --packing 
+51579 S 1 bash /app/work/queue_eddconditional.sh 
+52927 S 1 bash /app/work/queue_additional_cond.sh 
+52928 S 1 bash /app/work/queue_clopidogrel_cond.sh 
+53647 R 52927 python /app/work/search_conditional.py X1a56c78 82 83 
+54015 R 51579 python /app/work/search_conditional.py Xedd9c7b 84 85 
+54076 R 29859 python /app/work/refine_obj.py X238783d g25 /app/work/X238783d/search_g25/best.xml --scale --tight 
+54140 S 1 bash /app/work/queue_x7_explicit.sh 
+54301 R 43321 python /app/work/search_gallop.py Xd8634a2 31 1 --prepare --hscatter --packing 
+{
+ "Rw": 0.14505357408452488,
+ "chi2": 1536.7645403040879
+}09:18 New general search_conditional.py extends proven coformer strategy: mask/freeze unselected wholefragments, randomizeandoptimize only free fragmentposes/torsions, alternatefreegroups0;1;0;1, preserve bestidenticalfullobjectiveacrosspasses. FixedDOFinvariance assertsincluded. Newqueue_brconditional.sh repairsBrg11strongpackstol.38 -> warm82 -> conditional83 (4x128x350,BUMP70/HB12,noheavyanchor) -> native.4refine/graphcheck. Noautosubmission.
+09:19 Edd52 latechi46.354 yielded strongphysicalrefinement Rwp.07975924 (nearwholeLBfloor.0736),geom11.824,packing6.950. Graphvalid8x19,bonds1.3634–1.6149. ShortphosphateOO2.4617/2.488andindoleN...O2.558(165deg),ammoniumN...O2.529(165deg),plausiblestrongzwitterionicHBnetworkalthoughveryshortNHcontacts. Profilemostlynoiseandmodestpeakheightdifferences. SUBMITTED refined_g52.cif+JSON (15CIFs). Newqueue_eddconditional.sh waitsBrconditional51460 thenwarm84fromg52/alternatingconditional85(4x128x350,Hb15/pack80)/native.4refine; noautosubmission.
+09:20 New focused nicotinamide conditional search: queue_nicotinamide_cond.sh warmX1dbg11 ->90, onlycoformerfree in3x96x300 passes (HB40/pack70), acidicacemetacinfixed; finalfullyreleasednativeg91/stol.4/graphcheck. X1dbcurrentg11Rw.1332146,geom.003,packing2.398,unsubmitted. g91willalreadybeallowedbyACM50seedselection. This is the successfulX263strategy appliedtootheracid/coformer before expensivefullwarm.
+09:27 X1a potential Ka2/100 issue resolved by explicit reflection enumeration: no possible parentline14.96. Around14.3–15.5 only005(14.7195,forbidden),100(14.9995),101(15.2875). CuKa1/2 components100=14.9874/15.0249 vs10115.2751/15.3133; shoulder~15.0 cannot beKa2of101. KeepSG18. Kalpha2profilemaystillmatterforhighangle refinement butdoesnotundermine100extinctionevidence.
+09:28 X1a apparent stereochemistryR from check_stereo.py is a GRAPH-MAPPING FALSE ALARM: phenyl andcyclohexylbothC6 connectivitycycle are interchangeable to unweightedGraphMatcher, whichpicksarbitraryfirstmap. Directknownatom-order CIP fromgallop18/templateandbest_frac bothSasprescribed. Nochiralitybugidentified. NativeCuKa2testvsmonousingidenticalfurtherprofilecycles: .06357doubletvs.06314mono; mono retained. Earlier.070fitjustneededmorecycles.
+09:34 Moreconditionalqueues: X1aafter51725 viaqueue_additional_cond.sh parent52927 usesG18warm82/conditional83freeCl;cation;Cl;cation,mono. X3fafterB5parent29859 viaqueue_clopidogrel_cond.sh parent52928 warmg50to82/conditional83freebisulfates;cation0;cation2;bisulfates;cation0;cation2,then.4native. Noautosubmit.
+X8a06Ka2diagnosticidenticalextraquickprofilecycles: monoP21 single.06041,doublet.05788; triP-1single.05386,doublet.05559. Trianglesretain~.13/.16offrightangles; symmetrynotyetresolved. CurrentP21JSONunchangedawaitP-1g12native. Refinedwholeprofilesinfit_mono_single/fit_tri_single etcareDIAGNOSTICSwithdisposableC, notstructures.
+X1dbconditionalg91finishedRwp.110886,graphvalid,stillinferiorfit/notstrongHBnetwork. WillbechosenbyACM50warmselector. X4conditionalg83Rwp.089702,geom140.8,packing90.1,notclearlysolved. Edd85queuehasstartedafterX4.
+Criticalmodelaudit: atomicNH4+ componentshadNOexplicitH in nativeRietveld, whileGALLOPcorrectlyspherical4Hprefix. Implemented add_ammonium_h.py rebuildwholemodelheavycoordinatesEXACTLYpreserved, addsfulltetraNH4molecules. ValidatedX7g40seed heavygraph2x18+4N. Newqueue_x7_explicit.sh waits47634(G41), explicitHNativerefineionH41 ->warm84 ->conditional85(iongroup;anion0;anion3;repeat)->reinsertNH4HbeforefinalnativeionH85. Thisisprofilemodelcorrection, notHcoordinateevidence. Noautosubmit. NewBr84warmfullqueuewaits51579(Edd85),1600seconds.
+check_stereo.py nowselectsgraphmapwithbondlengthsconsistentwithSMILESmultiplebonds/aromaticity,avoidingphenyl/cyclohexylfalseRforX1a. NewcheckexplicitlyconfirmsG18nativeSall4.

@@ -1,0 +1,15 @@
+step ['Zero'] Rwp=0.5742
+step ['W'] Rwp=0.1251
+step ['a', 'b', 'c', 'alpha', 'beta', 'gamma'] Rwp=0.0972
+step ['U', 'V'] Rwp=0.0799
+step ['Eta0'] Rwp=0.0734
+step ['Eta1'] Rwp=0.0727
+step ['background'] Rwp=0.0656
+step ['Zero', 'W', 'U', 'V', 'Eta0', 'background', 'a', 'b', 'c', 'alpha', 'beta', 'gamma'] Rwp=0.0651
+LeBail Rwp=0.0650 chi2=9770.0 cell= 16.26395272342021 9.321007297646133 11.392744227739469 90.0
+  molecule mol0_0: 21 atoms, 22 bonds, 30 angles, 25 dihedral restraints, 4 free torsions
+run 0: cost=295482.2 Rwp=0.4411 chi2=429345.8 t=718s
+polish: Rwp 0.4303 -> 0.4066 (accepted) restraint cost=0.00
+run 1: cost=401653.3 Rwp=1.3901 chi2=1056238.0 t=611s
+polish: Rwp 0.6749 -> 0.4832 (accepted) restraint cost=0.00
+RESULTS Xf8ac963 P 21 2 21 [(295482.2231613279, 0.44113433583247935, 429345.7502363571), (401653.26221705944, 1.3901478840489776, 1056238.0242172757)]

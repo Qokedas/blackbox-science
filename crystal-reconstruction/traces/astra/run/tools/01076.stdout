@@ -1,0 +1,72 @@
+HYPOTHESIS_ADDED X238783d /app/work/X238783d/refined_g20.cif Rwp 0.19305281955322562
+GRAPH_REJECT Xd8634a2 /app/work/Xd8634a2/refined_g2.cif
+HYPOTHESIS_ADDED Xd8634a2 /app/work/Xd8634a2/refined_g11.cif Rwp 0.2178640563638808
+GRAPH_REJECT Xe1fb77b /app/work/Xe1fb77b/refined_1.cif
+HYPOTHESIS_ADDED Xe1fb77b /app/work/Xe1fb77b/refined_2.cif Rwp 0.19097255385349643
+HYPOTHESIS_ADDED X8a06d7a /app/work/X8a06d7a/refined_g12.cif Rwp 0.14505357408452488
+HYPOTHESIS_ADDED X9af54a2 /app/work/X9af54a2/refined_g87.cif Rwp 0.29328738219368605
+HYPOTHESIS_ADDED X019b9a4 /app/work/X019b9a4/refined_g12.cif Rwp 0.1615604915277562
+PACKING_STAGE 1 0.05321410814991272
+CYCLE 2 0 Rw 0.1346744075563272 chi2 3366.5351074355885 geom 227.00611889415143 LSQ 4013.7271551731646
+CYCLE 2 1 Rw 0.1341800810868751 chi2 3341.8665270307692 geom 203.6182930157924 LSQ 3935.6406133455866
+CYCLE 2 2 Rw 0.1336853140650798 chi2 3317.2667961124316 geom 192.3462160833753 LSQ 3848.3319755356024
+PACKING_STAGE 2 0.32284051865757724
+CYCLE 3 0 Rw 0.1331799713477724 chi2 3292.2350529056894 geom 180.82287199125201 LSQ 3799.444333454784
+24
+{
+ "Rw": 0.10444213974630473,
+ "chi2": 3818.6811592775507
+}CYCLE 2 2 Rw 0.10573399569453044 chi2 3913.732745415837 geom 20.129807990458346 LSQ 4110.01023676972
+PACKING_STAGE 2 29.970303841092996
+CYCLE 3 0 Rw 0.10483805320979402 chi2 3847.687321707412 geom 20.585769052786173 LSQ 4045.1291136327573
+CYCLE 3 1 Rw 0.10445293762930018 chi2 3819.4707984778383 geom 20.43754335131258 LSQ 4018.3582958808256
+CYCLE 3 2 Rw 0.10444213974630473 chi2 3818.6811592775507 geom 20.008821919302537 LSQ 4015.870780576128
+PACKING_STAGE 3 31.783180141929172
+FINISHED X1db5091 0.10444213974630473
+X7e382cb Nat 40 molecule sizes [18, 18, 1, 1, 1, 1]
+  component O=C([O-])c1ccc(-c2ccc(C(=O)[O-])cc2)cc1 matches 2
+  component [NH4+] matches 4
+  bond range 1.268451811542492 1.5156819279935567
+  min intermolecular distance 2.6433793630546147
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X7e382cb 977.0011596679688
+CONDITIONAL 0 [1, 2] best 136.1173095703125 q25 136.11751 sec 89.13435935974121
+CONDITIONAL 1 [0] best 110.83951568603516 q25 353.93042 sec 177.59985637664795
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X35b7fbc 78.74118041992188
+CONDITIONAL 0 [1] best 77.879150390625 q25 87.54314 sec 228.27397179603577
+CONDITIONAL 1 [0] best 76.96517944335938 q25 509.48166 sec 425.393611907959
+CONDITIONAL 2 [1] best 76.92654418945312 q25 79.085754 sec 641.8010354042053
+[
+ {
+  "id": "X019b9a4",
+  "wl": 1.54056,
+  "heavy": 48,
+  "rotors": 8,
+  "mw": 676.7560000000001,
+  "npeaks": 40,
+  "noise": 36.96969696969697,
+  "chiral": false
+ },
+ {
+  "id": "X07806d9",
+  "wl": 0.81933,
+  "heavy": 10,
+  "rotors": 4,
+  "mw": 167.592,
+  "npeaks": 177,
+  "noise": 9.187878787877597,
+  "chiral": false
+ },
+ {
+  "id": "X13023e3",
+  "wl": 0.728302,
+  "heavy": 24,
+  "rotors": 5,
+  "mw": 328.4119999999999,
+  "npeaks": 106,
+  "noise": 23.636363636363637,
+  "chiral": true

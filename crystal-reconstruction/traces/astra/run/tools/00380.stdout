@@ -1,0 +1,264 @@
+==== Xd8634a2
+{
+ "components": [
+  {
+   "smiles": "CNS(=O)(=O)Nc1nccc(Cc2c(C)c3ccc(Oc4ncccn4)cc3oc2=O)c1F",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}{
+ "cell": {
+  "a": 8.910169100782866,
+  "b": 9.47845325451745,
+  "c": 13.245308707674797,
+  "alpha": 83.98286911524386,
+  "beta": 81.77580180151384,
+  "gamma": 66.67862762269598
+ },
+ "space_group": "P -1",
+ "space_group_number": 2
+}==== X1a56c78
+{
+ "components": [
+  {
+   "smiles": "O[C@](CC[NH+]1CCCCC1)(c1ccccc1)C1CCCCC1",
+   "count": 1,
+   "charge": 1
+  },
+  {
+   "smiles": "[Cl-]",
+   "count": 1,
+   "charge": -1
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}{
+ "cell": {
+  "a": 5.90627278679979,
+  "b": 11.253950622962217,
+  "c": 30.08996977329099,
+  "alpha": 90.0,
+  "beta": 90.0,
+  "gamma": 90.0
+ },
+ "space_group": "P 2 2 21",
+ "space_group_number": 17
+}==== X019b9a4
+{
+ "components": [
+  {
+   "smiles": "CC(=O)C(=NNc1ccc(C(=O)Nc2ccc(C(N)=O)cc2)cc1)C(=O)Nc1ccc2[nH]c(=O)[nH]c2c1",
+   "count": 1,
+   "charge": 0
+  },
+  {
+   "smiles": "CN1CCCC1=O",
+   "count": 1,
+   "charge": 0
+  },
+  {
+   "smiles": "C[S+](C)[O-]",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}{
+ "cell": {
+  "a": 8.445005750645986,
+  "b": 10.921928016393805,
+  "c": 18.442412835425692,
+  "alpha": 90.2884626890573,
+  "beta": 94.00614168977307,
+  "gamma": 106.23346558366082
+ },
+ "space_group": "P -1",
+ "space_group_number": 2
+}==== X238783d
+{
+ "components": [
+  {
+   "smiles": "CC[C@H]1OC(=O)[C@H](C)[C@@H](O[C@H]2C[C@@](C)(OC)[C@@H](O)[C@H](C)O2)[C@H](C)[C@@H](O[C@@H]2O[C@H](C)C[C@H](N(C)C)[C@H]2O)[C@](C)(OC)C[C@@H](C)C(=O)[C@H](C)[C@@H](O)[C@]1(C)O",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}{
+ "cell": {
+  "a": 8.846657044168616,
+  "b": 20.132634723580942,
+  "c": 23.94195584840581,
+  "alpha": 90.0,
+  "beta": 90.0,
+  "gamma": 90.0
+ },
+ "space_group": "P 21 21 21",
+ "space_group_number": 19
+}==== Xbfeeda9
+{
+ "components": [
+  {
+   "smiles": "CN(C)C(=O)C(CC[NH+]1CCC(O)(c2ccc(Cl)cc2)CC1)(c1ccccc1)c1ccccc1",
+   "count": 1,
+   "charge": 1
+  },
+  {
+   "smiles": "[Cl-]",
+   "count": 1,
+   "charge": -1
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}{
+ "cell": {
+  "a": 13.202926946633223,
+  "b": 12.367019901476281,
+  "c": 16.69423334559393,
+  "alpha": 90.0,
+  "beta": 101.65834198660818,
+  "gamma": 90.0
+ },
+ "space_group": "P 1 21/a 1",
+ "space_group_number": 14
+}==== X4f6fe58
+{
+ "components": [
+  {
+   "smiles": "O=C1CN=C(c2ccccc2Cl)c2cc(Br)ccc2N1",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}{
+ "cell": {
+  "a": 7.566650781823849,
+  "b": 13.072975827440688,
+  "c": 15.429196115899655,
+  "alpha": 72.39638005310617,
+  "beta": 83.39054886528757,
+  "gamma": 77.70460314020802
+ },
+ "space_group": "P -1",
+ "space_group_number": 2
+}==== Xe1fb77b
+{
+ "components": [
+  {
+   "smiles": "O=C(/C=C/c1ccc(O)c(O)c1)O[C@@H]1C[C@@](OC(=O)/C=C/c2ccc(O)c(O)c2)(C(=O)O)C[C@@H](O)[C@@H]1O",
+   "count": 1,
+   "charge": 0
+  },
+  {
+   "smiles": "O",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}{
+ "cell": {
+  "a": 5.593068355245877,
+  "b": 15.360173538155827,
+  "c": 13.880661577245984,
+  "alpha": 90.0,
+  "beta": 94.97536479377817,
+  "gamma": 90.0
+ },
+ "space_group": "P 1 21 1",
+ "space_group_number": 4
+}==== X3f4781b
+{
+ "components": [
+  {
+   "smiles": "COC(=O)[C@H](c1ccccc1Cl)[NH+]1CCc2sccc2C1",
+   "count": 1,
+   "charge": 1
+  },
+  {
+   "smiles": "O=S(=O)([O-])O",
+   "count": 1,
+   "charge": -1
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}{
+ "cell": {
+  "a": 10.434459205762266,
+  "b": 15.340934374738975,
+  "c": 12.635064353266996,
+  "alpha": 90.0,
+  "beta": 113.33529901637961,
+  "gamma": 90.0
+ },
+ "space_group": "P 1 21 1",
+ "space_group_number": 4
+}==== X9af54a2
+{
+ "components": [
+  {
+   "smiles": "COc1ccc(OC)c([C@H](O)CNC(=O)C[NH3+])c1",
+   "count": 1,
+   "charge": 1
+  },
+  {
+   "smiles": "[Cl-]",
+   "count": 1,
+   "charge": -1
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}{
+ "cell": {
+  "a": 5.178728935315927,
+  "b": 8.253763769789536,
+  "c": 32.95138585905239,
+  "alpha": 90.0,
+  "beta": 92.75227709009262,
+  "gamma": 90.0
+ },
+ "space_group": "P 1 21 1",
+ "space_group_number": 4
+}  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 2537.01it/s]
+GALLOP 48 Nref 122 seconds 19.539982795715332 best 6.004874 q25 16.40909 median 22.950077 total 1560.8454082012177
+GALLOP 49 Nref 122 seconds 19.840237617492676 best 5.709673 q25 15.316243 median 22.88183 total 1580.6916766166687
+GALLOP 50 Nref 122 seconds 21.901165008544922 best 5.7095585 q25 14.549817 median 21.95881 total 1602.595710515976
+FINISHED X13023e3 3.4471957683563232
+GALLOP 10 Nref 266 seconds 23.49032473564148 best 168.69756 q25 572.2329 median 608.9053 total 326.20279145240784
+GALLOP 11 Nref 266 seconds 24.247745990753174 best 452.0203 q25 563.50946 median 611.4437 total 350.4771075248718
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1968.23it/s]
+GALLOP 12 Nref 266 seconds 23.663180112838745 best 487.44836 q25 581.6357 median 620.15784 total 374.1459083557129
+GALLOP 13 Nref 266 seconds 28.275078058242798 best 476.5707 q25 570.73346 median 614.88 total 402.423716545105
+INITIAL Xeb393f9 1 Rw 0.2688026345500707 LLK 186500.52827408884 Integrated 185153.28212240367 DOF -1
+RUN 0 steps 100000 time 29.4878511428833 total 29.487924814224243 LLK 37728.519233669984 Rw 0.1369213554625328 Integrated 36290.14913488902
+RUN 1 steps 4000000 time 600.0131418704987 total 629.6252927780151 LLK 13985.610211307898 Rw 0.09508150311094965 Integrated 12509.513964364744
+RUN 2 steps 4000000 time 600.08154129982 total 1229.980306148529 LLK 11818.541913903038 Rw 0.08936435543106927 Integrated 10377.17979645274
+RUN 3 steps 4000000 time 600.0220737457275 total 1830.2132830619812 LLK 11737.82607791489 Rw 0.08125147783036163 Integrated 10198.306194797051
+{
+ "Rw": 0.12362736751289517,
+ "chi2": 3679.969014035107
+}{
+ "Rw": 0.18965064419526603,
+ "chi2": 2391.367250988489
+}

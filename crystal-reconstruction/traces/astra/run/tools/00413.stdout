@@ -1,0 +1,99 @@
+15974 python /app/work/search_gallop.py X4f6fe58 11 2 --prepare --hscatter
+13143 python /app/work/search_gallop.py Xd8634a2 11 1 --prepare --hscatter
+13933 python /app/work/search_obj.py X263b09a 1 1 --rescale --profile
+15998 timeout 90 python /app/work/index_one.py Xedd9c7b MONOCLINIC P 4 450 2800
+15791 python /app/work/index_metric.py X1db5091 MONOCLINIC P
+---
+ObjRegistry<T>::Find(ion_C): Not found !!
+List of Crystal ScatteringPowers :0 object registered:
+EXACT_PAWLEY nref 368 rank 292 cond 958.01423363786 chi2 2299.6095774867895 netRwp 0.1003944133985945
+ZM O=C1CN=C(c2ccccc2Cl)c2cc(Br)ccc2N1 n 20 torsions 1 max_distance_error 7.363363252466115e-09
+ZM O=C1CN=C(c2ccccc2Cl)c2cc(Br)ccc2N1 n 20 torsions 1 max_distance_error 1.1224046581048697e-08
+Total degrees of freedom: 16
+Total external degrees of freedom: 14 (pos: 6 rot: 8 )
+Total internal degrees of freedom: 2
+PREPARED X4f6fe58 Nref 368 PawleyRw 0.031294638810297544 SG P -1
+ATTACHED_H_SCATTERING 40 heavy atoms 20 H atoms
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1669.21it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 44 Nref 266 seconds 23.040161609649658 best 355.98654 q25 562.7325 median 602.58887 total 1277.7912232875824
+GALLOP 45 Nref 266 seconds 23.583603858947754 best 350.49347 q25 564.27747 median 601.8008 total 1301.3772983551025
+GALLOP 46 Nref 266 seconds 21.79301118850708 best 351.7599 q25 576.9082 median 612.7702 total 1323.173805475235
+GALLOP 47 Nref 266 seconds 22.853458166122437 best 293.66614 q25 568.819 median 608.9365 total 1346.0299150943756
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 2786.91it/s]
+GALLOP 48 Nref 266 seconds 23.54661989212036 best 387.27463 q25 584.45184 median 624.18036 total 1369.5814054012299
+/app/work/Xeb393f9/refined_1.cif
+/app/work/Xeb393f9/refined_1.json
+/app/work/Xeb393f9/refined_1.png
+/app/work/Xeb393f9/refined_1.xml
+{
+ "components": [
+  {
+   "smiles": "COc1ccccc1OCC[NH2+]C[C@@H](O)COc1cccc2[nH]c3ccccc3c12",
+   "count": 1,
+   "charge": 1
+  },
+  {
+   "smiles": "O=P([O-])(O)O",
+   "count": 1,
+   "charge": -1
+  },
+  {
+   "smiles": "CC(C)O",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}{
+ "components": [
+  {
+   "smiles": "COc1ccccc1OCC[NH2+]C[C@H](O)COc1cccc2[nH]c3ccccc3c12",
+   "count": 2,
+   "charge": 1
+  },
+  {
+   "smiles": "O=P([O-])(O)O",
+   "count": 2,
+   "charge": -1
+  },
+  {
+   "smiles": "O",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}{
+ "radiation": {
+  "type": "Cu Kalpha1 (laboratory, monochromatic per the paper: Bruker D8 Advance, LynxEye)",
+  "wavelength_A": 1.540598,
+  "wavelengths_A": [
+   1.540598
+  ],
+  "wavelength_weights": null,
+  "monochromator": "monochromatic incident beam (paper)",
+  "source": "sealed X-ray tube"
+ },
+ "geometry": "reflection (flat plate / Bragg-Brentano)",
+ "geometry_source_text": null,
+ "temperature_K": 300.0,
+ "two_theta_range_deg": [
+  3.0066,
+  39.9938
+ ],
+ "n_points": 2818,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": [
+  "depositors tagged the radiation K-alpha1,2; the paper states monochromatic 1.5406 A and the deposited profile is consistent with a single wavelength"
+ ]
+}---METRIC

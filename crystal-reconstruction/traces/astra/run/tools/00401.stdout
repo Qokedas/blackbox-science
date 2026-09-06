@@ -1,0 +1,28 @@
+stablebase_pid=15347
+p=PowderPattern();p.SetName(sid);p.ImportPowderPattern2ThetaObsSigma(W+'/base_profile.xye');p.SetWavelength(wl);p.SetMaxSinThetaOvLambda(stol)
+if len(rad.get('wavelengths_A') or [])>1:p.SetWavelength('Mo' if wl<1 else 'Cu')
+d=p.AddPowderPatternDiffraction(c);d.SetName(sid+'_diffraction')
+wid=np.median([v['fwhm'] for v in sorted(valid,key=lambda z:-z['height'])[:25]])
+d.SetReflectionProfilePar(ReflectionProfileType.PROFILE_PSEUDO_VOIGT,np.deg2rad(wid)**2,0,0,.5,0)
+b=p.AddPowderPatternBackground();b.SetName(sid+'_background');nbkg=max(20,int((data[-1,0]-data[0,0])/(1.2*wl/1.54)));bx=np.linspace(np.deg2rad(data[0,0]),np.deg2rad(data[-1,0]),nbkg);raw=np.load(W+'/processed.npz');by=np.interp(np.rad2deg(bx),raw['x'],raw['background']);b.SetInterpPoints(bx,by)
+p.Prepare();p.quick_fit_profile(pdiff=d,auto_background=False,init_profile=False,plot=False,asym=True,verbose=False);p.FitScaleFactorForRw()
+print('FRESH_BASE',sid,sg,p.GetRw(),p.GetChi2(),flush=True)
+# Save the actual optimum reached. Excessive multiplicative Le Bail cycles can destabilize heavily overlapped lines.
+scale2=max(1.,np.sqrt(p.GetChi2()/len(data)));data[:,2]*=scale2;np.savetxt(W+'/base_profile.xye',data);p.ImportPowderPattern2ThetaObsSigma(W+'/base_profile.xye');p.Prepare();p.FitScaleFactorForRw()
+print('SCALED',scale*scale2,'Rw',p.GetRw(),'Chi2',p.GetChi2(),flush=True)
+cell={n:float(c.GetPar(n).GetHumanValue()) for n in ['a','b','c','alpha','beta','gamma']};out={'cell':cell,'space_group':sg,'space_group_number':gemmi.find_spacegroup_by_name(sg).number}
+json.dump(out,open(W+'/lattice.json','w'),indent=1)
+if '--submit' in sys.argv:json.dump(out,open('/app/results/submission/'+sid+'.json','w'),indent=1)
+xml_cryst_file_save_global(W+'/base.xml')
+# Keep a model-free base for direct-space searches, but retain a finite Pawley scale.
+import xml.etree.ElementTree as ET
+tree=ET.parse(W+'/base.xml');root=tree.getroot();cc=next(q for q in root if q.tag=='Crystal')
+for at in list(cc):
+ if at.tag=='Atom':cc.remove(at)
+tree.write(W+'/base.xml',encoding='unicode')
+np.savez_compressed(W+'/lebail.npz',h=d.GetH(),k=d.GetK(),l=d.GetL(),stol=d.GetSinThetaOverLambda(),f2=d.GetFhklObsSq(),x=p.GetPowderPatternX(),obs=p.GetPowderPatternObs(),calc=p.GetPowderPatternCalc())
+p.plot(diff=True,hkl=False);p.figure.savefig(W+'/base.png',dpi=140)
+TRIAL 58 sec 235.64831376075745 cost 0.43099924531530187 score 4.649018382145188 vol 2226.7977858514682 cell [ 22.7141   6.2186  16.8584  90.     110.7506  90.    ] zero 0.019086268447922494 best 0.4309956637654724 diff [ 0.0096 -0.0167  0.0137  0.0073  0.2636 -0.0024 -0.0062 -0.0186  0.0044
+  0.0018 -0.0149 -0.0015 -0.0108  0.0076  0.0467 -0.0007  0.1626  0.0019]
+TRIAL 59 sec 239.5396854877472 cost 0.5691781866112622 score 3.1375883968766796 vol 2760.7471323450795 cell [ 16.879    7.6943  23.0273  90.     112.6094  90.    ] zero 0.03175764843189206 best 0.4309956637654724 diff [ 0.013  -0.0061  0.0078  0.0029  0.0058 -0.0133  0.002  -0.0379  0.0833
+ -0.0014 -0.0165 -0.0158 -0.026   0.0094  0.4134 -0.0213  0.0065  0.0154]

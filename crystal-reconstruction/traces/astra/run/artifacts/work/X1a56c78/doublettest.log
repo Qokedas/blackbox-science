@@ -1,0 +1,10 @@
+ObjRegistry<T>::Find(ion_C): Not found !!
+List of Crystal ScatteringPowers :0 object registered:
+ORIGINAL 0.07038968132416873
+DOUBLETFIXED 0.07667223953246592
+DOUBLETFIT 0.06357042323160327
+Traceback (most recent call last):
+  File "/app/work/test_doublet.py", line 15, in <module>
+    p.plot(diff=True,hkl=False);p.figure.savefig(W+'/'+tag+'.png')
+                                ^^^^^^^^
+AttributeError: 'PowderPattern' object has no attribute 'figure'

@@ -1,0 +1,85 @@
+{
+ "radiation": {
+  "type": "Mo Kalpha1,2 (laboratory sealed tube)",
+  "wavelength_A": 0.709319,
+  "wavelengths_A": [
+   0.709319,
+   0.713609
+  ],
+  "wavelength_weights": [
+   1.0,
+   0.5
+  ],
+  "monochromator": null,
+  "source": "sealed X-ray tube"
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 300.0,
+ "two_theta_range_deg": [
+  1.0125,
+  49.987
+ ],
+ "n_points": 5862,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "sqrt(max(I,1)); counting statistics assumed",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": [
+  "Kalpha2 weight 0.5 is the standard ratio; the depositors state only Kalpha1,2"
+ ]
+}/app/work/submit.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+X238783d Nat 208 molecule sizes [52, 52, 52, 52]
+  component CC[C@H]1OC(=O)[C@H](C)[C@@H](O[C@H]2C[C@@](C)(OC)[C@@H](O)[C@H](C)O2)[C@H](C)[C@@H](O[C@@H]2O[C@H](C)C[C@H](N(C)C)[C@H]2O)[C@](C)(OC)C[C@@H](C)C(=O)[C@H](C)[C@@H](O)[C@]1(C)O matches 4
+  bond range 1.2298929395564808 1.58582884605954
+  min intermolecular distance 2.7582552014468753
+SUBMITTED X238783d
+HYPOTHESIS_ADDED X238783d /app/work/X238783d/refined_g20.cif Rwp 0.19305281955322562
+GRAPH_REJECT Xd8634a2 /app/work/Xd8634a2/refined_g2.cif
+/app/work/submit.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+Xd8634a2 Nat 66 molecule sizes [33, 33]
+  component CNS(=O)(=O)Nc1nccc(Cc2c(C)c3ccc(Oc4ncccn4)cc3oc2=O)c1F matches 2
+  bond range 1.2238925806140082 1.6610902526135487
+  min intermolecular distance 3.021646373432025
+SUBMITTED Xd8634a2
+HYPOTHESIS_ADDED Xd8634a2 /app/work/Xd8634a2/refined_g11.cif Rwp 0.2178640563638808
+CYCLE 0 1 Rw 0.0711721327541568 chi2 3104.5615005162654 geom 0.0 LSQ 3207.3564955909683
+CYCLE 0 2 Rw 0.07133317103727721 chi2 3118.6265241832043 geom 0.0 LSQ 3194.97367942061
+PACKING_STAGE 0 73.47517344574496
+CYCLE 1 0 Rw 0.07054872499968684 chi2 3050.4130193384535 geom 0.0 LSQ 3091.319515979195
+CYCLE 1 1 Rw 0.0691824028935088 chi2 2933.4020527702073 geom 0.0 LSQ 2982.5388201400056
+CYCLE 1 2 Rw 0.06829060338107865 chi2 2858.263129436268 geom 0.0 LSQ 2916.3944079429857
+PACKING_STAGE 1 31.39860280125603
+CYCLE 2 0 Rw 0.06831564042853445 chi2 2860.3593354841923 geom 0.0 LSQ 2911.4641876243313
+CYCLE 2 1 Rw 0.06745846332242535 chi2 2789.0300596190973 geom 0.08928611481714734 LSQ 2844.036878995558
+CYCLE 2 2 Rw 0.06668424211175011 chi2 2725.378004021471 geom 0.10636096978887186 LSQ 2793.9915448545607
+PACKING_STAGE 2 29.28462970403748
+CYCLE 3 0 Rw 0.06477682215061241 chi2 2571.6957313553257 geom 0.7087991885427667 LSQ 2713.1232834555385
+CYCLE 3 1 Rw 0.06490109693318237 chi2 2581.5728291100545 geom 0.21667795910416984 LSQ 2682.587565516027
+CYCLE 3 2 Rw 0.061633362156850086 chi2 2328.155727099981 geom 0.14703705287399296 LSQ 2423.3783064798945
+PACKING_STAGE 3 55.650122352508795
+HBOND_PRIOR 2 donors 4 acceptors coefficient 20.0 directional False
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X7e382cb 977.0011596679688
+CONDITIONAL 0 [1, 2] best 136.1173095703125 q25 136.11751 sec 89.13435935974121
+CYCLE 1 1 Rw 0.10878394858514658 chi2 4142.776595168741 geom 25.76627282252694 LSQ 4358.817517876009
+CYCLE 1 2 Rw 0.10783554463552232 chi2 4070.856083862799 geom 25.099820402125285 LSQ 4285.999293493212
+PACKING_STAGE 1 31.3633929012988
+CYCLE 2 0 Rw 0.10650868680173736 chi2 3971.2930619481563 geom 18.74115479172968 LSQ 4167.157308509746
+CYCLE 2 1 Rw 0.1058049069163361 chi2 3918.9840485912864 geom 19.47146288206701 LSQ 4115.866533589707
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X14a2b08 53.008026123046875
+CONDITIONAL 0 [1] best 52.09033966064453 q25 98.582855 sec 173.164386510849
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X3f4781b 40.86460876464844
+CONDITIONAL 0 [1, 3] best 38.17605209350586 q25 40.896584 sec 290.37329173088074
+18
+Sun Sep  6 10:54:27 UTC 2026

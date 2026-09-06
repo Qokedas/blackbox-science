@@ -1,0 +1,22 @@
+EMG_PID=34483
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/22050/status ]] && ! grep -q '^State:.*Z' /proc/22050/status; do sleep 5;done
+python /app/work/extend_low_base.py X3f4781b /app/work/X3f4781b/refined_g11.xml /app/work/X3f4781b/refined_low11.xml > /app/work/X3f4781b/extend_low11.log 2>&1
+GALLOP_STOL=.26 python /app/work/warm_gallop.py X3f4781b 50 /app/work/X3f4781b/refined_low11.xml /app/work/X3f4781b/search_g11/model.json > /app/work/X3f4781b/warm50.log 2>&1
+SEARCH_TIME=1800 PARTICLES=128 ITERATIONS=400 START_REFL=110 RAMP_REF_EVERY=4 RAMP_REF_STEP=40 START_NPZ=/app/work/X3f4781b/gallop_50/warm.npz START_JITTER=.09 START_TOR_JITTER=.40 MACRO_ELITE_FRAC=.30 python /app/work/search_gallop.py X3f4781b 50 2 --hscatter --packing > /app/work/X3f4781b/gallop50.log 2>&1
+python /app/work/import_gallop.py X3f4781b 50 > /app/work/X3f4781b/import_g50.log 2>&1
+python /app/work/refine_obj.py X3f4781b g50 /app/work/X3f4781b/search_g50/best.xml --scale --tight > /app/work/X3f4781b/refine_g50.log 2>&1
+GALLOP 4 Nref 368 seconds 47.71575355529785 best 363.85532 q25 410.6521 median 507.45862 total 320.22333812713623
+GALLOP 5 Nref 368 seconds 66.14364004135132 best 356.5006 q25 478.05408 median 560.58527 total 386.4534389972687
+GALLOP 6 Nref 368 seconds 52.98647594451904 best 335.129 q25 415.482 median 517.8551 total 439.62053966522217
+GALLOP 7 Nref 368 seconds 42.13427424430847 best 335.1289 q25 449.96027 median 542.6007 total 481.8432433605194
+GALLOP 2 Nref 140 seconds 105.31600093841553 best 279.952 q25 387.38293 median 457.61688 total 398.09851717948914
+GALLOP 3 Nref 140 seconds 147.31586241722107 best 279.28406 q25 361.1376 median 448.10315 total 545.5612545013428
+GALLOP 4 Nref 190 seconds 152.89187026023865 best 262.4567 q25 364.19092 median 450.58044 total 698.6538169384003
+GALLOP 5 Nref 190 seconds 95.19720792770386 best 262.79254 q25 352.61606 median 454.1307 total 793.9879965782166
+GALLOP 6 Nref 190 seconds 87.8917338848114 best 262.31882 q25 350.28564 median 455.22906 total 881.9437861442566
+GALLOP 29 Nref 333 seconds 80.12707996368408 best 87.11363 q25 89.23677 median 216.58698 total 1913.7026624679565
+GALLOP 30 Nref 333 seconds 77.40488266944885 best 87.11347 q25 87.51575 median 191.98203 total 1991.13716173172
+GALLOP 31 Nref 333 seconds 53.789910316467285 best 87.1134 q25 87.1874 median 161.18784 total 2044.9759149551392
+GALLOP 32 Nref 333 seconds 66.48466229438782 best 84.78317 q25 87.15518 median 105.93666 total 2111.486198425293
+GALLOP 33 Nref 333 seconds 66.15522289276123 best 84.38112 q25 87.11435 median 155.42265 total 2177.692310333252

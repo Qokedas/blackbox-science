@@ -1,0 +1,116 @@
+import os,json
+import numpy as np
+from scipy.ndimage import percentile_filter, gaussian_filter1d
+from scipy.signal import find_peaks,peak_widths
+from scipy.optimize import least_squares
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+from rdkit import Chem
+from rdkit.Chem import Descriptors,rdMolDescriptors
+ROOT='/app/data/instances'; WORK='/app/work'
+ids=json.load(open('/app/data/instances.json'))['ids']
+summary=[]
+for sid in ids:
+ p=ROOT+'/'+sid; w=WORK+'/'+sid; os.makedirs(w,exist_ok=True)
+ ins=json.load(open(p+'/instrument.json'));comp=json.load(open(p+'/composition.json'))
+ wl=ins['radiation']['wavelength_A']; data=np.loadtxt(p+'/pattern.xye');x,y,sig=data.T; dx=np.median(np.diff(x))
+ # background width scales with wavelength; low-percentile baseline
+ back=gaussian_filter1d(percentile_filter(y,percentile=20,size=max(11,int(1.0*wl/1.54/dx)//2*2+1)),max(1,int(.10*wl/1.54/dx)))
+ net=y-back
+ smooth=gaussian_filter1d(net, max(.65,.005*wl/1.54/dx))
+ # robust point-to-point noise estimate
+ noise=np.median(np.abs(np.diff(y,2)))/1.65
+ # sigma column can be artificially small in rescaled intensities, use empirical noise
+ thr=max(np.max(smooth)*.0015,noise*5)
+ peaks,props=find_peaks(smooth,prominence=thr,distance=max(2,int(.030*wl/1.54/dx)))
+ widths=peak_widths(smooth,peaks,rel_height=.5)[0]*dx
+ valid=(widths<.65*wl/1.54)&(widths>dx*1.1)&(smooth[peaks]>thr*1.2)
+ peaks=peaks[valid];widths=widths[valid]
+ result=[]
+ for ip,(i,fwhm) in enumerate(zip(peaks,widths)):
+  half=max(fwhm*2.2,dx*5)
+  if ip>0: half=min(half,(x[i]-x[peaks[ip-1]])*.46)
+  if ip+1<len(peaks): half=min(half,(x[peaks[ip+1]]-x[i])*.46)
+  half=max(half,dx*2.1)
+  mask=(x>x[i]-half)&(x<x[i]+half); xx=x[mask]; yy=y[mask]; ss=np.maximum(sig[mask],noise)
+  if len(xx)<5:continue
+  def model(v):
+   pos,h,wid,eta,b,s=v
+   z=(xx-pos)/wid
+   return h*((1-eta)*np.exp(-4*np.log(2)*z*z)+eta/(1+4*z*z))+b+s*(xx-x[i])
+  v=[x[i], max(smooth[i],1e-4),max(fwhm,dx*2),.5,back[i],0]
+  lb=[x[i]-half/2,0,dx*.6,0, min(yy)-np.ptp(yy),-np.inf]
+  ub=[x[i]+half/2,np.ptp(yy)*3+abs(v[1]),max(fwhm*4,dx*6),1,max(yy),np.inf]
+  try:
+   fit=least_squares(lambda v:(model(v)-yy)/ss,v,bounds=(lb,ub),max_nfev=100)
+   pos,h,wid,eta,b,s=fit.x
+   err=np.sqrt(np.linalg.pinv(fit.jac.T@fit.jac)[0,0])*max(1,np.sqrt(np.mean(fit.fun**2)))
+  except Exception:
+   pos,h,wid,eta,b,s=v;err=dx
+  if h< thr*.7:continue
+  # remove resolved second members of K-alpha doublets using known ratio and position
+  rad=ins['radiation']; second=False
+  if len(rad.get('wavelengths_A') or [])>1:
+   rat=rad['wavelengths_A'][1]/rad['wavelengths_A'][0]
+   p1=np.rad2deg(2*np.arcsin(np.sin(np.deg2rad(pos/2))/rat))
+   for pk in result:
+    if abs(pk['two_theta']-p1)<max(dx*2,wid*.28) and .12<h/pk['height']<.9:
+     second=True;break
+  if not second:
+   result.append(dict(two_theta=float(pos),height=float(h),fwhm=float(wid),eta=float(eta),error=float(err),d=float(wl/(2*np.sin(np.deg2rad(pos/2)))),area=float(h*wid*(eta*np.pi/2+(1-eta)*np.sqrt(np.pi/(4*np.log(2)))))))
+ json.dump(result,open(w+'/peaks.json','w'),indent=1)
+ np.savez_compressed(w+'/processed.npz',x=x,y=y,sigma=sig,background=back)
+ nn=sum(Chem.MolFromSmiles(c['smiles']).GetNumHeavyAtoms()*c['count'] for c in comp['components'])
+ rot=sum(rdMolDescriptors.CalcNumRotatableBonds(Chem.MolFromSmiles(c['smiles']))*c['count'] for c in comp['components'])
+ mw=sum(Descriptors.MolWt(Chem.MolFromSmiles(c['smiles']))*c['count'] for c in comp['components'])
+ summary.append(dict(id=sid,wl=wl,heavy=nn,rotors=rot,mw=mw,npeaks=len(result),noise=float(noise),chiral=any('@' in c['smiles'] for c in comp['components'])))
+ # low-angle peak plot
+ xmax=min(x[-1], np.rad2deg(2*np.arcsin(wl/6.0)))
+ fig,axs=plt.subplots(2,1,figsize=(14,7))
+ axs[0].plot(x,y,lw=.6);axs[0].plot(x,back,lw=.6);axs[0].set_xlim(x[0],xmax)
+ axs[1].plot(x,np.maximum(net,0)**.5,lw=.65);axs[1].set_xlim(x[0],xmax)
+ for j,pk in enumerate(result):
+  if pk['two_theta']>xmax: break
+  if j<65:
+   axs[1].axvline(pk['two_theta'],color='r',lw=.4,alpha=.5)
+   axs[1].text(pk['two_theta'], np.interp(pk['two_theta'],x,np.maximum(net,0)**.5)+np.sqrt(max(net))*.02,str(j+1),fontsize=7,rotation=90)
+ axs[0].set_title(sid+'; '+str(nn)+' atoms; '+str(rot)+' rotors; '+str(len(result))+' peaks')
+ fig.tight_layout();fig.savefig(w+'/peaks.png',dpi=130);plt.close(fig)
+ print(sid,nn,rot,len(result),'first',[round(pk['two_theta'],4) for pk in result[:22]],flush=True)
+json.dump(summary,open(WORK+'/summary.json','w'),indent=1)
+# all low-angle overview
+for page in range(3):
+ fig,axs=plt.subplots(5,2,figsize=(15,13))
+ for ax,sid in zip(axs.flat,ids[10*page:10*page+10]):
+  dat=np.load(WORK+'/'+sid+'/processed.npz');x=dat['x'];y=dat['y']-dat['background'];wl=summary[ids.index(sid)]['wl']
+  q=2*np.sin(np.deg2rad(x/2))/wl
+  ax.plot(q,np.sqrt(np.maximum(y,0)),lw=.7);ax.set_xlim(0,.32);ax.set_title(sid)
+ fig.tight_layout();fig.savefig(WORK+'/overview%d.png'%page,dpi=120);plt.close(fig)
+{"min_two_theta": 2.6}Xe3a2935 ORTHOROMBIC P 2 peaks [2.68655, 2.93516, 3.74625, 4.69594, 4.8025, 4.88503, 5.22169, 5.41076, 5.61361, 5.87383, 6.19031, 6.48384, 6.65521, 7.05371, 7.20834, 7.49647, 7.81117, 7.92689, 8.28267, 8.346, 8.48027, 8.51462] V 504.9749450683594 3780 Lmax 43.616950455549265
+3->43.617,1.62468,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+[
+ {
+  "two_theta": 5.8486446443540885,
+  "height": 2586.6252921813116,
+  "fwhm": 0.03871874687155295,
+  "eta": 0.11080289916582103,
+  "error": 0.0004090015079255121,
+  "d": 12.145191943604305,
+  "area": 112.22606016750012
+ },
+ {
+  "two_theta": 6.598599912639859,
+  "height": 727.0222408651508,
+  "fwhm": 0.03578458532177051,
+  "eta": 0.018266921780436908,
+  "error": 0.00038416691772258203,
+  "d": 10.766121757959068,
+  "area": 27.934001358500804
+ },
+ {
+  "two_theta": 8.323093372649643,
+  "height": 116.3654662006687,
+  "fwhm": 0.03392625799250307,
+  "eta": 4.2125356022855e-19,

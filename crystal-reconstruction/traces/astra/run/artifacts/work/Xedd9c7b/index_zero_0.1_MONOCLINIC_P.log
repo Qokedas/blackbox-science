@@ -1,0 +1,178 @@
+Xedd9c7b MONOCLINIC P 4 peaks [11.10742, 11.81985, 12.52948, 14.26583, 14.8881, 15.39919, 17.12935, 17.38853, 19.31913, 19.98573, 20.61934, 21.50266, 22.228, 23.87816, 24.33548, 25.23826, 26.49338, 28.19291] V 450.0 2800.0 Lmax 40.0
+3->40,1.48001,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+450->2800,470.009,4.9999
+Starting: V=450->920.009
+    a= 8.63- 8.68 b= 6.73- 6.78 c=16.05-16.10 alpha= 90.00- 90.00 beta= 91.71- 91.85 gamma= 90.00- 90.00 V=932.48-947.73level=4, indexed=1(0 sol.)
+    a=0.11594-0.11524 b=0.14849-0.14744 c=0.06232-0.06213 alpha=0.02992-0.03232 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(0 sol.)
+ Solution ? a=  8.634 b=  6.737 c= 15.988 alpha= 90.000 beta= 91.526 gamma= 90.000 V=  929.62 score=  6.65 #   0
+    a= 8.63- 8.68 b= 6.73- 6.78 c=16.06-16.11 alpha= 90.00- 90.00 beta= 91.99- 92.13 gamma= 90.00- 90.00 V=932.62-947.88level=4, indexed=1(1 sol.)
+    a=0.11594-0.11524 b=0.14849-0.14744 c=0.06232-0.06213 alpha=0.03471-0.03711 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(1 sol.)
+ Solution ? a=  8.634 b=  6.737 c= 15.988 alpha= 90.000 beta= 91.526 gamma= 90.000 V=  929.62 score=  6.65 #   1
+    a= 8.62- 8.68 b= 6.79- 6.85 c=17.94-18.02 alpha= 90.00- 90.00 beta=116.82-116.98 gamma= 90.00- 90.00 V=937.41-954.10level=4, indexed=1(2 sol.)
+    a=0.13004-0.12928 b=0.14720-0.14607 c=0.06245-0.06228 alpha=0.45125-0.45365 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(2 sol.)
+ Solution ? a=  8.691 b=  6.826 c= 17.954 alpha= 90.000 beta=116.651 gamma= 90.000 V=  952.03 score=  7.06 #   2
+    a= 8.64- 8.70 b= 6.79- 6.85 c=17.99-18.07 alpha= 90.00- 90.00 beta=117.13-117.29 gamma= 90.00- 90.00 V=939.98-956.73level=4, indexed=1(3 sol.)
+    a=0.13004-0.12928 b=0.14720-0.14607 c=0.06245-0.06228 alpha=0.45604-0.45843 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(3 sol.)
+ Solution ? a=  8.686 b=  6.841 c= 17.945 alpha= 90.000 beta=116.643 gamma= 90.000 V=  953.02 score=  7.18 #   3
+Finished: V=450->920.009 A^3, 283845 unit cells tested, 1.1115e+06 tests/s,   Elapsed time=0.255378s
+Starting: V=920.009->1390.02
+    a= 8.63- 8.68 b= 6.73- 6.78 c=16.05-16.10 alpha= 90.00- 90.00 beta= 91.71- 91.85 gamma= 90.00- 90.00 V=932.48-947.73level=4, indexed=1(6 sol.)
+    a=0.11594-0.11524 b=0.14849-0.14744 c=0.06232-0.06213 alpha=0.02992-0.03232 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(6 sol.)
+ Solution ? a=  8.634 b=  6.737 c= 15.988 alpha= 90.000 beta= 91.526 gamma= 90.000 V=  929.62 score=  6.65 #   6
+    a= 8.63- 8.68 b= 6.73- 6.78 c=16.06-16.11 alpha= 90.00- 90.00 beta= 91.99- 92.13 gamma= 90.00- 90.00 V=932.62-947.88level=4, indexed=1(7 sol.)
+    a=0.11594-0.11524 b=0.14849-0.14744 c=0.06232-0.06213 alpha=0.03471-0.03711 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(7 sol.)
+ Solution ? a=  8.634 b=  6.737 c= 15.988 alpha= 90.000 beta= 91.526 gamma= 90.000 V=  929.62 score=  6.65 #   7
+    a= 7.97- 8.02 b= 9.91- 9.96 c=17.86-17.91 alpha= 90.00- 90.00 beta= 93.91- 94.05 gamma= 90.00- 90.00 V=1408.70-1427.25level=4, indexed=1(9 sol.)
+    a=0.12569-0.12500 b=0.10089-0.10039 c=0.05611-0.05598 alpha=0.06823-0.07062 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(9 sol.)
+ Solution ? a=  7.979 b=  9.893 c= 17.847 alpha= 90.000 beta= 93.986 gamma= 90.000 V= 1405.42 score=  7.23 #   9
+    a= 7.98- 8.02 b= 9.91- 9.96 c=17.87-17.92 alpha= 90.00- 90.00 beta= 94.19- 94.32 gamma= 90.00- 90.00 V=1409.17-1427.75level=4, indexed=1(10 sol.)
+    a=0.12569-0.12500 b=0.10089-0.10039 c=0.05611-0.05598 alpha=0.07301-0.07541 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(10 sol.)
+ Solution ? a=  7.971 b=  9.907 c= 17.854 alpha= 90.000 beta= 94.223 gamma= 90.000 V= 1406.01 score=  8.13 #  10
+    a= 9.37- 9.42 b=11.11-11.16 c=11.62-11.67 alpha= 90.00- 90.00 beta= 93.36- 93.50 gamma= 90.00- 90.00 V=1208.11-1224.34level=4, indexed=1(18 sol.)
+    a=0.10687-0.10637 b=0.08997-0.08960 c=0.08623-0.08586 alpha=0.05865-0.06104 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(18 sol.)
+ Solution ? a=  9.431 b= 11.071 c= 11.647 alpha= 90.000 beta= 93.797 gamma= 90.000 V= 1213.41 score=  7.10 #  18
+     a= 9.41- 9.43 b=11.10-11.13 c=11.61-11.63 alpha= 90.00- 90.00 beta= 93.60- 93.67 gamma= 90.00- 90.00 V=1210.09-1218.19level=5, indexed=1(19 sol.)
+     a=0.10650-0.10625 b=0.09007-0.08988 c=0.08632-0.08614 alpha=0.06284-0.06404 beta=0.00000-0.00000 gamma=0.00000-0.00000level=5, indexed=1(19 sol.)
+ Solution ? a=  9.431 b= 11.071 c= 11.647 alpha= 90.000 beta= 93.797 gamma= 90.000 V= 1213.41 score=  7.10 #  19
+     a= 9.41- 9.43 b=11.06-11.08 c=11.61-11.63 alpha= 90.00- 90.00 beta= 93.60- 93.67 gamma= 90.00- 90.00 V=1205.08-1213.14level=5, indexed=1(22 sol.)
+     a=0.10650-0.10625 b=0.09044-0.09026 c=0.08632-0.08614 alpha=0.06284-0.06404 beta=0.00000-0.00000 gamma=0.00000-0.00000level=5, indexed=1(22 sol.)
+ Solution ? a=  9.438 b= 11.076 c= 11.652 alpha= 90.000 beta= 93.815 gamma= 90.000 V= 1215.35 score=  7.11 #  22
+    a= 9.38- 9.42 b=11.02-11.07 c=11.62-11.68 alpha= 90.00- 90.00 beta= 93.91- 94.05 gamma= 90.00- 90.00 V=1198.87-1214.96level=4, indexed=1(23 sol.)
+    a=0.10687-0.10637 b=0.09072-0.09035 c=0.08623-0.08586 alpha=0.06823-0.07062 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(23 sol.)
+ Solution ? a=  9.433 b= 11.067 c= 11.653 alpha= 90.000 beta= 93.834 gamma= 90.000 V= 1213.75 score=  7.22 #  23
+    a= 8.00- 8.05 b= 9.92- 9.96 c=19.03-19.10 alpha= 90.00- 90.00 beta=110.53-110.68 gamma= 90.00- 90.00 V=1413.81-1432.16level=4, indexed=1(46 sol.)
+    a=0.13351-0.13278 b=0.10081-0.10042 c=0.05611-0.05597 alpha=0.35071-0.35310 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(46 sol.)
+ Solution ? a=  7.970 b=  9.900 c= 19.025 alpha= 90.000 beta=110.577 gamma= 90.000 V= 1405.44 score=  7.56 #  46
+Finished: V=920.009->1390.02 A^3, 1600467 unit cells tested, 1.3329e+06 tests/s,   Elapsed time=1.20075s
+Starting: V=1390.02->1860.03
+    a= 7.98- 8.02 b= 9.91- 9.96 c=17.87-17.92 alpha= 90.00- 90.00 beta= 94.19- 94.32 gamma= 90.00- 90.00 V=1409.17-1427.75level=4, indexed=1(50 sol.)
+    a=0.12569-0.12500 b=0.10089-0.10039 c=0.05611-0.05598 alpha=0.07301-0.07541 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(50 sol.)
+ Solution ? a=  7.971 b=  9.907 c= 17.854 alpha= 90.000 beta= 94.223 gamma= 90.000 V= 1406.01 score=  8.13 #  50
+     a=15.12-15.15 b= 5.74- 5.77 c=18.45-18.47 alpha= 90.00- 90.00 beta= 92.64- 92.71 gamma= 90.00- 90.00 V=1599.44-1611.85level=5, indexed=1(51 sol.)
+     a=0.06619-0.06609 b=0.17428-0.17341 c=0.05426-0.05419 alpha=0.04608-0.04728 beta=0.00000-0.00000 gamma=0.00000-0.00000level=5, indexed=1(51 sol.)
+ Solution ? a= 15.130 b=  5.757 c= 18.433 alpha= 90.000 beta= 92.755 gamma= 90.000 V= 1603.82 score= 10.02 #  51
+    a=12.40-12.45 b= 6.27- 6.32 c=24.14-24.20 alpha= 90.00- 90.00 beta= 97.50- 97.64 gamma= 90.00- 90.00 V=1861.99-1885.15level=4, indexed=1(68 sol.)
+    a=0.08135-0.08106 b=0.15938-0.15834 c=0.04178-0.04170 alpha=0.13047-0.13286 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(68 sol.)
+ Solution ? a= 12.473 b=  6.277 c= 24.283 alpha= 90.000 beta= 97.607 gamma= 90.000 V= 1884.36 score= 11.41 #  68
+Finished: V=1390.02->1860.03 A^3, 5583237 unit cells tested, 1.36062e+06 tests/s,   Elapsed time=4.10344s
+Starting: V=1860.03->2330.04
+     a=15.92-15.95 b= 9.40- 9.43 c=15.23-15.26 alpha= 90.00- 90.00 beta=106.30-106.37 gamma= 90.00- 90.00 V=2187.93-2200.46level=5, indexed=1(565 sol.)
+     a=0.06546-0.06536 b=0.10635-0.10610 c=0.06840-0.06830 alpha=0.28069-0.28188 beta=0.00000-0.00000 gamma=0.00000-0.00000level=5, indexed=1(565 sol.)
+ Solution ? a= 15.888 b=  9.343 c= 15.185 alpha= 90.000 beta=106.236 gamma= 90.000 V= 2164.19 score= 12.97 # 565
+Finished: V=1860.03->2330.04 A^3, 14918851 unit cells tested, 790264 tests/s,   Elapsed time=18.8783s
+Starting: V=2330.04->2800
+      a=10.40-10.43 b=15.62-15.64 c=17.31-17.34 alpha= 90.00- 90.00 beta= 96.25- 96.32 gamma= 90.00- 90.00 V=2796.51-2812.20level=6, indexed=1(1423 sol.)
+      a=0.09668-0.09643 b=0.06404-0.06394 c=0.05810-0.05802 alpha=0.10892-0.11012 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(1423 sol.)
+ Solution ? a= 10.412 b= 15.547 c= 17.262 alpha= 90.000 beta= 95.623 gamma= 90.000 V= 2780.87 score= 14.72 #1423
+      a=10.44-10.46 b=15.57-15.59 c=17.27-17.30 alpha= 90.00- 90.00 beta= 95.56- 95.63 gamma= 90.00- 90.00 V=2793.53-2807.35level=6, indexed=1(1672 sol.)
+      a=0.09625-0.09606 b=0.06423-0.06413 c=0.05818-0.05810 alpha=0.09695-0.09815 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(1672 sol.)
+ Solution ? a= 10.421 b= 15.537 c= 17.264 alpha= 90.000 beta= 95.646 gamma= 90.000 V= 2781.68 score= 16.22 #1672
+2185 solutions ! Redparing...
+CellExplorer::ReduceSolutions(): update threshold for report from 8 to 8.58518
+-> 100 remaining
+Finished: V=2330.04->2800 A^3, 34034066 unit cells tested, 697115 tests/s,   Elapsed time=48.8213s
+CellExplorer::ReduceSolutions(): update threshold for report from 8.58518 to 9.2261
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=10.4214, b=15.5367, c=17.2637, alpha=90, beta=95.6463, gamma=90, V=2781.68, score=16.218
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=10.4212, b=15.5371, c=19.2672, alpha=90, beta=116.915, gamma=90, V=2781.72, score=15.9607
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=10.4105, b=31.1003, c=10.5089, alpha=90, beta=125.171, gamma=90, V=2781.29, score=15.094
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=10.5089, b=31.1003, c=10.4105, alpha=90, beta=125.171, gamma=90, V=2781.3, score=15.0939
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=10.4116, b=15.5473, c=19.2659, alpha=90, beta=116.912, gamma=90, V=2780.87, score=14.7239
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=10.4342, b=15.5672, c=19.2675, alpha=90, beta=116.74, gamma=90, V=2794.94, score=14.3994
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=10.4342, b=15.5672, c=17.2972, alpha=90, beta=95.8563, gamma=90, V=2794.94, score=14.3992
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=10.4093, b=15.5295, c=17.2481, alpha=90, beta=95.5677, gamma=90, V=2775.03, score=14.0307
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=15.8884, b=9.34283, c=15.1849, alpha=90, beta=106.236, gamma=90, V=2164.19, score=12.9714
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=15.1849, b=9.34283, c=15.8884, alpha=90, beta=106.236, gamma=90, V=2164.19, score=12.9714
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=10.4583, b=15.637, c=17.3879, alpha=90, beta=96.1076, gamma=90, V=2827.41, score=12.9104
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=10.4583, b=15.637, c=19.3137, alpha=90, beta=116.469, gamma=90, V=2827.41, score=12.9103
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=10.4126, b=15.5673, c=17.275, alpha=90, beta=95.6932, gamma=90, V=2786.4, score=12.7137
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=10.4149, b=15.5828, c=17.2866, alpha=90, beta=95.7323, gamma=90, V=2791.49, score=12.1945
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=15.1324, b=9.91734, c=18.3828, alpha=90, beta=93.1052, gamma=90, V=2754.72, score=12.1327
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=15.1324, b=9.91733, c=23.1685, alpha=90, beta=127.601, gamma=90, V=2754.71, score=12.1327
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=18.5645, b=8.08751, c=20.8705, alpha=90, beta=110.017, gamma=90, V=2944.21, score=12.0233
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=8.76013, b=21.3998, c=15.5466, alpha=90, beta=98.5164, gamma=90, V=2882.3, score=11.9999
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=8.76013, b=21.3998, c=16.6763, alpha=90, beta=112.783, gamma=90, V=2882.3, score=11.9998
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=7.73099, b=21.3921, c=16.9118, alpha=90, beta=108.568, gamma=90, V=2651.32, score=11.447
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=7.73099, b=21.3921, c=16.9118, alpha=90, beta=108.568, gamma=90, V=2651.32, score=11.4469
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=7.73099, b=21.3921, c=16.2022, alpha=90, beta=98.3244, gamma=90, V=2651.32, score=11.4469
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=12.4728, b=6.27677, c=24.2831, alpha=90, beta=97.6069, gamma=90, V=1884.36, score=11.4087
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=8.67413, b=20.9834, c=17.8886, alpha=90, beta=117.045, gamma=90, V=2899.9, score=11.1299
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=17.3646, b=4.65856, c=36.2347, alpha=90, beta=99.2497, gamma=90, V=2893.06, score=11.1222
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=10.4494, b=15.6115, c=17.3793, alpha=90, beta=96.0609, gamma=90, V=2819.25, score=11.0762
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=10.4494, b=15.6115, c=19.3101, alpha=90, beta=116.494, gamma=90, V=2819.25, score=11.076
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=22.6525, b=4.64306, c=24.965, alpha=90, beta=105.267, gamma=90, V=2533.08, score=10.9661
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=22.6525, b=4.64306, c=28.9581, alpha=90, beta=123.728, gamma=90, V=2533.08, score=10.9661
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=24.965, b=4.64306, c=28.9581, alpha=90, beta=131.006, gamma=90, V=2533.08, score=10.966
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=8.66941, b=20.9885, c=17.9003, alpha=90, beta=117.013, gamma=90, V=2901.76, score=10.963
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=7.58239, b=22.3752, c=18.5569, alpha=90, beta=110.803, gamma=90, V=2943.06, score=10.7501
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=15.968, b=9.88741, c=17.8532, alpha=90, beta=94.0018, gamma=90, V=2811.84, score=10.622
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=17.3645, b=4.65841, c=37.5703, alpha=90, beta=107.883, gamma=90, V=2892.27, score=10.4819
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=15.1616, b=8.02224, c=20.4756, alpha=90, beta=92.4566, gamma=90, V=2488.15, score=10.4751
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=15.1616, b=8.02224, c=24.9501, alpha=90, beta=124.925, gamma=90, V=2488.15, score=10.4749
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=8.66702, b=20.9923, c=17.9329, alpha=90, beta=116.986, gamma=90, V=2907.48, score=10.4236
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=10.4275, b=15.521, c=17.255, alpha=90, beta=95.3762, gamma=90, V=2780.36, score=10.4199
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=18.4969, b=6.51335, c=24.937, alpha=90, beta=114.174, gamma=90, V=2740.87, score=10.3043
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=18.4969, b=6.51335, c=24.2118, alpha=90, beta=110.01, gamma=90, V=2740.87, score=10.3042
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=10.47, b=15.6173, c=17.3841, alpha=90, beta=96.0218, gamma=90, V=2826.84, score=10.2715
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=10.47, b=15.6173, c=19.3298, alpha=90, beta=116.571, gamma=90, V=2826.84, score=10.2714
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=8.09275, b=20.6036, c=17.8311, alpha=90, beta=95.8629, gamma=90, V=2957.61, score=10.2585
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=12.5956, b=8.02953, c=22.8154, alpha=90, beta=98.631, gamma=90, V=2281.34, score=10.2367
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=12.5956, b=8.02953, c=24.3503, alpha=90, beta=112.127, gamma=90, V=2281.34, score=10.2365
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=12.4358, b=7.17038, c=30.2115, alpha=90, beta=93.6784, gamma=90, V=2688.4, score=10.2169
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=12.4358, b=7.17038, c=31.9245, alpha=90, beta=109.197, gamma=90, V=2688.4, score=10.2168
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=9.19553, b=8.0175, c=31.402, alpha=90, beta=96.26, gamma=90, V=2301.31, score=10.1743
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=10.4194, b=15.6167, c=17.2949, alpha=90, beta=95.7306, gamma=90, V=2800.1, score=10.1462
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=10.4194, b=15.6167, c=19.2793, alpha=90, beta=116.799, gamma=90, V=2800.1, score=10.1461
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=10.4411, b=15.5911, c=17.3718, alpha=90, beta=96.0467, gamma=90, V=2812.18, score=10.0995
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=10.4411, b=15.5911, c=19.3024, alpha=90, beta=116.495, gamma=90, V=2812.18, score=10.0995
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=10.4436, b=15.6485, c=19.2858, alpha=90, beta=116.719, gamma=90, V=2815.29, score=10.0974
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=10.4436, b=15.6485, c=17.3175, alpha=90, beta=95.8748, gamma=90, V=2815.29, score=10.0973
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=10.4237, b=15.597, c=19.3153, alpha=90, beta=116.453, gamma=90, V=2811.48, score=10.0205
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=15.1301, b=5.75735, c=23.2783, alpha=90, beta=127.727, gamma=90, V=1603.82, score=10.0161
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=15.1301, b=5.75735, c=18.4328, alpha=90, beta=92.7552, gamma=90, V=1603.82, score=10.016
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=12.5849, b=8.02367, c=22.8026, alpha=90, beta=98.6789, gamma=90, V=2276.18, score=9.96538
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=15.1329, b=9.90889, c=18.4271, alpha=90, beta=92.6778, gamma=90, V=2760.12, score=9.92574
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=15.1329, b=9.90889, c=23.2917, alpha=90, beta=127.788, gamma=90, V=2760.12, score=9.9257
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=23.0238, b=4.08492, c=30.2374, alpha=90, beta=137.428, gamma=90, V=1923.9, score=9.86296
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=12.5767, b=8.02125, c=24.3271, alpha=90, beta=112.105, gamma=90, V=2273.76, score=9.78477
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=10.4413, b=15.6094, c=19.2802, alpha=90, beta=116.74, gamma=90, V=2806.29, score=9.74206
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=14.1787, b=11.2339, c=22.6942, alpha=90, beta=125.509, gamma=90, V=2942.53, score=9.73594
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=8.19102, b=29.9317, c=13.0208, alpha=90, beta=116.889, gamma=90, V=2847.18, score=9.69692
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=8.19102, b=29.9317, c=11.839, alpha=90, beta=101.213, gamma=90, V=2847.18, score=9.69686
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=7.73215, b=21.4112, c=16.2146, alpha=90, beta=98.3709, gamma=90, V=2655.8, score=9.67389
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=9.20497, b=22.3003, c=15.024, alpha=90, beta=129.743, gamma=90, V=2371.37, score=9.62304
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=9.20497, b=22.3003, c=14.5248, alpha=90, beta=127.312, gamma=90, V=2371.37, score=9.62286
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=8.35466, b=30.2947, c=11.4353, alpha=90, beta=103.947, gamma=90, V=2808.96, score=9.59177
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=6.22759, b=22.417, c=17.3501, alpha=90, beta=112.573, gamma=90, V=2236.59, score=9.53928
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=10.4317, b=31.101, c=10.5423, alpha=90, beta=125.303, gamma=90, V=2791.34, score=9.52151
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=10.4317, b=31.101, c=9.63597, alpha=90, beta=116.764, gamma=90, V=2791.34, score=9.52138
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=10.5423, b=31.101, c=10.4317, alpha=90, beta=125.303, gamma=90, V=2791.34, score=9.52137
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=9.63597, b=31.101, c=10.4317, alpha=90, beta=116.764, gamma=90, V=2791.34, score=9.52133
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=10.4263, b=15.6083, c=17.3977, alpha=90, beta=96.0391, gamma=90, V=2815.54, score=9.50993
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=8.7468, b=21.4162, c=16.6796, alpha=90, beta=112.827, gamma=90, V=2879.78, score=9.50176
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=8.09277, b=15.3585, c=19.5848, alpha=90, beta=107.142, gamma=90, V=2326.11, score=9.44821
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=7.5784, b=8.02879, c=36.3399, alpha=90, beta=98.628, gamma=90, V=2186.09, score=9.44118
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=7.5784, b=8.02879, c=35.9916, alpha=90, beta=93.3876, gamma=90, V=2186.09, score=9.44117
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=9.28508, b=31.1236, c=11.5504, alpha=90, beta=126.286, gamma=90, V=2690.61, score=9.44083
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=20.4662, b=4.00767, c=30.2407, alpha=90, beta=130.498, gamma=90, V=1886.16, score=9.42607
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=20.4662, b=4.00767, c=31.3403, alpha=90, beta=132.799, gamma=90, V=1886.16, score=9.42599
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=23.0107, b=4.00767, c=30.2407, alpha=90, beta=137.442, gamma=90, V=1886.16, score=9.42599
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=8.60194, b=31.1933, c=8.01769, alpha=90, beta=92.6406, gamma=90, V=2149.04, score=9.41878
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=8.01769, b=31.1933, c=8.60194, alpha=90, beta=92.6406, gamma=90, V=2149.04, score=9.41878
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=10.4693, b=15.6656, c=19.3003, alpha=90, beta=116.334, gamma=90, V=2836.91, score=9.41261
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=10.4693, b=15.6656, c=17.4022, alpha=90, beta=96.2932, gamma=90, V=2836.91, score=9.41257
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=20.4693, b=4.08455, c=30.2402, alpha=90, beta=130.45, gamma=90, V=1923.98, score=9.37981
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=10.4662, b=15.6956, c=17.3116, alpha=90, beta=96.0822, gamma=90, V=2827.84, score=9.37276
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=10.4662, b=15.6956, c=19.2572, alpha=90, beta=116.631, gamma=90, V=2827.84, score=9.37276
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=9.00254, b=18.7245, c=16.7212, alpha=90, beta=113.318, gamma=90, V=2588.44, score=9.35228
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=9.00254, b=18.7245, c=15.5393, alpha=90, beta=98.824, gamma=90, V=2588.44, score=9.35227
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=13.5695, b=14.6862, c=17.7298, alpha=90, beta=126.185, gamma=90, V=2851.76, score=9.31944
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=12.5903, b=10.5739, c=11.9906, alpha=90, beta=101.706, gamma=90, V=1563.09, score=9.31465
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=11.9906, b=10.5739, c=12.5903, alpha=90, beta=101.706, gamma=90, V=1563.09, score=9.31461
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=10.2704, b=11.1466, c=23.2216, alpha=90, beta=93.7015, gamma=90, V=2652.88, score=9.27515
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=8.09232, b=15.3573, c=18.8568, alpha=90, beta=97.0674, gamma=90, V=2325.65, score=9.26991
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=9.09593, b=20.5503, c=17.898, alpha=90, beta=116.139, gamma=90, V=3003.42, score=9.25092
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=8.72242, b=19.8257, c=16.3259, alpha=90, beta=114.005, gamma=90, V=2579.01, score=9.2261
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2609 BEST ? a=10.4214, b=15.5367, c=17.2637, alpha=90, beta=95.6463, gamma=90, V=2781.68, score=16.218
+34034066unit cells tested, 696602 tests/s,   Elapsed time=48.8573s
+DONE Xedd9c7b MONOCLINIC P 97 48.860398292541504 [{'cell': [10.421404838562012, 15.536715507507324, 17.263729095458984, 90.00000250447816, 95.64634913659846, 90.00000250447816], 'volume': 2781.68408203125, 'score': 16.217985153198242, 'system': 'MONOCLINIC', 'centering': 'P', 'mode': 4}, {'cell': [10.421177864074707, 15.53707218170166, 19.267183303833008, 90.00000250447816, 116.9149571553712, 90.00000250447816], 'volume': 2781.716796875, 'score': 15.960693359375, 'system': 'MONOCLINIC', 'centering': 'P', 'mode': 4}, {'cell': [10.410504341125488, 31.100311279296875, 10.508909225463867, 90.00000250447816, 125.17122152219092, 90.00000250447816], 'volume': 2781.294677734375, 'score': 15.094012260437012, 'system': 'MONOCLINIC', 'centering': 'P', 'mode': 4}, {'cell': [10.5089111328125, 31.100311279296875, 10.410505294799805, 90.00000250447816, 125.17123518256926, 90.00000250447816], 'volume': 2781.295166015625, 'score': 15.093883514404297, 'system': 'MONOCLINIC', 'centering': 'P', 'mode': 4}, {'cell': [10.434191703796387, 15.567170143127441, 19.267452239990234, 90.00000250447816, 116.74011797299721, 90.00000250447816], 'volume': 2794.93505859375, 'score': 14.399389266967773, 'system': 'MONOCLINIC', 'centering': 'P', 'mode': 4}]

@@ -1,0 +1,65 @@
+ObjRegistry<T>::Find(ion_C): Not found !!
+List of Crystal ScatteringPowers :6 object registered:
+#  0:ScatteringPowerAtom(O)
+#  1:ScatteringPowerAtom(C)
+#  2:ScatteringPowerAtom(N)
+#  3:ScatteringPowerAtom(Cl)
+#  4:ScatteringPowerAtom(S)
+#  5:ScatteringPowerAtom(H)
+EXACT_PAWLEY nref 300 rank 281 cond 959.8135345709369 chi2 2173.3887150957808 netRwp 0.14991942657531335
+ZM O=C(O)CCC[NH+]1CCC(O[C@@H](c2ccc(Cl)cc2)c2ccccn2)CC1 n 27 torsions 8 max_distance_error 1.6153525628226362e-08
+ZM O=S(=O)([O-])c1ccccc1 n 10 torsions 1 max_distance_error 8.554394081983219e-09
+Total degrees of freedom: 23
+Total external degrees of freedom: 14 (pos: 6 rot: 8 )
+Total internal degrees of freedom: 9
+PREPARED Xeb393f9 Nref 300 PawleyRw 0.04295150875655499 SG P 1
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+RESTART_ERROR max/rms 1.531955534434294e-06 8.413795081684468e-07
+WARM_READY /app/work/Xeb393f9/gallop_50
+total 3912
+-rw-r--r-- 1 root root  282597 Sep  6 06:25 base.xml
+-rw-r--r-- 1 root root    1872 Sep  6 06:25 m0_0_0.zmatrix
+-rw-r--r-- 1 root root     711 Sep  6 06:25 m0_1_0.zmatrix
+-rw-r--r-- 1 root root    3795 Sep  6 06:25 model.json
+-rw-r--r-- 1 root root 1614353 Sep  6 06:25 profile_matrix.npz
+-rw-r--r-- 1 root root    3416 Sep  6 06:25 restart_model.json
+-rw-r--r-- 1 root root 2079402 Sep  6 06:25 structure.json
+-rw-r--r-- 1 root root     779 Sep  6 06:25 warm.npz
+-rw-r--r-- 1 root root     572 Sep  6 06:25 warm_frac.npy
+GALLOP 43 Nref 122 seconds 37.66922307014465 best 2.8235044 q25 14.449727 median 25.600555 total 1535.3559381961823
+GALLOP 44 Nref 122 seconds 47.90459990501404 best 2.8235948 q25 13.344697 median 27.844883 total 1583.2647614479065
+GALLOP 45 Nref 122 seconds 37.34176301956177 best 2.823797 q25 17.77861 median 28.20782 total 1620.6093385219574
+GALLOP 46 Nref 122 seconds 33.93838095664978 best 2.8237708 q25 14.53466 median 26.698362 total 1654.5522520542145
+GALLOP 47 Nref 122 seconds 29.217340230941772 best 2.823724 q25 18.250357 median 29.287464 total 1683.7725851535797
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 2732.00it/s]
+GALLOP 2 Nref 286 seconds 131.66790080070496 best 27.130539 q25 112.744 median 229.88078 total 373.2163619995117
+GALLOP 3 Nref 286 seconds 185.3721375465393 best 25.219168 q25 47.166363 median 174.55023 total 558.6256632804871
+GALLOP 4 Nref 286 seconds 133.18854117393494 best 25.194506 q25 39.351807 median 168.97787 total 691.853529214859
+GALLOP 5 Nref 286 seconds 167.5913302898407 best 24.377302 q25 100.98923 median 237.4664 total 859.5494017601013
+GALLOP 6 Nref 286 seconds 169.87590050697327 best 12.657218 q25 87.624466 median 228.24565 total 1029.5386672019958
+GALLOP 7 Nref 286 seconds 134.01567125320435 best 12.058593 q25 89.22585 median 182.516 total 1163.5916471481323
+  0%|          | 0/5 [00:00<?, ?it/s]100%|██████████| 5/5 [00:00<00:00, 1395.96it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+#  3:ScatteringPowerAtom(N)
+Imported powder pattern: 6508 points, 2theta=  3.000 ->  55.056, step= 0.008
+RESCALED_BASE 1.0 0.0932801237534144 5823.511874292508
+INITIAL X14a2b08 1 Rw 0.43495083072750723 LLK 141365.90334370104 Integrated 102518.05557336308 DOF -1
+RUN 0 steps 100000 time 54.76651692390442 total 54.76660966873169 LLK 53713.53624809531 Rw 0.22249990802093447 Integrated 24226.553878653
+/app/work/submit.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+Xd4c1a35 Nat 192 molecule sizes [24, 24, 24, 24, 24, 24, 24, 24]
+  component COC1=CC(=O)C[C@@H](C)[C@]12Oc1c(Cl)c(OC)cc(OC)c1C2=O matches 8
+  bond range 1.2213631082561456 1.737239166528385
+  min intermolecular distance 2.377722028564
+/app/work/check_stereo.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(fn).parse_structures(primitive=False)[0];s.remove_species(['H']);rad=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<1.2*(rad[:,None]+rad[None,:]));g=nx.from_numpy_array(A)
+Xd4c1a35 root 0 expected {7: 'R', 9: 'S'} actual {7: 'R', 9: 'S'} OK True
+Xd4c1a35 root 1 expected {7: 'R', 9: 'S'} actual {7: 'R', 9: 'S'} OK True
+Xd4c1a35 root 2 expected {7: 'R', 9: 'S'} actual {7: 'R', 9: 'S'} OK True
+Xd4c1a35 root 3 expected {7: 'R', 9: 'S'} actual {7: 'R', 9: 'S'} OK True

@@ -1,0 +1,52 @@
+X35b7fbc ORTHOROMBIC P 2 peaks [2.41209, 3.35784, 3.9574, 4.79351, 5.76488, 6.27629, 6.72785, 6.81333, 7.12348, 7.25458, 7.4258, 7.69062, 7.78591, 7.90558, 8.06365, 8.50689, 9.03532, 9.09089, 9.27178, 9.42438, 9.503, 9.60424] V 1169.1492919921875 5940 Lmax 50.709210189100546
+3->50.7092,1.90838,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+1169.15->5940,477.09,9.9999
+Starting: V=1169.15->1646.24
+Finished: V=1169.15->1646.24 A^3, 290 unit cells tested, 188067 tests/s,   Elapsed time=0.00155s
+Starting: V=1646.24->2123.33
+Finished: V=1646.24->2123.33 A^3, 650 unit cells tested, 178866 tests/s,   Elapsed time=0.00364s
+Starting: V=2123.33->2600.42
+      a= 5.71- 5.74 b=12.78-12.81 c=33.16-33.19 alpha= 90.00- 90.00 beta= 90.00- 90.00 gamma= 90.00- 90.00 V=2418.60-2438.36level=6, indexed=1(0 sol.)
+      a=0.17521-0.17432 b=0.07825-0.07809 c=0.03016-0.03013 alpha=0.00000-0.00000 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(0 sol.)
+ Solution ? a=  5.710 b= 12.768 c= 33.145 alpha= 90.000 beta= 90.000 gamma= 90.000 V= 2416.53 score=103.95 #   0
+      a= 5.71- 5.74 b=12.75-12.78 c=33.16-33.19 alpha= 90.00- 90.00 beta= 90.00- 90.00 gamma= 90.00- 90.00 V=2413.53-2433.24level=6, indexed=1(1 sol.)
+      a=0.17521-0.17432 b=0.07841-0.07825 c=0.03016-0.03013 alpha=0.00000-0.00000 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(1 sol.)
+ Solution ? a=  5.711 b= 12.769 c= 33.144 alpha= 90.000 beta= 90.000 gamma= 90.000 V= 2416.72 score=141.30 #   1
+      a= 5.71- 5.74 b=12.78-12.81 c=33.13-33.16 alpha= 90.00- 90.00 beta= 90.00- 90.00 gamma= 90.00- 90.00 V=2416.35-2436.09level=6, indexed=1(2 sol.)
+      a=0.17521-0.17432 b=0.07825-0.07809 c=0.03018-0.03016 alpha=0.00000-0.00000 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(2 sol.)
+ Solution ? a=  5.710 b= 12.769 c= 33.143 alpha= 90.000 beta= 90.000 gamma= 90.000 V= 2416.65 score=129.39 #   2
+      a= 5.71- 5.74 b=12.75-12.78 c=33.13-33.16 alpha= 90.00- 90.00 beta= 90.00- 90.00 gamma= 90.00- 90.00 V=2411.28-2430.97level=6, indexed=1(3 sol.)
+      a=0.17521-0.17432 b=0.07841-0.07825 c=0.03018-0.03016 alpha=0.00000-0.00000 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(3 sol.)
+ Solution ? a=  5.711 b= 12.770 c= 33.144 alpha= 90.000 beta= 90.000 gamma= 90.000 V= 2417.17 score=170.79 #   3
+Finished: V=2123.33->2600.42 A^3, 1187 unit cells tested, 161783 tests/s,   Elapsed time=0.007344s
+Starting: V=2600.42->3077.51
+      a= 5.71- 5.74 b=12.75-12.78 c=33.16-33.19 alpha= 90.00- 90.00 beta= 90.00- 90.00 gamma= 90.00- 90.00 V=2413.53-2433.24level=6, indexed=1(5 sol.)
+      a=0.17521-0.17432 b=0.07841-0.07825 c=0.03016-0.03013 alpha=0.00000-0.00000 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(5 sol.)
+ Solution ? a=  5.711 b= 12.769 c= 33.144 alpha= 90.000 beta= 90.000 gamma= 90.000 V= 2416.72 score=141.30 #   5
+      a= 5.71- 5.74 b=12.78-12.81 c=33.13-33.16 alpha= 90.00- 90.00 beta= 90.00- 90.00 gamma= 90.00- 90.00 V=2416.35-2436.09level=6, indexed=1(6 sol.)
+      a=0.17521-0.17432 b=0.07825-0.07809 c=0.03018-0.03016 alpha=0.00000-0.00000 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(6 sol.)
+ Solution ? a=  5.710 b= 12.769 c= 33.143 alpha= 90.000 beta= 90.000 gamma= 90.000 V= 2416.65 score=129.39 #   6
+      a= 5.71- 5.74 b=12.75-12.78 c=33.13-33.16 alpha= 90.00- 90.00 beta= 90.00- 90.00 gamma= 90.00- 90.00 V=2411.28-2430.97level=6, indexed=1(7 sol.)
+      a=0.17521-0.17432 b=0.07841-0.07825 c=0.03018-0.03016 alpha=0.00000-0.00000 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(7 sol.)
+ Solution ? a=  5.711 b= 12.770 c= 33.144 alpha= 90.000 beta= 90.000 gamma= 90.000 V= 2417.17 score=170.79 #   7
+Finished: V=2600.42->3077.51 A^3, 1789 unit cells tested, 158796 tests/s,   Elapsed time=0.011273s
+Starting: V=3077.51->3554.6
+Finished: V=3077.51->3554.6 A^3, 2487 unit cells tested, 166132 tests/s,   Elapsed time=0.014977s
+Starting: V=3554.6->4031.69
+Finished: V=3554.6->4031.69 A^3, 3401 unit cells tested, 176382 tests/s,   Elapsed time=0.01929s
+Starting: V=4031.69->4508.78
+Finished: V=4031.69->4508.78 A^3, 4437 unit cells tested, 182796 tests/s,   Elapsed time=0.024283s
+Starting: V=4508.78->4985.87
+Finished: V=4508.78->4985.87 A^3, 5640 unit cells tested, 178753 tests/s,   Elapsed time=0.03157s
+Starting: V=4985.87->5462.96
+Finished: V=4985.87->5462.96 A^3, 7049 unit cells tested, 178959 tests/s,   Elapsed time=0.039397s
+Starting: V=5462.96->5940
+Finished: V=5462.96->5940 A^3, 8583 unit cells tested, 188683 tests/s,   Elapsed time=0.045497s
+CellExplorer::ReduceSolutions(): update threshold for report from 8 to 34.1573
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=5.71115, b=12.7696, c=33.1442, alpha=90, beta=90, gamma=90, V=2417.17, score=170.787
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=11.422, b=12.7693, c=33.1441, alpha=90, beta=90, gamma=90, V=4834.1, score=113.046
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=5.71115, b=25.5391, c=33.1442, alpha=90, beta=90, gamma=90, V=4834.33, score=94.6313
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2609 BEST ? a=5.71115, b=12.7696, c=33.1442, alpha=90, beta=90, gamma=90, V=2417.17, score=170.787
+8583unit cells tested, 187406 tests/s,   Elapsed time=0.045806s
+DONE X35b7fbc ORTHOROMBIC P 3 0.046095848083496094 [{'cell': [5.711150169372559, 12.769552230834961, 33.144187927246094, 90.00000250447816, 90.00000250447816, 90.00000250447816], 'volume': 2417.1669921875, 'score': 170.78665161132812, 'system': 'ORTHOROMBIC', 'centering': 'P', 'mode': 2}, {'cell': [11.422049522399902, 12.769275665283203, 33.14405822753906, 90.00000250447816, 90.00000250447816, 90.00000250447816], 'volume': 4834.10400390625, 'score': 113.04611206054688, 'system': 'ORTHOROMBIC', 'centering': 'P', 'mode': 2}, {'cell': [5.711150169372559, 25.539104461669922, 33.144187927246094, 90.00000250447816, 90.00000250447816, 90.00000250447816], 'volume': 4834.333984375, 'score': 94.63133239746094, 'system': 'ORTHOROMBIC', 'centering': 'P', 'mode': 2}]

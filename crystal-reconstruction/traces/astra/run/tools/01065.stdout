@@ -1,0 +1,111 @@
+X7e382cb Nat 40 molecule sizes [18, 18, 1, 1, 1, 1]
+  component O=C([O-])c1ccc(-c2ccc(C(=O)[O-])cc2)cc1 matches 2
+  component [NH4+] matches 4
+  bond range 1.2721231690209525 1.5172854155469284
+  min intermolecular distance 2.424991733449147
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/11003/status ]] && ! grep -q '^State:.*Z' /proc/11003/status; do sleep 4;done
+SEARCH_TIME=1400 PARTICLES=224 ITERATIONS=550 BATCHES=60 python /app/work/solve_twocentres.py tc1 > /app/work/X7e382cb/tc1.log 2>&1
+"""Replace one fragment by alternative chemically generated conformers.
+The chosen anchor atoms are least-squares aligned to the native seed; all other
+fragments' heavy-atom coordinates are preserved exactly. Search hypotheses only.
+"""
+import os,sys,json,numpy as np,itertools
+from rdkit import Chem
+from rdkit.Chem import AllChem
+from pyobjcryst.io import xml_cryst_file_load_all_object,xml_cryst_file_save_global
+from obj_model import add_component,export_cif
+sid,src,modelp,tag=sys.argv[1:5];fi=int(sys.argv[5]);anchors=list(map(int,sys.argv[6].split(','))) if len(sys.argv)>6 else None;maxkeep=int(os.getenv('MAX_CONFORMERS','12'));W='/app/work/'+sid
+O=xml_cryst_file_load_all_object(src);c=next(o for o in O if o.GetClassName()=='Crystal');p=next(o for o in O if o.GetClassName()=='PowderPattern');d=next(p.GetPowderPatternComponent(i) for i in range(p.GetNbPowderPatternComponent()) if p.GetPowderPatternComponent(i).GetClassName()=='PowderPatternDiffraction');mods=json.load(open(modelp));old=[]
+for i,md in enumerate(mods):
+ m=c.GetScatterer(i);n=Chem.MolFromSmiles(md['smiles']).GetNumAtoms();sc=list(m.GetScatteringComponentList())[:n];old.append(np.array([c.FractionalToOrthonormalCoords(a.X,a.Y,a.Z) for a in sc]))
+r0=Chem.MolFromSmiles(mods[fi]['smiles']);n=r0.GetNumAtoms();r=Chem.AddHs(r0)
+if anchors is None:anchors=list(r0.GetSubstructMatch(Chem.MolFromSmarts('[OX1]=[CX3][NX3]')))
+assert len(anchors)>=3
+ps=AllChem.ETKDGv3();ps.randomSeed=89743;ps.numThreads=1;ps.pruneRmsThresh=.15
+ids=list(AllChem.EmbedMultipleConfs(r,numConfs=200,params=ps));es=AllChem.MMFFOptimizeMoleculeConfs(r,numThreads=1,maxIters=700);ix=sorted(range(len(ids)),key=lambda i:es[i][1]);candidates=[];Y=old[fi][anchors]
+for i in ix:
+ if es[i][1]>es[ix[0]][1]+15:continue
+ base=np.array(r.GetConformer(ids[i]).GetPositions())[:n]
+ for reflect in [False,True]:
+  if reflect and any(a.GetChiralTag()!=Chem.ChiralType.CHI_UNSPECIFIED for a in r0.GetAtoms()):continue
+  xyz=base.copy()
+  if reflect:xyz[:,2]*=-1
+  X=xyz[anchors];U,sv,Vt=np.linalg.svd((X-X.mean(0)).T@(Y-Y.mean(0)));D=np.eye(3);D[-1,-1]=np.linalg.det(U@Vt);rot=U@D@Vt;dest=(xyz-X.mean(0))@rot+Y.mean(0)
+  if any(np.sqrt(np.mean((dest-a['dest'])**2)*3)<.15 for a in candidates):continue
+  candidates.append({'xyz':xyz,'dest':dest,'energy':es[i][1],'index':i,'reflected':reflect})
+  if len(candidates)>=maxkeep:break
+ if len(candidates)>=maxkeep:break
+print('CONFORMERS',len(ids),'distinct',len(candidates),'anchors',anchors,flush=True);results=[]
+for k,cc in enumerate(candidates):
+ for m in [c.GetScatterer(j) for j in range(c.GetNbScatterer())]:c.RemoveScatterer(m)
+ newmods=[]
+ for j,md in enumerate(mods):
+  dest=cc['dest'] if j==fi else old[j];ideal=cc['xyz'] if j==fi else np.array(md.get('restraint_coords',md.get('rdkit_coords',dest)))
+  m,mo=add_component(c,md['smiles'],'m'+str(j),coords_override=ideal.copy());ctr=dest.mean(0)
+  if m.GetClassName()=='Molecule':
+   for ii,v in enumerate(dest-ctr):a=m.GetAtom(ii);a.X,a.Y,a.Z=map(float,v)
+   m.Q0,m.Q1,m.Q2,m.Q3=1.,0.,0.,0.
+  m.X,m.Y,m.Z=c.OrthonormalToFractionalCoords(*ctr);newmods.append(mo)
+  actual=np.array([c.FractionalToOrthonormalCoords(a.X,a.Y,a.Z) for a in list(m.GetScatteringComponentList())[:len(dest)]])
+  assert np.max(np.abs(actual-dest))<1.e-6,'World coordinates changed'
+ d.SetExtractionMode(False);p.Prepare();p.FitScaleFactorForRw();name=tag+'c'+str(k);R=W+'/search_'+name;os.makedirs(R,exist_ok=True);json.dump(newmods,open(R+'/model.json','w'),indent=1);export_cif(c,R+'/best.cif');xml_cryst_file_save_global(R+'/best.xml');a={'tag':name,'energy':float(cc['energy']),'index':int(cc['index']),'reflected':cc['reflected'],'Rw':p.GetRw()};results.append(a);print(a,flush=True)
+json.dump(results,open(W+'/'+tag+'_choices.json','w'),indent=1)
+set -e
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+id=X14a2b08
+while [[ ! -f /app/work/$id/refined_g50.json ]] || ! grep -q 'FINISHED' /app/work/$id/refine_g50.log;do sleep 10;done
+MAX_CONFORMERS=12 python /app/work/conformer_variants.py $id /app/work/$id/refined_g50.xml /app/work/$id/search_g50/model.json ring94 1 > /app/work/$id/conformers94.log 2>&1
+choices=$(python - <<'PY'
+import json
+x=json.load(open('/app/work/X14a2b08/ring94_choices.json'));print(' '.join(a['tag'] for a in sorted(x,key=lambda a:a['Rw'])[:6]))
+PY
+)
+for tag in $choices;do
+ python /app/work/refine_obj.py $id $tag /app/work/$id/search_$tag/best.xml --scale --tight --stol=.4 > /app/work/$id/refine_$tag.log 2>&1
+ python /app/work/submit.py $id /app/work/$id/refined_$tag.cif --check > /app/work/$id/check_$tag.log 2>&1
+done
+best=$(python - <<'PY'
+import glob,os,json
+W='/app/work/X14a2b08';x=glob.glob(W+'/refined_ring94c*.json')+[W+'/refined_g50.json'];b=min(x,key=lambda p:json.load(open(p))['Rw']);print(os.path.basename(b)[8:-5])
+PY
+)
+GALLOP_STOL=.29 python /app/work/warm_gallop.py $id 94 /app/work/$id/refined_$best.xml /app/work/$id/search_$best/model.json > /app/work/$id/warm94.log 2>&1
+BUMP_COEFF=80 HBOND_COEFF=30 PARTICLES=128 ITERATIONS=350 FREE_SCHEDULE='1;0;1' python /app/work/search_conditional.py $id 94 95 > /app/work/$id/conditional95.log 2>&1
+python /app/work/import_gallop.py $id 95 > /app/work/$id/import_g95.log 2>&1
+python /app/work/refine_obj.py $id g95 /app/work/$id/search_g95/best.xml --scale --tight --stol=.4 > /app/work/$id/refine_g95.log 2>&1
+python /app/work/submit.py $id /app/work/$id/refined_g95.cif --check > /app/work/$id/check_g95.log 2>&1
+N27 H29 O13 DA 3.8004 HA 2.8597 DHA 151.96 nearest (np.float64(0.0), np.float64(1.0), np.float64(-1.0))
+N27 H29 O14 DA 2.6459 HA 1.7488 DHA 143.04 nearest (np.float64(-1.0), np.float64(0.0), np.float64(-1.0))
+N27 H29 O14 DA 3.8031 HA 2.9270 DHA 143.24 nearest (np.float64(0.0), np.float64(1.0), np.float64(0.0))
+N27 H29 O13 DA 3.1391 HA 2.5061 DHA 119.09 nearest (np.float64(-1.0), np.float64(0.0), np.float64(0.0))
+N27 H30 N27 DA 3.3013 HA 2.3103 DHA 161.38 nearest (np.float64(0.0), np.float64(0.0), np.float64(-1.0))
+N32 H33 O3 DA 3.4816 HA 2.7268 DHA 130.04 nearest (np.float64(-1.0), np.float64(0.0), np.float64(0.0))
+N32 H34 N32 DA 3.1525 HA 2.4358 DHA 125.93 nearest (np.float64(-1.0), np.float64(0.0), np.float64(0.0))
+N32 H34 O3 DA 2.8488 HA 2.2414 DHA 116.10 nearest (np.float64(0.0), np.float64(0.0), np.float64(0.0))
+Cell (6.9573784000000005, 6.972447680000001, 15.7695186, 65.72674886, 83.10047305, 67.37549768) n 40 components [18, 18, 1, 1, 1, 1]
+2.4443 36 O13 O 0 39 O14 O 1
+2.4486 34 O3 O 0 35 O3 O 1
+2.6424 31 N32 N 5 32 O1 O 0
+2.6459 28 N27 N 2 39 O14 O 1
+2.7679 14 C10 C 0 39 O14 O 1
+2.8295 22 C16 C 0 28 N27 N 2
+2.8488 30 N32 N 4 35 O3 O 1
+2.8661 38 O14 O 0 39 O14 O 1
+2.8881 20 C15 C 0 28 N27 N 2
+2.9530 18 C12 C 0 39 O14 O 1
+2.9775 26 C18 C 0 35 O3 O 1
+3.0274 19 C12 C 1 28 N27 N 2
+3.0396 12 C9 C 0 39 O14 O 1
+3.0610 11 C8 C 1 29 N27 N 3
+3.0738 24 C17 C 0 31 N32 N 5
+3.1012 1 C2 C 1 30 N32 N 4
+3.1391 28 N27 N 2 36 O13 O 0
+3.1525 30 N32 N 4 31 N32 N 5
+3.1740 17 C11 C 1 29 N27 N 3
+3.1962 0 C2 C 0 35 O3 O 1
+3.3002 12 C9 C 0 28 N27 N 2
+3.3013 28 N27 N 2 29 N27 N 3
+3.3066 4 C5 C 0 28 N27 N 2
+3.3168 17 C11 C 1 28 N27 N 2
+3.3423 9 C7 C 1 30 N32 N 4

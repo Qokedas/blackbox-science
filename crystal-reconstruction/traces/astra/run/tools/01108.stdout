@@ -1,0 +1,89 @@
+AUDIT_PID=64637
+X019b9a4
+X07806d9
+X13023e3
+X14a2b08
+X1a56c78
+X1db5091
+X2327841
+X238783d
+X263b09a
+X35b7fbc
+X3c176e2
+X3f4781b
+X4f6fe58
+X7e382cb
+X8a06d7a
+X8a6f5a8
+X9af54a2
+Xb7088cf
+Xbfc6d2c
+Xbfeeda9
+Xd4c1a35
+Xd8634a2
+Xdcc971e
+Xe1fb77b
+Xe3a2935
+Xeb393f9
+Xebbd488
+Xedd9c7b
+Xf8ac963
+Xfca9f3c
+Zprime_notes.txt
+__pycache__
+add_ammonium_h.py
+add_fixed_march.py
+add_valid_unsolved.py
+additional_cond.log
+adopt_fit.py
+alkane_fits.log
+alkane_models.py
+alkane_reindex.log
+analyze_lattice.py
+analyze_po.py
+aniso_bridge.cpp
+antibump.py
+antibump_v1.py
+audit_base.py
+audit_bases.log
+audit_submission.py
+audit_zm.py
+b708_typed.log
+bep89_queue.log
+br101_queue.log
+br105_queue.log
+br84.log
+cap95_prevchild
+cap95typed_queue.log
+caprolactam94_queue.log
+chair84_queue.log
+check_hbonds.py
+check_hbonds_allimages.py
+{
+ "components": [
+  {
+   "smiles": "O[C@](CC[NH+]1CCCCC1)(c1ccccc1)C1CCCCC1",
+   "count": 1,
+   "charge": 1
+  },
+  {
+   "smiles": "[Cl-]",
+   "count": 1,
+   "charge": -1
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}{
+ "cell": {
+  "a": 5.90356202,
+  "b": 11.25212246,
+  "c": 30.0857609,
+  "alpha": 90.0,
+  "beta": 90.0,
+  "gamma": 90.0
+ },
+ "space_group": "P 2 21 21",
+ "space_group_number": 18
+}

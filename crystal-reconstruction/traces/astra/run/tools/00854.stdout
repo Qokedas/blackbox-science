@@ -1,0 +1,38 @@
+CYCLE 1 2 Rw 0.05425144874973536 chi2 2102.281746644937 geom 86.82126739149555 LSQ 2395.75987959818
+PACKING_STAGE 1 0.0
+CYCLE 2 0 Rw 0.05351049343456103 chi2 2045.248818837177 geom 119.28591351236638 LSQ 2381.4473757591536
+CYCLE 2 1 Rw 0.053124883299039305 chi2 2015.8778692942165 geom 129.90955914994527 LSQ 2359.201376737473
+CYCLE 2 2 Rw 0.05288308654577884 chi2 1997.5691813938267 geom 132.878515115797 LSQ 2345.74279421309
+PACKING_STAGE 2 0.0
+CYCLE 3 0 Rw 0.04980745151836155 chi2 1771.9721051965378 geom 122.20481735942171 LSQ 2125.521925458983
+CYCLE 3 1 Rw 0.048766460769750414 chi2 1698.6766405203612 geom 160.05219826350063 LSQ 2101.9977699805017
+[
+ {
+  "smiles": "COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1",
+  "elements": [
+   "C",
+   "O",
+   "C",
+   "C",
+   "C",
+   "C",
+[
+ {
+  "smiles": "COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1.O=C1CCCCN1",
+  "elements": [
+   "C",
+   "O",
+   "C",
+   "C",
+   "C",
+   "C",
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+RESTART_ERROR max/rms 2.1760193540988323e-06 9.176061010334665e-07
+WARM_READY /app/work/X14a2b08/gallop_72
+AROMATIC_PLANARITY 0
+LSQ_PACKING 38 atoms 4884 terms sigma 0.01 cost 596.4951436835286
+CYCLE 0 0 Rw 0.23270311378831152 chi2 3845.4933677528225 geom 314.7949187598788 LSQ 5947.192967069004
+Sun Sep  6 09:12:15 UTC 2026

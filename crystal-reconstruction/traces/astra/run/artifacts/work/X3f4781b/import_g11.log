@@ -1,0 +1,26 @@
+ObjRegistry<T>::Find(C): Not found !!
+List of Crystal ScatteringPowers :1 object registered:
+#  0:ScatteringPowerAtom(ion_C)
+ObjRegistry<T>::Find(O): Not found !!
+List of Crystal ScatteringPowers :2 object registered:
+#  0:ScatteringPowerAtom(ion_C)
+#  1:ScatteringPowerAtom(C)
+ObjRegistry<T>::Find(Cl): Not found !!
+List of Crystal ScatteringPowers :3 object registered:
+#  0:ScatteringPowerAtom(ion_C)
+#  1:ScatteringPowerAtom(C)
+#  2:ScatteringPowerAtom(O)
+ObjRegistry<T>::Find(N): Not found !!
+List of Crystal ScatteringPowers :4 object registered:
+#  0:ScatteringPowerAtom(ion_C)
+#  1:ScatteringPowerAtom(C)
+#  2:ScatteringPowerAtom(O)
+#  3:ScatteringPowerAtom(Cl)
+ObjRegistry<T>::Find(S): Not found !!
+List of Crystal ScatteringPowers :5 object registered:
+#  0:ScatteringPowerAtom(ion_C)
+#  1:ScatteringPowerAtom(C)
+#  2:ScatteringPowerAtom(O)
+#  3:ScatteringPowerAtom(Cl)
+#  4:ScatteringPowerAtom(N)
+IMPORTED X3f4781b 11 Rw 0.18650301741221317 Chi2 19331.922804164664

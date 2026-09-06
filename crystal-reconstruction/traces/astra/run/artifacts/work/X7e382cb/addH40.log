@@ -1,0 +1,7 @@
+ObjRegistry<T>::Find(ammonium_N): Not found !!
+List of Crystal ScatteringPowers :4 object registered:
+#  0:ScatteringPowerAtom(O)
+#  1:ScatteringPowerAtom(C)
+#  2:ScatteringPowerAtom(ion_N)
+#  3:ScatteringPowerAtom(H)
+EXPLICIT_AMMONIUM_SEED 0.06004060612802438

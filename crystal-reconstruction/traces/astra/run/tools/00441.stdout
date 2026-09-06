@@ -1,0 +1,106 @@
+/app/work/X7e382cb/gallop_21:
+STOP
+best.cif
+best.json
+best.npz
+best_frac.npy
+last_population.npz
+m0_0_0.zmatrix
+m0_1_0.zmatrix
+m0_1_1.zmatrix
+model.json
+profile_matrix.npz
+structure.json
+
+/app/work/X7e382cb/gallop_22:
+STOP
+best.cif
+best.json
+best.npz
+best_frac.npy
+last_population.npz
+m0_0_0.zmatrix
+m0_1_0.zmatrix
+m0_1_1.zmatrix
+model.json
+profile_matrix.npz
+structure.json
+----
+/app/work/X7e382cb/gallop_21/best.json
+{
+ "chi2": 116.40280151367188,
+ "Rint": 0.3411785662174225,
+ "iteration": 11,
+ "elapsed": 347.4659912586212
+}/app/work/X7e382cb/gallop_22/best.json
+{
+ "chi2": 108.47532653808594,
+ "Rint": 0.329355925321579,
+ "iteration": 10,
+ "elapsed": 257.94986963272095
+}/app/work/X7e382cb/import_g22.log
+/app/work/X7e382cb/refine_g22.log
+/app/work/X7e382cb/refine_g22_stage0.cif
+/app/work/X7e382cb/refine_g22_stage0.xml
+/app/work/X7e382cb/refine_g22_stage1.cif
+/app/work/X7e382cb/refine_g22_stage1.xml
+/app/work/X7e382cb/refine_g22_stage2.cif
+/app/work/X7e382cb/refine_g22_stage2.xml
+/app/work/X7e382cb/refine_g22_stage3.cif
+/app/work/X7e382cb/refine_g22_stage3.xml
+/app/work/X7e382cb/refined_g22.cif
+/app/work/X7e382cb/refined_g22.json
+/app/work/X7e382cb/refined_g22.png
+/app/work/X7e382cb/refined_g22.xml
+
+/app/work/X7e382cb/search_g22:
+best.cif
+best.json
+best.xml
+model.json
+EXACT_PAWLEY nref 169 rank 159 cond 678.8512065931568 chi2 14384.021202666845 netRwp 0.16434987457697728
+ZM O=C([O-])c1ccc(-c2ccc(C(=O)[O-])cc2)cc1 n 18 torsions 3 max_distance_error 1.0554226825831847e-08
+ZM [NH4+] n 1 torsions 0 max_distance_error 0.0
+ZM [NH4+] n 1 torsions 0 max_distance_error 0.0
+Total degrees of freedom: 16
+Total external degrees of freedom: 13 (pos: 9 rot: 4 )
+Total internal degrees of freedom: 3
+PREPARED X7e382cb Nref 169 PawleyRw 0.0349602201944722 SG P -1
+ATTACHED_H_SCATTERING 20 heavy atoms 16 H atoms
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1901.10it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+{
+ "Rw": 0.06913472729241592,
+ "chi2": 2288.8340401128576
+}ZONE 6.565235540221823 6 10 485.5851122689593 [np.float64(23.231775154919884), np.float64(20.95574755113769), np.float64(85.88656407144754)] -0.2160059209669386
+ZONE 6.5652355402218046 6 10 485.5851122689783 [np.float64(23.231775154920314), np.float64(20.95574755113812), np.float64(94.11343592855226)] -0.216005920966648
+ZONE 6.555480303740087 6 10 486.02468590441504 [np.float64(23.241936110119717), np.float64(20.96753761684195), np.float64(85.81164153668924)] -0.21351345398594598
+ZONE 6.542754752172096 6 10 489.1046712073244 [np.float64(31.881788254868045), np.float64(15.499400173906462), np.float64(81.80661827059127)] 0.02141680490250934
+ZONE 6.276658429946791 6 9 458.5649066364899 [np.float64(22.998356099295272), np.float64(20.01325363926647), np.float64(94.93611111427855)] -0.004681863906138443
+DONE 12.877220153808594
+{
+ "cell": {
+  "a": 26.65439158599948,
+  "b": 12.391931489039752,
+  "c": 16.589886637301905,
+  "alpha": 90.0,
+  "beta": 106.57330959124567,
+  "gamma": 90.0
+ },
+ "space_group": "C 1 2 1",
+ "space_group_number": 5
+}{
+ "cell": {
+  "a": 10.3779432409722,
+  "b": 15.458141140128017,
+  "c": 17.161796396761616,
+  "alpha": 90.0,
+  "beta": 95.65390425106375,
+  "gamma": 90.0
+ },
+ "space_group": "P 1 21/a 1",
+ "space_group_number": 14
+}

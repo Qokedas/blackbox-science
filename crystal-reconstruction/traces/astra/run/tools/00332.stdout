@@ -1,0 +1,116 @@
+
+X263b09a 1x COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1 (6tor); 1x O=C1CCCCN1 (0tor)
+CELL {'a': 5.168079853057861, 'b': 11.77400016784668, 'c': 20.57819938659668, 'alpha': 83.70469665527344, 'beta': 89.48709869384766, 'gamma': 86.84529876708984} P -1 V 1242.7 rho/Z 0.688
+
+
+X13023e3 1x CC(C)Cc1ccc([C@@H](C)C(=O)O)cc1 (4tor); 1x NC(=O)c1cccnc1 (1tor)
+CELL {'a': 6.02237823, 'b': 5.5283738, 'c': 28.00268597, 'alpha': 90.0, 'beta': 93.11818172, 'gamma': 90.0} P 1 21 1 V 930.9 rho/Z 0.586
+refined_g12free.json 0.08133147956438783; refined_g12stable.json 0.08352579269253099; refined_g12.json 0.07553607243406942; refined_g12t.json 0.08357517579574282; refined_2.json 0.08750586611841747; 
+
+Xd8634a2 1x CNS(=O)(=O)Nc1nccc(Cc2c(C)c3ccc(Oc4ncccn4)cc3oc2=O)c1F (7tor)
+CELL {'a': 8.910169100782866, 'b': 9.47845325451745, 'c': 13.245308707674797, 'alpha': 83.98286911524386, 'beta': 81.77580180151384, 'gamma': 66.67862762269598} P -1 V 1015.2 rho/Z 0.771
+refined_1.json 0.32145776910164464; refined_g2.json 0.16361174719421095; 
+
+X8a06d7a 1x COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1 (6tor); 1x NC(=O)c1ccccn1 (1tor)
+CELL {'a': 5.0091400146484375, 'b': 11.848600387573242, 'c': 21.717899322509766, 'alpha': 86.05899810791016, 'beta': 89.84310150146484, 'gamma': 89.82859802246094} P -1 V 1285.9 rho/Z 0.695
+
+
+Xe3a2935 1x C[C@@H]1CC(=O)NN=C1c1ccc(NN=C(C#N)C#N)cc1 (3tor)
+CELL {'a': 6.88350068, 'b': 10.29612043, 'c': 19.99985781, 'alpha': 90.0, 'beta': 90.0, 'gamma': 90.0} P 21 21 21 V 1417.5 rho/Z 0.328
+refined_1h.json 0.07252300909260166; refined_1.json 0.09777662599417353; 
+
+X4f6fe58 1x O=C1CN=C(c2ccccc2Cl)c2cc(Br)ccc2N1 (1tor)
+CELL {'a': 7.566650781823849, 'b': 13.072975827440688, 'c': 15.429196115899655, 'alpha': 72.39638005310617, 'beta': 83.39054886528757, 'gamma': 77.70460314020802} P -1 V 1419.3 rho/Z 0.409
+refined_1.json 0.12362736751289517; 
+
+X07806d9 1x [NH3+]CC(=O)CCC(=O)O (4tor); 1x [Cl-] (0tor)
+CELL {'a': 8.21090121, 'b': 11.22559643, 'c': 16.86316918, 'alpha': 90.0, 'beta': 90.0, 'gamma': 90.0} P b c a V 1554.3 rho/Z 0.179
+refined_1h.json 0.1234195907914119; refined_1.json 0.13006994683262355; 
+
+Xb7088cf 1x Nc1ccccc1NC(=O)c1ccc(CNC(=O)OCc2cccnc2)cc1 (6tor)
+CELL {'a': 5.052457881299544, 'b': 9.355738049659784, 'c': 38.066725954209964, 'alpha': 90.0, 'beta': 90.0, 'gamma': 90.0} P 21 21 21 V 1799.4 rho/Z 0.347
+
+
+Xbfc6d2c 1x [C-]#[N+]c1ccc(-c2ccc([N+]#[C-])c(C)c2)cc1C (1tor)
+CELL {'a': 7.61557988, 'b': 14.62286879, 'c': 11.90509357, 'alpha': 90.0, 'beta': 105.49752929, 'gamma': 90.0} P 1 21/a 1 V 1277.6 rho/Z 0.302
+refined_1h.json 0.035017075857403275; refined_1.json 0.043131837324477736; 
+
+X3c176e2 1x OC1C(O)C(O)C(O)C(O)C1O (0tor)
+CELL {'a': 9.33206988, 'b': 11.03818309, 'c': 14.0155005, 'alpha': 90.0, 'beta': 90.0, 'gamma': 90.0} P 21 21 21 V 1443.7 rho/Z 0.207
+refined_10.json 0.04246715565009968; refined_10h.json 0.037037713727486814; 
+
+X7e382cb 1x O=C([O-])c1ccc(-c2ccc(C(=O)[O-])cc2)cc1 (3tor); 2x [NH4+] (0tor)
+CELL {'a': 6.950883561252238, 'b': 6.9714360090474425, 'c': 15.760000618785241, 'alpha': 65.620071071758, 'beta': 82.98049443060587, 'gamma': 67.39068753201737} P -1 V 641.5 rho/Z 0.715
+refined_g22.json 0.06913472729241592; 
+
+X35b7fbc 1x CC[C@@H](CO)NC(=O)[C@@H]1C=C2c3cccc4[nH]cc(c34)C[C@H]2[NH+](C)C1 (4tor); 1x O=C([O-])C=CC(=O)O (2tor)
+CELL {'a': 5.709514177833602, 'b': 12.767253130037945, 'c': 33.140742692492864, 'alpha': 90.0, 'beta': 90.0, 'gamma': 90.0} P 21 21 21 V 2415.8 rho/Z 0.313
+refined_2.json 0.18965064419526603; 
+
+Xebbd488 2x COc1ccccc1OCC[NH2+]C[C@H](O)COc1cccc2[nH]c3ccccc3c12 (10tor); 2x O=P([O-])(O)O (0tor); 1x O (0tor)
+
+
+X019b9a4 1x CC(=O)C(=NNc1ccc(C(=O)Nc2ccc(C(N)=O)cc2)cc1)C(=O)Nc1ccc2[nH]c(=O)[nH]c2c1 (8tor); 1x CN1CCCC1=O (0tor); 1x C[S+](C)[O-] (0tor)
+CELL {'a': 8.445005750645986, 'b': 10.921928016393805, 'c': 18.442412835425692, 'alpha': 90.2884626890573, 'beta': 94.00614168977307, 'gamma': 106.23346558366082} P -1 V 1628.7 rho/Z 0.69
+
+
+X1db5091 1x COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1 (6tor); 1x NC(=O)c1cccnc1 (1tor)
+
+
+X3f4781b 1x COC(=O)[C@H](c1ccccc1Cl)[NH+]1CCc2sccc2C1 (3tor); 1x O=S(=O)([O-])O (0tor)
+CELL {'a': 10.434459205762266, 'b': 15.340934374738975, 'c': 12.635064353266996, 'alpha': 90.0, 'beta': 113.33529901637961, 'gamma': 90.0} P 1 21 1 V 1857.1 rho/Z 0.375
+refined_1.json 0.29510859137125894; 
+
+Xf8ac963 1x COc1ccc(NC(=O)[C@@H]2C[C@H](C)CC[C@H]2C(C)C)cc1 (4tor)
+CELL {'a': 9.32158061, 'b': 11.39344493, 'c': 16.26479012, 'alpha': 90.0, 'beta': 90.0, 'gamma': 90.0} P 21 21 21 V 1727.4 rho/Z 0.278
+refined_1h.json 0.08811191665757452; refined_1.json 0.08837754542384725; 
+
+X8a6f5a8 1x COc1ccccc1OCC[NH2+]C[C@@H](O)COc1cccc2[nH]c3ccccc3c12 (10tor); 1x O=P([O-])(O)O (0tor); 1x CC(C)O (0tor)
+
+
+X238783d 1x CC[C@H]1OC(=O)[C@H](C)[C@@H](O[C@H]2C[C@@](C)(OC)[C@@H](O)[C@H](C)O2)[C@H](C)[C@@H](O[C@@H]2O[C@H](C)C[C@H](N(C)C)[C@H]2O)[C@](C)(OC)C[C@@H](C)C(=O)[C@H](C)[C@@H](O)[C@]1(C)O (8tor)
+CELL {'a': 8.846657044168616, 'b': 20.132634723580942, 'c': 23.94195584840581, 'alpha': 90.0, 'beta': 90.0, 'gamma': 90.0} P 21 21 21 V 4264.2 rho/Z 0.291
+
+
+Xd4c1a35 1x COC1=CC(=O)C[C@@H](C)[C@]12Oc1c(Cl)c(OC)cc(OC)c1C2=O (3tor)
+CELL {'a': 11.762708133076346, 'b': 12.008605119807607, 'c': 24.280477505069314, 'alpha': 90.0, 'beta': 90.0, 'gamma': 90.0} P 21 21 21 V 3429.7 rho/Z 0.171
+refined_2free.json 0.120650385414333; refined_2freeh.json 0.10091206418517157; refined_2stable.json 0.12847580804260608; refined_2.json 0.1030095837209643; 
+
+Xfca9f3c 1x CCCCCCCCCCCCCCCC[C@@H](C)CCCCCCCC (22tor)
+CELL {'a': 12.34232913, 'b': 4.93568723, 'c': 21.44474158, 'alpha': 90.0, 'beta': 105.63956645, 'gamma': 90.0} P 1 21 1 V 1258.0 rho/Z 0.484
+refined_10.json 0.04651546031045999; refined_10h.json 0.028322056741404505; refined_10t.json 0.0276721275416407; 
+
+Xe1fb77b 1x O=C(/C=C/c1ccc(O)c(O)c1)O[C@@H]1C[C@@](OC(=O)/C=C/c2ccc(O)c(O)c2)(C(=O)O)C[C@@H](O)[C@@H]1O (7tor); 1x O (0tor)
+CELL {'a': 5.593068355245877, 'b': 15.360173538155827, 'c': 13.880661577245984, 'alpha': 90.0, 'beta': 94.97536479377817, 'gamma': 90.0} P 1 21 1 V 1188.0 rho/Z 0.747
+refined_1.json 0.1690845755039577; 
+
+Xedd9c7b 1x C[NH+](C)CCc1c[nH]c2cccc(OP(=O)([O-])O)c12 (5tor)
+
+
+Xbfeeda9 1x CN(C)C(=O)C(CC[NH+]1CCC(O)(c2ccc(Cl)cc2)CC1)(c1ccccc1)c1ccccc1 (7tor); 1x [Cl-] (0tor)
+CELL {'a': 13.202926946633223, 'b': 12.367019901476281, 'c': 16.69423334559393, 'alpha': 90.0, 'beta': 101.65834198660818, 'gamma': 90.0} P 1 21/a 1 V 2669.6 rho/Z 0.319
+
+
+Xeb393f9 1x O=C(O)CCC[NH+]1CCC(O[C@@H](c2ccc(Cl)cc2)c2ccccn2)CC1 (8tor); 1x O=S(=O)([O-])c1ccccc1 (1tor)
+CELL {'a': 8.013461193432732, 'b': 9.815137431551552, 'c': 10.232145219773672, 'alpha': 74.86933735782323, 'beta': 68.95937825068589, 'gamma': 65.93193345485913} P 1 V 679.6 rho/Z 1.337
+
+
+X9af54a2 1x COc1ccc(OC)c([C@H](O)CNC(=O)C[NH3+])c1 (6tor); 1x [Cl-] (0tor)
+CELL {'a': 5.178728935315927, 'b': 8.253763769789536, 'c': 32.95138585905239, 'alpha': 90.0, 'beta': 92.75227709009262, 'gamma': 90.0} P 1 21 1 V 1406.8 rho/Z 0.343
+
+
+X14a2b08 1x COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1 (6tor); 1x O=C1CCCCCN1 (0tor)
+CELL {'a': 5.098258847253705, 'b': 11.927383943994194, 'c': 21.27459008747357, 'alpha': 85.23439879465212, 'beta': 87.63977384063239, 'gamma': 87.02704709514161} P -1 V 1286.6 rho/Z 0.683
+
+
+Xdcc971e 1x CCCCCCCCCCCCCCCC[C@@H](C)CCCCCCCCCCCC (26tor)
+CELL {'a': 11.0391956, 'b': 7.18617652, 'c': 18.47175354, 'alpha': 90.0, 'beta': 101.98458058, 'gamma': 90.0} P 1 21 1 V 1433.4 rho/Z 0.49
+refined_10.json 0.10597106927619714; refined_10h.json 0.05814316269898729; refined_de11.json 0.10426556262757718; refined_10t.json 0.05587760856502091; 
+
+X2327841 1x CCCCCCCCCCCCCCCCCCCCCC[C@@H](C)CCCCCCCC (28tor)
+CELL {'a': 25.04761755, 'b': 4.9344192, 'c': 12.39270057, 'alpha': 90.0, 'beta': 90.78609451, 'gamma': 90.0} P 1 21 1 V 1531.5 rho/Z 0.489
+refined_10.json 0.0940165865314862; refined_10t.json 0.07136769565762231; 
+
+X1a56c78 1x O[C@](CC[NH+]1CCCCC1)(c1ccccc1)C1CCCCC1 (5tor); 1x [Cl-] (0tor)
+CELL {'a': 5.90627278679979, 'b': 11.253950622962217, 'c': 30.08996977329099, 'alpha': 90.0, 'beta': 90.0, 'gamma': 90.0} P 2 2 21 V 2000.0 rho/Z 0.281
+

@@ -1,0 +1,127 @@
+533-      /// will be resetted whenever entering or leaving an optimization.
+534-      mutable Quaternion mQuat;
+535-      /// The translation of all the atoms as a group
+536-      /// The values will be resetted whenever entering or leaving an optimization.
+537-      mutable REAL mX,mY,mZ;
+538-      /// Temporary list of the atoms indices in the molecule, used during optimization
+539:      /// This is created in Molecule::BeginOptimization()
+540-      mutable std::set<unsigned int> mvIdx;
+541-      /// Access to the integer address of this object, for unique identification from python
+542-      size_t int_ptr() const;
+543-};
+544-
+545-/** Abstract base Stretch Mode for Molecule objects
+546-*
+547-*/
+--
+748-*
+749-* This can also be used for non-organic compounds (polyhedras etc...)
+750-* \note the parametrization is very different from ZScatterer: we keep
+751-* a list of x,y,z which do not use limits (they must not), but the
+752-* coordinates must be restrained or constrained from the expected
+753-* bond lengths, angles and dihedral angles. The list of parameters is
+754:* re-created in BeginOptimization() (except for the global x y z parameters
+755-* for the global position of the Molecule, in fractionnal coordinates).
+756-*
+757-* \note : all atoms must be somehow connected
+758-*/
+759-class Molecule: public Scatterer
+760-{
+761-   public:
+762-      /** Constructor
+--
+777-      /// Formula with atoms in alphabetic order
+778-      std::string GetFormula() const;
+779-      virtual void Print()const;
+780-      virtual void XMLOutput(ostream &os,int indent=0)const;
+781-      virtual void XMLInput(istream &is,const XMLCrystTag &tag);
+782-      virtual void UpdateDisplay()const;
+783:      virtual void BeginOptimization(const bool allowApproximations=false,const bool enableRestraints=false);
+784-      virtual void EndOptimization();
+785-      virtual void RandomizeConfiguration();
+786-      virtual void GlobalOptRandomMove(const REAL mutationAmplitude,
+787-                                       const RefParType *type);
+788-      virtual REAL GetLogLikelihood()const;
+789-
+790-      virtual unsigned int GetNbLSQFunction()const;
+791:      virtual const CrystVector_REAL& GetLSQCalc(const unsigned int) const;
+792:      virtual const CrystVector_REAL& GetLSQObs(const unsigned int) const;
+793:      virtual const CrystVector_REAL& GetLSQWeight(const unsigned int) const;
+794:      virtual const CrystVector_REAL& GetLSQDeriv(const unsigned int n, RefinablePar&par);
+795-
+796-      virtual void TagNewBestConfig()const;
+797-      virtual int GetNbComponent() const;
+798-      virtual const ScatteringComponentList& GetScatteringComponentList() const;
+799-      virtual string GetComponentName(const int i) const;
+800-      virtual ostream& POVRayDescription(ostream &os,
+801-                                         const CrystalPOVRayOptions &options)const;
+802-
+--
+1236-      /// \warning still EXPERIMENTAL !
+1237-      RefObjOpt mFlexModel;
+1238-
+1239-      RefObjOpt mFlipModel;
+1240-
+1241-      /** Option to automatically optimize the starting conformation, if the
+1242:      * total restraint cost is too high. This is done in BeginOptimization().
+1243-      *
+1244-      * This is enabled by default, and should be disabled by people who already
+1245-      * supply a good starting conformation for their molecule.
+1246-      */
+1247-      RefObjOpt mAutoOptimizeConformation;
+1248-
+1249-      /** Option to optimize the Molecule's orientation. Useful to completely
+1250-      * fix the Molecule.
+/app/work/refine_obj_v2.py
+/app/work/refine_obj_v1.py
+/app/work/refine_obj.py
+/opt/conda/lib/qt6/plugins/qmlls/libqmllsquickplugin.so
+/opt/conda/lib/cmake/Qt6QmlLSPrivate/Qt6QmlLSQuickPluginConfigVersion.cmake
+/opt/conda/lib/cmake/Qt6QmlLSPrivate/Qt6QmlLSQuickPluginTargets.cmake
+/opt/conda/lib/cmake/Qt6QmlLSPrivate/Qt6QmlLSQuickPluginTargetsPrecheck.cmake
+/opt/conda/lib/cmake/Qt6QmlLSPrivate/Qt6QmlLSQuickPluginTargets-release.cmake
+/opt/conda/lib/cmake/Qt6QmlLSPrivate/Qt6QmlLSQuickPluginAdditionalTargetInfo.cmake
+/opt/conda/lib/cmake/Qt6QmlLSPrivate/Qt6QmlLSQuickPluginConfig.cmake
+/opt/conda/lib/cmake/Qt6QmlLSPrivate/Qt6QmlLSQuickPluginConfigVersionImpl.cmake
+/opt/conda/lib/python3.11/site-packages/matplotlib/tri/_trirefine.py
+/opt/conda/lib/python3.11/site-packages/torch/fx/experimental/refinement_types.py
+/opt/conda/lib/python3.11/site-packages/torch/fx/experimental/unify_refinements.py
+/opt/conda/lib/python3.11/site-packages/pyobjcryst/lsq.py
+/opt/conda/lib/python3.11/site-packages/pyobjcryst/__pycache__/lsq.cpython-311.pyc
+/opt/conda/lib/python3.11/site-packages/sympy/assumptions/refine.py
+/opt/conda/lib/python3.11/site-packages/sympy/assumptions/tests/test_refine.py
+/opt/conda/lib/python3.11/site-packages/scipy/sparse/linalg/_isolve/lsqr.py
+/opt/conda/lib/python3.11/site-packages/scipy/sparse/linalg/_isolve/__pycache__/lsqr.cpython-311.pyc
+/opt/conda/lib/python3.11/site-packages/scipy/optimize/_lsq
+/opt/conda/lib/python3.11/site-packages/scipy/optimize/_lsq/lsq_linear.py
+/opt/conda/lib/python3.11/site-packages/scipy/optimize/_lsq/__pycache__/lsq_linear.cpython-311.pyc
+/opt/conda/lib/python3.11/site-packages/scipy/optimize/_slsqp_py.py
+/opt/conda/lib/python3.11/site-packages/scipy/optimize/_slsqplib.cpython-311-x86_64-linux-gnu.so
+/opt/conda/lib/python3.11/site-packages/scipy/optimize/__pycache__/slsqp.cpython-311.pyc
+/opt/conda/lib/python3.11/site-packages/scipy/optimize/__pycache__/_slsqp_py.cpython-311.pyc
+/opt/conda/lib/python3.11/site-packages/scipy/optimize/slsqp.py
+/opt/conda/include/ObjCryst/RefinableObj/LSQNumObj.h
+/opt/conda/pkgs/sympy-1.14.0-pyh2585a3b_106/site-packages/sympy/assumptions/refine.py
+/opt/conda/pkgs/sympy-1.14.0-pyh2585a3b_106/site-packages/sympy/assumptions/tests/test_refine.py
+/opt/conda/pkgs/pyobjcryst-2025.1.0-py311hab12424_2/info/test/tests/test_lsq.py
+/opt/conda/pkgs/pyobjcryst-2025.1.0-py311hab12424_2/lib/python3.11/site-packages/pyobjcryst/lsq.py
+/opt/conda/pkgs/pyobjcryst-2025.1.0-py311hab12424_2/lib/python3.11/site-packages/pyobjcryst/__pycache__/lsq.cpython-311.pyc
+/opt/conda/pkgs/qt6-main-6.11.2-pl5321h9df5c37_0/lib/qt6/plugins/qmlls/libqmllsquickplugin.so
+/opt/conda/pkgs/qt6-main-6.11.2-pl5321h9df5c37_0/lib/cmake/Qt6QmlLSPrivate/Qt6QmlLSQuickPluginConfigVersion.cmake
+/opt/conda/pkgs/qt6-main-6.11.2-pl5321h9df5c37_0/lib/cmake/Qt6QmlLSPrivate/Qt6QmlLSQuickPluginTargets.cmake
+/opt/conda/pkgs/qt6-main-6.11.2-pl5321h9df5c37_0/lib/cmake/Qt6QmlLSPrivate/Qt6QmlLSQuickPluginTargetsPrecheck.cmake
+/opt/conda/pkgs/qt6-main-6.11.2-pl5321h9df5c37_0/lib/cmake/Qt6QmlLSPrivate/Qt6QmlLSQuickPluginTargets-release.cmake
+/opt/conda/pkgs/qt6-main-6.11.2-pl5321h9df5c37_0/lib/cmake/Qt6QmlLSPrivate/Qt6QmlLSQuickPluginAdditionalTargetInfo.cmake
+--X130active--
+Total external degrees of freedom: 14 (pos: 6 rot: 8 )
+Total internal degrees of freedom: 5
+PREPARED X13023e3 Nref 122 PawleyRw 0.08488258664761994 SG P 1 21 1
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 2308.05it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 122 seconds 41.88945293426514 best 9.038936 q25 16.52958 median 22.851212 total 41.89392924308777
+/app/work/search_gallop.py:17: RuntimeWarning: overflow encountered in cast
+  if mn>=best:return
+GALLOP 1 Nref 122 seconds 43.193594455718994 best 6.8534346 q25 14.906826 median 21.438194 total 85.13192796707153

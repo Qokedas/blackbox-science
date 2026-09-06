@@ -1,0 +1,460 @@
+# coding: utf-8
+# Copyright (c) Mark Spillman.
+# Distributed under the terms of the GPL v3 License.
+"""
+Calculates PXRD intensities given fractional atomic coordinates.
+"""
+
+import torch
+from torch import Tensor
+
+# Not PEP8 compliant in most of the file but it's been formatted to try to be
+# readable
+
+@torch.jit.script
+def get_symmetry_equivalent_points(frac_coords, nsamples_ones, affine_matrices):
+    """
+    This code is a generic way to find all symmetry related positions in the
+    unit cell from the affine-matrices of the space group. There are faster ways
+    to generate intensities for some space groups, but these need to be coded
+    separately. This function works in the generic case.
+
+    Args:
+        frac_coords (Tensor): Fractional coordinates for the asymmetric unit,
+            with shape N_samples, Number of atoms in asymmetric unit, 3
+        nsamples_ones (Tensor): A tensor filled with 1s, of shape:
+            N_samples, Number of atoms in asymmetric unit, 1
+        affine_matrices (Tensor): The affine matrices for the space group
+
+    Returns:
+        Tensor: The coordinates of all atoms in the unit cell. Tensor with shape
+            N_samples, Number of atoms in unit cell, 3
+    """
+
+    wxyz = torch.cat((frac_coords, nsamples_ones), dim=-1)
+    frac_all = torch.einsum("bij,nkj->nbik",wxyz,affine_matrices)[:,:,:,:3]
+    n_samples = frac_coords.shape[0]
+    n_atoms = frac_coords.shape[1]*affine_matrices.shape[0]
+    return frac_all.permute(1,0,2,3).reshape(n_samples,n_atoms,3)
+
+@torch.jit.script
+def intensities_from_full_cell_contents(frac_all, hkl, intensity_calc_prefix_fs,
+    centrosymmetric):
+    # type: (Tensor, Tensor, Tensor, bool) -> Tensor
+    """
+    Fall back generic method for intensity calculation if the space group is not
+    included in calculate_intensities
+
+    Args:
+        frac_all (Tensor): Coordinates of all atoms in the unit cell
+        hkl (Tensor): Miller indices
+        intensity_calc_prefix_fs (Tensor): atomic scattering factors etc
+        centrosymmetric (bool): True if space group is centrosymmetric
+
+    Returns:
+        Tensor: Calculated intensities
+    """
+    pi = 3.141592653589793
+    hxkylz = 2. * pi * torch.einsum("ji,klj->kil", hkl, frac_all)
+    Asqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs,torch.cos(hxkylz)).sum(dim=2)**2
+    if centrosymmetric:
+        return Asqd
+    else:
+        Bsqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs,torch.sin(hxkylz)).sum(dim=2)**2
+        return Asqd + Bsqd
+
+@torch.jit.script
+def calculate_intensities(asymmetric_frac_coords, hkl, intensity_calc_prefix_fs,
+        intensity_calc_prefix_fs_asymmetric, nsamples_ones, affine_matrices,
+        centrosymmetric, space_group_number):
+    # type: (Tensor, Tensor, Tensor, Tensor, Tensor, Tensor, bool, int) -> Tensor
+    """
+    Calculate the intensities for a set of Miller indices and atomic fractional
+    coordinates. For some space groups, an equation taken from the International
+    Tables of Crystallography has been used to allow the structure factors to be
+    determined directly from the contents of the asymmetric unit.
+    If this equation has not been added to the code, then the fall-back method
+    is to generate the equivalent positions within the unit cell, and then
+    determine the structure factors using the general P1 equation (or P-1 if
+    centrosymmetric). Note: equations taken from international tables may not
+    be faster or use less memory than the fallback method - testing is advised!
+
+    Args:
+        asymmetric_frac_coords (Tensor): The fractional coordinates of the atoms
+            in the asymmetric unit
+        hkl (Tensor): The hkl Miller indices of the observed reflections
+        intensity_calc_prefix_fs (Tensor): The atomic scattering factors,
+            occupancies and DW-factors of all atoms in the unit cell.
+            Only used in fallback method, generated with a Structure object.
+        intensity_calc_prefix_fs_asymmetric (Tensor): The atomic scattering
+            factors, occupancies and DW-factors of atoms in the asymmetric unit.
+            Generated with a Structure object.
+        nsamples_ones (Tensor): a tensor of ones, with the
+            shape(nsamples, natoms, 1). Only used in fallback method
+        affine_matrices (Tensor): Tensor of affine matrices obtained from
+            pymatgen. Only used in fallback method
+        centrosymmetric (bool): True if the space group is centrosymmetric
+            else False
+        space_group_number (integer): The space group number for the current
+            crystal
+
+    Returns:
+        intensities: A tensor of shape (n_samples, n_reflections) containing
+                    the calculated intensities for all hkl's.
+    """
+    pi = 3.141592653589793
+    peaks = hkl.shape[1]
+    if space_group_number == 1:
+        # P1
+        hxkylz = 2 * pi * torch.einsum("ji,klj->kil", hkl, asymmetric_frac_coords)
+        Asqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,torch.cos(hxkylz)).sum(dim=2)**2
+        Bsqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,torch.sin(hxkylz)).sum(dim=2)**2
+        # (a + ib) * (a - ib) = a^2 + b^2
+        intensities = Asqd + Bsqd
+
+    elif space_group_number == 2:
+        # P-1
+        hxkylz = 2 * pi * torch.einsum("ji,klj->kil", hkl, asymmetric_frac_coords)
+        A = 2 * torch.cos(hxkylz)
+        intensities = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,A).sum(dim=2)**2
+
+    elif space_group_number == 3:
+        # P2
+        hl = 2 * pi * (torch.einsum("i,jk->jik", hkl[0], asymmetric_frac_coords[:,:,0])
+                        + torch.einsum("i,jk->jik", hkl[2], asymmetric_frac_coords[:,:,2]))
+        ky = 2 * pi * torch.einsum("i,jk->jik", hkl[1], asymmetric_frac_coords[:,:,1])
+
+        chl = torch.cos(hl)
+        cky = torch.cos(ky)
+        sky = torch.sin(ky)
+
+        A = 2 * chl * cky
+        B = 2 * chl * sky
+        Asqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,A).sum(dim=2)**2
+        Bsqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,B).sum(dim=2)**2
+        intensities = Asqd + Bsqd
+
+    elif space_group_number == 4:
+        # P21
+        hl = 2 * pi * (torch.einsum("i,jk->jik", hkl[0], asymmetric_frac_coords[:,:,0])
+                        + torch.einsum("i,jk->jik", hkl[2], asymmetric_frac_coords[:,:,2])
+                        + hkl[1].view(1,peaks,1)/4)
+        ky = 2 * pi * (torch.einsum("i,jk->jik", hkl[1], asymmetric_frac_coords[:,:,1])
+                        - hkl[1].view(1,peaks,1)/4)
+
+        chl = torch.cos(hl)
+        cky = torch.cos(ky)
+        sky = torch.sin(ky)
+
+        A = 2 * chl * cky
+        B = 2 * chl * sky
+
+        Asqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,A).sum(dim=2)**2
+        Bsqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,B).sum(dim=2)**2
+        intensities = Asqd + Bsqd
+
+    elif space_group_number == 5:
+        # C2
+        # This expression is simpler and quicker than the style used
+        # in the other space groups. For reference, it would be:
+        # A = 4 * cos(2pi (h+k/4))*cos(2pi(hx+lz))*cos(2piky)
+        # B = 4 * cos(2pi (h+k/4))*cos(2pi(hx+lz))*sin(2piky)
+        # This would require a minimum of 4 x trig functions to determine
+        # whereas the following only requires 3.
+        chl = torch.cos(2.*pi*(torch.einsum("i,jk->jik", hkl[0], asymmetric_frac_coords[:,:,0])
+                                + torch.einsum("i,jk->jik", hkl[2], asymmetric_frac_coords[:,:,2])))
+        ky = 2 * pi * torch.einsum("i,jk->jik", hkl[1], asymmetric_frac_coords[:,:,1])
+
+        A = 4 * chl * torch.cos(ky)
+        B = 4 * chl * torch.sin(ky)
+
+        Asqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,A).sum(dim=2)**2
+        Bsqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,B).sum(dim=2)**2
+        intensities = Asqd + Bsqd
+
+    elif space_group_number == 7:
+        # Pc
+        hl = 2 * pi * (torch.einsum("i,jk->jik", hkl[0], asymmetric_frac_coords[:,:,0])
+                        + torch.einsum("i,jk->jik", hkl[2], asymmetric_frac_coords[:,:,2])
+                        + hkl[2].view(1,peaks,1)/4)
+        ky = 2 * pi * (torch.einsum("i,jk->jik", hkl[1], asymmetric_frac_coords[:,:,1])
+                        - hkl[2].view(1,peaks,1)/4)
+
+        chl = torch.cos(hl)
+        shl = torch.sin(hl)
+        cky = torch.cos(ky)
+        A = 2 * chl * cky
+        B = 2 * shl * cky
+
+        Asqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,A).sum(dim=2)**2
+        Bsqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,B).sum(dim=2)**2
+        intensities = Asqd + Bsqd
+
+    elif space_group_number == 9:
+        # Cc
+        hl = 2 * pi * (torch.einsum("i,jk->jik", hkl[0], asymmetric_frac_coords[:,:,0])
+                        + torch.einsum("i,jk->jik", hkl[2], asymmetric_frac_coords[:,:,2])
+                        + hkl[2].view(1,peaks,1)/4)
+        ky = 2 * pi * (torch.einsum("i,jk->jik", hkl[1], asymmetric_frac_coords[:,:,1])
+                        - hkl[2].view(1,peaks,1)/4)
+        hk = (2 * pi * (hkl[0] + hkl[1])/4).view(1,peaks,1)
+
+        chl = torch.cos(hl)
+        shl = torch.sin(hl)
+        cky = torch.cos(ky)
+        c_sqd_hk = torch.cos(hk)**2
+        A = 4 * c_sqd_hk * chl * cky
+        B = 4 * c_sqd_hk * shl * cky
+
+        Asqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,A).sum(dim=2)**2
+        Bsqd = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,B).sum(dim=2)**2
+        intensities = Asqd + Bsqd
+
+    elif space_group_number == 11:
+        # P21/m
+        hl = 2 * pi * (torch.einsum("i,jk->jik", hkl[0], asymmetric_frac_coords[:,:,0])
+                        + torch.einsum("i,jk->jik", hkl[2], asymmetric_frac_coords[:,:,2])
+                        + hkl[1].view(1,peaks,1)/4)
+        ky = 2 * pi * (torch.einsum("i,jk->jik", hkl[1], asymmetric_frac_coords[:,:,1])
+                        - hkl[1].view(1,peaks,1)/4)
+
+        A = 4 * torch.cos(hl) * torch.cos(ky)
+        intensities = torch.einsum("ij,bij->bij",intensity_calc_prefix_fs_asymmetric,A).sum(dim=2)**2
+
+    elif space_group_number == 12:
+        # C2/m
+        hl = 2 * pi * (torch.einsum("i,jk->jik", hkl[0], asymmetric_frac_coords[:,:,0])
+                        + torch.einsum("i,jk->jik", hkl[2], asymmetric_frac_coords[:,:,2]))
+        ky = 2 * pi * (torch.einsum("i,jk->jik", hkl[1], asymmetric_frac_coords[:,:,1]))
+        hk = (2 * pi * (hkl[0] + hkl[1])/4).view(1,peaks,1)
+        c_sqd_hk = torch.cos(hk)**2
+        self.angle_refinable_indices = np.where(self.angle_refinable == 1)[0]
+        self.torsion_refinable_indices = np.where(
+                                                self.torsion_refinable == 1)[0]
+
+    def remove_H_from_zm(self):
+        """
+        Remove hydrogen atoms from the Z-matrix.
+        """
+        coords_no_H, bond_connection_no_H = [], []
+        angle_connection_no_H, torsion_connection_no_H = [], []
+        bond_refinable_no_H, angle_refinable_no_H = [], []
+        torsion_refinable_no_H, elements_no_H = [], []
+        atom_names_no_H = []
+        occus_no_H = []
+        old_vs_new_index = []
+        n_H_connected = np.zeros_like(self.bond_connection)
+        i = 1
+        j = 0
+        for x in zip(self.elements, self.coords, self.bond_refinable,
+                        self.angle_refinable, self.torsion_refinable,
+                        self.bond_connection, self.angle_connection,
+                        self.torsion_connection, self.atom_names, self.occus):
+            if x[0] != "H":
+                old_vs_new_index.append([i, i-j])
+                elements_no_H.append(x[0])
+                coords_no_H.append(x[1])
+                bond_refinable_no_H.append(x[2])
+                angle_refinable_no_H.append(x[3])
+                torsion_refinable_no_H.append(x[4])
+                bond_connection_no_H.append(x[5])
+                angle_connection_no_H.append(x[6])
+                torsion_connection_no_H.append(x[7])
+                atom_names_no_H.append(x[8])
+                occus_no_H.append(x[9])
+            if x[0] == "H":
+                n_H_connected[x[5]] += 1
+                j+=1
+            i+=1
+        old_vs_new_index = np.vstack(old_vs_new_index)
+        coords_no_H = np.array(coords_no_H)
+        bond_connection_no_H    = np.array(bond_connection_no_H).astype(int)
+        angle_connection_no_H   = np.array(angle_connection_no_H).astype(int)
+        torsion_connection_no_H = np.array(torsion_connection_no_H).astype(int)
+        bond_refinable_no_H    = np.array(bond_refinable_no_H).astype(int)
+        angle_refinable_no_H   = np.array(angle_refinable_no_H).astype(int)
+        torsion_refinable_no_H = np.array(torsion_refinable_no_H).astype(int)
+        n_H_connected = n_H_connected[np.array(self.elements) != "H"]
+        occus_no_H = np.array(occus_no_H)
+
+        for x in old_vs_new_index:
+            bond_connection_no_H[bond_connection_no_H == x[0]] = x[1]
+            angle_connection_no_H[angle_connection_no_H == x[0]] = x[1]
+            torsion_connection_no_H[torsion_connection_no_H == x[0]] = x[1]
+
+
+        self.coords_no_H = coords_no_H
+        self.bond_connection_no_H    = bond_connection_no_H
+        self.angle_connection_no_H   = angle_connection_no_H
+        self.torsion_connection_no_H = torsion_connection_no_H
+        self.bond_refinable_no_H    = bond_refinable_no_H
+        self.angle_refinable_no_H   = angle_refinable_no_H
+        self.torsion_refinable_no_H = torsion_refinable_no_H
+        self.elements_no_H = elements_no_H
+        self.atom_names_no_H = atom_names_no_H
+        self.n_H_connected = n_H_connected
+        self.occus_no_H = occus_no_H
+
+        self.bond_refinable_indices_no_H = np.where(
+            self.source = "topas"
+        elif "shelx" == source.lower():
+            data = files.shelx.get_shelx_data(filename, hklfile)
+            for k, v in data.items():
+                setattr(self, k, v)
+            self.source = "shelx"
+        else:
+            print("This program is not yet supported.")
+            print("Currently supported programs:")
+            print(" - DASH")
+            print(" - GSAS-II")
+            print(" - TOPAS")
+        self.centrosymmetric = self.check_centre_of_symmetry()
+        self.affine_matrices = self.get_affine_matrices()
+
+    def check_centre_of_symmetry(self):
+        """
+        Check if a structure is centrosymmetric
+
+        Returns:
+            bool: True if centrosymmetric
+        """
+        laue = ["-1", "2/m", "mmm", "4/m", "4/mmm",
+                    "-3", "-3m", "6/m", "6/mmm", "m-3", "m-3m"]
+        return self.space_group.point_group in laue
+
+    def get_affine_matrices(self):
+        """
+        Get the affine matrices of the space group
+        Used as a fall-back (generic) method for structure factor
+        calculation.
+
+        GALLOP Structure must have a pymatgen space_group assigned
+
+        Returns:
+            numpy array:    affine matrices for the space group
+                            of shape (n,4,4) where n is the number
+                            of equivalent positions for the space
+                            group.
+        """
+        affine_matrices = []
+        for op in self.space_group.symmetry_ops:
+            affine_matrices.append(op.affine_matrix)
+        return np.array(affine_matrices)
+
+    def get_expanded(self, just_asymmetric, fractional_coords, all_atoms_elements,
+                    all_occus, all_atoms_n_H_connected, from_cif):
+        """
+        Take the coordinates etc, and expand out for all atoms in the unit cell,
+        assuming that only the asymmetric unit information has been provided.
+        Used in the intensity prefix function.
+        """
+        if not just_asymmetric:
+            # Apply symmetry of space group to locate all atoms
+            # within the unit cell. This is a dummy structure,
+            # and the purpose is only to extract the atomic
+            # scattering parameters etc, which are independent
+            # of position in the unit cell.
+            species_expanded = []
+            fractional_expanded = []
+            n_H_connected_expanded = []
+            occus_expanded = []
+            xyzw = np.vstack((fractional_coords.T, np.ones((1,
+                                fractional_coords.shape[0]))))
+            for am in self.affine_matrices:
+                expanded = np.array(np.dot(am, xyzw).T)
+                fractional_expanded.append(expanded[:,:3])
+                species_expanded.append(all_atoms_elements)
+                occus_expanded.append(all_occus)
+                n_H_connected_expanded.append(all_atoms_n_H_connected)
+            species_expanded = np.array(species_expanded).ravel()
+            fractional_expanded = np.vstack(fractional_expanded)
+            n_H_connected_expanded = np.hstack(n_H_connected_expanded)
+            occus_expanded = np.hstack(occus_expanded)
+        else:
+            species_expanded = all_atoms_elements
+            fractional_expanded = fractional_coords
+            occus_expanded = all_occus
+            if not from_cif:
+                n_H_connected_expanded = all_atoms_n_H_connected
+            else:
+                n_H_connected_expanded = None
+
+        species_occus_expanded = []
+        for sp_oc in zip(species_expanded, occus_expanded):
+            species_occus_expanded.append({sp_oc[0] : sp_oc[1]})
+
+        return fractional_expanded, n_H_connected_expanded, species_occus_expanded
+
+    def get_coords_occus_elements(self, from_cif, just_asymmetric):
+        """
+        dwfactors = np.array(dwfactors)
+        if from_cif:
+            self.cif_dwfactors = dwfactors
+        else:
+            if just_asymmetric:
+                self.dwfactors_asymmetric = dwfactors
+            else:
+                self.dwfactors = dwfactors
+        return zs, coeffs, occus, dwfactors
+
+    def generate_intensity_calculation_prefix(self,
+                                            debye_waller_factors=None,
+                                            just_asymmetric=False,
+                                            from_cif=False):
+        """
+        Much of this code is adapted from the PyMatGen code for PXRD pattern
+        generation, which can be found here:
+            https://pymatgen.org/pymatgen.analysis.diffraction.xrd.html
+        A few modifications have been made. For example, ability to "absorb"
+        H atoms by increasing the atomic number used to calculate
+        atomic form factors, or increase the occupancy of the non-H
+        atoms.
+
+        If reading directly from a CIF then the atomic coordinates
+        are used. If not reading from a CIF, then a dummy structure
+        is created in order to extract the required information.
+        This can either just be the atoms in the asymmetric unit,
+        or the whole unit cell.
+        """
+        if debye_waller_factors is None:
+            debye_waller_factors = {}
+        if len(self.zmatrices) == 0 and not from_cif:
+            print("No Z-matrices have been added!")
+        else:
+            all_atoms_coords, all_atoms_elements, all_atoms_n_H_connected, \
+            all_occus, fractional_coords, just_asymmetric \
+                = self.get_coords_occus_elements(from_cif, just_asymmetric)
+
+
+            fractional_expanded, n_H_connected_expanded, species_occus_expanded \
+                = self.get_expanded(just_asymmetric, fractional_coords,
+                                    all_atoms_elements, all_occus,
+                                    all_atoms_n_H_connected, from_cif)
+
+
+            # Create a pymatgen Structure object using the atom positions
+            # created earlier. This is just a dummy structure, not used in any
+            # other GALLOP functions or calculations.
+            dummy_structure = pmg.core.Structure(lattice=self.lattice,
+                                species=species_occus_expanded,
+                                coords=fractional_expanded)
+
+            zs, coeffs, occus, dwfactors = self.get_coeffs_dwfactors_occus(
+                dummy_structure, debye_waller_factors, n_H_connected_expanded,
+                from_cif, just_asymmetric)
+
+            g_hkl = np.sqrt(np.sum(np.dot(self.hkl,
+                self.lattice.reciprocal_lattice_crystallographic.matrix)**2,
+                axis=1))
+            # Note that:
+            # d_hkl = 1/g_hkl
+            # tt = np.rad2deg(2 * np.arcsin(wavelength / (2*d_hkl)))
+            # s = sin(theta) / wavelength = 1 / 2d = |ghkl| / 2 (d = 1/|ghkl|)
+            # s = g_hkl / 2
+            s2 = (g_hkl / 2)**2
+
+            dw_correction = []
+            for x in s2:
+                dw_correction.append(np.exp(-1*dwfactors * x))
+            if "neutron" in self.radiation:
+                fs = np.tile(coeffs, (1,s2.shape[0])).T

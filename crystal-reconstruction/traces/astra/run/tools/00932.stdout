@@ -1,0 +1,292 @@
+    <Radiation XRayTube="Mo">
+      <Option Name="Radiation" Choice="1" ChoiceName="X-Ray"/>
+      <Option Name="Spectrum" Choice="1" ChoiceName="X-Ray Tube"/>
+      <LinearPolarRate>0</LinearPolarRate>
+      <Par Refined="0" Limited="1" Min="0.05" Max="20" Name="Wavelength">0.71073</Par>
+      <Par Refined="0" Limited="1" Min="0.001" Max="20" Name="XRayTubeDeltaLambda">0.00429004</Par>
+      <Par Refined="0" Limited="1" Min="0.5" Max="0.5" Name="XRayTubeAlpha2Alpha1Ratio">0.5</Par>
+    </Radiation>
+    <MaxSinThetaOvLambda>0.32</MaxSinThetaOvLambda>
+
+    <PowderPatternCrystal Name="" Crystal="X7e382cb_double0" IgnoreImagScattFact="1">
+      <ReflectionProfilePseudoVoigt>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="U">1</Par>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="V">-0.314924</Par>
+        <Par Refined="0" Limited="1" Min="0" Max="1" Name="W">0.0381271</Par>
+        <Par Refined="0" Limited="1" Min="0" Max="1" Name="Eta0">0.578818</Par>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="Eta1">-1</Par>
+        <Par Refined="0" Limited="1" Min="0.01" Max="10" Name="Asym0">1.40892</Par>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="Asym1">0.0232996</Par>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="Asym2">0</Par>
+      </ReflectionProfilePseudoVoigt>
+      <Par Refined="0" Limited="1" Min="-1" Max="1" Name="globalBiso">0</Par>
+--
+        <Radiation>
+          <Option Name="Radiation" Choice="1" ChoiceName="X-Ray"/>
+          <Option Name="Spectrum" Choice="0" ChoiceName="Monochromatic"/>
+          <LinearPolarRate>0</LinearPolarRate>
+          <Par Refined="0" Limited="1" Min="0.05" Max="20" Name="Wavelength">1</Par>
+        </Radiation>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="globalBiso">0</Par>
+    <Radiation XRayTube="Mo">
+      <Option Name="Radiation" Choice="1" ChoiceName="X-Ray"/>
+      <Option Name="Spectrum" Choice="1" ChoiceName="X-Ray Tube"/>
+      <LinearPolarRate>0</LinearPolarRate>
+      <Par Refined="0" Limited="1" Min="0.05" Max="20" Name="Wavelength">0.71073</Par>
+      <Par Refined="0" Limited="1" Min="0.001" Max="20" Name="XRayTubeDeltaLambda">0.00429004</Par>
+      <Par Refined="0" Limited="1" Min="0.5" Max="0.5" Name="XRayTubeAlpha2Alpha1Ratio">0.5</Par>
+    </Radiation>
+    <MaxSinThetaOvLambda>0.4</MaxSinThetaOvLambda>
+
+    <PowderPatternCrystal Name="" Crystal="Xb7088cf" IgnoreImagScattFact="1">
+      <ReflectionProfilePseudoVoigt>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="U">1</Par>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="V">-0.138815</Par>
+        <Par Refined="0" Limited="1" Min="0" Max="1" Name="W">0.0147729</Par>
+        <Par Refined="0" Limited="1" Min="0" Max="1" Name="Eta0">0.374542</Par>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="Eta1">-0.923721</Par>
+        <Par Refined="0" Limited="1" Min="0.01" Max="10" Name="Asym0">1.38511</Par>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="Asym1">0.0356746</Par>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="Asym2">0</Par>
+      </ReflectionProfilePseudoVoigt>
+      <Par Refined="0" Limited="1" Min="-1" Max="1" Name="globalBiso">1</Par>
+--
+        <Radiation>
+          <Option Name="Radiation" Choice="1" ChoiceName="X-Ray"/>
+          <Option Name="Spectrum" Choice="0" ChoiceName="Monochromatic"/>
+          <LinearPolarRate>0</LinearPolarRate>
+          <Par Refined="0" Limited="1" Min="0.05" Max="20" Name="Wavelength">1</Par>
+        </Radiation>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="globalBiso">0</Par>
+{
+ "cost": 155.03245544433594,
+ "batch": 14,
+ "elapsed": 897.3809304237366,
+ "centre": [
+  0.0,
+  0.5,
+  0.5
+ ]
+}BATCH 9 best 155.0325164794922 diffraction 146.552490234375 p25 437.2877197265625 seconds 601.2653486728668 centre [0.  0.5 0.5]
+BATCH 10 best 241.47352600097656 diffraction 230.96832275390625 p25 486.0748596191406 seconds 677.5586700439453 centre [0.  0.5 0.5]
+BATCH 11 best 155.03265380859375 diffraction 146.55267333984375 p25 445.56927490234375 seconds 728.1047239303589 centre [0.  0.5 0.5]
+BATCH 12 best 155.0325164794922 diffraction 146.55255126953125 p25 443.9252624511719 seconds 779.9874613285065 centre [0.  0.5 0.5]
+BATCH 13 best 155.03260803222656 diffraction 146.55096435546875 p25 417.85211181640625 seconds 834.6184883117676 centre [0.  0.5 0.5]
+BATCH 14 best 155.03245544433594 diffraction 146.55242919921875 p25 453.1072692871094 seconds 897.3774268627167 centre [0.  0.5 0.5]
+BATCH 15 best 155.50880432128906 diffraction 144.99151611328125 p25 527.4254150390625 seconds 947.404007434845 centre [0.  0.5 0.5]
+BATCH 16 best 155.03250122070312 diffraction 146.55255126953125 p25 428.306884765625 seconds 990.4656229019165 centre [0.  0.5 0.5]
+import numpy as np,itertools,os,json
+from rdkit import Chem
+from rdkit.Chem import AllChem,rdMolTransforms,Lipinski
+from pyobjcryst.molecule import Molecule
+from pyobjcryst.atom import Atom
+from pyobjcryst.scatteringpower import ScatteringPowerAtom
+from pyobjcryst.refinableobj import refpartype_scatt_occup,refpartype_scattpow_temperature
+import gemmi
+
+def recenter_molecules(c):
+ # Molecular scattering is defined about the geometrical center. Remove the
+ # coordinate-gauge null mode before serializing at ObjCryst XML precision.
+ for im in range(c.GetNbScatterer()):
+  m=c.GetScatterer(im)
+  if m.GetClassName()!='Molecule':continue
+  xyz=np.array([[m.GetAtom(i).X,m.GetAtom(i).Y,m.GetAtom(i).Z] for i in range(m.GetNbAtoms())]);ctr=xyz.mean(axis=0)
+  if np.linalg.norm(ctr)>1e-6:
+   for i,v in enumerate(xyz-ctr):a=m.GetAtom(i);a.X,a.Y,a.Z=v
+
+def export_cif(c,path):
+ recenter_molecules(c)
+ cp=[c.GetPar(n).GetHumanValue() for n in ['a','b','c','alpha','beta','gamma']]
+ sgname=c.GetSpaceGroup().GetName();sg=gemmi.find_spacegroup_by_name(sgname)
+ if sg is None: raise Exception(sgname)
+ text='data_solution\n'
+ for name,v in zip(['length_a','length_b','length_c','angle_alpha','angle_beta','angle_gamma'],cp):text+=f'_cell_{name} {v:.8f}\n'
+ text+=f"_space_group_name_H-M_alt '{sg.xhm()}'\n_space_group_IT_number {sg.number}\nloop_\n_space_group_symop_id\n_space_group_symop_operation_xyz\n"
+ for i,op in enumerate(sg.operations()):text+=f"{i+1} '{op.triplet()}'\n"
+ text+='loop_\n_atom_site_label\n_atom_site_type_symbol\n_atom_site_fract_x\n_atom_site_fract_y\n_atom_site_fract_z\n_atom_site_occupancy\n_atom_site_B_iso_or_equiv\n'
+ for i,a in enumerate(c.GetScatteringComponentList()):
+  if a.mpScattPow is None:continue
+  el=a.mpScattPow.GetSymbol();text+=f'{el}{i+1} {el} {a.X%1:.8f} {a.Y%1:.8f} {a.Z%1:.8f} 1.0 {a.mpScattPow.GetBiso():.4f}\n'
+ open(path,'w').write(text)
+
+def add_aromatic_planarity(m,smiles,coords=None,sigma=1.0,delta=1.0):
+ # Aromatic rings and the first attached atoms are rigorously sp2.  Restrain
+ # torsions across aromatic bonds, independently of the removable rigid groups.
+ # Saturated ring conformations are deliberately left untouched.
+ r=Chem.MolFromSmiles(smiles)
+ if r is None or m.GetClassName()!='Molecule':return 0
+ n=r.GetNumAtoms()
+ if coords is None or len(coords)<n:
+  coords=np.array([[m.GetAtom(i).X,m.GetAtom(i).Y,m.GetAtom(i).Z] for i in range(n)])
+ cf=Chem.Conformer(n)
+ for i,v in enumerate(np.asarray(coords)[:n]):cf.SetAtomPosition(i,v)
+ existing={}
+ for di in m.GetDihedralAngleList():
+  key=tuple(a.GetName() for a in [di.GetAtom1(),di.GetAtom2(),di.GetAtom3(),di.GetAtom4()]);existing[min(key,key[::-1])]=di
+ added=0
+ for bo in r.GetBonds():
+  if not bo.GetIsAromatic():continue
+  i,j=bo.GetBeginAtomIdx(),bo.GetEndAtomIdx()
+  ni=[a.GetIdx() for a in r.GetAtomWithIdx(i).GetNeighbors() if a.GetIdx()!=j]
+  nj=[a.GetIdx() for a in r.GetAtomWithIdx(j).GetNeighbors() if a.GetIdx()!=i]
+  for k,l in itertools.product(ni,nj):
+   if k==l:continue
+   ids=[k,i,j,l];ats=[m.GetAtom(x) for x in ids]
+   key=tuple(a.GetName() for a in ats);key=min(key,key[::-1])
+   a=rdMolTransforms.GetDihedralRad(cf,*ids)
+   target=0. if np.cos(a)>=0 else np.pi
+   if key in existing:
+    di=existing[key];di.SetAngle0(target);di.SetAngleSigma(np.deg2rad(sigma));di.SetAngleDelta(np.deg2rad(delta))
+   else:
+    di=m.AddDihedralAngle(*ats,target,np.deg2rad(sigma),np.deg2rad(delta),False);existing[key]=di;added+=1
+ return added
+
+def make_rdkit(smiles,seed=10,nconf=30,conf_rank=0,hydrogen=False):
+ r=Chem.AddHs(Chem.MolFromSmiles(smiles));ps=AllChem.ETKDGv3();ps.randomSeed=seed;ps.numThreads=1;ps.pruneRmsThresh=.25
+ ids=list(AllChem.EmbedMultipleConfs(r,numConfs=nconf,params=ps))
+ if not ids:
+  ps.useRandomCoords=True;ids=list(AllChem.EmbedMultipleConfs(r,numConfs=nconf,params=ps))
+ try:
+  es=AllChem.MMFFOptimizeMoleculeConfs(r,numThreads=1,maxIters=600)
+ except Exception:
+  es=AllChem.UFFOptimizeMoleculeConfs(r,numThreads=1,maxIters=600)
+ ranked=sorted(range(len(ids)),key=lambda i:es[i][1]);ci=ids[ranked[conf_rank%len(ranked)]]
+ c=r.GetConformer(ci);coords=c.GetPositions();els=[a.GetSymbol() for a in r.GetAtoms()]
+ if not hydrogen:
+  keep=[i for i,x in enumerate(els) if x!='H'];coords=coords[keep];r=Chem.RemoveHs(r);els=[a.GetSymbol() for a in r.GetAtoms()]
+ # use the selected coordinates, indexed independently of RDKit conformer indices
+ return r,coords,es[ranked[conf_rank%len(ranked)]][1]
+
+def add_component(c,smiles,name,seed=10,conf_rank=0,rigid=False,hydrogen=False,coords_override=None,unique_sp=False):
+ base=Chem.MolFromSmiles(smiles)
+ if base.GetNumHeavyAtoms()==1:
+  atom=base.GetAtomWithIdx(0);el=atom.GetSymbol();spname=name+'_'+el if unique_sp else 'ion_'+el
+  try:sp=c.GetScatteringPower(spname)
+  except Exception:sp=ScatteringPowerAtom(spname,el,3.0);c.AddScatteringPower(sp)
+  a=Atom(*np.random.random(3),name,sp,1.0);c.AddScatterer(a);a.SetParIsFixed(refpartype_scatt_occup,True)
+  return a,{'elements':[el],'smiles':smiles}
+ if coords_override is None:
+  r,coords,e=make_rdkit(smiles,seed=seed,conf_rank=conf_rank,hydrogen=hydrogen)
+ else:
+  r=Chem.MolFromSmiles(smiles);coords=np.array(coords_override,dtype=float);e=0.
+  cf=Chem.Conformer(r.GetNumAtoms())
+  for i,v in enumerate(coords):cf.SetAtomPosition(i,v)
+  r.AddConformer(cf)
+  if hydrogen:r=Chem.AddHs(r,addCoords=True);coords=r.GetConformer().GetPositions()
+ coords-=coords.mean(axis=0)
+ m=Molecule(c,name);ats=[];els=[]
+ for i,(at,xyz) in enumerate(zip(r.GetAtoms(),coords)):
+  el=at.GetSymbol();els.append(el);spname=name+'_'+el+str(i) if unique_sp else el
+  try:sp=c.GetScatteringPower(spname)
+  except Exception:sp=ScatteringPowerAtom(spname,el,3.0 if el!='H' else 4.0);c.AddScatteringPower(sp)
+  ats.append(m.AddAtom(*xyz,sp,name+'_'+el+str(i+1),False))
+ for bo in r.GetBonds():
+  i,j=bo.GetBeginAtomIdx(),bo.GetEndAtomIdx();dist=np.linalg.norm(coords[i]-coords[j]);m.AddBond(ats[i],ats[j],dist,.02,.025,bo.GetBondTypeAsDouble(),False)
+ for a in r.GetAtoms():
+  j=a.GetIdx()
+  for i,k in itertools.combinations([a.GetIdx() for a in a.GetNeighbors()],2):
+   d1=coords[i]-coords[j];d2=coords[k]-coords[j];ang=np.arccos(np.clip(d1@d2/np.linalg.norm(d1)/np.linalg.norm(d2),-1,1));m.AddBondAngle(ats[i],ats[j],ats[k],ang,np.deg2rad(1.5),np.deg2rad(2),False)
+ # Freeze each ring system, preserving the embedded chair/fused-ring conformations.
+ rings=[set(x) for x in r.GetRingInfo().AtomRings()]
+ merged=[]
+ while rings:
+  s=rings.pop();flag=True
+  while flag:
+   flag=False
+   for t in rings[:]:
+    if s&t:s|=t;rings.remove(t);flag=True
+  merged.append(s)
+ for ring in merged:
+  # Add directly attached terminal atoms and hydrogens to aromatic or saturated ring geometry.
+  extended=set(ring)
+  for i in ring:
+   for n in r.GetAtomWithIdx(i).GetNeighbors():
+    j=n.GetIdx()
+    if n.GetDegree()==1:extended.add(j)
+  m.AddRigidGroup([ats[i] for i in sorted(extended)],False)
+ # Planarity about multiple and amide bonds, based on the input conformer.
+ cf=Chem.Conformer(r.GetNumAtoms())
+ for i,v in enumerate(coords):cf.SetAtomPosition(i,v)
+ for bo in r.GetBonds():
+  i,j=bo.GetBeginAtomIdx(),bo.GetEndAtomIdx()
+  ai=r.GetAtomWithIdx(i);aj=r.GetAtomWithIdx(j)
+  amide=(ai.GetAtomicNum()==7 and aj.GetAtomicNum()==6 and any(b.GetBondTypeAsDouble()==2 and b.GetOtherAtom(aj).GetAtomicNum() in [8,16] for b in aj.GetBonds())) or (aj.GetAtomicNum()==7 and ai.GetAtomicNum()==6 and any(b.GetBondTypeAsDouble()==2 and b.GetOtherAtom(ai).GetAtomicNum() in [8,16] for b in ai.GetBonds()))
+  if bo.IsInRing():continue
+  # N-aroyl heteroaromatics (e.g. acemetacin) have a genuinely rotatable N-CO bond.
+  if (ai.GetAtomicNum()==7 and ai.GetIsAromatic()) or (aj.GetAtomicNum()==7 and aj.GetIsAromatic()):amide=False
+  if bo.GetBondTypeAsDouble()>1.1 or amide:
+   ni=[a.GetIdx() for a in ai.GetNeighbors() if a.GetIdx()!=j];nj=[a.GetIdx() for a in aj.GetNeighbors() if a.GetIdx()!=i]
+   if ni and nj:
+    k,l=ni[0],nj[0];angle=rdMolTransforms.GetDihedralRad(cf,k,i,j,l);m.AddDihedralAngle(ats[k],ats[i],ats[j],ats[l],angle,np.deg2rad(3),np.deg2rad(6),False)
+ add_aromatic_planarity(m,smiles,coords)
+ m.GetOption(0).SetChoice(1 if rigid else 2)
+ m.GetOption(1).SetChoice(1) # never invert supplied stereochemistry
+ m.GetOption(2).SetChoice(1)
+ m.X,m.Y,m.Z=np.random.random(3)
+ q=np.random.normal(size=4);q/=np.linalg.norm(q);m.Q0,m.Q1,m.Q2,m.Q3=q
+ m.SetParIsFixed(refpartype_scatt_occup,True);c.AddScatterer(m)
+ return m,{'smiles':smiles,'elements':els,'rdkit_coords':coords.tolist(),'energy':e}
+[
+ {
+  "smiles": "O=C1CN=C(c2ccccc2Cl)c2cc(Br)ccc2N1",
+  "elements": [
+   "O",
+   "C",
+   "C",
+   "N",
+   "C",
+   "C",
+   "C",
+   "C",
+   "C",
+   "C",
+   "C",
+   "Cl",
+   "C",
+   "C",
+   "C",
+   "Br",
+   "C",
+   "C",
+   "C",
+   "N"
+  ],
+  "rdkit_coords": [
+   [
+    -2.4258800737256117,
+    -2.4964499158586273,
+    2.7259946399035524
+   ],
+   [
+    -1.984054745378151,
+    -1.953301511939309,
+    1.712199860549012
+   ],
+   [
+    -1.1006298310992257,
+    -2.6792738935138884,
+    0.7151432553617351
+   ],
+   [
+    0.2132289379469893,
+    -2.0542947633381874,
+    0.6309473245975891
+   ],
+   [
+    0.3226595412125702,
+    -0.8726780881336051,
+    0.12687127186520009
+   ],
+   [
+    1.7065529593599722,
+    -0.3141008493521072,
+    0.06042229275736085
+   ],
+   [
+    2.673663863923067,
+    -1.0876747766209565,
+    -0.5999011171753098
+{
+ "Rw": 0.04949789909031498,
+ "chi2": 3490.216860037979
+}

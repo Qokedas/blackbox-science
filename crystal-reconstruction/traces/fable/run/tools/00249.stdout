@@ -1,0 +1,7 @@
+kill /proc/7352 /bin/bash X3c176e2/run_zp1.sh 
+kill /proc/7357 python inositol_scan.py P c a m 1 0,1,2,3,4,5,8 800000 1 Pcam 
+kill /proc/7402 timeout --signal=TERM --kill-after=5s 30 bash -lc cd /app/work; for p in /proc/[0-9]*; do c=$(tr '\0' ' ' < $p/cmdline 2>/dev/null); case "$c" in *run_zp1*|*"P c a m"*) echo "kill $p $c"; kill $p;; esac; done; sleep 1; for p in /proc/[0-9]*; do tr '\0' ' ' < $p/cmdline 2>/dev/null; echo; done | grep -E "python" | grep -v grep 
+kill /proc/7408 bash -lc cd /app/work; for p in /proc/[0-9]*; do c=$(tr '\0' ' ' < $p/cmdline 2>/dev/null); case "$c" in *run_zp1*|*"P c a m"*) echo "kill $p $c"; kill $p;; esac; done; sleep 1; for p in /proc/[0-9]*; do tr '\0' ' ' < $p/cmdline 2>/dev/null; echo; done | grep -E "python" | grep -v grep 
+python inositol_scan.py P 21 21 21 2 0,1,2,3,4,5,8 1000000 1 p212121 
+python solve.py Xe3a2935 10.29176 6.88129 19.99016 90 90 90 P 21 21 21 --nsteps 3000000 --nruns 2 --ttmax 16 --tag c2b --conf 2 
+python inositol_scan.py P c a m 1 0,1,2,3,4,5,8 800000 1 Pcam 

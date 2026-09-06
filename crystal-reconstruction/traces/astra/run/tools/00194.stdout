@@ -1,0 +1,59 @@
+==X35b7fbc
+total 3768
+drwxr-xr-x 2 root root   4096 Sep  6 04:26 search_2
+-rw-r--r-- 1 root root    749 Sep  6 04:26 search2.log
+-rw-r--r-- 1 root root   1056 Sep  6 04:25 search1.log
+drwxr-xr-x 2 root root   4096 Sep  6 04:21 search_1
+-rw-r--r-- 1 root root    566 Sep  6 04:20 trans.json
+==X13023e3
+total 2968
+-rw-r--r-- 1 root root   1443 Sep  6 04:25 search2.log
+drwxr-xr-x 2 root root   4096 Sep  6 04:12 search_2
+-rw-r--r-- 1 root root  62656 Sep  6 03:49 base.png
+-rw-r--r-- 1 root root  79211 Sep  6 03:49 lebail.npz
+-rw-r--r-- 1 root root 181021 Sep  6 03:49 base.xml
+==Xfca9f3c
+total 4896
+-rw-r--r-- 1 root root    891 Sep  6 04:25 alltrans_search.log
+drwxr-xr-x 2 root root   4096 Sep  6 04:19 search_10
+-rw-r--r-- 1 root root   2107 Sep  6 04:08 alltrans.json
+-rw-r--r-- 1 root root  44556 Sep  6 04:06 base.png
+-rw-r--r-- 1 root root 118273 Sep  6 04:06 lebail.npz
+==Xdcc971e
+total 2628
+-rw-r--r-- 1 root root   2355 Sep  6 04:08 alltrans.json
+-rw-r--r-- 1 root root  47742 Sep  6 03:46 base.png
+-rw-r--r-- 1 root root 120164 Sep  6 03:46 lebail.npz
+-rw-r--r-- 1 root root 285190 Sep  6 03:46 base.xml
+-rw-r--r-- 1 root root    214 Sep  6 03:46 lattice.json
+==X8a6f5a8
+total 792
+-rw-r--r-- 1 root root  10412 Sep  6 04:26 index_MONOCLINIC_C_4_1000_5500_z0_peaks_raw.json
+-rw-r--r-- 1 root root  25380 Sep  6 04:26 index_raw_MONOCLINIC_C.log
+-rw-r--r-- 1 root root  25548 Sep  6 04:26 index_raw_MONOCLINIC_P.log
+-rw-r--r-- 1 root root      2 Sep  6 04:23 index_ORTHOROMBIC_C_4_1000_5500_z0_peaks_raw.json
+-rw-r--r-- 1 root root   1510 Sep  6 04:23 index_raw_ORTHOROMBIC_C.log
+List of Crystal ScatteringPowers :1 object registered:
+#  0:ScatteringPowerAtom(C)
+ObjRegistry<T>::Find(N): Not found !!
+List of Crystal ScatteringPowers :2 object registered:
+#  0:ScatteringPowerAtom(C)
+#  1:ScatteringPowerAtom(O)
+Imported powder pattern: 7136 points, 2theta=  2.300 ->  20.137, step= 0.003
+RESCALED_BASE 3.6418637513412286 0.06912182078479759 7136.00000000004
+INITIAL X35b7fbc 2 Rw 0.6874752172078724 LLK 450528.6739564393 Integrated 449203.8273532785 DOF -1
+RUN 0 steps 100000 time 15.05964207649231 total 15.059704542160034 LLK 129786.86494035748 Rw 0.33936977435798 Integrated 128399.62516818871
+List of Crystal ScatteringPowers :2 object registered:
+#  0:ScatteringPowerAtom(C)
+#  1:ScatteringPowerAtom(O)
+Imported powder pattern: 4185 points, 2theta=  4.243 ->  20.979, step= 0.004
+RESCALED_BASE 1.0 0.08488258664761984 4183.360749141605
+INITIAL X13023e3 2 Rw 0.8190377261998859 LLK 18459.90367052231 Integrated 17274.626497113095 DOF -1
+RUN 0 steps 100000 time 8.243419170379639 total 8.243496417999268 LLK 29789.981105425944 Rw 0.2328567931741872 Integrated 681.6905276021217
+RUN 1 steps 1000000 time 174.72498655319214 total 183.01064729690552 LLK 13090.754589644603 Rw 0.1896736748040253 Integrated 1338.8438597643267
+RUN 2 steps 1000000 time 145.8339958190918 total 328.9045977592468 LLK 8351.929643690664 Rw 0.22025584136493037 Integrated 383.53627257699
+RUN 3 steps 1000000 time 145.93001461029053 total 474.9002454280853 LLK 10688.026551158733 Rw 0.24820608330485333 Integrated 582.6306827719
+RUN 4 steps 1000000 time 149.63948488235474 total 624.5401554107666 LLK 13983.988718053788 Rw 0.21370912319628635 Integrated 314.3290290628575
+RUN 5 steps 1000000 time 136.16411590576172 total 760.7055151462555 LLK 12510.522058753637 Rw 0.2066426168320129 Integrated 446.283464598129
+Xd8634a2 Nat 66 molecule sizes [33, 33]
+  component CNS(=O)(=O)Nc1nccc(Cc2c(C)c3ccc(Oc4ncccn4)cc3oc2=O)c1F matches 0

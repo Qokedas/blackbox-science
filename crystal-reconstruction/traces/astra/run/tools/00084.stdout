@@ -1,0 +1,309 @@
+CELL [18.06863672  5.52680501 28.31660059 90.         99.14643617 90.        ] V 2791.7936479063364 zero 0.0024636343087370885
+  1   3.47265 H    456.1 W 0.0295 diff  0.0180 ['?', [1, 0, -2]]
+  2   4.47912 H  13980.5 W 0.0218 diff  0.0024 [[0, 0, 3]]
+  3   5.97411 H  10719.4 W 0.0222 diff  0.0016 [[0, 0, 4]]
+  4   6.94383 H   9875.0 W 0.0239 diff  0.0015 [[3, 0, -1]]
+  5   6.97100 H   7566.5 W 0.0120 diff  0.0070 ['?', [2, 0, 3]]
+  6   7.02382 H  30766.4 W 0.0211 diff  0.0006 [[3, 0, 0]]
+  7   7.18273 H   9287.3 W 0.0225 diff  0.0006 [[3, 0, -2]]
+  8   7.41019 H    604.4 W 0.0227 diff  0.0004 [[3, 0, 1]]
+  9   7.47072 H   3497.7 W 0.0220 diff  0.0002 [[1, 0, -5], [0, 0, 5]]
+ 10   7.70586 H 105428.9 W 0.0243 diff -0.0012 [[0, 1, -1], [0, 1, 1], [3, 0, -3]]
+ 11   8.06047 H  29957.8 W 0.0210 diff -0.0004 [[3, 0, 2]]
+ 12   8.12532 H  57140.2 W 0.0221 diff  0.0029 [[1, -1, 1], [1, 1, 1], [0, 1, 2], [0, 1, -2]]
+ 13   8.32126 H   3925.4 W 0.0294 diff  0.0053 [[1, 1, -2], [1, -1, -2]]
+ 14   8.47015 H  82674.3 W 0.0225 diff  0.0001 [[3, 0, -4]]
+ 15   8.78611 H   1194.7 W 0.0221 diff  0.0032 [[0, 1, -3], [0, 1, 3]]
+ 16   8.91681 H   2829.7 W 0.0196 diff -0.0010 [[3, 0, 3]]
+ 17   8.96760 H   4977.0 W 0.0237 diff -0.0003 [[0, 0, 6]]
+ 18   9.18709 H    509.8 W 0.0235 diff -0.0445 ['?', [2, -1, -2]]
+ 19   9.40937 H  14850.1 W 0.0227 diff  0.0002 [[3, 0, -5]]
+ 20   9.63630 H   1299.0 W 0.0227 diff  0.0031 [[0, 1, -4], [0, 1, 4]]
+ 21   9.92688 H   5787.0 W 0.0218 diff -0.0018 [[3, 0, 4]]
+ 22  10.26824 H   5232.4 W 0.0244 diff  0.0022 [[3, 1, -1], [3, -1, -1]]
+ 23  10.32207 H   1317.6 W 0.0220 diff  0.0022 [[3, 1, 0], [3, -1, 0]]
+ 24  10.48001 H  28161.5 W 0.0228 diff -0.0001 [[3, 0, -6]]
+ 25  10.58823 H   1086.3 W 0.0179 diff  0.0033 [[3, 1, 1], [3, -1, 1]]
+ 26  10.63131 H  13255.5 W 0.0272 diff -0.0011 [[1, -1, -5], [1, 1, -5], [0, 1, 5], [0, 1, -5]]
+ 27  10.80097 H  16877.7 W 0.0261 diff  0.0024 [[3, -1, -3], [3, 1, -3]]
+ 28  10.96981 H    885.2 W 0.0232 diff  0.0460 ['?', [4, 0, 3]]
+ 29  11.05363 H  22008.2 W 0.0270 diff  0.0034 [[3, 0, 5], [3, 1, 2], [3, -1, 2]]
+ 30  11.35794 H  13846.3 W 0.0256 diff  0.0024 [[3, 1, -4], [3, -1, -4]]
+ 31  11.69531 H  39193.6 W 0.0272 diff  0.0019 [[3, 1, 3], [3, -1, 3]]
+ 32  11.90942 H   2173.6 W 0.0291 diff -0.0064 [[4, 0, -6]]
+ 33  12.07724 H    655.4 W 0.0184 diff  0.0016 [[3, -1, -5], [3, 1, -5]]
+ 34  12.12695 H   3304.1 W 0.0295 diff  0.0058 [[2, 0, 7]]
+ 35  12.25205 H   7421.6 W 0.0229 diff -0.0020 [[1, 1, 6], [1, -1, 6], [3, 0, 6]]
+ 36  12.48453 H  14152.5 W 0.0278 diff  0.0013 [[3, 1, 4], [3, -1, 4]]
+ 37  12.80827 H   4828.6 W 0.0229 diff  0.0224 ['?', [1, -1, -7]]
+ 38  12.88300 H   6656.9 W 0.0750 diff -0.0007 [[5, 0, -5], [3, 0, -8], [4, 0, 5], [4, 0, -7]]
+ 39  12.91900 H   6655.7 W 0.0190 diff  0.0017 [[0, 1, 7], [0, 1, -7]]
+ 40  13.39629 H   2725.0 W 0.0266 diff  0.0008 [[3, 1, 5], [3, -1, 5]]
+UNINDEXED 6 of 82 best translations:
+Imported powder pattern: 4185 points, 2theta=  4.243 ->  20.979, step= 0.004
+STARTFIT X13023e3 2 Rw 0.08500952920657176
+ERRORSG I 1 21 1 Space group symbol 'I 1 21 1' not recognized
+   "number": 21,
+   "Rw": 52.48849221287393,
+   "GoF": 38.769336264879456,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "I 2 2 2",
+   "number": 23,
+   "Rw": 52.71602437277707,
+   "GoF": 39.09885469986183,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "I 21 21 21",
+   "number": 24,
+   "Rw": 52.71602437277707,
+   "GoF": 39.09885469986183,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "C 2 2 2",
+   "number": 21,
+   "Rw": 52.73113781235496,
+   "GoF": 39.1212768339986,
+   "nGoF": 0.0,
+   "mult": 8
+  }
+ ],
+ "stol": 0.25,
+ "p_pars": {
+  "Zero": 0.0008689828718730204,
+  "2ThetaDispl": 0.0,
+  "2ThetaTransp": 0.0,
+  "DIFC": 48277.14,
+  "DIFA": -6.7,
+  "MuR": 0.0,
+  "Scale_": 1.8278584066355607e-05
+ },
+ "d_pars": {
+  "Global Biso": 0.0
+ }
+}# coding: utf-8
+# Copyright (c) Mark Spillman.
+# Distributed under the terms of the GPL v3 License.
+"""
+GALLOP Structure class, used to hold all of the information need for GALLOP SDPD
+attempts.
+"""
+
+import json
+import os
+import numpy as np
+import pymatgen as pmg
+from pymatgen.symmetry import groups
+import gallop.z_matrix as z_matrix
+import gallop.files as files
+
+
+atomic_numbers = {
+    1 : "H", 2 : "He", 3 : "Li", 4 : "Be", 5 : "B",
+    6 : "C", 7 : "N", 8 : "O", 9 : "F", 10 : "Ne",
+    11 : "Na", 12 : "Mg", 13 : "Al", 14 : "Si", 15 : "P",
+    16 : "S", 17 : "Cl", 18 : "Ar", 19 : "K", 20 : "Ca",
+    21 : "Sc", 22 : "Ti", 23 : "V", 24 : "Cr", 25 : "Mn",
+    26 : "Fe", 27 : "Co", 28 : "Ni", 29 : "Cu",
+    30 : "Zn", 31 : "Ga", 32 : "Ge", 33 : "As",
+    34 : "Se", 35 : "Br", 36 : "Kr", 37 : "Rb",
+    38 : "Sr", 39 : "Y", 40 : "Zr", 41 : "Nb", 42 : "Mo",
+    43 : "Tc", 44 : "Ru", 45 : "Rh", 46 : "Pd",
+    47 : "Ag", 48 : "Cd", 49 : "In", 50 : "Sn",
+    51 : "Sb", 52 : "Te", 53 : "I", 54 : "Xe", 55 : "Cs",
+    56 : "Ba", 57 : "La", 58 : "Ce", 59 : "Pr",
+    60 : "Nd", 61 : "Pm", 62 : "Sm", 63 : "Eu",
+    64 : "Gd", 65 : "Tb", 66 : "Dy", 67 : "Ho",
+    68 : "Er", 69 : "Tm", 70 : "Yb", 71 : "Lu",
+    72 : "Hf", 73 : "Ta", 74 : "W", 75 : "Re", 76 : "Os",
+    77 : "Ir", 78 : "Pt", 79 : "Au", 80 : "Hg",
+    81 : "Tl", 82 : "Pb", 83 : "Bi", 84 : "Po",
+    85 : "At", 86 : "Rn", 87 : "Fr", 88 : "Ra",
+    89 : "Ac", 90 : "Th", 91 : "Pa", 92 : "U", 93 : "Np",
+    94 : "Pu", 95 : "Am", 96 : "Cm", 97 : "Bk",
+    98 : "Cf", 99 : "Es", 100 : "Fm", 101 : "Md",
+    102 : "No", 103 : "Lr", 104 : "Rf", 105 : "Db",
+    106 : "Sg", 107 : "Bh", 108 : "Hs", 109 : "Mt",
+    110 : "Ds", 111 : "Rg", 112 : "Cn", 113 : "Nh",
+    114 : "Fl", 115 : "Mc", 116 : "Lv", 117 : "Ts",
+    118 : "Og"
+    }
+
+class Structure(object):
+    """
+    The main class used in GALLOP to hold all of the information
+    about a crystal structure that is needed for SDPD attempts.
+
+    Before SDPD can be attempted, the following numpy arrays are
+    needed:
+        - hkl = Structure.hkl
+        - intensities = Structure.intensities
+        - inverse_covariance_matrix = structure.inverse_covariance_matrix
+    As well as:
+        - zmatrices populated with GALLOP Z_matrix objects all of
+            the ZMs in the asymmetric unit
+            Stored in Structure.zmatrices (list of Z-matrix objects)
+        - Structure.lattice = pymatgen lattice
+        - Structure.space_group = pymatgen space_group
+        - Structure.sg_number = sg_number (integer)
+        - Structure.centrosymmetric = centrosymmetric (bool)
+
+    If using files generated by Pawley fitting the data with DASH, GSAS-II or
+    TOPAS, helper functions are available to automate the population of
+    the required arrays and parameters.
+
+    """
+    def __init__(self, name="Gallop_structure", ignore_H_atoms=True,
+                    absorb_H_Z_increase=False, absorb_H_occu_increase=False,
+                    radiation="X-ray"):
+        """
+        Args:
+            name (str, optional): The root name to be used for
+                writing CIFs during SDPD attempts. Defaults to
+                "Gallop_structure".
+            ignore_H_atoms (bool, optional): Ignore H-atoms during
+                SDPD. Setting this to True, and
+                absorb_H_occu_increase and absorb_H_Z_increase to
+                False will simply ignore the presence of H atoms.
+                Defaults to True.
+            absorb_H_Z_increase (bool, optional): If ignore_H_atoms,
+                offset the loss of electrons in unit cell by
+                increasing the atomic number of the non-H atoms by
+                the number of connected H atoms. Defaults to False.
+            absorb_H_occu_increase (bool, optional): If ignore_H_atoms,
+                offset the loss of electrons in the unit cell by
+                increasing the occupancy of the non-H atoms by
+                a factor of (1 + n_H_connected_expanded)/non_H(Z).
+                Defaults to False.
+            radiation (string, optional): The type of radiation used to collect
+                the diffraction data. Can be one of X-ray, electron or neutron.
+                Defaults to X-ray
+        """
+        self.name = name
+        self.ignore_H_atoms = ignore_H_atoms
+        self.output_filename_root = name
+        self.zmatrices = []
+        self.absorb_H_Z_increase = absorb_H_Z_increase
+        self.absorb_H_occu_increase = absorb_H_occu_increase
+        self.radiation = radiation.lower()
+        self.temperature = None
+        self.original_sg_number = None
+        self.total_dof_calculated = False
+        self.sg_number = None
+        self.wavelength = None
+        self.hkl = None
+        self.twotheta = []
+        self.space_group = None
+        self.lattice = None
+        self.cif_frac_coords_no_H = None
+        self.cif_species_no_H = None
+        self.cif_frac_coords = None
+        self.cif_species = None
+        self.data_file = None
+        self.dspacing = None
+        self.data_resolution = None
+        self.source = None
+        self.profile = []
+        self.baseline_peaks = []
+        self.n_contributing_peaks = []
+        self.PawleyChiSq = None
+        self.centrosymmetric = None
+        self.affine_matrices = None
+        self.cif_dwfactors = None
+        self.dwfactors_asymmetric = None
+        self.dwfactors = None
+        self.total_degrees_of_freedom = None
+        self.total_external_degrees_of_freedom = None
+        self.total_internal_degrees_of_freedom = None
+        self.total_position_degrees_of_freedom = None
+        self.total_rotation_degrees_of_freedom = None
+        self.zm_torsions = None
+        self.distance_restraints = []
+        self.distance_restraints_no_H = []
+        self.angle_restraints = []
+        self.angle_restraints_no_H = []
+        self.torsion_restraints = []
+        self.torsion_restraints_no_H = []
+        self.fs = None
+        self.prefix = None
+
+    def __repr__(self):
+        return self.name
+
+    def to_json(self, return_json=True):
+        """
+        Save a structure object to a JSON formatted string. Can then be used to
+        instantiate a structure object from a string (or file)
+
+        Args:
+            return_json (bool, optional): If True, return a JSON formatted
+                string, else return a dictionary. Default is True.
+
+        Returns:
+            dict or str: JSON-compatible dict or JSON formatted string
+        """
+        dumpable = {}
+        for k, v in self.__dict__.items():
+            if k in ["zmatrices", "lattice", "space_group"]:
+                if k == "zmatrices":
+                    dumpable[k] = [zm.to_json(return_json=return_json) for zm in v]
+                elif k == "lattice":
+                    dumpable[k] = v.as_dict()
+            else:
+                if isinstance(v, np.ndarray):
+                    dumpable[k] = [v.tolist(), True]
+                elif isinstance(v, np.int32):
+                    dumpable[k] = [int(v), False]
+                else:
+                    dumpable[k] = [v, False]
+        if return_json:
+            return json.dumps(dumpable)
+        else:
+            return dumpable
+
+    def from_json(self, attributes, is_json=True):
+        """
+        Load a structure object from JSON formatted string
+
+        Args:
+            attributes (str or dict): JSON formatted string of a structure
+                                    produced by the to_json method
+            is_json (bool, optional): Toggles reading dict directly or using a
+                JSON formatted string. Default is True
+        """
+        if is_json:
+            attributes = json.loads(attributes)
+        for k, v in attributes.items():
+            if k in ["zmatrices", "lattice", "space_group"]:
+                if k == "zmatrices":
+                    zmatrices = []
+                    for zmstring in v:
+                        zmat = z_matrix.Z_matrix()
+                        zmat.from_json(zmstring, is_json=is_json)
+                        zmatrices.append(zmat)
+                    setattr(self, k, zmatrices)
+                elif k == "lattice":
+                    lattice = pmg.core.Lattice.from_dict(v)
+                    setattr(self,k,lattice)
+            else:
+                if v[1]:
+                    setattr(self, k, np.array(v[0]))
+                else:
+                    setattr(self, k, v[0])
+        setattr(self, "space_group",
+                        groups.SpaceGroup.from_int_number(self.sg_number))
+
+    def add_zmatrix(self, filename, verbose=True):
+        """
+        Create and add a z-matrix object to the Structure
+
+        Args:
+            filename (str): filename of the Z-matrix
+            verbose (bool, optional): Print out information. Defaults to True.
+        """

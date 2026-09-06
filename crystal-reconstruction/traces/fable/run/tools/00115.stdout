@@ -1,0 +1,3 @@
+solve.py:13:from lebail import make_pattern, add_crystal, fit_sequence
+solve.py:111:    p, ins = make_pattern(iid, tt_max=ttmax, nbg=nbg)
+absences.py:6:    p, ins = make_pattern(iid, tt_max=ttmax)

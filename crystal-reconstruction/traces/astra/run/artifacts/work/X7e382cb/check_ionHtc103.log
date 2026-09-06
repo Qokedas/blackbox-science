@@ -1,0 +1,5 @@
+X7e382cb Nat 40 molecule sizes [18, 18, 1, 1, 1, 1]
+  component O=C([O-])c1ccc(-c2ccc(C(=O)[O-])cc2)cc1 matches 2
+  component [NH4+] matches 4
+  bond range 1.268451811542492 1.5156819279935567
+  min intermolecular distance 2.6433793630546147

@@ -1,0 +1,233 @@
+# coding: utf-8
+# Copyright (c) Mark Spillman.
+# Distributed under the terms of the GPL v3 License.
+"""
+Provides functions for calculating chi-squared given a set of external and
+internal degrees of freedom.
+"""
+
+import torch
+
+import gallop.intensities as intensities
+import gallop.zm_to_cart as zm_to_cart
+import gallop.tensor_prep as tensor_prep
+
+
+@torch.jit.script
+def calc_int_chisqd(calculated_intensities, inverse_covariance_matrix,
+        observed_intensities, chisqd_scale_sum_1_1):
+    """
+    Given sets of calculated intensities, the Pawley-derived inverse covariance
+    matrix, and the extracted observed intensities, calculate intensity chi2
+    according to the equation described by David et al.
+
+    Args:
+        calculated_intensities (Tensor): Tensor of shape (n_samples, n_peaks)
+            containing the calculated intensity of each hkl
+        inverse_covariance_matrix (Tensor): Tensor of shape (n_peaks, n_peaks)
+            obtained from the Pawley fit of the diffraction data
+        observed_intensities (Tensor): Tensor of shape (n_peaks,) - observed
+            intensities obtained by Pawley fit
+        sum_1_1 (Tensor): Pre-calculated first term of the scaling factor,
+            equivalent to:
+            torch.mv(inverse_covariance_matrix, observed_intensities)
+
+    Returns:
+        Tensor: the chi2 value for each calculated pattern
+    """
+    sum_1_2 = torch.einsum("ij,j->i",calculated_intensities,
+                                    chisqd_scale_sum_1_1)
+
+    #sum_2_1 = torch.einsum("ij,kj->ki",inverse_covariance_matrix,
+    #                                    calculated_intensities)
+    #sum_2_2 = torch.einsum("ij,ij->i",calculated_intensities,sum_2_1)
+    sum_2_2 = torch.einsum("ij,jk,ik->i",calculated_intensities,
+                                        inverse_covariance_matrix,
+                                        calculated_intensities)
+
+    # Scaling factor for calculated intensities.
+    scale = (sum_1_2 / sum_2_2).reshape(-1,1)
+
+    # Difference between observed and scaled calculated intensities
+    #diff = observed_intensities.repeat(calculated_intensities.shape[0],1)\
+    #        - (calculated_intensities*scale)
+    diff = (observed_intensities.view(1, observed_intensities.shape[0])
+            - (scale*calculated_intensities))
+
+    # Finally calculate chisqd - d.A.d
+    #chi_1 = torch.einsum("ij,kj->ki",inverse_covariance_matrix,diff) # A.d
+    #chi_2 = torch.einsum("ij,ij->i",diff,chi_1) # d.(A.d)
+    chi_2 = torch.einsum("ij,jk,ik->i",diff,inverse_covariance_matrix,diff)
+    return chi_2 / (calculated_intensities.shape[1] - 2)
+
+@torch.jit.script
+def calc_prof_chisqd(calculated_intensities, baseline_peaks, scale_numerator, weights, profile):
+    """
+    Calculates profile chisquared from a set of calculated intensities, and baseline peaks derived
+    from a DASH Pawley PIK file.
+
+    Args:
+        calculated_intensities (PyTorch Tensor): Intensities calculated during SDPD with GALLOP
+                                                    Shape (n_particles, n_intensities)
+        baseline_peaks (PyTorch Tensor):         Baseline peaks extracted from the DASH PIK file
+                                                    Shape (n_intensities, n_points)
+        scale_numerator (PyTorch Tensor):        Sum of the observed intensities for all points
+                                                    Shape (1,)
+        weights (PyTorch Tensor):                Tensor of (1/esd)**2 values, Precalculated to
+                                                    save time. Shape (n_points,).
+        profile (PyTorch Tensor):                Tensor of the PIK profile, Shape (n_points, 3)
+
+    Returns:
+        PyTorch Tensor: A tensor with shape (n_particles,) containing the profile
+                        chi-square values
+    """
+    # Calculate the profiles by matrix multiplication
+    calc_profiles = calculated_intensities @ baseline_peaks
+
+    # Calculate the scaling factors for the calculated profiles
+    scale_denominator = calc_profiles.sum(dim=1).unsqueeze(1)
+    scale = scale_numerator / scale_denominator
+
+    # The "-2" in the denominator is because DASH refines two background terms
+    # during the Pawley refinement by default
+    prof_chisquared = ((weights*((scale*calc_profiles - profile[:,1])**2)
+                    ).sum(dim=1).reshape(-1,1) / (profile.shape[0]-2)).squeeze(1)
+    return prof_chisquared
+
+def get_chi_2(zm, int_tensors, chisqd_tensors, profile=None):
+    """
+    Convenience function to get chi2 directly from external/internal rather
+    than performing the three steps required:
+    1. coords, 2. intensities, 3. chi2
+
+    The required arguments are produced and packaged into a dictionary by the
+    gallop.tensor_prep code
+
+    Args:
+        zm (dict) : A dictionary containing the following tensors:
+            external (Tensor): The external degrees of freedom
+            internal (Tensor): The internal degrees of freedom
+            position (list): List of tensors with the indices of the positional
+                degrees of freedom (dtype=torch.long)
+            rotation (list): List of tensors with the indices of the rotational
+                degrees of freedom (dtype=torch.long)
+            torsion (list): List of tensors with the indices of the torsional
+                degrees of freedom (dtype=torch.long)
+            initial_D2 (list): List of tensors of the initial_D2 matrices for
+                each ZM with >0 internal DOFs
+            zmatrices_degrees_of_freedom (list): List of ints of the total
+                number of degrees of freedom for each Z-matrix
+            bond_connection (list): List of tensors with the indices of the
+                bonded atoms obtained from the ZMs. Only for ZMs with > 0
+                torsions. (dtype=torch.long)
+            angle_connection (list): List of tensors with the indices of the
+                angle atoms obtained from the ZMs. Only for ZMs with > 0
+                torsions. (dtype=torch.long)
+            torsion_connection (list): List of tensors with the indices of the
+                torsion atoms obtained from the ZMs. Only for ZMs with > 0
+                torsions. (dtype=torch.long)
+            torsion_refinable_indices (list): List of tensors with the indices
+                of the refinable torsion angles obtained from the ZMs. Only for
+67:def calculate_intensities(asymmetric_frac_coords, hkl, intensity_calc_prefix_fs,
+# coding: utf-8
+# Copyright (c) Mark Spillman.
+# Distributed under the terms of the GPL v3 License.
+"""
+Fast conversion from internal to Cartesian coordinates.
+"""
+
+import torch
+import gallop.tensor_prep as tensor_prep
+
+
+@torch.jit.script
+def modify_D2(tors, D2, refinable_torsion_indices):
+    """
+    Modify a base "D2" matrix for use in the NERF approach for
+    internal -> Cartesian. See function zm_to_cart for more details.
+
+    Args:
+        tors (Tensor): The values of the refinable torsion angles
+        D2 (Tensor): The base D2 matrix
+        refinable_torsion_indices (Tensor): The indices of the refinable
+            torsion angles
+
+    Returns:
+        Tensor: A modified D2 matrix including the updated torsion angles
+    """
+    cos_phi = torch.cos(tors)
+    sin_phi = torch.sin(tors)
+    new_D2 = D2.clone()
+    new_D2[:,:,1][:,refinable_torsion_indices] = \
+        torch.mul(D2[:,:,1][:,refinable_torsion_indices], cos_phi)
+    new_D2[:,:,2][:,refinable_torsion_indices] = \
+        torch.mul(D2[:,:,2][:,refinable_torsion_indices], sin_phi)
+    return new_D2
+
+@torch.jit.script
+def zm_to_cart(torsions, init_D2, bond_connect, angle_connect, torsion_connect,
+    refinable_torsion_indices):
+    """
+    This function uses the Natural Extension Reference Frame method to convert
+    from internal (Z-matrix) to Cartesian coordinates.
+    See https://onlinelibrary.wiley.com/doi/abs/10.1002/jcc.20237 for details.
+    The names of the variables used are roughly in line with paper.
+
+    It currently accepts only torsion angles as refinable parameters.
+
+    Args:
+        torsions (Tensor): Tensor of refinable torsion angle values
+            (generally, this is what is being optimised)
+        init_D2 (Tensor): Generated from the original z-matrix. This is
+            modified by the refinable torsion angles. D2 is a term used in the
+            NeRF ZM->Cart paper.
+        bond_connect (Tensor): Tensor containing the indices of directly bonded
+            atoms
+        angle_connect (Tensor): Tensor containing the indices of atoms involved
+            in angles
+        torsion_connect (Tensor): Tensor containing the indices of atoms
+            involved in torsions
+        refinable_torsion_indices (Tensor): Tensor containing the indices of
+            refinable torsion angles.
+
+    Returns:
+        cart (Tensor): Cartesian coordinates of the atoms given by a Z-matrix
+                        description. Shape (n_samples, n_atoms, 3)
+    """
+    D2 = modify_D2(torsions, init_D2, refinable_torsion_indices)
+    cart_list = torch.empty_like(D2)
+    cart_list[:,:3,:] = D2[:,:3,:]
+    for i in range(3, D2.shape[1]):
+        #i+=3 # torch.jit doesn't work with range(3, atoms)
+        C = cart_list[:,bond_connect[i]]
+        B = cart_list[:,angle_connect[i]]
+        A = cart_list[:,torsion_connect[i]]
+        c_minus_b = C - B
+        bc = c_minus_b.div(c_minus_b.norm(p=2, dim=-1, keepdim=True))
+GALLOP 27 Nref 122 seconds 24.619935512542725 best 6.26321 q25 13.971979 median 18.682995 total 989.1198623180389
+GALLOP 28 Nref 122 seconds 20.31099820137024 best 5.0369062 q25 14.399955 median 20.675327 total 1009.4356834888458
+GALLOP 29 Nref 122 seconds 20.286473274230957 best 4.9588943 q25 12.925372 median 20.700293 total 1029.725009918213
+GALLOP 30 Nref 122 seconds 19.6287100315094 best 4.963704 q25 14.023423 median 18.815376 total 1049.3585321903229
+GALLOP 31 Nref 122 seconds 29.843377590179443 best 4.0227046 q25 14.547769 median 20.826027 total 1079.2052037715912
+GALLOP 32 Nref 122 seconds 34.19458532333374 best 3.4747365 q25 13.928629 median 21.170088 total 1113.442076921463
+GALLOP 33 Nref 122 seconds 27.033849954605103 best 3.4471958 q25 15.333284 median 20.639761 total 1140.556568622589
+GALLOP 34 Nref 122 seconds 27.307411670684814 best 3.4486477 q25 13.843901 median 18.875069 total 1167.9216394424438
+GALLOP 35 Nref 122 seconds 27.89339017868042 best 3.4485576 q25 16.138828 median 22.454151 total 1195.8185563087463
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1701.72it/s]
+Imported powder pattern: 11370 points, 2theta=  1.801 ->  13.152, step= 0.001
+RESCALED_BASE 1.4627227046877824 0.07040823664357759 11369.999999999949
+INITIAL Xe1fb77b 2 Rw 0.5989750625271313 LLK 657585.6897973643 Integrated 656704.6631084775 DOF -1
+RUN 0 steps 100000 time 209.78746509552002 total 209.78754663467407 LLK 232011.76959382676 Rw 0.3818387882183914 Integrated 229416.284933597
+RUN 1 steps 3000000 time 600.2046418190002 total 810.3128747940063 LLK 169875.12621515183 Rw 0.32918504854933317 Integrated 168534.19451505868
+RUN 2 steps 3000000 time 600.5225648880005 total 1411.206104516983 LLK 139663.11142589955 Rw 0.29336001852466104 Integrated 137853.84392199217
+Imported powder pattern: 7578 points, 2theta=  4.678 ->  23.621, step= 0.002
+RESCALED_BASE 1.0004644785769743 0.046395222945572724 7577.999999999983
+INITIAL Xeb393f9 1 Rw 0.2688026345500707 LLK 186500.52827408884 Integrated 185153.28212240367 DOF -1
+RUN 0 steps 100000 time 29.4878511428833 total 29.487924814224243 LLK 37728.519233669984 Rw 0.1369213554625328 Integrated 36290.14913488902
+RUN 1 steps 4000000 time 600.0131418704987 total 629.6252927780151 LLK 13985.610211307898 Rw 0.09508150311094965 Integrated 12509.513964364744
+RUN 2 steps 4000000 time 600.08154129982 total 1229.980306148529 LLK 11818.541913903038 Rw 0.08936435543106927 Integrated 10377.17979645274
+Imported powder pattern: 4041 points, 2theta=  4.850 ->  45.251, step= 0.010
+RESCALED_BASE 2.2519343277139 0.0464910011027389 4040.999999999988
+INITIAL Xbfeeda9 1 Rw 0.4758924869647883 LLK 299928.47530277877 Integrated 294450.45788102126 DOF -1
+RUN 0 steps 100000 time 224.03500199317932 total 224.03508639335632 LLK 115530.38822475183 Rw 0.27262385070481876 Integrated 113045.05589373872
+RUN 1 steps 3000000 time 600.0807440280914 total 824.2978436946869 LLK 62636.11237333063 Rw 0.19897836658259482 Integrated 60423.110774860455

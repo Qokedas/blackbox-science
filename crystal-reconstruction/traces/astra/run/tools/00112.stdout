@@ -1,0 +1,16 @@
+ Solution ? a= 20.667 b= 11.735 c=  5.446 alpha= 89.057 beta= 95.779 gamma= 96.335 V= 1306.11 score= 36.86 #1367
+ Solution ? a= 20.667 b= 11.735 c=  5.446 alpha= 89.057 beta= 95.779 gamma= 96.335 V= 1306.11 score= 36.86 #1368
+ Solution ? a= 20.667 b= 11.735 c=  5.446 alpha= 89.057 beta= 95.779 gamma= 96.335 V= 1306.11 score= 36.87 #1388
+ Solution ? a= 20.667 b= 11.735 c=  5.446 alpha= 89.057 beta= 95.779 gamma= 96.335 V= 1306.11 score= 36.87 #1397
+ Solution ? a= 20.667 b= 11.735 c=  5.446 alpha= 89.057 beta= 95.779 gamma= 96.335 V= 1306.11 score= 36.87 #1229
+ Solution ? a= 20.667 b= 11.735 c=  5.446 alpha= 90.943 beta= 84.221 gamma= 96.335 V= 1306.11 score= 36.87 # 589
+ Solution ? a= 20.667 b= 11.735 c=  5.446 alpha= 90.943 beta= 84.221 gamma= 96.335 V= 1306.11 score= 36.87 #1519
+ Solution ? a= 20.667 b= 11.735 c=  5.446 alpha= 90.943 beta= 84.221 gamma= 96.335 V= 1306.11 score= 36.87 # 408
+  0%|          | 0/2 [00:00<?, ?it/s]100%|██████████| 2/2 [00:00<00:00, 1516.65it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+RUN 5 steps 1000000 time 75.364985704422 total 447.1766538619995 LLK 286457.05487015634 Rw 0.5383442076353001 Integrated 285235.9785141927
+RUN 6 steps 1000000 time 78.30478358268738 total 525.481737613678 LLK 277268.5486997454 Rw 0.5306552060793756 Integrated 276081.83562753483
+RUN 7 steps 1000000 time 86.80047416687012 total 612.2824919223785 LLK 274705.518397972 Rw 0.5272352310236432 Integrated 273539.6010694478

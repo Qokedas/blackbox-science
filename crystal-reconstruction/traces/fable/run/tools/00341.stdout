@@ -1,0 +1,37 @@
+== e
+step ['background'] Rwp=0.0872
+step ['Zero', 'W', 'U', 'V', 'Eta0', 'background', 'a', 'b', 'c', 'alpha', 'beta', 'gamma'] Rwp=0.0873
+LeBail Rwp=0.0876 chi2=12498.6 cell= 8.909929627351309 9.47822998362054 13.245007302564128 98.22433182764351
+  conformers: 25 distinct; energies [-159.4, -159.4, -158.3, -158.3, -158.3, -157.8]; using rank 0 (E=-159.4)
+  molecule mol0_0: 33 atoms, 36 bonds, 52 angles, 51 dihedral restraints, 7 free torsions
+== f
+step ['background'] Rwp=0.0872
+step ['Zero', 'W', 'U', 'V', 'Eta0', 'background', 'a', 'b', 'c', 'alpha', 'beta', 'gamma'] Rwp=0.0873
+LeBail Rwp=0.0876 chi2=12498.6 cell= 8.909929627351309 9.47822998362054 13.245007302564128 98.22433182764351
+  conformers: 25 distinct; energies [-159.4, -159.4, -158.3, -158.3, -158.3, -157.8]; using rank 0 (E=-159.4)
+  molecule mol0_0: 33 atoms, 36 bonds, 52 angles, 51 dihedral restraints, 7 free torsions
+run 0: cost=13981.3 Rwp=0.1358 chi2=30031.5 t=6556s
+polish: Rwp 0.1351 -> 0.1283 (accepted) restraint cost=0.00
+RESULTS Xd8634a2 P -1 [(13981.312759397353, 0.1357715966325468, 30031.51836361218)]
+Xd8634a2/sol_e:
+
+Xd8634a2/sol_f:
+P-1_run0_lsq_rw0.128.cif
+P-1_run0_rw0.136.cif
+== x3
+LeBail Rwp=0.0799 chi2=10453.8 cell= 10.29285983351056 6.880464732561897 19.99102951238001 90.0
+  conformers: 4 distinct; energies [131.7, 132.2, 135.9, 136.2]; using rank 2 (E=135.9)
+  molecule mol0_0: 21 atoms, 22 bonds, 29 angles, 30 dihedral restraints, 2 free torsions
+run 0: cost=50213.7 Rwp=0.1789 chi2=52674.3 t=1753s
+polish: Rwp 0.1787 -> 0.1506 (accepted) restraint cost=0.00
+== a_sa
+  conformers: 23 distinct; energies [72.1, 72.5, 72.7, 75.7, 75.9, 76.8]; using rank 0 (E=72.1)
+  molecule mol0_0: 25 atoms, 28 bonds, 41 angles, 49 dihedral restraints, 4 free torsions
+  conformers: 2 distinct; energies [-62.8, -46.6]; using rank 0 (E=-62.8)
+  molecule mol1_0: 8 atoms, 7 bonds, 8 angles, 5 dihedral restraints, 0 free torsions
+restored from X35b7fbc/sol_a/P212121_run0_lsq_rw0.163.cif: Rwp=0.6686 restraint cost=0.00
+== inos
+ISO 8 P 21 21 21 Zp=2: 0.2932
+ISO 3 P 21 21 21 Zp=2: 0.2593
+ISO 4 P 21 21 21 Zp=2: 0.2469
+ISO 5 P 21 21 21 Zp=2: 0.2965

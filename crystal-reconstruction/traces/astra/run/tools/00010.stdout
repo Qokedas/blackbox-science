@@ -1,0 +1,64 @@
+X14a2b08 37 6 75 first [3.024, 3.4906, 4.1416, 4.8684, 5.5843, 5.7872, 7.3618, 8.1923, 8.7564, 9.6464, 10.6716, 11.5557, 12.4651, 14.0024, 15.0333, 15.7558, 16.4459, 17.6919, 18.0086, 18.5584, 18.9971, 19.312]
+X1a56c78 23 5 65 first [5.8746, 8.3757, 11.7946, 14.1571, 14.9966, 15.294, 15.7429, 16.1214, 16.8084, 17.2078, 17.7068, 17.9718, 19.14, 19.396, 19.722, 20.6909, 21.0859, 21.84, 22.04, 22.5788, 23.2662, 23.7545]
+X1db5091 38 7 56 first [4.2107, 7.214, 8.1247, 8.5662, 9.4372, 12.8836, 13.9, 14.0752, 14.5571, 15.3261, 16.3609, 17.2632, 17.6273, 18.6113, 19.041, 19.4701, 20.9747, 21.402, 21.9486, 22.5468, 23.61, 23.895]
+X2327841 32 28 68 first [1.8242, 3.6642, 3.7032, 4.1086, 4.1553, 5.175, 6.5899, 7.3364, 7.6123, 8.2263, 9.1746, 9.4918, 9.8495, 10.0117, 10.1945, 10.5116, 10.6628, 10.8224, 11.0156, 11.4177, 11.5763, 11.7251]
+X238783d 52 8 65 first [5.7081, 7.3488, 8.5486, 9.4825, 10.8782, 11.4922, 11.8914, 12.3974, 13.2031, 13.7847, 14.1225, 15.1989, 15.5497, 16.5316, 16.9441, 17.3236, 17.5833, 18.1256, 18.3898, 19.0753, 19.9056, 20.5074]
+      /// or if one solution was found at depth>=stopOnDepth
+      ///
+      /// If stopOnDepth==0, do not stop for any depth
+      void DicVol(const float minScore=10,const unsigned int minDepth=3,const float stopOnScore=50.0,const unsigned int stopOnDepth=6);
+      /** Sort all solutions by score, remove duplicates
+      *
+      * \param updateReportThreshold: if true, when too many solutions are produced,
+      * the threshold above which solutions are reported will be updated to get less solutions.
+      */
+      void ReduceSolutions(const bool updateReportThreshold=false);
+      float GetBestScore()const;
+      const std::list<std::pair<RecUnitCell,float> >& GetSolutions()const;
+      std::list<std::pair<RecUnitCell,float> >& GetSolutions();
+   private:
+      unsigned int RDicVol(RecUnitCell uc0, RecUnitCell uc1, unsigned int depth,unsigned long &nbCalc,const float minV,const float maxV,vector<unsigned int> vdepth=vector<unsigned int>());
+      void Init();
+      /// Max number of obs reflections to use
+      std::list<std::pair<RecUnitCell,float> > mvSolution;
+      unsigned int mnpar;
+      const PeakList *mpPeakList;
+      float mLengthMin,mLengthMax;
+      float mAngleMin,mAngleMax;
+      float mVolumeMin,mVolumeMax;
+      float mZeroShiftMin,mZeroShiftMax;
+      /// Min values for all parameters (7=unit cell +zero)
+      float mMin[7];
+      /// Max amplitude (max=min+amplitude) for all parameters
+      /// All parameters are treated as periodic for DE (??)
+      float mAmp[7];
+      /// Lattice type for which we search
+      CrystalSystem mlattice;
+      /// Centering type
+      CrystalCentering mCentering;
+      unsigned int mNbSpurious;
+      float mD2Error;
+      LSQNumObj mLSQObj;
+      mutable CrystVector_REAL mObs;
+      mutable CrystVector_REAL mCalc;
+      mutable CrystVector_REAL mWeight;
+      mutable CrystVector_REAL mDeriv;
+      /// Reciprocal unit cell used for least squares refinement
+      RecUnitCell mRecUnitCell;
+      /// Current best score
+      float mBestScore;
+      /// Number of solutions found during dicvol search, at each depth.
+      std::vector<unsigned int> mvNbSolutionDepth;
+      float mMinScoreReport;
+      unsigned int mMaxDicVolDepth,mDicVolDepthReport;
+      /// Stored value of cos(max ang) for tricilinic search - we do
+      /// not want to recompute the cos at every dicvol iteration
+      mutable float mCosAngMax;
+      /// Number of exceptions caught during LSQ, in a given search - above 20 LSQ is disabled
+      unsigned int mNbLSQExcept;
+};
+
+
+}//namespace
+#endif
+libObjCryst.so

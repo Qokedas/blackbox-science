@@ -1,0 +1,45 @@
+#!/bin/bash
+# kill python processes (argv0 is python) whose cmdline contains $1
+for p in /proc/[0-9]*; do
+  pid=${p#/proc/}
+  [ "$pid" = "$$" ] && continue
+  cl=$(tr '\0' ' ' < $p/cmdline 2>/dev/null)
+  first=${cl%% *}
+  case "$first" in
+    *python*) case "$cl" in *"$1"*) echo "kill $pid: ${cl:0:80}"; kill -9 $pid;; esac;;
+  esac
+done
+kill 8526: python inositol_scan.py P 21 21 21 2 8,3 3000000 1 p212121L 
+python solve.py Xd8634a2 8.9099 9.4782 13.2450 96.0172 98.2243 66.6787 P -1 --nsteps 8000000 --nruns 1 --ttmax 12 --tag e 
+python solve.py Xd8634a2 8.9099 9.4782 13.2450 96.0172 98.2243 66.6787 P -1 --nsteps 8000000 --nruns 1 --ttmax 12 --tag f 
+python solve.py X35b7fbc 5.7074 33.1312 12.7644 90 90 90 P 21 21 21 --nsteps 5000000 --nruns 1 --ttmax 16 --tag a 
+python solve.py X35b7fbc 5.7074 33.1312 12.7644 90 90 90 P 21 21 21 --nsteps 5000000 --nruns 1 --ttmax 16 --tag b 
+bash -lc cd /app/work; python compare.py Xe3a2935/sol_c2b/P212121_run1_lsq_rw0.149.cif Xe3a2935/sol_c2/P212121_run1_lsq_rw0.146.cif 2>&1 | tail -3; python molgeom.py Xe3a2935/sol_c2b/P212121_run1_lsq_rw0.149.cif | head -3
+cd /app/work && EXCLUDE="7.55,8.05" nohup python solve.py Xe3a2935 10.29233 6.88044 19.98978 90 90 90 "P 21 21 21" --nsteps 3000000 --nruns 2 --ttmax 16 --tag x2 --conf 2 > Xe3a2935/solve_x2.log 2>&1 &
+python solve.py Xe3a2935 10.29233 6.88044 19.98978 90 90 90 P 21 21 21 --nsteps 3000000 --nruns 2 --ttmax 16 --tag x2 --conf 2 
+import sys, os, time, json, numpy as np
+sys.path.insert(0, '/app/work')
+from solve import *
+iid = 'X3c176e2'
+spg = sys.argv[1]; zp = int(sys.argv[2]); isos = [int(x) for x in sys.argv[3].split(',')]
+nsteps = float(sys.argv[4]); nruns = int(sys.argv[5]); tag = sys.argv[6]
+cell = [14.0067, 9.3253, 11.0305, 90, 90, 90]
+if len(sys.argv) > 7: cell = [float(x) for x in sys.argv[7].split(',')]
+smis = ['O[C@H]1[C@@H](O)[C@@H](O)[C@@H](O)[C@@H](O)[C@H]1O',
+'O[C@H]1[C@@H](O)[C@@H](O)[C@@H](O)[C@@H](O)[C@@H]1O',
+'O[C@H]1[C@H](O)[C@H](O)[C@@H](O)[C@@H](O)[C@H]1O',
+'O[C@H]1[C@H](O)[C@@H](O)[C@H](O)[C@@H](O)[C@H]1O',
+'O[C@H]1[C@H](O)[C@H](O)[C@H](O)[C@@H](O)[C@H]1O',
+'O[C@H]1[C@H](O)[C@@H](O)[C@@H](O)[C@H](O)[C@H]1O',
+'O[C@H]1[C@H](O)[C@@H](O)[C@H](O)[C@H](O)[C@H]1O',
+'O[C@H]1[C@H](O)[C@H](O)[C@@H](O)[C@H](O)[C@H]1O',
+'O[C@H]1[C@H](O)[C@@H](O)[C@H](O)[C@@H](O)[C@@H]1O']
+outdir = f'/app/work/{iid}/inos_{tag}'; os.makedirs(outdir, exist_ok=True)
+seed = int(time.time()*1000) % 2**31; np.random.seed(seed)
+import ctypes; ctypes.CDLL(None).srand(seed)
+for k in isos:
+    comps = [{'smiles': smis[k], 'count': zp}]
+    p, cr, pd, mols, lsq = setup(iid, cell, spg, ttmax=float(os.environ.get("TTMAX","40")), components=comps, verbose=False)
+    mc, res = optimize(p, cr, nsteps=nsteps, nruns=nruns, save_prefix=f'{outdir}/iso{k}_{spg.replace(" ","")}', do_polish=False)
+    print(f'ISO {k} {spg} Zp={zp}: ' + ' '.join(f'{r[1]:.4f}' for r in res), flush=True)
+os._exit(0)

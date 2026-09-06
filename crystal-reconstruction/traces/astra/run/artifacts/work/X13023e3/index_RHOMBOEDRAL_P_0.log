@@ -1,0 +1,15 @@
+X13023e3 RHOMBOEDRAL P 0 peaks [3.47265, 4.47912, 5.97411, 6.94383, 6.971, 7.02382, 7.18273, 7.41019, 7.47072, 7.70586, 8.06047, 8.12532, 8.32126, 8.47015, 8.78611, 8.91681, 8.9676, 9.18709, 9.40937, 9.6363, 9.92688, 10.26824] V 2077.192138671875 4320 Lmax 45.60221595879442
+3->45.6022,1.7041,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+2077.19->4320,448.571,4.9999
+Starting: V=2077.19->2525.76
+Finished: V=2077.19->2525.76 A^3, 0 unit cells tested, 0 tests/s,   Elapsed time=5.6e-05s
+Starting: V=2525.76->2974.33
+Finished: V=2525.76->2974.33 A^3, 0 unit cells tested, 0 tests/s,   Elapsed time=0.000107s
+Starting: V=2974.33->3422.9
+Finished: V=2974.33->3422.9 A^3, 0 unit cells tested, 0 tests/s,   Elapsed time=0.000157s
+Starting: V=3422.9->3871.47
+Finished: V=3422.9->3871.47 A^3, 0 unit cells tested, 0 tests/s,   Elapsed time=0.000215s
+Starting: V=3871.47->4320
+Finished: V=3871.47->4320 A^3, 0 unit cells tested, 0 tests/s,   Elapsed time=0.000265s
+DONE X13023e3 RHOMBOEDRAL P 0 0.0003871917724609375 []

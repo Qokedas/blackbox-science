@@ -1,0 +1,34 @@
+X07806d9 Nat 80 molecule sizes [9, 9, 9, 9, 9, 9, 9, 9, 1, 1, 1, 1, 1, 1, 1, 1]
+  component [NH3+]CC(=O)CCC(=O)O matches 8
+  component [Cl-] matches 8
+  bond range 1.2261929521562296 1.5340255117049504
+  min intermolecular distance 2.9842631942920423
+Xbfc6d2c Nat 72 molecule sizes [18, 18, 18, 18]
+  component [C-]#[N+]c1ccc(-c2ccc([N+]#[C-])c(C)c2)cc1C matches 4
+  bond range 1.165321329423655 1.513995248592643
+  min intermolecular distance 3.318517078435791
+Xe3a2935 Nat 84 molecule sizes [21, 21, 21, 21]
+  component C[C@@H]1CC(=O)NN=C1c1ccc(NN=C(C#N)C#N)cc1 matches 4
+  bond range 1.1478855734723843 1.5321858674296263
+  min intermolecular distance 2.876535945043099
+Xe3a2935 root 0 expected {1: 'R'} actual {1: 'R'} OK True
+Xe3a2935 root 1 expected {1: 'R'} actual {1: 'R'} OK True
+Xe3a2935 root 2 expected {1: 'R'} actual {1: 'R'} OK True
+Xe3a2935 root 3 expected {1: 'R'} actual {1: 'R'} OK True
+Xf8ac963 Nat 84 molecule sizes [21, 21, 21, 21]
+  component COc1ccc(NC(=O)[C@@H]2C[C@H](C)CC[C@H]2C(C)C)cc1 matches 4
+  bond range 1.212154114072591 1.5666064904766803
+  min intermolecular distance 2.9076888362858955
+Xf8ac963 root 0 expected {9: 'R', 11: 'R', 15: 'S'} actual {9: 'R', 11: 'R', 15: 'S'} OK True
+Xf8ac963 root 1 expected {9: 'R', 11: 'R', 15: 'S'} actual {9: 'R', 11: 'R', 15: 'S'} OK True
+Xf8ac963 root 2 expected {9: 'R', 11: 'R', 15: 'S'} actual {9: 'R', 11: 'R', 15: 'S'} OK True
+Xf8ac963 root 3 expected {9: 'R', 11: 'R', 15: 'S'} actual {9: 'R', 11: 'R', 15: 'S'} OK True
+X3c176e2 Nat 96 molecule sizes [12, 12, 12, 12, 12, 12, 12, 12]
+  component OC1C(O)C(O)C(O)C(O)C1O matches 8
+  bond range 1.4266497953577362 1.5494073018382513
+  min intermolecular distance 2.5800570377369434
+X13023e3 Nat 48 molecule sizes [15, 15, 9, 9]
+  component CC(C)Cc1ccc([C@@H](C)C(=O)O)cc1 matches 2
+  component NC(=O)c1cccnc1 matches 2
+  bond range 1.2222123381502759 1.5412833903700829
+  min intermolecular distance 2.422287423209972

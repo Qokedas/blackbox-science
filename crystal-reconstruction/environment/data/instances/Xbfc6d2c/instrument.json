@@ -1,0 +1,24 @@
+{
+ "radiation": {
+  "type": "Cu K1",
+  "wavelength_A": 1.5406,
+  "wavelengths_A": [
+   1.5406
+  ],
+  "wavelength_weights": null,
+  "monochromator": "curved Ge(111)",
+  "source": "sealed X-ray tube"
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 298.0,
+ "two_theta_range_deg": [
+  5.0,
+  89.98
+ ],
+ "n_points": 4250,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "sqrt(max(I,1)); counting statistics assumed",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}

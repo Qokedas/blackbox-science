@@ -1,0 +1,120 @@
+['CUBIC', 'HEXAGONAL', 'MONOCLINIC', 'ORTHOROMBIC', 'RHOMBOEDRAL', 'TETRAGONAL', 'TRICLINIC', 'as_integer_ratio', 'bit_count', 'bit_length', 'conjugate', 'denominator', 'from_bytes', 'imag', 'name', 'names', 'numerator', 'real', 'to_bytes', 'values']
+['LATTICE_A', 'LATTICE_B', 'LATTICE_C', 'LATTICE_F', 'LATTICE_I', 'LATTICE_P', 'as_integer_ratio', 'bit_count', 'bit_length', 'conjugate', 'denominator', 'from_bytes', 'imag', 'name', 'names', 'numerator', 'real', 'to_bytes', 'values']
+Help on class RecUnitCell in module pyobjcryst._pyobjcryst:
+class RecUnitCell(Boost.Python.instance)
+ |  Method resolution order:
+ |      RecUnitCell
+ |      Boost.Python.instance
+ |      builtins.object
+ |  
+ |  Static methods defined here:
+ |  
+ |  DirectUnitCell(...)
+ |      DirectUnitCell( (RecUnitCell)arg1 [, (bool)equiv=False [, (bool)degrees=False]]) -> tuple :
+ |      
+ |              boost::python::tuple DirectUnitCell(ObjCryst::RecUnitCell [,bool=False [,bool=False]])
+ |  
+ |  __init__(...)
+ |      __init__( (object)arg1) -> None :
+ |      
+ |              void __init__(_object*)
+ |      
+ |      __init__( (object)arg1 [, (float)zero=0 [, (float)par0=0 [, (float)par1=0 [, (float)par2=0 [, (float)par3=0 [, (float)par4=0 [, (float)par5=0 [, (CrystalSystem)lattice=pyobjcryst._pyobjcryst.CrystalSystem.CUBIC [, (CrystalCentering)cent=pyobjcryst._pyobjcryst.CrystalCentering.LATTICE_P [, (int)nbspurious=0]]]]]]]]]]) -> None :
+ |      
+ |              void __init__(_object* [,float=0 [,float=0 [,float=0 [,float=0 [,float=0 [,float=0 [,float=0 [,ObjCryst::CrystalSystem=pyobjcryst._pyobjcryst.CrystalSystem.CUBIC [,ObjCryst::CrystalCentering=pyobjcryst._pyobjcryst.CrystalCentering.LATTICE_P [,unsigned int=0]]]]]]]]]])
+ |      
+ |      __init__( (object)arg1, (RecUnitCell)old) -> None :
+ |      
+ |              void __init__(_object*,ObjCryst::RecUnitCell)
+ |  
+ |  __reduce__ = <unnamed Boost.Python function>(...)
+ |  
+ |  __repr__(...)
+ |      __repr__( (RecUnitCell)arg1) -> str :
+ |      
+ |              std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > __repr__(ObjCryst::RecUnitCell {lvalue})
+ |  
+ |  __str__(...)
+ |      __str__( (RecUnitCell)arg1) -> str :
+ |      
+ |              std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > __str__(ObjCryst::RecUnitCell {lvalue})
+ |  
+ |  hkl2d(...)
+ |      hkl2d( (RecUnitCell)arg1, (float)h, (float)k, (float)l [, (float)derivpar=0 [, (int)derivhkl=0]]) -> float :
+ |      
+ |              float hkl2d(ObjCryst::RecUnitCell {lvalue},float,float,float [,double*=0 [,unsigned int=0]])
+ |  
+ |  ----------------------------------------------------------------------
+ |  Readonly properties defined here:
+ |  
+ |  centering
+ |      None( (pyobjcryst._pyobjcryst.RecUnitCell)arg1) -> pyobjcryst._pyobjcryst.CrystalCentering :
+ |      
+ |              ObjCryst::CrystalCentering {lvalue} None(ObjCryst::RecUnitCell {lvalue})
+ |  
+ |  lattice
+ |      None( (pyobjcryst._pyobjcryst.RecUnitCell)arg1) -> pyobjcryst._pyobjcryst.CrystalSystem :
+ |      
+ |              ObjCryst::CrystalSystem {lvalue} None(ObjCryst::RecUnitCell {lvalue})
+ |  
+ |  mCentering
+ |      None( (pyobjcryst._pyobjcryst.RecUnitCell)arg1) -> pyobjcryst._pyobjcryst.CrystalCentering :
+ |      
+ |              ObjCryst::CrystalCentering {lvalue} None(ObjCryst::RecUnitCell {lvalue})
+ |  
+ |  mNbSpurious
+ |      None( (pyobjcryst._pyobjcryst.RecUnitCell)arg1) -> int :
+ |      
+ |              unsigned int {lvalue} None(ObjCryst::RecUnitCell {lvalue})
+ |  
+ |  mlattice
+ |      None( (pyobjcryst._pyobjcryst.RecUnitCell)arg1) -> pyobjcryst._pyobjcryst.CrystalSystem :
+ |      
+ |              ObjCryst::CrystalSystem {lvalue} None(ObjCryst::RecUnitCell {lvalue})
+ |  
+ |  nb_spurious
+ |      None( (pyobjcryst._pyobjcryst.RecUnitCell)arg1) -> int :
+ |      
+ |              unsigned int {lvalue} None(ObjCryst::RecUnitCell {lvalue})
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data and other attributes defined here:
+ |  
+ |  __instance_size__ = 96
+ |  
+ |  ----------------------------------------------------------------------
+ |  Static methods inherited from Boost.Python.instance:
+ |  
+ |  __new__(*args, **kwargs) class method of Boost.Python.instance
+ |      Create and return a new object.  See help(type) for accurate signature.
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors inherited from Boost.Python.instance:
+ |  
+ |  __dict__
+ |  
+ |  __weakref__
+Help on class PeakList_hkl in module pyobjcryst._pyobjcryst:
+class PeakList_hkl(Boost.Python.instance)
+ |  Method resolution order:
+ |      PeakList_hkl
+ |      Boost.Python.instance
+ |      builtins.object
+ |  
+ |  Static methods defined here:
+ |  
+ |  __init__(...)
+ |      __init__( (object)arg1) -> None :
+ |      
+ |              void __init__(_object*)
+ |      
+ |      __init__( (object)arg1 [, (float)dobs=1.0 [, (float)iobs=0 [, (float)dobssigma=0 [, (float)iobssigma=0 [, (int)h=0 [, (int)k=0 [, (int)l=0 [, (float)d2calc=0]]]]]]]]) -> None :
+ |      
+ |              void __init__(_object* [,float=1.0 [,float=0 [,float=0 [,float=0 [,int=0 [,int=0 [,int=0 [,float=0]]]]]]]])
+ |  
+ |  __reduce__ = <unnamed Boost.Python function>(...)
+ |  
+ |  __repr__(...)
+ |      __repr__( (PeakList_hkl)arg1) -> str :
+ |      
+ |              std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > __repr__(ObjCryst::PeakList::hkl {lvalue})

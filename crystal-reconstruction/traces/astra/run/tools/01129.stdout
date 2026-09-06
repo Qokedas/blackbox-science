@@ -1,0 +1,24 @@
+X3f4781b Nat 104 molecule sizes [21, 21, 21, 21, 5, 5, 5, 5]
+  component COC(=O)[C@H](c1ccccc1Cl)[NH+]1CCc2sccc2C1 matches 4
+  component O=S(=O)([O-])O matches 4
+  bond range 1.2237853117745856 1.7430560596742157
+  min intermolecular distance 2.467236038056801
+
+X3f4781b root 0 expected {4: 'S'} actual {4: 'S'} OK True
+X3f4781b root 1 expected {4: 'S'} actual {4: 'S'} OK True
+X3f4781b root 32 expected {4: 'S'} actual {4: 'S'} OK True
+X3f4781b root 33 expected {4: 'S'} actual {4: 'S'} OK True
+
+DELTA_RMS_MAX 0.1277859447244681 0.2857015512726579
+X3f4781b Nat 104 molecule sizes [21, 21, 21, 21, 5, 5, 5, 5]
+  component COC(=O)[C@H](c1ccccc1Cl)[NH+]1CCc2sccc2C1 matches 4
+  component O=S(=O)([O-])O matches 4
+  bond range 1.2237853117745856 1.7430560596742157
+  min intermolecular distance 2.467236038056801
+SUBMITTED X3f4781b
+Xedd9c7b CIF graph/stereo/cell/SG validated Nat 152
+Xf8ac963 CIF graph/stereo/cell/SG validated Nat 84
+Xfca9f3c CIF graph/stereo/cell/SG validated Nat 52
+DONE 30 instances 28 CIFs
+Sun Sep  6 11:23:54 UTC 2026
+58

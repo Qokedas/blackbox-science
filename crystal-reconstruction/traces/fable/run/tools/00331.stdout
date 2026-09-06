@@ -1,0 +1,25 @@
+step ['W'] Rwp=0.1228
+step ['a', 'b', 'c', 'alpha', 'beta', 'gamma'] Rwp=0.1183
+step ['U', 'V'] Rwp=0.1057
+step ['Eta0'] Rwp=0.0999
+step ['Eta1'] Rwp=0.0998
+step ['background'] Rwp=0.0872
+step ['Zero', 'W', 'U', 'V', 'Eta0', 'background', 'a', 'b', 'c', 'alpha', 'beta', 'gamma'] Rwp=0.0873
+LeBail Rwp=0.0876 chi2=12498.6 cell= 8.909929627351309 9.47822998362054 13.245007302564128 98.22433182764351
+  conformers: 25 distinct; energies [-159.4, -159.4, -158.3, -158.3, -158.3, -157.8]; using rank 0 (E=-159.4)
+  molecule mol0_0: 33 atoms, 36 bonds, 52 angles, 51 dihedral restraints, 7 free torsions
+
+----
+57843598074 33.13068788146024 12.764364374867714 90.0
+  conformers: 23 distinct; energies [72.1, 72.5, 72.7, 75.7, 75.9, 76.8]; using rank 0 (E=72.1)
+  molecule mol0_0: 25 atoms, 28 bonds, 41 angles, 49 dihedral restraints, 4 free torsions
+  conformers: 2 distinct; energies [-62.8, -46.6]; using rank 0 (E=-62.8)
+  molecule mol1_0: 8 atoms, 7 bonds, 8 angles, 5 dihedral restraints, 0 free torsions
+
+10369 44323 ticks: python solve.py Xe3a2935 10.29233 6.88044 19.98978 90 90 90 
+10441 2 ticks: timeout --signal=TERM --kill-after=5s 30 bash -lc cd /app/wo
+10447 0 ticks: bash -lc cd /app/work; tail -c 600 Xd8634a2/solve_e.log; ech
+8137 348654 ticks: python solve.py Xd8634a2 8.9099 9.4782 13.2450 96.0172 98.22
+8139 348218 ticks: python solve.py Xd8634a2 8.9099 9.4782 13.2450 96.0172 98.22
+8335 264269 ticks: python solve.py X35b7fbc 5.7074 33.1312 12.7644 90 90 90 P 2
+8337 263436 ticks: python solve.py X35b7fbc 5.7074 33.1312 12.7644 90 90 90 P 2

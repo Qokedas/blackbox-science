@@ -1,0 +1,15 @@
+Xe3a2935 MONOCLINIC P 0 peaks [0.555, 0.62, 0.66506, 0.739, 0.83457, 0.89963, 1.54642, 1.84351, 2.68655, 2.93516, 3.74625, 4.69594, 4.8025, 4.88503, 5.22169, 5.41076, 5.61361, 5.87383, 5.98041, 6.19031, 6.48384, 6.65521] V 771.2061157226562 3024 Lmax 40.49039003814386
+3->40.4904,1.49962,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+771.206->3024,450.568,4.9999
+Starting: V=771.206->1221.77
+Finished: V=771.206->1221.77 A^3, 5088 unit cells tested, 175855 tests/s,   Elapsed time=0.028941s
+Starting: V=1221.77->1672.34
+Finished: V=1221.77->1672.34 A^3, 11030 unit cells tested, 155206 tests/s,   Elapsed time=0.071075s
+Starting: V=1672.34->2122.91
+Finished: V=1672.34->2122.91 A^3, 17774 unit cells tested, 138978 tests/s,   Elapsed time=0.127898s
+Starting: V=2122.91->2573.48
+Finished: V=2122.91->2573.48 A^3, 25094 unit cells tested, 124878 tests/s,   Elapsed time=0.200955s
+Starting: V=2573.48->3024
+Finished: V=2573.48->3024 A^3, 32841 unit cells tested, 113352 tests/s,   Elapsed time=0.289737s
+DONE Xe3a2935 MONOCLINIC P 0 0.2898876667022705 []

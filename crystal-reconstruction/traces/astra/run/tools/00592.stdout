@@ -1,0 +1,19 @@
+NEW_B5=29859
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 300 seconds 105.80642914772034 best 47.505676 q25 47.743057 median 203.8982 total 105.8122456073761
+GALLOP 1 Nref 300 seconds 91.66193175315857 best 47.502228 q25 47.638092 median 212.04114 total 197.58746528625488
+Imported powder pattern: 6018 points, 2theta=  5.080 ->  65.250, step= 0.010
+STARTFIT X8a6f5a8 wide1 Rw 0.06905686533016993
+GROUPS [{"sg": "P 1 21 1", "number": 4, "Rw": 6.889588133577748, "GoF": 5508.36201375565, "nGoF": 0.0, "mult": 2}]
+DONE X8a6f5a8 wide1 0.06661009184444489 [33.38181556798192, 5.781613825697139, 38.7365203473847, 90.0, 108.26029717462926, 90.0]
+GALLOP 3 Nref 221 seconds 107.34045052528381 best 202.42828 q25 290.26938 median 328.49008 total 449.4549825191498
+GALLOP 4 Nref 221 seconds 98.6124370098114 best 201.37137 q25 283.8898 median 328.73688 total 548.219324350357
+GALLOP 5 Nref 221 seconds 111.15437293052673 best 201.2288 q25 279.84933 median 326.91406 total 659.5055408477783
+GALLOP 6 Nref 221 seconds 85.7991361618042 best 201.22481 q25 284.91534 median 320.9367 total 745.348525762558
+GALLOP 25 Nref 171 seconds 59.859830379486084 best 104.92963 q25 196.69644 median 242.20926 total 1540.1491792201996
+GALLOP 26 Nref 171 seconds 47.08223223686218 best 104.92969 q25 189.49014 median 238.39743 total 1587.2838065624237
+GALLOP 27 Nref 171 seconds 58.59946393966675 best 104.92984 q25 167.89603 median 219.50449 total 1645.896921634674
+GALLOP 28 Nref 171 seconds 65.31285524368286 best 104.92928 q25 134.83458 median 185.96555 total 1711.2669982910156
+Sun Sep  6 07:10:02 UTC 2026

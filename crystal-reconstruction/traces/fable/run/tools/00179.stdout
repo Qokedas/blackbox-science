@@ -1,0 +1,20 @@
+LeBail Rwp=0.0793 chi2=10560.3 cell= 10.292389294279328 6.880566165094606 19.98989173467916 90.0
+  molecule mol0_0: 21 atoms, 22 bonds, 29 angles, 30 dihedral restraints, 2 free torsions
+run 0: cost=67704.0 Rwp=0.1847 chi2=57422.0 t=902s
+run 1: cost=72536.9 Rwp=0.1881 chi2=59573.7 t=599s
+RESULTS Xe3a2935 P 21 21 21 [(67704.03582455954, 0.18471672659089894, 57422.02895758165), (72536.90271322949, 0.18805823452994438, 59573.65664196544)]
+----
+step ['background'] Rwp=0.0652
+step ['Zero', 'W', 'U', 'V', 'Eta0', 'background', 'a', 'b', 'c', 'alpha', 'beta', 'gamma'] Rwp=0.0650
+LeBail Rwp=0.0650 chi2=9755.1 cell= 16.263970916614774 9.321021451551523 11.39275673073229 90.0
+  molecule mol0_0: 21 atoms, 22 bonds, 30 angles, 25 dihedral restraints, 4 free torsions
+run 0: cost=88788.1 Rwp=0.2240 chi2=115889.1 t=610s
+
+Xe3a2935/sol_a:
+P212121_run0_rw0.185.cif
+P212121_run1_rw0.188.cif
+
+Xf8ac963/sol_a:
+P212121_run0_rw0.224.cif
+P212121_run0_rw0.224_fit.png
+X1db5091,X2327841,X238783d,X263b09a,X35b7fbc,X3c176e2,X3f4781b,X4f6fe58,X7e382cb,X8a06d7a,X8a6f5a8,X9af54a2,Xb7088cf,Xbfc6d2c,Xbfeeda9,Xd4c1a35,Xd8634a2,Xdcc971e,Xe1fb77b,Xe3a2935,Xeb393f9,Xebbd488,Xedd9c7b,Xf8ac963,Xfca9f3c

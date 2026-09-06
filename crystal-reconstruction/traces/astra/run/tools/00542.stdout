@@ -1,0 +1,174 @@
+X14a2b08
+{
+ "cell": {
+  "a": 5.0991143450088865,
+  "b": 11.932564902002003,
+  "c": 21.279667880816156,
+  "alpha": 85.24014158147244,
+  "beta": 87.63281167614923,
+  "gamma": 87.02408411443314
+ },
+ "space_group": "P -1",
+ "space_group_number": 2
+}FRESH_BASE X14a2b08 P -1 0.11366991277002887 57015.321361856506
+Imported powder pattern: 5293 points, 2theta=  3.000 ->  45.336, step= 0.008
+SCALED 32.820290866444836 Rw 0.11366938983230598 Chi2 5292.951299285247
+X263b09a
+{
+ "cell": {
+  "a": 5.168079853057861,
+  "b": 11.77400016784668,
+  "c": 20.57819938659668,
+  "alpha": 83.70469665527344,
+  "beta": 89.48709869384766,
+  "gamma": 86.84529876708984
+ },
+ "space_group": "P -1",
+ "space_group_number": 2
+}FRESH_BASE X263b09a P -1 0.09002723193974449 147258.60198501195
+Imported powder pattern: 4150 points, 2theta=  3.810 ->  45.300, step= 0.010
+SCALED 59.56834167927308 Rw 0.09004759413367451 Chi2 4151.8774910516895
+X1db5091
+{
+ "cell": {
+  "a": 4.903398995031971,
+  "b": 40.94213292006756,
+  "c": 12.886741200587796,
+  "alpha": 90.0,
+  "beta": 100.35998111338532,
+  "gamma": 90.0
+ },
+ "space_group": "P 1 21/c 1",
+ "space_group_number": 14
+}X8a06d7a
+{
+ "cell": {
+  "a": 5.0091400146484375,
+  "b": 11.848600387573242,
+  "c": 21.717899322509766,
+  "alpha": 86.05899810791016,
+  "beta": 89.84310150146484,
+  "gamma": 89.82859802246094
+ },
+ "space_group": "P -1",
+ "space_group_number": 2
+}Xd8634a2
+{
+ "cell": {
+  "a": 8.910169100782866,
+  "b": 9.47845325451745,
+  "c": 13.245308707674797,
+  "alpha": 83.98286911524386,
+  "beta": 81.77580180151384,
+  "gamma": 66.67862762269598
+ },
+ "space_group": "P -1",
+ "space_group_number": 2
+}Xb7088cf
+{
+ "cell": {
+  "a": 5.052457881299544,
+  "b": 9.355738049659784,
+  "c": 38.066725954209964,
+  "alpha": 90.0,
+  "beta": 90.0,
+  "gamma": 90.0
+ },
+ "space_group": "P 21 21 21",
+ "space_group_number": 19
+}X238783d
+{
+ "cell": {
+  "a": 8.846657044168616,
+  "b": 20.132634723580942,
+  "c": 23.94195584840581,
+  "alpha": 90.0,
+  "beta": 90.0,
+  "gamma": 90.0
+ },
+ "space_group": "P 21 21 21",
+ "space_group_number": 19
+}X4f6fe58
+{
+ "cell": {
+  "a": 7.553764404302974,
+  "b": 13.050444865569036,
+  "c": 15.402697704645078,
+  "alpha": 72.3553374936446,
+  "beta": 83.50290749144928,
+  "gamma": 77.69114674074814
+ },
+ "space_group": "P -1",
+ "space_group_number": 2
+}FRESH_BASE X4f6fe58 P -1 0.03237102329951919 47354.69367490604
+Imported powder pattern: 4959 points, 2theta=  5.470 ->  55.050, step= 0.010
+SCALED 30.902907975390292 Rw 0.032371029602771516 Chi2 4959.001931222945
+X3f4781b
+{
+ "cell": {
+  "a": 10.434366171859804,
+  "b": 15.339761359799295,
+  "c": 12.634832645405725,
+  "alpha": 90.0,
+  "beta": 113.3330205032856,
+  "gamma": 90.0
+ },
+ "space_group": "P 1 21 1",
+ "space_group_number": 4
+}FRESH_BASE X3f4781b P 1 21 1 0.09388533160960491 227738.56889296774
+Imported powder pattern: 3656 points, 2theta=  8.750 ->  45.300, step= 0.010
+SCALED 78.92379959183992 Rw 0.09388509434190508 Chi2 3655.9815210832444
+X9af54a2
+{
+ "cell": {
+  "a": 5.178728935315927,
+  "b": 8.253763769789536,
+  "c": 32.95138585905239,
+  "alpha": 90.0,
+  "beta": 92.75227709009262,
+  "gamma": 90.0
+ },
+ "space_group": "P 1 21 1",
+ "space_group_number": 4
+}Xedd9c7b
+{
+ "cell": {
+  "a": 10.3779432409722,
+  "b": 15.458141140128017,
+  "c": 17.161796396761616,
+  "alpha": 90.0,
+  "beta": 95.65390425106375,
+  "gamma": 90.0
+ },
+ "space_group": "P 1 21/a 1",
+ "space_group_number": 14
+}FRESH_BASE Xedd9c7b P 1 21/a 1 0.07359023779294138 3043.7938546653927
+Imported powder pattern: 2239 points, 2theta= 10.609 ->  39.994, step= 0.013
+SCALED 1.1659519962166098 Rw 0.07359023779294346 Chi2 2239.0000000001205
+CYCLE 2 0 Rw 0.05811413445430842 chi2 3802.3040427569063 geom 15.858287040653662 LSQ 3936.5894733149325
+CYCLE 2 1 Rw 0.058077354186272384 chi2 3797.4926312851744 geom 15.94450160163892 LSQ 3932.275563416602
+CYCLE 2 2 Rw 0.05805066371611568 chi2 3794.0030241913105 geom 15.959711759088094 LSQ 3928.6027701297035
+GALLOP 15 Nref 169 seconds 38.88486075401306 best 144.3979 q25 150.5659 median 181.10898 total 450.5388469696045
+GALLOP 16 Nref 169 seconds 46.09873414039612 best 144.39795 q25 147.92929 median 181.36862 total 496.6558449268341
+GALLOP 17 Nref 169 seconds 48.603551626205444 best 144.39796 q25 149.10727 median 176.46906 total 545.2777969837189
+GALLOP 18 Nref 169 seconds 49.10483431816101 best 144.39803 q25 147.93044 median 153.80444 total 594.4436948299408
+GALLOP 19 Nref 169 seconds 50.81384754180908 best 144.39798 q25 144.40292 median 153.80365 total 645.2788910865784
+RESTART_ERROR max/rms 1.531955534434294e-06 8.413795081684468e-07
+WARM_READY /app/work/Xeb393f9/gallop_50
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/16742/status ]] && ! grep -q '^State:.*Z' /proc/16742/status; do sleep 5;done
+for id in X263b09a X14a2b08 X1db5091; do
+ old=$(python - "$id" <<'PY'
+import json,sys,os
+W='/app/work/'+sys.argv[1]
+ans=[]
+for run in ['g11','1']:
+ if os.path.exists(W+'/refined_'+run+'.json'):ans.append((json.load(open(W+'/refined_'+run+'.json'))['Rw'],run))
+print(min(ans)[1])
+PY
+)
+ GALLOP_STOL=.27 python /app/work/warm_gallop.py $id 50 /app/work/$id/refined_$old.xml /app/work/$id/search_$old/model.json > /app/work/$id/warm50.log 2>&1
+ SEARCH_TIME=1500 PARTICLES=128 ITERATIONS=400 MACRO_ELITE_FRAC=.30 START_NPZ=/app/work/$id/gallop_50/warm.npz START_JITTER=.05 START_TOR_JITTER=.30 python /app/work/search_gallop.py $id 50 1 --hscatter --packing > /app/work/$id/gallop50.log 2>&1
+ python /app/work/import_gallop.py $id 50 > /app/work/$id/import_g50.log 2>&1
+ python /app/work/refine_obj.py $id g50 /app/work/$id/search_g50/best.xml --scale --tight --stol=.35 > /app/work/$id/refine_g50.log 2>&1
+ done

@@ -1,0 +1,16 @@
+0 [('P 1 2 1', 11.0776), ('P 1 21 1', 11.1501), ('I 1 2 1', 18.6904), ('A 1 2 1', 19.9587), ('C 1 2 1', 24.5212)]
+d {'Global Biso': 0.0}
+p {'Zero': -0.019331243091098845, '2ThetaDispl': 0.0, '2ThetaTransp': 0.0, 'DIFC': 48277.14, 'DIFA': -6.7, 'MuR': 0.0, 'Scale_': 0.00018049807083474705}
+1 [('P 1 2 1', 10.4933), ('P 1 21 1', 10.5242), ('I 1 2 1', 15.0638), ('A 1 2 1', 23.2725), ('C 1 2 1', 24.4817)]
+d {'Global Biso': 0.0}
+p {'Zero': 0.009861879386100923, '2ThetaDispl': 0.0, '2ThetaTransp': 0.0, 'DIFC': 48277.14, 'DIFA': -6.7, 'MuR': 0.0, 'Scale_': 0.00019132442027583598}
+2 [('P 1 2 1', 9.9751), ('P 1 21 1', 9.9842), ('I 1 2 1', 16.2309), ('A 1 2 1', 22.978), ('C 1 2 1', 29.6397)]
+d {'Global Biso': 0.0}
+p {'Zero': -0.02877284100753249, '2ThetaDispl': 0.0, '2ThetaTransp': 0.0, 'DIFC': 48277.14, 'DIFA': -6.7, 'MuR': 0.0, 'Scale_': 0.00018661827198532139}
+3 [('P 1 2 1', 17.4058), ('P 1 21 1', 17.5676), ('A 1 2 1', 19.2169), ('I 1 2 1', 22.3236), ('C 1 2 1', 23.0694)]
+d {'Global Biso': 0.0}
+p {'Zero': -0.0452846898763748, '2ThetaDispl': 0.0, '2ThetaTransp': 0.0, 'DIFC': 48277.14, 'DIFA': -6.7, 'MuR': 0.0, 'Scale_': 0.00018866657436457019}
+4 [('P 1 21 1', 20.3409), ('P 1 2 1', 20.3968), ('I 1 2 1', 22.4284), ('A 1 2 1', 25.0908), ('C 1 2 1', 27.4384)]
+d {'Global Biso': 0.0}
+p {'Zero': 0.015385040278332728, '2ThetaDispl': 0.0, '2ThetaTransp': 0.0, 'DIFC': 48277.14, 'DIFA': -6.7, 'MuR': 0.0, 'Scale_': 0.0001822185849390006}
+/app/work/adopt_fit.py /app/work/alkane_models.py /app/work/analyze_lattice.py /app/work/antibump.py /app/work/antibump_v1.py /app/work/audit_base.py /app/work/check_stereo.py /app/work/check_zmat.py /app/work/collect_candidates.py /app/work/complete_2d.py /app/work/complete_2d_general.py /app/work/complete_plane_mono.py /app/work/contacts.py /app/work/create_base.py /app/work/create_stable_base.py /app/work/eval_cif.py /app/work/find_zones.py /app/work/fit_candidate.py /app/work/gallop_packing.py /app/work/gallop_prepare.py /app/work/gallop_prepare_v1.py /app/work/gsas_index.py /app/work/hydrogen_prefix.py /app/work/import_de.py /app/work/import_gallop.py /app/work/index_axial.py /app/work/index_de.py /app/work/index_de_v1.py /app/work/index_metric.py /app/work/index_one.py /app/work/make_base.py /app/work/obj_bridge.py /app/work/obj_bridge_v1.py /app/work/obj_model.py /app/work/obj_model_v1.py /app/work/parse_index_log.py /app/work/preprocess.py /app/work/refine_obj.py /app/work/refine_obj_v1.py /app/work/refine_obj_v2.py /app/work/refine_obj_v3.py /app/work/refine_obj_v4.py /app/work/refine_stable.py /app/work/reindex_batch.py /app/work/repick.py /app/work/restore_cif.py /app/work/run_fits.py /app/work/run_fits2.py /app/work/run_index_batch.py /app/work/search_gallop.py /app/work/search_gallop_v1.py /app/work/search_gallop_v2.py /app/work/search_gallop_v3.py /app/work/search_obj.py /app/work/search_obj_v1.py /app/work/solve_de.py /app/work/solve_half_biphenyl.py /app/work/solve_half_biphenyl_v1.py /app/work/solve_twocentres.py /app/work/submit.py /app/work/test_fit.py 

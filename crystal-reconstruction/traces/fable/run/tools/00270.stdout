@@ -1,0 +1,36 @@
+=== Xd8634a2/solve_e.log
+step ['background'] Rwp=0.0872
+step ['Zero', 'W', 'U', 'V', 'Eta0', 'background', 'a', 'b', 'c', 'alpha', 'beta', 'gamma'] Rwp=0.0873
+LeBail Rwp=0.0876 chi2=12498.6 cell= 8.909929627351309 9.47822998362054 13.245007302564128 98.22433182764351
+  conformers: 25 distinct; energies [-159.4, -159.4, -158.3, -158.3, -158.3, -157.8]; using rank 0 (E=-159.4)
+  molecule mol0_0: 33 atoms, 36 bonds, 52 angles, 51 dihedral restraints, 7 free torsions
+=== Xd8634a2/solve_f.log
+step ['background'] Rwp=0.0872
+step ['Zero', 'W', 'U', 'V', 'Eta0', 'background', 'a', 'b', 'c', 'alpha', 'beta', 'gamma'] Rwp=0.0873
+LeBail Rwp=0.0876 chi2=12498.6 cell= 8.909929627351309 9.47822998362054 13.245007302564128 98.22433182764351
+  conformers: 25 distinct; energies [-159.4, -159.4, -158.3, -158.3, -158.3, -157.8]; using rank 0 (E=-159.4)
+  molecule mol0_0: 33 atoms, 36 bonds, 52 angles, 51 dihedral restraints, 7 free torsions
+=== X35b7fbc/solve_a.log
+LeBail Rwp=0.0914 chi2=142143.2 cell= 5.707457843598074 33.13068788146024 12.764364374867714 90.0
+  conformers: 23 distinct; energies [72.1, 72.5, 72.7, 75.7, 75.9, 76.8]; using rank 0 (E=72.1)
+  molecule mol0_0: 25 atoms, 28 bonds, 41 angles, 49 dihedral restraints, 4 free torsions
+  conformers: 2 distinct; energies [-62.8, -46.6]; using rank 0 (E=-62.8)
+  molecule mol1_0: 8 atoms, 7 bonds, 8 angles, 5 dihedral restraints, 0 free torsions
+=== X35b7fbc/solve_b.log
+LeBail Rwp=0.0914 chi2=142143.2 cell= 5.707457843598074 33.13068788146024 12.764364374867714 90.0
+  conformers: 23 distinct; energies [72.1, 72.5, 72.7, 75.7, 75.9, 76.8]; using rank 0 (E=72.1)
+  molecule mol0_0: 25 atoms, 28 bonds, 41 angles, 49 dihedral restraints, 4 free torsions
+  conformers: 2 distinct; energies [-62.8, -46.6]; using rank 0 (E=-62.8)
+  molecule mol1_0: 8 atoms, 7 bonds, 8 angles, 5 dihedral restraints, 0 free torsions
+=== Xe3a2935/solve_c2b.log
+LeBail Rwp=0.0830 chi2=11344.4 cell= 10.292331720345892 6.880438350742982 19.98978161170324 90.0
+  conformers: 4 distinct; energies [131.7, 132.2, 135.9, 136.2]; using rank 2 (E=135.9)
+  molecule mol0_0: 21 atoms, 22 bonds, 29 angles, 30 dihedral restraints, 2 free torsions
+run 0: cost=50090.1 Rwp=0.1848 chi2=57264.8 t=1104s
+polish: Rwp 0.1841 -> 0.1490 (accepted) restraint cost=0.00
+=== X3c176e2/inos_p212121L.log
+LeBail Rwp=0.0562 chi2=24253.7 cell= 14.00409751256923 9.323203675472188 11.028167997880457 90.0
+  conformers: 4 distinct; energies [103.8, 124.9, 127.4, 132.9]; using rank 0 (E=103.8)
+  molecule mol0_0: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions
+  conformers: 4 distinct; energies [103.8, 128.9, 129.8, 132.0]; using rank 0 (E=103.8)
+  molecule mol0_1: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions

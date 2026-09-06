@@ -1,0 +1,3 @@
+Traceback (most recent call last):
+  File "<stdin>", line 4, in <module>
+AttributeError: 'Structure' object has no attribute 'position_indices'

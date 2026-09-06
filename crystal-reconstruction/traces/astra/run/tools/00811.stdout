@@ -1,0 +1,23 @@
+PLANES_PARENT=47148
+Sun Sep  6 08:48:58 UTC 2026
+GALLOP 1 Nref 99 seconds 121.92426776885986 best 116.577644 q25 232.27725 median 310.9764 total 245.72918558120728
+GALLOP 2 Nref 108 seconds 127.37411403656006 best 103.998474 q25 152.099 median 292.8233 total 373.1964223384857
+GALLOP 3 Nref 118 seconds 122.23010754585266 best 103.9558 q25 188.85422 median 300.5452 total 495.5168571472168
+GALLOP 4 Nref 130 seconds 136.0823860168457 best 104.02241 q25 149.81253 median 274.54773 total 631.6889522075653
+GALLOP 5 Nref 138 seconds 137.71503520011902 best 103.81904 q25 145.47304 median 280.43005 total 769.4244382381439
+GALLOP 6 Nref 149 seconds 143.9749071598053 best 103.83424 q25 155.08087 median 292.17044 total 913.5005435943604
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 258 seconds 251.00764083862305 best 77.014915 q25 189.17148 median 243.7628 total 251.06556057929993
+GALLOP 2 Nref 196 seconds 235.46995949745178 best 162.46185 q25 251.65599 median 313.36005 total 737.7819201946259
+GALLOP 3 Nref 196 seconds 258.0718982219696 best 143.8517 q25 254.06339 median 310.346 total 995.9741108417511
+GALLOP 4 Nref 196 seconds 255.594806432724 best 139.49974 q25 223.07904 median 305.48218 total 1251.6950964927673
+GALLOP 5 Nref 196 seconds 256.6709945201874 best 138.14879 q25 245.16185 median 326.76764 total 1508.4832377433777
+GALLOP 6 Nref 196 seconds 266.79285430908203 best 127.63758 q25 263.02954 median 335.02454 total 1775.3979878425598
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 409 seconds 222.4976680278778 best 103.35097 q25 345.8469 median 441.23944 total 222.50522685050964

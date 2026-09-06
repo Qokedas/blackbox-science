@@ -1,0 +1,4 @@
+n=21 rms=0.087 max=0.153 (same-label, minimal image, no symmetry)
+  File "/opt/conda/lib/python3.11/site-packages/pymatgen/core/sites.py", line 87, in __getattr__
+    raise AttributeError(f"{attr=} not found on {type(self).__name__}")
+AttributeError: attr='specie' not found on PeriodicSite. Did you mean: 'species'?

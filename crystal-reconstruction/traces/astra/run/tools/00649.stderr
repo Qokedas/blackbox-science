@@ -1,0 +1,4 @@
+  File "/app/work/test_emg8.py", line 19
+    ax.plot(x,y,'.',ms=2,c='black');ax.plot(x,fun(p),c='red');ax.axvline(p[0],c='blue',lw=.6);ax.set_title('EMG center %.5f sigma %.4f tau %.4f'%(p[0],np.exp(p[1]),np.exp(p[2]))
+                                                                                                          ^
+SyntaxError: '(' was never closed

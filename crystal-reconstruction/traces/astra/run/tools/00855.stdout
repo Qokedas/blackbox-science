@@ -1,0 +1,44 @@
+import sys,json
+from pyobjcryst.io import xml_cryst_file_load_all_object
+objs=xml_cryst_file_load_all_object(sys.argv[1]);c=next(o for o in objs if o.GetClassName()=='Crystal');rows=[]
+for i in range(c.GetNbScatterer()):
+ m=c.GetScatterer(i);sc=m.GetScatteringComponentList();fr=[[a.X,a.Y,a.Z] for a in sc];xyz=[list(c.FractionalToOrthonormalCoords(*v)) for v in fr];els=[a.mpScattPow.GetSymbol() for a in sc];rows.append(dict(name=m.GetName(),fractional=fr,cartesian=xyz,elements=els))
+json.dump(rows,open(sys.argv[2],'w'))
+CYCLE 2 1 Rw 0.053124883299039305 chi2 2015.8778692942165 geom 129.90955914994527 LSQ 2359.201376737473
+CYCLE 2 2 Rw 0.05288308654577884 chi2 1997.5691813938267 geom 132.878515115797 LSQ 2345.74279421309
+PACKING_STAGE 2 0.0
+CYCLE 3 0 Rw 0.04980745151836155 chi2 1771.9721051965378 geom 122.20481735942171 LSQ 2125.521925458983
+CYCLE 3 1 Rw 0.048766460769750414 chi2 1698.6766405203612 geom 160.05219826350063 LSQ 2101.9977699805017
+CYCLE 3 2 Rw 0.04876846362676216 chi2 1698.8161739714778 geom 96.55233562264773 LSQ 2005.7209209956268
+PACKING_STAGE 3 0.0
+FINISHED X263b09a 0.04876846362676216
+set -e
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 CHARGED_N_MIN=3.15
+while [[ -r /proc/41900/status ]] && ! grep -q '^State:.*Z' /proc/41900/status;do sleep 5;done
+id=X7e382cb
+GALLOP_STOL=.29 python /app/work/warm_gallop.py $id 41 /app/work/$id/refined_g40.xml /app/work/$id/search_g40/model.json > /app/work/$id/warm41.log 2>&1
+EXACT_BUMP_IMAGES=1 HBOND_MULTIPLE=1 HBOND_COEFF=20 BUMP_COEFF=150 SEARCH_TIME=1800 PARTICLES=128 ITERATIONS=450 START_NPZ=/app/work/$id/gallop_41/warm.npz START_JITTER=.10 START_TOR_JITTER=.45 MACRO_ELITE_FRAC=.45 python /app/work/search_gallop.py $id 41 1 --hscatter --packing > /app/work/$id/gallop41.log 2>&1
+python /app/work/import_gallop.py $id 41 > /app/work/$id/import_g41.log 2>&1
+python /app/work/refine_obj.py $id g41 /app/work/$id/search_g41/best.xml --scale --tight --stol=.4 > /app/work/$id/refine_g41.log 2>&1
+python /app/work/submit.py $id /app/work/$id/refined_g41.cif --check > /app/work/$id/check_g41.log 2>&1
+set -e
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+id=Xedd9c7b
+while [[ -r /proc/36093/status ]] && ! grep -q '^State:.*Z' /proc/36093/status;do sleep 5;done
+mkdir -p /app/work/$id/search_low51
+cp /app/work/$id/search_g51/model.json /app/work/$id/search_low51/model.json
+python /app/work/extend_low_base.py $id /app/work/$id/refined_g51.xml /app/work/$id/search_low51/best.xml > /app/work/$id/extend_low51.log 2>&1
+python /app/work/restore_structure_mode.py /app/work/$id/search_low51/best.xml >> /app/work/$id/extend_low51.log 2>&1
+GALLOP_STOL=.28 python /app/work/warm_gallop.py $id 52 /app/work/$id/search_low51/best.xml /app/work/$id/search_low51/model.json > /app/work/$id/warm52.log 2>&1
+while [[ -r /proc/41254/status ]] && ! grep -q '^State:.*Z' /proc/41254/status;do sleep 5;done
+SEARCH_TIME=2000 PARTICLES=128 ITERATIONS=450 BUMP_COEFF=60 HBOND_COEFF=15 START_NPZ=/app/work/$id/gallop_52/warm.npz START_JITTER=.10 START_TOR_JITTER=.4 MACRO_ELITE_FRAC=.40 python /app/work/search_gallop.py $id 52 1 --hscatter --packing > /app/work/$id/gallop52.log 2>&1
+python /app/work/import_gallop.py $id 52 > /app/work/$id/import_g52.log 2>&1
+python /app/work/refine_obj.py $id g52 /app/work/$id/search_g52/best.xml --scale --tight --stol=.4 > /app/work/$id/refine_g52.log 2>&1
+python /app/work/submit.py $id /app/work/$id/refined_g52.cif --check > /app/work/$id/check_g52.log 2>&1
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1741.28it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 211 seconds 239.96308970451355 best 99.649445 q25 180.83546 median 224.47261 total 239.97126030921936
+Sun Sep  6 09:12:28 UTC 2026

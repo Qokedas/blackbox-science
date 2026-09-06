@@ -1,0 +1,37 @@
+1 NpipNpyr 5.46784548807197 etherO-Npyr 2.8577285677658404 ClPhC-Hpip 2.5858052393575757
+N6 [(0, np.float64(4.863)), (2, np.float64(5.4)), (3, np.float64(5.513))]
+N24 [(0, np.float64(4.055)), (2, np.float64(3.767)), (3, np.float64(4.189))]
+plan NpipNpyr 5.371960808587494 etherO-Npyr 3.029152326906654 ClPhC-Hpip 2.475277713678697
+N6 [(0, np.float64(4.932)), (2, np.float64(5.198)), (3, np.float64(5.641))]
+N24 [(0, np.float64(4.218)), (2, np.float64(3.508)), (3, np.float64(4.468))]
+pyrm0 NpipNpyr 5.374652004418518 etherO-Npyr 3.01811499494784 ClPhC-Hpip 2.4924250188229418
+N6 [(0, np.float64(4.829)), (2, np.float64(5.122)), (3, np.float64(5.522))]
+N24 [(0, np.float64(4.291)), (2, np.float64(3.504)), (3, np.float64(4.392))]
+pyrm1 NpipNpyr 6.3334872424695865 etherO-Npyr 3.2271021860291316 ClPhC-Hpip 2.5209076094911156
+N6 [(0, np.float64(4.813)), (2, np.float64(5.102)), (3, np.float64(5.504))]
+N24 [(0, np.float64(4.775)), (2, np.float64(4.652)), (3, np.float64(4.665))]
+===Xd4c1a35
+GALLOP 7 Nref 286 seconds 134.01567125320435 best 12.058593 q25 89.22585 median 182.516 total 1163.5916471481323
+GALLOP 8 Nref 286 seconds 121.4154543876648 best 11.801056 q25 49.76261 median 191.73906 total 1285.0641548633575
+GALLOP 9 Nref 286 seconds 153.7154667377472 best 11.780086 q25 35.900707 median 118.79615 total 1438.881206035614
+GALLOP 10 Nref 286 seconds 145.56647753715515 best 11.776471 q25 116.708435 median 213.28616 total 1584.5916600227356
+GALLOP 11 Nref 286 seconds 115.91089749336243 best 11.789794 q25 51.53717 median 192.3953 total 1700.5632739067078
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1076.98it/s]
+===X3f4781b
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 267 seconds 137.1910674571991 best 194.21678 q25 253.47397 median 279.57227 total 137.19826197624207
+GALLOP 1 Nref 267 seconds 133.82947778701782 best 169.32321 q25 217.7769 median 254.2067 total 271.2055938243866
+GALLOP 2 Nref 267 seconds 107.30818819999695 best 162.67778 q25 199.83994 median 255.11423 total 378.6056809425354
+GALLOP 3 Nref 267 seconds 134.44951367378235 best 157.06743 q25 222.64279 median 261.052 total 513.1559150218964
+===X7e382cb
+GALLOP 6 Nref 169 seconds 50.64589810371399 best 119.53945 q25 119.53978 median 150.46693 total 258.70437359809875
+GALLOP 7 Nref 169 seconds 47.53747081756592 best 119.53946 q25 119.539734 median 128.32385 total 306.2679398059845
+GALLOP 8 Nref 169 seconds 48.1222562789917 best 119.5394 q25 119.53975 median 123.37162 total 354.41211771965027
+GALLOP 9 Nref 169 seconds 50.53390288352966 best 119.53947 q25 119.53986 median 123.75047 total 404.96970081329346
+===/app/work/X8a6f5a8/metric_wide21.log
+ -0.0131 -0.006  -0.0113]
+TRIAL 51 sec 529.2216153144836 cost 0.26720038405321944 score 2.53658807154415 vol 6505.245963482679 cell [ 33.7571   5.9398  34.7266  90.     110.8927  90.    ] zero 0.030394019251179245 best 0.10521766465164833 diff [ 0.0195 -0.0011  0.0222 -0.0121 -0.0307  0.0256 -0.0287  0.0031 -0.0162
+  0.009  -0.0153 -0.0043 -0.0037 -0.0056 -0.0072 -0.0237  0.0377  0.0013
+  0.0029 -0.0042  0.0239  0.0086  0.0269 -0.0196  0.0462 -0.0189 -0.0131
+  0.0009 -0.0074  0.0081]

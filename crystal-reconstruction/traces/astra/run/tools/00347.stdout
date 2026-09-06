@@ -1,0 +1,41 @@
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 PEAK_FILE=peaks_raw.json NPEAK=18 NSPUR=0 INDEX_SCORE=55 INDEX_DEPTH=6 LMAX=34 TTHERR=.025 MAXERR=.06 INDEX_TAG=strict
+while [[ -r /proc/5100/status ]] && ! grep -q '^State:.*Z' /proc/5100/status; do sleep 5; done
+for shift in 0 0.02 -0.02; do
+ PEAK_SKIP=1 NPEAK=20 TTHSHIFT=$shift timeout 500 python /app/work/index_one.py X1db5091 TRICLINIC P 3 1000 1800 > /app/work/X1db5091/index_raw_strict_$shift.log 2>&1
+done
+for center in P C; do
+ PEAK_SKIP=1 NPEAK=20 TTHSHIFT=0 timeout 220 python /app/work/index_one.py X1db5091 MONOCLINIC $center 3 1800 6000 > /app/work/X1db5091/index_raw_large_MONOCLINIC_$center.log 2>&1
+done
+python /app/work/collect_candidates.py X1db5091 X8a6f5a8 Xebbd488 Xb7088cf Xedd9c7b
+SEARCH_TIME=2600 MC_STEPS=4000000 TARGET_RW=.07 python /app/work/search_obj.py Xeb393f9 1 1 --rescale > /app/work/Xeb393f9/search1.log 2>&1
+python /app/work/refine_obj.py Xeb393f9 1 /app/work/Xeb393f9/search_1/best.xml --scale > /app/work/Xeb393f9/refine_1.log 2>&1
+5191 State:	S (sleeping)
+9976 
+4263 State:	S (sleeping)
+8971 
+7272 State:	S (sleeping)
+10494 
+8306 State:	S (sleeping)
+9670 
+8838 State:	S (sleeping)
+11784 
+9939 State:	S (sleeping)
+12723 
+12401 State:	S (sleeping)
+12727 
+12403 State:	S (sleeping)
+12726 
+12602 State:	Z (zombie)
+
+RESCALED_BASE 1.0004644785769743 0.046395222945572724 7577.999999999983
+INITIAL Xeb393f9 1 Rw 0.2688026345500707 LLK 186500.52827408884 Integrated 185153.28212240367 DOF -1
+RUN 0 steps 100000 time 29.4878511428833 total 29.487924814224243 LLK 37728.519233669984 Rw 0.1369213554625328 Integrated 36290.14913488902
+RUN 1 steps 4000000 time 600.0131418704987 total 629.6252927780151 LLK 13985.610211307898 Rw 0.09508150311094965 Integrated 12509.513964364744
+RUN 2 steps 4000000 time 600.08154129982 total 1229.980306148529 LLK 11818.541913903038 Rw 0.08936435543106927 Integrated 10377.17979645274
+     5.942   0  41    8.05712   10.13941   11.21853     90.000     99.630     90.000     903.58     706.49 Monoclinic-P
+     5.942   0  41   11.21853   10.13941    8.05712     90.000     99.630     90.000     903.58     724.15 Monoclinic-P
+     5.942   0  41    8.05712   10.13941   11.21853     90.000     99.630     90.000     903.58     799.33 Monoclinic-P
+Restart search, new Max Nc = 247
+finished cell search for Monoclinic-P, elapsed time = 0: 0:30.95
+RESULTS [{'cell': [np.float64(9.90475060933156), np.float64(11.892903423323743), np.float64(40.17548841858934), np.float64(90.0), np.float64(90.0), np.float64(90.0)], 'volume': np.float64(4732.521573455101), 'score': np.float64(23.31972169732234), 'system': 'ORTHOROMBIC', 'centering': 'P', 'mode': 19, 'unindexed': 0, 'nc': 127, 'zero': 0.0}, {'cell': [np.float64(10.348061676468813), np.float64(15.687136942925607), np.float64(24.77432593850593), np.float64(90.0), np.float64(90.0), np.float64(90.0)], 'volume': np.float64(4021.652515290453), 'score': np.float64(22.671509671582836), 'system': 'ORTHOROMBIC', 'centering': 'P', 'mode': 19, 'unindexed': 0, 'nc': 109, 'zero': 0.0}, {'cell': [np.float64(15.28672699481926), np.float64(17.21058182611325), np.float64(17.905392693779756), np.float64(90.0), np.float64(90.0), np.float64(90.0)], 'volume': np.float64(4710.791820276961), 'score': np.float64(21.60058193540204), 'system': 'ORTHOROMBIC', 'centering': 'P', 'mode': 19, 'unindexed': 0, 'nc': 121, 'zero': 0.0}, {'cell': [np.float64(15.28672699481926), np.float64(17.21058182611325), np.float64(17.905392693779756), np.float64(90.0), np.float64(90.0), np.float64(90.0)], 'volume': np.float64(4710.791820276961), 'score': np.float64(21.60058193540204), 'system': 'ORTHOROMBIC', 'centering': 'P', 'mode': 19, 'unindexed': 0, 'nc': 121, 'zero': 0.0}, {'cell': [np.float64(13.599310328597522), np.float64(15.958041202703335), np.float64(29.845586962196695), np.float64(90.0), np.float64(90.0), np.float64(90.0)], 'volume': np.float64(6477.040173177779), 'score': np.float64(20.08093986394311), 'system': 'ORTHOROMBIC', 'centering': 'P', 'mode': 19, 'unindexed': 0, 'nc': 164, 'zero': 0.0}, {'cell': [np.float64(13.287659436473932), np.float64(14.963598315057272), np.float64(28.164135726900977), np.float64(90.0), np.float64(90.0), np.float64(90.0)], 'volume': np.float64(5599.908857203469), 'score': np.float64(19.633416484332304), 'system': 'ORTHOROMBIC', 'centering': 'P', 'mode': 19, 'unindexed': 0, 'nc': 145, 'zero': 0.0}, {'cell': [np.float64(8.58735867381487), np.float64(21.07998643216966), np.float64(29.923805263949802), np.float64(90.0), np.float64(90.0), np.float64(90.0)], 'volume': np.float64(5416.8492518432295), 'score': np.float64(19.304073225582165), 'system': 'ORTHOROMBIC', 'centering': 'P', 'mode': 19, 'unindexed': 0, 'nc': 142, 'zero': 0.0}, {'cell': [np.float64(11.029195543271216), np.float64(15.49181973741444), np.float64(17.130123765696673), np.float64(90.0), np.float64(90.0), np.float64(90.0)], 'volume': np.float64(2926.892503575282), 'score': np.float64(18.737636236272532), 'system': 'ORTHOROMBIC', 'centering': 'P', 'mode': 19, 'unindexed': 0, 'nc': 82, 'zero': 0.0}, {'cell': [np.float64(11.029195543271216), np.float64(15.49181973741444), np.float64(17.130123765696673), np.float64(90.0), np.float64(90.0), np.float64(90.0)], 'volume': np.float64(2926.892503575282), 'score': np.float64(18.737636236272532), 'system': 'ORTHOROMBIC', 'centering': 'P', 'mode': 19, 'unindexed': 0, 'nc': 82, 'zero': 0.0}, {'cell': [np.float64(4.385351263692241), np.float64(26.693421148816803), np.float64(41.647202938008675), np.float64(90.0), np.float64(90.0), np.float64(90.0)], 'volume': np.float64(4875.222749009765), 'score': np.float64(17.815367765874086), 'system': 'ORTHOROMBIC', 'centering': 'P', 'mode': 19, 'unindexed': 0, 'nc': 155, 'zero': 0.0}]
+METRICQUEUE 12769

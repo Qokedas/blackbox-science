@@ -1,0 +1,39 @@
+[802.04248047 802.04248047 802.04248047 802.04248047] [[[0.50330627 0.00703752 0.22381037]
+  [0.18371743 0.64929193 0.78119063]]
+
+ [[0.5033064  0.0070376  0.2238104 ]
+  [0.18371731 0.6492919  0.78119063]]
+
+ [[0.5033064  0.00703764 0.22381036]
+  [0.81628263 0.3507081  0.21880937]]
+
+ [[0.5033064  0.00703761 0.2238104 ]
+  [0.18371731 0.6492919  0.78119063]]
+
+ [[0.5033064  0.0070376  0.2238104 ]
+  [0.18371731 0.6492919  0.78119063]]]
+PACKING_STAGE 2 24.169594751688642
+CYCLE 3 0 Rw 0.05936312009900151 chi2 6529.176546084198 geom 437.6817151121744 LSQ 7509.685600090563
+CYCLE 3 1 Rw 0.05934119766849314 chi2 6524.355068056763 geom 434.2051685615931 LSQ 7500.0770727681265
+CYCLE 3 2 Rw 0.059328247101192076 chi2 6521.507640543694 geom 421.31632344273896 LSQ 7477.749134571976
+PACKING_STAGE 3 22.553857381619064
+FINISHED Xeb393f9 0.059328247101192076
+Xeb393f9 Nat 37 molecule sizes [27, 10]
+  component O=C(O)CCC[NH+]1CCC(O[C@@H](c2ccc(Cl)cc2)c2ccccn2)CC1 matches 1
+  component O=S(=O)([O-])c1ccccc1 matches 1
+  bond range 1.2274242990600102 1.845194410166988
+  min intermolecular distance 2.733136761351062
+Xeb393f9 root 31 expected {11: 'S'} actual {11: 'S'} OK True
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 258 seconds 289.330260515213 best 156.84973 q25 229.23752 median 264.09723 total 289.33667850494385
+GALLOP 4 Nref 165 seconds 66.91397786140442 best 137.47987 q25 177.19893 median 277.48874 total 317.2341060638428
+GALLOP 5 Nref 165 seconds 60.415607929229736 best 129.53226 q25 216.05214 median 307.64392 total 377.71218848228455
+GALLOP 6 Nref 165 seconds 69.03460574150085 best 129.53189 q25 205.945 median 274.37775 total 446.831339597702
+GALLOP 14 Nref 221 seconds 84.10177612304688 best 201.22473 q25 288.1891 median 319.00003 total 1451.1008677482605
+GALLOP 15 Nref 221 seconds 88.97649765014648 best 201.22507 q25 293.03955 median 330.50772 total 1540.1065034866333

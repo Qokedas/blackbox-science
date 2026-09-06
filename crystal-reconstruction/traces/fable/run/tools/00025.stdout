@@ -1,0 +1,77 @@
+def TestData():
+    'needs a doc string'
+    global NeedTestData
+    NeedTestData = False
+    global TestData
+    TestData = [14, [7.,8.70,10.86,90.,102.95,90.], [7.76006,8.706215,10.865679,90.,102.947,90.],3,
+        ]
+    global TestData2
+    TestData2 = [14, [0.15336547830008007, 0.017345499139401827, 0.008122368657493792, 0, 0.02893538955687591, 0], 3,
+        ]
+#
+def test0():
+    if NeedTestData: TestData()
+    ibrav,cell,bestcell,Pwr,peaks = TestData
+    print ('best cell:',bestcell)
+    print ('old cell:',cell)
+    Peaks = np.array(peaks)
+    HKL = Peaks[4:7]
+    print (calc_M20(peaks,HKL))
+    A = G2lat.cell2A(cell)
+    OK,smin,A,result = FitHKL(ibrav,peaks,A,Pwr)
+    print ('new cell:',G2lat.A2cell(A))    
+    print ('x:',result[0])
+    print ('cov_x:',result[1])
+    print ('infodict:')
+    for item in result[2]:
+        print (item,result[2][item])
+    print ('msg:',result[3])
+    print ('ier:',result[4])
+    result = refinePeaks(peaks,ibrav,A)
+    N,M20,X20,A = result
+    print ('refinePeaks:',N,M20,X20,G2lat.A2cell(A))
+    print ('compare bestcell:',bestcell)
+#
+def test1():
+    if NeedTestData: TestData()
+    ibrav,A,Pwr,peaks = TestData2
+    print ('bad cell:',G2lat.A2cell(A))
+    print ('FitHKL')
+    OK,smin,A,result = FitHKL(ibrav,peaks,A,Pwr)
+    result = refinePeaks(peaks,ibrav,A)
+    N,M20,X20,A = result
+    print ('refinePeaks:',N,M20,X20,A)
+#    Peaks = np.array(peaks)
+#    HKL = Peaks[4:7]
+#    print calc_M20(peaks,HKL)
+#    OK,smin,A,result = FitHKL(ibrav,peaks,A,Pwr)
+#    print 'new cell:',G2lat.A2cell(A)    
+#    print 'x:',result[0]
+#    print 'cov_x:',result[1]
+#    print 'infodict:'
+#    for item in result[2]:
+#        print item,result[2][item]
+#    print 'msg:',result[3]
+#    print 'ier:',result[4]
+    
+#
+if __name__ == '__main__':
+    test0()
+    test1()
+#    test2()
+#    test3()
+#    test4()
+#    test5()
+#    test6()
+#    test7()
+#    test8()
+    print ("OK")
+from __future__ import division, print_function
+import math
+import time
+import numpy as np
+from . import GSASIIlattice as G2lat
+from . import GSASIIpwd as G2pwd
+from . import GSASIIspc as G2spc
+from . import GSASIImath as G2mth
+import scipy.optimize as so

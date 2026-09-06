@@ -1,0 +1,193 @@
+650:      /// Register a new object. Already registered objects are skipped.
+651:      void Register(T &obj);
+653:      void DeRegister(T &obj);
+655:      void DeRegister(const string &objName);
+657:      void DeRegisterAll();
+981:      /// Register a new object using this object
+983:      virtual void RegisterClient(RefinableObj &)const;
+985:      virtual void DeRegisterClient(RefinableObj &)const;
+1100:      //LSQ functions
+1101:         /// Number of LSQ functions
+1102:         virtual unsigned int GetNbLSQFunction()const;
+1104:         //virtual const string& GetLSQFunctionName(const unsigned int)const;
+1106:         //virtual const string& GetLSQFunctionDescription(const unsigned int)const;
+1107:         /// Get the current calculated value for the LSQ function
+1108:         virtual const CrystVector_REAL& GetLSQCalc(const unsigned int) const;
+1109:         /// Get the observed values for the LSQ function
+1110:         virtual const CrystVector_REAL& GetLSQObs(const unsigned int) const;
+1111:         /// Get the weight values for the LSQ function
+1112:         virtual const CrystVector_REAL& GetLSQWeight(const unsigned int) const;
+1113:         /** Get the first derivative values for the LSQ function, for a given
+1120:         virtual const CrystVector_REAL& GetLSQDeriv(const unsigned int, RefinablePar&);
+1121:         /** Get the first derivative for the LSQ function for each parameter supplied
+1126:         * for the LSQ function, which is also returned. The map will include derivatives
+1137:         virtual std::map<RefinablePar*, CrystVector_REAL> & GetLSQ_FullDeriv(const unsigned int,std::set<RefinablePar *> &vPar);
+1250:      void AddSubRefObj(RefinableObj &);
+1252:      void RemoveSubRefObj(RefinableObj &);
+1313:      /// Temporary array used to return derivative values of the LSQ function for given
+1315:      mutable CrystVector_REAL mLSQDeriv;
+1316:      /// Temporary map to return the derivative of the LSQ function versus a list of parameters
+1318:      /// Several LSQ functions can be stored.
+1321:      mutable std::map< unsigned int,std::map<RefinablePar*, CrystVector_REAL> > mLSQ_FullDeriv;
+1344:/// Register a new object in a registry, and recursively
+1346:template<class T> void RefObjRegisterRecursive(T &obj,ObjRegistry<T> &reg);
+1348:void GetSubRefObjListClockRecursive(ObjRegistry<RefinableObj> &reg,RefinableObjClock &clock);
+#include <bits/stdc++.h>
+#define private public
+#include <ObjCryst/ObjCryst/PowderPattern.h>
+#include <ObjCryst/ObjCryst/Crystal.h>
+#include <ObjCryst/ObjCryst/DiffractionDataSingleCrystal.h>
+#include <algorithm>
+#include <cstdio>
+#undef private
+using namespace ObjCryst;
+struct AccessDiff : PowderPatternDiffraction {
+ int matrix(double* out, long npoint,long nref) {
+  GetPowderPatternCalc();
+  if(nref>long(mvReflProfile.size())) return -1;
+  std::fill(out,out+npoint*nref,0.0);
+  for(long j=0;j<nref;j++) {
+   auto &r=mvReflProfile[j];
+   double corr=mIntensityCorr(j)*mMultiplicity(j);
+   for(long i=std::max(0L,r.first);i<=std::min(npoint-1,r.last);i++) out[i*nref+j]=r.profile(i-r.first)*corr;
+  }
+  return long(mvReflProfile.size());
+ }
+ void setobs(double *v,long n) {
+  CrystVector_REAL vv(n);for(long i=0;i<n;i++)vv(i)=v[i];
+  mpLeBailData->SetFhklObsSq(vv);
+  SetExtractionMode(true,false);
+ }
+ void march(double frac,double coeff,double h,double k,double l) {mCorrTextureMarchDollase.AddPhase(frac,coeff,h,k,l);}
+};
+struct AccessCrystal: Crystal {void bumpscale(double scale){mBumpMergeScale=scale; mBumpMergeParClock.Click();}};
+extern "C" {
+ int bridge_kind(void *ptr) {auto *r=reinterpret_cast<RefinableObj*>(ptr);std::printf("Object: %s %s\n",r->GetClassName().c_str(),r->GetName().c_str()); return sizeof(REAL);}
+ int bridge_matrix(void *ptr,double *out,long np,long nr) {auto*d=dynamic_cast<PowderPatternDiffraction*>(reinterpret_cast<RefinableObj*>(ptr));if(!d)return -2;return reinterpret_cast<AccessDiff*>(d)->matrix(out,np,nr);}
+ void bridge_setobs(void*ptr,double*v,long n) {auto*d=dynamic_cast<PowderPatternDiffraction*>(reinterpret_cast<RefinableObj*>(ptr));reinterpret_cast<AccessDiff*>(d)->setobs(v,n);}
+ void bridge_march(void*ptr,double frac,double coeff,double h,double k,double l) {auto*d=dynamic_cast<PowderPatternDiffraction*>(reinterpret_cast<RefinableObj*>(ptr));reinterpret_cast<AccessDiff*>(d)->march(frac,coeff,h,k,l);}
+ void bridge_bumpscale(void*ptr,double scale) {auto*c=dynamic_cast<Crystal*>(reinterpret_cast<RefinableObj*>(ptr));reinterpret_cast<AccessCrystal*>(c)->bumpscale(scale);}
+}
+27:#include "ObjCryst/RefinableObj/RefinableObj.h"
+67:      void SetParIsFixed(RefinableObj &obj,const bool fix);
+88:      * \param callBeginEndOptimization: if true, will call RefinableObj::BeginOptimization(true,...)
+89:      * and RefinableObj::EndOptimization(). You may not want this if the LSQ is done during another
+91:      * that approximations are disabled (using RefinableObj::SetApproximationFlag)
+136:      void SetRefinedObj(RefinableObj &obj, const unsigned int LSQFuncIndex=0, const bool init=true, const bool recursive=false);
+141:      //ObjRegistry<RefinableObj> &GetRefinedObjList();
+146:      const std::map<RefinableObj*,unsigned int>& GetRefinedObjMap() const;
+151:      std::map<RefinableObj*,unsigned int>& GetRefinedObjMap();
+152:      /** Access to the RefinableObj which is the compilation of all parameters
+156:      * its sub-objects when SetRefinedObj() and PrepareRefParList() are called,
+160:      RefinableObj& GetCompiledRefinedObj();
+161:      /** Access to the RefinableObj which is the compilation of all parameters
+165:      * its sub-objects when SetRefinedObj() and PrepareRefParList() are called,
+169:      const RefinableObj& GetCompiledRefinedObj()const;
+214:         ObjRegistry<RefinableObj> mRecursiveRefinedObjList;
+216:      * of the parameters in RefinableObj and its sub-objects
+219:      * its sub-objects when SetRefinedObj() and PrepareRefParList() are called,
+223:      mutable RefinableObj mRefParList;
+247:      //RefinableObj *mpRefinedObj;
+256:      std::map<RefinableObj*,unsigned int> mvRefinedObjMap;
+258:      mutable std::map<RefinableObj*,unsigned int> mvRefinedObjLSQSize;
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+*/
+/*   LSQNumObj.h
+*  header file for Least-Squares refinement witn Numerical derivatives Objects
+*
+*/
+#ifndef _LSQOBJNUM_H
+#define _LSQOBJNUM_H
+
+#include "ObjCryst/CrystVector/CrystVector.h"
+#include "ObjCryst/RefinableObj/RefinableObj.h"
+#include <string>
+#include <map>
+#include <list>
+
+namespace ObjCryst
+{
+/** \brief (Quick & dirty) Least-Squares Refinement Object with Numerical derivatives
+*
+* This is still highly experimental !
+*/
+class LSQNumObj
+{
+   public:
+      LSQNumObj(std::string objName="Unnamed LSQ object");
+      ~LSQNumObj();
+      /// Fix one parameter.
+      ///
+      /// LSQNumObj::PrepareRefParList() must be called first!
+      void SetParIsFixed(const std::string& parName,const bool fix);
+      /// Fix one family of parameters
+      ///
+      /// LSQNumObj::PrepareRefParList() must be called first!
+      void SetParIsFixed(const RefParType *type,const bool fix);
+      /** Fix one parameter
+      *
+      * Note that this will fix the copied parameter, not the one
+      * in the original object. The supplied RefinablePar
+      * may be either the copied one or the original.
+      *
+      * LSQNumObj::PrepareRefParList() must be called first!
+      **/
+      void SetParIsFixed(RefinablePar &par,const bool fix);
+      /** Fix all parameters within an object
+      *
+      * Note that this will fix the copied parameters, not the one
+      * in the original objects.
+      *
+      * LSQNumObj::PrepareRefParList() must be called first!
+      **/
+      void SetParIsFixed(RefinableObj &obj,const bool fix);
+      /// UnFix All parameters
+      ///
+      /// LSQNumObj::PrepareRefParList() must be called first!
+      void UnFixAllPar();
+      /// Set a parameter to be used
+      ///
+      /// LSQNumObj::PrepareRefParList() must be called first!
+      void SetParIsUsed(const std::string& parName,const bool use);
+      /// Set a family of parameters to be used
+      ///
+      /// LSQNumObj::PrepareRefParList() must be called first!
+      void SetParIsUsed(const RefParType *type,const bool use);
+      /** Do the refinement
+      *
+      * \param nbCycle: number of LSQ cycles - if negative, the algorithm will continue
+      * until it reaches (-nbcycle) or until the relative variation in Chi2 is less
+      * than minChi2var
+      * \param useLevenbergMarquardt: enable Levenberg-Marquardt algorithm
+      * to ensure that a decrease of Chi^2 will be obtained (actually a 1%
+      * increase is allowed)
+      * \param callBeginEndOptimization: if true, will call RefinableObj::BeginOptimization(true,...)
+      * and RefinableObj::EndOptimization(). You may not want this if the LSQ is done during another
+      * (e.g. monte-carlo) optimization - but then the calling function \b must ensure
+      * that approximations are disabled (using RefinableObj::SetApproximationFlag)
+      * for objects where that would render derivative calculations imprecise.
+      * \param minChi2var: used for termination of the refinement if the relative variation
+      * of Chi2 between two successive cyles is less than minChi2var
+      */
+      void Refine (int nbCycle=1,bool useLevenbergMarquardt=false,
+                   const bool silent=false, const bool callBeginEndOptimization=true,
+                   const float minChi2var=0.01);
+      /** Run a refinement in a 'safe' way: if the Chi2 value increases by more that a given factor
+      * the parameters are reverted to their initial values. Moreover, the listed 'new' parameters
+      * or parameter types are then fixed.
+      * \param vnewpar: list of parameters added for this optimization, which will be unfixed at the
+      * beginning, and will be fixed at the end if Chi2 increases. This can be empty.
+      * \param vnewpartype: list of parameter types, which will be unfixed at the
+      * beginning, and will be fixed at the end if Chi2 increases. This can be empty.
+      * \param maxChi2factor: if Chi2_end> maxChi2factor * Chi2_begin, parameters are reverted to their
+      * initial value, and new parameters are fixed.
+      * All the other parameters are the same as in LSQNumObj::Refine.
+      * \return: true if the minimization was succesful, false otherwise.
+      */
+/opt/conda/include/ObjCryst/ObjCryst/Crystal.h:184:      virtual const ScatteringComponentList& GetScatteringComponentList()const;
+/opt/conda/include/ObjCryst/ObjCryst/Crystal.h:275:      * called by \e only Crystal::GetScatteringComponentList()
+/opt/conda/include/ObjCryst/ObjCryst/Crystal.h:290:      * Crystal::GetScatteringComponentList() automatically.
+/opt/conda/include/ObjCryst/ObjCryst/Crystal.h:535:      * \warning Crystal::GetScatteringComponentList() \b must be called beforehand,
+/opt/conda/include/ObjCryst/ObjCryst/SpaceGroup.h:200:      CrystMatrix_REAL GetAllSymmetrics(const REAL x, const REAL y, const REAL z,

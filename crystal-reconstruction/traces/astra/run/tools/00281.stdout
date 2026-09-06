@@ -1,0 +1,5 @@
+9937
+9939
+X13023e3 Nat 48 molecule sizes [10, 10, 5, 5, 9, 9]
+  component CC(C)Cc1ccc([C@@H](C)C(=O)O)cc1 matches 0
+  component NC(=O)c1cccnc1 matches 2

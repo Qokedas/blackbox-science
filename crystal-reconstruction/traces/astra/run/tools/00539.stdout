@@ -1,0 +1,64 @@
+import os,sys,json,numpy as np,gemmi
+import matplotlib
+matplotlib.use('Agg')
+from pyobjcryst.crystal import Crystal
+from pyobjcryst.powderpattern import PowderPattern,ReflectionProfileType
+from pyobjcryst.io import xml_cryst_file_save_global
+sid=sys.argv[1];tag=sys.argv[2];sg=sys.argv[3];W='/app/work/'+sid
+j=json.load(open(W+'/fit_'+tag+'.json'));cp=j['cell'];ins=json.load(open('/app/data/instances/'+sid+'/instrument.json'));wl=ins['radiation']['wavelength_A'];rad=ins['radiation']
+c=Crystal(*cp[:3],*np.deg2rad(cp[3:]),sg);c.SetName(sid)
+from obj_model import add_component
+dummy,_=add_component(c,'C','stable_dummy')
+data=np.loadtxt('/app/data/instances/'+sid+'/pattern.xye');peaks=json.load(open(W+'/peaks.json'));mh=max(p['height'] for p in peaks);valid=[p for p in peaks if p['height']>.015*mh];xmin=max(data[0,0],min(p['two_theta'] for p in valid)-.5*wl/1.54)
+if os.path.exists(W+'/peak_select.json'):xmin=max(xmin,json.load(open(W+'/peak_select.json')).get('min_two_theta',xmin))
+stol=float(os.environ.get('MAX_STOL','.25'));data=data[(data[:,0]>=xmin)&(data[:,0]<np.rad2deg(2*np.arcsin(stol*wl)))]
+if len(data)>12000:
+ n=len(data)//2*2;data=np.column_stack([data[:n,0].reshape(-1,2).mean(1),data[:n,1].reshape(-1,2).mean(1),np.sqrt((data[:n,2]**2).reshape(-1,2).sum(1))/2])
+# A constant uncertainty rescaling preserves all diffraction relative weights and prevents disproportionate molecular restraint weighting.
+scale=max(1.,np.median(np.sqrt(np.clip(data[:,1],1,None))/data[:,2]));data[:,2]*=scale
+np.savetxt(W+'/base_profile.xye',data)
+p=PowderPattern();p.SetName(sid);p.ImportPowderPattern2ThetaObsSigma(W+'/base_profile.xye');p.SetWavelength(wl);p.SetMaxSinThetaOvLambda(stol)
+if len(rad.get('wavelengths_A') or [])>1:p.SetWavelength('Mo' if wl<1 else 'Cu')
+d=p.AddPowderPatternDiffraction(c);d.SetName(sid+'_diffraction')
+wid=np.median([v['fwhm'] for v in sorted(valid,key=lambda z:-z['height'])[:25]])
+d.SetReflectionProfilePar(ReflectionProfileType.PROFILE_PSEUDO_VOIGT,np.deg2rad(wid)**2,0,0,.5,0)
+b=p.AddPowderPatternBackground();b.SetName(sid+'_background');nbkg=max(20,int((data[-1,0]-data[0,0])/(1.2*wl/1.54)));bx=np.linspace(np.deg2rad(data[0,0]),np.deg2rad(data[-1,0]),nbkg);raw=np.load(W+'/processed.npz');by=np.interp(np.rad2deg(bx),raw['x'],raw['background']);b.SetInterpPoints(bx,by)
+p.Prepare();p.quick_fit_profile(pdiff=d,auto_background=False,init_profile=False,plot=False,asym=True,verbose=False);p.FitScaleFactorForRw()
+print('FRESH_BASE',sid,sg,p.GetRw(),p.GetChi2(),flush=True)
+# Save the actual optimum reached. Excessive multiplicative Le Bail cycles can destabilize heavily overlapped lines.
+scale2=max(1.,np.sqrt(p.GetChi2()/len(data)));data[:,2]*=scale2;np.savetxt(W+'/base_profile.xye',data);p.ImportPowderPattern2ThetaObsSigma(W+'/base_profile.xye');p.Prepare();p.FitScaleFactorForRw()
+print('SCALED',scale*scale2,'Rw',p.GetRw(),'Chi2',p.GetChi2(),flush=True)
+cell={n:float(c.GetPar(n).GetHumanValue()) for n in ['a','b','c','alpha','beta','gamma']};out={'cell':cell,'space_group':sg,'space_group_number':gemmi.find_spacegroup_by_name(sg).number}
+json.dump(out,open(W+'/lattice.json','w'),indent=1)
+if '--submit' in sys.argv:json.dump(out,open('/app/results/submission/'+sid+'.json','w'),indent=1)
+xml_cryst_file_save_global(W+'/base.xml')
+# Keep a model-free base for direct-space searches, but retain a finite Pawley scale.
+import xml.etree.ElementTree as ET
+tree=ET.parse(W+'/base.xml');root=tree.getroot();cc=next(q for q in root if q.tag=='Crystal')
+for at in list(cc):
+ if at.tag=='Atom':cc.remove(at)
+tree.write(W+'/base.xml',encoding='unicode')
+np.savez_compressed(W+'/lebail.npz',h=d.GetH(),k=d.GetK(),l=d.GetL(),stol=d.GetSinThetaOverLambda(),f2=d.GetFhklObsSq(),x=p.GetPowderPatternX(),obs=p.GetPowderPatternObs(),calc=p.GetPowderPatternCalc())
+p.plot(diff=True,hkl=False);p.figure.savefig(W+'/base.png',dpi=140)
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 171 seconds 67.0842809677124 best 148.42625 q25 215.87753 median 258.15967 total 67.09053254127502
+GALLOP 1 Nref 171 seconds 58.95460247993469 best 129.27873 q25 183.5355 median 222.21582 total 126.1509280204773
+GALLOP 2 Nref 171 seconds 57.56223464012146 best 125.88778 q25 199.63208 median 251.79958 total 183.76727437973022
+GALLOP 3 Nref 171 seconds 62.771655797958374 best 125.88778 q25 195.1273 median 234.60507 total 246.56883215904236
+GALLOP 4 Nref 171 seconds 71.08770823478699 best 125.88833 q25 187.01357 median 220.6969 total 317.67189860343933
+GALLOP 5 Nref 171 seconds 73.58578491210938 best 124.32343 q25 180.95306 median 228.70786 total 391.2774660587311
+GALLOP 5 Nref 267 seconds 147.6430721282959 best 143.09782 q25 211.53996 median 250.64194 total 803.8560545444489
+GALLOP 6 Nref 267 seconds 168.22535133361816 best 142.29146 q25 215.99158 median 251.49232 total 972.2207207679749
+GALLOP 7 Nref 267 seconds 122.86268997192383 best 142.29141 q25 213.96977 median 255.78464 total 1095.1754004955292
+GALLOP 8 Nref 267 seconds 158.08727169036865 best 142.29129 q25 207.45412 median 254.67966 total 1253.358951330185
+INITIAL X14a2b08 1 Rw 0.43495083072750723 LLK 141365.90334370104 Integrated 102518.05557336308 DOF -1
+RUN 0 steps 100000 time 54.76651692390442 total 54.76660966873169 LLK 53713.53624809531 Rw 0.22249990802093447 Integrated 24226.553878653
+RUN 1 steps 4000000 time 600.1436653137207 total 655.0974333286285 LLK 45216.95397805873 Rw 0.1896136342573819 Integrated 16480.193864067485
+RUN 2 steps 4000000 time 600.1146972179413 total 1255.3970487117767 LLK 44291.98140368995 Rw 0.1857298426013963 Integrated 16280.719387846224
+CYCLE 1 1 Rw 0.05828557169846694 chi2 3824.770798017759 geom 14.01947785725451 LSQ 3953.202144694246
+CYCLE 1 2 Rw 0.05820738815809704 chi2 3814.516680126842 geom 15.639696474488673 LSQ 3947.11689016826
+CYCLE 2 0 Rw 0.05811413445430842 chi2 3802.3040427569063 geom 15.858287040653662 LSQ 3936.5894733149325
+GALLOP 15 Nref 169 seconds 38.88486075401306 best 144.3979 q25 150.5659 median 181.10898 total 450.5388469696045
+GALLOP 16 Nref 169 seconds 46.09873414039612 best 144.39795 q25 147.92929 median 181.36862 total 496.6558449268341
+GALLOP 17 Nref 169 seconds 48.603551626205444 best 144.39796 q25 149.10727 median 176.46906 total 545.2777969837189

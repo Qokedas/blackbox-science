@@ -1,0 +1,28 @@
+Xedd9c7b ORTHOROMBIC P 0 peaks [11.09651, 11.81626, 12.51208, 14.25936, 14.88268, 15.40458, 17.12157, 17.38763, 19.2921, 20.00393, 20.62841, 21.50922, 22.25651, 23.87096, 24.33687, 25.24578, 26.47015, 28.20457, 28.80072, 29.30941] V 405.3445739746094 3420 Lmax 42.185843128344516
+3->42.1858,1.56744,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+405.345->3420,430.671,6.9999
+Starting: V=405.345->836.016
+Finished: V=405.345->836.016 A^3, 329 unit cells tested, 221549 tests/s,   Elapsed time=0.001491s
+Starting: V=836.016->1266.69
+Finished: V=836.016->1266.69 A^3, 1324 unit cells tested, 313002 tests/s,   Elapsed time=0.004236s
+Starting: V=1266.69->1697.36
+Finished: V=1266.69->1697.36 A^3, 3211 unit cells tested, 380992 tests/s,   Elapsed time=0.008434s
+Starting: V=1697.36->2128.03
+Finished: V=1697.36->2128.03 A^3, 6500 unit cells tested, 456397 tests/s,   Elapsed time=0.014249s
+Starting: V=2128.03->2558.7
+Finished: V=2128.03->2558.7 A^3, 11073 unit cells tested, 513781 tests/s,   Elapsed time=0.021558s
+Starting: V=2558.7->2989.37
+    a=11.12-11.17 b=15.46-15.51 c=17.13-17.18 alpha= 90.00- 90.00 beta= 90.00- 90.00 gamma= 90.00- 90.00 V=2945.43-2975.58level=4, indexed=1(0 sol.)
+    a=0.08990-0.08954 b=0.06469-0.06446 c=0.05838-0.05822 alpha=0.00000-0.00000 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(0 sol.)
+ Solution ? a= 11.163 b= 15.472 c= 17.143 alpha= 90.000 beta= 90.000 gamma= 90.000 V= 2960.73 score=  4.66 #   0
+Finished: V=2558.7->2989.37 A^3, 17237 unit cells tested, 562125 tests/s,   Elapsed time=0.03067s
+Starting: V=2989.37->3420
+    a=11.12-11.17 b=15.46-15.51 c=17.13-17.18 alpha= 90.00- 90.00 beta= 90.00- 90.00 gamma= 90.00- 90.00 V=2945.43-2975.58level=4, indexed=1(1 sol.)
+    a=0.08990-0.08954 b=0.06469-0.06446 c=0.05838-0.05822 alpha=0.00000-0.00000 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(1 sol.)
+ Solution ? a= 11.163 b= 15.472 c= 17.143 alpha= 90.000 beta= 90.000 gamma= 90.000 V= 2960.73 score=  4.66 #   1
+Finished: V=2989.37->3420 A^3, 24194 unit cells tested, 591540 tests/s,   Elapsed time=0.040906s
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=11.1625, b=15.472, c=17.1432, alpha=90, beta=90, gamma=90, V=2960.73, score=4.6605
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2609 BEST ? a=11.1625, b=15.472, c=17.1432, alpha=90, beta=90, gamma=90, V=2960.73, score=4.6605
+24194unit cells tested, 589465 tests/s,   Elapsed time=0.041051s
+DONE Xedd9c7b ORTHOROMBIC P 1 0.04126858711242676 [{'cell': [11.16250991821289, 15.47195053100586, 17.14322280883789, 90.00000250447816, 90.00000250447816, 90.00000250447816], 'volume': 2960.73388671875, 'score': 4.660500526428223, 'system': 'ORTHOROMBIC', 'centering': 'P', 'mode': 0}]

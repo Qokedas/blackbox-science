@@ -1,0 +1,76 @@
+struct ScatteringComponent
+{
+   // Default Constructor
+   ScatteringComponent();
+   bool operator==(const ScatteringComponent& rhs)const;
+   bool operator!=(const ScatteringComponent& rhs)const;
+   ///Print  one line oabout this component
+   void Print() const;
+   /// Coordinates of scattering positions i the crystal with the corresponding occupancy
+   REAL mX,mY,mZ,mOccupancy;
+   /// The ScatteringPower associated with this position
+   const ScatteringPower *mpScattPow;
+
+   /// Dynamical Population Correction.
+   ///
+   /// The population of any atom is given by mOccupancy*mDynPopCorr.
+   /// mPopu is the \e real mOccupancy (0<.<1), and should be the only one
+   /// used during a refinement. However during a \e model \e search for the structure,
+   /// atoms may fall unexpectedly in a special position or with an overlap of
+   /// two atoms (the shared oxygen between two polyhedras, for example). In these
+   /// cases it is necessary to dynamically correct the population during the
+   /// generation of structural models.
+   /// See also Crystal::CalcDynPopCorr
+   ///
+   /// \note this parameter is mutable, and is computed by the Crystal object
+   mutable REAL mDynPopCorr;
+   // The scatterer to which this component is associated
+   // Scatterer *mScatterer;
+};
+
+//######################################################################
+//
+//      SCATTERING COMPONENT LIST
+/** \brief list of scattering positions in a crystal, associated with the corresponding
+* occupancy and a pointer to the ScatteringPower.
+*
+*/
+//######################################################################
+class ScatteringComponentList
+{
+   public:
+      ScatteringComponentList();
+      ScatteringComponentList(const long nbComponent);
+      ScatteringComponentList(const ScatteringComponentList &old);
+      ~ScatteringComponentList();
+      /// Reset the list. This does \b not free the memory, but simply forgets
+      /// that there already are some entries.
+      void Reset();
+      /// Access to a component
+      const ScatteringComponent& operator()(const long i) const;
+      ScatteringComponent& operator()(const long i);
+      /// Number of components
+      long GetNbComponent() const;
+      /// Assignement operator
+      void operator=(const ScatteringComponentList &rhs);
+      /// Compare two lists.
+      bool operator==(const ScatteringComponentList &rhs)const;
+      /// Add another list of components
+      void operator+=(const ScatteringComponentList &rhs);
+      /// Add component
+      void operator+=(const ScatteringComponent &rhs);
+      /// Add component (the whole list should be updated after that)
+      void operator++();
+      /// Remove component (the whole list should be updated after that)
+      void operator--();
+      /// Print the list of Scattering components. For debugging
+      void Print() const;
+   protected:
+      /// The vector of components
+      vector<ScatteringComponent>  mvScattComp;
+};
+
+}//namespace
+#include "ObjCryst/ObjCryst/ScatteringData.h"
+
+#endif //_OBJCRYST_SCATTPOWER_H_

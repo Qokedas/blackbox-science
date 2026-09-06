@@ -1,0 +1,459 @@
+# coding: utf-8
+# Copyright (c) Mark Spillman.
+# Distributed under the terms of the GPL v3 License.
+"""
+Provides functions for calculating chi-squared given a set of external and
+internal degrees of freedom.
+"""
+
+import torch
+
+import gallop.intensities as intensities
+import gallop.zm_to_cart as zm_to_cart
+import gallop.tensor_prep as tensor_prep
+
+
+@torch.jit.script
+def calc_int_chisqd(calculated_intensities, inverse_covariance_matrix,
+        observed_intensities, chisqd_scale_sum_1_1):
+    """
+    Given sets of calculated intensities, the Pawley-derived inverse covariance
+    matrix, and the extracted observed intensities, calculate intensity chi2
+    according to the equation described by David et al.
+
+    Args:
+        calculated_intensities (Tensor): Tensor of shape (n_samples, n_peaks)
+            containing the calculated intensity of each hkl
+        inverse_covariance_matrix (Tensor): Tensor of shape (n_peaks, n_peaks)
+            obtained from the Pawley fit of the diffraction data
+        observed_intensities (Tensor): Tensor of shape (n_peaks,) - observed
+            intensities obtained by Pawley fit
+        sum_1_1 (Tensor): Pre-calculated first term of the scaling factor,
+            equivalent to:
+            torch.mv(inverse_covariance_matrix, observed_intensities)
+
+    Returns:
+        Tensor: the chi2 value for each calculated pattern
+    """
+    sum_1_2 = torch.einsum("ij,j->i",calculated_intensities,
+                                    chisqd_scale_sum_1_1)
+
+    #sum_2_1 = torch.einsum("ij,kj->ki",inverse_covariance_matrix,
+    #                                    calculated_intensities)
+    #sum_2_2 = torch.einsum("ij,ij->i",calculated_intensities,sum_2_1)
+    sum_2_2 = torch.einsum("ij,jk,ik->i",calculated_intensities,
+                                        inverse_covariance_matrix,
+                                        calculated_intensities)
+
+    # Scaling factor for calculated intensities.
+    scale = (sum_1_2 / sum_2_2).reshape(-1,1)
+
+    # Difference between observed and scaled calculated intensities
+    #diff = observed_intensities.repeat(calculated_intensities.shape[0],1)\
+    #        - (calculated_intensities*scale)
+    diff = (observed_intensities.view(1, observed_intensities.shape[0])
+            - (scale*calculated_intensities))
+
+    # Finally calculate chisqd - d.A.d
+    #chi_1 = torch.einsum("ij,kj->ki",inverse_covariance_matrix,diff) # A.d
+    #chi_2 = torch.einsum("ij,ij->i",diff,chi_1) # d.(A.d)
+    chi_2 = torch.einsum("ij,jk,ik->i",diff,inverse_covariance_matrix,diff)
+    return chi_2 / (calculated_intensities.shape[1] - 2)
+
+@torch.jit.script
+def calc_prof_chisqd(calculated_intensities, baseline_peaks, scale_numerator, weights, profile):
+    """
+    Calculates profile chisquared from a set of calculated intensities, and baseline peaks derived
+    from a DASH Pawley PIK file.
+
+    Args:
+        calculated_intensities (PyTorch Tensor): Intensities calculated during SDPD with GALLOP
+                                                    Shape (n_particles, n_intensities)
+        baseline_peaks (PyTorch Tensor):         Baseline peaks extracted from the DASH PIK file
+                                                    Shape (n_intensities, n_points)
+        scale_numerator (PyTorch Tensor):        Sum of the observed intensities for all points
+                                                    Shape (1,)
+        weights (PyTorch Tensor):                Tensor of (1/esd)**2 values, Precalculated to
+                                                    save time. Shape (n_points,).
+        profile (PyTorch Tensor):                Tensor of the PIK profile, Shape (n_points, 3)
+
+    Returns:
+        PyTorch Tensor: A tensor with shape (n_particles,) containing the profile
+                        chi-square values
+    """
+    # Calculate the profiles by matrix multiplication
+    calc_profiles = calculated_intensities @ baseline_peaks
+
+    # Calculate the scaling factors for the calculated profiles
+    scale_denominator = calc_profiles.sum(dim=1).unsqueeze(1)
+    scale = scale_numerator / scale_denominator
+
+    # The "-2" in the denominator is because DASH refines two background terms
+    # during the Pawley refinement by default
+    prof_chisquared = ((weights*((scale*calc_profiles - profile[:,1])**2)
+                    ).sum(dim=1).reshape(-1,1) / (profile.shape[0]-2)).squeeze(1)
+    return prof_chisquared
+
+def get_chi_2(zm, int_tensors, chisqd_tensors, profile=None):
+    """
+    Convenience function to get chi2 directly from external/internal rather
+    than performing the three steps required:
+    1. coords, 2. intensities, 3. chi2
+
+    The required arguments are produced and packaged into a dictionary by the
+    gallop.tensor_prep code
+
+    Args:
+        zm (dict) : A dictionary containing the following tensors:
+            external (Tensor): The external degrees of freedom
+            internal (Tensor): The internal degrees of freedom
+            position (list): List of tensors with the indices of the positional
+                degrees of freedom (dtype=torch.long)
+            rotation (list): List of tensors with the indices of the rotational
+                degrees of freedom (dtype=torch.long)
+            torsion (list): List of tensors with the indices of the torsional
+                degrees of freedom (dtype=torch.long)
+            initial_D2 (list): List of tensors of the initial_D2 matrices for
+                each ZM with >0 internal DOFs
+            zmatrices_degrees_of_freedom (list): List of ints of the total
+                number of degrees of freedom for each Z-matrix
+            bond_connection (list): List of tensors with the indices of the
+                bonded atoms obtained from the ZMs. Only for ZMs with > 0
+                torsions. (dtype=torch.long)
+            angle_connection (list): List of tensors with the indices of the
+                angle atoms obtained from the ZMs. Only for ZMs with > 0
+                torsions. (dtype=torch.long)
+            torsion_connection (list): List of tensors with the indices of the
+                torsion atoms obtained from the ZMs. Only for ZMs with > 0
+                torsions. (dtype=torch.long)
+            torsion_refinable_indices (list): List of tensors with the indices
+                of the refinable torsion angles obtained from the ZMs. Only for
+                ZMs with > 0 torsions. (dtype=torch.long)
+        int_tensors (dict) : A dictionary containing the following tensors:
+            lattice_inv_matrix (Tensor): Inverse of the lattice matrix
+                representation to convert Cartesian -> fractional coords
+            init_cart_coords (list): List of tensors with Cartesian coordinates
+                of rigid bodies (dtype=torch.long)
+            hkl (Tensor): The Miller indices of the reflections
+            intensity_calc_prefix_fs (Tensor): The atomic scattering factors,
+                occus and Debye-Waller factors (optional) for all atoms in the
+                unit cell
+            intensity_calc_prefix_fs_asymmetric (Tensor): The atomic scattering
+                factors, occus and Debye-Waller factors (optional) for atoms in
+                the asymmetric unit.
+            nsamples_ones (Tensor): A tensor of shape (n_samples, n_atoms, 1)
+                that is required for the fall-back method of intensity
+                calculation
+            affine_matrices (Tensor): A set of N 4x4 matrices obtained from the
+                space group used in the fall-back method of intensity
+                calculation, where N is the number of symmetry equivalent
+                positions in the unit cell.
+            centrosymmetric (bool): True if the space group is centrosymmetric
+            space_group_number (int): The number of the space group
+        chisqd_tensors (dict) : A dictionary containing the following tensors:
+            observed_intensities (Tensor): The observed intensities obtained
+                from a Pawley fit
+            chisqd_scale_sum_1_1 (Tensor): Pre-calculated term used in a scaling
+                factor in chi_2 calculation
+            inverse_covariance_matrix (Tensor): The inverse_covariance_matrix
+                obtained from the Pawley fit
+
+    Returns:
+        Tensor: The chi_2 values corresponding to the n_samples
+    """
+    asymmetric_frac_coords = zm_to_cart.get_asymmetric_coords(**zm)
+
+    calculated_intensities = intensities.calculate_intensities(
+                            asymmetric_frac_coords, **int_tensors)
+
+    if profile is not None:
+        chisqd = calc_prof_chisqd(calculated_intensities, **profile)
+    else:
+        chisqd = calc_int_chisqd(calculated_intensities, **chisqd_tensors)
+
+    return chisqd
+
+
+def get_chi2_from_CIF(Structure, n_reflections=None, include_dw_factors=True,
+    dtype=torch.float32, device=None):
+    """
+    Read in a CIF and calculate the chi_2 value given the data in the Structure
+    object.
+
+    Args:
+        Structure (class): GALLOP Structure object with the hkls, observed
+            intensities and inverse covariance matrix present.
+        n_reflections (int, optional): If None, uses all available reflections
+            for the chi_2 calculation. Defaults to None.
+        include_dw_factors (bool, optional): Include Debye-Waller factors in
+            the intensity calculation. Defaults to True.
+        dtype (torch dtype, optional): The data type to use.
+            Defaults to torch.float32.
+        device (torch device, optional): Where to run the calculations.
+            If None, checks to see if a GPU is present and runs on it if so.
+            Defaults to None.
+
+    Returns:
+        numpy array: The chi_2 value obtained from the CIF
+    """
+    tensors = tensor_prep.get_all_required_tensors(
+                Structure, device=device, dtype=dtype,
+                n_reflections=n_reflections, verbose=False,
+                include_dw_factors=include_dw_factors, from_CIF=True
+                )
+
+    calculated_intensities = intensities.calculate_intensities(
+                                **tensors["int_tensors"])
+
+    chisqd = calc_int_chisqd(calculated_intensities, **tensors["chisqd_tensors"])
+
+    del tensors
+
+    return chisqd.detach().cpu().numpy()
+# coding: utf-8
+# Copyright (c) Mark Spillman.
+# Distributed under the terms of the GPL v3 License.
+"""
+Provides functions to generate all of the tensors needed for local optimisation
+"""
+
+import torch
+import numpy as np
+
+
+def get_zm_related_tensors(Structure, n_samples, dtype, device):
+    """
+    Get tensors about the ZMs from the numpy arrays in the Structure.
+
+    The external and internal DoF tensors may contain information
+    pertaining to multiple fragments. The information needs to be indexed
+    such that positions, rotations and torsions are assigned consistently
+    and correctly. Example below has 2 fragments, with 6 torsions each.
+    Each fragment therefore requires:
+        3 x position, 4 x quaternions, 6 x torsions
+    The layout of the DoF of the tensors is as follows:
+        external = n_samples*[pos_1_x, pos_1_y, pos_1_z, pos_2_x, pos_2_y,
+                                pos_2_z, rot_1_q1, rot_1_q2, rot_1_q3, rot_1_q4,
+                                rot_2_q1, rot_2_q2, rot_2_q3, rot_2_q4]
+        internal = n_samples*[tor_1_1, tor_1_2, tor_1_3, tor_1_4, tor_1_5,
+                                tor_1_6, tor_2_1, tor_2_2, tor_2_3, tor_2_4,
+                                tor_2_5, tor_2_6]
+    This function makes lists of numpy arrays: position_indices,
+    rotation_indices, torsion_indices that denote what information
+    pertains to each fragment. In the above example:
+        position_indices = [[0,1,2], [3,4,5]]
+        rotation_indices = [[6,7,8,9], [10,11,12,13]]
+        torsion_indices  = [[0,1,2,3,4,5], [6,7,8,9,10,11]]
+
+    Args:
+        Structure (class): GALLOP structure object
+        n_samples (int): Number of simultaneous samples to load
+        dtype (torch dtype): dtype to use for tensors
+        device (torch device): device to move tensors to
+
+    Returns:
+        dict: Dictionary of the tensors. The complete dict of values returned
+        by this function is given below:
+            tensors = {"zmatrices_degrees_of_freedom" : zm_degrees_of_freedom,
+                    "position" : zm_position_indices,
+                    "rotation" : zm_rotation_indices,
+                    "torsion" : zm_torsion_indices,
+                    "initial_D2" : init_D2,
+                    "torsion_refinable_indices" : torsion_refinable_indices,
+                    "bond_connection" : bond_connection,
+                    "angle_connection" : angle_connection,
+                    "torsion_connection" : torsion_connection,
+                    "init_cart_coords" : init_cart_coords,
+                    "nsamples_ones" : nsamples_ones
+                    }
+    """
+    position_indices = []
+    rotation_indices = []
+    torsion_indices = []
+    zm_degrees_of_freedom = []
+    init_D2 = []
+    torsion_refinable_indices = []
+    bond_connection = []
+    angle_connection = []
+    torsion_connection = []
+    init_cart_coords = []
+    n_atoms_asymmetric = 0
+    i = 0
+    # First loop over each of the z-matrices and get information about
+    # connectivity, degrees of freedom etc
+    for i, zm in enumerate(Structure.zmatrices):
+        # First generate the indices needed
+        if i == 0:
+            position_indices.append(np.arange(zm.position_degrees_of_freedom))
+            rotation_indices.append(np.arange(zm.rotation_degrees_of_freedom))
+            torsion_indices.append(np.arange(zm.internal_degrees_of_freedom))
+        else:
+            try:
+                max_pos = np.hstack(position_indices).max()
+            except ValueError:
+                max_pos = -1
+            try:
+                max_rot = np.hstack(rotation_indices).max()
+            except ValueError:
+                max_rot = -1
+            try:
+                max_tor = np.hstack(torsion_indices).max()
+            except ValueError:
+                max_tor = -1
+            position_indices.append(np.arange(zm.position_degrees_of_freedom)
+                                            + max_pos + 1)
+            rotation_indices.append(np.arange(zm.rotation_degrees_of_freedom)
+                                            + max_rot + 1)
+            torsion_indices.append(np.arange(zm.internal_degrees_of_freedom)
+                                            + max_tor + 1)
+        zm_degrees_of_freedom.append(zm.degrees_of_freedom)
+
+        # Now get initial D2 matrix and torsion refinable indices for
+        # internal -> Cartesian conversion
+        # and get initial Cartesian coordinates for rigid bodies. See (S)NeRF
+        # paper and gallop.z_matrix for more details.
+        if Structure.ignore_H_atoms:
+            init_D2_stacked = zm.initial_D2_no_H.reshape(1,
+                        zm.initial_D2_no_H.shape[0],
+                        zm.initial_D2_no_H.shape[1]).repeat(n_samples,axis=0)
+            torsion_refinable_indices.append(torch.from_numpy(
+                zm.torsion_refinable_indices_no_H).type(torch.long).to(device))
+            if zm.degrees_of_freedom == 7:
+                init_cart_coords.append(torch.from_numpy(
+                        zm.initial_cartesian_no_H.reshape(1,
+                        zm.initial_cartesian_no_H.shape[0],
+                        zm.initial_cartesian_no_H.shape[1])
+                        .repeat(n_samples,axis=0)).type(dtype).to(device))
+            else:
+                init_cart_coords.append([])
+        else:
+            init_D2_stacked = zm.initial_D2.reshape(1,
+                                zm.initial_D2.shape[0],
+                                zm.initial_D2.shape[1]).repeat(n_samples,axis=0)
+            torsion_refinable_indices.append(
+                torch.from_numpy(
+                    zm.torsion_refinable_indices).type(torch.long).to(device)
+                )
+            if zm.degrees_of_freedom == 7:
+                init_cart_coords.append(torch.from_numpy(
+                        zm.initial_cartesian.reshape(1,
+                            zm.initial_cartesian.shape[0],
+                            zm.initial_cartesian.shape[1]).repeat(
+                                n_samples,axis=0)).type(dtype).to(device)
+                                )
+            else:
+                init_cart_coords.append([])
+
+        init_D2.append(torch.from_numpy(init_D2_stacked).type(dtype).to(device))
+
+        # Next get the molecular connectivity information
+        if Structure.ignore_H_atoms:
+            bond_connection.append(
+                torch.from_numpy(
+                    zm.bond_connection_no_H).type(torch.long).to(device)
+                )
+            angle_connection.append(
+                torch.from_numpy(
+                    zm.angle_connection_no_H).type(torch.long).to(device)
+                )
+            torsion_connection.append(
+                torch.from_numpy(
+                    zm.torsion_connection_no_H).type(torch.long).to(device)
+                )
+        else:
+            bond_connection.append(
+                torch.from_numpy(zm.bond_connection).type(torch.long).to(device)
+                )
+            angle_connection.append(
+                torch.from_numpy(
+                    zm.angle_connection).type(torch.long).to(device)
+                )
+            torsion_connection.append(
+                torch.from_numpy(
+                    zm.torsion_connection).type(torch.long).to(device)
+                )
+        if Structure.ignore_H_atoms:
+            n_atoms_asymmetric += zm.coords_no_H.shape[0]
+        else:
+            n_atoms_asymmetric += zm.coords.shape[0]
+
+    # Now correct the external DoF indices for rotations
+    # The external input has the following layout:
+    # pos_zm_1, pos_zm_2, ... , pos_zm_n, rot_zm_1, rot_zm_2, ... , rot_zm_n
+    # so the previously generated indices need to be corrected for the total
+    # number of positional indexes that are also included.
+    for r in rotation_indices:
+        try:
+            r+=np.hstack(position_indices).max()+1
+        except ValueError:
+            pass
+
+    # Add this information to the Structure object for easy access
+    Structure.degrees_of_freedom = zm_degrees_of_freedom
+    Structure.position_indices   = position_indices
+    Structure.rotation_indices   = rotation_indices
+    Structure.torsion_indices    = torsion_indices
+
+    # Create the lists of PyTorch tensors needed. Tensors used for indexing must
+    # be of type torch.long
+    zm_position_indices = []
+    zm_rotation_indices = []
+    zm_torsion_indices  = []
+    for p in position_indices:
+        zm_position_indices.append(
+                                torch.from_numpy(p).type(torch.long).to(device))
+    for r in rotation_indices:
+        zm_rotation_indices.append(
+                                torch.from_numpy(r).type(torch.long).to(device))
+    for t in torsion_indices:
+        zm_torsion_indices.append(
+                                torch.from_numpy(t).type(torch.long).to(device))
+
+    # nsamples_ones needed for fall-back Structure factor calculation method.
+    # It is concatenated with the x,y,z fractional coordinates, which then
+    # allows for multiplication with the affine matrices to generate symmetry
+    # equivalent positions.
+    nsamples_ones = torch.ones(n_samples,
+                                n_atoms_asymmetric,
+                                1).type(dtype).to(device)
+
+    tensors = {"zmatrices_degrees_of_freedom" : zm_degrees_of_freedom,
+                "position" : zm_position_indices,
+                "rotation" : zm_rotation_indices,
+                "torsion" : zm_torsion_indices,
+                "initial_D2" : init_D2,
+                "torsion_refinable_indices" : torsion_refinable_indices,
+                "bond_connection" : bond_connection,
+                "angle_connection" : angle_connection,
+                "torsion_connection" : torsion_connection,
+                "init_cart_coords" : init_cart_coords,
+                "nsamples_ones" : nsamples_ones}
+
+    return tensors
+
+def get_dw_factors(Structure):
+    """
+    Get the Debye-Waller factors for inclusion in the intensity calculations
+
+    Args:
+        Structure (class): GALLOP structure object
+
+    Returns:
+        dict: Debye-Waller factors for each atom in a ZM.
+Imported powder pattern: 7041 points, 2theta=  1.956 ->  23.076, step= 0.003
+RESCALED_BASE 1.0004855341445278 0.039754261519721154 7041.0000000000255
+INITIAL Xfca9f3c 10 Rw 0.38323619458375335 LLK 591929.3554402896 Integrated 590856.4725829696 DOF -1
+RUN 0 steps 100000 time 18.19563364982605 total 18.195693016052246 LLK 39177.67519793709 Rw 0.12818016239121097 Integrated 38104.79234061706
+RUN 1 steps 1000000 time 202.73842883110046 total 221.0039360523224 LLK 39223.25839288996 Rw 0.12802291832659815 Integrated 38150.37553556993
+RUN 2 steps 1000000 time 185.83675384521484 total 406.84114050865173 LLK 39175.84228773655 Rw 0.12793354916659155 Integrated 38102.95943041652
+RUN 3 steps 1000000 time 190.51261591911316 total 597.4261026382446 LLK 39181.20847859863 Rw 0.12796577006020762 Integrated 38108.3256212786
+FINISHED 39175.84228773655
+Imported powder pattern: 7041 points, 2theta=  1.956 ->  23.076, step= 0.003
+SCALED_SIGMA 3.163237036879038 7040.999999999997
+CYCLE 0 0 Rw 0.12537135305553085 chi2 6998.421361182125
+CYCLE 0 1 Rw 0.12500189847936605 chi2 6957.235093223887
+CYCLE 0 2 Rw 0.12497162564807965 chi2 6953.865709182955
+CYCLE 1 0 Rw 0.08549708118885008 chi2 3254.663084021551
+CYCLE 1 1 Rw 0.06429738394104201 chi2 1840.729902434904
+CYCLE 1 2 Rw 0.06077048508783181 chi2 1644.3295711287699
+{"indices": [2, 3, 4, 5, 6, 10, 11, 12, 13, 14, 15, 18, 22]}

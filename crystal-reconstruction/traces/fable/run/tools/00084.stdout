@@ -1,0 +1,31 @@
+1649 0 bash -lc cd /app/work && nohup python solve.py X07806d9 16.8866 8.2184 11.2380 90 90 90 "P b c a" --nsteps 1000000 --nru
+1651 28716 python solve.py X07806d9 16.8866 8.2184 11.2380 90 90 90 P b c a --nsteps 1000000 --nruns 3 --ttmax 30 --tag a 
+1923 2 python batch_index.py X1db5091,X2327841,X238783d,X263b09a,X35b7fbc,X3c176e2,X3f4781b,X4f6fe58,X7e382cb,X8a06d7a,X8a6f5a8
+2201 6514 /opt/g2/bin/python /app/work/g2index.py X3c176e2 20 monoP 180 
+2212 2213 /opt/g2/bin/python /app/work/g2index.py X3f4781b 20 monoP 180 
+2268 474 /opt/g2/bin/python /app/work/g2index.py X4f6fe58 20 monoP 180 
+
+2026-09-06 04:12:10.613064075 +0000
+2026-09-06 04:10:03.845180096 +0000
+import sys, json, subprocess, os
+from concurrent.futures import ThreadPoolExecutor
+ids = json.load(open('/app/data/instances.json'))['ids']
+sel = sys.argv[1] if len(sys.argv) > 1 else None
+if sel: ids = sel.split(',')
+nw = int(sys.argv[2]) if len(sys.argv) > 2 else 3
+jobs = []
+for iid in ids:
+    jobs.append((iid, 'monoP', 180))
+for iid in ids:
+    jobs.append((iid, 'monoC', 90))
+for iid in ids:
+    jobs.append((iid, 'ortho', 60))
+def run(job):
+    iid, brav, to = job
+    log = f'/app/work/{iid}/g2_{brav}.log'
+    with open(log, 'w') as f:
+        subprocess.run(['/opt/g2/bin/python', '/app/work/g2index.py', iid, '20', brav, str(to)], stdout=f, stderr=subprocess.STDOUT)
+    return job
+with ThreadPoolExecutor(nw) as ex:
+    for j in ex.map(run, jobs):
+        print('done', j, flush=True)

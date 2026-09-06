@@ -1,0 +1,57 @@
+{
+ "radiation": {
+  "type": "Mo Kalpha1,2 (laboratory sealed tube)",
+  "wavelength_A": 0.709319,
+  "wavelengths_A": [
+   0.709319,
+   0.713609
+  ],
+  "wavelength_weights": [
+   1.0,
+   0.5
+  ],
+  "monochromator": null,
+  "source": "sealed X-ray tube"
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 300.0,
+ "two_theta_range_deg": [
+  1.0125,
+  49.987
+ ],
+ "n_points": 5862,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "sqrt(max(I,1)); counting statistics assumed",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": [
+  "Kalpha2 weight 0.5 is the standard ratio; the depositors state only Kalpha1,2"
+ ]
+}ENUM X8a6f5a8 -0.12 11 10.204742193222046
+ENUM X8a6f5a8 -0.06 9 10.490856885910034
+ENUM X8a6f5a8 0.0 40 10.7760488986969
+ENUM X8a6f5a8 0.06 12 11.063476324081421
+ENUM X8a6f5a8 0.12 1 11.343916177749634
+ZONE 6.927641897965502 6 11 425.5080319892486 [np.float64(23.56051225907536), np.float64(18.39749086487), np.float64(100.98787055132009)] 0.0075848392092767326
+ZONE 6.836019449047589 6 11 477.73222345684786 [np.float64(23.89247316051312), np.float64(20.117130107165853), np.float64(83.68577117185336)] 0.04490894537977156
+ZONE 6.662018142862168 6 10 350.27306285038026 [np.float64(22.47634439715508), np.float64(16.65896809853146), np.float64(110.69470725517081)] -0.13057028462081385
+ZONE 6.615383412306079 5 12 352.41275332697614 [np.float64(22.513198620602793), np.float64(16.743758192281913), np.float64(69.21071309719345)] -0.09551059735929814
+ZONE 6.615383412306061 5 12 352.41275332697427 [np.float64(22.51319862060273), np.float64(16.74375819228187), np.float64(110.78928690280655)] -0.0955105973593336
+---G7cell
+{
+ "cell": {
+  "a": 6.950883561252238,
+  "b": 6.9714360090474425,
+  "c": 15.760000618785241,
+  "alpha": 65.620071071758,
+  "beta": 82.98049443060587,
+  "gamma": 67.39068753201737
+ },
+ "space_group": "P -1",
+ "space_group_number": 2
+}GALLOP 72 Nref 266 seconds 18.80368208885193 best 484.1076 q25 584.13824 median 617.61536 total 1877.4611864089966
+GALLOP 73 Nref 266 seconds 19.63221573829651 best 481.54883 q25 566.4708 median 613.8558 total 1897.096117258072
+GALLOP 74 Nref 266 seconds 22.685615062713623 best 480.95752 q25 572.44836 median 609.9041 total 1919.784429550171
+GALLOP 16 Nref 368 seconds 27.338608980178833 best 362.59656 q25 451.8204 median 534.55664 total 533.2849085330963
+GALLOP 17 Nref 368 seconds 26.930447816848755 best 362.59665 q25 423.83954 median 518.19727 total 560.2181921005249
+GALLOP 18 Nref 368 seconds 30.855566263198853 best 339.36032 q25 362.59732 median 482.90338 total 591.0767638683319

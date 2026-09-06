@@ -1,0 +1,84 @@
+===00
+PACKING_STAGE 0 94.73695091410784
+CYCLE 1 0 Rw 0.07577323726036599 chi2 6654.8128939044855 geom 724.0510565858469 LSQ 8226.971587653363
+CYCLE 1 1 Rw 0.07537463338816779 chi2 6584.9819822371555 geom 744.5033918582457 LSQ 8195.034300347308
+CYCLE 1 2 Rw 0.07515182430715174 chi2 6546.108817897924 geom 754.5363819690785 LSQ 8179.881355053951
+PACKING_STAGE 1 131.03856532129453
+===01
+PACKING_STAGE 0 69.7826145157474
+CYCLE 1 0 Rw 0.0783492867873312 chi2 6324.70226769503 geom 656.4629013298332 LSQ 7758.960626282531
+CYCLE 1 1 Rw 0.0780840453696266 chi2 6281.951823853746 geom 635.9910548666777 LSQ 7679.412508476413
+CYCLE 1 2 Rw 0.07794282073166393 chi2 6259.249001712218 geom 629.6764248892388 LSQ 7649.810159257665
+PACKING_STAGE 1 86.57118446209877
+===10
+PACKING_STAGE 0 95.35637526631739
+CYCLE 1 0 Rw 0.07587744361784972 chi2 6705.480414403385 geom 843.8873580233404 LSQ 8410.898340071828
+CYCLE 1 1 Rw 0.07566527373380176 chi2 6668.0328715475125 geom 797.3567898480264 LSQ 8331.143850382696
+CYCLE 1 2 Rw 0.07555601043885359 chi2 6648.789031796564 geom 777.7171174561298 LSQ 8308.618266830477
+PACKING_STAGE 1 133.2766488655489
+===11
+PACKING_STAGE 0 69.47585205461412
+CYCLE 1 0 Rw 0.07848437281549532 chi2 6352.994061718428 geom 769.5857477343594 LSQ 7914.612271259446
+CYCLE 1 1 Rw 0.0783933075210245 chi2 6338.2598766490855 geom 676.7096557414002 LSQ 7775.298996352589
+CYCLE 1 2 Rw 0.07835525488962124 chi2 6332.108103303825 geom 636.9578280027264 LSQ 7729.537265974253
+PACKING_STAGE 1 89.28339076872878
+{
+ "cell": {
+  "a": 6.95225863,
+  "b": 6.98557068,
+  "c": 15.77006897,
+  "alpha": 65.68047009,
+  "beta": 83.03278778,
+  "gamma": 67.34095047
+ },
+ "space_group": "P -1",
+ "space_group_number": 2
+}/app/work/submit.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+X7e382cb Nat 40 molecule sizes [18, 18, 1, 1, 1, 1]
+  component O=C([O-])c1ccc(-c2ccc(C(=O)[O-])cc2)cc1 matches 2
+  component [NH4+] matches 4
+  bond range 1.2582608984181771 1.5156873498347891
+  min intermolecular distance 2.640945439350582
+===processes
+64421 bash /app/work/queue_clop_n110.sh 
+64424 bash /app/work/queue_clop_n110.sh 
+64425 bash /app/work/queue_clop_n110.sh 
+64426 python /app/work/refine_obj.py X3f4781b ninv110m00 /app/work/X3f4781b/search_ninv110m00/best.xml --scale --tight --stol=.4 
+64427 bash /app/work/queue_clop_n110.sh 
+64428 python /app/work/refine_obj.py X3f4781b ninv110m01 /app/work/X3f4781b/search_ninv110m01/best.xml --scale --tight --stol=.4 
+64429 bash /app/work/queue_clop_n110.sh 
+64430 python /app/work/refine_obj.py X3f4781b ninv110m10 /app/work/X3f4781b/search_ninv110m10/best.xml --scale --tight --stol=.4 
+64431 python /app/work/refine_obj.py X3f4781b ninv110m11 /app/work/X3f4781b/search_ninv110m11/best.xml --scale --tight --stol=.4 
+64442 bash -lc export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; for s in 00 01 10 11; do echo ===$s; tail -5 /app/work/X3f4781b/refine_ninv110m$s.log 2>/dev/null; done; cat /app/results/submission
+
+===All submitted CIF sites ===
+X2327841.cif 98 P 1 21 1
+Xbfc6d2c.cif 30 P 1 21/a 1
+X238783d.cif 121 P 21 21 21
+X14a2b08.cif 66 P -1
+Xe1fb77b.cif 62 P 1 21 1
+Xf8ac963.cif 48 P 21 21 21
+X13023e3.cif 48 P 1 21 1
+Xd8634a2.cif 51 P -1
+Xe3a2935.cif 33 P 21 21 21
+X1a56c78.cif 55 P 2 21 21
+X1db5091.cif 62 P 1 21/c 1
+Xfca9f3c.cif 80 P 1 21 1
+Xdcc971e.cif 92 P 1 21 1
+X4f6fe58.cif 60 P -1
+Xd4c1a35.cif 82 P 21 21 21
+Xeb393f9.cif 68 P 1
+Xbfeeda9.cif 69 P 1 21/a 1
+X07806d9.cif 20 P b c a
+X8a06d7a.cif 62 P -1
+X263b09a.cif 63 P -1
+X019b9a4.cif 84 P -1
+X3c176e2.cif 48 P 21 21 21
+X35b7fbc.cif 62 P 21 21 21
+X3f4781b.cif 88 P 1 21 1
+Xb7088cf.cif 48 P 21 21 21
+X9af54a2.cif 76 P 1 21 1
+Xedd9c7b.cif 72 P 1 21/a 1
+X7e382cb.cif 36 P -1
+Sun Sep  6 11:11:03 UTC 2026

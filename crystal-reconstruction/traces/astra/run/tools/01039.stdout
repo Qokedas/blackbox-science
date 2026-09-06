@@ -1,0 +1,54 @@
+X7e382cb 641.5299859803042
+0.01 P-1 2 [[6.951, 0.0, 0.0], [2.68, 6.436, 0.0], [0.754, 0.191, 14.341]]
+0.03 P-1 2 [[6.951, 0.0, 0.0], [2.68, 6.436, 0.0], [0.754, 0.191, 14.341]]
+0.08 P-1 2 [[6.951, 0.0, 0.0], [2.68, 6.436, 0.0], [0.754, 0.191, 14.341]]
+0.15 P-1 2 [[6.951, 0.0, 0.0], [2.68, 6.436, 0.0], [0.754, 0.191, 14.341]]
+X14a2b08 1287.6762671139084
+0.01 P-1 2 [[5.099, 0.0, 0.0], [0.619, 11.916, 0.0], [0.879, 1.722, 21.192]]
+0.03 P-1 2 [[5.099, 0.0, 0.0], [0.619, 11.916, 0.0], [0.879, 1.722, 21.192]]
+0.08 P-1 2 [[5.099, 0.0, 0.0], [0.619, 11.916, 0.0], [0.879, 1.722, 21.192]]
+0.15 P-1 2 [[5.099, 0.0, 0.0], [0.619, 11.916, 0.0], [0.879, 1.722, 21.192]]
+X8a06d7a 1286.7307207879262
+0.01 P-1 2 [[5.01, 0.0, 0.0], [0.032, 11.851, 0.0], [0.048, 1.493, 21.673]]
+0.03 P-1 2 [[5.01, 0.0, 0.0], [0.032, 11.851, 0.0], [0.048, 1.493, 21.673]]
+0.08 P2/m 10 [[11.851, 0.0, 0.0], [0.0, 5.01, 0.0], [-1.493, 0.0, 21.673]]
+0.15 P2/m 10 [[11.851, 0.0, 0.0], [0.0, 5.01, 0.0], [-1.493, 0.0, 21.673]]
+X4f6fe58 1411.7801950851047
+0.01 P-1 2 [[7.554, 0.0, 0.0], [2.782, 12.75, 0.0], [1.743, 4.398, 14.658]]
+0.03 P-1 2 [[7.554, 0.0, 0.0], [2.782, 12.75, 0.0], [1.743, 4.398, 14.658]]
+0.08 P-1 2 [[7.554, 0.0, 0.0], [2.782, 12.75, 0.0], [1.743, 4.398, 14.658]]
+0.15 P-1 2 [[7.554, 0.0, 0.0], [2.782, 12.75, 0.0], [1.743, 4.398, 14.658]]
+CYCLE 0 0 Rw 0.0936817127382147 chi2 6711.362668190696 geom 1916.9187733753652 LSQ 9128.9327432487
+CYCLE 0 1 Rw 0.09336106331404731 chi2 6665.49861130068 geom 1916.9187733753652 LSQ 9060.889500167521
+CYCLE 0 2 Rw 0.09328436436186552 chi2 6654.551290375991 geom 1916.9187733753652 LSQ 9040.308421289676
+PACKING_STAGE 0 26.922823560255555
+CYCLE 1 0 Rw 0.08923249437138356 chi2 6089.016207921969 geom 710.7218867584505 LSQ 7418.3245372124875
+CYCLE 1 1 Rw 0.08854545557629072 chi2 5995.6133384761715 geom 584.7693648996361 LSQ 7151.838154205547
+CYCLE 2 2 Rw 0.11060640131246043 chi2 6637.423892936237 geom 327.96240683754826 LSQ 7428.262779281511
+PACKING_STAGE 2 21.59183021685763
+CYCLE 3 0 Rw 0.11021185649560766 chi2 6590.1555528924055 geom 325.1027083213612 LSQ 7383.8825883059335
+CYCLE 3 1 Rw 0.1097886942477629 chi2 6539.646443237137 geom 318.3291122227253 LSQ 7319.2444786286105
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1418.31it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 279 seconds 178.70044803619385 best 59.67884 q25 237.97366 median 300.8717 total 178.7104332447052
+GALLOP 6 Nref 227 seconds 120.00628447532654 best 159.01613 q25 161.77257 median 238.15176 total 803.31507563591
+GALLOP 7 Nref 251 seconds 120.23232316970825 best 158.97917 q25 158.98422 median 214.66628 total 923.698303937912
+GALLOP 8 Nref 256 seconds 108.31507968902588 best 158.97594 q25 158.98204 median 175.6151 total 1032.1091449260712
+GALLOP 9 Nref 256 seconds 109.00036835670471 best 158.97556 q25 158.97682 median 161.66693 total 1141.2047588825226
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL Xeb393f9 50.29778289794922
+CONDITIONAL 0 [1] best 49.374855041503906 q25 49.375423 sec 169.518709897995
+CONDITIONAL 1 [0] best 46.46664047241211 q25 305.51257 sec 362.8133325576782
+CONDITIONAL 2 [1] best 46.30878448486328 q25 46.309307 sec 545.4009947776794
+CYCLE 3 1 Rw 0.2930282664484547 chi2 9403.418056405702 geom 288.9877472418583 LSQ 10366.144167810353
+CYCLE 3 2 Rw 0.29328738219368605 chi2 9420.055707100439 geom 287.8033380022778 LSQ 10363.475349871183
+PACKING_STAGE 3 219.95523830058
+FINISHED X9af54a2 0.29328738219368605
+Sun Sep  6 10:37:33 UTC 2026

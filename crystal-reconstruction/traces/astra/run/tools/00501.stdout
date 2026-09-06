@@ -1,0 +1,66 @@
+/app/work/X8a6f5a8/fit_0.json
+/app/work/X8a6f5a8/fit_1.json
+/app/work/X8a6f5a8/fit_2.json
+/app/work/X8a6f5a8/fit_3.json
+/app/work/X8a6f5a8/fit_axis0.json
+/app/work/X8a6f5a8/fit_axis3.json
+/app/work/X8a6f5a8/fit_axis7.json
+/app/work/X8a6f5a8/fit_metric0.json
+/app/work/X8a6f5a8/fit_metric1.json
+/app/work/X8a6f5a8/fit_metric2.json
+/app/work/X8a6f5a8/fit_metric3.json
+/app/work/X8a6f5a8/fit_metric4.json
+1:export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 CANDIDATE_FILE=/app/work/X8a6f5a8/candidates_metric.json
+3:for i in 0 1 2 3 4;do CANDIDATE_INDEX=$i python /app/work/fit_candidate.py X8a6f5a8 metric$i .33 > /app/work/X8a6f5a8/fit_metric$i.log 2>&1;done
+{
+ "cell": [
+  17.605641955694704,
+  7.188567124840918,
+  23.14093271379739,
+  90.0,
+  105.36061507456351,
+  90.0
+ ],
+ "system": "MONOCLINIC",
+ "centering": "P",
+ "volume": 2843.728604597899,
+ "score": 7.491246571584588,
+ "cost": 0.5028430877728389,
+ "mode": 21,
+ "zero": -0.009035146356563394,
+ "rms": 0.025871009900782144,
+ "maxerr": 0.07178968675622624,
+ "parameters": [
+  0.0585637771716944,
+  0.1386317820937377,
+  0.04494078175113918,
+  0.2666870291776186,
+  -0.009035146356563394
+ ],
+ "diff": [
+  -0.0033042940191096272,
+  -0.02422229915490984,
+  0.016250891595957186,
+  0.07178968675622624,
+  0.0016990963819000747,
+  0.0004996854843254649,
+  0.0025559350014392763,
+  0.012046305541827333,
+  0.013869748963981274,
+  -0.0429060279765025,
+  -0.016354380508032403,
+  -0.010877250088769191,
+  0.007362828595119959,
+  -0.024506673289175586,
+  -0.04380970588719611,
+  0.02586999832459937,
+  0.014410934288438815,
+  0.002684245017954159
+ ],
+/app/work/X8a6f5a8/index_metric_MONOCLINIC_P.json
+/app/work/X8a6f5a8/index_metric_ORTHOROMBIC_P.json
+GALLOP 8 Nref 368 seconds 117.60758399963379 best 386.9712 q25 424.78992 median 587.3253 total 864.817146062851
+GALLOP 9 Nref 368 seconds 120.74717402458191 best 386.97125 q25 429.69955 median 573.6095 total 985.6466574668884
+GALLOP 10 Nref 368 seconds 102.50028705596924 best 386.97116 q25 441.0429 median 555.672 total 1088.2131011486053
+GALLOP 11 Nref 368 seconds 78.20157122612 best 386.9711 q25 433.29742 median 557.27704 total 1166.4360496997833
+FINISHED X4f6fe58 386.97100830078125

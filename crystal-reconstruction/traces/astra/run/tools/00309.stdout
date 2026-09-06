@@ -1,0 +1,30 @@
+X13023e3 Nat 48 molecule sizes [15, 15, 9, 9]
+  component CC(C)Cc1ccc([C@@H](C)C(=O)O)cc1 matches 2
+  component NC(=O)c1cccnc1 matches 2
+  bond range 1.2202148931228998 1.5410900161049126
+  min intermolecular distance 2.463368643412368
+SUBMITTED X13023e3
+Xd4FREEPID=11265
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 PEAK_FILE=peaks_raw.json NPEAK=35 MAXITER=1200 TRIALS=30 INDEX_TIME=900 NSPUR=2 INDEX_TAG=de_ext VMIN=1050 VMAX=1500 VTARGET=1300
+while [[ -r /proc/8732/status ]] && ! grep -q '^State:.*Z' /proc/8732/status; do sleep 5; done
+for id in X8a06d7a X263b09a X1db5091; do
+ export SELECT_FILE=/app/work/$id/peak_select_ext.json
+ if [[ $id == X1db5091 ]]; then PEAK_SKIP=1 BROAD=1 python /app/work/index_de.py $id > /app/work/$id/de_ext.log 2>&1
+ else python /app/work/index_de.py $id > /app/work/$id/de_ext.log 2>&1; fi
+done
+GALLOP 26 Nref 169 seconds 23.667569875717163 best 116.40491 q25 149.41385 median 235.00072 total 697.0733659267426
+GALLOP 27 Nref 169 seconds 25.61947226524353 best 116.40494 q25 134.64224 median 221.09592 total 722.6970109939575
+GALLOP 28 Nref 169 seconds 24.17279863357544 best 116.40489 q25 124.39356 median 150.46347 total 746.8741409778595
+GALLOP 29 Nref 169 seconds 27.78265142440796 best 116.404884 q25 122.462524 median 143.48567 total 774.660900592804
+GALLOP 30 Nref 169 seconds 28.842777729034424 best 116.40486 q25 116.40687 median 139.63162 total 803.5073809623718
+GALLOP 31 Nref 169 seconds 24.498939752578735 best 116.40472 q25 116.405045 median 133.2572 total 828.05899477005
+GALLOP 32 Nref 169 seconds 22.240107774734497 best 116.40472 q25 116.40498 median 125.37906 total 850.3028225898743
+FINISHED X7e382cb 116.40280151367188
+#  1:ScatteringPowerAtom(N)
+#  2:ScatteringPowerAtom(O)
+#  3:ScatteringPowerAtom(Cl)
+ANTIBUMP 5 Scale 10.0 Initial cost 3951.290161268634
+Imported powder pattern: 4041 points, 2theta=  4.850 ->  45.251, step= 0.010
+RESCALED_BASE 2.2519343277139 0.0464910011027389 4040.999999999988
+INITIAL Xbfeeda9 1 Rw 0.4758924869647883 LLK 299928.47530277877 Integrated 294450.45788102126 DOF -1
+RUN 0 steps 100000 time 224.03500199317932 total 224.03508639335632 LLK 115530.38822475183 Rw 0.27262385070481876 Integrated 113045.05589373872

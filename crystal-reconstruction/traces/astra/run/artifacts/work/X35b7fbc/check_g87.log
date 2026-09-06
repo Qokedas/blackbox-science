@@ -1,0 +1,13 @@
+/app/work/submit.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+X35b7fbc Nat 132 molecule sizes [25, 25, 25, 25, 8, 8, 8, 8]
+  component CC[C@@H](CO)NC(=O)[C@@H]1C=C2c3cccc4[nH]cc(c34)C[C@H]2[NH+](C)C1 matches 4
+  component O=C([O-])C=CC(=O)O matches 4
+  bond range 1.211459734500642 1.57974679422934
+  min intermolecular distance 2.447838064885243
+/app/work/check_stereo.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(fn).parse_structures(primitive=False)[0];s.remove_species(['H']);rad=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<1.2*(rad[:,None]+rad[None,:]));g=nx.from_numpy_array(A)
+X35b7fbc root 0 expected {2: 'S', 8: 'R', 21: 'R'} actual {2: 'S', 8: 'R', 21: 'R'} OK True
+X35b7fbc root 1 expected {2: 'S', 8: 'R', 21: 'R'} actual {2: 'S', 8: 'R', 21: 'R'} OK True
+X35b7fbc root 2 expected {2: 'S', 8: 'R', 21: 'R'} actual {2: 'S', 8: 'R', 21: 'R'} OK True
+X35b7fbc root 3 expected {2: 'S', 8: 'R', 21: 'R'} actual {2: 'S', 8: 'R', 21: 'R'} OK True

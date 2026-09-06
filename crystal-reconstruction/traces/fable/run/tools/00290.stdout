@@ -1,0 +1,8 @@
+Imported powder pattern: 14001 points, 2theta=  2.000 ->  16.000, step= 0.001
+Traceback (most recent call last):
+  File "<stdin>", line 14, in <module>
+Boost.Python.ArgumentError: Python argument types in
+    RefinableObj.GetLSQWeight(PowderPattern)
+did not match C++ signature:
+    GetLSQWeight((anonymous namespace)::RefinableObjWrap {lvalue}, unsigned int)
+    GetLSQWeight(ObjCryst::RefinableObj {lvalue}, unsigned int)

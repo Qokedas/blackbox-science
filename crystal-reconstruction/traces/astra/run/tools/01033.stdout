@@ -1,0 +1,61 @@
+import json,os,glob,warnings,numpy as np,networkx as nx,gemmi,runpy,sys,contextlib,io
+from pymatgen.io.cif import CifParser
+from rdkit import Chem
+warnings.filterwarnings('ignore')
+R='/app/results/submission';report=[]
+for p in sorted(glob.glob(R+'/*.json')):
+ sid=os.path.basename(p)[:-5];j=json.load(open(p));sg=gemmi.find_spacegroup_by_name(j['space_group']);rec={'id':sid,'json_sg':sg.xhm() if sg else None,'json_sg_num':sg.number if sg else None};assert sg and sg.number==j.get('space_group_number',sg.number)
+ fn=R+'/'+sid+'.cif'
+ if os.path.exists(fn):
+  blocks=gemmi.cif.read_file(fn);assert len(blocks)==1;b=blocks.sole_block();g2=gemmi.find_spacegroup_by_name(gemmi.cif.as_string(b.find_value('_space_group_name_H-M_alt')));assert g2
+  cp=[float(b.find_value('_cell_'+v)) for v in ['length_a','length_b','length_c','angle_alpha','angle_beta','angle_gamma']];jp=[j['cell'][k] for k in ['a','b','c','alpha','beta','gamma']];rec['cell_agrees']=bool(np.allclose(cp,jp,atol=.00005));rec['sg_agrees']=g2.number==sg.number
+  assert rec['cell_agrees'] and rec['sg_agrees']
+  assert all(abs(float(v)-1)<1.e-5 for v in b.find_values('_atom_site_occupancy'))
+  s=CifParser(fn).parse_structures(primitive=False)[0];s.remove_species(['H']);rec['nheavy']=len(s);rad=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<1.2*(rad[:,None]+rad[None,:]));g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));rec['sizes']=sorted(map(len,cs))
+  for i in g:g.nodes[i]['el']=s[i].specie.symbol
+  matched=set();ratios=[]
+  for co in json.load(open('/app/data/instances/'+sid+'/composition.json'))['components']:
+   r=Chem.MolFromSmiles(co['smiles']);rg=nx.Graph();rg.add_nodes_from((a.GetIdx(),{'el':a.GetSymbol()}) for a in r.GetAtoms());rg.add_edges_from((bo.GetBeginAtomIdx(),bo.GetEndAtomIdx()) for bo in r.GetBonds());ms=[i for i,c in enumerate(cs) if nx.is_isomorphic(g.subgraph(c),rg,node_match=lambda a,b:a['el']==b['el'])];matched.update(ms);ratios.append(len(ms)/co['count'])
+  rec['graph_ok']=len(matched)==len(cs) and min(ratios)>0 and max(ratios)==min(ratios);rec['Z']=ratios[0];assert rec['graph_ok']
+  out=io.StringIO();sys.argv=['/app/work/check_stereo.py',sid,fn]
+  with contextlib.redirect_stdout(out):runpy.run_path('/app/work/check_stereo.py',run_name='__main__')
+  rec['stereochemistry']=out.getvalue().strip();assert 'OK False' not in rec['stereochemistry'];print(sid,'CIF graph/stereo/cell/SG validated','Nat',len(s),flush=True)
+ else:print(sid,'JSON only',sg.xhm(),flush=True)
+ report.append(rec)
+json.dump(report,open('/app/work/submission_audit.json','w'),indent=1)
+print('DONE',len(report),'instances',sum('nheavy' in x for x in report),'CIFs',flush=True)
+/app/work/submit.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+X14a2b08 Nat 74 molecule sizes [29, 29, 8, 8]
+  component COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1 matches 2
+  component O=C1CCCCCN1 matches 2
+  bond range 1.2204400727141353 1.7081214209156168
+  min intermolecular distance 2.5814496755490834
+  min intermolecular distance 3.065221379865435
+/app/work/check_stereo.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(fn).parse_structures(primitive=False)[0];s.remove_species(['H']);rad=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<1.2*(rad[:,None]+rad[None,:]));g=nx.from_numpy_array(A)
+X1a56c78 root 88 expected {1: 'S'} actual {1: 'S'} OK True
+X1a56c78 root 89 expected {1: 'S'} actual {1: 'S'} OK True
+X1a56c78 root 90 expected {1: 'S'} actual {1: 'S'} OK True
+X1a56c78 root 91 expected {1: 'S'} actual {1: 'S'} OK True
+N_INVERSION_MOVES [(0, 12, [4, 13, 20], [12, 29]), (2, 12, [4, 13, 20], [12, 29])]
+{'tag': 'ninv94m00', 'mask': (0, 0), 'Rw': 0.09526593746487058}
+{'tag': 'ninv94m01', 'mask': (0, 1), 'Rw': 0.09904760415115695}
+{'tag': 'ninv94m10', 'mask': (1, 0), 'Rw': 0.09709264290037732}
+{'tag': 'ninv94m11', 'mask': (1, 1), 'Rw': 0.09852112199988423}
+CYCLE 1 0 Rw 0.08809973596007009 chi2 5703.440704350679 geom 616.9241406939327 LSQ 6925.238961599667
+CYCLE 1 1 Rw 0.0872234621892267 chi2 5590.54773044022 geom 494.2701636525004 LSQ 6641.811517840555
+CYCLE 1 2 Rw 0.08655912521231131 chi2 5505.711297043815 geom 486.27793490169216 LSQ 6551.035841301541
+PACKING_STAGE 1 28.02495516191777
+CYCLE 2 0 Rw 0.08662437930153948 chi2 5514.015576837971 geom 482.0038212954678 LSQ 6542.839054464566
+CYCLE 2 1 Rw 0.08653300470244589 chi2 5502.388937045547 geom 481.7177120511716 LSQ 6528.783121879545
+CYCLE 2 2 Rw 0.08645748603181021 chi2 5492.78909064608 geom 481.74998928233373 LSQ 6519.441619556359
+PACKING_STAGE 2 21.80809960152966
+CYCLE 3 0 Rw 0.0862587729847065 chi2 5467.568960530335 geom 477.7138679012561 LSQ 6489.8261597484525
+GALLOP 2 Nref 132 seconds 103.7869553565979 best 161.03862 q25 166.50514 median 234.17719 total 314.6757068634033
+GALLOP 3 Nref 153 seconds 105.08427023887634 best 160.35634 q25 164.85545 median 231.79909 total 419.8724892139435
+GALLOP 4 Nref 174 seconds 141.2825219631195 best 159.86702 q25 163.61574 median 219.65245 total 561.2701635360718
+GALLOP 5 Nref 202 seconds 121.82206678390503 best 159.1852 q25 162.16577 median 355.34674 total 683.2041771411896
+GALLOP 6 Nref 227 seconds 120.00628447532654 best 159.01613 q25 161.77257 median 238.15176 total 803.31507563591
+GALLOP 7 Nref 251 seconds 120.23232316970825 best 158.97917 q25 158.98422 median 214.66628 total 923.698303937912
+Sun Sep  6 10:33:57 UTC 2026

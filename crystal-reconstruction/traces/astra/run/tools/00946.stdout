@@ -1,0 +1,42 @@
+Xedd9c7b g85 RMS,max (np.float64(0.034038315055757905), np.float64(0.07070482679569597)) [np.float64(0.08922313338715579), np.float64(0.1853354427789452)]
+X1a56c78 chair84m00 RMS,max (np.float64(0.02997963450463508), np.float64(0.058400536918536416)) [np.float64(0.08365247887493339), np.float64(0.16295561175394993)]
+=====/app/work/Xb7088cf/gallop51.log
+HBOND_PRIOR 3 donors 5 acceptors coefficient 20.0 directional True
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1429.80it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 226 seconds 219.78252458572388 best 91.41851 q25 195.04846 median 261.28033 total 219.79170966148376
+=====/app/work/X8a06d7a/gallop74.log
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 421 seconds 172.99796962738037 best 154.83446 q25 251.32997 median 395.0284 total 173.00717782974243
+GALLOP 1 Nref 421 seconds 175.99441289901733 best 149.84962 q25 181.64508 median 394.88986 total 349.2088351249695
+GALLOP 2 Nref 421 seconds 186.40312957763672 best 149.11285 q25 172.95802 median 374.30542 total 535.8419289588928
+=====/app/work/X263b09a/gallop50.log
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 449 seconds 187.00480556488037 best 17.591324 q25 18.452652 median 235.75632 total 187.0625762939453
+GALLOP 1 Nref 449 seconds 172.30276536941528 best 17.76231 q25 35.575516 median 255.13351 total 359.58979296684265
+GALLOP 2 Nref 449 seconds 179.30664801597595 best 17.215584 q25 33.36459 median 215.15195 total 538.9729897975922
+=====/app/work/X1a56c78/refine_chair84m01.log
+CYCLE 1 1 Rw 0.23310521258446662 chi2 1605.821218467185 geom 16.333298735536182 LSQ 1711.0948225352984
+CYCLE 1 2 Rw 0.22140841756179624 chi2 1448.7100665601074 geom 16.56155010694178 LSQ 1551.711545171433
+PACKING_STAGE 1 0.8508430129036562
+CYCLE 2 0 Rw 0.21007559623783653 chi2 1304.2007079104233 geom 20.550591676753783 LSQ 1412.9125699664446
+CYCLE 2 1 Rw 0.19949767206116267 chi2 1176.1667192662374 geom 27.975701965009065 LSQ 1288.4521854741165
+CYCLE 2 2 Rw 0.1904739534969398 chi2 1072.1718836892533 geom 36.35652110198571 LSQ 1193.8071548348507
+PACKING_STAGE 2 0.4246126606244002
+=====/app/work/X4f6fe58/refine_chem83.log
+CYCLE 2 2 Rw 0.0875559792493857 chi2 6727.201150885215 geom 213.8428521333634 LSQ 7505.118397677021
+PACKING_STAGE 2 159.52905602397064
+CYCLE 3 0 Rw 0.08726646995092595 chi2 6682.786882593525 geom 211.99154382725982 LSQ 7455.081210993238
+CYCLE 3 1 Rw 0.08727620531412732 chi2 6684.278016279007 geom 208.00089781839395 LSQ 7442.983902348114
+CYCLE 3 2 Rw 0.0872806270801344 chi2 6684.955338624302 geom 204.1209075957209 LSQ 7431.7964418197425
+PACKING_STAGE 3 142.89438257853755
+FINISHED X4f6fe58 0.0872806270801344

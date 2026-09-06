@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "<stdin>", line 4, in <module>
+  File "/opt/g2/GSAS-II/GSASII/GSASIIpwd.py", line 1349, in getdFCJVoigt3
+    Df,dFdp,dFds,dFdg,dFdsh = pyd.pydpsvfcjo(len(xdata),xdata-pos,pos,sig,gam,shl)
+                              ^^^
+NameError: name 'pyd' is not defined

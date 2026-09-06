@@ -1,0 +1,72 @@
+X019b9a4
+X07806d9
+X13023e3
+X14a2b08
+X1a56c78
+X1db5091
+X2327841
+X238783d
+X263b09a
+X35b7fbc
+X3c176e2
+X3f4781b
+X4f6fe58
+X7e382cb
+X8a06d7a
+X8a6f5a8
+X9af54a2
+Xb7088cf
+Xbfc6d2c
+Xbfeeda9
+Xd4c1a35
+Xd8634a2
+Xdcc971e
+Xe1fb77b
+Xe3a2935
+Xeb393f9
+Xebbd488
+Xedd9c7b
+Xf8ac963
+Xfca9f3c
+__pycache__
+absences.py
+all_patterns.png
+batch_index.log
+batch_index.py
+dbg.py
+g2index.py
+idx_test.log
+idx_test.py
+index1.py
+killpy.sh
+lebail.py
+peaks.py
+peaks_all.log
+plotall.py
+solve.py
+spgexplore.py
+g2_monoC.log
+g2_monoP.log
+g2_ortho.log
+g2index_monoC_20.txt
+g2index_monoP_20.txt
+g2index_ortho_20.txt
+lebail_P222.png
+lebail_Pbca.png
+peaks.png
+peaks.txt
+sol_test
+solve_test.log
+spgexplore.txt
+step ['Zero'] Rwp=0.3671
+step ['W'] Rwp=0.1871
+step ['a', 'b', 'c', 'alpha', 'beta', 'gamma'] Rwp=0.1558
+step ['U', 'V'] Rwp=0.1504
+step ['Eta0'] Rwp=0.1405
+step ['Eta1'] Rwp=0.1398
+step ['background'] Rwp=0.1246
+step ['Zero', 'W', 'U', 'V', 'Eta0', 'background', 'a', 'b', 'c', 'alpha', 'beta', 'gamma'] Rwp=0.1219
+LeBail Rwp=0.1200 chi2=3069076.8 cell= 16.855737219922705 8.206845327962547 11.219756052688085 90.0
+  molecule mol0_0: 9 atoms, 8 bonds, 9 angles, 0 dihedral restraints, 4 free torsions
+done ('X1a56c78', 'monoC', 120)
+done ('X1a56c78', 'ortho', 60)

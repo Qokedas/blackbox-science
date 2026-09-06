@@ -1,0 +1,566 @@
+X019b9a4
+X07806d9
+X13023e3
+X14a2b08
+X1a56c78
+X1db5091
+X2327841
+X238783d
+X263b09a
+X35b7fbc
+X3c176e2
+X3f4781b
+X4f6fe58
+X7e382cb
+X8a06d7a
+X8a6f5a8
+X9af54a2
+Xb7088cf
+Xbfc6d2c
+Xbfeeda9
+Xd4c1a35
+Xd8634a2
+Xdcc971e
+Xe1fb77b
+Xe3a2935
+Xeb393f9
+Xebbd488
+Xedd9c7b
+Xf8ac963
+Xfca9f3c
+Zprime_notes.txt
+__pycache__
+add_ammonium_h.py
+add_fixed_march.py
+additional_cond.log
+adopt_fit.py
+alkane_fits.log
+alkane_models.py
+alkane_reindex.log
+analyze_lattice.py
+analyze_po.py
+aniso_bridge.cpp
+antibump.py
+antibump_v1.py
+audit_base.py
+audit_bases.log
+audit_submission.py
+audit_zm.py
+b708_typed.log
+bep89_queue.log
+br84.log
+caprolactam94_queue.log
+chair84_queue.log
+check_hbonds.py
+check_stereo.py
+check_stereo_v1.py
+check_zmat.py
+clop_n94_queue.log
+clopidogrel_cond.log
+collect_candidates.py
+complete_2d.py
+complete_2d_general.py
+complete_mono_axis.py
+complete_mono_axis_emg.py
+complete_plane_mono.py
+conformer_variants.py
+contacts.py
+create_base.py
+create_stable_base.py
+emg_global8.py
+emg_refine_cells.py
+enumerate_methoxy.py
+enumerate_methoxy_v1.py
+enumerate_rotations.py
+enumerate_rotations_v1.py
+eval_cif.py
+expand_p1.py
+extend_low_base.py
+extend_low_base_v1.py
+extract_molecule_coords.py
+fcj_bridge.f90
+fcj_global8.py
+fcj_refine_cells.py
+fcj_refine_cells_v1.py
+find_zones.py
+find_zones_v1.py
+fit_aniso.py
+fit_candidate.py
+fits2.log
+fits_batch.log
+flip_chairs.py
+fresh.log
+gallop_config.json
+gallop_fast_symmetry.py
+gallop_fast_symmetry_v1.py
+gallop_hbond.py
+gallop_hbond_v1.py
+gallop_heavy_anchor.py
+gallop_io.py
+gallop_moves.py
+COUNTS
+{
+ "ids": [
+  "X019b9a4",
+  "X07806d9",
+  "X13023e3",
+  "X14a2b08",
+  "X1a56c78",
+  "X1db5091",
+  "X2327841",
+  "X238783d",
+  "X263b09a",
+  "X35b7fbc",
+  "X3c176e2",
+  "X3f4781b",
+  "X4f6fe58",
+  "X7e382cb",
+  "X8a06d7a",
+  "X8a6f5a8",
+  "X9af54a2",
+  "Xb7088cf",
+  "Xbfc6d2c",
+  "Xbfeeda9",
+  "Xd4c1a35",
+  "Xd8634a2",
+  "Xdcc971e",
+  "Xe1fb77b",
+  "Xe3a2935",
+  "Xeb393f9",
+  "Xebbd488",
+  "Xedd9c7b",
+  "Xf8ac963",
+  "Xfca9f3c"
+ ],
+ "n": 30,
+ "instances": [
+  {
+   "id": "X019b9a4",
+   "n_points": 1550,
+   "two_theta_range_deg": [
+    3.0,
+    33.98
+   ],
+   "n_components": 3,
+   "heavy_atoms_per_formula_unit": 48
+  },
+  {
+   "id": "X07806d9",
+   "n_points": 29816,
+   "two_theta_range_deg": [
+    0.5008,
+    75.0383
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 10
+  },
+  {
+   "id": "X13023e3",
+   "n_points": 9572,
+   "two_theta_range_deg": [
+    2.015,
+    40.299
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 24
+  },
+  {
+   "id": "X14a2b08",
+   "n_points": 9626,
+   "two_theta_range_deg": [
+    3.0,
+    80.0
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 37
+  },
+  {
+   "id": "X1a56c78",
+   "n_points": 4994,
+   "two_theta_range_deg": [
+    5.0,
+    104.86
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 23
+  },
+  {
+   "id": "X1db5091",
+   "n_points": 7201,
+   "two_theta_range_deg": [
+    3.0,
+    75.0
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 38
+  },
+  {
+   "id": "X2327841",
+   "n_points": 12834,
+   "two_theta_range_deg": [
+    1.5,
+    39.999
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 32
+  },
+  {
+   "id": "X238783d",
+   "n_points": 6701,
+   "two_theta_range_deg": [
+    2.0,
+    69.0
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 52
+  },
+  {
+   "id": "X263b09a",
+   "n_points": 7201,
+   "two_theta_range_deg": [
+    3.0,
+    75.0
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 36
+  },
+  {
+   "id": "X35b7fbc",
+   "n_points": 11591,
+   "two_theta_range_deg": [
+    0.515,
+    29.49
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 33
+  },
+  {
+   "id": "X3c176e2",
+   "n_points": 7800,
+   "two_theta_range_deg": [
+    2.0,
+    79.99
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 12
+  },
+  {
+   "id": "X3f4781b",
+   "n_points": 8601,
+   "two_theta_range_deg": [
+    4.0,
+    90.0
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 26
+  },
+  {
+   "id": "X4f6fe58",
+   "n_points": 7501,
+   "two_theta_range_deg": [
+    5.0,
+    80.0
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 20
+  },
+  {
+   "id": "X7e382cb",
+   "n_points": 5862,
+   "two_theta_range_deg": [
+    1.0125,
+    49.987
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 20
+  },
+  {
+   "id": "X8a06d7a",
+   "n_points": 4531,
+   "two_theta_range_deg": [
+    3.001,
+    80.011
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 38
+  },
+  {
+   "id": "X8a6f5a8",
+   "n_points": 8151,
+   "two_theta_range_deg": [
+    3.5,
+    85.0
+   ],
+   "n_components": 3,
+   "heavy_atoms_per_formula_unit": 39
+  },
+  {
+   "id": "X9af54a2",
+   "n_points": 49486,
+   "two_theta_range_deg": [
+    0.51,
+    49.995
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 19
+  },
+  {
+   "id": "Xb7088cf",
+   "n_points": 5864,
+   "two_theta_range_deg": [
+    1.0067,
+    49.9958
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 28
+  },
+  {
+   "id": "Xbfc6d2c",
+   "n_points": 4250,
+   "two_theta_range_deg": [
+    5.0,
+    89.98
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 18
+  },
+  {
+   "id": "Xbfeeda9",
+   "n_points": 9820,
+   "two_theta_range_deg": [
+    2.0,
+    100.19
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 35
+  },
+  {
+   "id": "Xd4c1a35",
+   "n_points": 5499,
+   "two_theta_range_deg": [
+    5.05,
+    60.04
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 24
+  },
+  {
+   "id": "Xd8634a2",
+   "n_points": 49486,
+   "two_theta_range_deg": [
+    0.51,
+    49.995
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 33
+  },
+  {
+   "id": "Xdcc971e",
+   "n_points": 12667,
+   "two_theta_range_deg": [
+    2.001,
+    39.999
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 30
+  },
+  {
+   "id": "Xe1fb77b",
+   "n_points": 49575,
+   "two_theta_range_deg": [
+    0.5,
+    49.9965
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 38
+  },
+  {
+   "id": "Xe3a2935",
+   "n_points": 49486,
+   "two_theta_range_deg": [
+    0.51,
+    49.995
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 21
+  },
+  {
+   "id": "Xeb393f9",
+   "n_points": 29816,
+   "two_theta_range_deg": [
+    0.5008,
+    75.0383
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 37
+  },
+  {
+   "id": "Xebbd488",
+   "n_points": 7001,
+   "two_theta_range_deg": [
+    5.0,
+    75.0
+   ],
+   "n_components": 3,
+   "heavy_atoms_per_formula_unit": 71
+  },
+  {
+   "id": "Xedd9c7b",
+   "n_points": 2818,
+   "two_theta_range_deg": [
+    3.0066,
+    39.9938
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 19
+  },
+  {
+   "id": "Xf8ac963",
+   "n_points": 49486,
+   "two_theta_range_deg": [
+    0.51,
+    49.995
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 21
+  },
+  {
+   "id": "Xfca9f3c",
+   "n_points": 12834,
+   "two_theta_range_deg": [
+    1.5,
+    39.999
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 26
+  }
+ ]
+}ACTIVE
+16777 S 1 0.25 bash /app/work/queue_gallop_A4.sh 
+32867 S 1 0.43 bash /app/work/queue_gallop_A5.sh 
+43321 S 1 0.01 bash /app/work/queue_gallop_D8.sh 
+51094 S 1 0.07 bash /app/work/queue_acm_warm.sh 
+52928 S 1 0.04 bash /app/work/queue_clopidogrel_cond.sh 
+54759 S 1 0.03 bash /app/work/queue_br84.sh 
+55005 R 16777 920.63 python /app/work/search_gallop.py X019b9a4 11 1 --prepare --hscatter 
+56479 S 1 0.03 bash /app/work/queue_salt_conditional86.sh 
+56680 S 1 0.06 bash /app/work/queue_x7_centros88.sh 
+56767 R 54759 570.72 python /app/work/search_gallop.py X4f6fe58 84 1 --hscatter --packing 
+57121 S 1 0.07 bash /app/work/queue_bep_conditional89.sh 
+57590 S 1 0.0 bash /app/work/queue_caprolactam94.sh 
+57998 S 1 0.02 bash /app/work/queue_x1a_warm90.sh 
+58591 R 56479 275.73 python /app/work/search_conditional.py X9af54a2 86 87 
+58715 R 43321 264.23 python /app/work/search_gallop.py Xb7088cf 31 1 --prepare --hscatter --packing 
+59277 R 57998 188.3 python /app/work/search_gallop.py X1a56c78 90 1 --hscatter --packing 
+59436 S 1 0.01 bash /app/work/queue_clop_n94.sh 
+59557 R 51094 127.05 python /app/work/search_gallop.py X14a2b08 50 1 --hscatter --packing 
+59787 R 52928 122.65 python /app/work/refine_obj.py X3f4781b g83 /app/work/X3f4781b/search_g83/best.xml --scale --tight --stol=.4 
+60012 R 56680 68.01 python /app/work/search_gallop.py X7e382cb 88 1 --prepare --hscatter --packing 
+60304 S 0 0.03 timeout --signal=TERM --kill-after=5s 60 bash -lc ls /app/work | head -100; echo COUNTS; cat /app/data/instances.json; echo ACTIVE; python - <<'PY'
+import glob,os
+for f in glob.glob('/proc/[0-9]*/cmdline'):
+ try:
+  cmd=open(f,'rb').read().r
+60310 S 60304 0.0 bash -lc ls /app/work | head -100; echo COUNTS; cat /app/data/instances.json; echo ACTIVE; python - <<'PY'
+import glob,os
+for f in glob.glob('/proc/[0-9]*/cmdline'):
+ try:
+  cmd=open(f,'rb').read().replace(b'\0',b' ').decode();pid=f.split('
+=====X263b09a/refine_tight96.log
+PACKING_STAGE 1 0.0
+CYCLE 2 0 Rw 0.04090239467274382 chi2 7191.782155248694 geom 1072.6997041724062 LSQ 8957.315407749124
+CYCLE 2 1 Rw 0.040896045472182264 chi2 7189.54959533889 geom 1059.9344942555601 LSQ 8938.420118287355
+CYCLE 2 2 Rw 0.040876676897382454 chi2 7182.741193575862 geom 1052.1684074353093 LSQ 8921.209224235372
+PACKING_STAGE 2 0.0
+CYCLE 3 0 Rw 0.04080970220042317 chi2 7159.22324390313 geom 1044.2475918607606 LSQ 8885.858766995287
+CYCLE 3 1 Rw 0.040689486148869705 chi2 7117.106499112173 geom 1040.0830786165861 LSQ 8841.991958371342
+CYCLE 3 2 Rw 0.040634815722110244 chi2 7097.994247174224 geom 1033.954213906093 LSQ 8814.354059576617
+PACKING_STAGE 3 0.0
+FINISHED X263b09a 0.040634815722110244
+=====X3f4781b/refine_g83.log
+CYCLE 0 2 Rw 0.10696167820889665 chi2 4703.510415261812 geom 19.86011645950756 LSQ 4850.301141823456
+PACKING_STAGE 0 8.534954144501041
+CYCLE 1 0 Rw 0.10338506548864625 chi2 4394.215056236088 geom 43.74987716159164 LSQ 4678.685430886419
+CYCLE 1 1 Rw 0.10064303048061252 chi2 4164.214617054716 geom 187.63483526182063 LSQ 4671.796973340179
+CYCLE 1 2 Rw 0.10018892275723953 chi2 4126.720995291135 geom 87.7980082538913 LSQ 4479.382239088613
+PACKING_STAGE 1 5.455530625966903
+CYCLE 2 0 Rw 0.10040027639026393 chi2 4144.150416095213 geom 75.15128025842695 LSQ 4466.565693063954
+CYCLE 2 1 Rw 0.10013328696149759 chi2 4122.139058437554 geom 75.71902222719362 LSQ 4446.119082056525
+CYCLE 2 2 Rw 0.10001062003211315 chi2 4112.045703146905 geom 76.18698651250887 LSQ 4436.945593622848
+PACKING_STAGE 2 3.5924455946141864
+=====X7e382cb/gallop88.log
+PREPARED X7e382cb Nref 256 PawleyRw 0.0349046370636744 SG P -1
+ATTACHED_H_SCATTERING 20 heavy atoms 16 H atoms
+PACKING_ENABLED 20 atoms 519 pair terms coefficient 150.0 active_only True
+HBOND_PRIOR 2 donors 4 acceptors coefficient 20.0 directional False
+  0%|          | 0/5 [00:00<?, ?it/s]100%|██████████| 5/5 [00:00<00:00, 1736.20it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 90 seconds 107.06359839439392 best 167.72588 q25 424.58945 median 635.2606 total 107.07051968574524
+=====X1a56c78/gallop90.log
+ATTACHED_H_SCATTERING 23 heavy atoms 32 H atoms
+PACKING_ENABLED 23 atoms 1751 pair terms coefficient 80.0 active_only True
+HBOND_PRIOR 2 donors 2 acceptors coefficient 15.0 directional True
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1400.67it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 279 seconds 231.5870382785797 best 52.731766 q25 233.13261 median 305.46753 total 231.59774208068848
+GALLOP 1 Nref 279 seconds 180.60932970046997 best 52.73186 q25 221.90385 median 294.89435 total 412.337806224823
+=====X14a2b08/gallop50.log
+ATTACHED_H_SCATTERING 37 heavy atoms 29 H atoms
+PACKING_ENABLED 37 atoms 1887 pair terms coefficient 70.0 active_only True
+HBOND_PRIOR 2 donors 7 acceptors coefficient 15.0 directional False
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 690.88it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 470 seconds 219.7923686504364 best 61.217808 q25 63.3435 median 237.255 total 219.8115692138672
+=====X4f6fe58/gallop84.log
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 523 seconds 241.89472556114197 best 116.84064 q25 403.62494 median 489.0633 total 241.9100866317749
+GALLOP 1 Nref 523 seconds 232.22311210632324 best 116.840775 q25 369.25964 median 446.20044 total 474.4332284927368
+GALLOP 2 Nref 523 seconds 231.9182858467102 best 116.840775 q25 176.32886 median 435.188 total 706.4477610588074
+GALLOP 3 Nref 523 seconds 230.07588505744934 best 116.840576 q25 176.32863 median 430.33368 total 936.6148085594177
+GALLOP 4 Nref 523 seconds 244.8270149230957 best 116.84052 q25 231.4297 median 456.7666 total 1181.7446484565735
+GALLOP 5 Nref 523 seconds 249.72082567214966 best 116.84057 q25 176.32874 median 420.34967 total 1431.825442790985
+=====Xb7088cf/gallop31.log
+PACKING_ENABLED 28 atoms 2623 pair terms coefficient 50.0 active_only True
+HBOND_PRIOR 3 donors 5 acceptors coefficient 8.0 directional False
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1499.04it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 90 seconds 154.6047763824463 best 153.79314 q25 251.24031 median 291.34866 total 154.61129426956177
+GALLOP 1 Nref 103 seconds 161.98654651641846 best 153.57498 q25 206.03577 median 248.76505 total 316.7047097682953
+GALLOP 2 Nref 117 seconds 223.86588430404663 best 153.45544 q25 203.20212 median 246.01881 total 540.7862339019775
+=====X019b9a4/gallop11.log
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 100 seconds 201.9990417957306 best 294.39438 q25 429.89124 median 473.49396 total 202.00445413589478
+GALLOP 1 Nref 113 seconds 217.62260556221008 best 268.6786 q25 340.7978 median 435.8642 total 419.8300070762634
+GALLOP 2 Nref 127 seconds 265.8047637939453 best 236.75505 q25 324.70554 median 425.8698 total 685.8156743049622
+GALLOP 3 Nref 145 seconds 228.51484489440918 best 235.53981 q25 315.16904 median 402.71097 total 914.5172252655029
+GALLOP 4 Nref 160 seconds 241.4071671962738 best 234.2507 q25 342.25287 median 419.32352 total 1156.1010127067566
+GALLOP 5 Nref 175 seconds 315.8313829898834 best 234.0578 q25 334.52203 median 434.44977 total 1472.1188340187073
+GALLOP 6 Nref 183 seconds 265.68027687072754 best 232.8499 q25 350.23166 median 423.1468 total 1738.1869916915894
+GALLOP 7 Nref 183 seconds 232.2755196094513 best 232.84978 q25 332.81213 median 418.12268 total 1970.5889544487
+GALLOP 8 Nref 183 seconds 253.90393614768982 best 232.84993 q25 323.8227 median 409.26654 total 2224.6187739372253
+=====X9af54a2/conditional87.log
+ATTACHED_H_SCATTERING 38 heavy atoms 38 H atoms
+PACKING_ENABLED 38 atoms 2015 pair terms coefficient 90.0 active_only True
+HBOND_PRIOR 6 donors 10 acceptors coefficient 20.0 directional True
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X9af54a2 326.9161376953125
+CONDITIONAL 0 [1, 3] best 324.48846435546875 q25 324.48865 sec 309.603640794754
+CONDITIONAL 1 [0] best 293.8894348144531 q25 477.7957 sec 546.3388516902924

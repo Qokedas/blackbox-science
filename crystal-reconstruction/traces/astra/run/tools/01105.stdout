@@ -1,0 +1,8 @@
+SG19FRESH=64553
+X3f4781b Nat 104 molecule sizes [21, 21, 21, 21, 5, 5, 5, 5]
+  component COC(=O)[C@H](c1ccccc1Cl)[NH+]1CCc2sccc2C1 matches 4
+  component O=S(=O)([O-])O matches 4
+  bond range 1.2222915038416582 1.7487818274100082
+  min intermolecular distance 2.4477373201641153
+SUBMITTED X3f4781b
+Sun Sep  6 11:13:20 UTC 2026

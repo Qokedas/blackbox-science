@@ -1,0 +1,11 @@
+SYNTHON X263b09a O...O 2.7800196342798738 N...O 2.7800196342798746 energy 99.80485779088066 -23.893135361838212
+SYNTHON X14a2b08 O...O 2.7800050806008634 N...O 2.780005080600864 energy 99.80485779088066 -21.213600774438955
+ZM COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1.O=C1CCCCN1 n 36 torsions 8 max_distance_error 1.458971254919561e-08
+Zmatrix 36 internal degrees 8
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 17 Nref 333 seconds 63.233392000198364 best 87.11351 q25 159.13708 median 273.6009 total 1105.3134083747864
+GALLOP 18 Nref 333 seconds 76.9027202129364 best 87.113365 q25 130.42432 median 259.0086 total 1182.2790489196777
+GALLOP 19 Nref 333 seconds 64.21060156822205 best 87.11332 q25 154.89423 median 286.79004 total 1246.5196936130524

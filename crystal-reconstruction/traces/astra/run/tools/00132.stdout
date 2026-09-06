@@ -1,0 +1,90 @@
+      * This is const since ScatteringComponent::mDynPopCorr is mutable.
+      *
+      * \warning. Do not call this function, which will turn private. This is
+      * called by \e only Crystal::GetScatteringComponentList()
+      */
+      void CalcDynPopCorr(const REAL overlapDist=1., const REAL mergeDist=.0)const ;
+      /// Reset Dynamical Population Correction factors (ie set it to 1)
+      void ResetDynPopCorr()const ;
+      /** Access the Dynamical Occupancy Correction for a given component (atom)
+      * in a given Scatterer
+      */
+      REAL GetDynPopCorr(const Scatterer* pscatt, unsigned int component)const;
+      /** Set the use of dynamical population correction (Crystal::mUseDynPopCorr).
+      * Atoms which are considered "equivalent" (ie currently with the same Z number)
+      * and which are overlapping see their Dynamical occupancy changed so that when they
+      * fully overlap, they are equivalent to 1 atom.
+      *
+      * The Dynamical Occupancy correction will be performed in
+      * Crystal::GetScatteringComponentList() automatically.
+      *
+      * This \e seriously affects the speed of the calculation, since computing
+      * interatomic distances is lenghty.
+      * \param use set to 1 to use, 0 not to use it.
+      */
+      void SetUseDynPopCorr(const int use);
+      /** Get dynamical population correction setting.
+      * See SetUseDynPopCorr.
+      */
+      int GetUseDynPopCorr() const;
+      /** Get the Anti-bumping/pro-Merging cost function. Only works (ie returnes a non-null
+      * value) if you have added antibump distances using Crystal::SetBumpMergeDistance().
+      *
+      */
+      REAL GetBumpMergeCost() const;
+      /** Set the Anti-bumping distance between two scattering types
+      *
+      */
+      void SetBumpMergeDistance(const ScatteringPower &scatt1,
+                                const ScatteringPower &scatt2, const REAL dist=1.5);
+      /// Set the Anti-bumping distance between two scattering types.
+      void SetBumpMergeDistance(const ScatteringPower &scatt1,
+                                const ScatteringPower &scatt2, const REAL dist,
+                                const bool allowMerge);
+
+      /// Remove an Anti-bumping distance between two scattering types.
+      void RemoveBumpMergeDistance(const ScatteringPower &scatt1,
+                                   const ScatteringPower &scatt2);
+
+      /// Storage for anti-bump/merge parameters
+      struct BumpMergePar
+      {
+         BumpMergePar();
+         /** Constructor
+         *
+         * \param dist: the bump/merge distance in Angstroems
+         */
+         BumpMergePar(const REAL dist, const bool canOverlap=false);
+         /// The squared antibump interatomic distance
+         REAL mDist2;
+         /// Can the two atoms completely overlap ?
+         bool mCanOverlap;
+      };
+
+      /// Anti-bump parameters. Each atom type (ScatteringPower is referenced
+      /// using a reference number)
+      typedef std::map<pair<const ScatteringPower*, const ScatteringPower*>,Crystal::BumpMergePar > VBumpMergePar;
+      const VBumpMergePar& GetBumpMergeParList()const;
+      VBumpMergePar& GetBumpMergeParList();
+
+
+      struct DistTableInternalPosition
+      {
+            DistTableInternalPosition(const long atomIndex, const int sym,
+                                        const REAL x,const REAL y,const REAL z);
+
+            /// Index of the atom (order) in the component list
+            long mAtomIndex;
+            /// Which symmetry operation does this symmetric correspond to ?
+            int mSymmetryIndex;
+            /// Fractionnal coordinates
+            REAL mX,mY,mZ;
+      };
+
+-rwxrwxr-x 1 root root 4.1M Sep  6 02:39 /opt/conda/lib/libObjCryst.so
+a 10.0
+b 10.0
+c 10.0
+alpha 89.95437383553924
+beta 89.95437383553924
+gamma 89.95437383553924

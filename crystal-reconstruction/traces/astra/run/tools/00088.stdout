@@ -1,0 +1,38 @@
+{
+ "radiation": {
+  "type": "CuK1",
+  "wavelength_A": 1.54059,
+  "wavelengths_A": [
+   1.54059
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": "Fine focus X-ray tube"
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 298.0,
+ "two_theta_range_deg": [
+  3.0,
+  75.0
+ ],
+ "n_points": 7201,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}X1db5091 TRICLINIC P 3 peaks [4.21075, 7.21405, 8.12471, 8.56623, 9.43718, 12.88362, 13.9, 14.07521, 14.55706, 15.32607, 16.36086, 17.26318, 17.62729, 18.61135, 19.04102, 19.47008, 20.97467, 21.40196] V 444.6 1752.7689208984375 Lmax 33.75977830294289
+3->33.7598,1.2304,24.9999
+X14a2b08 TRICLINIC P 3 peaks [4.14163, 7.36177, 8.19233, 8.75645, 10.67163, 11.55567, 12.46509, 14.00244, 15.03325, 15.75575, 16.44591, 17.69189, 18.00862, 18.55837, 18.99712, 19.31202, 19.57009, 20.22737] V 519.3095703125 2077.23828125 Lmax 35.72619825031028
+3->35.7262,1.30905,24.9999
+X263b09a TRICLINIC P 3 peaks [4.30763, 7.54847, 8.26594, 9.10319, 10.83771, 12.08277, 12.96455, 14.28784, 15.30806, 15.73831, 16.6286, 17.71368, 18.38244, 19.26, 19.71, 19.86, 20.73691, 21.07634] V 458.58209228515625 1834.328369140625 Lmax 34.27549421845545
+3->34.2755,1.25102,24.9999
+2910 solutions ! Redparing...
+-> 87 remaining
+3839 solutions ! Redparing...
+-> 87 remaining
+BASE X13023e3 P 1 21 1 Rw 0.7461644004438319 chi2 23773000497509.957
+X14a2b08 8 35.586204528808594 [5.008, 12.0565, 21.4767, 84.5297, 83.3271, 82.2157] P-1
+INITIAL X3f4781b 1 Rw 0.41456398113275866 LLK 399172366.3194868 Integrated 399171642.0109685 DOF -1
+RUN 0 steps 100000 time 12.634364366531372 total 12.6344473361969 LLK 189968616.06909484 Rw 0.30794303867878875 Integrated 189967835.49680826
+RUN 1 steps 1000000 time 162.78111147880554 total 175.45391416549683 LLK 174977221.69843465 Rw 0.2839245042982601 Integrated 174976370.31305385

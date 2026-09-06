@@ -1,0 +1,77 @@
+{
+ "llk": 24480.99402765851,
+ "Rw": 0.06660667793509663,
+ "elapsed": 4.586330413818359,
+ "run": 0
+}data_solution
+_cell_length_a 7.61367989
+_cell_length_b 14.62360001
+_cell_length_c 11.90690041
+_cell_angle_alpha 90.00000000
+_cell_angle_beta 105.52100372
+_cell_angle_gamma 90.00000000
+_space_group_name_H-M_alt 'P 1 21/a 1'
+_space_group_IT_number 14
+loop_
+_space_group_symop_id
+_space_group_symop_operation_xyz
+1 'x,y,z'
+2 '-x+1/2,y+1/2,-z'
+3 '-x,-y,-z'
+4 'x+1/2,-y+1/2,z'
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+_atom_site_B_iso_or_equiv
+C1 C 0.02407410 0.68398281 0.68912735 1.0 3.0000
+N2 N 0.93217197 0.70672927 0.60178449 1.0 3.0000
+C3 C 0.82632852 0.73292325 0.49730035 1.0 3.0000
+C4 C 0.81167892 0.82667786 0.47561442 1.0 3.0000
+C5 C 0.70599504 0.85810395 0.36801773 1.0 3.0000
+C6 C 0.61445896 0.79656230 0.28140601 1.0 3.0000
+C7 C 0.50523108 0.82875621 0.17178202 1.0 3.0000
+C8 C 0.46570724 0.77170849 0.07322983 1.0 3.0000
+C9 C 0.35862225 0.80279805 0.96584944 1.0 3.0000
+C10 C 0.28996030 0.89166691 0.95645730 1.0 3.0000
+N11 N 0.18496483 0.91837144 0.84555865 1.0 3.0000
+C12 C 0.09169446 0.93755001 0.75064073 1.0 3.0000
+C13 C 0.32581526 0.95079997 0.05232758 1.0 3.0000
+C14 C 0.25142432 0.04638136 0.04236612 1.0 3.0000
+C15 C 0.43391156 0.91820973 0.15957310 1.0 3.0000
+C16 C 0.63186346 0.70222611 0.30588381 1.0 3.0000
+C17 C 0.73746333 0.66920032 0.41359569 1.0 3.0000
+C18 C 0.75267115 0.56826701 0.43703447 1.0 3.0000
+[
+ {
+  "smiles": "[C-]#[N+]c1ccc(-c2ccc([N+]#[C-])c(C)c2)cc1C",
+  "elements": [
+   "C",
+   "N",
+   "C",
+   "C",
+   "C",
+   "C",
+#  0:ScatteringPowerAtom(C)
+ObjRegistry<T>::Find(N): Not found !!
+List of Crystal ScatteringPowers :2 object registered:
+#  0:ScatteringPowerAtom(C)
+#  1:ScatteringPowerAtom(O)
+INITIAL Xf8ac963 1 Rw 0.7462516201360422 LLK 668254.0053330073 Integrated 667601.2162749476 DOF -1
+RUN 0 steps 100000 time 8.412759780883789 total 8.412807703018188 LLK 259314.93068270577 Rw 0.4623728782149336 Integrated 258583.28647322388
+RUN 1 steps 1000000 time 84.68188714981079 total 93.19345378875732 LLK 54796.558423303824 Rw 0.21631628827924249 Integrated 54060.91194527346
+#  1:ScatteringPowerAtom(C)
+#  2:ScatteringPowerAtom(O)
+INITIAL X07806d9 1 Rw 0.6135751688392688 LLK 38468715.58202615 Integrated 38468054.692767054 DOF -1
+RUN 0 steps 100000 time 3.5733768939971924 total 3.5734317302703857 LLK 10301314.14571428 Rw 0.33743675342377355 Integrated 10300611.956608878
+RUN 1 steps 1000000 time 36.09014439582825 total 39.734132528305054 LLK 678160.058518731 Rw 0.14639774868575253 Integrated 677448.5660753286
+RUN 2 steps 1000000 time 36.33644771575928 total 76.1403455734253 LLK 659418.6463768844 Rw 0.14611084650359238 Integrated 658698.3205791346
+BASE X07806d9 P b c a Rw 0.12386231120771624 chi2 2441372.8550467626
+Traceback (most recent call last):
+  File "/app/work/make_base.py", line 28, in <module>
+    p.plot(diff=True,hkl=False);p.figure.savefig(W+'/base.png',dpi=140)
+                                ^^^^^^^^
+AttributeError: 'PowderPattern' object has no attribute 'figure'

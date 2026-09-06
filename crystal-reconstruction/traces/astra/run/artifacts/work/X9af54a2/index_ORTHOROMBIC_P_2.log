@@ -1,0 +1,17 @@
+X9af54a2 ORTHOROMBIC P 2 peaks [1.6309, 3.26451, 3.35531, 3.64098, 4.07311, 4.61049, 4.89791, 5.19448, 5.22115, 5.36935, 5.88179, 6.00152, 6.13077, 6.27753, 6.40867, 6.50884, 6.53222, 6.56281, 6.69463, 6.82894, 6.96739, 7.06305] V 882.3478393554688 3420 Lmax 42.185843128344516
+3->42.1858,1.56744,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+882.348->3420,422.949,5.9999
+Starting: V=882.348->1305.3
+Finished: V=882.348->1305.3 A^3, 343 unit cells tested, 194224 tests/s,   Elapsed time=0.001772s
+Starting: V=1305.3->1728.25
+Finished: V=1305.3->1728.25 A^3, 917 unit cells tested, 212613 tests/s,   Elapsed time=0.00432s
+Starting: V=1728.25->2151.2
+Finished: V=1728.25->2151.2 A^3, 1768 unit cells tested, 231535 tests/s,   Elapsed time=0.007643s
+Starting: V=2151.2->2574.14
+Finished: V=2151.2->2574.14 A^3, 2741 unit cells tested, 234033 tests/s,   Elapsed time=0.011719s
+Starting: V=2574.14->2997.09
+Finished: V=2574.14->2997.09 A^3, 4215 unit cells tested, 253473 tests/s,   Elapsed time=0.016636s
+Starting: V=2997.09->3420
+Finished: V=2997.09->3420 A^3, 5905 unit cells tested, 267195 tests/s,   Elapsed time=0.022107s
+DONE X9af54a2 ORTHOROMBIC P 0 0.02224111557006836 []

@@ -1,0 +1,8 @@
+Sun Sep  6 08:42:45 UTC 2026
+run 0: cost=81851.1 Rwp=0.2134 chi2=76655.8 t=1055s
+polish: Rwp 0.2130 -> 0.1815 (accepted) restraint cost=0.00
+run 0: cost=81450.6 Rwp=0.2387 chi2=108736.5 t=1031s
+polish: Rwp 0.2379 -> 0.2276 (accepted) restraint cost=0.00
+run 1: cost=73305.9 Rwp=0.2290 chi2=100423.7 t=736s
+polish: Rwp 0.2286 -> 0.2257 (accepted) restraint cost=0.00
+RESULTS Xf8ac963 P 21 21 21 [(81450.55881840028, 0.23873089168356557, 108736.5084095648), (73305.9421554334, 0.22897883539450287, 100423.72874485604)]

@@ -1,0 +1,24 @@
+{
+ "radiation": {
+  "type": "synchrotron",
+  "wavelength_A": 0.6996,
+  "wavelengths_A": [
+   0.6996
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 293.0,
+ "two_theta_range_deg": [
+  0.515,
+  29.49
+ ],
+ "n_points": 11591,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "sqrt(max(I,1)); counting statistics assumed",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}

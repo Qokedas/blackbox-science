@@ -1,0 +1,6 @@
+LeBail Rwp=0.0532 chi2=25046.4 cell= 14.004162663037159 9.323391284396054 11.028193211960794 90.0
+  molecule mol0_0: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions
+  molecule mol0_1: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions
+run 0: cost=573628.6 Rwp=0.2556 chi2=576048.5 t=416s
+run 1: cost=570030.6 Rwp=0.2483 chi2=544465.2 t=505s
+ISO 0 P 21 21 21 Zp=2: 0.2556 0.2483

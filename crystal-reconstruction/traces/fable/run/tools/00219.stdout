@@ -1,0 +1,7 @@
+Xd8634a2/solve_b.log:run 0: cost=138568.9 Rwp=0.3479 chi2=213314.0 t=1437s
+Xf8ac963/solve_b.log:run 0: cost=295482.2 Rwp=0.4411 chi2=429345.8 t=718s
+X3c176e2/inos_pcab.log:run 0: cost=257158.7 Rwp=0.1979 chi2=300631.5 t=149s
+X3c176e2/inos_pcab.log:ISO 0 P c a b Zp=1: 0.1979
+X3c176e2/inos_pcab.log:run 0: cost=345349.6 Rwp=0.2245 chi2=383016.5 t=145s
+X3c176e2/inos_pcab.log:ISO 1 P c a b Zp=1: 0.2245
+Sun Sep  6 05:26:41 UTC 2026

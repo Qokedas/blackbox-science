@@ -1,0 +1,405 @@
+import os,sys,time,json,io
+import numpy as np
+from pyobjcryst.indexing import *
+from rdkit import Chem
+sid=sys.argv[1]; system=sys.argv[2] if len(sys.argv)>2 else 'MONOCLINIC'; center=sys.argv[3] if len(sys.argv)>3 else 'P'
+mode=int(sys.argv[4]) if len(sys.argv)>4 else 0
+W='/app/work/'+sid
+ins=json.load(open('/app/data/instances/'+sid+'/instrument.json'));comp=json.load(open('/app/data/instances/'+sid+'/composition.json'));wl=ins['radiation']['wavelength_A']
+peakfile=os.environ.get('PEAK_FILE','peaks.json');peaks=json.load(open(W+'/'+peakfile));data=np.load(W+'/processed.npz');x=data['x'];dx=np.median(np.diff(x))
+maxh=max(p['height'] for p in peaks); medwid=np.median([p['fwhm'] for p in sorted(peaks,key=lambda p:-p['height'])[:25]])
+# strict suppression of baseline artifacts and short single-point spikes
+peaks=[p for p in peaks if p['height']>maxh*(.003 if mode<2 else .007) and p['fwhm']>max(dx*1.5,medwid*.3) and p['fwhm']<max(medwid*3,.055*wl/1.54) and p['two_theta']>x[0]+max(.08*wl/1.54,dx*4)]
+# remove user-marked impurity / blended lines (1-based original peak list indices)
+selectfile='peak_select_raw.json' if peakfile!='peaks.json' and os.path.exists(W+'/peak_select_raw.json') else 'peak_select.json'
+if os.path.exists(W+'/'+selectfile):
+ sel=json.load(open(W+'/'+selectfile)); orig=json.load(open(W+'/'+peakfile))
+ if 'indices' in sel and (peakfile=='peaks.json' or selectfile=='peak_select_raw.json'): peaks=[orig[i-1] for i in sel['indices']]
+ else: peaks=[p for p in peaks if p['two_theta']>=sel.get('min_two_theta',0) and all(abs(p['two_theta']-xx)>.01 for xx in sel.get('exclude',[]))]
+# For indexing low-lying broad peaks in otherwise fine data are suspect
+npeak=int(os.environ.get('NPEAK',22 if mode not in [3,4] else 18))
+peaks=peaks[int(os.environ.get('PEAK_SKIP','0')):][:npeak]
+if len(peaks)<10: sys.exit(1)
+ns=int(os.environ.get('NSPUR',1 if mode in [1,4] else 0))
+# deviations incorporate peak-profile asymmetry and blended maxima
+base_err=(.012 if wl>1.3 else .003 if wl>.65 else .0015)*(2 if mode>=2 else 1)
+base_err=float(os.environ.get('TTHERR',base_err))
+ss=''
+for p in peaks:
+ theta=p['two_theta']-float(os.environ.get('TTHSHIFT',0)); d=wl/(2*np.sin(np.deg2rad(theta/2)));terr=min(float(os.environ.get('MAXERR','100')),max(base_err,p['error']*2,min(p['fwhm']*.15,base_err*2)))
+ dsig=d/np.tan(np.deg2rad(theta/2))*np.deg2rad(terr/2)*2
+ ss+=f"{d:.9f} {dsig:.9f} {p['height']:.3f}\n"
+pl=PeakList();pl.ImportDhklDSigmaIntensity(io.BytesIO(ss.encode()))
+cs=getattr(CrystalSystem,system);cen=getattr(CrystalCentering,'LATTICE_'+center)
+heavy=sum(Chem.MolFromSmiles(c['smiles']).GetNumHeavyAtoms()*c['count'] for c in comp['components'])
+v1=heavy*18
+lo=EstimateCellVolume(1/peaks[-1]['d'],1/(peaks[0]['d']*4),len(peaks),cs,cen,1.4)
+hi=EstimateCellVolume(1/peaks[-1]['d'],1/(peaks[0]['d']*4),len(peaks),cs,cen,.20 if system!='TRICLINIC' else .35)
+lo=max(lo, v1*.65,80);hi=min(hi,v1*(10 if system not in ['MONOCLINIC','TRICLINIC'] else 8 if system=='MONOCLINIC' else 4),15000)
+if hi<lo:hi=lo*1.1
+if len(sys.argv)>5:lo=float(sys.argv[5]);hi=float(sys.argv[6])
+lmax=max(25,min(60,2.8*hi**(1/3)))
+if heavy>25 and all(set(c['smiles'])<=set('C[]@H()') for c in comp['components']): lmax=100
+lmax=float(os.environ.get('LMAX',lmax))
+if system=='TRICLINIC':lmax=min(lmax,float(os.environ.get('LMAX_TRI','40')))
+ex=CellExplorer(pl,cs,ns);ex.SetCrystalCentering(cen);ex.SetLengthMinMax(3,lmax);ex.SetAngleMinMax(np.deg2rad(90),np.deg2rad(135 if system=='TRICLINIC' else 140));ex.SetVolumeMinMax(lo,hi);ex.SetD2Error(0)
+print(sid,system,center,mode,'peaks',[round(p['two_theta'],5) for p in peaks], 'V',lo,hi, 'Lmax',lmax,flush=True)
+start=time.time();ex.DicVol(8,4,float(os.environ.get("INDEX_SCORE",80)),int(os.environ.get("INDEX_DEPTH",7)),True);ex.ReduceSolutions()
+sols=[]
+for cell,score in ex.GetSolutions():
+ c=cell.DirectUnitCell(False,True)
+ if all(np.isfinite(c)):
+  sols.append(dict(cell=list(c[:6]),volume=c[6],score=score,system=cell.lattice.name,centering=cell.centering.name.replace('LATTICE_',''),mode=mode))
+print('DONE',sid,system,center,len(sols),time.time()-start,sols[:5],flush=True)
+tag=system+'_'+center+'_'+str(mode)
+if len(sys.argv)>5:tag+='_'+sys.argv[5]+'_'+sys.argv[6]
+if 'TTHSHIFT' in os.environ:tag+='_z'+os.environ['TTHSHIFT']
+if 'INDEX_TAG' in os.environ:tag+='_'+os.environ['INDEX_TAG']
+if peakfile!='peaks.json':tag+='_'+peakfile.replace('.json','')
+json.dump(sols,open(W+'/index_'+tag+'.json','w'),indent=1)
+====
+import os,sys,json,numpy as np
+from scipy.ndimage import gaussian_filter1d
+from scipy.signal import find_peaks,peak_widths
+from scipy.optimize import least_squares
+import matplotlib;matplotlib.use('Agg');import matplotlib.pyplot as plt
+for sid in sys.argv[1:]:
+ W='/app/work/'+sid;ins=json.load(open('/app/data/instances/'+sid+'/instrument.json'));rad=ins['radiation'];wl=rad['wavelength_A'];x,y,sig=np.loadtxt('/app/data/instances/'+sid+'/pattern.xye').T;dx=np.median(np.diff(x));noise=np.median(np.abs(np.diff(y,2)))/1.65
+ ys=gaussian_filter1d(y,max(.65,.004*wl/1.54/dx));prom=max(noise*4,np.ptp(y)*.0025);idx,pp=find_peaks(ys,prominence=prom,distance=max(2,int(.025*wl/1.54/dx)))
+ ww=peak_widths(ys,idx,rel_height=.5);wid=ww[0]*dx
+ result=[]
+ for k,i in enumerate(idx):
+  if wid[k]>1.0*wl/1.54 or wid[k]<dx*1.2:continue
+  if x[i]<x[0]+.05:continue
+  half=max(wid[k]*1.7,dx*6);halfL=half;halfR=half
+  if k>0:halfL=min(halfL,(x[i]-x[idx[k-1]])*.48)
+  if k+1<len(idx):halfR=min(halfR,(x[idx[k+1]]-x[i])*.48)
+  mask=(x>=x[i]-halfL)&(x<=x[i]+halfR);xx=x[mask];yy=y[mask];ss=np.maximum(sig[mask],noise)
+  if len(xx)<6:continue
+  double=len(rad.get('wavelengths_A') or [])>1
+  ratio=rad['wavelengths_A'][1]/rad['wavelengths_A'][0] if double else 1.
+  wt=(rad.get('wavelength_weights') or [1,.5])[1] if double else 0.
+  wlft=max(dx,(i-ww[2][k])*2*dx);wrgt=max(dx,(ww[3][k]-i)*2*dx)
+  def func(v):
+   pos,h,w1,w2,eta,b,sl=v
+   def peak(p):
+    z=(xx-p)/np.where(xx<p,w1,w1 if double else w2)
+    return ((1-eta)*np.exp(-4*np.log(2)*z*z)+eta/(1+4*z*z))
+   pos2=np.rad2deg(2*np.arcsin(ratio*np.sin(np.deg2rad(pos/2))))
+   return h*(peak(pos)+wt*peak(pos2))+b+sl*(xx-x[i])
+  start=[x[i]-(np.rad2deg(2*np.arcsin(ratio*np.sin(np.deg2rad(x[i]/2))))-x[i])*wt/(1+wt),pp['prominences'][k],min(wlft,half*2),min(wrgt,half*2),.5,min(yy),0.]
+  lower=[x[i]-max(dx*3,wid[k]*.5),0,dx*.5,dx*.5,0,min(yy)-np.ptp(yy),-np.inf]
+  upper=[x[i]+max(dx*3,wid[k]*.5),np.ptp(yy)*4+pp['prominences'][k],max(wid[k]*4,dx*8),max(wid[k]*4,dx*8),1,max(yy),np.inf]
+  try:
+   fit=least_squares(lambda v:(func(v)-yy)/ss,start,bounds=(lower,upper),max_nfev=200)
+   pos,h,w1,w2,eta,b,sl=fit.x;err=np.sqrt(max(0,np.linalg.pinv(fit.jac.T@fit.jac)[0,0]))*max(1,np.sqrt(np.mean(fit.fun**2)));rw=np.sqrt(np.mean(fit.fun**2))
+  except:pos,h,w1,w2,eta,b,sl=start;err=dx;rw=0.
+  if double:w2=w1
+  if h<prom*.7:continue
+  # eliminate a resolved Ka2 peak with its stronger matching Ka1 line
+  if double:
+   p1=np.rad2deg(2*np.arcsin(np.sin(np.deg2rad(pos/2))/ratio))
+   if any(abs(z['two_theta']-p1)<max(dx*1.8,w1*.2) and .12<h/z['height']<.9 for z in result):continue
+  result.append(dict(two_theta=float(pos),height=float(h),fwhm=float((w1+w2)/2),eta=float(eta),error=float(err),d=float(wl/(2*np.sin(np.deg2rad(pos/2)))),area=float(h*(w1+w2)/2),peak_max=float(x[i]),widthL=float(w1),widthR=float(w2),fit_chi=float(rw)))
+ json.dump(result,open(W+'/peaks_raw.json','w'),indent=1)
+ fig,axs=plt.subplots(2,1,figsize=(15,8));xxmax=min(x[-1],np.rad2deg(2*np.arcsin(wl*.18)))
+ for ax in axs:ax.plot(x,y,lw=.6);ax.set_xlim(x[0],xxmax)
+ axs[1].set_ylim(np.percentile(y,10)-noise, np.percentile(y,10)+.14*np.ptp(y))
+ for j,z in enumerate(result):
+  if z['two_theta']>xxmax:continue
+  for ax in axs:
+   ax.axvline(z['two_theta'],color='r',lw=.4);ax.text(z['two_theta'],np.interp(z['two_theta'],x,y),str(j+1),fontsize=7)
+ axs[0].set_title(sid+' raw-maximum / asymmetric-profile peaks');fig.tight_layout();fig.savefig(W+'/peaks_raw.png',dpi=125);plt.close(fig)
+ print(sid,len(result),[(j+1,round(z['two_theta'],4),round(z['height'])) for j,z in enumerate(result[:25])],flush=True)
+==== GSAS
+46:def ranaxis(dmin,dmax):
+51:def ran2axis(k,N):
+68:def ranAbyV(Bravais,dmin,dmax,V):
+84:def ranAbyR(Bravais,A,k,N,ranFunc):
+118:def rancell(Bravais,dmin,dmax):
+311:def IndexPeaks(peaks,HKL):
+451:def FitHKL(ibrav,peaks,A,Pwr):
+484:def FitHKLZ(wave,ibrav,peaks,A,Z,Zref):
+526:def FitHKLZSS(wave,ibrav,peaks,A,V,Vref,Z,Zref):
+580:def FitHKLT(difC,ibrav,peaks,A,Z,Zref):
+622:def FitHKLE(tth,ibrav,peaks,A):
+655:def FitHKLTSS(difC,ibrav,peaks,A,V,Vref,Z,Zref):
+757:def refinePeaksZ(peaks,wave,ibrav,A,Zero,ZeroRef):
+769:def refinePeaksT(peaks,difC,ibrav,A,Zero,ZeroRef):
+781:def refinePeaksE(peaks,tth,ibrav,A):
+793:def refinePeaksZSS(peaks,wave,Inst,SGData,SSGData,maxH,ibrav,A,vec,vecRef,Zero,ZeroRef):
+805:def refinePeaksTSS(peaks,difC,Inst,SGData,SSGData,maxH,ibrav,A,vec,vecRef,Zero,ZeroRef):
+818:def refinePeaks(peaks,ibrav,A,ifX20=True,cctbx_args=None):
+863:def findBestCell(dlg,ncMax,A,Ntries,ibrav,peaks,V1,ifX20=True,cctbx_args=None):
+976:def DoIndexPeaks(peaks,controls,bravais,dlg,ifX20=True,
+    if OK:
+        OK,smin,A,result = FitHKL(ibrav,peaks,A,2)
+        Peaks = np.array(peaks).T
+        H = Peaks[4:7]
+        try:
+            Peaks[8] = 1./np.sqrt(G2lat.calc_rDsqA(H,A))
+            peaks = Peaks.T
+        except FloatingPointError:
+            A = oldA
+        
+    M20,X20 = calc_M20(peaks,HKL,ifX20)
+    return len(HKL),M20,X20,A
+        
+def findBestCell(dlg,ncMax,A,Ntries,ibrav,peaks,V1,ifX20=True,cctbx_args=None):
+    'needs a doc string'
+# dlg & ncMax are used for wx progress bar 
+# A != 0 find the best A near input A,
+# A = 0 for random cell, volume normalized to V1;
+# returns number of generated hkls, M20, X20 & A for best found
+    mHKL = [3,3,3, 5,5, 5,5, 7,7,7,7,7,7, 9,9,9,9, 10]
+    dmin = getDmin(peaks)-0.05
+    amin = 2.5
+    amax = 5.*getDmax(peaks)
+    Asave = []
+    GoOn = True
+    Skip = False
+    if A:
+        HKL = G2lat.GenHBravais(dmin,ibrav,A[:])
+        if len(HKL) > mHKL[ibrav]:
+            peaks = IndexPeaks(peaks,HKL)[1]
+            Asave.append([calc_M20(peaks,HKL,ifX20),A[:]])
+    tries = 0
+    while tries < Ntries and GoOn:
+        if A:
+            Abeg = ranAbyR(ibrav,A,tries+1,Ntries,ran2axis)
+            if ibrav > 12:         #monoclinic & triclinic
+                Abeg = ranAbyR(ibrav,A,tries/10+1,Ntries,ran2axis)
+        else:
+            Abeg = ranAbyV(ibrav,amin,amax,V1)
+        HKL = G2lat.GenHBravais(dmin,ibrav,Abeg)
+        Nc = len(HKL)
+        if Nc >= ncMax:
+            GoOn = False
+        else:
+            if dlg:
+                dlg.Raise()
+                GoOn = dlg.Update(100*Nc//ncMax)[0]
+                if Skip or not GoOn:
+                    GoOn = False
+                    break
+        
+        if IndexPeaks(peaks,HKL)[0] and len(HKL) > mHKL[ibrav]:
+            Lhkl,M20,X20,Aref = refinePeaks(peaks,ibrav,Abeg,ifX20,cctbx_args=cctbx_args)
+            Asave.append([calc_M20(peaks,HKL,ifX20),Aref[:]])
+        else:
+            break
+        Nc = len(HKL)
+        tries += 1
+    X = sortM20(Asave)
+    if X:
+        Lhkl,M20,X20,A = refinePeaks(peaks,ibrav,X[0][1],ifX20,cctbx_args=cctbx_args)
+        return GoOn,Skip,Lhkl,M20,X20,A        
+    else:
+        return GoOn,Skip,0,0,0,0
+        
+def monoCellReduce(ibrav,A):
+    'needs a doc string'
+    a,b,c,alp,bet,gam = G2lat.A2cell(A)
+    if bet < 90.: 
+        bet = 180.-bet     #always want obtuse beta
+        A = G2lat.cell2A([a,b,c,90.,bet,90.])
+    G,g = G2lat.A2Gmat(A)
+    if ibrav in [14,]:      #A-monoclinic - OK?
+        u = [0,0,-1]
+        v = [1,0,2]
+        anew = math.sqrt(np.dot(np.dot(v,g),v))
+        if anew < a:
+            cang = np.dot(np.dot(u,g),v)/(anew*c)
+            beta = acosd(-abs(cang))
+            if beta < 90.: beta = 180.-beta     #always want obtuse beta
+            A = G2lat.cell2A([anew,b,c,90,beta,90])
+    elif ibrav in [15,]:    #C-monoclinic - OK?
+        u = [-1,0,0]
+        v = [1,0,1]
+        cnew = math.sqrt(np.dot(np.dot(v,g),v))
+        if cnew < c:
+            cang = np.dot(np.dot(u,g),v)/(a*cnew)
+            beta = acosd(-abs(cang))
+            if beta < 90.: beta = 180.-beta     #always want obtuse beta
+            A = G2lat.cell2A([a,b,cnew,90,beta,90])
+    elif ibrav in [13,]:    #I-monoclinic - checked OK
+        uc = [0,0,-1]
+        vc = [1,0,2]
+        ua = [-1,0,0]
+        va = [2,0,1]
+        anew = math.sqrt(np.dot(np.dot(va,g),va))
+        cnew = math.sqrt(np.dot(np.dot(vc,g),vc))
+        if cnew < c:
+            cang = np.dot(np.dot(uc,g),vc)/(a*cnew)
+            beta = acosd(-abs(cang))
+            if beta < 90.: beta = 180.-beta     #always want obtuse beta
+            A = G2lat.cell2A([a,b,cnew,90,beta,90])
+        if anew < a:
+            cang = np.dot(np.dot(ua,g),va)/(c*anew)
+            beta = acosd(-abs(cang))
+            if beta < 90.: beta = 180.-beta     #always want obtuse beta
+            A = G2lat.cell2A([anew,b,c,90,beta,90])
+    else:   #P
+        ua = [0,0,-1]
+        uc = [-1,0,0]
+        va = [1,0,1]
+        vc = [1,0,1]
+        anew = math.sqrt(np.dot(np.dot(va,g),va))
+        cnew = math.sqrt(np.dot(np.dot(vc,g),vc))
+        if anew < a:
+            cang = np.dot(np.dot(ua,g),va)/(anew*c)
+            beta = acosd(-abs(cang))
+            if beta < 90.: beta = 180.-beta     #always want obtuse beta
+            A = G2lat.cell2A([anew,b,c,90,beta,90])
+        if cnew < c:
+            cang = np.dot(np.dot(uc,g),vc)/(a*cnew)
+            beta = acosd(-abs(cang))
+            if beta < 90.: beta = 180.-beta     #always want obtuse beta
+            A = G2lat.cell2A([a,b,cnew,90,beta,90])
+    return A
+
+def DoIndexPeaks(peaks,controls,bravais,dlg,ifX20=True,
+            timeout=None,M20_min=2.0,X20_max=None,return_Nc=False,
+            cctbx_args=None):
+    'needs a doc string'
+    timingOn = False
+    if timingOn:
+        import cProfile,pstats
+        import io as StringIO
+    delt = 0.005                                     #lowest d-spacing cushion
+    amin = 2.5
+    amax = 5.0*getDmax(peaks)
+    dmin = getDmin(peaks)-delt
+    bravaisNames = ['Cubic-F','Cubic-I','Cubic-P','Trigonal-R','Trigonal/Hexagonal-P',
+        'Tetragonal-I','Tetragonal-P','Orthorhombic-F','Orthorhombic-I','Orthorhombic-A',
+        'Orthorhombic-B','Orthorhombic-C',
+        'Orthorhombic-P','Monoclinic-I','Monoclinic-A','Monoclinic-C','Monoclinic-P','Triclinic']
+    tries = ['1st','2nd','3rd','4th','5th','6th','7th','8th','9th','10th']
+    N1s = [1,1,1,   5,5,  5,5, 50,50,50,50,50,50,  100,100,100,100, 200]
+    N2s = [1,1,1,   2,2,  2,2,     2,2,2,2,2,2,   2,2,2,2,   4]
+    Nm  = [1,1,1,   1,1,  1,1,     1,1,1,1,1,1,   2,2,2,2,   4]
+    notUse = 0
+    for peak in peaks:
+        if not peak[2]:
+            notUse += 1
+    Nobs = len(peaks)-notUse
+    zero,ncno = controls[1:3]
+    ncMax = Nobs*ncno
+    print ("%s %8.3f %8.3f" % ('lattice parameter range = ',amin,amax))
+    print ("%s %.4f %s %d %s %d" % ('Zero =',zero,'Nc/No max =',ncno,' Max Nc =',ncno*Nobs))
+    cells = []
+    lastcell = np.zeros(7)
+    for ibrav in range(len(bravaisNames)):
+        if timingOn:
+            pr = cProfile.Profile()
+            pr.enable()
+        begin = time.time()
+        if bravais[ibrav]:
+            print ('cell search for ',bravaisNames[ibrav])
+            print ('      M20  X20  Nc       a          b          c        alpha       beta      gamma     volume      V-test')
+            V1 = controls[3]
+            bestM20 = 0
+            topM20 = 0
+            cycle = 0
+            while cycle < 5:
+                if dlg:
+                    dlg.Raise()
+                    dlg.Update(0,newmsg=tries[cycle]+" cell search for "+bravaisNames[ibrav])
+                try:
+                    GoOn = True
+                    while GoOn:                                                 #Loop over increment of volume
+                        N2 = 0
+                        while N2 < N2s[ibrav]:                                  #Table 2 step (iii)               
+                            if timeout and time.time() - begin > timeout:
+                                GoOn = False
+                                break
+
+                            if ibrav > 2:
+                                if not N2:
+                                    A = []
+                                    GoOn,Skip,Nc,M20,X20,A = findBestCell(dlg,ncMax,A,Nm[ibrav]*N1s[ibrav],ibrav,peaks,V1,ifX20,cctbx_args=cctbx_args)
+                                    if Skip:
+                                        break
+                                if A:
+                                    GoOn,Skip,Nc,M20,X20,A = findBestCell(dlg,ncMax,A[:],N1s[ibrav],ibrav,peaks,0,ifX20,cctbx_args=cctbx_args)
+                            else:
+                                GoOn,Skip,Nc,M20,X20,A = findBestCell(dlg,ncMax,0,Nm[ibrav]*N1s[ibrav],ibrav,peaks,V1,ifX20,cctbx_args=cctbx_args)
+                            if Skip:
+                                break
+                            elif Nc >= ncMax:
+                                GoOn = False
+                                break
+                            elif 3*Nc < Nobs:
+                                N2 = 10
+                                break
+                            else:
+                                if not GoOn:
+                                    break
+                                if 1.e6 > M20 > 1.0:    #exclude nonsense
+                                    bestM20 = max(bestM20,M20)
+                                    A = halfCell(ibrav,A[:],peaks)
+                                    if ibrav in [13,14,15,16]:
+                                        A = monoCellReduce(ibrav,A[:])
+                                    HKL = G2lat.GenHBravais(dmin,ibrav,A)
+                                    peaks = IndexPeaks(peaks,HKL)[1]
+                                    a,b,c,alp,bet,gam = G2lat.A2cell(A)
+                                    V = G2lat.calc_V(A)
+                                    if ( (M20 >= M20_min) and (X20_max is None or X20 <= X20_max) ):
+                                        cell = [M20,X20,ibrav,a,b,c,alp,bet,gam,V,False,False]
+                                        if return_Nc: cell.append(Nc)
+                                        newcell = np.array(cell[3:10])
+                                        if not np.allclose(newcell,lastcell):
+                                            print ("%10.3f %3d %3d %10.5f %10.5f %10.5f %10.3f %10.3f %10.3f %10.2f %10.2f %s"
+                                                %(M20,X20,Nc,a,b,c,alp,bet,gam,V,V1,bravaisNames[ibrav]))
+                                            cells.append(cell)
+                                        lastcell = np.array(cell[3:10])
+                            if not GoOn:
+                                break
+                            N2 += 1
+                        if Skip:
+                            cycle = 10
+                            GoOn = False
+                            break
+                        if ibrav < 13:
+                            V1 *= 1.1
+                        elif ibrav in range(13,18):
+                            V1 *= 1.025
+                        if not GoOn:
+                            if bestM20 > topM20:
+                                topM20 = bestM20
+                                if cells:
+                                    V1 = cells[0][9]
+                                else:
+                                    V1 = controls[3]
+                                ncMax += Nobs
+                                cycle += 1
+                                print ('Restart search, new Max Nc = %d'%ncMax)
+                            else:
+                                cycle = 10
+                finally:
+                    pass
+#                dlg.Destroy()
+            print ('%s%s%s%s'%('finished cell search for ',bravaisNames[ibrav], \
+                ', elapsed time = ',G2lat.sec2HMS(time.time()-begin)))
+        if timingOn:
+            pr.disable()
+            if cells:
+                s = StringIO.StringIO()
+                sortby = 'tottime'
+                ps = pstats.Stats(pr, stream=s).strip_dirs().sort_stats(sortby)
+                print('Profiler of function calculation; top 50% of routines:')
+                ps.print_stats("GSASII",.5)
+                print(s.getvalue())
+            
+    if cells:
+        return True,dmin,cells
+    else:
+        return False,0,[]
+        
+        
+NeedTestData = True
+def TestData():
+    'needs a doc string'
+    global NeedTestData
+    NeedTestData = False
+    global TestData

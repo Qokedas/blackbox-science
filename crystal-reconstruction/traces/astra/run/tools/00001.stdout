@@ -1,0 +1,376 @@
+# Tools available in this container (offline)
+
+No network. 4 CPUs, no GPU. Everything below is installed; nothing else can be downloaded.
+
+## Python (default `python`, conda-forge, Python 3.11)
+- numpy, scipy, pandas, matplotlib (Agg backend; save figures to files and view them with `view_image`), sympy, numba, lmfit, scikit-learn, networkx, h5py
+- **pymatgen** (structures, lattices, `Lattice.get_niggli_reduced_lattice`, `SpacegroupAnalyzer`, CIF read/write, `StructureMatcher`)
+- **spglib**, **gemmi** (CIF parsing, space-group tables: `gemmi.find_spacegroup_by_name`), **ase**
+- **RDKit** (SMILES to 3D conformers: `AllChem.EmbedMolecule`, `ETKDG`, MMFF/UFF), **openbabel**
+- **xtb** (command line `xtb`, GFN2-xTB / GFN-FF for conformer optimisation)
+- **pyobjcryst** (Python bindings to ObjCryst++, the engine behind FOX): `pyobjcryst.crystal.Crystal`, `pyobjcryst.molecule.Molecule`, `pyobjcryst.powderpattern.PowderPattern`, `pyobjcryst.globaloptim.MonteCarloObj`, `pyobjcryst.indexing` (peak-list indexing, `CellExplorer`), `pyobjcryst.zscatterer` (Z-matrix). Use `help(pyobjcryst.<module>)` for the API; the FOX manual concepts (direct-space Monte-Carlo / parallel tempering against a powder pattern, anti-bump, dynamical occupancy correction) map one-to-one.
+- **gallop** (GALLOP: GPU-accelerated direct-space solver, here on CPU via torch; `gallop.structure.Structure`, `gallop.optim.local`, `gallop.z_matrix`; needs Pawley-extracted intensities and covariance, e.g. from GSAS-II or DASH-style hkl files; see the package's `example_data` directory under `site-packages/gallop` if present)
+- **torch** (CPU), **diffpy.structure**
+
+## GSAS-II
+Installed in its own environment. Run it with
+```
+PYTHONPATH=/opt/g2/GSAS-II /opt/g2/bin/python your_script.py
+```
+and `import GSASII.GSASIIscriptable as G2` (the scriptable API: create a project, add a powder histogram from an .xye file with an instrument-parameter file, add phases from CIF, Pawley refinement, Rietveld refinement, restraints, `G2.G2Project(...)`, `hist.set_refinements`, `phase.set_refinements`, export CIF). Indexing (`GSASIIindex`), peak fitting and Le Bail / Pawley are all reachable through the scriptable API or by importing the GSASII modules directly. An instrument-parameter file is a short text file; the `.xye` reader accepts three columns (2theta, intensity, sigma).
+
+## Shell utilities
+bash, coreutils, ripgrep (`rg`), jq, less, vim-tiny, gfortran/gcc (compile your own Fortran or C if you want, e.g. an indexing program you write yourself).
+
+## Notes
+- `view_image` renders PNG/JPEG files you write (max 1568 px on a side); use it to look at patterns, difference plots and packing diagrams.
+- CPU time is the scarce resource: 4 cores for the whole run. Run long searches in the background (`nohup ... &`) and poll; set `OMP_NUM_THREADS` sensibly.
+- Write final answers only under `/app/results/submission/` (see the instruction). If you export a CIF from pyobjcryst (`Crystal.CIFOutput`), note that ObjCryst writes dynamical-occupancy values below 1 for atoms it considers overlapping; the evaluator requires every site fully occupied (occupancy 1), so fix the occupancy column (and merge or remove genuinely duplicated atoms) before submitting.
+
+---INSTANCES---
+{
+ "ids": [
+  "X019b9a4",
+  "X07806d9",
+  "X13023e3",
+  "X14a2b08",
+  "X1a56c78",
+  "X1db5091",
+  "X2327841",
+  "X238783d",
+  "X263b09a",
+  "X35b7fbc",
+  "X3c176e2",
+  "X3f4781b",
+  "X4f6fe58",
+  "X7e382cb",
+  "X8a06d7a",
+  "X8a6f5a8",
+  "X9af54a2",
+  "Xb7088cf",
+  "Xbfc6d2c",
+  "Xbfeeda9",
+  "Xd4c1a35",
+  "Xd8634a2",
+  "Xdcc971e",
+  "Xe1fb77b",
+  "Xe3a2935",
+  "Xeb393f9",
+  "Xebbd488",
+  "Xedd9c7b",
+  "Xf8ac963",
+  "Xfca9f3c"
+ ],
+ "n": 30,
+ "instances": [
+  {
+   "id": "X019b9a4",
+   "n_points": 1550,
+   "two_theta_range_deg": [
+    3.0,
+    33.98
+   ],
+   "n_components": 3,
+   "heavy_atoms_per_formula_unit": 48
+  },
+  {
+   "id": "X07806d9",
+   "n_points": 29816,
+   "two_theta_range_deg": [
+    0.5008,
+    75.0383
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 10
+  },
+  {
+   "id": "X13023e3",
+   "n_points": 9572,
+   "two_theta_range_deg": [
+    2.015,
+    40.299
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 24
+  },
+  {
+   "id": "X14a2b08",
+   "n_points": 9626,
+   "two_theta_range_deg": [
+    3.0,
+    80.0
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 37
+  },
+  {
+   "id": "X1a56c78",
+   "n_points": 4994,
+   "two_theta_range_deg": [
+    5.0,
+    104.86
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 23
+  },
+  {
+   "id": "X1db5091",
+   "n_points": 7201,
+   "two_theta_range_deg": [
+    3.0,
+    75.0
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 38
+  },
+  {
+   "id": "X2327841",
+   "n_points": 12834,
+   "two_theta_range_deg": [
+    1.5,
+    39.999
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 32
+  },
+  {
+   "id": "X238783d",
+   "n_points": 6701,
+   "two_theta_range_deg": [
+    2.0,
+    69.0
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 52
+  },
+  {
+   "id": "X263b09a",
+   "n_points": 7201,
+   "two_theta_range_deg": [
+    3.0,
+    75.0
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 36
+  },
+  {
+   "id": "X35b7fbc",
+   "n_points": 11591,
+   "two_theta_range_deg": [
+    0.515,
+    29.49
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 33
+  },
+  {
+   "id": "X3c176e2",
+   "n_points": 7800,
+   "two_theta_range_deg": [
+    2.0,
+    79.99
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 12
+  },
+  {
+   "id": "X3f4781b",
+   "n_points": 8601,
+   "two_theta_range_deg": [
+    4.0,
+    90.0
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 26
+  },
+  {
+   "id": "X4f6fe58",
+   "n_points": 7501,
+   "two_theta_range_deg": [
+    5.0,
+    80.0
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 20
+  },
+  {
+   "id": "X7e382cb",
+   "n_points": 5862,
+   "two_theta_range_deg": [
+    1.0125,
+    49.987
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 20
+  },
+  {
+   "id": "X8a06d7a",
+   "n_points": 4531,
+   "two_theta_range_deg": [
+    3.001,
+    80.011
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 38
+  },
+  {
+   "id": "X8a6f5a8",
+   "n_points": 8151,
+   "two_theta_range_deg": [
+    3.5,
+    85.0
+   ],
+   "n_components": 3,
+   "heavy_atoms_per_formula_unit": 39
+  },
+  {
+   "id": "X9af54a2",
+   "n_points": 49486,
+   "two_theta_range_deg": [
+    0.51,
+    49.995
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 19
+  },
+  {
+   "id": "Xb7088cf",
+   "n_points": 5864,
+   "two_theta_range_deg": [
+    1.0067,
+    49.9958
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 28
+  },
+  {
+   "id": "Xbfc6d2c",
+   "n_points": 4250,
+   "two_theta_range_deg": [
+    5.0,
+    89.98
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 18
+  },
+  {
+   "id": "Xbfeeda9",
+   "n_points": 9820,
+   "two_theta_range_deg": [
+    2.0,
+    100.19
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 35
+  },
+  {
+   "id": "Xd4c1a35",
+   "n_points": 5499,
+   "two_theta_range_deg": [
+    5.05,
+    60.04
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 24
+  },
+  {
+   "id": "Xd8634a2",
+   "n_points": 49486,
+   "two_theta_range_deg": [
+    0.51,
+    49.995
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 33
+  },
+  {
+   "id": "Xdcc971e",
+   "n_points": 12667,
+   "two_theta_range_deg": [
+    2.001,
+    39.999
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 30
+  },
+  {
+   "id": "Xe1fb77b",
+   "n_points": 49575,
+   "two_theta_range_deg": [
+    0.5,
+    49.9965
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 38
+  },
+  {
+   "id": "Xe3a2935",
+   "n_points": 49486,
+   "two_theta_range_deg": [
+    0.51,
+    49.995
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 21
+  },
+  {
+   "id": "Xeb393f9",
+   "n_points": 29816,
+   "two_theta_range_deg": [
+    0.5008,
+    75.0383
+   ],
+   "n_components": 2,
+   "heavy_atoms_per_formula_unit": 37
+  },
+  {
+   "id": "Xebbd488",
+   "n_points": 7001,
+   "two_theta_range_deg": [
+    5.0,
+    75.0
+   ],
+   "n_components": 3,
+   "heavy_atoms_per_formula_unit": 71
+  },
+  {
+   "id": "Xedd9c7b",
+   "n_points": 2818,
+   "two_theta_range_deg": [
+    3.0066,
+    39.9938
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 19
+  },
+  {
+   "id": "Xf8ac963",
+   "n_points": 49486,
+   "two_theta_range_deg": [
+    0.51,
+    49.995
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 21
+  },
+  {
+   "id": "Xfca9f3c",
+   "n_points": 12834,
+   "two_theta_range_deg": [
+    1.5,
+    39.999
+   ],
+   "n_components": 1,
+   "heavy_atoms_per_formula_unit": 26
+  }
+ ]
+}total 72
+drwxr-xr-x 1 root root  4096 Sep  6 02:59 .
+drwxr-xr-x 1 root root  4096 Sep  6 03:24 ..
+-rw-r--r-- 1 root root  3233 Sep  6 02:35 TOOLS.md
+drwxr-xr-x 3 root root  4096 Sep  6 02:59 data
+-rw-r--r-- 1 root root 23374 Sep  6 02:59 installed_conda.txt
+-rw-r--r-- 1 root root  9149 Sep  6 02:59 installed_packages.txt
+-rw-r--r-- 1 root root  8877 Sep  6 02:37 instruction.md
+drwxr-xr-x 3 root root  4096 Sep  6 02:59 results
+drwxr-xr-x 2 root root  4096 Sep  6 02:59 work

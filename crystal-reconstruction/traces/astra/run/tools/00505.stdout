@@ -1,0 +1,41 @@
+[33.37893320739234, 5.769142195689696, 38.764407072159656, 90.0, 108.37296672817142, 90.0] 7084.258815064351 0.11560611777279961 GCD 1 RMS 0.011512502873763234
+[[ 2  3  4  2  4  5  4  3  5  1  1  6  0  4  2  4  2  4  1  1  1  4  6  7
+   8  6  5  8  8  5]
+ [ 0  0  0  0  0  0  0  0  0  1  0  0  0  0  0  1  1  1  1  1  0  1  1  0
+   0  1  1  1  0  0]
+ [ 0 -2  0 -5 -4 -2  2 -6 -5  1 -7 -4  7 -7 -8 -2 -5 -4  5 -6 -9 -6 -2  3
+   1 -7 -9 -6  5  9]]
+[32.169778424944006, 4.747446847888796, 39.20816974722297, 90.0, 96.76274418065051, 90.0] 5946.377737158932 0.17471291096101194 GCD 1 RMS 0.020233670673619794
+[[ 1  2  2  4  4  3  4  1  2  0  2  1  5  6  4  1  0  2  6  3  1  6  8  3
+   5  9  6  6  6  8]
+ [ 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  1  0  0  1  0  0  0  1
+   1  0  1  1  1  1]
+ [ 2 -3  4  1 -3 -5 -4  6  6  7 -7  7 -5  1 -7  8  2  8 -6 -2  9 -7 -2 -5
+   0  0 -5  4 -7  1]]
+[40.69570774779398, 4.424848935551015, 43.24357014960993, 90.0, 102.4758234953535, 90.0] 7603.099869337018 0.30116290093339015 GCD 1 RMS 0.030220106655194492
+[[  2   1   1   5   4   1   6   2   7   6   7   1   7   7   2   6   8   9
+    1   1   4   3   7   5   9   6  10   2   2  10]
+ [  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+    1   1   0   1   0   1   0   1   0   1   1   0]
+ [ -2  -4   5  -3  -5   6  -3   6  -1   3   1  -8  -5   2   8   5   2  -2
+   -1   2 -10  -3   6  -2  -8   2   5  -9   9   7]]
+{
+ "chi2": 2.823354959487915,
+ "Rint": 0.05313525157075964,
+ "iteration": 50,
+ "elapsed": 1777.557487487793
+}/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 267 seconds 137.1910674571991 best 194.21678 q25 253.47397 median 279.57227 total 137.19826197624207
+#  3:ScatteringPowerAtom(N)
+Imported powder pattern: 6508 points, 2theta=  3.000 ->  55.056, step= 0.008
+RESCALED_BASE 1.0 0.0932801237534144 5823.511874292508
+INITIAL X14a2b08 1 Rw 0.43495083072750723 LLK 141365.90334370104 Integrated 102518.05557336308 DOF -1
+RUN 0 steps 100000 time 54.76651692390442 total 54.76660966873169 LLK 53713.53624809531 Rw 0.22249990802093447 Integrated 24226.553878653
+GALLOP 4 Nref 286 seconds 133.18854117393494 best 25.194506 q25 39.351807 median 168.97787 total 691.853529214859
+GALLOP 5 Nref 286 seconds 167.5913302898407 best 24.377302 q25 100.98923 median 237.4664 total 859.5494017601013
+GALLOP 6 Nref 286 seconds 169.87590050697327 best 12.657218 q25 87.624466 median 228.24565 total 1029.5386672019958
+GALLOP 7 Nref 286 seconds 134.01567125320435 best 12.058593 q25 89.22585 median 182.516 total 1163.5916471481323
+GALLOP 8 Nref 286 seconds 121.4154543876648 best 11.801056 q25 49.76261 median 191.73906 total 1285.0641548633575

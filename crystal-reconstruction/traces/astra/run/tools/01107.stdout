@@ -1,0 +1,75 @@
+set -e
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 HBOND_DIRECTIONAL=1 HBOND_ANGLE_WEIGHT=3
+id=X1a56c78
+for run in 111 112 113 114;do
+ (
+ BASE_XML=/app/work/$id/gallop_$run/base.xml SEARCH_TIME=320 PARTICLES=128 ITERATIONS=350 GALLOP_STOL=.30 START_REFL=95 BUMP_COEFF=80 HBOND_COEFF=15 CONF_RANK=$((run-111)) python /app/work/search_gallop.py $id $run 1 --prepare --hscatter --packing > /app/work/$id/gallop$run.log 2>&1
+ python /app/work/import_gallop.py $id $run > /app/work/$id/import_g$run.log 2>&1
+ python /app/work/refine_obj.py $id g$run /app/work/$id/search_g$run/best.xml --scale --tight --stol=.4 > /app/work/$id/refine_g$run.log 2>&1
+ python /app/work/submit.py $id /app/work/$id/refined_g$run.cif --check > /app/work/$id/check_g$run.log 2>&1
+ python /app/work/check_stereo.py $id /app/work/$id/refined_g$run.cif >> /app/work/$id/check_g$run.log 2>&1
+ ) &
+done
+wait
+==== 111
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 2562.58it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 95 seconds 26.550145387649536 best 173.15862 q25 319.1252 median 362.80374 total 26.554242372512817
+GALLOP 1 Nref 126 seconds 27.546993732452393 best 160.62329 q25 245.9239 median 314.95264 total 54.13477182388306
+GALLOP 2 Nref 159 seconds 31.12047553062439 best 159.51189 q25 211.22015 median 295.85248 total 85.28578281402588
+==== 112
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 2707.31it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 95 seconds 26.635016202926636 best 183.4322 q25 340.94318 median 378.09692 total 26.63871669769287
+GALLOP 1 Nref 126 seconds 26.928582668304443 best 174.0921 q25 223.25659 median 312.84692 total 53.600165367126465
+GALLOP 2 Nref 158 seconds 30.85814619064331 best 152.4267 q25 215.92401 median 307.87097 total 84.49353241920471
+==== 113
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 2399.49it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 95 seconds 27.054094791412354 best 205.41077 q25 329.1795 median 361.49847 total 27.058194160461426
+GALLOP 1 Nref 127 seconds 26.96713948249817 best 159.58145 q25 217.57356 median 341.893 total 54.059301137924194
+GALLOP 2 Nref 159 seconds 28.85740089416504 best 159.0094 q25 217.56192 median 314.20248 total 82.95002126693726
+==== 114
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 2452.45it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 95 seconds 27.106587648391724 best 176.18878 q25 345.5431 median 387.4491 total 27.110589504241943
+GALLOP 1 Nref 127 seconds 26.774730682373047 best 175.36684 q25 290.26904 median 340.48877 total 53.92034101486206
+GALLOP 2 Nref 159 seconds 30.878194332122803 best 169.62022 q25 204.16318 median 293.04416 total 84.82975554466248
+import json,os,glob,warnings,numpy as np,networkx as nx,gemmi,runpy,sys,contextlib,io
+from pymatgen.io.cif import CifParser
+from rdkit import Chem
+warnings.filterwarnings('ignore')
+R='/app/results/submission';report=[]
+for p in sorted(glob.glob(R+'/*.json')):
+ sid=os.path.basename(p)[:-5];j=json.load(open(p));sg=gemmi.find_spacegroup_by_name(j['space_group']);rec={'id':sid,'json_sg':sg.xhm() if sg else None,'json_sg_num':sg.number if sg else None};assert sg and sg.number==j.get('space_group_number',sg.number)
+ fn=R+'/'+sid+'.cif'
+ if os.path.exists(fn):
+  blocks=gemmi.cif.read_file(fn);assert len(blocks)==1;b=blocks.sole_block();g2=gemmi.find_spacegroup_by_name(gemmi.cif.as_string(b.find_value('_space_group_name_H-M_alt')));assert g2
+  cp=[float(b.find_value('_cell_'+v)) for v in ['length_a','length_b','length_c','angle_alpha','angle_beta','angle_gamma']];jp=[j['cell'][k] for k in ['a','b','c','alpha','beta','gamma']];rec['cell_agrees']=bool(np.allclose(cp,jp,atol=.00005));rec['sg_agrees']=g2.number==sg.number
+  assert rec['cell_agrees'] and rec['sg_agrees']
+  assert all(abs(float(v)-1)<1.e-5 for v in b.find_values('_atom_site_occupancy'))
+  s=CifParser(fn).parse_structures(primitive=False)[0];s.remove_species(['H']);rec['nheavy']=len(s);rad=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<1.2*(rad[:,None]+rad[None,:]));g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));rec['sizes']=sorted(map(len,cs))
+  for i in g:g.nodes[i]['el']=s[i].specie.symbol
+  matched=set();ratios=[]
+  for co in json.load(open('/app/data/instances/'+sid+'/composition.json'))['components']:
+   r=Chem.MolFromSmiles(co['smiles']);rg=nx.Graph();rg.add_nodes_from((a.GetIdx(),{'el':a.GetSymbol()}) for a in r.GetAtoms());rg.add_edges_from((bo.GetBeginAtomIdx(),bo.GetEndAtomIdx()) for bo in r.GetBonds());ms=[i for i,c in enumerate(cs) if nx.is_isomorphic(g.subgraph(c),rg,node_match=lambda a,b:a['el']==b['el'])];matched.update(ms);ratios.append(len(ms)/co['count'])
+  rec['graph_ok']=len(matched)==len(cs) and min(ratios)>0 and max(ratios)==min(ratios);rec['Z']=ratios[0];assert rec['graph_ok']
+  out=io.StringIO();sys.argv=['/app/work/check_stereo.py',sid,fn]
+  with contextlib.redirect_stdout(out):runpy.run_path('/app/work/check_stereo.py',run_name='__main__')
+  rec['stereochemistry']=out.getvalue().strip();assert 'OK False' not in rec['stereochemistry'];print(sid,'CIF graph/stereo/cell/SG validated','Nat',len(s),flush=True)
+ else:print(sid,'JSON only',sg.xhm(),flush=True)
+ report.append(rec)
+json.dump(report,open('/app/work/submission_audit.json','w'),indent=1)
+print('DONE',len(report),'instances',sum('nheavy' in x for x in report),'CIFs',flush=True)

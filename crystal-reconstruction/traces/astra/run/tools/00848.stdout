@@ -1,0 +1,8 @@
+13
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+RESTART_ERROR max/rms 1.6317385628551468e-06 1.0181019638274846e-06
+WARM_READY /app/work/Xb7088cf/gallop_50
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+COFORMER 0 best 69.80543518066406 q25 83.04179 sec 163.12879824638367
+COFORMER 1 best 69.80525207519531 q25 70.81578 sec 318.9429008960724

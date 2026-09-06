@@ -1,0 +1,60 @@
+START 0.15623542035335325 2040.0126444671637
+ObjRegistry<T>::Find(H): Not found !!
+List of Crystal ScatteringPowers :40 object registered:
+#  0:ScatteringPowerAtom(m0_0_0_O0)
+#  1:ScatteringPowerAtom(m0_0_0_C1)
+#  2:ScatteringPowerAtom(m0_0_0_C2)
+#  3:ScatteringPowerAtom(m0_0_0_N3)
+#  4:ScatteringPowerAtom(m0_0_0_C4)
+#  5:ScatteringPowerAtom(m0_0_0_C5)
+#  6:ScatteringPowerAtom(m0_0_0_C6)
+#  7:ScatteringPowerAtom(m0_0_0_C7)
+#  8:ScatteringPowerAtom(m0_0_0_C8)
+#  9:ScatteringPowerAtom(m0_0_0_C9)
+# 10:ScatteringPowerAtom(m0_0_0_C10)
+# 11:ScatteringPowerAtom(m0_0_0_Cl11)
+# 12:ScatteringPowerAtom(m0_0_0_C12)
+# 13:ScatteringPowerAtom(m0_0_0_C13)
+# 14:ScatteringPowerAtom(m0_0_0_C14)
+# 15:ScatteringPowerAtom(m0_0_0_Br15)
+# 16:ScatteringPowerAtom(m0_0_0_C16)
+# 17:ScatteringPowerAtom(m0_0_0_C17)
+# 18:ScatteringPowerAtom(m0_0_0_C18)
+# 19:ScatteringPowerAtom(m0_0_0_N19)
+# 20:ScatteringPowerAtom(m1_0_0_O0)
+# 21:ScatteringPowerAtom(m1_0_0_C1)
+# 22:ScatteringPowerAtom(m1_0_0_C2)
+# 23:ScatteringPowerAtom(m1_0_0_N3)
+# 24:ScatteringPowerAtom(m1_0_0_C4)
+# 25:ScatteringPowerAtom(m1_0_0_C5)
+# 26:ScatteringPowerAtom(m1_0_0_C6)
+# 27:ScatteringPowerAtom(m1_0_0_C7)
+# 28:ScatteringPowerAtom(m1_0_0_C8)
+# 29:ScatteringPowerAtom(m1_0_0_C9)
+# 30:ScatteringPowerAtom(m1_0_0_C10)
+# 31:ScatteringPowerAtom(m1_0_0_Cl11)
+# 32:ScatteringPowerAtom(m1_0_0_C12)
+# 33:ScatteringPowerAtom(m1_0_0_C13)
+# 34:ScatteringPowerAtom(m1_0_0_C14)
+# 35:ScatteringPowerAtom(m1_0_0_Br15)
+# 36:ScatteringPowerAtom(m1_0_0_C16)
+# 37:ScatteringPowerAtom(m1_0_0_C17)
+# 38:ScatteringPowerAtom(m1_0_0_C18)
+# 39:ScatteringPowerAtom(m1_0_0_N19)
+WITH_H 0.15546560763690895 2019.9955959555061
+Imported powder pattern: 3981 points, 2theta=  5.470 ->  45.270, step= 0.010
+SCALED_SIGMA 1.0 2019.9955959555061
+FLEXIBLE_RINGS
+CYCLE 0 0 Rw 0.15443184690900402 chi2 1993.2211924701692 geom 1.7054379150900005 LSQ 2012.5149314688247
+CYCLE 0 1 Rw 0.15400271367886048 chi2 1982.1591086102294 geom 1.7054379150900005 LSQ 2001.4339330291548
+CYCLE 0 2 Rw 0.15400261957162648 chi2 1982.1566861145516 geom 1.7054379150900005 LSQ 2001.399858257275
+CYCLE 1 0 Rw 0.1436086873285697 chi2 1723.6266102208833 geom 48.755011510264474 LSQ 1863.3796069726677
+CYCLE 1 1 Rw 0.14294858892458376 chi2 1707.817701621755 geom 14.156193156959418 LSQ 1783.2118112607286
+CYCLE 1 2 Rw 0.14155735457098745 chi2 1674.7370997974215 geom 1.8393907512235768 LSQ 1722.5311601486417
+CYCLE 2 0 Rw 0.1411666438194361 chi2 1665.5050146406968 geom 1.349698214996545 LSQ 1710.0765463548337
+CYCLE 2 1 Rw 0.14060147286079094 chi2 1652.195768651728 geom 1.7196199488611592 LSQ 1698.0972276793273
+CYCLE 2 2 Rw 0.14032505228224348 chi2 1645.7057658504848 geom 1.1394451679891464 LSQ 1689.6704540690052
+CYCLE 3 0 Rw 0.13520358972766316 chi2 1527.557311940722 geom 0.5983366195566496 LSQ 1574.9054675319987
+CYCLE 3 1 Rw 0.1338141750927989 chi2 1496.1170859256465 geom 0.7102983327297197 LSQ 1537.1927473352885
+CYCLE 3 2 Rw 0.12806038669258732 chi2 1369.846352632303 geom 1.0957298859402818 LSQ 1414.8927815926788
+FINISHED X4f6fe58 0.12806038669258732

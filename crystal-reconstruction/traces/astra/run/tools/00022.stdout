@@ -1,0 +1,15 @@
+
+ImportPowderPattern2ThetaObsSigma( (PowderPattern)arg1, (str)filename [, (int)nbSkip=0]) -> None :
+
+    C++ signature :
+        void ImportPowderPattern2ThetaObsSigma(ObjCryst::PowderPattern {lvalue},std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > [,int=0])
+
+Prepare( (PowderPattern)arg1) -> None :
+
+    C++ signature :
+        void Prepare(ObjCryst::PowderPattern {lvalue})
+
+ChangeSpaceGroup( (UnitCell)arg1, (str)arg2) -> None :
+
+    C++ signature :
+        void ChangeSpaceGroup(ObjCryst::UnitCell {lvalue},std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)

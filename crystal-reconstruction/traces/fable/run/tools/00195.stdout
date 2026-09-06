@@ -1,0 +1,36 @@
+{
+ "components": [
+  {
+   "smiles": "OC1C(O)C(O)C(O)C(O)C1O",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}{'type': 'Cu K1', 'wavelength_A': 1.54056, 'wavelengths_A': [1.54056], 'wavelength_weights': None, 'monochromator': None, 'source': 'sealed x-ray tube'} [2.0, 79.99] 7800 transmission (capillary / Debye-Scherrer) 293.0
+abs_ortho.log
+g2_monoC.log
+g2_monoP.log
+g2_monoPb.log
+g2index_monoC_20.txt
+g2index_monoP_20.txt
+g2index_monoPb_20.txt
+peaks.png
+peaks.txt
+peaks_b.txt
+sgscan_ortho.log
+ticks.png
+C m m m        # 65 Rwp=0.7406 nrefl=  67 cell=['13.9426', '9.2968', '10.8775', '90.0000', '90.0000', '90.0000']
+C c c m        # 66 Rwp=0.7415 nrefl=  55 cell=['13.9866', '9.3386', '10.9636', '90.0000', '90.0000', '90.0000']
+C c m m        # 63 Rwp=0.7503 nrefl=  61 cell=['13.9617', '9.2937', '10.9229', '90.0000', '90.0000', '90.0000']
+B b c b        # 68 Rwp=0.7748 nrefl=  49 cell=['13.9626', '9.3296', '10.9926', '90.0000', '90.0000', '90.0000']
+F m m m        # 69 Rwp=0.7847 nrefl=  35 cell=['13.9349', '9.3364', '10.9773', '90.0000', '90.0000', '90.0000']
+B b c m        # 64 Rwp=0.8232 nrefl=  54 cell=['13.9355', '9.2886', '10.9668', '90.0000', '90.0000', '90.0000']
+C m c m        # 63 Rwp=0.8741 nrefl=  58 cell=['13.9549', '9.2951', '10.9058', '90.0000', '90.0000', '90.0000']
+B b m b        # 66 Rwp=0.9272 nrefl=  56 cell=['13.9317', '9.2941', '10.9807', '90.0000', '90.0000', '90.0000']
+F d d d        # 70 Rwp=1.1144 nrefl=  25 cell=['13.9612', '9.3647', '10.9717', '90.0000', '90.0000', '90.0000']
+F d d 2        # 43 Rwp=1.2915 nrefl=  27 cell=['13.9004', '9.3351', '10.9096', '90.0000', '90.0000', '90.0000']
+F d 2 d        # 43 Rwp=1.3865 nrefl=  27 cell=['14.0004', '9.3701', '10.9564', '90.0000', '90.0000', '90.0000']
+F 2 d d        # 43 Rwp=1.8935 nrefl=  27 cell=['13.9495', '9.3397', '10.9840', '90.0000', '90.0000', '90.0000']

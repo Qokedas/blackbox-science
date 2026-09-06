@@ -1,0 +1,99 @@
+#include <bits/stdc++.h>
+#include <ObjCryst/ObjCryst/PowderPattern.h>
+#include <ObjCryst/ObjCryst/Crystal.h>
+#include <ObjCryst/ObjCryst/ScatteringPower.h>
+using namespace ObjCryst;
+struct AccessRef:RefinableObj {void attach(RefinableObj &r){AddSubRefObj(r);} void detach(RefinableObj&r){RemoveSubRefObj(r);}};
+struct PackingLSQ:RefinableObj {
+ Crystal *c;
+ std::vector<long> ii,jj;
+ std::vector<double> rt,tt,limit;
+ mutable CrystVector_REAL obs,calc,wgt;
+ PackingLSQ(Crystal *cr,long n,long *i,long *j,double *r,double *t,double *l,double *w):c(cr) {
+  SetName("Heavy_atom_packing_restraints");ii.assign(i,i+n);jj.assign(j,j+n);rt.assign(r,r+9*n);tt.assign(t,t+3*n);limit.assign(l,l+n);obs.resize(n);calc.resize(n);wgt.resize(n);
+  for(long k=0;k<n;k++){obs(k)=0;calc(k)=0;wgt(k)=w[k];}
+  AddSubRefObj(*c);
+ }
+ virtual const std::string &GetClassName()const {static const std::string name="PackingLSQ";return name;}
+ virtual unsigned int GetNbLSQFunction()const{return 1;}
+ virtual const CrystVector_REAL& GetLSQObs(const unsigned int)const{return obs;}
+ virtual const CrystVector_REAL& GetLSQWeight(const unsigned int)const{return wgt;}
+ virtual const CrystVector_REAL& GetLSQCalc(const unsigned int)const {
+  auto &sc=c->GetScatteringComponentList();auto &m=c->GetOrthMatrix();
+  for(size_t k=0;k<ii.size();k++){
+   auto &a=sc(ii[k]);auto &b=sc(jj[k]);double x=a.mX-(rt[9*k]*b.mX+rt[9*k+1]*b.mY+rt[9*k+2]*b.mZ+tt[3*k]);
+   double y=a.mY-(rt[9*k+3]*b.mX+rt[9*k+4]*b.mY+rt[9*k+5]*b.mZ+tt[3*k+1]);
+   double z=a.mZ-(rt[9*k+6]*b.mX+rt[9*k+7]*b.mY+rt[9*k+8]*b.mZ+tt[3*k+2]);
+   x-=std::round(x);y-=std::round(y);z-=std::round(z);double best=1.e100;
+   for(int sx=-1;sx<=1;sx++)for(int sy=-1;sy<=1;sy++)for(int sz=-1;sz<=1;sz++){
+    double dx=x+sx,dy=y+sy,dz=z+sz;
+    double u=m(0,0)*dx+m(0,1)*dy+m(0,2)*dz;
+    double v=m(1,0)*dx+m(1,1)*dy+m(1,2)*dz;
+    double w=m(2,0)*dx+m(2,1)*dy+m(2,2)*dz;
+    best=std::min(best,u*u+v*v+w*w);
+   }
+   calc(k)=std::max(0.,limit[k]-std::sqrt(best+1.e-18));
+  }
+  return calc;
+ }
+ double cost()const{auto &v=GetLSQCalc(0);double cost=0;for(long k=0;k<v.numElements();k++)cost+=v(k)*v(k)*wgt(k);return cost;}
+};
+extern "C" {
+void *packing_attach(void *pp,void *cc,long n,long*i,long*j,double*r,double*t,double*l,double*w){
+ auto *c=dynamic_cast<Crystal*>(reinterpret_cast<RefinableObj*>(cc));if(!c)return nullptr;
+ auto *p=reinterpret_cast<AccessRef*>(pp);auto *rest=new PackingLSQ(c,n,i,j,r,t,l,w);p->attach(*rest);return rest;
+}
+double packing_cost(void *p){return reinterpret_cast<PackingLSQ*>(p)->cost();}
+void packing_detach(void *pp,void*rr){auto *p=reinterpret_cast<AccessRef*>(pp);auto *r=reinterpret_cast<PackingLSQ*>(rr);p->detach(*r);delete r;}
+}
+"""Heavy-atom steric lower bounds as genuine ObjCryst least-squares residuals.
+Topology-preserving 1-2/1-3/1-4 pairs are excluded; 27 lattice images are
+checked for all contacts.  Crystal anti-bump itself is not an LSQ function.
+"""
+import ctypes,os,numpy as np,gemmi
+from rdkit import Chem
+lib=ctypes.CDLL('/app/work/liblsq_packing.so')
+lib.packing_attach.argtypes=[ctypes.c_void_p,ctypes.c_void_p,ctypes.c_long]+[ctypes.c_void_p]*6
+lib.packing_attach.restype=ctypes.c_void_p
+lib.packing_cost.argtypes=[ctypes.c_void_p];lib.packing_cost.restype=ctypes.c_double
+lib.packing_detach.argtypes=[ctypes.c_void_p,ctypes.c_void_p]
+def attach_packing(p,c,mods,sigma=None):
+ sigma=float(os.getenv('PACKING_SIGMA','.03')) if sigma is None else sigma
+ els=[];index=[];groups=[];local=[];dm=[];off=0
+ for k,md in enumerate(mods):
+  m=c.GetScatterer(k);r=Chem.MolFromSmiles(md['smiles']);n=r.GetNumAtoms();dm.append(Chem.GetDistanceMatrix(r))
+  for i,a in enumerate(r.GetAtoms()):
+   els.append(a.GetSymbol());index.append(off+i);groups.append(k);local.append(i)
+  off+=len(list(m.GetScatteringComponentList()))
+ radii={'C':1.48,'N':1.35,'O':1.28,'F':1.32,'S':1.55,'P':1.52,'Cl':1.58,'Br':1.67,'I':1.78}
+ ii=[];jj=[];rots=[];trans=[];limits=[];weights=[];sg=gemmi.find_spacegroup_by_name(c.GetSpaceGroup().GetName());N=len(index)
+ for op in sg.operations():
+  R=np.asarray(op.rot)/op.DEN;T=np.asarray(op.tran)/op.DEN;ident=np.allclose(R,np.eye(3)) and np.allclose(T%1,0)
+  for i in range(N):
+   for j in range(N):
+    if ident and (i>=j or (groups[i]==groups[j] and dm[groups[i]][local[i],local[j]]<=3)):continue
+    limit=radii.get(els[i],1.4)+radii.get(els[j],1.4)
+    if els[i] in ['N','O'] and els[j] in ['N','O']:limit-=.10
+    ii.append(index[i]);jj.append(index[j]);rots.append(R);trans.append(T);limits.append(limit);weights.append((1. if ident else .5)/sigma**2)
+ arrays=[np.ascontiguousarray(ii,dtype=np.int64),np.ascontiguousarray(jj,dtype=np.int64),np.ascontiguousarray(rots,dtype=np.float64),np.ascontiguousarray(trans,dtype=np.float64),np.ascontiguousarray(limits,dtype=np.float64),np.ascontiguousarray(weights,dtype=np.float64)]
+ obj=lib.packing_attach(p.int_ptr(),c.int_ptr(),len(ii),*[a.ctypes.data for a in arrays])
+ if not obj:raise RuntimeError('Packing attachment failed')
+ print('LSQ_PACKING',N,'atoms',len(ii),'terms','sigma',sigma,'cost',lib.packing_cost(obj),flush=True)
+ return obj
+
+def cost(obj):return lib.packing_cost(obj)
+def detach(p,obj):lib.packing_detach(p.int_ptr(),obj)
+GALLOP 0 Nref 300 seconds 105.80642914772034 best 47.505676 q25 47.743057 median 203.8982 total 105.8122456073761
+GALLOP 1 Nref 300 seconds 91.66193175315857 best 47.502228 q25 47.638092 median 212.04114 total 197.58746528625488
+GALLOP 2 Nref 300 seconds 107.77584600448608 best 47.50218 q25 47.54129 median 194.92873 total 305.4974639415741
+GALLOP 3 Nref 300 seconds 71.20502877235413 best 47.502056 q25 47.53339 median 198.05232 total 376.7875061035156
+GALLOP 5 Nref 258 seconds 187.576110124588 best 52.514984 q25 113.1873 median 149.04727 total 1339.66783452034
+GALLOP 6 Nref 258 seconds 229.62621188163757 best 48.663754 q25 117.61514 median 151.30258 total 1569.4801785945892
+GALLOP 7 Nref 258 seconds 210.32634925842285 best 48.352425 q25 115.751724 median 139.53574 total 1779.8873686790466
+GALLOP 8 Nref 258 seconds 158.19637513160706 best 48.34617 q25 119.18648 median 149.28922 total 1938.2591376304626
+GALLOP 9 Nref 258 seconds 102.779221534729 best 48.345776 q25 112.96901 median 139.76474 total 2041.1752729415894
+GALLOP 9 Nref 333 seconds 60.48459029197693 best 87.114975 q25 161.09912 median 262.79178 total 569.0868742465973
+GALLOP 10 Nref 333 seconds 55.07151699066162 best 87.11344 q25 227.46043 median 314.0692 total 624.2835736274719
+GALLOP 11 Nref 333 seconds 66.17394495010376 best 87.113396 q25 177.699 median 287.25586 total 690.5088245868683
+  0%|          | 0/5 [00:00<?, ?it/s]100%|██████████| 5/5 [00:00<00:00, 1329.75it/s]
+GALLOP 12 Nref 333 seconds 72.21029448509216 best 87.11344 q25 248.98715 median 323.11108 total 762.894148349762

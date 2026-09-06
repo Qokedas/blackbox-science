@@ -1,0 +1,18 @@
+18322
+---G130refine
+CYCLE 2 1 Rw 0.06657459668026747 chi2 2429.122802340628 geom 2.8019648981105667 LSQ 2492.879052782654
+CYCLE 2 2 Rw 0.06617942211149304 chi2 2400.3707369320286 geom 1.9101562535254044 LSQ 2461.5202806942666
+CYCLE 3 0 Rw 0.06325960911188211 chi2 2193.2361253782233 geom 2.631105634940007 LSQ 2385.4905388528964
+CYCLE 3 1 Rw 0.06264485668964397 chi2 2150.8158224146605 geom 2.892649697593779 LSQ 2215.3169275314426
+CYCLE 3 2 Rw 0.06234113782237542 chi2 2130.010928564057 geom 3.1875270768466084 LSQ 2191.8102537030372
+FINISHED X13023e3 0.06234113782237542
+---G130run
+GALLOP 26 Nref 122 seconds 42.801137924194336 best 3.540003 q25 17.372807 median 27.293232 total 760.6529552936554
+GALLOP 27 Nref 122 seconds 42.832011699676514 best 3.5400264 q25 16.15636 median 26.189865 total 803.5130085945129
+---active
+13933 python /app/work/search_obj.py X263b09a 1 1 --rescale --profile 
+15974 python /app/work/search_gallop.py X4f6fe58 11 2 --prepare --hscatter 
+16582 python /app/work/search_gallop.py X13023e3 31 1 --packing --hscatter 
+17538 python /app/work/search_gallop.py Xd4c1a35 11 2 --prepare --hscatter 
+17739 python /app/work/search_gallop.py X4f6fe58 31 2 --hscatter --packing 
+18326 python /app/work/enumerate_methoxy.py Xd4c1a35 /app/work/Xd4c1a35/refined_2freeh.xml /app/work/Xd4c1a35/search_2freeh/model.json methoxy 

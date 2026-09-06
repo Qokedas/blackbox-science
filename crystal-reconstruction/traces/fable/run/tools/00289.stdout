@@ -1,0 +1,1 @@
+['GetLSQObs', 'GetLSQWeight', 'GetPowderPatternObs', 'ImportPowderPattern2ThetaObs', 'ImportPowderPattern2ThetaObsSigma', 'ImportPowderPatternTOF_ISIS_XYSigma', 'SetPowderPatternObs']

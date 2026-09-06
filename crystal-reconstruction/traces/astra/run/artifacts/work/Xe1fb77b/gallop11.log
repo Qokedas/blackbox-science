@@ -1,0 +1,32 @@
+ObjRegistry<T>::Find(ion_C): Not found !!
+List of Crystal ScatteringPowers :0 object registered:
+EXACT_PAWLEY nref 149 rank 149 cond 57.56032534294078 chi2 20838.88910692212 netRwp 0.1096993358344485
+ZM O=C(/C=C/c1ccc(O)c(O)c1)O[C@@H]1C[C@@](OC(=O)/C=C/c2ccc(O)c(O)c2)(C(=O)O)C[C@@H](O)[C@@H]1O n 37 torsions 9 max_distance_error 1.127533710842954e-08
+ZM O n 1 torsions 0 max_distance_error 0.0
+Total degrees of freedom: 19
+Total external degrees of freedom: 10 (pos: 6 rot: 4 )
+Total internal degrees of freedom: 9
+PREPARED Xe1fb77b Nref 149 PawleyRw 0.0676991179312045 SG P 1 21 1
+ATTACHED_H_SCATTERING 38 heavy atoms 26 H atoms
+PACKING_ENABLED 38 atoms 1992 pair terms coefficient 50.0 active_only True
+HBOND_PRIOR 7 donors 11 acceptors coefficient 10.0
+  0%|          | 0/5 [00:00<?, ?it/s]100%|██████████| 5/5 [00:00<00:00, 1669.57it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 149 seconds 202.03725934028625 best 313.48587 q25 421.73187 median 464.80066 total 202.0943148136139
+GALLOP 1 Nref 149 seconds 192.20476365089417 best 218.77892 q25 314.57855 median 416.34702 total 394.46836495399475
+GALLOP 2 Nref 149 seconds 197.59516024589539 best 218.77606 q25 291.26743 median 404.05127 total 592.1700778007507
+GALLOP 3 Nref 149 seconds 188.4738802909851 best 218.77596 q25 273.26886 median 381.09616 total 780.7688171863556
+GALLOP 4 Nref 149 seconds 162.73896718025208 best 213.87035 q25 243.80962 median 350.7168 total 943.6155757904053
+GALLOP 5 Nref 149 seconds 154.25762271881104 best 196.22888 q25 260.15778 median 403.87292 total 1097.9699721336365
+GALLOP 6 Nref 149 seconds 178.8965368270874 best 196.22833 q25 250.72018 median 404.59418 total 1276.9798061847687
+GALLOP 7 Nref 149 seconds 193.48492050170898 best 196.22836 q25 255.403 median 362.31378 total 1470.573749780655
+GALLOP 8 Nref 149 seconds 202.14294505119324 best 196.22835 q25 235.65845 median 365.3617 total 1672.7975525856018
+GALLOP 9 Nref 149 seconds 209.48693108558655 best 178.93597 q25 237.38109 median 344.83398 total 1882.368889093399
+GALLOP 10 Nref 149 seconds 190.4970142841339 best 178.93591 q25 247.34613 median 404.47632 total 2072.9733006954193
+GALLOP 11 Nref 149 seconds 200.90520763397217 best 178.93591 q25 226.35631 median 355.99884 total 2273.997889995575
+  0%|          | 0/5 [00:00<?, ?it/s]100%|██████████| 5/5 [00:00<00:00, 96.00it/s]
+GALLOP 12 Nref 149 seconds 218.77671194076538 best 178.9359 q25 341.53638 median 448.7857 total 2492.85856962204
+FINISHED Xe1fb77b 178.93589782714844

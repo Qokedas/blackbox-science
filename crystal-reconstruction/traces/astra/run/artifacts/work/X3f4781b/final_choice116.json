@@ -1,0 +1,7 @@
+{
+ "selected": "chemH116",
+ "Rwp": 0.07827863989985408,
+ "rms_to_n110m00": 0.1277859447244681,
+ "max_to_n110m00": 0.2857015512726579,
+ "reason": "Corrected sp3 C/N hydrogen angle restraints that had inherited near-planar distorted geometry; tighter heavy geometry; complete native refinement, valid graph and four S centres. SG/cell unchanged within bounds. No assertion of global convergence."
+}

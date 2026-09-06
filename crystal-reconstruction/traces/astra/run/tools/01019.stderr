@@ -1,0 +1,8 @@
+/app/work/contacts.py:4: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(sys.argv[1]).parse_structures(primitive=False)[0];s.remove_species(['H'])
+/app/work/check_hbonds.py:6: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(sys.argv[1]).parse_structures(primitive=False)[0]
+/app/work/check_hbonds.py:6: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(sys.argv[1]).parse_structures(primitive=False)[0]
+/app/work/check_hbonds.py:6: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(sys.argv[1]).parse_structures(primitive=False)[0]

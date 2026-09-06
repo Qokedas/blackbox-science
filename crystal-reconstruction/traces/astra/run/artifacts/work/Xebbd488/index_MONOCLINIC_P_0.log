@@ -1,0 +1,202 @@
+Xebbd488 MONOCLINIC P 0 peaks [5.84567, 6.26, 6.94403, 7.96925, 9.13606, 10.24491, 11.36, 12.56013, 12.91271, 13.91406, 14.3195, 14.79573, 15.38305, 15.93908, 16.24178, 17.53906, 18.21709, 18.83925, 19.66208, 20.64008, 21.86231, 22.16912] V 830.7 5888.09375 Lmax 50.56107162253921
+3->50.5611,1.90245,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+830.7->5888.09,505.79,9.999
+Starting: V=830.7->1336.49
+Finished: V=830.7->1336.49 A^3, 4054 unit cells tested, 149721 tests/s,   Elapsed time=0.027086s
+Starting: V=1336.49->1842.28
+Finished: V=1336.49->1842.28 A^3, 10858 unit cells tested, 155245 tests/s,   Elapsed time=0.06995s
+Starting: V=1842.28->2348.07
+Finished: V=1842.28->2348.07 A^3, 22094 unit cells tested, 171241 tests/s,   Elapsed time=0.129031s
+Starting: V=2348.07->2853.86
+Finished: V=2348.07->2853.86 A^3, 40554 unit cells tested, 194723 tests/s,   Elapsed time=0.208274s
+Starting: V=2853.86->3359.65
+Finished: V=2853.86->3359.65 A^3, 69630 unit cells tested, 224992 tests/s,   Elapsed time=0.309488s
+Starting: V=3359.65->3865.44
+Finished: V=3359.65->3865.44 A^3, 118971 unit cells tested, 271619 tests/s,   Elapsed time=0.438016s
+Starting: V=3865.44->4371.23
+Finished: V=3865.44->4371.23 A^3, 181368 unit cells tested, 306113 tests/s,   Elapsed time=0.592495s
+Starting: V=4371.23->4877.02
+Finished: V=4371.23->4877.02 A^3, 261173 unit cells tested, 336665 tests/s,   Elapsed time=0.775775s
+Starting: V=4877.02->5382.81
+      a=48.57-48.66 b= 3.12- 3.14 c=47.92-48.00 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5774.63-5832.27level=6, indexed=1(0 sol.)
+      a=0.02588-0.02586 b=0.32068-0.31829 c=0.02623-0.02621 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(0 sol.)
+ Solution ? a= 48.723 b=  3.130 c= 47.973 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5808.16 score=  3.06 #   0
+      a=48.57-48.66 b= 3.10- 3.12 c=47.92-48.00 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5731.83-5788.72level=6, indexed=1(1 sol.)
+      a=0.02588-0.02586 b=0.32308-0.32068 c=0.02623-0.02621 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(1 sol.)
+ Solution ? a= 48.723 b=  3.107 c= 47.973 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5764.96 score=  3.06 #   1
+      a=48.57-48.66 b= 3.07- 3.10 c=47.92-48.00 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5689.65-5745.81level=6, indexed=1(2 sol.)
+      a=0.02588-0.02586 b=0.32547-0.32308 c=0.02623-0.02621 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(2 sol.)
+ Solution ? a= 48.723 b=  3.084 c= 47.973 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5722.38 score=  3.06 #   2
+      a=48.57-48.66 b= 3.05- 3.07 c=47.92-48.00 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5648.10-5703.54level=6, indexed=1(3 sol.)
+      a=0.02588-0.02586 b=0.32786-0.32547 c=0.02623-0.02621 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(3 sol.)
+ Solution ? a= 48.723 b=  3.061 c= 47.973 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5680.44 score=  3.06 #   3
+      a=48.57-48.66 b= 3.03- 3.05 c=47.92-48.00 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5607.15-5661.88level=6, indexed=1(4 sol.)
+      a=0.02588-0.02586 b=0.33026-0.32786 c=0.02623-0.02621 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(4 sol.)
+ Solution ? a= 48.723 b=  3.039 c= 47.973 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5639.10 score=  3.06 #   4
+      a=48.57-48.66 b= 3.01- 3.03 c=47.92-48.00 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5566.78-5620.83level=6, indexed=1(5 sol.)
+      a=0.02588-0.02586 b=0.33265-0.33026 c=0.02623-0.02621 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(5 sol.)
+ Solution ? a= 48.723 b=  3.017 c= 47.973 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5598.36 score=  3.06 #   5
+      a=48.57-48.66 b= 2.98- 3.01 c=47.92-48.00 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5527.00-5580.37level=6, indexed=1(6 sol.)
+      a=0.02588-0.02586 b=0.33505-0.33265 c=0.02623-0.02621 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(6 sol.)
+ Solution ? a= 48.723 b=  2.995 c= 47.973 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5558.21 score=  3.06 #   6
+      a=48.57-48.66 b= 2.96- 2.98 c=47.92-48.00 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5487.78-5540.49level=6, indexed=1(7 sol.)
+      a=0.02588-0.02586 b=0.33744-0.33505 c=0.02623-0.02621 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(7 sol.)
+ Solution ? a= 48.723 b=  2.974 c= 47.973 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5518.62 score=  3.06 #   7
+      a=48.57-48.66 b= 2.94- 2.96 c=47.92-48.00 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5449.11-5501.17level=6, indexed=1(8 sol.)
+      a=0.02588-0.02586 b=0.33984-0.33744 c=0.02623-0.02621 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(8 sol.)
+ Solution ? a= 48.723 b=  2.953 c= 47.973 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5479.60 score=  3.06 #   8
+      a=48.57-48.66 b= 2.92- 2.94 c=47.92-48.00 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5410.98-5462.41level=6, indexed=1(9 sol.)
+      a=0.02588-0.02586 b=0.34223-0.33984 c=0.02623-0.02621 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(9 sol.)
+ Solution ? a= 48.723 b=  2.932 c= 47.973 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5441.12 score=  3.06 #   9
+      a=48.57-48.66 b= 2.90- 2.92 c=47.92-48.00 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5373.39-5424.19level=6, indexed=1(10 sol.)
+      a=0.02588-0.02586 b=0.34463-0.34223 c=0.02623-0.02621 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(10 sol.)
+ Solution ? a= 48.723 b=  2.912 c= 47.973 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5403.19 score=  3.06 #  10
+      a=48.57-48.66 b= 2.88- 2.90 c=47.92-48.00 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5336.31-5386.50level=6, indexed=1(11 sol.)
+      a=0.02588-0.02586 b=0.34702-0.34463 c=0.02623-0.02621 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(11 sol.)
+ Solution ? a= 48.723 b=  2.892 c= 47.973 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5365.77 score=  3.06 #  11
+      a=48.57-48.66 b= 2.86- 2.88 c=47.92-48.00 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5299.74-5349.33level=6, indexed=1(12 sol.)
+      a=0.02588-0.02586 b=0.34942-0.34702 c=0.02623-0.02621 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(12 sol.)
+ Solution ? a= 48.723 b=  2.872 c= 47.973 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5328.87 score=  3.06 #  12
+      a=48.57-48.66 b= 2.84- 2.86 c=47.92-48.00 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5263.66-5312.67level=6, indexed=1(13 sol.)
+      a=0.02588-0.02586 b=0.35181-0.34942 c=0.02623-0.02621 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(13 sol.)
+ Solution ? a= 48.723 b=  2.852 c= 47.973 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5292.48 score=  3.06 #  13
+      a=48.57-48.66 b= 2.82- 2.84 c=47.92-48.00 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5228.08-5276.51level=6, indexed=1(14 sol.)
+      a=0.02588-0.02586 b=0.35420-0.35181 c=0.02623-0.02621 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(14 sol.)
+ Solution ? a= 48.723 b=  2.833 c= 47.973 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5256.58 score=  3.06 #  14
+      a=48.57-48.66 b= 2.80- 2.82 c=47.92-48.00 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5192.97-5240.84level=6, indexed=1(15 sol.)
+      a=0.02588-0.02586 b=0.35660-0.35420 c=0.02623-0.02621 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(15 sol.)
+ Solution ? a= 48.723 b=  2.814 c= 47.973 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5221.16 score=  3.06 #  15
+      a=48.57-48.66 b= 2.79- 2.80 c=47.92-48.00 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5158.33-5205.64level=6, indexed=1(16 sol.)
+      a=0.02588-0.02586 b=0.35899-0.35660 c=0.02623-0.02621 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(16 sol.)
+ Solution ? a= 48.723 b=  2.795 c= 47.973 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5186.22 score=  3.06 #  16
+      a=48.57-48.66 b= 2.77- 2.79 c=47.92-48.00 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5124.15-5170.92level=6, indexed=1(17 sol.)
+      a=0.02588-0.02586 b=0.36139-0.35899 c=0.02623-0.02621 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(17 sol.)
+ Solution ? a= 48.723 b=  2.776 c= 47.973 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5151.74 score=  3.06 #  17
+      a=48.57-48.66 b= 2.75- 2.77 c=47.92-48.00 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5090.42-5136.66level=6, indexed=1(18 sol.)
+      a=0.02588-0.02586 b=0.36378-0.36139 c=0.02623-0.02621 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(18 sol.)
+ Solution ? a= 48.723 b=  2.758 c= 47.973 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5117.72 score=  3.06 #  18
+      a=48.57-48.66 b= 2.73- 2.75 c=47.92-48.00 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5057.14-5102.84level=6, indexed=1(19 sol.)
+      a=0.02588-0.02586 b=0.36618-0.36378 c=0.02623-0.02621 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(19 sol.)
+ Solution ? a= 48.723 b=  2.740 c= 47.973 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5084.14 score=  3.06 #  19
+      a=48.57-48.66 b= 2.71- 2.73 c=47.92-48.00 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5024.28-5069.48level=6, indexed=1(20 sol.)
+      a=0.02588-0.02586 b=0.36857-0.36618 c=0.02623-0.02621 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(20 sol.)
+ Solution ? a= 48.723 b=  2.722 c= 47.973 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5051.00 score=  3.06 #  20
+      a=48.57-48.66 b= 2.70- 2.71 c=47.92-48.00 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=4991.85-5036.54level=6, indexed=1(21 sol.)
+      a=0.02588-0.02586 b=0.37097-0.36857 c=0.02623-0.02621 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(21 sol.)
+ Solution ? a= 48.723 b=  2.704 c= 47.973 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5018.29 score=  3.06 #  21
+      a=48.57-48.66 b= 2.68- 2.70 c=47.92-48.00 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=4959.83-5004.03level=6, indexed=1(22 sol.)
+      a=0.02588-0.02586 b=0.37336-0.37097 c=0.02623-0.02621 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(22 sol.)
+ Solution ? a= 48.723 b=  2.687 c= 47.973 alpha= 90.000 beta=127.451 gamma= 90.000 V= 4986.00 score=  3.06 #  22
+      a=48.57-48.66 b= 2.66- 2.68 c=47.92-48.00 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=4928.22-4971.94level=6, indexed=1(23 sol.)
+      a=0.02588-0.02586 b=0.37576-0.37336 c=0.02623-0.02621 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(23 sol.)
+ Solution ? a= 48.723 b=  2.670 c= 47.973 alpha= 90.000 beta=127.451 gamma= 90.000 V= 4954.12 score=  3.06 #  23
+      a=48.57-48.66 b= 2.64- 2.66 c=47.92-48.00 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=4897.02-4940.25level=6, indexed=1(24 sol.)
+      a=0.02588-0.02586 b=0.37815-0.37576 c=0.02623-0.02621 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(24 sol.)
+ Solution ? a= 48.723 b=  2.653 c= 47.973 alpha= 90.000 beta=127.451 gamma= 90.000 V= 4922.65 score=  3.06 #  24
+      a=48.57-48.66 b= 2.63- 2.64 c=47.92-48.00 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=4866.20-4908.97level=6, indexed=1(25 sol.)
+      a=0.02588-0.02586 b=0.38055-0.37815 c=0.02623-0.02621 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(25 sol.)
+ Solution ? a= 48.723 b=  2.636 c= 47.973 alpha= 90.000 beta=127.451 gamma= 90.000 V= 4891.58 score=  3.06 #  25
+      a=48.57-48.66 b= 2.61- 2.63 c=47.92-48.00 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=4835.77-4878.08level=6, indexed=1(26 sol.)
+      a=0.02588-0.02586 b=0.38294-0.38055 c=0.02623-0.02621 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(26 sol.)
+ Solution ? a= 48.723 b=  2.620 c= 47.973 alpha= 90.000 beta=127.451 gamma= 90.000 V= 4860.90 score=  3.06 #  26
+      a=48.57-48.66 b= 2.60- 2.61 c=47.92-48.00 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=4805.72-4847.57level=6, indexed=1(27 sol.)
+      a=0.02588-0.02586 b=0.38533-0.38294 c=0.02623-0.02621 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(27 sol.)
+ Solution ? a= 48.723 b=  2.603 c= 47.973 alpha= 90.000 beta=127.451 gamma= 90.000 V= 4830.60 score=  3.06 #  27
+      a=48.57-48.66 b= 2.58- 2.60 c=47.92-48.00 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=4776.04-4817.45level=6, indexed=1(28 sol.)
+      a=0.02588-0.02586 b=0.38773-0.38533 c=0.02623-0.02621 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(28 sol.)
+ Solution ? a= 48.723 b=  2.587 c= 47.973 alpha= 90.000 beta=127.451 gamma= 90.000 V= 4800.67 score=  3.06 #  28
+      a=48.57-48.66 b= 2.56- 2.58 c=47.92-48.00 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=4746.73-4787.70level=6, indexed=1(29 sol.)
+      a=0.02588-0.02586 b=0.39012-0.38773 c=0.02623-0.02621 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(29 sol.)
+ Solution ? a= 48.723 b=  2.571 c= 47.973 alpha= 90.000 beta=127.451 gamma= 90.000 V= 4771.11 score=  3.06 #  29
+      a=48.57-48.66 b= 2.55- 2.56 c=47.92-48.00 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=4717.77-4758.31level=6, indexed=1(30 sol.)
+      a=0.02588-0.02586 b=0.39252-0.39012 c=0.02623-0.02621 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(30 sol.)
+ Solution ? a= 48.723 b=  2.555 c= 47.973 alpha= 90.000 beta=127.451 gamma= 90.000 V= 4741.92 score=  3.06 #  30
+      a=48.57-48.66 b= 2.53- 2.55 c=47.92-48.00 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=4689.16-4729.28level=6, indexed=1(31 sol.)
+      a=0.02588-0.02586 b=0.39491-0.39252 c=0.02623-0.02621 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(31 sol.)
+ Solution ? a= 48.723 b=  2.540 c= 47.973 alpha= 90.000 beta=127.451 gamma= 90.000 V= 4713.08 score=  3.06 #  31
+      a=47.92-48.00 b= 3.12- 3.14 c=48.57-48.66 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5774.63-5832.27level=6, indexed=1(32 sol.)
+      a=0.02623-0.02621 b=0.32068-0.31829 c=0.02588-0.02586 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(32 sol.)
+ Solution ? a= 47.973 b=  3.130 c= 48.723 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5808.16 score=  3.06 #  32
+      a=47.92-48.00 b= 3.10- 3.12 c=48.57-48.66 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5731.83-5788.72level=6, indexed=1(33 sol.)
+      a=0.02623-0.02621 b=0.32308-0.32068 c=0.02588-0.02586 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(33 sol.)
+ Solution ? a= 47.973 b=  3.107 c= 48.723 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5764.95 score=  3.06 #  33
+      a=47.92-48.00 b= 3.07- 3.10 c=48.57-48.66 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5689.66-5745.81level=6, indexed=1(34 sol.)
+      a=0.02623-0.02621 b=0.32547-0.32308 c=0.02588-0.02586 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(34 sol.)
+ Solution ? a= 47.973 b=  3.084 c= 48.723 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5722.38 score=  3.06 #  34
+      a=47.92-48.00 b= 3.05- 3.07 c=48.57-48.66 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5648.10-5703.54level=6, indexed=1(35 sol.)
+      a=0.02623-0.02621 b=0.32786-0.32547 c=0.02588-0.02586 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(35 sol.)
+ Solution ? a= 47.973 b=  3.061 c= 48.723 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5680.44 score=  3.06 #  35
+      a=47.92-48.00 b= 3.03- 3.05 c=48.57-48.66 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5607.15-5661.88level=6, indexed=1(36 sol.)
+      a=0.02623-0.02621 b=0.33026-0.32786 c=0.02588-0.02586 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(36 sol.)
+ Solution ? a= 47.973 b=  3.039 c= 48.723 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5639.10 score=  3.06 #  36
+      a=47.92-48.00 b= 3.01- 3.03 c=48.57-48.66 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5566.79-5620.83level=6, indexed=1(37 sol.)
+      a=0.02623-0.02621 b=0.33265-0.33026 c=0.02588-0.02586 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(37 sol.)
+ Solution ? a= 47.973 b=  3.017 c= 48.723 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5598.36 score=  3.06 #  37
+      a=47.92-48.00 b= 2.98- 3.01 c=48.57-48.66 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5527.00-5580.37level=6, indexed=1(38 sol.)
+      a=0.02623-0.02621 b=0.33505-0.33265 c=0.02588-0.02586 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(38 sol.)
+ Solution ? a= 47.973 b=  2.995 c= 48.723 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5558.21 score=  3.06 #  38
+      a=47.92-48.00 b= 2.96- 2.98 c=48.57-48.66 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5487.78-5540.49level=6, indexed=1(39 sol.)
+      a=0.02623-0.02621 b=0.33744-0.33505 c=0.02588-0.02586 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(39 sol.)
+ Solution ? a= 47.973 b=  2.974 c= 48.723 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5518.62 score=  3.06 #  39
+      a=47.92-48.00 b= 2.94- 2.96 c=48.57-48.66 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5449.11-5501.17level=6, indexed=1(40 sol.)
+      a=0.02623-0.02621 b=0.33984-0.33744 c=0.02588-0.02586 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(40 sol.)
+ Solution ? a= 47.973 b=  2.953 c= 48.723 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5479.60 score=  3.06 #  40
+      a=47.92-48.00 b= 2.92- 2.94 c=48.57-48.66 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5410.98-5462.41level=6, indexed=1(41 sol.)
+      a=0.02623-0.02621 b=0.34223-0.33984 c=0.02588-0.02586 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(41 sol.)
+ Solution ? a= 47.973 b=  2.932 c= 48.723 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5441.12 score=  3.06 #  41
+      a=47.92-48.00 b= 2.90- 2.92 c=48.57-48.66 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5373.39-5424.19level=6, indexed=1(42 sol.)
+      a=0.02623-0.02621 b=0.34463-0.34223 c=0.02588-0.02586 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(42 sol.)
+ Solution ? a= 47.973 b=  2.912 c= 48.723 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5403.18 score=  3.06 #  42
+      a=47.92-48.00 b= 2.88- 2.90 c=48.57-48.66 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5336.31-5386.50level=6, indexed=1(43 sol.)
+      a=0.02623-0.02621 b=0.34702-0.34463 c=0.02588-0.02586 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(43 sol.)
+ Solution ? a= 47.973 b=  2.892 c= 48.723 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5365.77 score=  3.06 #  43
+      a=47.92-48.00 b= 2.86- 2.88 c=48.57-48.66 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5299.74-5349.33level=6, indexed=1(44 sol.)
+      a=0.02623-0.02621 b=0.34942-0.34702 c=0.02588-0.02586 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(44 sol.)
+ Solution ? a= 47.973 b=  2.872 c= 48.723 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5328.87 score=  3.06 #  44
+      a=47.92-48.00 b= 2.84- 2.86 c=48.57-48.66 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5263.66-5312.67level=6, indexed=1(45 sol.)
+      a=0.02623-0.02621 b=0.35181-0.34942 c=0.02588-0.02586 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(45 sol.)
+ Solution ? a= 47.973 b=  2.852 c= 48.723 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5292.48 score=  3.06 #  45
+      a=47.92-48.00 b= 2.82- 2.84 c=48.57-48.66 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5228.08-5276.51level=6, indexed=1(46 sol.)
+      a=0.02623-0.02621 b=0.35420-0.35181 c=0.02588-0.02586 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(46 sol.)
+ Solution ? a= 47.973 b=  2.833 c= 48.723 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5256.58 score=  3.06 #  46
+      a=47.92-48.00 b= 2.80- 2.82 c=48.57-48.66 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5192.97-5240.84level=6, indexed=1(47 sol.)
+      a=0.02623-0.02621 b=0.35660-0.35420 c=0.02588-0.02586 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(47 sol.)
+ Solution ? a= 47.973 b=  2.814 c= 48.723 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5221.16 score=  3.06 #  47
+      a=47.92-48.00 b= 2.79- 2.80 c=48.57-48.66 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5158.33-5205.64level=6, indexed=1(48 sol.)
+      a=0.02623-0.02621 b=0.35899-0.35660 c=0.02588-0.02586 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(48 sol.)
+ Solution ? a= 47.973 b=  2.795 c= 48.723 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5186.22 score=  3.06 #  48
+      a=47.92-48.00 b= 2.77- 2.79 c=48.57-48.66 alpha= 90.00- 90.00 beta=127.28-127.36 gamma= 90.00- 90.00 V=5124.15-5170.92level=6, indexed=1(49 sol.)
+      a=0.02623-0.02621 b=0.36139-0.35899 c=0.02588-0.02586 alpha=0.60566-0.60686 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(49 sol.)
+ Solution ? a= 47.973 b=  2.776 c= 48.723 alpha= 90.000 beta=127.451 gamma= 90.000 V= 5151.74 score=  3.06 #  49
+Finished: V=4877.02->5382.81 A^3, 366487 unit cells tested, 361935 tests/s,   Elapsed time=1.01259s
+Starting: V=5382.81->5888.09
+Finished: V=5382.81->5888.09 A^3, 503963 unit cells tested, 388730 tests/s,   Elapsed time=1.29644s
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=47.9735, b=3.13005, c=48.7228, alpha=90, beta=127.451, gamma=90, V=5808.16, score=3.0592
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=47.9735, b=3.08383, c=48.7228, alpha=90, beta=127.451, gamma=90, V=5722.38, score=3.0592
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=47.9735, b=3.03894, c=48.7228, alpha=90, beta=127.451, gamma=90, V=5639.1, score=3.0592
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=47.9735, b=2.99535, c=48.7228, alpha=90, beta=127.451, gamma=90, V=5558.21, score=3.0592
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=47.9735, b=2.95299, c=48.7228, alpha=90, beta=127.451, gamma=90, V=5479.6, score=3.0592
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=47.9735, b=2.91181, c=48.7228, alpha=90, beta=127.451, gamma=90, V=5403.18, score=3.0592
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=47.9735, b=2.87176, c=48.7228, alpha=90, beta=127.451, gamma=90, V=5328.87, score=3.0592
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=47.9735, b=2.8328, c=48.7228, alpha=90, beta=127.451, gamma=90, V=5256.58, score=3.0592
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=47.9735, b=2.79488, c=48.7228, alpha=90, beta=127.451, gamma=90, V=5186.22, score=3.0592
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=48.7228, b=3.13005, c=47.9735, alpha=90, beta=127.451, gamma=90, V=5808.16, score=3.05919
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=48.7228, b=3.08383, c=47.9735, alpha=90, beta=127.451, gamma=90, V=5722.38, score=3.05919
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=48.7228, b=3.03894, c=47.9735, alpha=90, beta=127.451, gamma=90, V=5639.1, score=3.05919
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=48.7228, b=2.99535, c=47.9735, alpha=90, beta=127.451, gamma=90, V=5558.21, score=3.05919
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=48.7228, b=2.95299, c=47.9735, alpha=90, beta=127.451, gamma=90, V=5479.6, score=3.05919
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=48.7228, b=2.91181, c=47.9735, alpha=90, beta=127.451, gamma=90, V=5403.19, score=3.05919
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=48.7228, b=2.87176, c=47.9735, alpha=90, beta=127.451, gamma=90, V=5328.87, score=3.05919
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=48.7228, b=2.8328, c=47.9735, alpha=90, beta=127.451, gamma=90, V=5256.58, score=3.05919
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=48.7228, b=2.79488, c=47.9735, alpha=90, beta=127.451, gamma=90, V=5186.22, score=3.05919
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=48.7228, b=2.75797, c=47.9735, alpha=90, beta=127.451, gamma=90, V=5117.72, score=3.05919
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=48.7228, b=2.72201, c=47.9735, alpha=90, beta=127.451, gamma=90, V=5051, score=3.05919
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=48.7228, b=2.68698, c=47.9735, alpha=90, beta=127.451, gamma=90, V=4986, score=3.05919
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=48.7228, b=2.65285, c=47.9735, alpha=90, beta=127.451, gamma=90, V=4922.65, score=3.05919
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=48.7228, b=2.61957, c=47.9735, alpha=90, beta=127.451, gamma=90, V=4860.9, score=3.05919
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=48.7228, b=2.58711, c=47.9735, alpha=90, beta=127.451, gamma=90, V=4800.67, score=3.05919
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=48.7228, b=2.55545, c=47.9735, alpha=90, beta=127.451, gamma=90, V=4741.92, score=3.05919
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2609 BEST ? a=47.9735, b=3.13005, c=48.7228, alpha=90, beta=127.451, gamma=90, V=5808.16, score=3.0592
+503963unit cells tested, 388176 tests/s,   Elapsed time=1.29829s
+DONE Xebbd488 MONOCLINIC P 25 1.2988004684448242 [{'cell': [47.97349166870117, 3.1300530433654785, 48.72276306152344, 90.00000250447816, 127.4505649312509, 90.00000250447816], 'volume': 5808.1640625, 'score': 3.0591952800750732, 'system': 'MONOCLINIC', 'centering': 'P', 'mode': 0}, {'cell': [47.97349166870117, 3.0838255882263184, 48.72276306152344, 90.00000250447816, 127.4505649312509, 90.00000250447816], 'volume': 5722.38330078125, 'score': 3.0591952800750732, 'system': 'MONOCLINIC', 'centering': 'P', 'mode': 0}, {'cell': [47.97349166870117, 3.03894305229187, 48.72276306152344, 90.00000250447816, 127.4505649312509, 90.00000250447816], 'volume': 5639.09912109375, 'score': 3.0591952800750732, 'system': 'MONOCLINIC', 'centering': 'P', 'mode': 0}, {'cell': [47.97349166870117, 2.9953486919403076, 48.72276306152344, 90.00000250447816, 127.4505649312509, 90.00000250447816], 'volume': 5558.205078125, 'score': 3.0591952800750732, 'system': 'MONOCLINIC', 'centering': 'P', 'mode': 0}, {'cell': [47.97349166870117, 2.9529874324798584, 48.72276306152344, 90.00000250447816, 127.4505649312509, 90.00000250447816], 'volume': 5479.5986328125, 'score': 3.0591952800750732, 'system': 'MONOCLINIC', 'centering': 'P', 'mode': 0}]

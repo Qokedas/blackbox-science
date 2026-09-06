@@ -1,0 +1,44 @@
+                try:
+                    if n != 'background': lsq.SetParIsFixed(n, True)
+                except Exception: pass
+        if verbose: print('step', names, 'Rwp=%.4f' % p.GetRw(), flush=True)
+    pd.ExtractLeBail(20)
+    return lsq
+
+def lebail(iid, cell, spg='P1', tt_max=None, plot=None, verbose=False, nbg=24, asym=False, refine_cell=True):
+    p, ins = make_pattern(iid, tt_max=tt_max, nbg=nbg)
+    cr, pd = add_crystal(p, cell, spg)
+    pd.SetReflectionProfilePar(ReflectionProfileType.PROFILE_PSEUDO_VOIGT, 1e-7)
+    steps = [['Zero'], ['W'], ['U', 'V'], ['Eta0'], ['Eta1'], ['background']]
+    if refine_cell:
+        steps.insert(2, ['a', 'b', 'c', 'alpha', 'beta', 'gamma'])
+    if asym:
+        steps.append(['Asym0', 'Asym1'])
+    steps.append(['Zero', 'W', 'U', 'V', 'Eta0', 'background'] + (['a', 'b', 'c', 'alpha', 'beta', 'gamma'] if refine_cell else []))
+    lsq = fit_sequence(p, pd, steps, verbose=verbose)
+    res = dict(rw=p.GetRw(), r=p.GetR(), chi2=p.GetChi2(), rw_int=p.GetIntegratedRw(), gof=p.GetChi2()/max(1, p.GetNbPointUsed()),
+               cell=(cr.a, cr.b, cr.c, cr.alpha*180/np.pi, cr.beta*180/np.pi, cr.gamma*180/np.pi), nrefl=pd.GetNbReflBelowMaxSinThetaOvLambda())
+    if plot:
+        import matplotlib
+        matplotlib.use('Agg')
+        import matplotlib.pyplot as plt
+        x = np.degrees(p.GetPowderPatternX()); yo = p.GetPowderPatternObs(); yc = p.GetPowderPatternCalc()
+        fig, axs = plt.subplots(2, 1, figsize=(18, 10))
+        ax = axs[0]
+        ax.plot(x, yo, 'k', lw=0.5); ax.plot(x, yc, 'r', lw=0.5); ax.plot(x, yo-yc - 0.2*yo.max(), 'b', lw=0.5)
+        ax.set_title(f'{iid} {spg} Rwp={res["rw"]:.3f} chi2/N={res["gof"]:.2f}  cell={["%.4f"%v for v in res["cell"]]}')
+        ax = axs[1]
+        n = len(x); m = slice(0, n//3)
+        ax.plot(x[m], yo[m], 'k.-', lw=0.5, ms=2); ax.plot(x[m], yc[m], 'r', lw=0.7); ax.plot(x[m], (yo-yc)[m] - 0.2*yo[m].max(), 'b', lw=0.5)
+        plt.tight_layout(); plt.savefig(plot, dpi=70); plt.close()
+    return res, p, cr, pd, lsq
+
+if __name__ == '__main__':
+    iid = sys.argv[1]
+    cell = [float(v) for v in sys.argv[2:8]]
+    spg = sys.argv[8] if len(sys.argv) > 8 else 'P1'
+    tt_max = float(sys.argv[9]) if len(sys.argv) > 9 else None
+    t0 = time.time()
+    res, p, cr, pd, lsq = lebail(iid, cell, spg, tt_max=tt_max, verbose=True, plot=f'/app/work/{iid}/lebail_{spg.replace(" ","").replace("/","_")}.png')
+    print(f'{iid} {spg}: Rwp={res["rw"]:.4f} R={res["r"]:.4f} chi2/N={res["gof"]:.3f} nrefl={res["nrefl"]} cell={["%.4f"%v for v in res["cell"]]} t={time.time()-t0:.1f}s', flush=True)
+    import os; os._exit(0)

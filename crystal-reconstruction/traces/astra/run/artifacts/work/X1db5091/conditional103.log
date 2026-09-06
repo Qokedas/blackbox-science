@@ -1,0 +1,13 @@
+ATTACHED_H_SCATTERING 38 heavy atoms 24 H atoms
+PACKING_ENABLED 38 atoms 4884 pair terms coefficient 80.0 active_only True
+HBOND_PRIOR 2 donors 8 acceptors coefficient 30.0 directional True
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X1db5091 105.29139709472656
+CONDITIONAL 0 [1] best 102.45206451416016 q25 108.15955 sec 90.65020060539246
+CONDITIONAL 1 [0] best 100.22425079345703 q25 305.53394 sec 173.09627485275269
+CONDITIONAL 2 [1] best 100.03902435302734 q25 105.6766 sec 239.31500887870789
+CONDITIONAL 3 [0] best 99.98051452636719 q25 323.9437 sec 307.1879782676697
+FINISHED X1db5091 99.98051452636719

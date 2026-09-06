@@ -1,0 +1,162 @@
+        self.ignore_H_atoms = ignore_H_atoms
+        self.output_filename_root = name
+        self.zmatrices = []
+        self.absorb_H_Z_increase = absorb_H_Z_increase
+        self.absorb_H_occu_increase = absorb_H_occu_increase
+        self.radiation = radiation.lower()
+        self.temperature = None
+        self.original_sg_number = None
+        self.total_dof_calculated = False
+        self.sg_number = None
+        self.wavelength = None
+        self.hkl = None
+        self.twotheta = []
+        self.space_group = None
+        self.lattice = None
+        self.cif_frac_coords_no_H = None
+        self.cif_species_no_H = None
+        self.cif_frac_coords = None
+        self.cif_species = None
+        self.data_file = None
+        self.dspacing = None
+        self.data_resolution = None
+        self.source = None
+        self.profile = []
+        self.baseline_peaks = []
+        self.n_contributing_peaks = []
+        self.PawleyChiSq = None
+        self.centrosymmetric = None
+        self.affine_matrices = None
+        self.cif_dwfactors = None
+        self.dwfactors_asymmetric = None
+        self.dwfactors = None
+        self.total_degrees_of_freedom = None
+        self.total_external_degrees_of_freedom = None
+        self.total_internal_degrees_of_freedom = None
+        self.total_position_degrees_of_freedom = None
+        self.total_rotation_degrees_of_freedom = None
+        self.zm_torsions = None
+        self.distance_restraints = []
+        self.distance_restraints_no_H = []
+        self.angle_restraints = []
+        self.angle_restraints_no_H = []
+        self.torsion_restraints = []
+        self.torsion_restraints_no_H = []
+        self.fs = None
+        self.prefix = None
+
+    def __repr__(self):
+        return self.name
+
+    def to_json(self, return_json=True):
+        """
+        Save a structure object to a JSON formatted string. Can then be used to
+        instantiate a structure object from a string (or file)
+
+        Args:
+            return_json (bool, optional): If True, return a JSON formatted
+                string, else return a dictionary. Default is True.
+
+        Returns:
+            dict or str: JSON-compatible dict or JSON formatted string
+        """
+        dumpable = {}
+        for k, v in self.__dict__.items():
+            if k in ["zmatrices", "lattice", "space_group"]:
+                if k == "zmatrices":
+                    dumpable[k] = [zm.to_json(return_json=return_json) for zm in v]
+                elif k == "lattice":
+                    dumpable[k] = v.as_dict()
+            else:
+                if isinstance(v, np.ndarray):
+                    dumpable[k] = [v.tolist(), True]
+                elif isinstance(v, np.int32):
+                    dumpable[k] = [int(v), False]
+                else:
+                    dumpable[k] = [v, False]
+        if return_json:
+            return json.dumps(dumpable)
+        else:
+            return dumpable
+
+    def from_json(self, attributes, is_json=True):
+        """
+        Load a structure object from JSON formatted string
+
+        Args:
+            attributes (str or dict): JSON formatted string of a structure
+                                    produced by the to_json method
+            is_json (bool, optional): Toggles reading dict directly or using a
+                JSON formatted string. Default is True
+        """
+        if is_json:
+            attributes = json.loads(attributes)
+        for k, v in attributes.items():
+            if k in ["zmatrices", "lattice", "space_group"]:
+                if k == "zmatrices":
+                    zmatrices = []
+                    for zmstring in v:
+                        zmat = z_matrix.Z_matrix()
+                        zmat.from_json(zmstring, is_json=is_json)
+                        zmatrices.append(zmat)
+                    setattr(self, k, zmatrices)
+                elif k == "lattice":
+                    lattice = pmg.core.Lattice.from_dict(v)
+                    setattr(self,k,lattice)
+            else:
+                if v[1]:
+                    setattr(self, k, np.array(v[0]))
+                else:
+                    setattr(self, k, v[0])
+        setattr(self, "space_group",
+                        groups.SpaceGroup.from_int_number(self.sg_number))
+
+    def add_zmatrix(self, filename, verbose=True):
+        """
+        Create and add a z-matrix object to the Structure
+
+        Args:
+            filename (str): filename of the Z-matrix
+            verbose (bool, optional): Print out information. Defaults to True.
+        """
+        self.zmatrices.append(z_matrix.Z_matrix(filename))
+        if verbose:
+            print("Added Z-matrix with",self.zmatrices[-1])
+
+    def get_resolution(self, twotheta, decimal_places=3):
+        """
+        Calculate the d-spacing of a given twotheta value using Bragg's law
+
+        Args:
+            twotheta (float): The twotheta value of interest
+            decimal_places (int, optional): Number of decimal_places to restrict
+                the result to. Defaults to 3.
+
+        Returns:
+            float: the d-spacing of a twotheta value
+        """
+        d = self.wavelength / (2*np.sin(np.deg2rad(twotheta/2)))
+        return (np.around(d, decimal_places))
+
+    def add_data(self, filename, hklfile=None, source="DASH",
+{"name": ["Xedd9c7b", false], "ignore_H_atoms": [true, false], "output_filename_root": ["Xedd9c7b", false], "zmatrices": ["{\"filename\": [\"/app/work/Xedd9c7b/gallop_11/m0_0_0.zmatrix\", false], \"bond_connection\": [[-1, 0, 0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 13, 13, 11, 1], true], \"bond_refinable\": [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], true], \"angle_connection\": [[-1, -1, -1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 12, 12, 10, 0], true], \"angle_refinable\": [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], true], \"torsion_connection\": [[-1, -1, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 14, 14, 12, 2], true], \"torsion_refinable\": [[0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0], true], \"coords\": [[[0.0, 0.0, 0.0], [1.49800492, 180.0, 0.0], [2.51879863, 147.25115825, 0.0], [1.53738246, 113.42300622, 79.69087008], [1.50201818, 113.75658529, 94.1633701], [1.38477541, 125.14581174, 64.81207875], [1.36732369, 108.50893414, 178.82301727], [1.373098, 110.31160502, -1.26333092], [1.40226649, 129.52056729, -178.79696131], [1.3970698, 117.98896761, 179.28579118], [1.39037962, 120.77898868, 0.09787712], [1.39843241, 120.33035279, 0.56008767], [1.3752399, 117.52009409, -179.0633481], [1.61833715, 119.06237545, -94.32891979], [1.50420858, 108.77692035, -168.6622539], [1.51046218, 112.03901818, 131.47904465], [1.60369445, 101.88500114, -110.44528948], [1.41526753, 120.66197534, 178.1035801], [1.48503201, 112.8213759, -133.72012484]], true], \"elements\": [[\"C\", \"N\", \"C\", \"C\", \"C\", \"C\", \"N\", \"C\", \"C\", \"C\", \"C\", \"C\", \"O\", \"P\", \"O\", \"O\", \"O\", \"C\", \"C\"], false], \"dw_factors\": [{\"C\": 3.0, \"N\": 3.0, \"O\": 3.0, \"P\": 3.0}, false], \"occus\": [[1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], true], \"bond_refinable_indices\": [[], true], \"angle_refinable_indices\": [[], true], \"torsion_refinable_indices\": [[3, 4, 5, 13, 14], true], \"atom_names\": [[\"C1\", \"N2\", \"C4\", \"C5\", \"C6\", \"C7\", \"N8\", \"C9\", \"C10\", \"C11\", \"C12\", \"C13\", \"O14\", \"P15\", \"O16\", \"O17\", \"O18\", \"C19\", \"C3\"], false], \"coords_radians\": [[[0.0, 0.0, 0.0], [1.49800492, 3.141592653589793, 0.0], [2.51879863, 2.5700175388377113, 0.0], [1.53738246, 1.979604906049008, 1.3908680666750368], [1.50201818, 1.9854269591362486, 1.6434608{"min_two_theta": 5.0}{"indices": [2, 6, 9, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]}export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 SELECT_FILE=/app/work/X8a6f5a8/peak_select_ext2.json NPEAK=30 NSPUR=1 TTHERR=.035 TRIALS=160 INDEX_TIME=650 VMIN=2200 VMAX=7400 VTARGET=4700
+while [[ -r /proc/17735/status ]] && ! grep -q '^State:.*Z' /proc/17735/status; do sleep 5; done
+SG_FILTER='P 1 21 1' INDEX_TAG=wide21 python /app/work/index_metric.py X8a6f5a8 MONOCLINIC P > /app/work/X8a6f5a8/metric_wide21.log 2>&1
+SG_FILTER='C 1 2 1' INDEX_TAG=wide5 python /app/work/index_metric.py X8a6f5a8 MONOCLINIC C > /app/work/X8a6f5a8/metric_wide5.log 2>&1
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/16582/status ]] && ! grep -q '^State:.*Z' /proc/16582/status; do sleep 5; done
+python /app/work/import_gallop.py X13023e3 31 > /app/work/X13023e3/import_g31.log 2>&1
+python /app/work/refine_obj.py X13023e3 g31 /app/work/X13023e3/search_g31/best.xml --scale --tight > /app/work/X13023e3/refine_g31.log 2>&1
+cp -r /app/work/X7e382cb/gallop_22 /app/work/X7e382cb/gallop_31
+rm -f /app/work/X7e382cb/gallop_31/STOP
+EXACT_BUMP_IMAGES=1 SEARCH_TIME=1800 PARTICLES=128 ITERATIONS=400 START_NPZ=/app/work/X7e382cb/gallop_22/best.npz START_JITTER=.18 START_TOR_JITTER=.5 python /app/work/search_gallop.py X7e382cb 31 1 --packing --hscatter > /app/work/X7e382cb/gallop31.log 2>&1
+python /app/work/import_gallop.py X7e382cb 31 > /app/work/X7e382cb/import_g31.log 2>&1
+python /app/work/refine_obj.py X7e382cb g31 /app/work/X7e382cb/search_g31/best.xml --scale --tight > /app/work/X7e382cb/refine_g31.log 2>&1
+SEARCH_TIME=2200 PARTICLES=160 ITERATIONS=450 GALLOP_STOL=.23 CONF_RANK=0 python /app/work/search_gallop.py Xedd9c7b 11 2 --prepare --hscatter > /app/work/Xedd9c7b/gallop11.log 2>&1
+python /app/work/import_gallop.py Xedd9c7b 11 > /app/work/Xedd9c7b/import_g11.log 2>&1
+python /app/work/refine_obj.py Xedd9c7b g11 /app/work/Xedd9c7b/search_g11/best.xml --scale --tight > /app/work/Xedd9c7b/refine_g11.log 2>&1
+for id in X1a56c78 X8a06d7a; do
+ SEARCH_TIME=2200 PARTICLES=128 ITERATIONS=400 GALLOP_STOL=.24 CONF_RANK=0 python /app/work/search_gallop.py $id 11 1 --prepare --hscatter > /app/work/$id/gallop11.log 2>&1
+ python /app/work/import_gallop.py $id 11 > /app/work/$id/import_g11.log 2>&1
+ python /app/work/refine_obj.py $id g11 /app/work/$id/search_g11/best.xml --scale --tight > /app/work/$id/refine_g11.log 2>&1
+done

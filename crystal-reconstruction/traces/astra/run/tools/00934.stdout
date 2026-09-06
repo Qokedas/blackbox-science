@@ -1,0 +1,115 @@
+{
+ "components": [
+  {
+   "smiles": "Nc1ccccc1NC(=O)c1ccc(CNC(=O)OCc2cccnc2)cc1",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}{
+ "components": [
+  {
+   "smiles": "CNS(=O)(=O)Nc1nccc(Cc2c(C)c3ccc(Oc4ncccn4)cc3oc2=O)c1F",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "achiral components; no stereodescriptors.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}{
+ "components": [
+  {
+   "smiles": "COc1ccc(OC)c([C@H](O)CNC(=O)C[NH3+])c1",
+   "count": 1,
+   "charge": 1
+  },
+  {
+   "smiles": "[Cl-]",
+   "count": 1,
+   "charge": -1
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}{
+ "components": [
+  {
+   "smiles": "CC[C@@H](CO)NC(=O)[C@@H]1C=C2c3cccc4[nH]cc(c34)C[C@H]2[NH+](C)C1",
+   "count": 1,
+   "charge": 1
+  },
+  {
+   "smiles": "O=C([O-])C=CC(=O)O",
+   "count": 1,
+   "charge": -1
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}{
+ "components": [
+  {
+   "smiles": "O=C(/C=C/c1ccc(O)c(O)c1)O[C@@H]1C[C@@](OC(=O)/C=C/c2ccc(O)c(O)c2)(C(=O)O)C[C@@H](O)[C@@H]1O",
+   "count": 1,
+   "charge": 0
+  },
+  {
+   "smiles": "O",
+   "count": 1,
+   "charge": 0
+  }
+ ],
+ "sample": "crystalline powder of a single phase; composition as listed (one formula unit = the listed components with the listed counts)",
+ "stereochemistry_note": "SMILES carry the stereochemistry of the crystallised compound; preserve it.",
+ "hydrogens_note": "hydrogen positions and protonation sites are not assessed; SMILES show the protonation state reported by the depositors"
+}The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL Xedd9c7b 26.511154174804688
+CONDITIONAL 0 [0] best 22.842021942138672 q25 252.8203 sec 227.7043538093567
+CONDITIONAL 1 [1] best 22.421558380126953 q25 156.02538 sec 424.294016122818
+CONDITIONAL 2 [0] best 22.31981086730957 q25 238.8623 sec 613.6664605140686
+CONDITIONAL 3 [1] best 22.283748626708984 q25 115.87228 sec 816.0739014148712
+FINISHED Xedd9c7b 22.283748626708984
+==== X9af54a2
+/app/work/X9af54a2/refined_g11.json
+{
+ "Rw": 0.3266073746978208,
+ "chi2": 13040.327961164618
+}==== X35b7fbc
+/app/work/X35b7fbc/refined_2.json
+{
+ "Rw": 0.18965064419526603,
+ "chi2": 2391.367250988489
+}/app/work/X35b7fbc/refined_g11.json
+{
+ "Rw": 0.20564318518603483,
+ "chi2": 4659.285556661178
+}==== Xe1fb77b
+/app/work/Xe1fb77b/refined_1.json
+{
+ "Rw": 0.1690845755039577,
+ "chi2": 3265.690922326668
+}/app/work/Xe1fb77b/refined_2.json
+{
+ "Rw": 0.19097255385349643,
+ "chi2": 4698.594894872138
+}/app/work/Xe1fb77b/refined_g11.json
+{
+ "Rw": 0.22025131616057378,
+ "chi2": 6908.855932476514
+}==== X238783d
+/app/work/X238783d/refined_g20.json
+{
+ "Rw": 0.19305281955322562,
+ "chi2": 2625.164693904293
+}/app/work/X238783d/refined_g25.json
+{
+ "Rw": 0.20151306339859826,
+ "chi2": 3459.220620255341
+}==== Xebbd488

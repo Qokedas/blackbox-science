@@ -1,0 +1,7 @@
+Xd4c1a35 Nat 192 molecule sizes [24, 24, 24, 24, 24, 24, 24, 24]
+  component COC1=CC(=O)C[C@@H](C)[C@]12Oc1c(Cl)c(OC)cc(OC)c1C2=O matches 8
+  bond range 1.2218650218796965 1.7367185678160488
+  min intermolecular distance 2.2782275270480445
+SUBMITTED Xd4c1a35
+GQUEUE 12401
+GQUEUE2 12403

@@ -1,0 +1,12 @@
+done ('X1db5091', 'monoP', 180)
+done ('X2327841', 'monoP', 180)
+done ('X238783d', 'monoP', 180)
+done ('X263b09a', 'monoP', 180)
+done ('X35b7fbc', 'monoP', 180)
+done ('X3c176e2', 'monoP', 180)
+done ('X3f4781b', 'monoP', 180)
+done ('X4f6fe58', 'monoP', 180)
+done ('X7e382cb', 'monoP', 180)
+run 0: cost=1357259.9 Rwp=0.1452 chi2=4577681.6 t=163s
+run 1: cost=1308821.6 Rwp=0.1448 chi2=4555594.6 t=148s
+Sun Sep  6 04:14:42 UTC 2026

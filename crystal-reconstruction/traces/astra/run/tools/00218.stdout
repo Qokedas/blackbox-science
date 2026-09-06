@@ -1,0 +1,8 @@
+DEPID=6837
+EXACT_PAWLEY nref 99 rank 97 cond 132.25177359838946 chi2 1866.7055001324002 netRwp 0.06778895002622363
+ZM CC(C)Cc1ccc([C@@H](C)C(=O)O)cc1 n 15 torsions 4 max_distance_error 9.517215016074942e-09
+ZM NC(=O)c1cccnc1 n 9 torsions 1 max_distance_error 1.2100245250223907e-08
+Total degrees of freedom: 19
+Total external degrees of freedom: 14 (pos: 6 rot: 8 )
+Total internal degrees of freedom: 5
+PREPARED X13023e3 Nref 99 PawleyRw 0.08488258664761994 SG P 1 21 1

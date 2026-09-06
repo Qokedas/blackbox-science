@@ -1,0 +1,17 @@
+#!/bin/bash
+# kill python processes (argv0 is python) whose cmdline contains $1
+for p in /proc/[0-9]*; do
+  pid=${p#/proc/}
+  [ "$pid" = "$$" ] && continue
+  cl=$(tr '\0' ' ' < $p/cmdline 2>/dev/null)
+  first=${cl%% *}
+  case "$first" in
+    *python*) case "$cl" in *"$1"*) echo "kill $pid: ${cl:0:80}"; kill -9 $pid;; esac;;
+  esac
+done
+kill 7357: python inositol_scan.py P c a m 1 0,1,2,3,4,5,8 800000 1 Pcam 
+python inositol_scan.py P 21 21 21 2 0,1,2,3,4,5,8 1000000 1 p212121 
+python solve.py Xe3a2935 10.29176 6.88129 19.99016 90 90 90 P 21 21 21 --nsteps 3000000 --nruns 2 --ttmax 16 --tag c2b --conf 2 
+/bin/bash X3c176e2/run_zp1.sh 
+python inositol_scan.py P c n m 1 0,1,2,3,4,5,8 800000 1 Pcnm 
+run 0: cost=126049.1 Rwp=0.3333 chi2=196369.5 t=2525s

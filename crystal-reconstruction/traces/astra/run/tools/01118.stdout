@@ -1,0 +1,42 @@
+EXACT_PAWLEY nref 305 rank 275 cond 940.9961714030129 chi2 239538.33856445487 netRwp 0.10662807704151352
+ZM O[C@](CC[NH+]1CCCCC1)(c1ccccc1)C1CCCCC1 n 22 torsions 5 max_distance_error 9.947743961902233e-09
+ZM [Cl-] n 1 torsions 0 max_distance_error 0.0
+Total degrees of freedom: 15
+Total external degrees of freedom: 10 (pos: 6 rot: 4 )
+Total internal degrees of freedom: 5
+PREPARED X1a56c78 Nref 305 PawleyRw 0.0674558365619957 SG P 21 21 21
+ATTACHED_H_SCATTERING 23 heavy atoms 32 H atoms
+PACKING_ENABLED 23 atoms 1751 pair terms coefficient 80.0 active_only True
+HBOND_PRIOR 2 donors 2 acceptors coefficient 15.0 directional True
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 2562.58it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 95 seconds 26.550145387649536 best 173.15862 q25 319.1252 median 362.80374 total 26.554242372512817
+GALLOP 1 Nref 126 seconds 27.546993732452393 best 160.62329 q25 245.9239 median 314.95264 total 54.13477182388306
+GALLOP 2 Nref 159 seconds 31.12047553062439 best 159.51189 q25 211.22015 median 295.85248 total 85.28578281402588
+GALLOP 3 Nref 196 seconds 38.56448554992676 best 158.62422 q25 180.9137 median 284.7439 total 123.88213515281677
+GALLOP 4 Nref 242 seconds 40.534289836883545 best 158.3388 q25 158.34259 median 227.7233 total 164.44744896888733
+GALLOP 5 Nref 291 seconds 54.88203692436218 best 158.17836 q25 172.02116 median 307.70123 total 219.3629961013794
+GALLOP 6 Nref 305 seconds 58.03333115577698 best 158.17435 q25 158.1748 median 234.7925 total 277.4476945400238
+base.xml
+model.json
+m0_1_0.zmatrix
+best.json
+last_population.npz
+best.cif
+best.npz
+structure.json
+m0_0_0.zmatrix
+best_frac.npy
+profile_matrix.npz
+CYCLE 0 2 Rw 0.07467380325400334 chi2 7166.144239004933 geom 2165.339179310118 LSQ 10704.422943121072
+PACKING_STAGE 0 149.12272679362076
+CYCLE 1 0 Rw 0.07872518053183984 chi2 7964.826747964783 geom 1298.144726119231 LSQ 10529.036832480215
+CYCLE 1 1 Rw 0.07818154666131118 chi2 7855.204911362349 geom 1310.2132157287963 LSQ 10360.663751173717
+CYCLE 1 2 Rw 0.07793574159428765 chi2 7805.8885719205 geom 1192.134914783934 LSQ 10156.111363446284
+PACKING_STAGE 1 204.53617472262277
+CYCLE 2 0 Rw 0.07832852319185812 chi2 7884.76728349751 geom 1142.3074416907987 LSQ 10143.701015316932
+CYCLE 2 1 Rw 0.078227273539751 chi2 7864.396314148898 geom 1141.7497472287546 LSQ 10124.465593766157
+Sun Sep  6 11:18:41 UTC 2026

@@ -1,0 +1,153 @@
+=====X13023e3
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1606.55it/s]
+GALLOP 12 Nref 122 seconds 38.22025108337402 best 6.946786 q25 16.260658 median 23.266218 total 490.7372660636902
+GALLOP 13 Nref 122 seconds 34.250150203704834 best 6.7835994 q25 16.483046 median 23.855762 total 524.9918277263641
+GALLOP 14 Nref 122 seconds 35.51591658592224 best 6.835199 q25 15.724892 median 22.07284 total 560.5121846199036
+GALLOP 15 Nref 122 seconds 34.13129281997681 best 6.561465 q25 15.700976 median 22.38442 total 594.6492290496826
+GALLOP 16 Nref 122 seconds 35.24742674827576 best 6.757387 q25 15.229809 median 21.667187 total 629.9372386932373
+GALLOP 17 Nref 122 seconds 32.95541071891785 best 6.7237544 q25 14.705783 median 20.30611 total 662.8966462612152
+GALLOP 18 Nref 122 seconds 37.532577991485596 best 5.341956 q25 13.913097 median 18.375679 total 700.4322779178619
+GALLOP 19 Nref 122 seconds 28.132296085357666 best 5.141801 q25 11.453722 median 18.162678 total 728.6331262588501
+GALLOP 20 Nref 122 seconds 41.133278131484985 best 5.467355 q25 14.607513 median 20.901627 total 769.83709025383
+GALLOP 21 Nref 122 seconds 40.3501193523407 best 5.1504493 q25 14.700762 median 19.540009 total 810.191299200058
+GALLOP 22 Nref 122 seconds 38.512380838394165 best 4.951833 q25 14.153973 median 20.51043 total 848.7078602313995
+GALLOP 23 Nref 122 seconds 34.549269676208496 best 4.884172 q25 13.320769 median 18.377441 total 883.3415813446045
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1935.31it/s]
+GALLOP 24 Nref 122 seconds 27.794021129608154 best 7.873526 q25 17.695368 median 23.982817 total 911.2249891757965
+=====Xbfeeda9
+#  0:ScatteringPowerAtom(C)
+#  1:ScatteringPowerAtom(N)
+#  2:ScatteringPowerAtom(O)
+ObjRegistry<T>::Find(ion_Cl): Not found !!
+List of Crystal ScatteringPowers :4 object registered:
+#  0:ScatteringPowerAtom(C)
+#  1:ScatteringPowerAtom(N)
+#  2:ScatteringPowerAtom(O)
+#  3:ScatteringPowerAtom(Cl)
+ANTIBUMP 5 Scale 10.0 Initial cost 3951.290161268634
+Imported powder pattern: 4041 points, 2theta=  4.850 ->  45.251, step= 0.010
+RESCALED_BASE 2.2519343277139 0.0464910011027389 4040.999999999988
+INITIAL Xbfeeda9 1 Rw 0.4758924869647883 LLK 299928.47530277877 Integrated 294450.45788102126 DOF -1
+RUN 0 steps 100000 time 224.03500199317932 total 224.03508639335632 LLK 115530.38822475183 Rw 0.27262385070481876 Integrated 113045.05589373872
+RUN 1 steps 3000000 time 600.0807440280914 total 824.2978436946869 LLK 62636.11237333063 Rw 0.19897836658259482 Integrated 60423.110774860455
+=====Xe1fb77b
+List of Crystal ScatteringPowers :0 object registered:
+ObjRegistry<T>::Find(C): Not found !!
+List of Crystal ScatteringPowers :1 object registered:
+#  0:ScatteringPowerAtom(O)
+ObjRegistry<T>::Find(ion_O): Not found !!
+List of Crystal ScatteringPowers :2 object registered:
+#  0:ScatteringPowerAtom(O)
+#  1:ScatteringPowerAtom(C)
+ANTIBUMP 3 Scale 10.0 Initial cost 0.0
+Imported powder pattern: 11370 points, 2theta=  1.801 ->  13.152, step= 0.001
+RESCALED_BASE 1.4627227046877824 0.07040823664357759 11369.999999999949
+INITIAL Xe1fb77b 2 Rw 0.5989750625271313 LLK 657585.6897973643 Integrated 656704.6631084775 DOF -1
+RUN 0 steps 100000 time 209.78746509552002 total 209.78754663467407 LLK 232011.76959382676 Rw 0.3818387882183914 Integrated 229416.284933597
+RUN 1 steps 3000000 time 600.2046418190002 total 810.3128747940063 LLK 169875.12621515183 Rw 0.32918504854933317 Integrated 168534.19451505868
+RUN 2 steps 3000000 time 600.5225648880005 total 1411.206104516983 LLK 139663.11142589955 Rw 0.29336001852466104 Integrated 137853.84392199217
+=====Xeb393f9
+#  0:ScatteringPowerAtom(O)
+#  1:ScatteringPowerAtom(C)
+#  2:ScatteringPowerAtom(N)
+ObjRegistry<T>::Find(S): Not found !!
+List of Crystal ScatteringPowers :4 object registered:
+#  0:ScatteringPowerAtom(O)
+#  1:ScatteringPowerAtom(C)
+#  2:ScatteringPowerAtom(N)
+#  3:ScatteringPowerAtom(Cl)
+Imported powder pattern: 7578 points, 2theta=  4.678 ->  23.621, step= 0.002
+RESCALED_BASE 1.0004644785769743 0.046395222945572724 7577.999999999983
+INITIAL Xeb393f9 1 Rw 0.2688026345500707 LLK 186500.52827408884 Integrated 185153.28212240367 DOF -1
+RUN 0 steps 100000 time 29.4878511428833 total 29.487924814224243 LLK 37728.519233669984 Rw 0.1369213554625328 Integrated 36290.14913488902
+RUN 1 steps 4000000 time 600.0131418704987 total 629.6252927780151 LLK 13985.610211307898 Rw 0.09508150311094965 Integrated 12509.513964364744
+RUN 2 steps 4000000 time 600.08154129982 total 1229.980306148529 LLK 11818.541913903038 Rw 0.08936435543106927 Integrated 10377.17979645274
+=====X7e382cb
+EXACT_PAWLEY nref 169 rank 159 cond 678.8512065931568 chi2 14384.021202666845 netRwp 0.16434987457697728
+TWO_CENTRES [6.95088005065918, 6.971439838409424, 15.760000228881836, 65.62010192871094, 82.98049926757812, 67.39070129394531] Nref 169 Nparticle 224
+BATCH 0 best 122.2587661743164 diffraction 120.46295166015625 p25 353.4835205078125 seconds 25.24208688735962 centre [0.  0.5 0.5]
+BATCH 1 best 122.25855255126953 diffraction 120.4627685546875 p25 338.66949462890625 seconds 44.82248258590698 centre [0.  0.5 0.5]
+BATCH 2 best 122.25856018066406 diffraction 120.4627685546875 p25 318.1592712402344 seconds 73.12491631507874 centre [0.  0.5 0.5]
+BATCH 3 best 122.25863647460938 diffraction 120.46282958984375 p25 332.45477294921875 seconds 98.43769264221191 centre [0.  0.5 0.5]
+BATCH 4 best 122.2585678100586 diffraction 120.4627685546875 p25 275.8479919433594 seconds 122.20046734809875 centre [0.  0.5 0.5]
+BATCH 5 best 144.02459716796875 diffraction 143.06378173828125 p25 366.165771484375 seconds 156.98967695236206 centre [0.  0.5 0.5]
+BATCH 6 best 122.25858306884766 diffraction 120.4627685546875 p25 319.9562683105469 seconds 189.30524849891663 centre [0.  0.5 0.5]
+BATCH 7 best 122.25865936279297 diffraction 120.46282958984375 p25 343.10137939453125 seconds 217.92314505577087 centre [0.  0.5 0.5]
+BATCH 8 best 122.25857543945312 diffraction 120.4627685546875 p25 311.2524719238281 seconds 244.58409237861633 centre [0.  0.5 0.5]
+BATCH 9 best 122.25847625732422 diffraction 120.46270751953125 p25 313.7315368652344 seconds 271.391375541687 centre [0.  0.5 0.5]
+BATCH 10 best 141.5489044189453 diffraction 135.81793212890625 p25 368.9066467285156 seconds 298.9206280708313 centre [0.  0.5 0.5]
+BATCH 11 best 122.25849151611328 diffraction 120.46270751953125 p25 332.8132019042969 seconds 322.43927025794983 centre [0.  0.5 0.5]
+=====Xd4c1a35
+FLEXIBLE_RINGS
+EXTENDED_BACKGROUND 0.11153396209939319
+CYCLE 0 0 Rw 0.10996477630188958 chi2 4098.646040169472 geom 1.1905224942768062 LSQ 4147.4799514265715
+CYCLE 0 1 Rw 0.10993299769932559 chi2 4096.2774558346355 geom 1.1905224942768062 LSQ 4145.152788378513
+CYCLE 0 2 Rw 0.10993044977863493 chi2 4096.087578921338 geom 1.1905224942768062 LSQ 4144.935106665958
+CYCLE 1 0 Rw 0.10310923222336081 chi2 3603.531560159878 geom 43.159411706916536 LSQ 3830.3043731044954
+CYCLE 1 1 Rw 0.10172124041206332 chi2 3507.1675876525273 geom 38.88837766871293 LSQ 3730.755389319578
+CYCLE 1 2 Rw 0.10114780755864933 chi2 3467.7371510166563 geom 39.303158756273255 LSQ 3696.6370157757647
+CYCLE 2 0 Rw 0.10110633669911451 chi2 3464.8941717663456 geom 38.725944288586476 LSQ 3691.1838991860586
+CYCLE 2 1 Rw 0.10107225326981455 chi2 3462.5585007468108 geom 38.49574495764249 LSQ 3688.026343874975
+CYCLE 2 2 Rw 0.10103929374359726 chi2 3460.300597591295 geom 38.42071198139408 LSQ 3685.6229501944845
+CYCLE 3 0 Rw 0.10098741952773371 chi2 3456.7484290203283 geom 38.43811422633459 LSQ 3682.311936336311
+CYCLE 3 1 Rw 0.10094754868605534 chi2 3454.0194502438067 geom 38.487169284465686 LSQ 3679.9725859426135
+CYCLE 3 2 Rw 0.10091206418517157 chi2 3451.591602984377 geom 38.54788035058138 LSQ 3677.988866461841
+FINISHED Xd4c1a35 0.10091206418517157
+X3f4781b clopidogrel bisulfate: cell volume ~1852 A3 with MW420. Z=4 (density1.5), not Z=2 (density0.75). In P21 MUST use Z'=2: two clopidogrel cations and two bisulfates. The first MC trial had Z'=1 and was necessarily incorrect; do not submit its structure.
+X9af54a2 P21 volume1407 Z=4 Z'=2.
+X3c176e2 P212121 volume1444 Z=8 Z'=2.
+Xd4c1a35 P212121 volume3426 Z=8 Z'=2.
+X4f6fe58 P-1 volume1410 Z=4 Z'=2.
+X3c176e2 inositol isomer0 (RDKit enumeration) with Z'=2 P212121 solved, Rwp0.04247, minO-contact2.532 A, bonds1.413-1.563 A; submitted.
+Xe3a2935 final Rwp0.09778 vs Le Bail0.0869; plausible heavy connectivity, 2.80A mincontacts; submitted.
+Xfca9f3c best cell candidate1/P21 newly submitted JSON after freshbase0.03974.
+X8a06d7a partial TRI log gives M47.37 V1300.7 a5.061,b11.862,c21.748,angles93.96,91.916,92.17; fits in progress for five candidates.
+Antibump test: ObjCryst DOES count intramolecular bonds! New script antibump.py assigns topology-aware minima only with separate atom scattering powers (--fullbump), or solvent/ion selective only (--bump). Scale via c.XMLInput(XMLOutput modified AntiBumpScale). Usual scale10; rescale diffraction errors before search (--rescale) for comparable chemical likelihood.
+IMPORTANT: automatic MonteCarlo LSQ after each run was causing very large geometry likelihood and nonphysical high-cost models in X130/X35. Default MC_LSQ now 0 (never); only enable explicitly if useful. Added --profile for full point-by-point MC when integrated-profile objective is suspicious.
+IMPORTANT: Molecule internal-coordinate translation is a gauge mode. Least squares (especially --rigid starting models) can drift its common XYZ center to 1e9 A; CIF calc remains correct but ObjCryst XML six-significant-digit serialization collapses the molecule! Added recenter_molecules() before CIF/XML saving and each refinement cycle. X3c176e2 refined_10.xml was corrupted this way, but original CIF fine; restored via restore_cif.py and highres fit 0.03704, re-submitted.
+IMPORTANT: c.XMLInput on a crystal already containing Python-owned Molecules can abort with invalid pointer. antibump.py now leaves default AntiBumpScale1, does not use XMLInput. --fullbump sameatom SP distances still work without scaling.
+X35b7fbc likely ergometrine maleate. Default unspecified C=C conformer was TRANS, cannot change under rigid double-bond restraint. Now cis.json/trans.json enumerate. Stopped trans search after ~4M; new cis search scheduled.
+Four original submitted structures replaced by higher-resolution dmin1.316A refinements: Xe3 Rwp.07252, Xf8.08811, Xbfc.03502, X078.12342; all connectivity/contact checks passed.
+Xeb393f9 triclinic cell V~682, M72.29, whole-profile Lebail.0454. Enantiopure one FU has density1.33 with Z1, thus P1 plausible; freshbase/JSON submitted. Candidate reducedcell8.014,9.816,10.233 angles74.871,68.959,65.931.
+X14a2b08 candidate4 is markedly better (Lebail.0838 vs .109 others), freshbase/JSON replaces candidate0. X8a06d7a cell4 tentative (best prior.125 but fresh.146); raw-peak reindex needed.
+
+Continuation: ObjCryst bridge compiled in /app/work/libobj_bridge.so with wrapper obj_bridge.py.
+Exact fixed-profile Pawley matrix now implemented and GALLOP preparation uses exact weighted profile overlaps and SVD extraction (old gallop runs remain old).
+Anti-bump scale safely adjustable via bridge (no XMLInput); current antibump.py respects requested scale, default10.
+Aromatic N-aroyl amide torsion restraints disabled in new model generation (e.g. acemetacin) because truly rotatable.
+Xd4 run1 was killed (bad older base Le Bail .228). Fresh base .09397 saved and run2/full-profile started on new CoreC queue.
+X130 run2 refined to .0875 but cocrystal molecules overlap/connect; not submitted.
+Xfca all-trans run10 refined to .04652; validated two26-heavy molecules; submitted six-th CIF. High-resolution refinement planned.
+X7e reconsidered: candidate V324 ignored clearly crystalline first2.808° peak (and5.635°,11.301° harmonics). Doubling c toV647 permits first001, full-profile .03496 vs .04522 half-cell. Half-anion global solver plateau ~202 normalized cost /Rwp.096, likely half-cell is only pseudosubcell. Replaced mainbase with fit_double0.xml (.32, not inferior fresh doublebase), and JSON with doubledcell. Fullanion+2N Zprime1 P-1 GALLOP21 queued. Half oldbase remains half_base/.
+Refinement fix: ObjCryst rigid-group local translations are not properly accounted in cross-group geometrical restraints during LSQ. Copy-par True/False and manual Begin did not fix; removing ALL rigid groups before final Rietveld does. refine_obj.py default now removes rigid groups; --keep-rigid opts back into old behavior. X130 g12free graph valid, Rwp.08133 vs broken g12t. Rings no longer distort or disconnect from substituents. True restraints now work; further tight physical refinements needed.
+---queues
+/app/work/index1db_raw_strict.sh
+/app/work/queue_axis.sh
+/app/work/queue_bases2d.sh
+/app/work/queue_complete2d.sh
+/app/work/queue_dealk.sh
+/app/work/queue_fit2d.sh
+/app/work/queue_fit_de.sh
+/app/work/queue_fit_missing2.sh
+/app/work/queue_h7.sh
+/app/work/queue_highfit.sh
+/app/work/queue_highres.sh
+/app/work/queue_index_de.sh
+/app/work/queue_index_de2.sh
+/app/work/queue_index_ext.sh
+/app/work/queue_missing_fits.sh
+/app/work/queue_moreindex.sh
+/app/work/queue_next_small.sh
+/app/work/queue_refine_fix.sh
+/app/work/queue_refine_stable.sh
+/app/work/queue_small7.sh
+/app/work/queue_structures_A.sh
+/app/work/queue_structures_A2.sh
+/app/work/queue_structures_B.sh
+/app/work/queue_structures_C.sh
+/app/work/queue_structures_C2.sh
+/app/work/queue_structures_C_new.sh
+/app/work/queue_tight.sh
+/app/work/queue_twocentre.sh
+/app/work/raw_index_queue.sh
+/app/work/refine_g12.sh

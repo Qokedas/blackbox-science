@@ -1,0 +1,41 @@
+N48 H57 N55 DA 2.5972 HA 2.6422 DHA 76.22
+N48 H57 O50 DA 2.2447 HA 3.1595 DHA 22.60
+N48 H58 N55 DA 2.5972 HA 1.9717 DHA 116.31
+N48 H58 O12 DA 3.0086 HA 3.0710 DHA 76.84
+N48 H58 O16 DA 3.2001 HA 2.2053 DHA 162.10
+N48 H58 O50 DA 2.2447 HA 2.5182 DHA 62.89
+O17 H40 N48 DA 3.6501 HA 3.1425 DHA 113.48
+O17 H40 N55 DA 3.3954 HA 2.7193 DHA 126.03
+O17 H40 O16 DA 2.2295 HA 2.4880 DHA 63.47
+/app/work/submit.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+X1db5091 Nat 152 molecule sizes [29, 29, 29, 29, 9, 9, 9, 9]
+  component COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1 matches 4
+  component NC(=O)c1cccnc1 matches 4
+  bond range 1.2207780130539332 1.7188128964109382
+  min intermolecular distance 2.597156020398288
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/12401/status ]] && ! grep -q '^State:.*Z' /proc/12401/status; do sleep 5; done
+# Prioritise an improving zwitterion model before two exploratory difficult cases.
+while [[ ! -f /app/work/Xedd9c7b/refined_g11.json ]];do sleep 5;done
+GALLOP_STOL=.29 python /app/work/warm_gallop.py Xedd9c7b 50 /app/work/Xedd9c7b/refined_g11.xml /app/work/Xedd9c7b/search_g11/model.json > /app/work/Xedd9c7b/warm50.log 2>&1
+HBOND_COEFF=20 SEARCH_TIME=1700 PARTICLES=128 ITERATIONS=400 MACRO_ELITE_FRAC=.30 START_NPZ=/app/work/Xedd9c7b/gallop_50/warm.npz START_JITTER=.06 START_TOR_JITTER=.35 python /app/work/search_gallop.py Xedd9c7b 50 1 --hscatter --packing > /app/work/Xedd9c7b/gallop50.log 2>&1
+python /app/work/import_gallop.py Xedd9c7b 50 > /app/work/Xedd9c7b/import_g50.log 2>&1
+python /app/work/refine_obj.py Xedd9c7b g50 /app/work/Xedd9c7b/search_g50/best.xml --scale --tight --packing --stol=.37 > /app/work/Xedd9c7b/refine_g50.log 2>&1
+# Relax the centrosymmetry hypothesis for the biphenyl salt, without changing
+# the submitted space group until there is structural evidence.
+GALLOP_STOL=.27 python /app/work/warm_gallop.py X7e382cb 40 /app/work/X7e382cb/search_p1test/best.xml /app/work/X7e382cb/search_p1test/model.json > /app/work/X7e382cb/warm40.log 2>&1
+EXACT_BUMP_IMAGES=1 BUMP_COEFF=80 HBOND_COEFF=10 SEARCH_TIME=1500 PARTICLES=128 ITERATIONS=400 MACRO_ELITE_FRAC=.30 START_NPZ=/app/work/X7e382cb/gallop_40/warm.npz START_JITTER=.10 START_TOR_JITTER=.45 python /app/work/search_gallop.py X7e382cb 40 1 --hscatter --packing > /app/work/X7e382cb/gallop40.log 2>&1
+python /app/work/import_gallop.py X7e382cb 40 > /app/work/X7e382cb/import_g40.log 2>&1
+python /app/work/refine_obj.py X7e382cb g40 /app/work/X7e382cb/search_g40/best.xml --scale --tight --packing --stol=.38 > /app/work/X7e382cb/refine_g40.log 2>&1
+for r in 0 5; do
+ run=$((20+r))
+ SEARCH_TIME=1800 PARTICLES=128 ITERATIONS=450 GALLOP_STOL=.23 CONF_RANK=$r python /app/work/search_gallop.py X238783d $run 1 --prepare --hscatter > /app/work/X238783d/gallop${run}.log 2>&1
+ python /app/work/import_gallop.py X238783d $run > /app/work/X238783d/import_g${run}.log 2>&1
+ python /app/work/refine_obj.py X238783d g$run /app/work/X238783d/search_g$run/best.xml --scale --tight > /app/work/X238783d/refine_g${run}.log 2>&1
+done
+{"indices": [2, 3, 4, 5, 6, 9, 10, 12, 13, 14, 15, 19, 21, 24], "min_two_theta": 2.0}ObjRegistry<T>::Find(ion_C): Not found !!
+List of Crystal ScatteringPowers :0 object registered:
+ORIGINAL 0.06717434189019397
+DOUBLETFIXED 0.06686122560872593
+DOUBLETFIT 0.05386345276409063

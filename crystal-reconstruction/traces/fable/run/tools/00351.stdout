@@ -1,0 +1,40 @@
+{
+ "radiation": {
+  "type": "synchrotron",
+  "wavelength_A": 1.23922,
+  "wavelengths_A": [
+   1.23922
+  ],
+  "wavelength_weights": null,
+  "monochromator": "?",
+  "source": "?"
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 293.0,
+ "two_theta_range_deg": [
+  5.05,
+  60.04
+ ],
+ "n_points": 5499,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}# columns: two_theta_deg intensity sigma
+5.05000 211.01 0.262342
+5.06000 209.87 0.262703
+60.04000 211.09 0.262342
+1:import sys, os, json, time, argparse, numpy as np
+128:def setup(iid, cell, spg, ttmax=None, components=None, verbose=True, nbg=24, lebail_first=True, asym=False):
+130:    p, ins = make_pattern(iid, tt_max=ttmax, nbg=nbg)
+262:    ap = argparse.ArgumentParser()
+263:    ap.add_argument('iid'); ap.add_argument('cell', nargs=6, type=float); ap.add_argument('spg')
+264:    ap.add_argument('--nsteps', type=float, default=2e6); ap.add_argument('--nruns', type=int, default=1)
+265:    ap.add_argument('--ttmax', type=float, default=None); ap.add_argument('--tag', default='a')
+266:    ap.add_argument('--maxtime', type=float, default=-1)
+267:    ap.add_argument('--restore', default=None, help='CIF from a previous run: restore and polish only')
+268:    ap.add_argument('--restore-sa', default=None, help='CIF from a previous run: restore, then SA without initial randomization (run 0), then polish')
+269:    ap.add_argument('--zprime', type=int, default=1)
+270:    ap.add_argument('--conf', type=int, default=0, help='rank of distinct conformer to use (0 = lowest MMFF energy)')
+281:    p, cr, pd, mols, lsq = setup(a.iid, a.cell, a.spg, ttmax=a.ttmax, components=comps)

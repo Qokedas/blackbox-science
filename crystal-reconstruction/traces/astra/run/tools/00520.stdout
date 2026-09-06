@@ -1,0 +1,23 @@
+23194
+===Xd4c1a35
+GALLOP 8 Nref 286 seconds 121.4154543876648 best 11.801056 q25 49.76261 median 191.73906 total 1285.0641548633575
+GALLOP 9 Nref 286 seconds 153.7154667377472 best 11.780086 q25 35.900707 median 118.79615 total 1438.881206035614
+GALLOP 10 Nref 286 seconds 145.56647753715515 best 11.776471 q25 116.708435 median 213.28616 total 1584.5916600227356
+GALLOP 11 Nref 286 seconds 115.91089749336243 best 11.789794 q25 51.53717 median 192.3953 total 1700.5632739067078
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1076.98it/s]
+GALLOP 12 Nref 286 seconds 114.56075859069824 best 11.778974 q25 164.83977 median 282.857 total 1815.1335000991821
+GALLOP 13 Nref 286 seconds 114.62697434425354 best 11.781437 q25 141.38516 median 247.70105 total 1929.7639985084534
+===X7e382cb
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 169 seconds 28.758858919143677 best 144.39806 q25 153.02042 median 224.28383 total 28.799994230270386
+GALLOP 1 Nref 169 seconds 39.79027485847473 best 144.39816 q25 150.56494 median 267.95386 total 68.67758083343506
+===Xedd9c7b
+PREPARED Xedd9c7b Nref 258 PawleyRw 0.0720359098848644 SG P 1 21/a 1
+ATTACHED_H_SCATTERING 38 heavy atoms 34 H atoms
+  0%|          | 0/5 [00:00<?, ?it/s]100%|██████████| 5/5 [00:00<00:00, 1346.75it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],

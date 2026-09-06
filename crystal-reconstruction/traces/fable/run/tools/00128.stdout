@@ -1,0 +1,81 @@
+                    ang = T.GetDihedralRad(conf, p, i, j, q)
+                    m.AddDihedralAngle(getat(p), getat(i), getat(j), getat(q), ang, 0.02, 0.05)
+                    ndih += 1
+        else:
+            nfree += 1
+    cr.AddScatterer(m)
+    print(f'  molecule {name}: {len(heavy)} atoms, {m.GetNbBonds()} bonds, {m.GetNbBondAngles()} angles, {ndih} dihedral restraints, {nfree} free torsions', flush=True)
+    return m
+
+def setup(iid, cell, spg, ttmax=None, components=None, verbose=True, nbg=24, lebail_first=True, asym=False):
+    comp = json.load(open(f'/app/data/instances/{iid}/composition.json'))
+    p, ins = make_pattern(iid, tt_max=ttmax, nbg=nbg)
+    cr, pd = add_crystal(p, cell, spg)
+    pd.SetReflectionProfilePar(ReflectionProfileType.PROFILE_PSEUDO_VOIGT, 1e-7)
+    steps = [['Zero'], ['W'], ['a', 'b', 'c', 'alpha', 'beta', 'gamma'], ['U', 'V'], ['Eta0'], ['Eta1'], ['background']]
+    if asym: steps.append(['Asym0', 'Asym1'])
+    steps.append(['Zero', 'W', 'U', 'V', 'Eta0', 'background', 'a', 'b', 'c', 'alpha', 'beta', 'gamma'])
+    lsq = fit_sequence(p, pd, steps, verbose=verbose)
+    print(f'LeBail Rwp={p.GetRw():.4f} chi2={p.GetChi2():.1f} cell=', cr.a, cr.b, cr.c, np.degrees(cr.beta), flush=True)
+    pd.SetExtractionMode(False)
+    sps = {}
+    mols = []
+    comps = comp['components'] if components is None else components
+    for ci, c in enumerate(comps):
+        smi = c['smiles']
+        n = c['count']
+        molr = Chem.MolFromSmiles(smi)
+        nheavy = molr.GetNumHeavyAtoms()
+        for k in range(n):
+            if nheavy == 1:
+                sym = molr.GetAtomWithIdx(0).GetSymbol()
+                if sym not in sps:
+                    sp = ScatteringPowerAtom(sym, sym); cr.AddScatteringPower(sp); sps[sym] = sp
+                at = Atom(np.random.rand(), np.random.rand(), np.random.rand(), f'{sym}_{ci}_{k}', sps[sym])
+                cr.AddScatterer(at)
+                mols.append(at)
+                print(f'  single atom {sym}', flush=True)
+            else:
+                mol, best, en = embed(smi, seed=42+k)
+                m = add_molecule(cr, mol, best, f'mol{ci}_{k}', sps)
+                m._crystal = cr
+                mols.append(m)
+    cr.SetUseDynPopCorr(1)
+    return p, cr, pd, mols, lsq
+
+def optimize(p, cr, nsteps=1e6, nruns=1, seed=None, maxtime=-1, save_prefix=None):
+    mc = MonteCarlo()
+    mc.AddRefinableObj(cr)
+    mc.AddRefinableObj(p)
+    mc.SetAlgorithmParallTempering(AnnealingSchedule.SMART, 0.1, 0.01, AnnealingSchedule.EXPONENTIAL, 16, 0.125) if False else None
+    results = []
+    for r in range(nruns):
+        t0 = time.time()
+        mc.RandomizeStartingConfig() if r > 0 or True else None
+        mc.Optimize(int(nsteps), 0, maxtime)
+        cost = mc.GetLogLikelihood()
+        rw = p.GetRw()
+        chi2 = p.GetChi2()
+        print(f'run {r}: cost={cost:.1f} Rwp={rw:.4f} chi2={chi2:.1f} t={time.time()-t0:.0f}s', flush=True)
+        if save_prefix:
+            write_cif(cr, f'{save_prefix}_run{r}_rw{rw:.3f}.cif')
+        results.append((cost, rw, chi2))
+    return mc, results
+
+def write_cif(cr, fn):
+    cr.CIFOutput(fn)
+
+if __name__ == '__main__':
+    ap = argparse.ArgumentParser()
+    ap.add_argument('iid'); ap.add_argument('cell', nargs=6, type=float); ap.add_argument('spg')
+    ap.add_argument('--nsteps', type=float, default=2e6); ap.add_argument('--nruns', type=int, default=1)
+    ap.add_argument('--ttmax', type=float, default=None); ap.add_argument('--tag', default='a')
+    ap.add_argument('--maxtime', type=float, default=-1)
+    a = ap.parse_args()
+    np.random.seed(int(time.time()*1000) % 2**31)
+    p, cr, pd, mols, lsq = setup(a.iid, a.cell, a.spg, ttmax=a.ttmax)
+    outdir = f'/app/work/{a.iid}/sol_{a.tag}'
+    os.makedirs(outdir, exist_ok=True)
+    mc, res = optimize(p, cr, nsteps=a.nsteps, nruns=a.nruns, maxtime=a.maxtime, save_prefix=f'{outdir}/{a.spg.replace(" ","").replace("/","_")}')
+    print('RESULTS', a.iid, a.spg, res, flush=True)
+    os._exit(0)

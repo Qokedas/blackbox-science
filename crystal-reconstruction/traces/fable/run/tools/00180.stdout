@@ -1,0 +1,16 @@
+/app/work/finalize.py:57: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s = CifParser(f'{outdir}/{iid}.cif').parse_structures(primitive=False)[0]
+X9af54a2: wrote CIF with 19 asym atoms -> 76 atoms in cell; spg P 1 21/c 1 (14); formula C48 N8 Cl4 O16
+total 52
+drwxr-xr-x 1 root root 4096 Sep  6 04:57 .
+drwxr-xr-x 1 root root 4096 Sep  6 02:59 ..
+-rw-r--r-- 1 root root  957 Sep  6 04:17 X07806d9.cif
+-rw-r--r-- 1 root root  170 Sep  6 04:17 X07806d9.json
+-rw-r--r-- 1 root root  170 Sep  6 04:22 X35b7fbc.json
+-rw-r--r-- 1 root root 1187 Sep  6 04:57 X9af54a2.cif
+-rw-r--r-- 1 root root  174 Sep  6 04:57 X9af54a2.json
+-rw-r--r-- 1 root root  171 Sep  6 04:24 Xd4c1a35.json
+-rw-r--r-- 1 root root  170 Sep  6 04:39 Xd8634a2.json
+-rw-r--r-- 1 root root  169 Sep  6 04:24 Xe1fb77b.json
+-rw-r--r-- 1 root root  173 Sep  6 04:29 Xe3a2935.json
+-rw-r--r-- 1 root root  172 Sep  6 04:31 Xf8ac963.json

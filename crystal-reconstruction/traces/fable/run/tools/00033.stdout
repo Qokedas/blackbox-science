@@ -1,0 +1,77 @@
+Help on class SpaceGroupExplorer in module pyobjcryst._pyobjcryst:
+class SpaceGroupExplorer(Boost.Python.instance)
+ |  Method resolution order:
+ |      SpaceGroupExplorer
+ |      Boost.Python.instance
+ |      builtins.object
+ |  
+ |  Static methods defined here:
+ |  
+ |  GetScores(...)
+ |      GetScores( (SpaceGroupExplorer)arg1) -> list :
+ |      
+ |              boost::python::list GetScores(ObjCryst::SpaceGroupExplorer)
+ |  
+ |  Run(...)
+ |      Run( (SpaceGroupExplorer)arg1, (str)spg [, (bool)fitprofile=False [, (bool)verbose=False [, (bool)restore_orig=False [, (bool)update_display=False [, (float)relative_length_tolerance=0.01 [, (float)absolute_angle_tolerance_degree=1]]]]]]) -> SPGScore :
+ |      
+ |              ObjCryst::SPGScore Run(ObjCryst::SpaceGroupExplorer {lvalue},std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > [,bool=False [,bool=False [,bool=False [,bool=False [,double=0.01 [,double=1]]]]]])
+ |  
+ |  RunAll(...)
+ |      RunAll( (SpaceGroupExplorer)arg1 [, (bool)fitprofile_all=False [, (bool)verbose=True [, (bool)keep_best=True [, (bool)update_display=True [, (bool)fitprofile_p1=True [, (float)relative_length_tolerance=0.01 [, (float)absolute_angle_tolerance_degree=1]]]]]]]) -> None :
+ |      
+ |              void RunAll(ObjCryst::SpaceGroupExplorer {lvalue} [,bool=False [,bool=True [,bool=True [,bool=True [,bool=True [,double=0.01 [,double=1]]]]]]])
+ |  
+ |  __init__(...)
+ |      __init__( (object)arg1, (PowderPatternDiffraction)powdiff) -> None :
+ |      
+ |              void __init__(_object*,ObjCryst::PowderPatternDiffraction*)
+ |  
+ |  __reduce__ = <unnamed Boost.Python function>(...)
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data and other attributes defined here:
+ |  
+ |  __instance_size__ = 152
+ |  
+ |  ----------------------------------------------------------------------
+ |  Static methods inherited from Boost.Python.instance:
+ |  
+ |  __new__(*args, **kwargs) class method of Boost.Python.instance
+ |      Create and return a new object.  See help(type) for accurate signature.
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors inherited from Boost.Python.instance:
+ |  
+ |  __dict__
+ |  
+ |  __weakref__
+__init__.py
+__pycache__
+_pyobjcryst.cpython-311-x86_64-linux-gnu.so
+atom.py
+crystal.py
+diffractiondatasinglecrystal.py
+fourier.py
+general.py
+globaloptim.py
+globals.py
+indexing.py
+io.py
+lsq.py
+molecule.py
+polyhedron.py
+powderpattern.py
+pyobjcryst_app.py
+radiation.py
+refinableobj.py
+reflectionprofile.py
+scatterer.py
+scatteringdata.py
+scatteringpower.py
+scatteringpowersphere.py
+spacegroup.py
+unitcell.py
+utils.py
+version.py
+zscatterer.py

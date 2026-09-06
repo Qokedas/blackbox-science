@@ -1,0 +1,388 @@
+80-      /** Do the refinement
+81-      *
+82-      * \param nbCycle: number of LSQ cycles - if negative, the algorithm will continue
+83-      * until it reaches (-nbcycle) or until the relative variation in Chi2 is less
+84-      * than minChi2var
+85-      * \param useLevenbergMarquardt: enable Levenberg-Marquardt algorithm
+86-      * to ensure that a decrease of Chi^2 will be obtained (actually a 1%
+87-      * increase is allowed)
+88:      * \param callBeginEndOptimization: if true, will call RefinableObj::BeginOptimization(true,...)
+89-      * and RefinableObj::EndOptimization(). You may not want this if the LSQ is done during another
+90-      * (e.g. monte-carlo) optimization - but then the calling function \b must ensure
+91-      * that approximations are disabled (using RefinableObj::SetApproximationFlag)
+92-      * for objects where that would render derivative calculations imprecise.
+93-      * \param minChi2var: used for termination of the refinement if the relative variation
+94-      * of Chi2 between two successive cyles is less than minChi2var
+95-      */
+96-      void Refine (int nbCycle=1,bool useLevenbergMarquardt=false,
+97-                   const bool silent=false, const bool callBeginEndOptimization=true,
+98-                   const float minChi2var=0.01);
+99-      /** Run a refinement in a 'safe' way: if the Chi2 value increases by more that a given factor
+100-      * the parameters are reverted to their initial values. Moreover, the listed 'new' parameters
+101-      * or parameter types are then fixed.
+102-      * \param vnewpar: list of parameters added for this optimization, which will be unfixed at the
+103-      * beginning, and will be fixed at the end if Chi2 increases. This can be empty.
+104-      * \param vnewpartype: list of parameter types, which will be unfixed at the
+105-      * beginning, and will be fixed at the end if Chi2 increases. This can be empty.
+106-      * \param maxChi2factor: if Chi2_end> maxChi2factor * Chi2_begin, parameters are reverted to their
+--
+128-      * \param LSQFuncIndex: one object can have a choice of several LSQ
+129-      * functions to minimize- this allows to choose which one to minimize.
+130-      *
+131-      * \param init: if true, the list of refined objects is first cleared. otherwise
+132-      * the new object (and its sub-objects) is just added to the list.
+133-      *
+134-      * \param recursive: if false, only the supplied object is added, and not its sub-objects
+135-      */
+136:      void SetRefinedObj(RefinableObj &obj, const unsigned int LSQFuncIndex=0, const bool init=true, const bool recursive=false);
+137-      // Access to the full list of refined objects. The list is initially built
+138-      // recursively from one object. This function allows to modify the list
+139-      // of sub-objects before refinement (such as for removing certain types
+140-      // of objects).
+141-      //ObjRegistry<RefinableObj> &GetRefinedObjList();
+142-      /** Get the map of refined objects - this is a recursive list of all the objects
+143-      * that are taken into account for the refinement. The key is a pointer to the
+144-      * object and the value is the LSQ function index for that object.
+145-      */
+146-      const std::map<RefinableObj*,unsigned int>& GetRefinedObjMap() const;
+147-      /** Get the map of refined objects - this is a recursive list of all the objects
+148-      * that are taken into account for the refinement. The key is a pointer to the
+149-      * object and the value is the LSQ function index for that object.
+150-      */
+151-      std::map<RefinableObj*,unsigned int>& GetRefinedObjMap();
+152-      /** Access to the RefinableObj which is the compilation of all parameters
+153-      * from the object supplied for optimization and its sub-objects.
+154-      *
+155-      * Since this compilation is only updated from the suplied refinableobj and
+156:      * its sub-objects when SetRefinedObj() and PrepareRefParList() are called,
+157-      * it is possible to alter the fixed/limited status of parameters
+158-      * here without affecting the parameters in the refined objects.
+159-      */
+160-      RefinableObj& GetCompiledRefinedObj();
+161-      /** Access to the RefinableObj which is the compilation of all parameters
+162-      * from the object supplied for optimization and its sub-objects.
+163-      *
+164-      * Since this compilation is only updated from the suplied refinableobj and
+165:      * its sub-objects when SetRefinedObj() and PrepareRefParList() are called,
+166-      * it is possible to alter the fixed/limited status of parameters
+167-      * here without affecting the parameters in the refined objects.
+168-      */
+169-      const RefinableObj& GetCompiledRefinedObj()const;
+170-      void SetUseSaveFileOnEachCycle(bool yesOrNo=true);
+171-      void SetSaveFile(std::string fileName="refine.save");
+172-      void PrintRefResults()const;
+173-      void SetDampingFactor(const REAL newDampFact);
+174-      void PurgeSaveFile();
+175-      void WriteReportToFile()const;
+176-
+177-      void OptimizeDerivativeSteps();
+178-      const std::map<pair<const RefinablePar*,const RefinablePar*>,REAL > &GetVarianceCovarianceMap()const;
+179-      /** Prepare the full parameter list for the refinement
+180-      * \param copy_param: if false (the default), then the lsq algorithm will work directly
+181-      * on the parameters of the refined object and sub-object. So that any modification
+182-      * to the fixed/used/limited status applies permanently to the parameters.
+183-      * if true, then the parameters are copied and therefore only the value of the
+--
+198-      const CrystVector_REAL& GetLSQObs() const;
+199-      /// Get the LSQ weight vector (using either only the top or the hierarchy of object)
+200-      const CrystVector_REAL& GetLSQWeight() const;
+201-      /// Get the LSQ deriv vector (using either only the top or the hierarchy of object)
+202-      const CrystVector_REAL& GetLSQDeriv(RefinablePar&par);
+203-      const std::map<RefinablePar*,CrystVector_REAL>& GetLSQ_FullDeriv();
+204-      /** Tell all refined object that the refinement is beginning
+205-      */
+206:      void BeginOptimization(const bool allowApproximations=false, const bool enableRestraints=false);
+207-      /** Tell all refined object that the refinement is finished
+208-      */
+209-      void EndOptimization();
+210-   protected:
+211-   private:
+212-      // Refined object
+213-         /// The recursive list of all refined sub-objects
+214-         ObjRegistry<RefinableObj> mRecursiveRefinedObjList;
+215-      /** The refinable par list used during refinement. It is only a compilation
+216-      * of the parameters in RefinableObj and its sub-objects
+217-      *
+218-      * This list is only updated from the suplied refinableobj and
+219:      * its sub-objects when SetRefinedObj() and PrepareRefParList() are called,
+220-      * so it is possible to alter the fixed/limited status of parameters
+221-      * here without affecting the parameters in the refined objects.
+222-      */
+223-      mutable RefinableObj mRefParList;
+224-      /// Damping factor for the refinement (unused yet...)
+225-      REAL mDampingFactor;
+226-      ///Save result to file after each cycle ?
+227-      bool mSaveReportOnEachCycle;
+228-      /// Name of the refined object
+229-      std::string mName;
+230-      /// File name where refinement info is saved
+231-      std::string mSaveFileName;
+232-      mutable REAL mR,mRw,mChiSq;
+233-      /// Correlation matrix between all refined parameters.
+234-      CrystMatrix_REAL mCorrelMatrix;
+235-      ///Variance-Covariance matrix, as a std::map
+236-      std::map<pair<const RefinablePar*,const RefinablePar*>,REAL > mvVarCovar;
+237-      /// Observed values.
+908-
+909-      /// Search a MolAtom from its name. Search begins at the end, and the
+910-      /// first match is returned. returns mvAtom.rend() if no atom matches
+911-      vector<MolAtom*>::reverse_iterator FindAtom(const string &name);
+912-      /// Search a MolAtom from its name. Search begins at the end, and the
+913-      /// first match is returned. returns mvAtom.rend() if no atom matches
+914-      vector<MolAtom*>::const_reverse_iterator FindAtom(const string &name)const;
+915-
+916-      /** Minimize configuration from internal restraints (bond lengths, angles
+--
+937-      * \param nbStep: number of steps to perform.
+938-      * \param dt: time step. Recommended value are such that v0[].xyz * dt = 0.001
+939-      * \param vb,va,vd: vector of bond, bond angle and dihedral angle restraints to
+940-      * be taken into account. If these are empty, the full list of restraints of the Molecule
+941-      * are taken into account, including rigid groups. If they are not empty, then
+942-      * it is assumed that no atom moved belongs to a rigid group.
+943-      * \param vr: initial speed for the angular and translation parameters of rigid groups
+944-      * included in the evolution. For each entry of the map the first XYZ coordinates are the speed
+945:      * for RigidGroup::mX,mY,mZ, and the second are the speed for the angular coordinates
+946-      * of the quaternion Q1,Q2,Q3
+947-      * \param nrj0: the total energy the system should try to maintain. If equal to 0,
+948-      * the initial energy will be used. The speed will be de/increased to compensate
+949-      * any energy change.
+950-      */
+951-      void MolecularDynamicsEvolve(std::map<MolAtom*,XYZ> &v0,const unsigned nbStep,const REAL dt,
+952-                                   const std::vector<MolBond*> &vb,const std::vector<MolBondAngle*> &va,
+953-                                   const std::vector<MolDihedralAngle*> &vd,
+954:                                   std::map<RigidGroup*,std::pair<XYZ,XYZ> > &vr, REAL nrj0=0);
+955-      const std::vector<MolAtom*>& GetAtomList()const;
+956-      const std::vector<MolBond*>& GetBondList()const;
+957-      const std::vector<MolBondAngle*>& GetBondAngleList()const;
+958-      const std::vector<MolDihedralAngle*>& GetDihedralAngleList()const;
+959-      std::vector<MolAtom*>& GetAtomList();
+960-      std::vector<MolBond*>& GetBondList();
+961-      std::vector<MolBondAngle*>& GetBondAngleList();
+962-      std::vector<MolDihedralAngle*>& GetDihedralAngleList();
+963-
+964-      std::list<StretchModeBondLength>& GetStretchModeBondLengthList();
+965-      std::list<StretchModeBondAngle>& GetStretchModeBondAngleList();
+966-      std::list<StretchModeTorsion>& GetStretchModeTorsionList();
+967-
+968-      const std::list<StretchModeBondLength>& GetStretchModeBondLengthList()const;
+969-      const std::list<StretchModeBondAngle>& GetStretchModeBondAngleList()const;
+970-      const std::list<StretchModeTorsion>& GetStretchModeTorsionList()const;
+971-
+972:      /** List of rigid group of atoms. See Molecule::mvRigidGroup
+973-      */
+974:      const std::vector<RigidGroup *>& GetRigidGroupList()const;
+975:      /** List of rigid group of atoms. See Molecule::mvRigidGroup
+976-      */
+977:      std::vector<RigidGroup *>& GetRigidGroupList();
+978-
+979-      /** Rotate a group of atoms around an axis defined by two atoms
+980-      *
+981-      * \param keepCenter: if true, the coordinates of the molecule are modified
+982-      * so that only the rotated atoms are moved.
+983-      */
+984-      void RotateAtomGroup(const MolAtom &at1,const MolAtom &at2,
+985-                           const set<MolAtom *> &atoms, const REAL angle,
+986-                           const bool keepCenter=true);
+987-      /** Rotate a group of atoms around an axis defined by one atom and a vector
+988-      *
+989-      * \param keepCenter: if true, the coordinates of the molecule are modified
+990-      * so that only the rotated atoms are moved.
+991-      */
+--
+1015-      /// Get the clock associated to the atomic positions
+1016-      const RefinableObjClock& GetAtomPositionClock()const;
+1017-      /// Get the clock associated to the scattering powers
+1018-      const RefinableObjClock& GetAtomScattPowClock()const;
+1019-      /// Get the clock associated to the scattering powers
+1020-      RefinableObjClock& GetAtomScattPowClock();
+1021-      /// Get the clock associated to the list of rigid groups
+1022-      ///(clicked also whenever a rigid group is modified)
+1023:      RefinableObjClock& GetRigidGroupClock();
+1024-      /// Get the clock associated to the list of rigid groups
+1025-      ///(clicked also whenever a rigid group is modified)
+1026:      const RefinableObjClock& GetRigidGroupClock()const;
+1027-      /** Add dihedral angles so as to rigidify the Molecule.
+1028-      *
+1029-      * In practice, for every sequence of atoms A-B-C-D, add the dihedral angle
+1030-      * defined by these 4 atoms, unless either ABC or BCD are aligned (angle below 10�).
+1031-      *
+1032-      * No duplicate dihedral angle is generated.
+1033-      */
+1034-      void RigidifyWithDihedralAngles();
+1035-      /** Stretch a bond, while respecting the Restraint (if any).
+1036-      *
+1037-      *\return the \e actual change in bond length.
+1038-      *\param: the desired change in bond length. This will be the actual change \e if
+1039-      * there is no restraint \e or if the restraint is constant in this range.
+1040-      */
+--
+1144-      void UpdateScattCompList()const;
+1145-      /// Build options for this object
+1146-      void InitOptions();
+1147-      /** Set the orientation & translation parameters of all rigid
+1148-      * groups to 0, after correcting the atomic positions.
+1149-      * This is \b required before saving the structure, as these
+1150-      * parameters are not saved.
+1151-      */
+1152:      void ResetRigidGroupsPar()const;
+1153-      /** The list of scattering components
+1154-      *
+1155-      * this is mutable since it only reflects the list of atoms.
+1156-      */
+1157-      mutable ScatteringComponentList mScattCompList;
+1158-      /** The list of atoms
+1159-      *
+1160-      */
+1161-      vector<MolAtom*> mvpAtom;
+1162-      /** The list of bonds
+1163-      *
+1164-      */
+1165-      vector<MolBond*> mvpBond;
+1166-      /** The list of bond angles
+--
+1175-      *
+1176-      * This duplicates the information in Molecule::mvBond
+1177-      */
+1178-      map<MolAtom* , std::vector<MolBond*> > mvAtomBond;
+1179-      /** Rigid groups of atoms. This group will be kept \e strictly rigid,
+1180-      * preventing the use of any stretch mode altering their relative position.
+1181-      * The entire group of atoms can however be rotated or translated.
+1182-      */
+1183:      std::vector<RigidGroup*> mvRigidGroup;
+1184-      /** The list of rings
+1185-      *
+1186-      * \note this only reflects the bond list, so it is mutable.
+1187-      */
+1188-      mutable list<MolRing> mvRing;
+1189-      /** The unit quaternion defining the orientation
+1190-      *
+1191-      */
+1192-      Quaternion mQuat;
+1193-      /** Base Rotation amplitude (in radians) for the Molecule, so that
+1194-      * the average atomic displacement is equal to 0.1 A
+1195-      *
+1196-      * Default=0.02*pi
+1197-      */
+--
+1200-      // SetDeleteSubObjInDestructor.
+1201-      bool mDeleteSubObjInDestructor;
+1202-      REAL mBaseRotationAmplitude;
+1203-      // Clocks
+1204-         RefinableObjClock mClockAtomList;
+1205-         RefinableObjClock mClockBondList;
+1206-         RefinableObjClock mClockBondAngleList;
+1207-         RefinableObjClock mClockDihedralAngleList;
+1208:         RefinableObjClock mClockRigidGroup;
+1209-         /// This clock is the parent of mClockAtomList, mClockBondList, mClockBondAngleList,
+1210:         /// mClockDihedralAngleList and mClockRigidGroup. It can be used to determine if
+1211-         /// either the list of atoms or restraints have changed.
+1212-         RefinableObjClock mClockRestraint;
+1213-         RefinableObjClock mClockAtomPosition;
+1214-         RefinableObjClock mClockAtomScattPow;
+1215-         RefinableObjClock mClockOrientation;
+1216-         mutable RefinableObjClock mClockLogLikelihood;
+1217-         mutable RefinableObjClock mClockConnectivityTable;
+1218-         mutable RefinableObjClock mClockRingList;
+1219-         mutable RefinableObjClock mClockRotorGroup;
+1220-         mutable RefinableObjClock mClockFlipGroup;
+1221-         mutable RefinableObjClock mClockStretchModeBondLength;
+1222-         mutable RefinableObjClock mClockStretchModeBondAngle;
+1223-         mutable RefinableObjClock mClockStretchModeTorsion;
+1224-         mutable RefinableObjClock mClockStretchModeTwist;
+--
+1234-      /// OPtion for the different types of flexibility possible for this
+1235-      /// molecule: rigid body, free atoms + restraints, torsion angles...
+1236-      /// \warning still EXPERIMENTAL !
+1237-      RefObjOpt mFlexModel;
+1238-
+1239-      RefObjOpt mFlipModel;
+1240-
+1241-      /** Option to automatically optimize the starting conformation, if the
+1242:      * total restraint cost is too high. This is done in BeginOptimization().
+1243-      *
+1244-      * This is enabled by default, and should be disabled by people who already
+1245-      * supply a good starting conformation for their molecule.
+1246-      */
+1247-      RefObjOpt mAutoOptimizeConformation;
+1248-
+1249-      /** Option to optimize the Molecule's orientation. Useful to completely
+1250-      * fix the Molecule.
+1251-      */
+1252-      RefObjOpt mOptimizeOrientation;
+1253-
+1254-      /** Option to choose the center of rotation of the Molecule for the global orientation
+1255-      * either as the geometrical center, or as a given atom.
+1256-      */
+import os,sys,json,time,numpy as np
+from scipy.optimize import least_squares
+from numba import njit
+from pymatgen.core import Lattice
+sid=sys.argv[1];W='/app/work/'+sid;tag=sys.argv[2] if len(sys.argv)>2 else '0';start=json.load(open(W+'/fit_'+tag+'.json'));L=Lattice.from_parameters(*start['cell']);G=L.reciprocal_lattice_crystallographic.metric_tensor;wl=json.load(open('/app/data/instances/'+sid+'/instrument.json'))['radiation']['wavelength_A'];ps=json.load(open(W+'/peaks_raw.json'));selection=json.load(open(W+'/peak_select_ext.json'))['indices'];pp=[ps[i-1] for i in selection];tt=np.array([p['two_theta'] for p in pp]);qobs=(2*np.sin(np.deg2rad(tt/2))/wl)**2;fac=wl*wl/(2*np.sin(np.deg2rad(tt)))*180/np.pi
+kl=np.array([[k,l] for k in range(-8,9) for l in range(-12,13) if k or l],dtype=float);kt=np.array([kl[:,0]**2,kl[:,1]**2,2*kl[:,0]*kl[:,1]]).T
+v=np.array([G[1,1],G[2,2],G[1,2],start.get('p_pars',{}).get('Zero',0)])
+# Low-angle lines below the first possible h != 0 reflection determine the 2D reciprocal net.
+ttmax=float(os.environ.get('PLANE_MAX','17.65'))
+low=tt<ttmax
+for it in range(5):
+ q=kt@v[:3];idx=np.argmin(abs(q[None,:]-(qobs-v[3]/fac)[:,None]),axis=1);err=(q[idx]-qobs)*fac+v[3];sel=low&(abs(err)<float(os.environ.get('PLANE_ERR','.10')))
+ if sel.sum()<5:raise Exception('not enough 2D matches')
+ v=least_squares(lambda x:(kt[idx[sel]]@x[:3]-qobs[sel])*fac[sel]+x[3],v,loss='soft_l1',f_scale=.015,max_nfev=100).x
+q=kt@v[:3];idx=np.argmin(abs(q[None,:]-(qobs-v[3]/fac)[:,None]),axis=1);err=(q[idx]-qobs)*fac+v[3]
+need=np.where((abs(err)>.055)&(~low))[0]
+print('PLANE',sid,'g22,g33,g23,zero',v.tolist(),'nlow',sum(sel),flush=True)
+for i,(t,ee) in enumerate(zip(tt,err)):print('LINE',selection[i],round(t,5),'0kl',kl[idx[i]],'err',round(ee,5),'NEW' if i in need else '',flush=True)
+# Peak ids can be specified manually when a weak impurity lies outside the 2D net.
+if 'H1_IDS' in os.environ:need=np.array([selection.index(int(s)) for s in os.environ['H1_IDS'].split(',')],int)
+if len(need)<3:raise Exception('not enough out-of-plane lines')
+qcor=qobs-v[3]/fac;ks=np.array([[k,l] for k in range(-5,6) for l in range(-9,10) if k or l],dtype=float)
+hkl=np.array([[h,k,l] for h in range(0,4) for k in range(-8,9) for l in range(-12,13) if h or k or l],dtype=float);terms=np.array([hkl[:,0]**2,hkl[:,1]**2,hkl[:,2]**2,2*hkl[:,1]*hkl[:,2],2*hkl[:,0]*hkl[:,2],2*hkl[:,0]*hkl[:,1]]).T
+nspur=int(os.environ.get('NSPUR','1'));vmin=float(os.environ.get('VMIN','1000'));vmax=float(os.environ.get('VMAX','1800'));targetv=float(os.environ.get('VTARGET','1300'));etol=.04
+@njit(cache=False)
+def evaluate(g):
+ sq=np.zeros(len(qobs));vol=1/np.sqrt(g[0]*g[1]*g[2]+2*g[3]*g[4]*g[5]-g[0]*g[3]*g[3]-g[1]*g[4]*g[4]-g[2]*g[5]*g[5]);idx=np.zeros(len(qobs),np.int64)
+ qc=terms@g
+ for i in range(len(qobs)):
+  best=1e20;bj=0
+  for j in range(len(qc)):
+   delta=abs(qc[j]-qcor[i])
+   if delta<best:best=delta;bj=j
+  sq[i]=np.log1p((best*fac[i]/etol)**2);idx[i]=bj
+ sq.sort();res=np.mean(sq[:len(sq)-nspur])*vol/targetv
+ return res,idx
+@njit(cache=False)
+def enumerate_solutions(i1,i2,i3):
+ out=np.zeros((len(ks)*len(ks),7));nout=0;g=np.array([qcor[i1],v[0],v[1],v[2],0.,0.]);area=g[1]*g[2]-g[3]*g[3]
+ for a in range(len(ks)):
+  k,l=ks[a];rhs2=qcor[i2]-g[0]-g[1]*k*k-g[2]*l*l-2*g[3]*k*l
+  for b in range(len(ks)):
+   m,n=ks[b];det=k*n-m*l
+   if abs(det)<.1:continue
+   rhs3=qcor[i3]-g[0]-g[1]*m*m-g[2]*n*n-2*g[3]*m*n
+   g[5]=(rhs2*n-rhs3*l)/(2*det);g[4]=(rhs3*k-rhs2*m)/(2*det)
+   dg=g[0]*area+2*g[3]*g[4]*g[5]-g[1]*g[4]*g[4]-g[2]*g[5]*g[5]
+   if dg<=0:continue
+   vol=1/np.sqrt(dg)
+   if vol<vmin or vol>vmax:continue
+   # Reduce equivalent h=1 origins: the reciprocal (100) line should not be much longer than others.
+   cost,idx=evaluate(g)
+   if cost>.6:continue
+   out[nout,0]=cost;out[nout,1:]=g;nout+=1
+ return out[:nout]
+t0=time.time();out=[]
+# The first extra line is taken as (100); two others span the metric cross terms.
+for i2,i3 in [(need[1],need[2]),(need[1],need[3]) if len(need)>3 else (need[1],need[2])]:
+ rows=enumerate_solutions(need[0],i2,i3);rows=rows[np.argsort(rows[:,0])][:80];print('ENUM',sid,'anchors',tt[[need[0],i2,i3]],'nsolutions',len(rows),'seconds',time.time()-t0,flush=True)
+ for row in rows:
+  g=row[1:];cost,idx=evaluate(g);x=np.r_[g,v[3]]
+  for it in range(3):
+   tr=terms[idx]
+   re=least_squares(lambda xx:(tr@xx[:6]-qobs)*fac+xx[6],x,loss='soft_l1',f_scale=.02,max_nfev=100);x=re.x
+   qc=terms@x[:6];idx=np.argmin(abs(qc[None,:]-(qobs-x[6]/fac)[:,None]),axis=1)
+  g=x[:6];gm=np.array([[g[0],g[5],g[4]],[g[5],g[1],g[3]],[g[4],g[3],g[2]]])
+  if np.linalg.det(gm)<=0:continue
+  cell=Lattice(np.linalg.cholesky(np.linalg.inv(gm))).get_niggli_reduced_lattice();di=(terms[idx]@g-qobs)*fac+x[6];sq=np.sort(np.log1p((di/etol)**2));cost=np.mean(sq[:len(sq)-nspur])*cell.volume/targetv
+  ncal=np.sum((terms@g)<qobs[-1]);score=qobs[-1]/(2*np.mean(abs(di)/fac)*ncal)
+  if any(np.allclose(cell.parameters[:3],s['cell'][:3],rtol=.002) and np.allclose(cell.parameters[3:],s['cell'][3:],atol=.3) for s in out):continue
+  ss=dict(cell=list(cell.parameters),volume=cell.volume,score=float(score),system='TRICLINIC',centering='P',sg='P -1',mode=12,cost=float(cost),zero=float(x[6]),rms=float(np.sqrt(np.mean(di**2))),maxerr=float(max(abs(di))),source='2d_completion');out.append(ss)
+ out.sort(key=lambda s:s['cost']);json.dump(out,open(W+'/index_2d.json','w'),indent=1)
+for s in out[:15]:print('SOLUTION',s,flush=True)

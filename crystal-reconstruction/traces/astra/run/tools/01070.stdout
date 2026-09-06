@@ -1,0 +1,45 @@
+TCPID=63623
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 457 seconds 333.8126904964447 best 106.489 q25 170.19907 median 214.90045 total 333.82154536247253
+GALLOP 1 Nref 457 seconds 316.49406456947327 best 106.4878 q25 145.65045 median 206.7586 total 650.5822925567627
+GALLOP 2 Nref 457 seconds 256.99681425094604 best 106.48722 q25 153.9617 median 197.5278 total 907.8090980052948
+GALLOP 3 Nref 457 seconds 279.16460156440735 best 106.48849 q25 149.87405 median 204.25726 total 1187.1924843788147
+FINISHED X1db5091 106.48722076416016
+ATTACHED_H_SCATTERING 37 heavy atoms 29 H atoms
+PACKING_ENABLED 37 atoms 1887 pair terms coefficient 100.0 active_only True
+HBOND_PRIOR 2 donors 7 acceptors coefficient 30.0 directional True
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X14a2b08 53.008026123046875
+CONDITIONAL 0 [1] best 52.09033966064453 q25 98.582855 sec 173.164386510849
+ATTACHED_H_SCATTERING 52 heavy atoms 36 H atoms
+PACKING_ENABLED 52 atoms 3834 pair terms coefficient 80.0 active_only True
+HBOND_PRIOR 4 donors 12 acceptors coefficient 20.0 directional False
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X3f4781b 40.86460876464844
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X35b7fbc 78.74118041992188
+CONDITIONAL 0 [1] best 77.879150390625 q25 87.54314 sec 228.27397179603577
+CONDITIONAL 1 [0] best 76.96517944335938 q25 509.48166 sec 425.393611907959
+CONDITIONAL 2 [1] best 76.92654418945312 q25 79.085754 sec 641.8010354042053
+EXTENDED_BACKGROUND 0.13787404757623425
+CYCLE 0 0 Rw 0.1374667021068206 chi2 3507.58357770351 geom 363.70374794189433 LSQ 4265.559957459374
+CYCLE 0 1 Rw 0.13729628667253127 chi2 3498.8923694199093 geom 363.70374794189433 LSQ 4256.373950185991
+CYCLE 0 2 Rw 0.1370980473639094 chi2 3488.795705182165 geom 363.70374794189433 LSQ 4246.781926709423
+PACKING_STAGE 0 0.5463227297184026
+CYCLE 1 0 Rw 0.1366894297242239 chi2 3468.0301431034673 geom 317.9857830608529 LSQ 4166.026166108837
+CYCLE 1 1 Rw 0.13609133347674807 chi2 3437.7472183026784 geom 269.9096958473604 LSQ 4076.814638297338
+CYCLE 1 2 Rw 0.1355933368245022 chi2 3412.6338735965373 geom 249.6252725342078 LSQ 4025.368881220586
+PACKING_STAGE 1 0.05321410814991272
+CYCLE 2 0 Rw 0.1346744075563272 chi2 3366.5351074355885 geom 227.00611889415143 LSQ 4013.7271551731646
+Sun Sep  6 10:52:38 UTC 2026

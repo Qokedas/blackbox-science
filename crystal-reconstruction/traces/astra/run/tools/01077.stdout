@@ -1,0 +1,114 @@
+N48 H58 O12 DA 2.9878 HA 2.4726 DHA 110.57 nearest (np.float64(0.0), np.float64(0.0), np.float64(0.0))
+N48 H58 O16 DA 3.3263 HA 2.5258 DHA 135.00 NONNEAREST (np.float64(0.0), np.float64(0.0), np.float64(0.0))
+O17 H40 O13 DA 3.5322 HA 2.7309 DHA 137.65 NONNEAREST (np.float64(0.0), np.float64(0.0), np.float64(0.0))
+Cell (4.8677201, 40.63989947, 12.78039969, 90.0, 100.70099196, 90.0) n 152 components [29, 29, 29, 29, 9, 9, 9, 9]
+2.6764 112 N48 N 4 119 N55 N 7
+2.7083 71 C25 C 3 125 O2 O 1
+2.7502 105 C56 C 5 140 O17 O 0
+2.8554 123 Cl27 Cl 3 129 O12 O 1
+2.8747 117 N55 N 5 136 O16 O 0
+2.9112 105 C56 C 5 136 O16 O 0
+2.9239 101 C54 C 5 114 N48 N 6
+2.9456 0 C1 C 0 98 C53 C 6
+2.9878 114 N48 N 6 128 O12 O 0
+3.1049 53 C19 C 1 79 C28 C 3
+3.1557 53 C19 C 1 83 C29 C 3
+3.1788 9 C4 C 1 71 C25 C 3
+3.1903 45 C15 C 1 104 C56 C 4
+3.2583 112 N48 N 4 138 O16 O 2
+3.3754 123 Cl27 Cl 3 151 O50 O 7
+3.4031 89 C51 C 5 140 O17 O 0
+3.4090 8 C4 C 0 66 C24 C 2
+3.4125 117 N55 N 5 140 O17 O 0
+3.4315 85 C49 C 5 131 O12 O 3
+3.4415 5 C3 C 1 71 C25 C 3
+3.4593 67 C24 C 3 125 O2 O 1
+3.4971 2 C1 C 2 92 C52 C 4
+3.5353 55 C19 C 3 73 C26 C 1
+3.5356 101 C54 C 5 136 O16 O 0
+3.5463 130 O12 O 2 148 O50 O 4
+/app/work/submit.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+X1db5091 Nat 152 molecule sizes [29, 29, 29, 29, 9, 9, 9, 9]
+  component COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1 matches 4
+  component NC(=O)c1cccnc1 matches 4
+  bond range 1.2163254912835264 1.7133940216255186
+  min intermolecular distance 2.676433820647568
+All geom 20.00693464951971
+(3.5077369635340325, 'angle', ['m0_C14', 'm0_C15', 'm0_O17'])
+(2.383925764943397, 'angle', ['m0_H47', 'm0_C29', 'm0_C23'])
+(1.4548136129124614, 'angle', ['m0_N20', 'm0_C21', 'm0_C23'])
+(1.4443887610117845, 'bond', ['m0_O2', 'm0_C3'])
+(1.2495540963922154, 'bond', ['m0_C25', 'm0_C26'])
+(1.1315892261639748, 'angle', ['m0_H46', 'm0_C28', 'm0_C26'])
+(0.963796550070126, 'angle', ['m0_C21', 'm0_C23', 'm0_C29'])
+(0.8832902306268263, 'bond', ['m0_C24', 'm0_C25'])
+(0.8812612690207647, 'angle', ['m0_C21', 'm0_C23', 'm0_C24'])
+(0.7385700591230107, 'angle', ['m1_H12', 'm1_C5', 'm1_C4'])
+(0.6902430538159756, 'angle', ['m0_H46', 'm0_C28', 'm0_C29'])
+(0.6587713913572202, 'angle', ['m0_H34', 'm0_C5', 'm0_C4'])
+(0.5457957809064606, 'angle', ['m0_O16', 'm0_C15', 'm0_O17'])
+(0.5320641617620991, 'angle', ['m0_H47', 'm0_C29', 'm0_C28'])
+(0.4856978921141091, 'angle', ['m1_H12', 'm1_C5', 'm1_C6'])
+(0.40973763537086577, 'angle', ['m0_C25', 'm0_C26', 'm0_Cl27'])
+(0.37659840746709927, 'angle', ['m1_O3', 'm1_C2', 'm1_C4'])
+(0.3279637571763248, 'angle', ['m1_N1', 'm1_C2', 'm1_O3'])
+(0.2950402559150737, 'angle', ['m0_C8', 'm0_C7', 'm0_C9'])
+(0.2842584747321835, 'angle', ['m0_C4', 'm0_C3', 'm0_C8'])
+(0.10368644235958906, 'bond', ['m0_C1', 'm0_O2'])
+(0.09700385620231197, 'angle', ['m0_C24', 'm0_C25', 'm0_C26'])
+(0.09464248947795875, 'angle', ['m0_O12', 'm0_C11', 'm0_O13'])
+(0.07276105450153644, 'angle', ['m0_Cl27', 'm0_C26', 'm0_C28'])
+(0.06393252722820605, 'angle', ['m0_C26', 'm0_C28', 'm0_C29'])
+(0.0604577601581865, 'angle', ['m1_H13', 'm1_C6', 'm1_C7'])
+(0.0531723623191667, 'angle', ['m0_H39', 'm0_C14', 'm0_O13'])
+(0.04534398834061938, 'angle', ['m0_H34', 'm0_C5', 'm0_C6'])
+(0.04477240887270867, 'angle', ['m0_C7', 'm0_C8', 'm0_C3'])
+set -e
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+id=X1db5091
+GALLOP_STOL=.28 python /app/work/warm_gallop.py $id 90 /app/work/$id/refined_g11.xml /app/work/$id/search_g11/model.json > /app/work/$id/warm90.log 2>&1
+BUMP_COEFF=70 HBOND_COEFF=40 PARTICLES=96 ITERATIONS=300 FREE_SCHEDULE='1;1;1' python /app/work/search_conditional.py $id 90 91 > /app/work/$id/conditional91.log 2>&1
+python /app/work/import_gallop.py $id 91 > /app/work/$id/import_g91.log 2>&1
+python /app/work/refine_obj.py $id g91 /app/work/$id/search_g91/best.xml --scale --tight --stol=.4 > /app/work/$id/refine_g91.log 2>&1
+python /app/work/submit.py $id /app/work/$id/refined_g91.cif --check > /app/work/$id/check_g91.log 2>&1
+"""Conditional direct-space search of only the lactam pose, with the acid fixed.
+Uses a chemically validated native-refinement seed; candidates are fully refined
+without freezing afterwards. No structure claim follows from this conditional fit.
+"""
+import os,sys,json,time,shutil,numpy as np,torch
+from gallop_io import load_structure
+from gallop import tensor_prep,zm_to_cart,chi2
+from gallop.optim import local
+from hydrogen_prefix import enable_hydrogen_prefix
+from gallop_fast_symmetry import enable_fast_symmetry
+from gallop_packing import enable_packing
+from gallop_hbond import enable_hbonds
+sid,source,run=sys.argv[1:4];W='/app/work/'+sid;S=W+'/gallop_'+source;G=W+'/gallop_'+run;os.makedirs(G,exist_ok=True)
+for f in os.listdir(S):
+ if f.endswith('.zmatrix') or f in ['structure.json','model.json','base.xml','warm.npz']:shutil.copyfile(S+'/'+f,G+'/'+f)
+torch.set_num_threads(1);torch.set_num_interop_threads(1);s=load_structure(G+'/structure.json');enable_fast_symmetry(s);enable_hydrogen_prefix(s,G+'/model.json');enable_packing(s,G+'/model.json');enable_hbonds(s,G+'/model.json');s.get_total_degrees_of_freedom(verbose=False)
+tensor_prep.get_zm_related_tensors(s,1,torch.float32,torch.device('cpu'))
+warm=np.load(G+'/warm.npz');N=int(os.getenv('PARTICLES','128'));IT=int(os.getenv('ITERATIONS','350'));best=1e100;t0=time.time();me=np.ones(s.total_external_degrees_of_freedom);mi=np.ones(s.total_internal_degrees_of_freedom);me[np.r_[s.position_indices[0],s.rotation_indices[0]]]=0;mi[s.torsion_indices[0]]=0;masks=[torch.tensor(me,dtype=torch.float32),torch.tensor(mi,dtype=torch.float32)]
+class MaskedAdam(torch.optim.Adam):
+ def step(self,closure=None):
+  for p,m in zip(self.param_groups[0]['params'],masks):
+   if p.grad is not None:p.grad.mul_(m)
+  return super().step(closure)
+for batch in range(int(os.getenv('BATCHES','3'))):
+ e=np.tile(warm['external'],(N,1));t=np.tile(warm['internal'],(N,1))
+ for j in range(1,len(s.zmatrices)):
+  e[1:,s.position_indices[j]]=np.random.rand(N-1,len(s.position_indices[j]));e[1:,s.rotation_indices[j]]=np.random.normal(size=(N-1,len(s.rotation_indices[j])))
+ if batch:
+  for j in range(1,len(s.zmatrices)):
+   e[:N//4,s.position_indices[j]]=ebest[s.position_indices[j]]+np.random.normal(size=(N//4,len(s.position_indices[j])))*.10;e[:N//4,s.rotation_indices[j]]=ebest[s.rotation_indices[j]]+np.random.normal(size=(N//4,len(s.rotation_indices[j])))*.15
+ opt=MaskedAdam([torch.zeros(1,requires_grad=True)],lr=.04)
+ r=local.minimise(s,external=e,internal=t,n_iterations=IT,n_cooldown=IT//4,learning_rate=.04,optimizer=opt,device=torch.device('cpu'),loss='sum',use_progress_bar=False,save_CIF=False,verbose=False,check_min=25)
+ assert np.max(np.abs(r['external'][:,me==0]-e[:,me==0]))<1e-5, 'Frozen acid external DOFs moved'
+ if np.any(mi==0): assert np.max(np.abs(r['internal'][:,mi==0]-t[:,mi==0]))<1e-5, 'Frozen acid torsions moved'
+ k=int(r['chi_2'].argmin());v=float(r['chi_2'][k]);print('COFORMER',batch,'best',v,'q25',np.quantile(r['chi_2'],.25),'sec',time.time()-t0,flush=True)
+ if v<best:
+  best=v;ebest=r['external'][k].copy();tbest=r['internal'][k].copy();np.savez_compressed(G+'/best.npz',external=ebest[None],internal=tbest[None],chi2=best);ts=tensor_prep.get_all_required_tensors(s,external=ebest[None],internal=tbest[None],requires_grad=False,device=torch.device('cpu'),verbose=False)
+  with torch.no_grad():fr=zm_to_cart.get_asymmetric_coords(**ts['zm']).numpy()[0]
+  np.save(G+'/best_frac.npy',fr);json.dump(dict(chi2=best,elapsed=time.time()-t0),open(G+'/best.json','w'))
+print('FINISHED',sid,best,flush=True)

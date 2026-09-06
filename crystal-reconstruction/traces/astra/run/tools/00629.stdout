@@ -1,0 +1,135 @@
+<class 'list'> [{'cell': [23.552535721226164, 17.023733365380412, 7.819173062743133, 80.79684470934525, 73.53764848242284, 67.62530290324075], 'system': 'TRICLINIC', 'centering': 'P', 'volume': 2775.4445346221937, 'score': 5.227983103321443, 'cost': 0.1096189589938573, 'mode': 21, 'zero': -0.03149885438772151, 'rms': 0.015782723871381566, 'maxerr': 0.04602124045547467, 'parameters': [0.04734305882851225, 0.06363372355958627, 0.13358800632599624, -0.058706755405908854, -0.2437568196161293, -0.35423299146614845, -0.03149885438772151], 'diff': [-0.023230300308647187, -0.025280571302187034, -0.001112865828701775, 0.011382857388727428, 0.04602124045547467, -0.004664066530954372, 0.006245452519985303, -0.007259457388112726, 6.632984275879023e-05, 0.00585993849800736, 0.0013435879676976514, 0.009881461396056071
+FIT8_PID=33127
+index_TETRAGONAL_I_0.log
+index_TETRAGONAL_P_0.json
+index_TETRAGONAL_P_0.log
+index_TRICLINIC_P_3.json
+index_TRICLINIC_P_3.log
+index_axis0.json
+index_metric_MONOCLINIC_P.json
+index_metric_ORTHOROMBIC_P.json
+index_raw_MONOCLINIC_C.log
+index_raw_MONOCLINIC_P.log
+index_raw_MONOCLINIC_P_partial.json
+index_raw_ORTHOROMBIC_C.log
+index_raw_ORTHOROMBIC_P.log
+index_triwide.json
+index_triwide_p1.json
+index_wide21.json
+index_wide5.json
+metric_MONOCLINIC.log
+metric_ORTHOROMBIC.log
+metric_triwide.log
+metric_wide21.log
+metric_wide5.log
+peak_select.json
+peak_select_ext2.json
+peak_select_raw.json
+peaks.json
+peaks.png
+peaks_asymcorr.json
+peaks_raw.json
+peaks_raw.png
+pre_scan_0.xml
+pre_scan_1.xml
+pre_scan_2.xml
+pre_scan_3.xml
+pre_scan_axis0.xml
+pre_scan_axis3.xml
+pre_scan_axis7.xml
+pre_scan_metric0.xml
+pre_scan_metric1.xml
+pre_scan_metric2.xml
+pre_scan_metric3.xml
+pre_scan_metric4.xml
+pre_scan_wide0.xml
+pre_scan_wide1.xml
+pre_scan_wide2.xml
+pre_scan_wide3.xml
+processed.npz
+zones.json
+zones_small.json
+zones_small.log
+{
+ "radiation": {
+  "type": "CuK1",
+  "wavelength_A": 1.54059,
+  "wavelengths_A": [
+   1.54059
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 295.0,
+ "two_theta_range_deg": [
+  3.5,
+  85.0
+ ],
+ "n_points": 8151,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}{"min_two_theta": 5.0}[
+ {
+  "two_theta": 3.8996079704753,
+  "height": 265.37475413886915,
+  "fwhm": 0.05187155953037331,
+  "eta": 0.9999999999999999,
+  "error": 0.0028864172152611757,
+  "d": 22.63979995121033,
+  "area": 21.622643459500427
+ },
+ {
+  "two_theta": 4.482451262000201,
+  "height": 200.19859175526358,
+  "fwhm": 0.0735346036628639,
+  "eta": 1.3625672145296437e-36,
+  "error": 0.005143272905340842,
+  "d": 19.697217945623514,
+  "area": 15.670576878707662
+ },
+ {
+  "two_theta": 5.574529687726287,
+  "height": 31725.319786377913,
+  "fwhm": 0.16339265769193276,
+  "eta": 0.4759305353287665,
+  "error": 0.0023710886672427918,
+  "d": 15.840642131842651,
+  "area": 6767.0126867283025
+ },
+ {
+  "two_theta": 6.876423135009212,
+  "height": 335.976548055632,
+  "fwhm": 0.196506124138296,
+  "eta": 1.5075199232331802e-36,
+  "error": 0.014771414864723829,
+  "d": 12.844221682623315,
+  "area": 70.2776553120839
+ },
+ {
+  "two_theta": 7.240536009099492,
+  "height": 107.95352069084856,
+  "fwhm": 0.02027444704123906,
+  "eta": 3.168559346262573e-14,
+  "error": 0.003354442159409311,
+  "d": 12.199106102374484,
+  "area": 2.329796770670518
+ },
+ {
+  "two_theta": 8.227210825462027,
+  "height": 5798.428125419147,
+  "fwhm": 0.1567312251149003,
+  "eta": 0.6442989728110399,
+  "error": 0.00225608634227451,
+  "d": 10.738169411362573,
+  "area": 1263.8558265010606
+ },
+ {
+  "two_theta": 8.976935260751624,
+  "height": 143.778639777225,
+  "fwhm": 0.03409235911371962,
+  "eta": 0.9999999999999976,

@@ -1,0 +1,126 @@
+-rw-r--r-- 1 root root   1299 Sep  6 03:27 index_TETRAGONAL_P_0.log
+-rw-r--r-- 1 root root    203 Sep  6 03:45 lattice.json
+-rw-r--r-- 1 root root 114457 Sep  6 03:45 lebail.npz
+-rw-r--r-- 1 root root     22 Sep  6 03:30 peak_select.json
+-rw-r--r-- 1 root root  33661 Sep  6 03:25 peaks.json
+-rw-r--r-- 1 root root 154818 Sep  6 03:25 peaks.png
+-rw-r--r-- 1 root root 166654 Sep  6 03:25 processed.npz
+-rw-r--r-- 1 root root   1056 Sep  6 04:25 search1.log
+-rw-r--r-- 1 root root   1031 Sep  6 04:44 search2.log
+drwxr-xr-x 2 root root   4096 Sep  6 04:21 search_1
+drwxr-xr-x 2 root root   4096 Sep  6 04:26 search_2
+-rw-r--r-- 1 root root    566 Sep  6 04:20 trans.json
+ObjRegistry<T>::Find(C): Not found !!
+List of Crystal ScatteringPowers :0 object registered:
+ObjRegistry<T>::Find(O): Not found !!
+List of Crystal ScatteringPowers :1 object registered:
+#  0:ScatteringPowerAtom(C)
+ObjRegistry<T>::Find(N): Not found !!
+List of Crystal ScatteringPowers :2 object registered:
+#  0:ScatteringPowerAtom(C)
+#  1:ScatteringPowerAtom(O)
+Imported powder pattern: 7136 points, 2theta=  2.300 ->  20.137, step= 0.003
+RESCALED_BASE 3.6418637513412286 0.06912182078479759 7136.00000000004
+INITIAL X35b7fbc 2 Rw 0.6874752172078724 LLK 450528.6739564393 Integrated 449203.8273532785 DOF -1
+RUN 0 steps 100000 time 15.05964207649231 total 15.059704542160034 LLK 129786.86494035748 Rw 0.33936977435798 Integrated 128399.62516818871
+RUN 1 steps 3000000 time 527.2915515899658 total 542.4528856277466 LLK 84205.08226380886 Rw 0.27744827386574217 Integrated 82684.0416052375
+RUN 2 steps 3000000 time 600.0420162677765 total 1142.6003081798553 LLK 67869.43843267138 Rw 0.26066956813582226 Integrated 66408.82767150587
+ObjRegistry<T>::Find(C): Not found !!
+List of Crystal ScatteringPowers :0 object registered:
+ObjRegistry<T>::Find(H): Not found !!
+List of Crystal ScatteringPowers :1 object registered:
+#  0:ScatteringPowerAtom(C)
+Imported powder pattern: 7179 points, 2theta=  1.566 ->  23.100, step= 0.003
+RESCALED_BASE 1.7439693036551505 0.05115697050853839 7178.99999999999
+INITIAL X2327841 10 Rw 0.4268814905093485 LLK 444494.99800665874 Integrated 443162.41796392505 DOF -1
+RUN 0 steps 100000 time 25.587589502334595 total 25.587651014328003 LLK 70222.33021958674 Rw 0.22735272053709035 Integrated 68889.75017685305
+RUN 1 steps 1000000 time 347.54400753974915 total 373.2054533958435 LLK 58484.53527073047 Rw 0.18911195214084275 Integrated 57151.955227996776
+ObjRegistry<T>::Find(C): Not found !!
+List of Crystal ScatteringPowers :0 object registered:
+ObjRegistry<T>::Find(O): Not found !!
+List of Crystal ScatteringPowers :1 object registered:
+#  0:ScatteringPowerAtom(C)
+ObjRegistry<T>::Find(Cl): Not found !!
+List of Crystal ScatteringPowers :2 object registered:
+#  0:ScatteringPowerAtom(C)
+#  1:ScatteringPowerAtom(O)
+Imported powder pattern: 3063 points, 2theta=  5.450 ->  36.080, step= 0.010
+RESCALED_BASE 1.00016412081027 0.09397391617283435 3062.9926090577023
+INITIAL Xd4c1a35 2 Rw 0.9090646869521153 LLK 301637.29151112365 Integrated 45077.18382722022 DOF -1
+RUN 0 steps 100000 time 67.56678605079651 total 67.56685376167297 LLK 49892.162525388274 Rw 0.31690239351493027 Integrated 9079.791023903823
+-rw-r--r-- 1 root root 94776 Sep  6 04:40 /app/work/X7e382cb/base.xml
+-rw-r--r-- 1 root root   891 Sep  6 04:39 /app/work/X7e382cb/fit_0.json
+{
+ "cell": [
+  6.941781803827611,
+  6.978941427798109,
+  7.9009613612602525,
+  65.8465231872708,
+  83.18913857072069,
+  67.46611408102082
+ ],
+ "volume": 323.62477978113566,
+ "score": 77.87,
+ "system": "TRICLINIC",
+ "centering": "P",
+ "mode": 9,
+ "source": "index_raw_TRICLINIC_P_partial.json",
+ "sg": "P-1",
+ "sgstart": "P-1",
+ "Rw": 0.04521538665447432,
+ "groups": [
+  {
+   "sg": "P 1",
+   "number": 1,
+   "Rw": 4.587705183201699,
+   "GoF": 11.130401149249012,
+   "nGoF": 1.4609676326079588,
+   "mult": 1
+  },
+  {
+   "sg": "P -1",
+   "number": 2,
+   "Rw": 4.587705183201699,
+   "GoF": 11.130401149249012,
+   "nGoF": 1.4609676326079595,
+   "mult": 2
+  }
+ ],
+ "stol": 0.32,
+ "p_pars": {
+  "Zero": -0.016844283968206884,
+  "2ThetaDispl": 0.0,
+{
+ "radiation": {
+  "type": "Mo Kalpha1,2 (laboratory sealed tube)",
+  "wavelength_A": 0.709319,
+  "wavelengths_A": [
+   0.709319,
+   0.713609
+  ],
+  "wavelength_weights": [
+   1.0,
+   0.5
+  ],
+  "monochromator": null,
+  "source": "sealed X-ray tube"
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 300.0,
+ "two_theta_range_deg": [
+  1.0125,
+  49.987
+ ],
+ "n_points": 5862,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "sqrt(max(I,1)); counting statistics assumed",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": [
+  "Kalpha2 weight 0.5 is the standard ratio; the depositors state only Kalpha1,2"
+ ]
+}INDEX_DE X1db5091 [7.254743968012524, 8.143017317930369, 8.568279189206713, 9.471402091710166, 12.921347359968404, 13.903177183206715, 14.075129812772358, 14.561771135087692, 15.349745589053027, 16.38624992610683, 17.273445072004794, 17.626754157786365, 18.62156983392243, 19.05397410284524, 19.474581085489167, 20.98063870290937, 21.410517679144846, 21.952646185146563, 22.536986950702673, 23.888646236909892, 24.73591027040345, 25.34210988623535] bounds [(0.09090909090909091, 0.2), (0.05555555555555555, 0.125), (0.037037037037037035, 0.08333333333333333), (-0.5, 0.5), (-0.5, 0.5), (-0.5, 0.5), (-0.08, 0.08)]
+TRIAL 0 elapsed 31.579313278198242 cost 0.04817864794169625 M 4.773116574487001 cell [ 12.5439  20.6598  29.6757 108.8448 100.719  112.3334] zero 0.011999918254147514 diff [ 0.0047  0.0057 -0.022   0.0039  0.012  -0.0001  0.0069 -0.0256 -0.0037
+  0.0035  0.01   -0.0021 -0.0101 -0.0003  0.0155  0.0054 -0.0022  0.0046
+ -0.0055 -0.0024 -0.0065  0.0022] bestcost 0.04817864794169625
+Sun Sep  6 04:45:57 UTC 2026

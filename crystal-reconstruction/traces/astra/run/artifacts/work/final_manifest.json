@@ -1,0 +1,626 @@
+{
+ "time_utc": "2026-09-06T11:24:04.142086+00:00",
+ "note": "Provenance and validation only; graph validity and profile residual do not establish solution correctness.",
+ "instances": [
+  {
+   "id": "X019b9a4",
+   "submission": {
+    "cell": {
+     "a": 8.44559101,
+     "b": 10.92222826,
+     "c": 18.4435167,
+     "alpha": 90.28794513,
+     "beta": 93.99394737,
+     "gamma": 106.24635445
+    },
+    "space_group": "P -1",
+    "space_group_number": 2
+   },
+   "cif_sha256": "64b3471d29269aee683e6ed4cbd7e93db9399cb24e48dc306864506d3abedba1",
+   "source": "/app/work/X019b9a4/refined_g12.cif",
+   "refinement": {
+    "Rw": 0.1615604915277562,
+    "chi2": 1127.2040586605103
+   }
+  },
+  {
+   "id": "X07806d9",
+   "submission": {
+    "cell": {
+     "a": 8.21076537,
+     "b": 11.22533891,
+     "c": 16.86291466,
+     "alpha": 90.0,
+     "beta": 90.0,
+     "gamma": 90.0
+    },
+    "space_group": "P b c a",
+    "space_group_number": 61
+   },
+   "cif_sha256": "3541656a31d479b94c4166f2daa631aa71c74d8b11e6b4433ae2b3e70520f338",
+   "source": "/app/work/X07806d9/refined_freeh.cif",
+   "refinement": {
+    "Rw": 0.12362612677781809,
+    "chi2": 5596.060082802505
+   }
+  },
+  {
+   "id": "X13023e3",
+   "submission": {
+    "cell": {
+     "a": 6.02220737,
+     "b": 5.52861212,
+     "c": 27.99499229,
+     "alpha": 90.0,
+     "beta": 93.11545829,
+     "gamma": 90.0
+    },
+    "space_group": "P 1 21 1",
+    "space_group_number": 4
+   },
+   "cif_sha256": "5ccec0f5172088409746d9e82fea442fd5b6c61dd006a98c84bc7e4e39dae862",
+   "source": "/app/work/X13023e3/refined_ghigh.cif",
+   "refinement": {
+    "Rw": 0.04498542127338241,
+    "chi2": 3783.6075587834484
+   }
+  },
+  {
+   "id": "X14a2b08",
+   "submission": {
+    "cell": {
+     "a": 5.10385353,
+     "b": 11.93455602,
+     "c": 21.29839836,
+     "alpha": 85.24648247,
+     "beta": 87.63862804,
+     "gamma": 87.00358411
+    },
+    "space_group": "P -1",
+    "space_group_number": 2
+   },
+   "cif_sha256": "b0531aee5c932e5cab613b50a94cf3105f5f5d94255820ec9a9f232515b96918",
+   "source": "/app/work/X14a2b08/refined_g95.cif",
+   "refinement": {
+    "Rw": 0.10353777498790344,
+    "chi2": 7860.581209875586
+   }
+  },
+  {
+   "id": "X1a56c78",
+   "submission": {
+    "cell": {
+     "a": 5.90356202,
+     "b": 11.25212246,
+     "c": 30.0857609,
+     "alpha": 90.0,
+     "beta": 90.0,
+     "gamma": 90.0
+    },
+    "space_group": "P 2 21 21",
+    "space_group_number": 18
+   },
+   "cif_sha256": "f095687480fe1397dd97ab82958c762025d559fdca94135353da2091eb2c31db",
+   "source": "/app/work/X1a56c78/refined_g90.cif",
+   "refinement": {
+    "Rw": 0.13004914012173072,
+    "chi2": 2865.661415066523
+   }
+  },
+  {
+   "id": "X1db5091",
+   "submission": {
+    "cell": {
+     "a": 4.8677201,
+     "b": 40.63989926,
+     "c": 12.78039995,
+     "alpha": 90.0,
+     "beta": 100.70098946,
+     "gamma": 90.0
+    },
+    "space_group": "P 1 21/c 1",
+    "space_group_number": 14
+   },
+   "cif_sha256": "435db8a4cf49bdd8e3dd433485a47b55871d63f5fa28d3991741c80ec130582d",
+   "source": "/app/work/X1db5091/refined_g103.cif",
+   "refinement": {
+    "Rw": 0.10288572009455903,
+    "chi2": 4705.07064734038
+   }
+  },
+  {
+   "id": "X2327841",
+   "submission": {
+    "cell": {
+     "a": 25.04761755,
+     "b": 4.9344192,
+     "c": 12.39270057,
+     "alpha": 90.0,
+     "beta": 90.78609451,
+     "gamma": 90.0
+    },
+    "space_group": "P 1 21 1",
+    "space_group_number": 4
+   },
+   "cif_sha256": "7bb7839dae2918bfb1e707eadcc1cbbe95f7fb8081b52f405e63610bacd35ceb",
+   "source": "/app/work/X2327841/refined_10t.cif",
+   "refinement": {
+    "Rw": 0.07136769565762231,
+    "chi2": 8155.645688906773
+   }
+  },
+  {
+   "id": "X238783d",
+   "submission": {
+    "cell": {
+     "a": 8.85266791,
+     "b": 20.14283922,
+     "c": 23.92173386,
+     "alpha": 90.0,
+     "beta": 90.0,
+     "gamma": 90.0
+    },
+    "space_group": "P 21 21 21",
+    "space_group_number": 19
+   },
+   "cif_sha256": "dd28c91b3e9dbc198119ae4ac0e6cce92f38a435a1f25ff5612b052cce92728f",
+   "source": "/app/work/X238783d/refined_g20.cif",
+   "refinement": {
+    "Rw": 0.19305281955322562,
+    "chi2": 2625.164693904293
+   }
+  },
+  {
+   "id": "X263b09a",
+   "submission": {
+    "cell": {
+     "a": 5.16495659,
+     "b": 11.76924649,
+     "c": 20.56737105,
+     "alpha": 83.72998128,
+     "beta": 89.52643338,
+     "gamma": 86.71508927
+    },
+    "space_group": "P -1",
+    "space_group_number": 2
+   },
+   "cif_sha256": "04843d8e0541cd8c32d16090ccc19991b07d86e07bcd9220c764c519ec6b07fb",
+   "source": "/app/work/X263b09a/refined_tight96.cif",
+   "refinement": {
+    "Rw": 0.040634815722110244,
+    "chi2": 7097.994247174224
+   }
+  },
+  {
+   "id": "X35b7fbc",
+   "submission": {
+    "cell": {
+     "a": 5.70946966,
+     "b": 12.76572796,
+     "c": 33.13787186,
+     "alpha": 90.0,
+     "beta": 90.0,
+     "gamma": 90.0
+    },
+    "space_group": "P 21 21 21",
+    "space_group_number": 19
+   },
+   "cif_sha256": "bdf59abde0addbcd4b2280cdb3ab9a7deb531f16e4343dbe1a2457f176dedf81",
+   "source": "/app/work/X35b7fbc/refined_g87.cif",
+   "refinement": {
+    "Rw": 0.16959073761961727,
+    "chi2": 8734.66547471574
+   }
+  },
+  {
+   "id": "X3c176e2",
+   "submission": {
+    "cell": {
+     "a": 9.33204794,
+     "b": 11.03813029,
+     "c": 14.01540087,
+     "alpha": 90.0,
+     "beta": 90.0,
+     "gamma": 90.0
+    },
+    "space_group": "P 21 21 21",
+    "space_group_number": 19
+   },
+   "cif_sha256": "19734fea29721e5e739e18fec33bfbbd033ea1e18540cca1fb7ebf3e0e30e28e",
+   "source": "/app/work/X3c176e2/refined_freeh.cif",
+   "refinement": {
+    "Rw": 0.0375667585797746,
+    "chi2": 2062.5999888799315
+   }
+  },
+  {
+   "id": "X3f4781b",
+   "submission": {
+    "cell": {
+     "a": 10.42925989,
+     "b": 15.33401036,
+     "c": 12.62380902,
+     "alpha": 90.0,
+     "beta": 113.29407908,
+     "gamma": 90.0
+    },
+    "space_group": "P 1 21 1",
+    "space_group_number": 4
+   },
+   "cif_sha256": "a2c6af84c9189644c9dd99fcc68294d168c9deacb725585dc32f681a801fccd2",
+   "source": "/app/work/X3f4781b/refined_chemH116.cif",
+   "refinement": {
+    "Rw": 0.07827863989985408,
+    "chi2": 7280.134916144629
+   }
+  },
+  {
+   "id": "X4f6fe58",
+   "submission": {
+    "cell": {
+     "a": 7.58798035,
+     "b": 13.09455126,
+     "c": 15.38922393,
+     "alpha": 72.43781574,
+     "beta": 83.39005027,
+     "gamma": 78.05922944
+    },
+    "space_group": "P -1",
+    "space_group_number": 2
+   },
+   "cif_sha256": "a40f93508f6760c001eb4316c86bb33df42d422015ac43f3d99204e69a02fc76",
+   "source": "/app/work/X4f6fe58/refined_g101.cif",
+   "refinement": {
+    "Rw": 0.08646378488878859,
+    "chi2": 6658.914229023637
+   }
+  },
+  {
+   "id": "X7e382cb",
+   "submission": {
+    "cell": {
+     "a": 6.95225863,
+     "b": 6.98557068,
+     "c": 15.77006897,
+     "alpha": 65.68047009,
+     "beta": 83.03278778,
+     "gamma": 67.34095047
+    },
+    "space_group": "P -1",
+    "space_group_number": 2
+   },
+   "cif_sha256": "6c1d091dd5b984e6fb574ebabc2917d87c75770dc72a0444321f8fc3e5caf701",
+   "source": "/app/work/X7e382cb/refined_bound108.cif",
+   "refinement": {
+    "Rw": 0.05914277320061181,
+    "chi2": 3617.6756799576183
+   }
+  },
+  {
+   "id": "X8a06d7a",
+   "submission": {
+    "cell": {
+     "a": 5.0087181,
+     "b": 11.84728994,
+     "c": 21.72463051,
+     "alpha": 86.02084235,
+     "beta": 89.91000605,
+     "gamma": 89.87777828
+    },
+    "space_group": "P -1",
+    "space_group_number": 2
+   },
+   "cif_sha256": "877c3ea884e324d315ef5a99e10216655a5a1dd60a8e68d18c3dca5dfa16631f",
+   "source": "/app/work/X8a06d7a/refined_g12.cif",
+   "refinement": {
+    "Rw": 0.14505357408452488,
+    "chi2": 1536.7645403040879
+   }
+  },
+  {
+   "id": "X8a6f5a8",
+   "submission": {
+    "cell": {
+     "a": 16.660624480775077,
+     "b": 11.542729190693978,
+     "c": 7.869134403071442,
+     "alpha": 94.65334051894826,
+     "beta": 84.51193059394322,
+     "gamma": 108.72568003309357
+    },
+    "space_group": "P 1",
+    "space_group_number": 1
+   },
+   "status": "lattice-and-symmetry only"
+  },
+  {
+   "id": "X9af54a2",
+   "submission": {
+    "cell": {
+     "a": 5.1788542,
+     "b": 8.25359312,
+     "c": 32.94535639,
+     "alpha": 90.0,
+     "beta": 92.75447384,
+     "gamma": 90.0
+    },
+    "space_group": "P 1 21 1",
+    "space_group_number": 4
+   },
+   "cif_sha256": "0e287c24fd1fe8b2d02cfd3c69bdb70798c1c85afe6b17be599149d3a12d13ce",
+   "source": "/app/work/X9af54a2/refined_g87.cif",
+   "refinement": {
+    "Rw": 0.29328738219368605,
+    "chi2": 9420.055707100439
+   }
+  },
+  {
+   "id": "Xb7088cf",
+   "submission": {
+    "cell": {
+     "a": 5.06370998,
+     "b": 9.36291543,
+     "c": 38.13131303,
+     "alpha": 90.0,
+     "beta": 90.0,
+     "gamma": 90.0
+    },
+    "space_group": "P 21 21 21",
+    "space_group_number": 19
+   },
+   "cif_sha256": "0abdb9e9bf177a89813619251e5fafa3430222fdfde0ab1a0defb1e3d513878d",
+   "source": "/app/work/Xb7088cf/refined_pyr51m1.cif",
+   "refinement": {
+    "Rw": 0.04949789909031498,
+    "chi2": 3490.216860037979
+   }
+  },
+  {
+   "id": "Xbfc6d2c",
+   "submission": {
+    "cell": {
+     "a": 7.61561624,
+     "b": 14.62295518,
+     "c": 11.90474034,
+     "alpha": 90.0,
+     "beta": 105.49653751,
+     "gamma": 90.0
+    },
+    "space_group": "P 1 21/a 1",
+    "space_group_number": 14
+   },
+   "cif_sha256": "3d4c6cf312c733898e40492b41b91d9b8db553787071565560041d70ff2f32d2",
+   "source": "/app/work/Xbfc6d2c/refined_plan.cif",
+   "refinement": {
+    "Rw": 0.0359575070166674,
+    "chi2": 2044.3558176932265
+   }
+  },
+  {
+   "id": "Xbfeeda9",
+   "submission": {
+    "cell": {
+     "a": 13.20576783,
+     "b": 12.36864509,
+     "c": 16.69770133,
+     "alpha": 90.0,
+     "beta": 101.65209057,
+     "gamma": 90.0
+    },
+    "space_group": "P 1 21/a 1",
+    "space_group_number": 14
+   },
+   "cif_sha256": "83ab2681da08f0c213712480149f3fad4ef0bc33e38fd1487a827a9148f66471",
+   "source": "/app/work/Xbfeeda9/refined_g60.cif",
+   "refinement": {
+    "Rw": 0.03468464463503249,
+    "chi2": 3355.762529506788
+   }
+  },
+  {
+   "id": "Xd4c1a35",
+   "submission": {
+    "cell": {
+     "a": 11.76264003,
+     "b": 12.00327748,
+     "c": 24.27693809,
+     "alpha": 90.0,
+     "beta": 90.0,
+     "gamma": 90.0
+    },
+    "space_group": "P 21 21 21",
+    "space_group_number": 19
+   },
+   "cif_sha256": "f8084e642bb916f7d22ac0729278463cb2b462fb914b325d40306028737c3ddf",
+   "source": "/app/work/Xd4c1a35/refined_ghigh.cif",
+   "refinement": {
+    "Rw": 0.05792046659428401,
+    "chi2": 3777.003586055358
+   }
+  },
+  {
+   "id": "Xd8634a2",
+   "submission": {
+    "cell": {
+     "a": 8.91052769,
+     "b": 9.47897782,
+     "c": 13.24556893,
+     "alpha": 83.98159687,
+     "beta": 81.77589081,
+     "gamma": 66.67382645
+    },
+    "space_group": "P -1",
+    "space_group_number": 2
+   },
+   "cif_sha256": "7ed832619c5a7e6b65c9366b7e69ea1e38bfb42167e98d72e29f0365cc474add",
+   "source": "/app/work/Xd8634a2/refined_g11.cif",
+   "refinement": {
+    "Rw": 0.2178640563638808,
+    "chi2": 5271.786019310934
+   }
+  },
+  {
+   "id": "Xdcc971e",
+   "submission": {
+    "cell": {
+     "a": 11.0391956,
+     "b": 7.18617652,
+     "c": 18.47175354,
+     "alpha": 90.0,
+     "beta": 101.98458058,
+     "gamma": 90.0
+    },
+    "space_group": "P 1 21 1",
+    "space_group_number": 4
+   },
+   "cif_sha256": "833fbc4b99b92ed1f310624d22b514e42ab476f40dd2951ce2acdad60aba5f6d",
+   "source": "/app/work/Xdcc971e/refined_10t.cif",
+   "refinement": {
+    "Rw": 0.05587760856502091,
+    "chi2": 10212.810306246934
+   }
+  },
+  {
+   "id": "Xe1fb77b",
+   "submission": {
+    "cell": {
+     "a": 5.59301092,
+     "b": 15.36005951,
+     "c": 13.87960827,
+     "alpha": 90.0,
+     "beta": 94.97835096,
+     "gamma": 90.0
+    },
+    "space_group": "P 1 21 1",
+    "space_group_number": 4
+   },
+   "cif_sha256": "3d6b575e51bf0e084ba333287e640711fa1227ae32386220c93b574e8eb55821",
+   "source": "/app/work/Xe1fb77b/refined_2.cif",
+   "refinement": {
+    "Rw": 0.19097255385349643,
+    "chi2": 4698.594894872138
+   }
+  },
+  {
+   "id": "Xe3a2935",
+   "submission": {
+    "cell": {
+     "a": 6.88373267,
+     "b": 10.29614914,
+     "c": 20.00004368,
+     "alpha": 90.0,
+     "beta": 90.0,
+     "gamma": 90.0
+    },
+    "space_group": "P 21 21 21",
+    "space_group_number": 19
+   },
+   "cif_sha256": "bce87dccb5f8901d517334d5c5591e0099e2c4247af533cf7b46c746e785113c",
+   "source": "/app/work/Xe3a2935/refined_plan.cif",
+   "refinement": {
+    "Rw": 0.07497878829271448,
+    "chi2": 4463.436502591378
+   }
+  },
+  {
+   "id": "Xeb393f9",
+   "submission": {
+    "cell": {
+     "a": 8.01393102,
+     "b": 9.81544991,
+     "c": 10.23349856,
+     "alpha": 74.86888031,
+     "beta": 68.95753743,
+     "gamma": 65.93179477
+    },
+    "space_group": "P 1",
+    "space_group_number": 1
+   },
+   "cif_sha256": "132e681411843408b25e873415cef760600305e2849dfc0cd76504d2b596b7d9",
+   "source": "/app/work/Xeb393f9/refined_chem51.cif",
+   "refinement": {
+    "Rw": 0.059328247101192076,
+    "chi2": 6521.507640543694
+   }
+  },
+  {
+   "id": "Xebbd488",
+   "submission": {
+    "cell": {
+     "a": 26.65439158599948,
+     "b": 12.391931489039752,
+     "c": 16.589886637301905,
+     "alpha": 90.0,
+     "beta": 106.57330959124567,
+     "gamma": 90.0
+    },
+    "space_group": "C 1 2 1",
+    "space_group_number": 5
+   },
+   "status": "lattice-and-symmetry only"
+  },
+  {
+   "id": "Xedd9c7b",
+   "submission": {
+    "cell": {
+     "a": 10.37551291,
+     "b": 15.44378832,
+     "c": 17.16682803,
+     "alpha": 90.0,
+     "beta": 95.57520664,
+     "gamma": 90.0
+    },
+    "space_group": "P 1 21/a 1",
+    "space_group_number": 14
+   },
+   "cif_sha256": "7a28fe0fc3efd5902929855159385f794381ad13cff3a8d2006cebafaa835f65",
+   "source": "/app/work/Xedd9c7b/refined_g85.cif",
+   "refinement": {
+    "Rw": 0.07825410813926664,
+    "chi2": 2579.6004250977994
+   }
+  },
+  {
+   "id": "Xf8ac963",
+   "submission": {
+    "cell": {
+     "a": 9.32157736,
+     "b": 11.39348194,
+     "c": 16.26479149,
+     "alpha": 90.0,
+     "beta": 90.0,
+     "gamma": 90.0
+    },
+    "space_group": "P 21 21 21",
+    "space_group_number": 19
+   },
+   "cif_sha256": "9c3717c726294ed8674a285061ec9800ee0842ce15cc06042c97adc67e18ce8c",
+   "source": "/app/work/Xf8ac963/refined_plan.cif",
+   "refinement": {
+    "Rw": 0.09354026689372641,
+    "chi2": 6999.439544286882
+   }
+  },
+  {
+   "id": "Xfca9f3c",
+   "submission": {
+    "cell": {
+     "a": 12.34232913,
+     "b": 4.93568723,
+     "c": 21.44474158,
+     "alpha": 90.0,
+     "beta": 105.63956645,
+     "gamma": 90.0
+    },
+    "space_group": "P 1 21 1",
+    "space_group_number": 4
+   },
+   "cif_sha256": "1fc993c3fcba76a35e77ad931969c915f0c0e6a1271c628afe323d84e38bec05",
+   "source": "/app/work/Xfca9f3c/refined_10t.cif",
+   "refinement": {
+    "Rw": 0.0276721275416407,
+    "chi2": 10643.02872434147
+   }
+  }
+ ]
+}

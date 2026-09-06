@@ -1,0 +1,42 @@
+X35b7fbc P 2 2 2: Rwp=0.0937 R=0.0837 chi2/N=28.481 nrefl=85 cell=['5.7074', '33.1312', '12.7644', '90.0000', '90.0000', '90.0000'] t=2.0s
+def add_crystal(p, cell, spg, name='cryst'):
+    a, b, c, al, be, ga = cell
+    cr = Crystal(a, b, c, np.radians(al), np.radians(be), np.radians(ga), spg)
+    cr.SetName(name)
+    pd = p.AddPowderPatternDiffraction(cr)
+    return cr, pd
+
+def fit_sequence(p, pd, steps, verbose=False, ncycle=10):
+    """steps: list of lists of parameter names to free progressively"""
+    pd.SetExtractionMode(True, True)
+    pd.ExtractLeBail(10)
+    lsq = LSQ()
+    lsq.SetRefinedObj(p, 0, True, True)
+    lsq.PrepareRefParList(True)
+    lsqr = lsq.GetCompiledRefinedObj()
+    lsqr.FixAllPar()
+    for names in steps:
+        for n in names:
+            try:
+                if n == 'background':
+                    lsq.SetParIsFixed(refpartype_scattdata_background, False)
+                else:
+                    lsq.SetParIsFixed(n, False)
+            except Exception as e:
+                if verbose: print('cannot free', n, e)
+        if lsqr.GetNbParNotFixed() == 0:
+            continue
+        sid = lsqr.CreateParamSet('save')
+        lsqr.SaveParamSet(sid)
+        rw0 = p.GetRw()
+        try:
+            lsq.SafeRefine(nbCycle=ncycle, useLevenbergMarquardt=True, silent=True)
+            pd.ExtractLeBail(10)
+            lsq.SafeRefine(nbCycle=ncycle, useLevenbergMarquardt=True, silent=True)
+            if not np.isfinite(p.GetRw()) or p.GetRw() > rw0*1.5 + 0.05:
+                raise ValueError('diverged')
+        except Exception as e:
+            if verbose: print('refine step failed', names, e)
+            lsqr.RestoreParamSet(sid)
+            for n in names:
+                try:

@@ -1,0 +1,6 @@
+Sun Sep  6 10:38:22 UTC 2026
+run 0: cost=251229.4 Rwp=0.3772 chi2=136231.4 t=3603s
+polish: Rwp 0.3682 -> 0.2872 (accepted) restraint cost=0.00
+RESULTS Xd4c1a35 P 21 21 21 [(251229.44677403558, 0.3771769575142017, 136231.42221243284)]
+13474 cpu=0s timeout --signal=TERM --kill-after=5s 600 bash -lc cd /app/w
+13480 cpu=0s bash -lc cd /app/work; sleep 420; date -u; grep -h "run \|po

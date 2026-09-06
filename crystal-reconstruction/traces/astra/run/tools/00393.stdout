@@ -1,0 +1,124 @@
+LOAD 0.23271882305949906 nan
+EXTRACT nan nan
+SCALE nan nan
+10extraction 0.7215773391782371 4636769.753170262
+[7.566649913787842, 13.072999954223633, 15.429200172424316, 72.39640045166016, 83.3905029296875, 77.70459747314453]
+stol 0.25
+<ObjCryst Date="2026-09-06T03:58:16GMT" Revision="2024001">
+  <Crystal Name="X4f6fe58" SpaceGroup="P -1">
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="a">7.56665</Par>
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="b">13.073</Par>
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="c">15.4292</Par>
+    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="alpha">72.3964</Par>
+    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="beta">83.3905</Par>
+    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="gamma">77.7046</Par>
+    <Option Name="Constrain Lattice to SpaceGroup Symmetry" Choice="0" ChoiceName="Yes (Default)"/>
+
+    <Option Name="Use Dynamical Occupancy Correction" Choice="1" ChoiceName="Yes"/>
+
+    <Option Name="Display Enantiomer" Choice="0" ChoiceName="No"/>
+
+
+
+  </Crystal>
+  <PowderPattern Name="X4f6fe58">
+    <Par Refined="0" Limited="1" Min="-2.86479" Max="2.86479" Name="Zero">-0.0165888</Par>
+    <Par Refined="0" Limited="1" Min="-2.86479" Max="2.86479" Name="2ThetaDisplacement">0</Par>
+    <Par Refined="0" Limited="1" Min="-2.86479" Max="2.86479" Name="2ThetaTransparency">0</Par>
+    <Option Name="Use Integrated Profiles" Choice="0" ChoiceName="Yes (recommended)"/>
+
+    <Radiation>
+      <Option Name="Radiation" Choice="1" ChoiceName="X-Ray"/>
+      <Option Name="Spectrum" Choice="0" ChoiceName="Monochromatic"/>
+      <LinearPolarRate>0</LinearPolarRate>
+      <Par Refined="0" Limited="1" Min="0.05" Max="20" Name="Wavelength">1.54059</Par>
+    </Radiation>
+    <MaxSinThetaOvLambda>0.25</MaxSinThetaOvLambda>
+
+    <PowderPatternCrystal Name="" Crystal="X4f6fe58" IgnoreImagScattFact="1">
+      <ReflectionProfilePseudoVoigt>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="U">0.995159</Par>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="V">-0.493843</Par>
+        <Par Refined="0" Limited="1" Min="0" Max="1" Name="W">0.130547</Par>
+        <Par Refined="0" Limited="1" Min="0" Max="1" Name="Eta0">0.462215</Par>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="Eta1">-1</Par>
+        <Par Refined="0" Limited="1" Min="0.01" Max="10" Name="Asym0">1.2045</Par>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="Asym1">0.13512</Par>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="Asym2">0</Par>
+      </ReflectionProfilePseudoVoigt>
+      <Par Refined="0" Limited="1" Min="-1" Max="1" Name="globalBiso">0</Par>
+      <DiffractionDataSingleCrystal Name="" Crystal="X4f6fe58">
+        <Par Refined="0" Limited="0" Min="1e-10" Max="1e+10" Name="Scale factor">-nan</Par>
+        <Radiation>
+          <Option Name="Radiation" Choice="1" ChoiceName="X-Ray"/>
+          <Option Name="Spectrum" Choice="0" ChoiceName="Monochromatic"/>
+          <LinearPolarRate>0</LinearPolarRate>
+          <Par Refined="0" Limited="1" Min="0.05" Max="20" Name="Wavelength">1</Par>
+        </Radiation>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="globalBiso">0</Par>
+        <Option Name="Group Reflections" Choice="0" ChoiceName="No"/>
+        <MaxSinThetaOvLambda>10</MaxSinThetaOvLambda>
+
+        <HKLIobsSigmaWeightList>
+          0 0 1 213.875 1 1 
+          0 1 0 42.6262 1 1 
+          0 1 1 20.1971 1 1 
+          0 -1 1 188.947 1 1 
+TRIAL 1 sec 4.139768600463867 cost 1.691724021543256 score 3.3661270760168764 vol 2693.304404880363 cell [ 7.0198 12.6722 30.2769 90.     90.     90.    ] zero 0.013397618853586769 best 1.691724021543256 diff [ 0.0105  0.0022 -0.1679 -0.3879 -0.0534  0.0045 -0.1558  0.0497  0.0358
+ -0.0117 -0.0506 -0.0772 -0.0164  0.2841 -0.0216  0.0227  0.0177  0.0077
+  0.0632 -0.0451]
+TRIAL 2 sec 5.43051290512085 cost 1.9207747723430193 score 1.858632732801459 vol 1956.9747998068192 cell [ 5.131  12.61   30.2459 90.     90.     90.    ] zero -0.006494271594951562 best 1.691724021543256 diff [-0.0035  0.0168 -0.1556 -0.3765 -0.0432  0.0132 -0.1475 -0.8466  0.7444
+  0.1093 -0.0021 -0.1726 -0.1857  0.2933 -0.0129  0.021  -0.0038  0.0221
+ -0.1425 -0.0038]
+{
+ "llk": 10691.6867835035,
+ "Rw": 0.07942466073351741,
+ "elapsed": 2409.9916486740112,
+ "run": 4
+}GALLOP 23 Nref 266 seconds 31.208732843399048 best 421.69217 q25 546.3179 median 600.6929 total 708.486555814743
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 2101.09it/s]
+GALLOP 24 Nref 266 seconds 29.318079233169556 best 471.0688 q25 581.9304 median 617.60486 total 737.8107523918152
+import ctypes, numpy as np
+_lib=ctypes.CDLL('/app/work/libobj_bridge.so')
+_lib.bridge_matrix.argtypes=[ctypes.c_void_p,ctypes.c_void_p,ctypes.c_long,ctypes.c_long]
+_lib.bridge_setobs.argtypes=[ctypes.c_void_p,ctypes.c_void_p,ctypes.c_long]
+_lib.bridge_march.argtypes=[ctypes.c_void_p]+[ctypes.c_double]*5
+_lib.bridge_bumpscale.argtypes=[ctypes.c_void_p,ctypes.c_double]
+def profile_matrix(p,d,nref=None):
+ p.Prepare();d.GetPowderPatternCalc()
+ if nref is None:nref=len(d.GetFhklObsSq())
+ a=np.zeros((len(p.GetPowderPatternX()),nref),dtype=np.float64)
+ ret=_lib.bridge_matrix(d.int_ptr(),a.ctypes.data,*a.shape)
+ if ret<0:raise RuntimeError('Profile matrix failed '+str(ret))
+ return a
+def set_obs(d,values):
+ v=np.ascontiguousarray(values,dtype=np.float64);_lib.bridge_setobs(d.int_ptr(),v.ctypes.data,len(v))
+def add_march(d,fraction,coeff,h,k,l):
+ _lib.bridge_march(d.int_ptr(),float(fraction),float(coeff),float(h),float(k),float(l))
+def set_bump_scale(c,scale):
+ _lib.bridge_bumpscale(c.int_ptr(),float(scale))
+
+def exact_pawley(p,d,stolmax=None,rcond=1e-4):
+ # Exact linear design matrix at fixed profile, lattice, and background.
+ # Retain all overlap couplings; truncate only near-null singular directions.
+ d.SetExtractionMode(True,False);p.Prepare();p.FitScaleFactorForRw()
+ mat=profile_matrix(p,d);f0=np.asarray(d.GetFhklObsSq());x=np.asarray(p.GetPowderPatternX());weight=np.asarray(p.GetLSQWeight(0));obs=np.asarray(p.GetPowderPatternObs());calc=np.asarray(p.GetPowderPatternCalc());compcalc=np.asarray(d.GetPowderPatternCalc());scale=np.dot(calc-p.GetPowderPatternComponent(1).GetPowderPatternCalc(),compcalc)/np.dot(compcalc,compcalc)
+ background=calc-compcalc*scale
+ n=min(len(weight),len(x));sel=np.arange(len(f0))
+ if stolmax is not None:
+  stol=np.asarray(d.GetSinThetaOverLambda())[:len(f0)];sel=sel[stol<=stolmax]
+  n=min(n,int(np.searchsorted(x,2*np.arcsin(stolmax*p.GetWavelength())+np.deg2rad(p.GetPar('Zero').GetHumanValue()))))
+ a=mat[:n,sel]*scale;target=obs[:n]-background[:n]
+ excluded=np.setdiff1d(np.arange(len(f0)),sel)
+ if len(excluded):target-=mat[:n,excluded]@f0[excluded]*scale
+ sw=np.sqrt(weight[:n]);aw=a*sw[:,None];yw=target*sw
+ # Scale columns for numerical stability. Use Le Bail distribution in null modes.
+ cs=np.linalg.norm(aw,axis=0);cs=np.maximum(cs,np.max(cs)*1e-9);an=aw/cs
+ u,sv,vt=np.linalg.svd(an,full_matrices=False);keep=sv>sv[0]*rcond
+ corr=(vt[keep].T@((u[:,keep].T@(yw-aw@f0[sel]))/sv[keep]))/cs
+ f=f0[sel]+corr
+ # Filter near-null modes also from normal matrix, keeping a PSD covariance.
+ av=(vt[keep]*sv[keep,None])*cs[None,:];normal=av.T@av
+ chi=np.sum((yw-aw@f)**2);var=float(f@normal@f)
+ print('EXACT_PAWLEY','nref',len(sel),'rank',int(keep.sum()),'cond',sv[0]/sv[keep][-1], 'chi2',chi,'netRwp',np.sqrt(chi/max(np.dot(yw,yw),1e-30)),flush=True)
+ return dict(matrix=a,normal=normal,obs=f,sel=sel,x=x[:n],weights=weight[:n],profile=target,chi2=chi,var=var)

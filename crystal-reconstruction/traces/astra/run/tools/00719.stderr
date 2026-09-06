@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "<stdin>", line 5, in <module>
+pyobjcryst.ObjCrystException: ScatteringData::CalcSinThetaLambda()       Cannot compute sin(theta)/lambda : there are no reflections !
+bash: line 8: 40560 Segmentation fault      (core dumped) python - <<'PY'
+import sys
+sys.path.insert(0,'/app/work');from obj_bridge import add_march
+from pyobjcryst.powderpattern import PowderPattern
+from pyobjcryst.crystal import Crystal
+c=Crystal(10,10,10,1.5708,1.5708,1.5708,'P 1');p=PowderPattern();d=p.AddPowderPatternDiffraction(c)
+print([x for x in dir(d) if any(k in x.lower() for k in ['march','orient','corr'])])
+PY
+

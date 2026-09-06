@@ -1,0 +1,72 @@
+2:  <Crystal Name="X263b09a_2d0" SpaceGroup="P -1">
+9:    <Option Name="Constrain Lattice to SpaceGroup Symmetry" Choice="0" ChoiceName="Yes (Default)"/>
+45:        <Par Refined="0" Limited="0" Min="1e-10" Max="1e+10" Name="Scale factor">1</Par>
+1191:    <PowderPatternComponent Scale="0.000183883" Name=""/>
+1255:    <PowderPatternComponent Scale="1" Name=""/>
+13:    <Option Name="Display Enantiomer" Choice="0" ChoiceName="No"/>
+2:  <Crystal Name="X263b09a" SpaceGroup="P -1">
+9:    <Option Name="Constrain Lattice to SpaceGroup Symmetry" Choice="0" ChoiceName="Yes (Default)"/>
+45:        <Par Refined="0" Limited="0" Min="1e-10" Max="1e+10" Name="Scale factor">-nan</Par>
+1191:    <PowderPatternComponent Scale="-nan" Name=""/>
+1255:    <PowderPatternComponent Scale="1" Name=""/>
+import ctypes, numpy as np
+_lib=ctypes.CDLL('/app/work/libobj_bridge.so')
+_lib.bridge_matrix.argtypes=[ctypes.c_void_p,ctypes.c_void_p,ctypes.c_long,ctypes.c_long]
+_lib.bridge_setobs.argtypes=[ctypes.c_void_p,ctypes.c_void_p,ctypes.c_long]
+_lib.bridge_march.argtypes=[ctypes.c_void_p]+[ctypes.c_double]*5
+_lib.bridge_bumpscale.argtypes=[ctypes.c_void_p,ctypes.c_double]
+def profile_matrix(p,d,nref=None):
+ p.Prepare();d.GetPowderPatternCalc()
+ if nref is None:nref=len(d.GetFhklObsSq())
+ a=np.zeros((len(p.GetPowderPatternX()),nref),dtype=np.float64)
+ ret=_lib.bridge_matrix(d.int_ptr(),a.ctypes.data,*a.shape)
+ if ret<0:raise RuntimeError('Profile matrix failed '+str(ret))
+ return a
+def set_obs(d,values):
+ v=np.ascontiguousarray(values,dtype=np.float64);_lib.bridge_setobs(d.int_ptr(),v.ctypes.data,len(v))
+def add_march(d,fraction,coeff,h,k,l):
+ _lib.bridge_march(d.int_ptr(),float(fraction),float(coeff),float(h),float(k),float(l))
+def set_bump_scale(c,scale):
+ _lib.bridge_bumpscale(c.int_ptr(),float(scale))
+
+def exact_pawley(p,d,stolmax=None,rcond=1e-4):
+ # Exact linear design matrix at fixed profile, lattice, and background.
+ # Retain all overlap couplings; truncate only near-null singular directions.
+ d.SetExtractionMode(True,False);p.Prepare();p.FitScaleFactorForRw()
+ mat=profile_matrix(p,d);f0=np.asarray(d.GetFhklObsSq());x=np.asarray(p.GetPowderPatternX());weight=np.asarray(p.GetLSQWeight(0));obs=np.asarray(p.GetPowderPatternObs());calc=np.asarray(p.GetPowderPatternCalc());compcalc=np.asarray(d.GetPowderPatternCalc());scale=np.dot(calc-p.GetPowderPatternComponent(1).GetPowderPatternCalc(),compcalc)/np.dot(compcalc,compcalc)
+ background=calc-compcalc*scale
+ n=min(len(weight),len(x));sel=np.arange(len(f0))
+ if stolmax is not None:
+  stol=np.asarray(d.GetSinThetaOverLambda())[:len(f0)];sel=sel[stol<=stolmax]
+  n=min(n,int(np.searchsorted(x,2*np.arcsin(stolmax*p.GetWavelength())+np.deg2rad(p.GetPar('Zero').GetHumanValue()))))
+ a=mat[:n,sel]*scale;target=obs[:n]-background[:n]
+ excluded=np.setdiff1d(np.arange(len(f0)),sel)
+ if len(excluded):target-=mat[:n,excluded]@f0[excluded]*scale
+ sw=np.sqrt(weight[:n]);aw=a*sw[:,None];yw=target*sw
+ # Scale columns for numerical stability. Use Le Bail distribution in null modes.
+ cs=np.linalg.norm(aw,axis=0);cs=np.maximum(cs,np.max(cs)*1e-9);an=aw/cs
+ u,sv,vt=np.linalg.svd(an,full_matrices=False);keep=sv>sv[0]*rcond
+ corr=(vt[keep].T@((u[:,keep].T@(yw-aw@f0[sel]))/sv[keep]))/cs
+ f=f0[sel]+corr
+ # Filter near-null modes also from normal matrix, keeping a PSD covariance.
+ av=(vt[keep]*sv[keep,None])*cs[None,:];normal=av.T@av
+ chi=np.sum((yw-aw@f)**2);var=float(f@normal@f)
+ print('EXACT_PAWLEY','nref',len(sel),'rank',int(keep.sum()),'cond',sv[0]/sv[keep][-1], 'chi2',chi,'netRwp',np.sqrt(chi/max(np.dot(yw,yw),1e-30)),flush=True)
+ return dict(matrix=a,normal=normal,obs=f,sel=sel,x=x[:n],weights=weight[:n],profile=target,chi2=chi,var=var)
+EXACT_PAWLEY nref 99 rank 97 cond 132.25177359838946 chi2 1866.7055001324002 netRwp 0.06778895002622363
+ZM CC(C)Cc1ccc([C@@H](C)C(=O)O)cc1 n 15 torsions 4 max_distance_error 9.517215016074942e-09
+ZM NC(=O)c1cccnc1 n 9 torsions 1 max_distance_error 1.2100245250223907e-08
+Total degrees of freedom: 19
+Total external degrees of freedom: 14 (pos: 6 rot: 8 )
+Total internal degrees of freedom: 5
+PREPARED X13023e3 Nref 99 PawleyRw 0.08488258664761994 SG P 1 21 1
+EXACT_PAWLEY nref 169 rank 159 cond 678.8512065931568 chi2 14384.021202666845 netRwp 0.16434987457697728
+ZM O=C([O-])c1ccc(-c2ccc(C(=O)[O-])cc2)cc1 n 18 torsions 3 max_distance_error 1.2906627766540169e-08
+ZM [NH4+] n 1 torsions 0 max_distance_error 0.0
+ZM [NH4+] n 1 torsions 0 max_distance_error 0.0
+Total degrees of freedom: 16
+Total external degrees of freedom: 13 (pos: 9 rot: 4 )
+Total internal degrees of freedom: 3
+PREPARED X7e382cb Nref 169 PawleyRw 0.0349602201944722 SG P -1
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 2126.12it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.

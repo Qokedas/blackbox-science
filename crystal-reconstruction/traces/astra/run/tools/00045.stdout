@@ -1,0 +1,12 @@
+1353
+1354
+ObjRegistry<T>::Find(O): Not found !!
+List of Crystal ScatteringPowers :2 object registered:
+#  0:ScatteringPowerAtom(N)
+#  1:ScatteringPowerAtom(C)
+ObjRegistry<T>::Find(Cl): Not found !!
+List of Crystal ScatteringPowers :3 object registered:
+#  0:ScatteringPowerAtom(N)
+#  1:ScatteringPowerAtom(C)
+#  2:ScatteringPowerAtom(O)
+INITIAL X07806d9 0 Rw 0.6192023138353646 LLK 38966149.70505048 Integrated 38965488.81579139 DOF -1

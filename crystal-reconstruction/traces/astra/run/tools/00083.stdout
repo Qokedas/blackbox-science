@@ -1,0 +1,38 @@
+/opt/conda/lib/python3.11/site-packages/gallop/__init__.py
+/opt/conda/lib/python3.11/site-packages/gallop/intensities.py
+/opt/conda/lib/python3.11/site-packages/gallop/example_data/Reference for datasets.txt
+/opt/conda/lib/python3.11/site-packages/gallop/example_data/CURHOM_1.zmatrix
+/opt/conda/lib/python3.11/site-packages/gallop/example_data/Verap.tic
+/opt/conda/lib/python3.11/site-packages/gallop/example_data/Verap.pik
+/opt/conda/lib/python3.11/site-packages/gallop/example_data/Verap.xye
+/opt/conda/lib/python3.11/site-packages/gallop/example_data/Famotidine.sdi
+/opt/conda/lib/python3.11/site-packages/gallop/example_data/Verap.sdi
+/opt/conda/lib/python3.11/site-packages/gallop/example_data/Famotidine.hcv
+/opt/conda/lib/python3.11/site-packages/gallop/example_data/Famotidine.pik
+/opt/conda/lib/python3.11/site-packages/gallop/example_data/Famotidine.dsl
+/opt/conda/lib/python3.11/site-packages/gallop/example_data/FOGVIG03_1.zmatrix
+/opt/conda/lib/python3.11/site-packages/gallop/example_data/Verap.hcv
+/opt/conda/lib/python3.11/site-packages/gallop/example_data/__init__.py
+/opt/conda/lib/python3.11/site-packages/gallop/example_data/Famotidine.tic
+/opt/conda/lib/python3.11/site-packages/gallop/example_data/CURHOM_2_13_tors.zmatrix
+/opt/conda/lib/python3.11/site-packages/gallop/example_data/Famotidine.xye
+/opt/conda/lib/python3.11/site-packages/gallop/example_data/Verap.dsl
+/opt/conda/lib/python3.11/site-packages/gallop/user_settings/Default.json
+/opt/conda/lib/python3.11/site-packages/gallop/user_settings/__init__.py
+/opt/conda/lib/python3.11/site-packages/gallop/multiGPU.py
+/opt/conda/lib/python3.11/site-packages/gallop/tensor_prep.py
+/opt/conda/lib/python3.11/site-packages/gallop/cli.py
+/opt/conda/lib/python3.11/site-packages/gallop/chi2.py
+/opt/conda/lib/python3.11/site-packages/gallop/optim/restraints.py
+X13023e3 [6.022663086704537, 5.528044552558759, 28.0085341529544, 90.0, 93.12075159687484, 90.0] [('P 1 21 1', 23.963396036826982), ('P 1 2 1', 24.30993806185597), ('I 1 2 1', 39.454829880623116)] 0.24411542566165834
+X2327841 [25.043537521606027, 4.9343736969191605, 12.398263407130518, 90.0, 90.76994890916426, 90.0] [('P 1 2 1', 6.333577804479305), ('P 1 21 1', 6.333592950450252), ('A 1 2 1', 19.06126424264136)] 0.05581729987798423
+Xe3a2935 [6.883406190876047, 10.292993119155676, 19.99357181358175, 90.0, 90.0, 90.0] [('P 21 2 21', 10.326691938200016), ('P 2 2 21', 10.333488557436683), ('P 21 2 2', 10.33444113743453)] 0.09230826203714455
+Starting: V=1316.74->1752.77
+Finished: V=1316.74->1752.77 A^3, 515751 unit cells tested, 261280 tests/s,   Elapsed time=1.97395s
+DONE X1db5091 TRICLINIC P 0 1.9741003513336182 []
+-> 69 remaining
+1546 solutions ! Redparing...
+-> 69 remaining
+#  3:ScatteringPowerAtom(N)
+INITIAL X3f4781b 1 Rw 0.41456398113275866 LLK 399172366.3194868 Integrated 399171642.0109685 DOF -1
+RUN 0 steps 100000 time 12.634364366531372 total 12.6344473361969 LLK 189968616.06909484 Rw 0.30794303867878875 Integrated 189967835.49680826

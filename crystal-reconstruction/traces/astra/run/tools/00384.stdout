@@ -1,0 +1,5 @@
+plane_pid=14399
+before tensor([3.4472], grad_fn=<DivBackward1>)
+PACKING_ENABLED 24 atoms 769 pair terms coefficient 12.0
+after tensor([24.7463], grad_fn=<AddBackward0>) penalty tensor([21.2991], grad_fn=<MulBackward0>)
+gradfinite tensor(True) tensor(True)

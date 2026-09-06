@@ -1,0 +1,35 @@
+BRCONT=64286
+ANION_RMS 0.34350546499669177 sign 1 perm [ 0  1  2  3  4  5  6  7  8  9 10 11 13 12 14 15 16 17]
+IONS_RMS 1.1559433859756973
+CROSSOVER 0.5 0.06895753675769567
+CYCLE 2 1 Rw 0.0613863484494987 chi2 3243.564215733455 geom 4.588314314636087 LSQ 3318.6528839209286
+CYCLE 2 2 Rw 0.060965854073225925 chi2 3199.2798036346326 geom 4.802646839369129 LSQ 3274.2744501323587
+PACKING_STAGE 2 19.86339481064656
+CYCLE 3 0 Rw 0.06005239079016 chi2 3104.127162937029 geom 5.263478552863883 LSQ 3177.983533135909
+CYCLE 3 1 Rw 0.05988193389490201 chi2 3086.5302304472402 geom 5.131431085538549 LSQ 3159.2159504136234
+CYCLE 3 2 Rw 0.059852253892207774 chi2 3083.4713605291854 geom 5.002849356441322 LSQ 3153.69528685235
+PACKING_STAGE 3 16.02147003385265
+FINISHED X7e382cb 0.059852253892207774
+{
+ "Rw": 0.07886488221058892,
+ "chi2": 5596.744966180517
+}/app/work/submit.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+X3f4781b Nat 104 molecule sizes [21, 21, 21, 21, 5, 5, 5, 5]
+  component COC(=O)[C@H](c1ccccc1Cl)[NH+]1CCc2sccc2C1 matches 4
+  component O=S(=O)([O-])O matches 4
+  bond range 1.2219409057591732 1.745510874583021
+  min intermolecular distance 2.455922116033464
+/app/work/check_stereo.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(fn).parse_structures(primitive=False)[0];s.remove_species(['H']);rad=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<1.2*(rad[:,None]+rad[None,:]));g=nx.from_numpy_array(A)
+X3f4781b root 0 expected {4: 'S'} actual {4: 'S'} OK True
+X3f4781b root 1 expected {4: 'S'} actual {4: 'S'} OK True
+X3f4781b root 32 expected {4: 'S'} actual {4: 'S'} OK True
+X3f4781b root 33 expected {4: 'S'} actual {4: 'S'} OK True
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X1db5091 105.29139709472656
+CONDITIONAL 0 [1] best 102.45206451416016 q25 108.15955 sec 90.65020060539246
+CONDITIONAL 1 [0] best 100.22425079345703 q25 305.53394 sec 173.09627485275269
+CONDITIONAL 2 [1] best 100.03902435302734 q25 105.6766 sec 239.31500887870789
+Sun Sep  6 11:06:23 UTC 2026

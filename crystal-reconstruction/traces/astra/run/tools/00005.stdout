@@ -1,0 +1,180 @@
+X019b9a4 1.54056 1xCC(=O)C(=NNc1ccc(C(=O)Nc2ccc(C(N)=O)cc2)cc1)C(=O)Nc1ccc2[nH]c(=O)[nH]c2c1 1xCN1CCCC1=O 1xC[S+](C)[O-]
+X07806d9 0.81933 1x[NH3+]CC(=O)CCC(=O)O 1x[Cl-]
+X13023e3 0.728302 1xCC(C)Cc1ccc([C@@H](C)C(=O)O)cc1 1xNC(=O)c1cccnc1
+X14a2b08 1.5418 1xCOc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1 1xO=C1CCCCCN1
+X1a56c78 1.5418 1xO[C@](CC[NH+]1CCCCC1)(c1ccccc1)C1CCCCC1 1x[Cl-]
+X1db5091 1.54059 1xCOc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1 1xNC(=O)c1cccnc1
+X2327841 0.80105 1xCCCCCCCCCCCCCCCCCCCCCC[C@@H](C)CCCCCCCC
+X238783d 1.54056 1xCC[C@H]1OC(=O)[C@H](C)[C@@H](O[C@H]2C[C@@](C)(OC)[C@@H](O)[C@H](C)O2)[C@H](C)[C@@H](O[C@@H]2O[C@H](C)C[C@H](N(C)C)[C@H]2O)[C@](C)(OC)C[C@@H](C)C(=O)[C@H](C)[C@@H](O)[C@]1(C)O
+X263b09a 1.54059 1xCOc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1 1xO=C1CCCCN1
+X35b7fbc 0.6996 1xCC[C@@H](CO)NC(=O)[C@@H]1C=C2c3cccc4[nH]cc(c34)C[C@H]2[NH+](C)C1 1xO=C([O-])C=CC(=O)O
+X3c176e2 1.54056 1xOC1C(O)C(O)C(O)C(O)C1O
+X3f4781b 1.54059 1xCOC(=O)[C@H](c1ccccc1Cl)[NH+]1CCc2sccc2C1 1xO=S(=O)([O-])O
+X4f6fe58 1.54059 1xO=C1CN=C(c2ccccc2Cl)c2cc(Br)ccc2N1
+X7e382cb 0.709319 1xO=C([O-])c1ccc(-c2ccc(C(=O)[O-])cc2)cc1 2x[NH4+]
+X8a06d7a 1.5418 1xCOc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1 1xNC(=O)c1ccccn1
+X8a6f5a8 1.54059 1xCOc1ccccc1OCC[NH2+]C[C@@H](O)COc1cccc2[nH]c3ccccc3c12 1xO=P([O-])(O)O 1xCC(C)O
+X9af54a2 0.46873 1xCOc1ccc(OC)c([C@H](O)CNC(=O)C[NH3+])c1 1x[Cl-]
+Xb7088cf 0.709319 1xNc1ccccc1NC(=O)c1ccc(CNC(=O)OCc2cccnc2)cc1
+Xbfc6d2c 1.5406 1x[C-]#[N+]c1ccc(-c2ccc([N+]#[C-])c(C)c2)cc1C
+Xbfeeda9 1.54056 1xCN(C)C(=O)C(CC[NH+]1CCC(O)(c2ccc(Cl)cc2)CC1)(c1ccccc1)c1ccccc1 1x[Cl-]
+Xd4c1a35 1.23922 1xCOC1=CC(=O)C[C@@H](C)[C@]12Oc1c(Cl)c(OC)cc(OC)c1C2=O
+Xd8634a2 0.46873 1xCNS(=O)(=O)Nc1nccc(Cc2c(C)c3ccc(Oc4ncccn4)cc3oc2=O)c1F
+Xdcc971e 0.80105 1xCCCCCCCCCCCCCCCC[C@@H](C)CCCCCCCCCCCC
+Xe1fb77b 0.45815 1xO=C(/C=C/c1ccc(O)c(O)c1)O[C@@H]1C[C@@](OC(=O)/C=C/c2ccc(O)c(O)c2)(C(=O)O)C[C@@H](O)[C@@H]1O 1xO
+Xe3a2935 0.46873 1xC[C@@H]1CC(=O)NN=C1c1ccc(NN=C(C#N)C#N)cc1
+Xeb393f9 0.81933 1xO=C(O)CCC[NH+]1CCC(O[C@@H](c2ccc(Cl)cc2)c2ccccn2)CC1 1xO=S(=O)([O-])c1ccccc1
+Xebbd488 1.54059 2xCOc1ccccc1OCC[NH2+]C[C@H](O)COc1cccc2[nH]c3ccccc3c12 2xO=P([O-])(O)O 1xO
+Xedd9c7b 1.540598 1xC[NH+](C)CCc1c[nH]c2cccc(OP(=O)([O-])O)c12
+Xf8ac963 0.46873 1xCOc1ccc(NC(=O)[C@@H]2C[C@H](C)CC[C@H]2C(C)C)cc1
+Xfca9f3c 0.80025 1xCCCCCCCCCCCCCCCC[C@@H](C)CCCCCCCC
+/opt/conda/lib/python3.11/site-packages/torch/_inductor/optimize_indexing.py
+/opt/conda/lib/python3.11/site-packages/torch/_inductor/__pycache__/optimize_indexing.cpython-311.pyc
+/opt/conda/lib/python3.11/site-packages/numpy/_core/tests/test_indexing.py
+/opt/conda/lib/python3.11/site-packages/numpy/_core/tests/__pycache__/test_indexing.cpython-311.pyc
+/opt/conda/lib/python3.11/site-packages/sklearn/utils/_indexing.py
+/opt/conda/lib/python3.11/site-packages/sklearn/utils/__pycache__/_indexing.cpython-311.pyc
+/opt/conda/lib/python3.11/site-packages/sklearn/utils/tests/test_indexing.py
+/opt/conda/lib/python3.11/site-packages/sklearn/utils/tests/__pycache__/test_indexing.cpython-311.pyc
+/opt/conda/lib/python3.11/site-packages/pyobjcryst/indexing.py
+/opt/conda/lib/python3.11/site-packages/pyobjcryst/__pycache__/indexing.cpython-311.pyc
+/opt/conda/lib/python3.11/site-packages/sympy/matrices/expressions/tests/test_indexing.py
+/opt/conda/lib/python3.11/site-packages/sympy/matrices/expressions/tests/__pycache__/test_indexing.cpython-311.pyc
+/opt/conda/lib/python3.11/site-packages/pandas/core/indexing.py
+/opt/conda/lib/python3.11/site-packages/pandas/core/groupby/indexing.py
+/opt/conda/lib/python3.11/site-packages/pandas/core/groupby/__pycache__/indexing.cpython-311.pyc
+/opt/conda/lib/python3.11/site-packages/pandas/core/__pycache__/indexing.cpython-311.pyc
+/opt/conda/lib/python3.11/site-packages/pandas/_libs/indexing.pyi
+/opt/conda/lib/python3.11/site-packages/pandas/_libs/indexing.cpython-311-x86_64-linux-gnu.so
+/opt/conda/lib/python3.11/site-packages/pandas/tests/arrays/integer/test_indexing.py
+/opt/conda/lib/python3.11/site-packages/pandas/tests/arrays/integer/__pycache__/test_indexing.cpython-311.pyc
+/opt/conda/lib/python3.11/site-packages/pandas/tests/arrays/boolean/test_indexing.py
+/opt/conda/lib/python3.11/site-packages/pandas/tests/arrays/boolean/__pycache__/test_indexing.cpython-311.pyc
+/opt/conda/lib/python3.11/site-packages/pandas/tests/arrays/categorical/test_indexing.py
+/opt/conda/lib/python3.11/site-packages/pandas/tests/arrays/categorical/__pycache__/test_indexing.cpython-311.pyc
+/opt/conda/lib/python3.11/site-packages/pandas/tests/arrays/numpy_/test_indexing.py
+/opt/conda/lib/python3.11/site-packages/pandas/tests/arrays/numpy_/__pycache__/test_indexing.cpython-311.pyc
+/opt/conda/lib/python3.11/site-packages/pandas/tests/arrays/sparse/test_indexing.py
+/opt/conda/lib/python3.11/site-packages/pandas/tests/arrays/sparse/__pycache__/test_indexing.cpython-311.pyc
+/opt/conda/lib/python3.11/site-packages/pandas/tests/arrays/masked/test_indexing.py
+/opt/conda/lib/python3.11/site-packages/pandas/tests/arrays/masked/__pycache__/test_indexing.cpython-311.pyc
+ReduceSolutions 
+ReduceSolutions( (CellExplorer)arg1 [, (bool)updateReportThreshold=False]) -> None :
+
+    C++ signature :
+        void ReduceSolutions(ObjCryst::CellExplorer {lvalue} [,bool=False])
+SetAngleMinMax 
+SetAngleMinMax( (CellExplorer)arg1, (float)arg2, (float)arg3) -> None :
+
+    C++ signature :
+        void SetAngleMinMax(ObjCryst::CellExplorer {lvalue},float,float)
+SetCrystalCentering 
+SetCrystalCentering( (CellExplorer)arg1, (CrystalCentering)arg2) -> None :
+
+    C++ signature :
+        void SetCrystalCentering(ObjCryst::CellExplorer {lvalue},ObjCryst::CrystalCentering)
+SetCrystalSystem 
+SetCrystalSystem( (CellExplorer)arg1, (CrystalSystem)arg2) -> None :
+
+    C++ signature :
+        void SetCrystalSystem(ObjCryst::CellExplorer {lvalue},ObjCryst::CrystalSystem)
+SetD2Error 
+SetD2Error( (CellExplorer)arg1, (float)arg2) -> None :
+
+    C++ signature :
+        void SetD2Error(ObjCryst::CellExplorer {lvalue},float)
+SetGlobalOptimStep 
+SetGlobalOptimStep( (RefinableObj)arg1, (RefParType)arg2, (float)arg3) -> None :
+
+    C++ signature :
+        void SetGlobalOptimStep(ObjCryst::RefinableObj {lvalue},ObjCryst::RefParType const*,double)
+SetLengthMinMax 
+SetLengthMinMax( (CellExplorer)arg1, (float)arg2, (float)arg3) -> None :
+
+    C++ signature :
+        void SetLengthMinMax(ObjCryst::CellExplorer {lvalue},float,float)
+SetLimitsAbsolute 
+SetLimitsAbsolute( (RefinableObj)arg1, (str)arg2, (float)arg3, (float)arg4) -> None :
+
+    C++ signature :
+        void SetLimitsAbsolute(ObjCryst::RefinableObj {lvalue},std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >,double,double)
+
+SetLimitsAbsolute( (RefinableObj)arg1, (RefParType)arg2, (float)arg3, (float)arg4) -> None :
+
+    C++ signature :
+        void SetLimitsAbsolute(ObjCryst::RefinableObj {lvalue},ObjCryst::RefParType const*,double,double)
+SetLimitsProportional 
+SetLimitsProportional( (RefinableObj)arg1, (str)arg2, (float)arg3, (float)arg4) -> None :
+
+    C++ signature :
+        void SetLimitsProportional(ObjCryst::RefinableObj {lvalue},std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >,double,double)
+
+SetLimitsProportional( (RefinableObj)arg1, (RefParType)arg2, (float)arg3, (float)arg4) -> None :
+
+    C++ signature :
+        void SetLimitsProportional(ObjCryst::RefinableObj {lvalue},ObjCryst::RefParType const*,double,double)
+SetLimitsRelative 
+SetLimitsRelative( (RefinableObj)arg1, (str)arg2, (float)arg3, (float)arg4) -> None :
+
+    C++ signature :
+        void SetLimitsRelative(ObjCryst::RefinableObj {lvalue},std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >,double,double)
+
+SetLimitsRelative( (RefinableObj)arg1, (RefParType)arg2, (float)arg3, (float)arg4) -> None :
+
+    C++ signature :
+        void SetLimitsRelative(ObjCryst::RefinableObj {lvalue},ObjCryst::RefParType const*,double,double)
+SetMinMaxZeroShift 
+SetMinMaxZeroShift( (CellExplorer)arg1, (float)arg2, (float)arg3) -> None :
+
+    C++ signature :
+        void SetMinMaxZeroShift(ObjCryst::CellExplorer {lvalue},float,float)
+SetName 
+SetName( (RefinableObj)arg1, (str)arg2) -> None :
+
+    C++ signature :
+        void SetName(ObjCryst::RefinableObj {lvalue},std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)
+
+SetName( (RefinableObj)arg1, (str)arg2) -> None :
+
+    C++ signature :
+        void SetName((anonymous namespace)::RefinableObjWrap {lvalue},std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)
+SetNbSpurious 
+SetNbSpurious( (CellExplorer)arg1, (int)arg2) -> None :
+
+    C++ signature :
+        void SetNbSpurious(ObjCryst::CellExplorer {lvalue},unsigned int)
+SetParIsFixed 
+SetParIsFixed( (RefinableObj)arg1, (int)arg2, (bool)arg3) -> None :
+
+    C++ signature :
+        void SetParIsFixed(ObjCryst::RefinableObj {lvalue},long,bool)
+
+SetParIsFixed( (RefinableObj)arg1, (str)arg2, (bool)arg3) -> None :
+
+    C++ signature :
+        void SetParIsFixed(ObjCryst::RefinableObj {lvalue},std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >,bool)
+
+SetParIsFixed( (RefinableObj)arg1, (RefParType)arg2, (bool)arg3) -> None :
+
+    C++ signature :
+        void SetParIsFixed(ObjCryst::RefinableObj {lvalue},ObjCryst::RefParType const*,bool)
+SetParIsUsed 
+SetParIsUsed( (RefinableObj)arg1, (str)arg2, (bool)arg3) -> None :
+
+    C++ signature :
+        void SetParIsUsed(ObjCryst::RefinableObj {lvalue},std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >,bool)
+
+SetParIsUsed( (RefinableObj)arg1, (RefParType)arg2, (bool)arg3) -> None :
+
+    C++ signature :
+        void SetParIsUsed(ObjCryst::RefinableObj {lvalue},ObjCryst::RefParType const*,bool)
+SetVolumeMinMax 
+SetVolumeMinMax( (CellExplorer)arg1, (float)arg2, (float)arg3) -> None :
+
+    C++ signature :
+        void SetVolumeMinMax(ObjCryst::CellExplorer {lvalue},float,float)
+__init__ 
+__init__( (object)arg1, (PeakList)dhkl, (CrystalSystem)lattice [, (int)nbSpurious=0]) -> None :
+
+    C++ signature :
+        void __init__(_object*,ObjCryst::PeakList,ObjCryst::CrystalSystem [,unsigned int=0])

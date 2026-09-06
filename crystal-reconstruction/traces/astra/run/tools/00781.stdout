@@ -1,0 +1,24 @@
+Total degrees of freedom: 22
+Total external degrees of freedom: 14 (pos: 6 rot: 8 )
+Total internal degrees of freedom: 8
+PREPARED X263b09a Nref 409 PawleyRw 0.04986135126043387 SG P -1
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+RESTART_ERROR max/rms 2.167528163605067e-06 1.0134190183822497e-06
+WARM_READY /app/work/X263b09a/gallop_90
+ATTACHED_H_SCATTERING 36 heavy atoms 27 H atoms
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+BASE 72.17298912631406
+{'axis': (1, -1, 1), 'MD': 0.9534875057489014, 'chi': 69.14716395681}
+{'axis': (1, 1, -1), 'MD': 1.044162892843687, 'chi': 69.74120381226953}
+{'axis': (1, -1, 0), 'MD': 0.9656504065268335, 'chi': 70.6667218319177}
+{'axis': (1, 0, 1), 'MD': 0.9745186566061861, 'chi': 71.16378734180591}
+{'axis': (1, 1, 0), 'MD': 1.02401823526296, 'chi': 71.38472534652828}
+{'axis': (1, -1, -1), 'MD': 0.9815409473757043, 'chi': 71.83890867393075}
+{'axis': (1, 0, -1), 'MD': 1.013769800603455, 'chi': 71.89043901799641}
+{'axis': (0, 1, -1), 'MD': 1.0105274190524256, 'chi': 72.06511682787698}

@@ -1,0 +1,9 @@
+P1 LeBail Rwp=0.1230 chi2=3256323.9
+Traceback (most recent call last):
+  File "/app/work/spgexplore.py", line 26, in <module>
+    out, p, cr, pd = explore(iid, cell, ttmax=ttmax)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/work/spgexplore.py", line 18, in explore
+    out.append((s.hermann_mauguin, s.nbreflused, s.rw, s.gof, s.ngl, s.nbextinct446))
+                                   ^^^^^^^^^^^^
+AttributeError: 'SPGScore' object has no attribute 'nbreflused'

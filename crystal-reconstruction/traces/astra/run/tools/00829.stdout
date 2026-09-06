@@ -1,0 +1,263 @@
+base.png
+base.xml
+base_double.log
+base_profile.xye
+basefresh.log
+candidates.json
+candidates_subother.json
+contact_g31.log
+double_candidates.json
+expand_p1test.log
+extended_g40.xye
+fit_0.json
+fit_0.log
+fit_0.png
+fit_0.xml
+fit_0.xye
+fit_double0.json
+fit_double0.log
+fit_double0.png
+fit_double0.xml
+fit_double0.xye
+fit_subother0.log
+fit_subother0.xye
+gallop21.log
+gallop22.log
+gallop31.log
+gallop32.log
+gallop40.log
+gallop_21
+gallop_22
+gallop_31
+gallop_32
+gallop_40
+half30.log
+half30_best.cif
+half30_best.json
+half30_best.npy
+half30_eval.json
+half30_eval.log
+half30_eval.png
+half30_eval.xml
+half_base
+half_best.cif
+half_best.json
+half_best.npy
+half_solve.log
+import_g21.log
+import_g22.log
+import_g31.log
+import_g32.log
+import_g40.log
+index_CUBIC_F_0.json
+index_CUBIC_F_0.log
+index_CUBIC_I_0.json
+index_CUBIC_I_0.log
+index_CUBIC_P_0.json
+index_CUBIC_P_0.log
+index_HEXAGONAL_P_0.json
+index_HEXAGONAL_P_0.log
+index_MONOCLINIC_C_0.json
+index_MONOCLINIC_C_0.log
+index_MONOCLINIC_C_2.json
+index_MONOCLINIC_C_2.log
+index_MONOCLINIC_P_0.json
+index_MONOCLINIC_P_0.log
+index_MONOCLINIC_P_2.json
+index_MONOCLINIC_P_2.log
+index_ORTHOROMBIC_C_0.json
+index_ORTHOROMBIC_C_0.log
+index_ORTHOROMBIC_C_4_250_1800_z-.02_peaks_raw.json
+index_ORTHOROMBIC_I_0.json
+index_ORTHOROMBIC_I_0.log
+index_ORTHOROMBIC_P_0.json
+index_ORTHOROMBIC_P_0.log
+index_ORTHOROMBIC_P_2.json
+index_ORTHOROMBIC_P_2.log
+index_ORTHOROMBIC_P_4_250_1800_z-.02_peaks_raw.json
+index_RHOMBOEDRAL_P_0.json
+index_RHOMBOEDRAL_P_0.log
+index_TETRAGONAL_I_0.json
+index_TETRAGONAL_I_0.log
+index_TETRAGONAL_P_0.json
+index_TETRAGONAL_P_0.log
+index_TRICLINIC_P_4.json
+index_TRICLINIC_P_4.log
+index_raw_MONOCLINIC_C.log
+index_raw_MONOCLINIC_P.log
+index_raw_MONOCLINIC_P_partial.json
+index_raw_ORTHOROMBIC_C.log
+index_raw_ORTHOROMBIC_P.log
+index_raw_TRICLINIC_P.log
+index_raw_TRICLINIC_P_partial.json
+lattice.json
+lebail.npz
+native_po_g40.json
+native_po_g40.log
+peak_select.json
+peak_select_raw.json
+peaks.json
+peaks.png
+peaks_raw.json
+peaks_raw.png
+po_scan_40.log
+pre_scan_0.xml
+pre_scan_double0.xml
+processed.npz
+refine_chem32.log
+refine_chem32_stage0.cif
+refine_chem32_stage0.xml
+refine_chem32_stage1.cif
+refine_chem32_stage1.xml
+refine_chem32_stage2.cif
+refine_chem32_stage2.xml
+refine_chem32_stage3.cif
+refine_chem32_stage3.xml
+refine_g21.log
+refine_g22.log
+refine_g22_stage0.cif
+refine_g22_stage0.xml
+refine_g22_stage1.cif
+refine_g22_stage1.xml
+refine_g22_stage2.cif
+refine_g22_stage2.xml
+refine_g22_stage3.cif
+refine_g22_stage3.xml
+refine_g31.log
+refine_g31_stage0.cif
+refine_g31_stage0.xml
+refine_g31_stage1.cif
+refine_g31_stage1.xml
+refine_g31_stage2.cif
+refine_g31_stage2.xml
+refine_g31_stage3.cif
+refine_g31_stage3.xml
+refine_g32.log
+refine_g32_stage0.cif
+refine_g32_stage0.xml
+refine_g32_stage1.cif
+refine_g32_stage1.xml
+refine_g32_stage2.cif
+refine_g32_stage2.xml
+refine_g32_stage3.cif
+refine_g32_stage3.xml
+refine_g40.log
+refine_g40_stage0.cif
+refine_g40_stage0.xml
+refine_g40_stage1.cif
+refine_g40_stage1.xml
+refine_g40_stage2.cif
+refine_g40_stage2.xml
+refine_g40_stage3.cif
+refine_g40_stage3.xml
+refined_chem32.cif
+refined_chem32.json
+refined_chem32.png
+refined_chem32.xml
+refined_g22.cif
+refined_g22.json
+refined_g22.png
+refined_g22.xml
+refined_g31.cif
+refined_g31.json
+refined_g31.png
+refined_g31.xml
+refined_g32.cif
+refined_g32.json
+refined_g32.png
+refined_g32.xml
+refined_g40.cif
+refined_g40.json
+refined_g40.png
+refined_g40.xml
+scaled_refine.xye
+search_chem32
+search_g21
+search_g22
+search_g31
+search_g32
+search_g40
+search_p1test
+tc1
+tc1.log
+tc2
+tc2.log
+warm40.log
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/8545/status ]] && ! grep -q '^State:.*Z' /proc/8545/status; do sleep 4; done
+SEARCH_TIME=1000 PARTICLES=128 ITERATIONS=450 GALLOP_STOL=.25 python /app/work/search_gallop.py X7e382cb 22 1 --prepare --hscatter > /app/work/X7e382cb/gallop22.log 2>&1
+python /app/work/import_gallop.py X7e382cb 22 > /app/work/X7e382cb/import_g22.log 2>&1
+python /app/work/refine_obj.py X7e382cb g22 /app/work/X7e382cb/search_g22/best.xml --scale --tight --flexrings > /app/work/X7e382cb/refine_g22.log 2>&1
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+HALF_BASE=/app/work/X7e382cb/fit_0.xml HALF_STOL=.30 HALF_TAG=half30 TRIALS=10 SEARCH_TIME=400 python /app/work/solve_half_biphenyl.py > /app/work/X7e382cb/half30.log 2>&1
+mkdir -p /app/work/Xfca9f3c/search_10h; cp /app/work/Xfca9f3c/search_10/model.json /app/work/Xfca9f3c/search_10h/model.json
+python /app/work/refine_obj.py Xfca9f3c 10h /app/work/Xfca9f3c/refined_10.xml --scale --stol=.38 > /app/work/Xfca9f3c/refine_10h.log 2>&1
+mkdir -p /app/work/Xdcc971e/search_10h; cp /app/work/Xdcc971e/search_10/model.json /app/work/Xdcc971e/search_10h/model.json
+python /app/work/refine_obj.py Xdcc971e 10h /app/work/Xdcc971e/refined_10.xml --scale --stol=.38 > /app/work/Xdcc971e/refine_10h.log 2>&1
+{
+ "cell": [
+  6.950883561252238,
+  6.9714360090474425,
+  15.760000618785241,
+  65.620071071758,
+  82.98049443060587,
+  67.39068753201737
+ ],
+ "volume": 647.2495595622713,
+ "score": 77.87,
+ "system": "TRICLINIC",
+ "centering": "P",
+ "mode": 9,
+ "source": "doublec_fit0",
+ "sg": "P -1",
+ "sgstart": "P -1",
+ "Rw": 0.034961766101973206,
+ "groups": [
+  {
+   "sg": "P 1",
+   "number": 1,
+   "Rw": 4.05634287476456,
+   "GoF": 9.221592321633876,
+   "nGoF": 2.638392983510142,
+   "mult": 1
+  },
+  {
+   "sg": "P -1",
+   "number": 2,
+   "Rw": 4.05634287476456,
+   "GoF": 9.221592321633876,
+   "nGoF": 2.638392983510143,
+   "mult": 2
+  }
+ ],
+ "stol": 0.32,
+ "p_pars": {
+  "Zero": -0.020591785845689447,
+  "2ThetaDispl": 0.0,
+  "2ThetaTransp": 0.0,
+  "DIFC": 48277.14,
+  "DIFA": -6.7,
+  "MuR": 0.0,
+  "Scale_": 0.00015134670845511351
+ },
+ "d_pars": {
+  "Global Biso": 0.0
+ }
+}{
+ "Rw": 0.05860661356792875,
+ "chi2": 2246.3941019048025
+}set -e
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 CANDIDATE_FILE=/app/work/X7e382cb/candidates_subother.json SG_SCAN=0
+for i in 0 1 2;do CANDIDATE_INDEX=$i python /app/work/fit_candidate.py X7e382cb subother$i .35 > /app/work/X7e382cb/fit_subother$i.log 2>&1;done
+ATTACHED_H_SCATTERING 36 heavy atoms 27 H atoms
+PACKING_ENABLED 36 atoms 1784 pair terms coefficient 70.0 active_only True
+HBOND_PRIOR 2 donors 7 acceptors coefficient 80.0
+Traceback (most recent call last):
+  File "/app/work/search_coformer.py", line 17, in <module>
+    warm=np.load(G+'/warm.npz');N=int(os.getenv('PARTICLES','128'));IT=int(os.getenv('ITERATIONS','350'));best=1e100;t0=time.time();me=np.ones(s.total_external_degrees_of_freedom);mi=np.ones(s.total_internal_degrees_of_freedom);me[np.r_[s.position_indices[0],s.rotation_indices[0]]]=0;mi[s.torsion_indices[0]]=0;masks=[torch.tensor(me,dtype=torch.float32),torch.tensor(mi,dtype=torch.float32)]
+                                                                                                                                                                                                                                             ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Structure' object has no attribute 'position_indices'
+Name:	python
+State:	Z (zombie)
+Tgid:	48786
+Ngid:	0

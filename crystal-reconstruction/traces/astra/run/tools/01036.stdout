@@ -1,0 +1,34 @@
+61985
+Sun Sep  6 10:35:28 UTC 2026
+PACKING_STAGE 2 21.80809960152966
+CYCLE 3 0 Rw 0.0862587729847065 chi2 5467.568960530335 geom 477.7138679012561 LSQ 6489.8261597484525
+CYCLE 3 1 Rw 0.08614868362854436 chi2 5453.621694198644 geom 474.38111353086146 LSQ 6470.396839313527
+CYCLE 3 2 Rw 0.08605142253053939 chi2 5441.314464672526 geom 472.23695593517164 LSQ 6453.380758863932
+PACKING_STAGE 3 20.5352488250725
+FINISHED X3f4781b 0.08605142253053939
+FLEXIBLE_RINGS
+AROMATIC_PLANARITY 0
+LSQ_PACKING 52 atoms 3834 terms sigma 0.01 cost 3.6473488014304722
+EXTENDED_BACKGROUND 0.09480903134295005
+CYCLE 0 0 Rw 0.11875092926574642 chi2 7650.909471294638 geom 261.0159655316003 LSQ 8466.428830304467
+CYCLE 0 1 Rw 0.1177678647503609 chi2 7524.759630818382 geom 261.0159655316003 LSQ 8214.106500627648
+CYCLE 0 2 Rw 0.11774493481574752 chi2 7521.829706780031 geom 261.0159655316003 LSQ 8188.110411415107
+PACKING_STAGE 0 81.0561375486005
+CYCLE 1 0 Rw 0.11241929647258754 chi2 6856.7885340739995 geom 745.191197191473 LSQ 8124.844907780049
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 4 Nref 174 seconds 141.2825219631195 best 159.86702 q25 163.61574 median 219.65245 total 561.2701635360718
+GALLOP 5 Nref 202 seconds 121.82206678390503 best 159.1852 q25 162.16577 median 355.34674 total 683.2041771411896
+GALLOP 6 Nref 227 seconds 120.00628447532654 best 159.01613 q25 161.77257 median 238.15176 total 803.31507563591
+GALLOP 7 Nref 251 seconds 120.23232316970825 best 158.97917 q25 158.98422 median 214.66628 total 923.698303937912
+GALLOP 8 Nref 256 seconds 108.31507968902588 best 158.97594 q25 158.98204 median 175.6151 total 1032.1091449260712
+GALLOP 5 Nref 162 seconds 155.31511306762695 best 147.80896 q25 184.65681 median 257.4535 total 989.4098908901215
+GALLOP 6 Nref 171 seconds 210.00547099113464 best 145.14874 q25 162.2511 median 243.4436 total 1199.4955432415009
+GALLOP 7 Nref 171 seconds 169.9012966156006 best 141.27132 q25 185.60599 median 236.50626 total 1369.501053571701
+GALLOP 8 Nref 171 seconds 179.56979179382324 best 137.92043 q25 170.32797 median 238.94885 total 1549.1785159111023

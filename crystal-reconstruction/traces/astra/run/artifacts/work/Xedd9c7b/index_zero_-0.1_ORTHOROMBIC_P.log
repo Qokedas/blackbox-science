@@ -1,0 +1,29 @@
+Xedd9c7b ORTHOROMBIC P 4 peaks [11.10742, 11.81985, 12.52948, 14.26583, 14.8881, 15.39919, 17.12935, 17.38853, 19.31913, 19.98573, 20.61934, 21.50266, 22.228, 23.87816, 24.33548, 25.23826, 26.49338, 28.19291] V 450.0 2800.0 Lmax 40.0
+3->40,1.48001,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+450->2800,470.009,4.9999
+Starting: V=450->920.009
+Finished: V=450->920.009 A^3, 2179 unit cells tested, 514400 tests/s,   Elapsed time=0.004247s
+Starting: V=920.009->1390.02
+Finished: V=920.009->1390.02 A^3, 7780 unit cells tested, 612116 tests/s,   Elapsed time=0.012721s
+Starting: V=1390.02->1860.03
+Finished: V=1390.02->1860.03 A^3, 18058 unit cells tested, 679000 tests/s,   Elapsed time=0.026606s
+Starting: V=1860.03->2330.04
+Finished: V=1860.03->2330.04 A^3, 33080 unit cells tested, 716591 tests/s,   Elapsed time=0.046174s
+Starting: V=2330.04->2800
+    a= 6.93- 6.98 b=12.33-12.37 c=29.66-29.71 alpha= 90.00- 90.00 beta= 90.00- 90.00 gamma= 90.00- 90.00 V=2534.07-2565.53level=4, indexed=1(0 sol.)
+    a=0.14431-0.14327 b=0.08111-0.08082 c=0.03371-0.03366 alpha=0.00000-0.00000 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(0 sol.)
+ Solution ? a=  6.961 b= 12.349 c= 29.663 alpha= 90.000 beta= 90.000 gamma= 90.000 V= 2549.63 score=  4.42 #   0
+    a= 6.29- 6.33 b=16.51-16.56 c=26.61-26.66 alpha= 90.00- 90.00 beta= 90.00- 90.00 gamma= 90.00- 90.00 V=2764.91-2795.63level=4, indexed=1(1 sol.)
+    a=0.15892-0.15787 b=0.06056-0.06040 c=0.03758-0.03751 alpha=0.00000-0.00000 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(1 sol.)
+ Solution ? a=  6.305 b= 16.551 c= 26.629 alpha= 90.000 beta= 90.000 gamma= 90.000 V= 2778.74 score=  4.55 #   1
+    a= 8.52- 8.57 b=15.21-15.25 c=20.87-20.91 alpha= 90.00- 90.00 beta= 90.00- 90.00 gamma= 90.00- 90.00 V=2704.76-2734.56level=4, indexed=1(2 sol.)
+    a=0.11733-0.11663 b=0.06576-0.06557 c=0.04792-0.04782 alpha=0.00000-0.00000 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(2 sol.)
+ Solution ? a=  8.572 b= 15.246 c= 20.858 alpha= 90.000 beta= 90.000 gamma= 90.000 V= 2725.83 score=  4.39 #   2
+Finished: V=2330.04->2800 A^3, 55947 unit cells tested, 741963 tests/s,   Elapsed time=0.075416s
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=6.30496, b=16.5505, c=26.6289, alpha=90, beta=90, gamma=90, V=2778.74, score=4.54618
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=6.96068, b=12.3486, c=29.6626, alpha=90, beta=90, gamma=90, V=2549.63, score=4.42495
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=8.57169, b=15.2459, c=20.8583, alpha=90, beta=90, gamma=90, V=2725.83, score=4.38563
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2609 BEST ? a=6.30496, b=16.5505, c=26.6289, alpha=90, beta=90, gamma=90, V=2778.74, score=4.54618
+55947unit cells tested, 737999 tests/s,   Elapsed time=0.075818s
+DONE Xedd9c7b ORTHOROMBIC P 3 0.07617926597595215 [{'cell': [6.304957389831543, 16.550518035888672, 26.628936767578125, 90.00000250447816, 90.00000250447816, 90.00000250447816], 'volume': 2778.73779296875, 'score': 4.546178340911865, 'system': 'ORTHOROMBIC', 'centering': 'P', 'mode': 4}, {'cell': [6.960678577423096, 12.3485689163208, 29.662553787231445, 90.00000250447816, 90.00000250447816, 90.00000250447816], 'volume': 2549.627685546875, 'score': 4.424948692321777, 'system': 'ORTHOROMBIC', 'centering': 'P', 'mode': 4}, {'cell': [8.57169246673584, 15.245946884155273, 20.858266830444336, 90.00000250447816, 90.00000250447816, 90.00000250447816], 'volume': 2725.83251953125, 'score': 4.385631561279297, 'system': 'ORTHOROMBIC', 'centering': 'P', 'mode': 4}]

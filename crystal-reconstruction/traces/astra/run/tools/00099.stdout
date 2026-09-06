@@ -1,0 +1,196 @@
+# coding: utf-8
+# Copyright (c) Mark Spillman.
+# Distributed under the terms of the GPL v3 License.
+"""
+Z-matrix class, used to read in DASH Z-matrices.
+"""
+import json
+import numpy as np
+
+#
+# Things to add - extract occupancies from the ZM
+#
+
+class Z_matrix(object):
+    """
+    The GALLOP representation of Z-matrices.
+    This has convenience methods for reading in DASH Z-matrices, as well as
+    a very limited capability to read in gaussian formatted Z-matrices.
+    Methods are included to strip out hydrogen atoms, as well as generate
+    Cartesian coordinates.
+
+    One common issue that is encountered is when refinable torsion angles are
+    defined in terms of hydrogen atoms. This causes the method to remove the H
+    atoms to fail.
+
+    A simple fix for this is to:
+        1. If not already available, generate a CIF of the structure from which
+            the ZMs are being derived.
+        2. Reorder the atoms in the CIF such that all non-H atoms come first.
+        3. Regenerate the ZMs using makeZmatrix.exe (bundled with DASH)
+
+    The new ZMs will no longer have H-atoms defining torsion angles and should
+    not give any errors with this class.
+    """
+    def __init__(self, filename=None, zmformat="DASH"):
+        if filename is not None:
+            # Read in the Z-matrix
+            self.filename = filename
+            if zmformat.lower() == "dash":
+                self.read_DASH_zm(filename)
+            elif zmformat.lower() == "gaussian":
+                self.read_Gaussian_zm(filename)
+            self.coords_radians = self.zm_angles_to_radians(self.coords)
+
+            # Create a new Z-matrix with no hydrogen atoms
+            self.remove_H_from_zm()
+            self.coords_radians_no_H=self.zm_angles_to_radians(self.coords_no_H)
+            # Zero indexing needed in Python
+            self.bond_connection -= 1
+            self.angle_connection -= 1
+            self.torsion_connection -= 1
+            self.bond_connection_no_H -= 1
+            self.angle_connection_no_H -= 1
+            self.torsion_connection_no_H -= 1
+            # Generate some initial Cartesian coordinates for the Z-matrices
+            self.initial_cartesian = self.zm_to_cart(self.coords_radians,
+                                                self.bond_connection,
+                                                self.angle_connection,
+                                                self.torsion_connection)
+            try:
+                self.initial_cartesian_no_H = self.zm_to_cart(
+                                                self.coords_radians_no_H,
+                                                self.bond_connection_no_H,
+                                                self.angle_connection_no_H,
+                                                self.torsion_connection_no_H)
+                self.H_atom_torsion_defs = False
+            except IndexError:
+                print("Error in Z-matrix " + self.filename + \
+                ": check to see if refinable torsions are defined in terms of \
+                hydrogen atoms in original Z-matrix")
+                print("All atoms refinable torsions = ",
+                                            self.torsion_refinable.sum())
+                print("Non-H atoms refinable torsions = ",
+                                            self.torsion_refinable_no_H.sum())
+                self.H_atom_torsion_defs = True
+
+            if self.bond_refinable.sum() > 0:
+                print("refinable bonds not yet supported")
+            if self.angle_refinable.sum() > 0:
+                print("refinable angles not yet supported")
+
+            self.get_degrees_of_freedom()
+
+            self.initial_D2      = self.get_initial_D2_for_torch(
+                        self.coords_radians, self.torsion_refinable_indices)
+            self.initial_D2_no_H = self.get_initial_D2_for_torch(
+                self.coords_radians_no_H, self.torsion_refinable_indices_no_H)
+
+    def __repr__(self):
+        file_info = "Filename: " + self.filename
+        n_non_H_atoms = "\nNon-H atoms: " + str(len(self.elements_no_H))
+        n_ref_torsions = "\nrefinable torsions: " + str(np.sum(
+                                                    self.torsion_refinable))
+        if self.degrees_of_freedom > 3:
+            dof = "\nDegrees of freedom: "+str(self.degrees_of_freedom)+\
+                            " (7 + "+str(np.sum(self.torsion_refinable))+")"
+        else:
+            dof = "\nDegrees of freedom: "+str(self.degrees_of_freedom)
+
+        return file_info + n_non_H_atoms + n_ref_torsions + dof
+
+    def from_json(self, attributes, is_json=True):
+        """
+        Load Z-matrix from a JSON formatted string
+
+        Args:
+            attribute_string (str): json string with all attributes of a ZM
+        """
+        if is_json:
+            attributes = json.loads(attributes)
+        for k, v in attributes.items():
+            if v[1]:
+                setattr(self, k, np.array(v[0]))
+            else:
+                setattr(self, k, v[0])
+
+    def to_json(self, return_json=True):
+        """
+        Save the Z-matrix to a JSON formatted string
+
+        Returns:
+            str: JSON formatted string of the Z-matrix object attributes
+        """
+        dumpable = {}
+        for k, v in self.__dict__.items():
+            if isinstance(v, np.ndarray):
+                dumpable[k] = [v.tolist(), True]
+            elif isinstance(v, np.int32):
+                dumpable[k] = [int(v), False]
+            else:
+                dumpable[k] = [v, False]
+        if return_json:
+            return json.dumps(dumpable)
+        else:
+            return dumpable
+
+    def get_degrees_of_freedom(self):
+        if len(self.elements) == 1:
+            self.degrees_of_freedom = 3
+            self.external_degrees_of_freedom = 3
+            self.position_degrees_of_freedom = 3
+            self.rotation_degrees_of_freedom = 0
+            self.internal_degrees_of_freedom = 0
+        else:
+            self.degrees_of_freedom = 7 + self.torsion_refinable.sum()
+            self.external_degrees_of_freedom = 7
+            self.position_degrees_of_freedom = 3
+            self.rotation_degrees_of_freedom = 4
+            self.internal_degrees_of_freedom = self.torsion_refinable.sum()
+
+    #def update_refinable_indices(self):
+    #    self.bond_refinable_indices = np.where(self.bond_refinable == 1)[0]
+    #    self.angle_refinable_indices = np.where(self.angle_refinable == 1)[0]
+    #    self.torsion_refinable_indices = np.where(
+    #                                           self.torsion_refinable == 1)[0]
+    #    self.remove_H_from_zm()
+    #    self.coords_radians_no_H = self.zm_angles_to_radians(self.coords_no_H)
+
+    def read_DASH_zm(self, input_filename):
+        """
+23:    defined in terms of hydrogen atoms. This causes the method to remove the H
+32:    The new ZMs will no longer have H-atoms defining torsion angles and should
+35:    def __init__(self, filename=None, zmformat="DASH"):
+66:                self.H_atom_torsion_defs = False
+69:                ": check to see if refinable torsions are defined in terms of \
+75:                self.H_atom_torsion_defs = True
+89:    def __repr__(self):
+102:    def from_json(self, attributes, is_json=True):
+117:    def to_json(self, return_json=True):
+137:    def get_degrees_of_freedom(self):
+151:    #def update_refinable_indices(self):
+159:    def read_DASH_zm(self, input_filename):
+220:    def read_Gaussian_zm(self, filename):
+225:        In addition, there may be further issues with the definition of torsions
+290:    def remove_H_from_zm(self):
+361:    def zm_angles_to_radians(self, zm):
+381:    def zm_to_cart(self,zm,bond_connection,angle_connection,torsion_connection):
+388:        def cross_product(a, b):
+396:        def get_D2(zm):
+410:        def normalize(vector):
+431:    def get_initial_D2_for_torch(self, zm, ref):
+19:    def __init__(self, Structure, n_particles=10000, n_swarms=10,
+46:                increasing chi2. Lowest chi2 assigned lowest inertia, as defined
+97:    def get_initial_positions(self, method="latin", MDB=None):
+199:    def update_best(self, chi_2):
+210:    def get_position_from_dof(self, external, internal):
+258:    def get_new_external_internal(self, position):
+302:    def PSO_velocity_update(self, previous_velocity, position,
+372:    def get_new_velocities(self, global_update=True, verbose=True):
+450:    def update_position(self, result=None, external=None, internal=None,
+525:    def get_CIF_of_best(self, n_reflections=None, one_for_each_subswarm=True,
+593:    def reset_position_and_velocity(self):
+Z-matrix generated by ToolKit
+1.0 1.0 1.0 90.0 90.0 90.0
+   1   0
+  Cl     0.0000000  0     0.000000  0     0.000000  0    0    0    0  3.0  1.0    1 Cl1 

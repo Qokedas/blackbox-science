@@ -1,0 +1,71 @@
+data_cryst
+
+_computing_structure_solution     'FOX http://objcryst.sourceforge.net'
+
+_symmetry_space_group_name_H-M    'P 21 21 21'
+_symmetry_space_group_name_Hall   ' P 2ac 2ab'
+
+_cell_length_a    10.29233
+_cell_length_b     6.88044
+_cell_length_c    19.98978
+_cell_angle_alpha  90.000
+_cell_angle_beta   90.000
+_cell_angle_gamma  90.000
+_cell_volume      1415.59
+loop_
+    _atom_site_label
+    _atom_site_type_symbol
+    _atom_site_fract_x
+    _atom_site_fract_y
+    _atom_site_fract_z
+    _atom_site_U_iso_or_equiv
+    _atom_site_occupancy
+    _atom_site_adp_type
+    C1         C         0.409557  0.557983  0.235480  0.012665 0.9978 Uiso
+    C2         C         0.346059  0.501748  0.300706  0.012665 0.9978 Uiso
+    C3         C         0.432538  0.462988  0.358371  0.012665 0.9978 Uiso
+    C4         C         0.359667  0.408155  0.422109  0.012665 0.9978 Uiso
+    O1         O         0.411394  0.416430  0.476297  0.012665 0.9978 Uiso
+    N1         N         0.229759  0.382546  0.417712  0.012665 0.9978 Uiso
+    N2         N         0.153741  0.400705  0.363823  0.012665 0.9978 Uiso
+    C5         C         0.204396  0.447958  0.307854  0.012665 0.9978 Uiso
+    C6         C         0.119324  0.450134  0.247222  0.012665 0.9978 Uiso
+    C7         C         0.172894  0.508052  0.187683  0.012665 0.9978 Uiso
+    C8         C         0.098152  0.511546  0.129345  0.012665 0.9978 Uiso
+    C9         C        -0.032905  0.454767  0.130245  0.012665 0.9978 Uiso
+    N3         N        -0.102537  0.453676  0.070134  0.012665 0.9978 Uiso
+    N4         N        -0.232396  0.437238  0.074681  0.012665 0.9978 Uiso
+    C10        C        -0.300249  0.421793  0.018931  0.012665 0.9978 Uiso
+    C11        C        -0.435002  0.431186  0.030377  0.012665 0.9978 Uiso
+    N5         N        -0.545623  0.440448  0.035219  0.012665 0.9978 Uiso
+    C12        C        -0.246993  0.447094 -0.046796  0.012665 0.9978 Uiso
+    N6         N        -0.195031  0.474234 -0.098513  0.012665 0.9978 Uiso
+    C13        C        -0.087322  0.396196  0.191293  0.012665 0.9978 Uiso
+    C14        C        -0.012882  0.391503  0.249952  0.012665 0.9978 Uiso
+
+#  Dynamical occupancy corrections found by ObjCryst++:
+#  values below 1. (100%) indicate a correction,
+#  which means either that the atom is on a special position,
+#  or that it is overlapping with another identical atom.
+#   C1               : 1.0000
+#   C2               : 1.0000
+#   C3               : 1.0000
+#   C4               : 1.0000
+#   O1               : 1.0000
+#   N1               : 1.0000
+#   N2               : 1.0000
+#   C5               : 1.0000
+#   C6               : 1.0000
+#   C7               : 1.0000
+#   C8               : 1.0000
+#   C9               : 1.0000
+#   N3               : 1.0000
+#   N4               : 1.0000
+#   C10              : 1.0000
+#   C11              : 1.0000
+#   N5               : 1.0000
+#   C12              : 1.0000
+#   N6               : 1.0000
+#   C13              : 1.0000
+#   C14              : 1.0000
+#

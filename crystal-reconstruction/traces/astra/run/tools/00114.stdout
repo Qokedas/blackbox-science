@@ -1,0 +1,11 @@
+X263b09a 13 [{'cell': [20.667, 11.735, 5.446, 90.943, 84.221, 96.335], 'volume': 1306.11, 'score': 36.87, 'system': 'TRICLINIC', 'centering': 'P', 'mode': 3}, {'cell': [20.667, 11.735, 5.446, 89.057, 95.779, 96.335], 'volume': 1306.11, 'score': 36.87, 'system': 'TRICLINIC', 'centering': 'P', 'mode': 3}, {'cell': [20.541, 11.773, 5.016, 94.525, 91.421, 96.126], 'volume': 1201.67, 'score': 29.51, 'system': 'TRICLINIC', 'centering': 'P', 'mode': 3}, {'cell': [20.641, 11.737, 5.447, 90.933, 84.201, 96.321], 'volume': 1304.99, 'score': 26.28, 'system': 'TRICLINIC', 'centering': 'P', 'mode': 3}]
+X263b09a 3 36.87 [5.446, 11.735, 20.667, 83.665, 84.221, 89.057] P-1
+  0%|          | 0/2 [00:00<?, ?it/s]100%|██████████| 2/2 [00:00<00:00, 1516.65it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 seconds 25.87220025062561 best 259.70734 q25 455.45886 median 482.2624 total 25.876957654953003
+/app/work/search_gallop.py:17: RuntimeWarning: overflow encountered in cast
+  if mn>=best:return
+FINISHED Xf8ac963 259.70733642578125

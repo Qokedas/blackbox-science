@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "<stdin>", line 4, in <module>
+  File "/opt/conda/lib/python3.11/inspect.py", line 1258, in getsource
+    lines, lnum = getsourcelines(object)
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.11/inspect.py", line 1240, in getsourcelines
+    lines, lnum = findsource(object)
+                  ^^^^^^^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.11/inspect.py", line 1059, in findsource
+    file = getsourcefile(object)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.11/inspect.py", line 936, in getsourcefile
+    filename = getfile(object)
+               ^^^^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.11/site-packages/torch/package/package_importer.py", line 742, in _patched_getfile
+    return _orig_getfile(object)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.11/inspect.py", line 916, in getfile
+    raise TypeError('module, class, method, function, traceback, frame, or '
+TypeError: module, class, method, function, traceback, frame, or code object was expected, got ScriptFunction

@@ -1,0 +1,363 @@
+56091
+[
+ {
+  "id": "X019b9a4",
+  "wl": 1.54056,
+  "heavy": 48,
+  "rotors": 8,
+  "mw": 676.7560000000001,
+  "npeaks": 40,
+  "noise": 36.96969696969697,
+  "chiral": false
+ },
+ {
+  "id": "X07806d9",
+  "wl": 0.81933,
+  "heavy": 10,
+  "rotors": 4,
+  "mw": 167.592,
+  "npeaks": 177,
+  "noise": 9.187878787877597,
+  "chiral": false
+ },
+ {
+  "id": "X13023e3",
+  "wl": 0.728302,
+  "heavy": 24,
+  "rotors": 5,
+  "mw": 328.4119999999999,
+  "npeaks": 106,
+  "noise": 23.636363636363637,
+  "chiral": true
+ },
+ {
+  "id": "X14a2b08",
+  "wl": 1.5418,
+  "heavy": 37,
+  "rotors": 6,
+  "mw": 528.989,
+  "npeaks": 75,
+  "noise": 7.272727272727273,
+  "chiral": false
+ },
+ {
+  "id": "X1a56c78",
+  "wl": 1.5418,
+  "heavy": 23,
+  "rotors": 5,
+  "mw": 337.9350000000002,
+  "npeaks": 65,
+  "noise": 107.87878787878789,
+  "chiral": true
+ },
+ {
+  "id": "X1db5091",
+  "wl": 1.54059,
+  "heavy": 38,
+  "rotors": 7,
+  "mw": 537.956,
+  "npeaks": 56,
+  "noise": 30.90909090909091,
+  "chiral": false
+ },
+ {
+  "id": "X2327841",
+  "wl": 0.80105,
+  "heavy": 32,
+  "rotors": 28,
+  "mw": 450.8800000000004,
+  "npeaks": 68,
+  "noise": 0.07909090909096808,
+  "chiral": true
+ },
+ {
+  "id": "X238783d",
+  "wl": 1.54056,
+  "heavy": 52,
+  "rotors": 8,
+  "mw": 747.9640000000002,
+  "npeaks": 65,
+  "noise": 41.21212121212121,
+  "chiral": true
+ },
+ {
+  "id": "X263b09a",
+  "wl": 1.54059,
+  "heavy": 36,
+  "rotors": 6,
+  "mw": 514.9620000000001,
+  "npeaks": 71,
+  "noise": 24.242424242424242,
+  "chiral": false
+ },
+ {
+  "id": "X35b7fbc",
+  "wl": 0.6996,
+  "heavy": 33,
+  "rotors": 6,
+  "mw": 455.51100000000014,
+  "npeaks": 152,
+  "noise": 30.303030303030305,
+  "chiral": true
+ },
+ {
+  "id": "X3c176e2",
+  "wl": 1.54056,
+  "heavy": 12,
+  "rotors": 0,
+  "mw": 180.156,
+  "npeaks": 66,
+  "noise": 26.666666666666668,
+  "chiral": false
+ },
+ {
+  "id": "X3f4781b",
+  "wl": 1.54059,
+  "heavy": 26,
+  "rotors": 3,
+  "mw": 419.908,
+  "npeaks": 120,
+  "noise": 23.03030303030303,
+  "chiral": true
+ },
+ {
+  "id": "X4f6fe58",
+  "wl": 1.54059,
+  "heavy": 20,
+  "rotors": 1,
+  "mw": 349.61499999999995,
+  "npeaks": 65,
+  "noise": 29.6969696969697,
+  "chiral": false
+ },
+ {
+  "id": "X7e382cb",
+  "wl": 0.709319,
+  "heavy": 20,
+  "rotors": 3,
+  "mw": 276.292,
+  "npeaks": 24,
+  "noise": 29.6969696969697,
+  "chiral": false
+ },
+ {
+  "id": "X8a06d7a",
+  "wl": 1.5418,
+  "heavy": 38,
+  "rotors": 7,
+  "mw": 537.956,
+  "npeaks": 67,
+  "noise": 15.151515151515152,
+  "chiral": false
+ },
+ {
+  "id": "X8a6f5a8",
+  "wl": 1.54059,
+  "heavy": 39,
+  "rotors": 10,
+  "mw": 564.572,
+  "npeaks": 85,
+  "noise": 27.272727272727273,
+  "chiral": true
+ },
+ {
+  "id": "X9af54a2",
+  "wl": 0.46873,
+  "heavy": 19,
+  "rotors": 6,
+  "mw": 290.74699999999996,
+  "npeaks": 191,
+  "noise": 1.5818181818181811,
+  "chiral": true
+ },
+ {
+  "id": "Xb7088cf",
+  "wl": 0.709319,
+  "heavy": 28,
+  "rotors": 6,
+  "mw": 376.4160000000001,
+  "npeaks": 25,
+  "noise": 30.303030303030305,
+  "chiral": false
+ },
+ {
+  "id": "Xbfc6d2c",
+  "wl": 1.5406,
+  "heavy": 18,
+  "rotors": 1,
+  "mw": 232.28599999999994,
+  "npeaks": 43,
+  "noise": 49.6969696969697,
+  "chiral": false
+ },
+ {
+  "id": "Xbfeeda9",
+  "wl": 1.54056,
+  "heavy": 35,
+  "rotors": 7,
+  "mw": 513.5090000000001,
+  "npeaks": 81,
+  "noise": 27.87878787878788,
+  "chiral": false
+ },
+ {
+  "id": "Xd4c1a35",
+  "wl": 1.23922,
+  "heavy": 24,
+  "rotors": 3,
+  "mw": 352.7700000000001,
+  "npeaks": 134,
+  "noise": 11.284848484848471,
+  "chiral": true
+ },
+ {
+  "id": "Xd8634a2",
+  "wl": 0.46873,
+  "heavy": 33,
+  "rotors": 7,
+  "mw": 471.4700000000002,
+  "npeaks": 215,
+  "noise": 1.6381818181818169,
+  "chiral": false
+ },
+ {
+  "id": "Xdcc971e",
+  "wl": 0.80105,
+  "heavy": 30,
+  "rotors": 26,
+  "mw": 422.8260000000004,
+  "npeaks": 45,
+  "noise": 0.03575757575748812,
+  "chiral": true
+ },
+ {
+  "id": "Xe1fb77b",
+  "wl": 0.45815,
+  "heavy": 38,
+  "rotors": 7,
+  "mw": 534.4700000000003,
+  "npeaks": 154,
+  "noise": 7.677696969696969,
+  "chiral": true
+ },
+ {
+  "id": "Xe3a2935",
+  "wl": 0.46873,
+  "heavy": 21,
+  "rotors": 3,
+  "mw": 280.291,
+  "npeaks": 136,
+  "noise": 1.4569696969696992,
+  "chiral": true
+ },
+ {
+  "id": "Xeb393f9",
+  "wl": 0.81933,
+  "heavy": 37,
+  "rotors": 9,
+  "mw": 547.0730000000001,
+  "npeaks": 129,
+  "noise": 6.109090909090865,
+  "chiral": true
+ },
+ {
+  "id": "Xebbd488",
+  "wl": 1.54059,
+  "heavy": 71,
+  "rotors": 20,
+  "mw": 1026.967,
+  "npeaks": 68,
+  "noise": 49.09090909090909,
+  "chiral": true
+ },
+ {
+  "id": "Xedd9c7b",
+  "wl": 1.540598,
+  "heavy": 19,
+  "rotors": 5,
+  "mw": 284.252,
+  "npeaks": 20,
+  "noise": 15.151515151515152,
+  "chiral": false
+ },
+ {
+  "id": "Xf8ac963",
+  "wl": 0.46873,
+  "heavy": 21,
+  "rotors": 4,
+  "mw": 289.419,
+  "npeaks": 138,
+  "noise": 1.6778787878787942,
+  "chiral": true
+ },
+ {
+  "id": "Xfca9f3c",
+  "wl": 0.80025,
+  "heavy": 26,
+  "rotors": 22,
+  "mw": 366.71800000000025,
+  "npeaks": 46,
+  "noise": 0.02363636363635592,
+  "chiral": true
+ }
+]export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/15174/status ]] && ! grep -q '^State:.*Z' /proc/15174/status; do sleep 5; done
+for id in Xbfeeda9 X35b7fbc Xe1fb77b X019b9a4; do
+ model=; secs=2300; [[ $id == X35b7fbc ]] && model=--model=/app/work/X35b7fbc/cis.json
+ SEARCH_TIME=$secs PARTICLES=160 ITERATIONS=450 GALLOP_STOL=.24 CONF_RANK=0 python /app/work/search_gallop.py $id 11 1 --prepare --hscatter $model > /app/work/$id/gallop11.log 2>&1
+ python /app/work/import_gallop.py $id 11 > /app/work/$id/import_g11.log 2>&1
+ python /app/work/refine_obj.py $id g11 /app/work/$id/search_g11/best.xml --scale --tight > /app/work/$id/refine_g11.log 2>&1
+done
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/16777/status ]] && ! grep -q '^State:.*Z' /proc/16777/status; do sleep 5;done
+# The two C=N hydrazone configurations are unspecified in the supplied SMILES.
+# G11 uses the first; this is the independent second configuration.
+SEARCH_TIME=1800 PARTICLES=160 ITERATIONS=450 GALLOP_STOL=.24 CONF_RANK=0 python /app/work/search_gallop.py X019b9a4 12 1 --prepare --hscatter > /app/work/X019b9a4/gallop12.log 2>&1
+python /app/work/import_gallop.py X019b9a4 12 > /app/work/X019b9a4/import_g12.log 2>&1
+python /app/work/refine_obj.py X019b9a4 g12 /app/work/X019b9a4/search_g12/best.xml --scale --tight --packing > /app/work/X019b9a4/refine_g12.log 2>&1
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/17408/status ]] && ! grep -q '^State:.*Z' /proc/17408/status; do sleep 5;done
+# Independently test the two-screw orthorhombic group: 100 observed; 010 and 003 absent for X1a.
+python - <<'PY'
+import json
+W='/app/work/X1a56c78';j=json.load(open(W+'/fit_1.json'));j['sg']='P 2 21 21';json.dump([j],open(W+'/candidates_sg18.json','w'))
+PY
+SG_SCAN=0 CANDIDATE_FILE=/app/work/X1a56c78/candidates_sg18.json CANDIDATE_INDEX=0 python /app/work/fit_candidate.py X1a56c78 sg18 .30 > /app/work/X1a56c78/fit_sg18.log 2>&1
+mkdir -p /app/work/X1a56c78/gallop_18; cp /app/work/X1a56c78/fit_sg18.xml /app/work/X1a56c78/gallop_18/base.xml
+BASE_XML=/app/work/X1a56c78/gallop_18/base.xml SEARCH_TIME=1700 PARTICLES=128 ITERATIONS=400 GALLOP_STOL=.24 CONF_RANK=1 python /app/work/search_gallop.py X1a56c78 18 1 --prepare --hscatter --packing > /app/work/X1a56c78/gallop18.log 2>&1
+python /app/work/import_gallop.py X1a56c78 18 > /app/work/X1a56c78/import_g18.log 2>&1
+python /app/work/refine_obj.py X1a56c78 g18 /app/work/X1a56c78/search_g18/best.xml --scale --tight > /app/work/X1a56c78/refine_g18.log 2>&1
+# Independent centrosymmetric hypothesis for the nearly-monoclinic acemetacin/picolinamide lattice.
+mkdir -p /app/work/X8a06d7a/gallop_12
+python /app/work/extend_low_base.py X8a06d7a /app/work/X8a06d7a/fit_2d1.xml /app/work/X8a06d7a/gallop_12/base.xml > /app/work/X8a06d7a/extend_low12.log 2>&1
+BASE_XML=/app/work/X8a06d7a/gallop_12/base.xml HBOND_COEFF=12 BUMP_COEFF=60 START_REFL=100 SEARCH_TIME=1800 PARTICLES=128 ITERATIONS=400 GALLOP_STOL=.25 CONF_RANK=1 python /app/work/search_gallop.py X8a06d7a 12 1 --prepare --hscatter --packing > /app/work/X8a06d7a/gallop12.log 2>&1
+python /app/work/import_gallop.py X8a06d7a 12 > /app/work/X8a06d7a/import_g12.log 2>&1
+python /app/work/refine_obj.py X8a06d7a g12 /app/work/X8a06d7a/search_g12/best.xml --scale --tight --stol=.38 > /app/work/X8a06d7a/refine_g12.log 2>&1
+for id in Xd8634a2 Xb7088cf; do
+ START_REFL=90 RAMP_REF_EVERY=5 RAMP_REF_STEP=40 SEARCH_TIME=1700 PARTICLES=128 ITERATIONS=400 GALLOP_STOL=.25 CONF_RANK=4 python /app/work/search_gallop.py $id 31 1 --prepare --hscatter --packing > /app/work/$id/gallop31.log 2>&1
+ python /app/work/import_gallop.py $id 31 > /app/work/$id/import_g31.log 2>&1
+ python /app/work/refine_obj.py $id g31 /app/work/$id/search_g31/best.xml --scale --tight > /app/work/$id/refine_g31.log 2>&1
+ done
+set -e
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+for pid in 16742 51090;do
+ while [[ -r /proc/$pid/status ]] && ! grep -q '^State:.*Z' /proc/$pid/status;do sleep 5;done
+done
+for id in X263b09a X14a2b08 X1db5091;do
+ old=$(python - "$id" <<'PY'
+import json,sys,os,subprocess
+W='/app/work/'+sys.argv[1];ans=[]
+for run in ['g11','g70','g72','g73','g91','1']:
+ if not os.path.exists(W+'/refined_'+run+'.json'):continue
+ r=subprocess.run([sys.executable,'/app/work/submit.py',sys.argv[1],W+'/refined_'+run+'.cif','--check'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+ if r.returncode==0:ans.append((json.load(open(W+'/refined_'+run+'.json'))['Rw'],run))
+print(min(ans)[1])
+PY
+ )
+ python /app/work/split_synthon.py "$id" "$old" split50 > /app/work/$id/split50.log 2>&1
+ GALLOP_STOL=.28 python /app/work/warm_gallop.py $id 50 /app/work/$id/search_split50/best.xml /app/work/$id/search_split50/model.json > /app/work/$id/warm50.log 2>&1
+ SEARCH_TIME=1500 PARTICLES=128 ITERATIONS=400 BUMP_COEFF=70 HBOND_COEFF=15 MACRO_ELITE_FRAC=.35 START_NPZ=/app/work/$id/gallop_50/warm.npz START_JITTER=.08 START_TOR_JITTER=.35 python /app/work/search_gallop.py $id 50 1 --hscatter --packing > /app/work/$id/gallop50.log 2>&1
+ python /app/work/import_gallop.py $id 50 > /app/work/$id/import_g50.log 2>&1
+ python /app/work/refine_obj.py $id g50 /app/work/$id/search_g50/best.xml --scale --tight --stol=.4 > /app/work/$id/refine_g50.log 2>&1
+ python /app/work/submit.py $id /app/work/$id/refined_g50.cif --check > /app/work/$id/check_g50.log 2>&1
+done

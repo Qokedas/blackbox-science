@@ -1,0 +1,20 @@
+EXACT_PAWLEY nref 280 rank 259 cond 945.2252408589219 chi2 31061.177315363944 netRwp 0.09112074458330471
+ZM CC[C@H]1OC(=O)[C@H](C)[C@@H](O[C@H]2C[C@@](C)(OC)[C@@H](O)[C@H](C)O2)[C@H](C)[C@@H](O[C@@H]2O[C@H](C)C[C@H](N(C)C)[C@H]2O)[C@](C)(OC)C[C@@H](C)C(=O)[C@H](C)[C@@H](O)[C@]1(C)O n 52 torsions 8 max_distance_error 1.2772208179967492e-08
+Total degrees of freedom: 15
+Total external degrees of freedom: 7 (pos: 3 rot: 4 )
+Total internal degrees of freedom: 8
+PREPARED X238783d Nref 280 PawleyRw 0.05866737712273819 SG P 21 21 21
+ATTACHED_H_SCATTERING 52 heavy atoms 69 H atoms
+PACKING_ENABLED 52 atoms 9197 pair terms coefficient 50.0 active_only True
+HBOND_PRIOR 4 donors 14 acceptors coefficient 4.0
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1611.33it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 100 seconds 340.5074944496155 best 279.19736 q25 397.62335 median 472.732 total 340.51409244537354
+GALLOP 1 Nref 161 seconds 398.78701972961426 best 252.97206 q25 302.494 median 400.24094 total 739.5212860107422
+GALLOP 2 Nref 234 seconds 326.42501282691956 best 239.44437 q25 296.30804 median 361.01166 total 1066.1480038166046
+GALLOP 3 Nref 280 seconds 517.7038688659668 best 233.7084 q25 298.9871 median 360.69977 total 1584.0443432331085
+GALLOP 4 Nref 280 seconds 525.629456281662 best 229.26897 q25 262.2421 median 342.18286 total 2109.94353556633
+FINISHED X238783d 229.2689666748047

@@ -1,0 +1,12 @@
+
+DicVol( (CellExplorer)arg1 [, (float)minScore=10 [, (int)minScore=10 [, (float)stopOnScore=50 [, (int)stopOnDepth=6 [, (bool)verbose=True]]]]]) -> None :
+
+    C++ signature :
+        void DicVol(ObjCryst::CellExplorer {lvalue} [,float=10 [,unsigned int=10 [,float=50 [,unsigned int=6 [,bool=True]]]]])
+ZM CNS(=O)(=O)Nc1nccc(Cc2c(C)c3ccc(Oc4ncccn4)cc3oc2=O)c1F n 33 torsions 7 max_distance_error 2.2384586628731995e-08
+Total degrees of freedom: 14
+Total external degrees of freedom: 7 (pos: 3 rot: 4 )
+Total internal degrees of freedom: 7
+PREPARED Xd8634a2 Nref 155 PawleyRw 0.08384177112927271 SG P -1
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1632.34it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.

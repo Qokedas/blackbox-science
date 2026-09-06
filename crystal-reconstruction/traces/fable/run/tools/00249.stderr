@@ -1,0 +1,4 @@
+bash: line 1: kill: /proc/7352: arguments must be process or job IDs
+bash: line 1: kill: /proc/7357: arguments must be process or job IDs
+bash: line 1: kill: /proc/7402: arguments must be process or job IDs
+bash: line 1: kill: /proc/7408: arguments must be process or job IDs

@@ -1,0 +1,23 @@
+FCJFINAL_PID:49423
+Sun Sep  6 09:03:09 UTC 2026
+16742 1 1 bash /app/work/queue_gallop_C4.sh 
+16777 1 1 bash /app/work/queue_gallop_A4.sh 
+29859 1 0 bash /app/work/queue_gallop_B5.sh 
+32867 1 1 bash /app/work/queue_gallop_A5.sh 
+39221 1 0 bash /app/work/queue_heavy_anchor4.sh 
+41900 1 0 bash /app/work/queue_edd_low.sh 
+43088 16742 1168 python /app/work/search_gallop.py X1db5091 11 1 --prepare --hscatter 
+43321 1 0 bash /app/work/queue_gallop_D8.sh 
+45641 1 0 bash /app/work/queue_b708_warm.sh 
+45943 41900 652 python /app/work/search_gallop.py Xedd9c7b 52 1 --hscatter --packing 
+45980 1 0 bash /app/work/queue_acm72.sh 
+46076 45980 621 python /app/work/search_gallop.py X263b09a 72 1 --hscatter --packing 
+47291 1 0 bash /app/work/queue_acm_warm.sh 
+47634 1 0 bash /app/work/queue_x7ion.sh 
+48500 29859 134 python /app/work/search_gallop.py X238783d 25 1 --prepare --hscatter 
+48694 16777 99 python /app/work/search_gallop.py Xe1fb77b 11 1 --prepare --hscatter 
+49288 1 0 bash /app/work/queue_coformer91.sh 
+49291 49288 24 python /app/work/search_coformer.py X263b09a 90 91 
+49371 43321 9 python /app/work/refine_obj.py X1a56c78 g18 /app/work/X1a56c78/search_g18/best.xml --scale --tight 
+49408 39221 0 python /app/work/import_gallop.py X4f6fe58 41 
+49423 49404 0 bash /app/work/queue_fcj_finalfits.sh 

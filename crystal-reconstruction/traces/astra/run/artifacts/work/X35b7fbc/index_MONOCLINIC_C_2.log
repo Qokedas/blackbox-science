@@ -1,0 +1,27 @@
+X35b7fbc MONOCLINIC C 2 peaks [2.41209, 3.35784, 3.9574, 4.79351, 5.76488, 6.27629, 6.72785, 6.81333, 7.12348, 7.25458, 7.4258, 7.69062, 7.78591, 7.90558, 8.06365, 8.50689, 9.03532, 9.09089, 9.27178, 9.42438, 9.503, 9.60424] V 1798.6680908203125 4752 Lmax 47.0742607550105
+3->47.0743,1.76298,24.9999
+1.5708->2.44346,0.0766052,0.766044,11.3917
+1798.67->4752,492.23,5.9999
+Starting: V=1798.67->2290.9
+Finished: V=1798.67->2290.9 A^3, 5500 unit cells tested, 180174 tests/s,   Elapsed time=0.030535s
+Starting: V=2290.9->2783.13
+Finished: V=2290.9->2783.13 A^3, 11722 unit cells tested, 170452 tests/s,   Elapsed time=0.068777s
+Starting: V=2783.13->3275.36
+Finished: V=2783.13->3275.36 A^3, 18546 unit cells tested, 158863 tests/s,   Elapsed time=0.116748s
+Starting: V=3275.36->3767.59
+Finished: V=3275.36->3767.59 A^3, 26144 unit cells tested, 148891 tests/s,   Elapsed time=0.175611s
+Starting: V=3767.59->4259.82
+Finished: V=3767.59->4259.82 A^3, 35011 unit cells tested, 139792 tests/s,   Elapsed time=0.250459s
+Starting: V=4259.82->4752
+    a= 5.77- 5.83 b=25.48-25.54 c=33.25-33.31 alpha= 90.00- 90.00 beta= 92.81- 92.95 gamma= 90.00- 90.00 V=4880.35-4950.27level=4, indexed=1(0 sol.)
+    a=0.17361-0.17184 b=0.03924-0.03915 c=0.03011-0.03006 alpha=0.04908-0.05147 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(0 sol.)
+ Solution ? a=  5.805 b= 25.565 c= 33.252 alpha= 90.000 beta= 92.899 gamma= 90.000 V= 4928.55 score=  4.76 #   0
+    a= 5.78- 5.84 b=25.52-25.58 c=33.44-33.51 alpha= 90.00- 90.00 beta= 96.67- 96.81 gamma= 90.00- 90.00 V=4902.10-4973.23level=4, indexed=1(1 sol.)
+    a=0.17413-0.17235 b=0.03918-0.03909 c=0.03010-0.03006 alpha=0.11610-0.11850 beta=0.00000-0.00000 gamma=0.00000-0.00000level=4, indexed=1(1 sol.)
+ Solution ? a=  5.806 b= 25.553 c= 33.441 alpha= 90.000 beta= 97.074 gamma= 90.000 V= 4923.21 score=  5.33 #   1
+Finished: V=4259.82->4752 A^3, 47483 unit cells tested, 144270 tests/s,   Elapsed time=0.329134s
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=5.80561, b=25.5531, c=33.4407, alpha=90, beta=97.0745, gamma=90, V=4923.21, score=5.32555
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2602 Solution ? a=5.80504, b=25.5652, c=33.2522, alpha=90, beta=92.8989, gamma=90, V=4928.55, score=4.76044
+build/fast-x86_64/objcryst/ObjCryst/ObjCryst/Indexing.cpp:2609 BEST ? a=5.80561, b=25.5531, c=33.4407, alpha=90, beta=97.0745, gamma=90, V=4923.21, score=5.32555
+47483unit cells tested, 144188 tests/s,   Elapsed time=0.329319s
+DONE X35b7fbc MONOCLINIC C 2 0.32956480979919434 [{'cell': [5.805605411529541, 25.553104400634766, 33.44074249267578, 90.00000250447816, 97.07447339015643, 90.00000250447816], 'volume': 4923.20703125, 'score': 5.325552940368652, 'system': 'MONOCLINIC', 'centering': 'C', 'mode': 2}, {'cell': [5.805039882659912, 25.565235137939453, 33.252166748046875, 90.00000250447816, 92.89887822220415, 90.00000250447816], 'volume': 4928.54638671875, 'score': 4.760443210601807, 'system': 'MONOCLINIC', 'centering': 'C', 'mode': 2}]

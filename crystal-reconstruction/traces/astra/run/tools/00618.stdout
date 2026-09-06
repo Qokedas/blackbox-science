@@ -1,0 +1,26 @@
+400000 100000
+usage_usec 54633206515
+user_usec 51576284337
+system_usec 3056922177
+nice_usec 6774621246
+core_sched.force_idle_usec 0
+nr_periods 140599
+nr_throttled 114755
+throttled_usec 21487328543
+nr_bursts 0
+burst_usec 0
+6.33 5.07 4.36 8/435 32428
+MemTotal:       32860372 kB
+MemFree:        21476468 kB
+MemAvailable:   28805196 kB
+Buffers:          169116 kB
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 140 seconds 151.63868260383606 best 316.79633 q25 451.95987 median 508.97006 total 151.64467692375183
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 258 seconds 289.330260515213 best 156.84973 q25 229.23752 median 264.09723 total 289.33667850494385
+HEAVY 15 best 802.04248046875 q25 802.0426 elapsed 175.9115114212036
+HEAVY 16 best 802.04248046875 q25 802.0426 elapsed 182.19055819511414
+Sun Sep  6 07:24:36 UTC 2026

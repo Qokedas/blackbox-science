@@ -1,0 +1,19 @@
+ObjRegistry<T>::Find(C): Not found !!
+List of Crystal ScatteringPowers :1 object registered:
+#  0:ScatteringPowerAtom(ion_C)
+ObjRegistry<T>::Find(O): Not found !!
+List of Crystal ScatteringPowers :2 object registered:
+#  0:ScatteringPowerAtom(ion_C)
+#  1:ScatteringPowerAtom(C)
+ObjRegistry<T>::Find(N): Not found !!
+List of Crystal ScatteringPowers :3 object registered:
+#  0:ScatteringPowerAtom(ion_C)
+#  1:ScatteringPowerAtom(C)
+#  2:ScatteringPowerAtom(O)
+ObjRegistry<T>::Find(Cl): Not found !!
+List of Crystal ScatteringPowers :4 object registered:
+#  0:ScatteringPowerAtom(ion_C)
+#  1:ScatteringPowerAtom(C)
+#  2:ScatteringPowerAtom(O)
+#  3:ScatteringPowerAtom(N)
+TRANSFER X263b09a X8a06d7a Rw 0.469538825171674

@@ -1,0 +1,7 @@
+abs_ortho.log
+g2_monoP.log
+g2index_monoP_20.txt
+peaks.png
+peaks.txt
+1:X3c176e2 P 2 2 2 Rwp=0.0571 nrefl=273
+lebail.py:127:        plt.tight_layout(); plt.savefig(plot, dpi=70); plt.close()

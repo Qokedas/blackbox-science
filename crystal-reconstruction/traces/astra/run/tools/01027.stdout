@@ -1,0 +1,106 @@
+import_g11.log
+import_g50.log
+import_g70.log
+import_g73.log
+{
+ "Rw": 0.11140596302306859,
+ "chi2": 7065.2005712638875
+}[
+ {
+  "tag": "ring94c0",
+  "energy": -21.21360077473178,
+  "index": 1,
+  "reflected": false,
+  "Rw": 0.15480967793765749
+ },
+ {
+  "tag": "ring94c1",
+  "energy": -21.21360077473178,
+  "index": 1,
+  "reflected": true,
+  "Rw": 0.16513348294731306
+ },
+ {
+  "tag": "ring94c2",
+  "energy": -17.318796409335484,
+  "index": 16,
+  "reflected": false,
+  "Rw": 0.14022937796327217
+ },
+ {
+  "tag": "ring94c3",
+  "energy": -17.318796409335484,
+  "index": 16,
+  "reflected": true,
+  "Rw": 0.1360870763526071
+ },
+ {
+  "tag": "ring94c4",
+  "energy": -15.144157628113595,
+  "index": 38,
+  "reflected": false,
+  "Rw": 0.17601793919797923
+ },
+ {
+  "tag": "ring94c5",
+  "energy": -15.144157628113595,
+  "index": 38,
+  "reflected": true,
+  "Rw": 0.16483099572685872
+ }
+]import sys,os,json,itertools,numpy as np,torch
+from scipy.optimize import minimize_scalar
+from gallop_io import load_structure
+from gallop import tensor_prep,zm_to_cart,intensities
+from hydrogen_prefix import enable_hydrogen_prefix
+sid=sys.argv[1];run=sys.argv[2];G='/app/work/'+sid+'/gallop_'+run;torch.set_num_threads(1);torch.set_num_interop_threads(1)
+s=load_structure(G+'/structure.json');enable_hydrogen_prefix(s,G+'/model.json');v=np.load(G+'/best.npz');ts=tensor_prep.get_all_required_tensors(s,external=v['external'],internal=v['internal'],requires_grad=False,device=torch.device('cpu'),verbose=False)
+with torch.no_grad():
+ fr=zm_to_cart.get_asymmetric_coords(**ts['zm']);f=intensities.calculate_intensities(fr,**ts['int_tensors']).numpy()[0]
+hkl=s.hkl;rec=s.lattice.reciprocal_lattice_crystallographic.matrix;nm=s.inverse_covariance_matrix/(len(hkl)-2);obs=s.intensities;no=nm@obs;oo=obs@no
+rv=hkl@rec;norm=np.linalg.norm(rv,axis=-1)
+def score(fc):
+ nf=nm@fc;dot=fc@no;return oo-max(0,dot)**2/(fc@nf)
+rows=[]
+for ax in itertools.product(range(-2,3),repeat=3):
+ if max(abs(x) for x in ax)==0:continue
+ if np.gcd.reduce(np.abs(ax))>1:continue
+ u=np.array(ax)@rec;co=(rv@u/(norm*np.linalg.norm(u)))**2
+ def ev(lr):
+  r=np.exp(lr);md=(r*r*co+(1-co)/r)**(-1.5);return score(f*md)
+ z=minimize_scalar(ev,bounds=(np.log(.4),np.log(2.5)),method='bounded');rows.append((z.fun,ax,float(np.exp(z.x))))
+rows.sort();print('PO_SCAN',sid,run,'original',score(f),'best',rows[:12],flush=True)
+json.dump({'baseline':float(score(f)),'candidates':rows},open(G+'/po_scan.json','w'),indent=1)
+/app/work/add_fixed_march.py
+/app/work/analyze_po.py
+/app/work/import_de.py
+/app/work/import_gallop.py
+/app/work/import_gallop_v1.py
+/app/work/import_gallop_v4.py
+/app/work/native_scan_march.py
+/app/work/po_scan.log
+/app/work/queue_bfee_po.log
+/app/work/queue_bfee_po.sh
+/app/work/restraint_report.py
+/app/work/scan_po.py
+{
+ "Rw": 0.13004914012173072,
+ "chi2": 2865.661415066523
+}GALLOP 3 Nref 136 seconds 140.8122043609619 best 147.80911 q25 172.35698 median 226.99985 total 681.6949200630188
+GALLOP 4 Nref 149 seconds 152.2041335105896 best 147.05147 q25 157.40784 median 213.9906 total 833.9956352710724
+GALLOP 5 Nref 162 seconds 155.31511306762695 best 147.80896 q25 184.65681 median 257.4535 total 989.4098908901215
+GALLOP 6 Nref 171 seconds 210.00547099113464 best 145.14874 q25 162.2511 median 243.4436 total 1199.4955432415009
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL Xeb393f9 50.29778289794922
+CONDITIONAL 0 [1] best 49.374855041503906 q25 49.375423 sec 169.518709897995
+"""Create a native ObjCryst model with one fixed March-Dollase term.
+Used only for conditional texture tests. Does not write submissions.
+"""
+import os,sys,shutil
+from pyobjcryst.io import xml_cryst_file_load_all_object,xml_cryst_file_save_global
+from obj_bridge import add_march
+sid,run,src=sys.argv[1:4];r,h,k,l=map(float,sys.argv[4:8]);W='/app/work/'+sid;R=W+'/search_'+run;os.makedirs(R,exist_ok=True)
+objs=xml_cryst_file_load_all_object(src);p=next(o for o in objs if o.GetClassName()=='PowderPattern');d=p.GetPowderPatternComponent(0);p.Prepare();p.FitScaleFactorForRw();print('BEFORE',p.GetRw(),flush=True)
+add_march(d,1.,r,h,k,l);p.Prepare();p.FitScaleFactorForRw();print('FIXED_MARCH',r,(h,k,l),p.GetRw(),flush=True)
+xml_cryst_file_save_global(R+'/best.xml')
+if len(sys.argv)>8:shutil.copyfile(sys.argv[8],R+'/model.json')

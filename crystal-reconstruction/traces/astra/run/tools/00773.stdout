@@ -1,0 +1,10 @@
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 90 seconds 123.70289969444275 best 152.48442 q25 295.19763 median 347.2475 total 123.70815062522888
+ -1.800e-03 -5.200e-01  6.250e-02  1.321e-01  4.700e-03 -3.057e-01
+ -9.200e-03  3.420e-02 -2.490e-02 -3.000e-04  1.700e-03  3.842e-01
+ -2.100e-02  4.930e-02  9.000e-04 -2.000e-03  1.224e-01]
+Sun Sep  6 08:34:42 UTC 2026

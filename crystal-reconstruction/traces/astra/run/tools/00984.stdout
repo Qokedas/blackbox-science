@@ -1,0 +1,44 @@
+/app/work/X3f4781b/import_g11.log
+/app/work/X3f4781b/import_g50.log
+/app/work/add_fixed_march.py
+/app/work/native_scan_march.py
+/app/work/po_scan.log
+{
+ "radiation": {
+  "type": "CuK1",
+  "wavelength_A": 1.54059,
+  "wavelengths_A": [
+   1.54059
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 295.0,
+ "two_theta_range_deg": [
+  4.0,
+  90.0
+ ],
+ "n_points": 8601,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}analyze_po.py
+import_de.py
+import_gallop.py
+import_gallop_v1.py
+import_gallop_v4.py
+po_scan.log
+queue_bfee_po.log
+queue_bfee_po.sh
+restraint_report.py
+scan_po.py
+CONDITIONAL 2 [2] best 113.52030181884766 q25 273.5447 sec 916.3008847236633
+CONDITIONAL 3 [1, 3] best 113.04756164550781 q25 113.50108 sec 1240.0885622501373
+CONDITIONAL 4 [0] best 112.57203674316406 q25 398.78293 sec 1547.791782617569
+GALLOP 4 Nref 449 seconds 186.70795321464539 best 17.21398 q25 45.68431 median 205.86401 total 930.9935121536255
+GALLOP 5 Nref 449 seconds 203.7158489227295 best 17.213789 q25 22.281834 median 221.63986 total 1134.7941434383392
+GALLOP 6 Nref 449 seconds 235.33662152290344 best 17.213636 q25 40.78583 median 238.71991 total 1370.3952186107635

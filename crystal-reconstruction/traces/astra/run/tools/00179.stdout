@@ -1,0 +1,23 @@
+17179869184
+187629568
+low 0
+high 0
+max 689
+oom 1
+oom_kill 1
+oom_group_kill 0
+/proc/4650/status python 114168 kB b'python\x00/app/work/search_obj.py\x00X13023e3\x002\x001\x00--rescale\x00--lsq\x00'
+/proc/4659/status python 115836 kB b'python\x00/app/work/search_obj.py\x00X35b7fbc\x001\x001\x00--rescale\x00--lsq\x00'
+/proc/5078/status python 108036 kB b'python\x00/app/work/search_obj.py\x00Xfca9f3c\x0010\x001\x00--rigid\x00--hydrogen\x00--model=/app/work/Xfca9f3c/alltrans.json\x00--rescale\x00--lsq\x00'
+/proc/5168/status python 85024 kB b'python\x00/app/work/index_one.py\x00Xebbd488\x00MONOCLINIC\x00P\x004\x001200\x006500\x00'
+41 /app/work/X1db5091/index_raw_TRICLINIC_P.log
+X1db5091 TRICLINIC P 4 peaks [4.27907, 7.25474, 8.14302, 8.56828, 9.4714, 12.92135, 13.90318, 14.07513, 14.56177, 15.34975, 16.38625, 17.27345, 17.62675, 18.62157, 19.05397, 19.47458, 20.98064, 21.41052] V 1050.0 1800.0 Lmax 80.0
+3->80,3.08001,24.9999
+1.5708->2.35619,0.0785683,0.707107,9.99638
+1050->1800,375.019,1.9999
+/app/work/X1db5091/index_MONOCLINIC_C_4_1050_1800_z0_peaks_raw.json
+/app/work/X1db5091/index_MONOCLINIC_P_4_1050_1800_z0_peaks_raw.json
+/app/work/X1db5091/index_ORTHOROMBIC_C_4_1050_1800_z0_peaks_raw.json
+/app/work/X1db5091/index_ORTHOROMBIC_P_4_1050_1800_z0_peaks_raw.json
+/app/work/Xebbd488/index_ORTHOROMBIC_C_4_1200_6500_z0_peaks_raw.json
+/app/work/Xebbd488/index_ORTHOROMBIC_P_4_1200_6500_z0_peaks_raw.json

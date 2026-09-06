@@ -1,0 +1,90 @@
+  <Crystal Name="Xb7088cf" SpaceGroup="P 21 21 21">
+    <Option Name="Constrain Lattice to SpaceGroup Symmetry" Choice="0" ChoiceName="Yes (Default)"/>
+    <Par Refined="0" Limited="1" Min="-2.86479" Max="2.86479" Name="Zero">-0.0333042</Par>
+<ObjCryst Date="2026-09-06T05:20:19GMT" Revision="2024001">
+  <Crystal Name="Xb7088cf" SpaceGroup="P 21 21 21">
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="a">5.05246</Par>
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="b">9.35574</Par>
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="c">38.0667</Par>
+    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="alpha">90</Par>
+    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="beta">90</Par>
+    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="gamma">90</Par>
+    <Option Name="Constrain Lattice to SpaceGroup Symmetry" Choice="0" ChoiceName="Yes (Default)"/>
+
+    <Option Name="Use Dynamical Occupancy Correction" Choice="1" ChoiceName="Yes"/>
+
+    <Option Name="Display Enantiomer" Choice="0" ChoiceName="No"/>
+
+
+{
+ "cell": [
+  9.691904663198521,
+  10.08390919395141,
+  10.227997488571564,
+  66.8219216186884,
+  88.92709026852326,
+  82.40355503372527
+ ],
+ "volume": 907.3644946546219,
+ "score": 19.44,
+ "system": "TRICLINIC",
+ "centering": "P",
+ "mode": 9,
+ "source": "index_raw_TRICLINIC_P_partial.json",
+ "sg": "P-1",
+ "sgstart": "P-1",
+ "Rw": 0.049858263366713784,
+ "groups": [
+  {
+   "sg": "P 1",
+   "number": 1,
+   "Rw": 5.650915998587176,
+   "GoF": 5.583699619963545,
+   "nGoF": 1.693680880176796,
+   "mult": 1
+  },
+  {
+ObjRegistry<T>::Find(ion_C): Not found !!
+List of Crystal ScatteringPowers :0 object registered:
+EXACT_PAWLEY nref 171 rank 165 cond 749.7534850566112 chi2 1463.486332301547 netRwp 0.21096768428794355
+ZM Nc1ccccc1NC(=O)c1ccc(CNC(=O)OCc2cccnc2)cc1 n 28 torsions 7 max_distance_error 1.9039966048239876e-08
+Total degrees of freedom: 14
+Total external degrees of freedom: 7 (pos: 3 rot: 4 )
+Total internal degrees of freedom: 7
+PREPARED Xb7088cf Nref 171 PawleyRw 0.04499672792456591 SG P 21 21 21
+ATTACHED_H_SCATTERING 28 heavy atoms 20 H atoms
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1511.32it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 171 seconds 67.0842809677124 best 148.42625 q25 215.87753 median 258.15967 total 67.09053254127502
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 258 seconds 224.84047961235046 best 92.96571 q25 135.07848 median 158.91959 total 224.84836745262146
+GALLOP 1 Nref 258 seconds 212.69318294525146 best 88.8423 q25 121.07606 median 152.25327 total 437.66403102874756
+GALLOP 2 Nref 258 seconds 271.56800627708435 best 84.80454 q25 114.50088 median 139.12009 total 709.3623869419098
+GALLOP 3 Nref 258 seconds 248.41925621032715 best 71.23322 q25 112.99229 median 139.37814 total 957.9461643695831
+GALLOP 4 Nref 258 seconds 193.93211603164673 best 57.153538 q25 107.41957 median 135.40997 total 1152.0117189884186
+GALLOP 5 Nref 258 seconds 187.576110124588 best 52.514984 q25 113.1873 median 149.04727 total 1339.66783452034
+GALLOP 6 Nref 258 seconds 229.62621188163757 best 48.663754 q25 117.61514 median 151.30258 total 1569.4801785945892
+GALLOP 7 Nref 258 seconds 210.32634925842285 best 48.352425 q25 115.751724 median 139.53574 total 1779.8873686790466
+GALLOP 1 Nref 333 seconds 77.88041472434998 best 189.35121 q25 251.89322 median 319.1447 total 138.77919125556946
+GALLOP 2 Nref 333 seconds 51.21186399459839 best 183.15727 q25 221.45287 median 303.6683 total 190.12085795402527
+GALLOP 3 Nref 333 seconds 41.824915170669556 best 182.90233 q25 238.29503 median 310.40894 total 232.023353099823
+GALLOP 4 Nref 333 seconds 50.72075152397156 best 179.1871 q25 203.47249 median 304.05838 total 282.8396027088165
+GALLOP 5 Nref 333 seconds 61.380632638931274 best 130.85904 q25 240.35011 median 329.80472 total 344.29928159713745
+GALLOP 6 Nref 333 seconds 55.32442617416382 best 97.12958 q25 213.90063 median 311.70538 total 399.81452441215515
+GALLOP 7 Nref 333 seconds 50.0227632522583 best 88.991264 q25 190.06508 median 293.20752 total 449.92222476005554
+GALLOP 8 Nref 333 seconds 58.47956109046936 best 87.319595 q25 161.16484 median 278.67877 total 508.48222255706787
+  0%|          | 0/3 [00:00<?, ?it/s]100%|██████████| 3/3 [00:00<00:00, 2326.29it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 300 seconds 105.80642914772034 best 47.505676 q25 47.743057 median 203.8982 total 105.8122456073761
+STARTFIT X8a6f5a8 wide0 Rw 0.06687853262987074
+GROUPS [{"sg": "P 1 21 1", "number": 4, "Rw": 7.248768792702206, "GoF": 6155.810452341299, "nGoF": 0.0, "mult": 2}]
+DONE X8a6f5a8 wide0 0.0653863215362463 [33.32597215130423, 5.6608099458825025, 38.45728518819692, 90.0, 108.80065027104499, 90.0]

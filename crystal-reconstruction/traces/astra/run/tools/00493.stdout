@@ -1,0 +1,60 @@
+/app/work/queue_bep_plan.sh:2:TORSION_BONDS=0:11:19 SAVE_ALL=1 python /app/work/enumerate_rotations.py Xeb393f9 /app/work/Xeb393f9/refined_plan.xml /app/work/Xeb393f9/search_plan/model.json pyr > /app/work/Xeb393f9/pyr.log 2>&1
+/app/work/queue_bep_plan.sh:4: python /app/work/refine_obj.py Xeb393f9 $run /app/work/Xeb393f9/search_$run/best.xml --scale --tight --stol=.38 > /app/work/Xeb393f9/refine_$run.log 2>&1
+/app/work/queue_bep_plan.sh:5: python /app/work/submit.py Xeb393f9 /app/work/Xeb393f9/refined_$run.cif --check > /app/work/Xeb393f9/check_$run.log 2>&1
+/app/work/queue_bep_plan.sh:6: python /app/work/check_stereo.py Xeb393f9 /app/work/Xeb393f9/refined_$run.cif >> /app/work/Xeb393f9/check_$run.log 2>&1
+/app/work/queue_planarity.sh:2:for spec in 'Xeb393f9 1' 'Xbfc6d2c freeh' 'Xe3a2935 freeh' 'Xf8ac963 freeh' 'Xd4c1a35 2freeh'; do
+List of Crystal ScatteringPowers :4 object registered:
+#  0:ScatteringPowerAtom(O)
+#  1:ScatteringPowerAtom(C)
+#  2:ScatteringPowerAtom(N)
+#  3:ScatteringPowerAtom(Cl)
+Imported powder pattern: 7578 points, 2theta=  4.678 ->  23.621, step= 0.002
+RESCALED_BASE 1.0004644785769743 0.046395222945572724 7577.999999999983
+INITIAL Xeb393f9 1 Rw 0.2688026345500707 LLK 186500.52827408884 Integrated 185153.28212240367 DOF -1
+RUN 0 steps 100000 time 29.4878511428833 total 29.487924814224243 LLK 37728.519233669984 Rw 0.1369213554625328 Integrated 36290.14913488902
+RUN 1 steps 4000000 time 600.0131418704987 total 629.6252927780151 LLK 13985.610211307898 Rw 0.09508150311094965 Integrated 12509.513964364744
+RUN 2 steps 4000000 time 600.08154129982 total 1229.980306148529 LLK 11818.541913903038 Rw 0.08936435543106927 Integrated 10377.17979645274
+RUN 3 steps 4000000 time 600.0220737457275 total 1830.2132830619812 LLK 11737.82607791489 Rw 0.08125147783036163 Integrated 10198.306194797051
+RUN 4 steps 4000000 time 579.4991238117218 total 2409.824725627899 LLK 10691.6867835035 Rw 0.07942466073351741 Integrated 9195.81485712304
+RUN 5 steps 4000000 time 541.1374833583832 total 2951.1297183036804 LLK 10961.069902217272 Rw 0.07970061107143407 Integrated 9472.904350612185
+FINISHED 10691.6867835035
+Xeb393f9 Nat 37 molecule sizes [27, 10]
+  component O=C(O)CCC[NH+]1CCC(O[C@@H](c2ccc(Cl)cc2)c2ccccn2)CC1 matches 1
+  component O=S(=O)([O-])c1ccccc1 matches 1
+  bond range 1.2237979761221625 1.8501410019321376
+  min intermolecular distance 2.7548789574687116
+Xeb393f9 root 31 expected {11: 'S'} actual {11: 'S'} OK True
+Xeb393f9 Nat 37 molecule sizes [27, 10]
+  component O=C(O)CCC[NH+]1CCC(O[C@@H](c2ccc(Cl)cc2)c2ccccn2)CC1 matches 1
+  component O=S(=O)([O-])c1ccccc1 matches 1
+  bond range 1.2250971159333746 1.848604390674715
+  min intermolecular distance 2.7785751504313874
+Xeb393f9 root 31 expected {11: 'S'} actual {11: 'S'} OK True
+/app/work/submit.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+Xe3a2935 Nat 84 molecule sizes [21, 21, 21, 21]
+  component C[C@@H]1CC(=O)NN=C1c1ccc(NN=C(C#N)C#N)cc1 matches 4
+  bond range 1.1520353252533795 1.5386900004269077
+  min intermolecular distance 2.87667939064469
+/app/work/check_stereo.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(fn).parse_structures(primitive=False)[0];s.remove_species(['H']);rad=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<1.2*(rad[:,None]+rad[None,:]));g=nx.from_numpy_array(A)
+Xe3a2935 root 0 expected {1: 'R'} actual {1: 'R'} OK True
+Xe3a2935 root 1 expected {1: 'R'} actual {1: 'R'} OK True
+Xe3a2935 root 2 expected {1: 'R'} actual {1: 'R'} OK True
+Xe3a2935 root 3 expected {1: 'R'} actual {1: 'R'} OK True
+/app/work/contacts.py:4: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(sys.argv[1]).parse_structures(primitive=False)[0];s.remove_species(['H'])
+/app/work/submit.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+Xf8ac963 Nat 84 molecule sizes [21, 21, 21, 21]
+  component COc1ccc(NC(=O)[C@@H]2C[C@H](C)CC[C@H]2C(C)C)cc1 matches 4
+  bond range 1.212217974605417 1.569474708933082
+  min intermolecular distance 2.9040854969037926
+/app/work/check_stereo.py:5: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(fn).parse_structures(primitive=False)[0];s.remove_species(['H']);rad=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<1.2*(rad[:,None]+rad[None,:]));g=nx.from_numpy_array(A)
+Xf8ac963 root 0 expected {9: 'R', 11: 'R', 15: 'S'} actual {9: 'R', 11: 'R', 15: 'S'} OK True
+Xf8ac963 root 1 expected {9: 'R', 11: 'R', 15: 'S'} actual {9: 'R', 11: 'R', 15: 'S'} OK True
+Xf8ac963 root 2 expected {9: 'R', 11: 'R', 15: 'S'} actual {9: 'R', 11: 'R', 15: 'S'} OK True
+Xf8ac963 root 3 expected {9: 'R', 11: 'R', 15: 'S'} actual {9: 'R', 11: 'R', 15: 'S'} OK True
+/app/work/contacts.py:4: UserWarning: Issues encountered while parsing CIF: Skipping relative stoichiometry check because CIF does not contain formula keys.
+  s=CifParser(sys.argv[1]).parse_structures(primitive=False)[0];s.remove_species(['H'])

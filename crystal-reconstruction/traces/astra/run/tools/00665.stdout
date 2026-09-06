@@ -1,0 +1,8 @@
+34: void bridge_march(void*ptr,double frac,double coeff,double h,double k,double l) {auto*d=dynamic_cast<PowderPatternDiffraction*>(reinterpret_cast<RefinableObj*>(ptr));reinterpret_cast<AccessDiff*>(d)->march(frac,coeff,h,k,l);}
+35- void bridge_bumpscale(void*ptr,double scale) {auto*c=dynamic_cast<Crystal*>(reinterpret_cast<RefinableObj*>(ptr));reinterpret_cast<AccessCrystal*>(c)->bumpscale(scale);}
+36-}
+/app/work/libobj_bridge.so
+/app/work/obj_bridge.cpp
+/app/work/obj_bridge.py
+/app/work/obj_bridge_v1.py
+[]

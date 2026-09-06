@@ -1,0 +1,187 @@
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/16742/status ]] && ! grep -q '^State:.*Z' /proc/16742/status; do sleep 5;done
+for id in X263b09a X14a2b08 X1db5091; do
+ old=$(python - "$id" <<'PY'
+import json,sys,os
+W='/app/work/'+sys.argv[1]
+ans=[]
+for run in ['g11','1']:
+ if os.path.exists(W+'/refined_'+run+'.json'):ans.append((json.load(open(W+'/refined_'+run+'.json'))['Rw'],run))
+print(min(ans)[1])
+PY
+)
+ GALLOP_STOL=.27 python /app/work/warm_gallop.py $id 50 /app/work/$id/refined_$old.xml /app/work/$id/search_$old/model.json > /app/work/$id/warm50.log 2>&1
+ SEARCH_TIME=1500 PARTICLES=128 ITERATIONS=400 MACRO_ELITE_FRAC=.30 START_NPZ=/app/work/$id/gallop_50/warm.npz START_JITTER=.05 START_TOR_JITTER=.30 python /app/work/search_gallop.py $id 50 1 --hscatter --packing > /app/work/$id/gallop50.log 2>&1
+ python /app/work/import_gallop.py $id 50 > /app/work/$id/import_g50.log 2>&1
+ python /app/work/refine_obj.py $id g50 /app/work/$id/search_g50/best.xml --scale --tight --stol=.35 > /app/work/$id/refine_g50.log 2>&1
+ done
+{
+ "Rw": 0.14471843685778274,
+ "chi2": 2973.5063905645006
+}ObjRegistry<T>::Find(ion_C): Not found !!
+List of Crystal ScatteringPowers :0 object registered:
+EXACT_PAWLEY nref 333 rank 272 cond 930.6897311256085 chi2 3539.985754832832 netRwp 0.11127607831443284
+ZM COc1ccc2c(c1)c(CC(=O)OCC(=O)O)c(C)n2C(=O)c1ccc(Cl)cc1 n 29 torsions 8 max_distance_error 1.6022254634151523e-08
+ZM O=C1CCCCN1 n 7 torsions 0 max_distance_error 1.0273032202690047e-08
+Total degrees of freedom: 22
+Total external degrees of freedom: 14 (pos: 6 rot: 8 )
+Total internal degrees of freedom: 8
+PREPARED X263b09a Nref 333 PawleyRw 0.05168449132896688 SG P -1
+ATTACHED_H_SCATTERING 36 heavy atoms 27 H atoms
+  0%|          | 0/5 [00:00<?, ?it/s]100%|██████████| 5/5 [00:00<00:00, 2033.31it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 333 seconds 60.795570850372314 best 189.51451 q25 289.3197 median 334.76215 total 60.800782203674316
+GALLOP 1 Nref 333 seconds 77.88041472434998 best 189.35121 q25 251.89322 median 319.1447 total 138.77919125556946
+GALLOP 2 Nref 333 seconds 51.21186399459839 best 183.15727 q25 221.45287 median 303.6683 total 190.12085795402527
+GALLOP 3 Nref 333 seconds 41.824915170669556 best 182.90233 q25 238.29503 median 310.40894 total 232.023353099823
+GALLOP 4 Nref 333 seconds 50.72075152397156 best 179.1871 q25 203.47249 median 304.05838 total 282.8396027088165
+GALLOP 5 Nref 333 seconds 61.380632638931274 best 130.85904 q25 240.35011 median 329.80472 total 344.29928159713745
+GALLOP 6 Nref 333 seconds 55.32442617416382 best 97.12958 q25 213.90063 median 311.70538 total 399.81452441215515
+{
+ "cell": [
+  5.102773670541401,
+  11.939954443367405,
+  21.302692317019833,
+  85.24572219788406,
+  87.65222605796258,
+  87.00969792183665
+ ],
+ "volume": 1297.7867361705846,
+ "score": 29.651018142700195,
+ "system": "TRICLINIC",
+ "centering": "P",
+ "mode": 3,
+ "source": "index_TRICLINIC_P_3.json",
+ "sg": "P-1",
+ "sgstart": "P-1",
+ "Rw": 0.08382843101501336,
+ "groups": [
+  {
+   "sg": "P 1",
+   "number": 1,
+   "Rw": 9.018443973864114,
+   "GoF": 723.039758678846,
+   "nGoF": 202.85276814531352,
+   "mult": 1
+  },
+  {
+   "sg": "P -1",
+   "number": 2,
+   "Rw": 9.018443973864114,
+   "GoF": 723.039758678846,
+   "nGoF": 202.8527681453135,
+   "mult": 2
+  }
+ ],
+ "stol": 0.25,
+ "p_pars": {
+  "Zero": -0.02584980089879638,
+  "2ThetaDispl": 0.0,
+  "2ThetaTransp": 0.0,
+  "DIFC": 48277.14,
+  "DIFA": -6.7,
+  "MuR": 0.0,
+  "Scale_": 0.00014531336766683084
+ },
+ "d_pars": {
+  "Global Biso": 0.0
+ }
+}export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/18059/status ]] && ! grep -q '^State:.*Z' /proc/18059/status; do sleep 5; done
+for num in 0 1; do
+ run=$((50+num));
+ GALLOP_STOL=.30 python /app/work/warm_gallop.py Xeb393f9 $run /app/work/Xeb393f9/refined_pyrm$num.xml /app/work/Xeb393f9/search_pyrm$num/model.json > /app/work/Xeb393f9/warm$run.log 2>&1
+ SEARCH_TIME=850 PARTICLES=96 ITERATIONS=350 MACRO_ELITE_FRAC=.25 EXACT_BUMP_IMAGES=1 START_NPZ=/app/work/Xeb393f9/gallop_$run/warm.npz START_JITTER=.04 START_TOR_JITTER=.25 python /app/work/search_gallop.py Xeb393f9 $run 1 --hscatter --packing > /app/work/Xeb393f9/gallop$run.log 2>&1
+ python /app/work/import_gallop.py Xeb393f9 $run > /app/work/Xeb393f9/import_g$run.log 2>&1
+ python /app/work/refine_obj.py Xeb393f9 g$run /app/work/Xeb393f9/search_g$run/best.xml --scale --tight > /app/work/Xeb393f9/refine_g$run.log 2>&1
+ python /app/work/submit.py Xeb393f9 /app/work/Xeb393f9/refined_g$run.cif --check > /app/work/Xeb393f9/check_g$run.log 2>&1
+ python /app/work/check_stereo.py Xeb393f9 /app/work/Xeb393f9/refined_g$run.cif >> /app/work/Xeb393f9/check_g$run.log 2>&1
+ done
+import os,json,itertools,numpy as np,torch
+from rdkit import Chem
+from gallop import chi2,zm_to_cart,intensities
+
+def enable_packing(s,model_path,coefficient=None):
+ """Differentiable minimum-image heavy-atom steric screening in an ASU.
+ Excludes fixed-topology 1-2/1-3/1-4 intramolecular contacts. The cutoff is
+ deliberately softer than a van der Waals sum, allowing hydrogen bonds.
+ """
+ mods=json.load(open(model_path));n=sum(len(m['order']) for m in mods);els=[];exclude=np.eye(n,dtype=bool);off=0
+ for m in mods:
+  r=Chem.MolFromSmiles(m['smiles']);order=m['order'];N=len(order);dm=Chem.GetDistanceMatrix(r)[np.ix_(order,order)];exclude[off:off+N,off:off+N]=(dm<=3);els.extend([r.GetAtomWithIdx(i).GetSymbol() for i in order]);off+=N
+ radii={'C':1.48,'N':1.35,'O':1.28,'F':1.32,'S':1.55,'P':1.52,'Cl':1.58,'Br':1.67,'I':1.78}
+ ii=[];jj=[];rr=[];tr=[];lim=[];weights=[]
+ for op in s.space_group.symmetry_ops:
+  rot=op.rotation_matrix;trans=op.translation_vector;ident=np.allclose(rot,np.eye(3)) and np.allclose(trans%1,0)
+  for i in range(n):
+   for j in range(n):
+    if ident and (i>=j or exclude[i,j]):continue
+    limit=radii.get(els[i],1.4)+radii.get(els[j],1.4)
+    if set([els[i],els[j]])<=set(['N','O']):limit-=.10
+    ii.append(i);jj.append(j);rr.append(rot);tr.append(trans);lim.append(limit);weights.append(1 if ident else .5)
+ ii=torch.tensor(ii,dtype=torch.long);jj=torch.tensor(jj,dtype=torch.long);rr=torch.tensor(np.array(rr),dtype=torch.float32);tr=torch.tensor(np.array(tr),dtype=torch.float32);lim=torch.tensor(lim,dtype=torch.float32);weights=torch.tensor(weights,dtype=torch.float32);lm=torch.tensor(s.lattice.matrix,dtype=torch.float32)
+ cf=float(coefficient if coefficient is not None else os.environ.get('BUMP_COEFF','50'))
+ exact=os.environ.get('EXACT_BUMP_IMAGES','1' if n<30 and (min(s.lattice.angles)<75 or max(s.lattice.angles)>105) else '0')=='1'
+ shifts=torch.tensor(np.array(list(itertools.product([-1,0,1],repeat=3)))@s.lattice.matrix,dtype=torch.float32);shift2=(shifts*shifts).sum(-1)
+ def penalty(fr):
+  right=torch.einsum('nki,kji->nkj',fr[:,jj,:],rr)+tr
+  delta=fr[:,ii,:]-right;delta=delta-torch.round(delta).detach();cart=delta@lm
+  if exact:
+   with torch.no_grad():
+    sid=(2*(cart.detach()@shifts.T)+shift2).argmin(-1);correction=shifts[sid]
+   cart=cart+correction
+  dist=torch.sqrt((cart*cart).sum(-1)+1e-8)
+  return cf*(torch.clamp(lim-dist,min=0)**2*weights).sum(-1)
+ def calc(zm,int_tensors,chisqd_tensors,profile=None):
+  fr=zm_to_cart.get_asymmetric_coords(**zm);f=intensities.calculate_intensities(fr,**int_tensors)
+  val=chi2.calc_int_chisqd(f,**chisqd_tensors) if profile is None else chi2.calc_prof_chisqd(f,**profile)
+  return val+penalty(fr)
+ s.packing_penalty=penalty;s.diffraction_get_chi_2=chi2.get_chi_2;chi2.get_chi_2=calc
+ print('PACKING_ENABLED',n,'atoms',len(ii),'pair terms','coefficient',cf,flush=True)
+ return penalty
+"""Patterson/partial-structure search for two inversion-related heavy-atom pairs.
+Only used as a source of direct-space starting positions, not a final model.
+"""
+import os,sys,json,time,numpy as np,torch,gemmi
+from gallop.structure import Structure
+from rdkit import Chem
+sid=sys.argv[1];run=sys.argv[2];G='/app/work/'+sid+'/gallop_'+run
+s=Structure();s.from_json(open(G+'/structure.json').read());md=json.load(open(G+'/model.json'));assert s.original_sg_number==2
+els=[e for z in s.zmatrices for e in z.elements_no_H];atomic=np.array([gemmi.Element(e).atomic_number for e in els]);idx=np.flatnonzero(atomic==atomic.max());assert len(idx)==2
+T=lambda x:torch.tensor(x,dtype=torch.float32)
+torch.set_num_threads(1);torch.set_num_interop_threads(1)
+ss=np.linalg.norm(s.hkl@s.lattice.reciprocal_lattice_crystallographic.matrix,axis=1)/2
+sf=np.array([[gemmi.Element(el).it92.calculate_sf(float(v*v)) for el in els] for v in ss])*np.exp(-3*ss[:,None]**2)
+fh=T(2*sf[:,idx[0]]);wilson=T(2*np.sum(np.delete(sf,idx,axis=1)**2,axis=1));hk=T(s.hkl);nm=T(s.inverse_covariance_matrix/(len(s.hkl)-2));obs=T(s.intensities);no=nm@obs;oo=obs@no;lm=T(s.lattice.matrix)
+def score(x):
+ f=(torch.cos(2*np.pi*(x@hk.T)).sum(1)*fh)**2+wilson
+ nf=f@nm;of=f@no;cost=oo-of.clamp(min=0)**2/(f*nf).sum(1).clamp(min=1e-20)
+ # Suppress merged Br sites; this is a partial heavy atom model, not chemistry.
+ df=x[:,0]-x[:,1];df-=torch.round(df).detach();dr=x[:,0]+x[:,1];dr-=torch.round(dr).detach()
+ penalty=200*(torch.clamp(2.6-torch.linalg.norm(df@lm,dim=-1),min=0)**2+torch.clamp(2.6-torch.linalg.norm(dr@lm,dim=-1),min=0)**2)
+ return cost+penalty
+N=int(os.environ.get('PARTICLES','384'));IT=int(os.environ.get('ITERATIONS','450'));maxsec=float(os.environ.get('SEARCH_TIME','300'));t0=time.time();pool=[];best=None
+for batch in range(99):
+ x=T(np.random.rand(N,2,3))
+ if best is not None:x[:N//4]=T(best)[None]+torch.randn_like(x[:N//4])*.045
+ x.requires_grad_(True);opt=torch.optim.Adam([x],lr=.025)
+ for it in range(IT):
+  opt.zero_grad();loss=score(x).sum();loss.backward();opt.step()
+  if it==IT*3//4:
+   for g in opt.param_groups:g['lr']=.003
+ with torch.no_grad():
+  vals=score(x).numpy();positions=x.numpy()%1
+ for j in np.argsort(vals)[:80]:pool.append((float(vals[j]),positions[j].copy()))
+ pool.sort(key=lambda a:a[0]);pool=pool[:120];best=pool[0][1]
+ np.savez_compressed(G+'/heavy_pool.npz',positions=np.array([v[1] for v in pool]),chi2=np.array([v[0] for v in pool]),indices=idx)
+ print('HEAVY',batch,'best',pool[0][0],'q25',np.quantile(vals,.25),'elapsed',time.time()-t0,flush=True)
+ if time.time()-t0>maxsec:break
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/21574/status ]] && ! grep -q '^State:.*Z' /proc/21574/status; do sleep 5; done
+SEARCH_TIME=350 PARTICLES=384 ITERATIONS=450 python /app/work/solve_heavy.py X4f6fe58 11 > /app/work/X4f6fe58/heavy11.log 2>&1
+HEAVY_POOL=/app/work/X4f6fe58/gallop_11/heavy_pool.npz SEARCH_TIME=1600 PARTICLES=128 ITERATIONS=400 CONF_RANK=4 GALLOP_STOL=.25 python /app/work/search_gallop.py X4f6fe58 40 2 --prepare --hscatter > /app/work/X4f6fe58/gallop40.log 2>&1
+python /app/work/import_gallop.py X4f6fe58 40 > /app/work/X4f6fe58/import_g40.log 2>&1
+python /app/work/refine_obj.py X4f6fe58 g40 /app/work/X4f6fe58/search_g40/best.xml --scale --tight > /app/work/X4f6fe58/refine_g40.log 2>&1

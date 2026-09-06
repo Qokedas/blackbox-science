@@ -1,0 +1,7 @@
+ok
+28:    excl = os.environ.get('EXCLUDE')
+  molecule mol0_0: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions
+  conformers: 4 distinct; energies [103.8, 128.9, 129.8, 132.0]; using rank 0 (E=103.8)
+  molecule mol0_1: 12 atoms, 12 bonds, 18 angles, 24 dihedral restraints, 0 free torsions
+polish: Rwp 0.1515 -> 0.1487 (accepted) restraint cost=0.00
+RESULTS Xe3a2935 P 21 21 21 [(50090.14415647279, 0.18484230300113974, 57264.76696091541), (30518.440215003917, 0.15240892572493595, 38797.44061489849)]

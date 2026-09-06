@@ -1,0 +1,137 @@
+queue_twocentre.log
+queue_twocentre.sh
+solve_half_biphenyl.py
+solve_half_biphenyl_v1.py
+solve_twocentres.py
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/11003/status ]] && ! grep -q '^State:.*Z' /proc/11003/status; do sleep 4;done
+SEARCH_TIME=1400 PARTICLES=224 ITERATIONS=550 BATCHES=60 python /app/work/solve_twocentres.py tc1 > /app/work/X7e382cb/tc1.log 2>&1
+EXACT_PAWLEY nref 169 rank 159 cond 678.8512065931568 chi2 14384.021202666845 netRwp 0.16434987457697728
+TWO_CENTRES [6.95088005065918, 6.971439838409424, 15.760000228881836, 65.62010192871094, 82.98049926757812, 67.39070129394531] Nref 169 Nparticle 224
+BATCH 0 best 122.2587661743164 diffraction 120.46295166015625 p25 353.4835205078125 seconds 25.24208688735962 centre [0.  0.5 0.5]
+BATCH 1 best 122.25855255126953 diffraction 120.4627685546875 p25 338.66949462890625 seconds 44.82248258590698 centre [0.  0.5 0.5]
+BATCH 2 best 122.25856018066406 diffraction 120.4627685546875 p25 318.1592712402344 seconds 73.12491631507874 centre [0.  0.5 0.5]
+BATCH 3 best 122.25863647460938 diffraction 120.46282958984375 p25 332.45477294921875 seconds 98.43769264221191 centre [0.  0.5 0.5]
+BATCH 4 best 122.2585678100586 diffraction 120.4627685546875 p25 275.8479919433594 seconds 122.20046734809875 centre [0.  0.5 0.5]
+BATCH 5 best 144.02459716796875 diffraction 143.06378173828125 p25 366.165771484375 seconds 156.98967695236206 centre [0.  0.5 0.5]
+BATCH 6 best 122.25858306884766 diffraction 120.4627685546875 p25 319.9562683105469 seconds 189.30524849891663 centre [0.  0.5 0.5]
+BATCH 7 best 122.25865936279297 diffraction 120.46282958984375 p25 343.10137939453125 seconds 217.92314505577087 centre [0.  0.5 0.5]
+BATCH 8 best 122.25857543945312 diffraction 120.4627685546875 p25 311.2524719238281 seconds 244.58409237861633 centre [0.  0.5 0.5]
+BATCH 9 best 122.25847625732422 diffraction 120.46270751953125 p25 313.7315368652344 seconds 271.391375541687 centre [0.  0.5 0.5]
+BATCH 10 best 141.5489044189453 diffraction 135.81793212890625 p25 368.9066467285156 seconds 298.9206280708313 centre [0.  0.5 0.5]
+BATCH 11 best 122.25849151611328 diffraction 120.46270751953125 p25 332.8132019042969 seconds 322.43927025794983 centre [0.  0.5 0.5]
+BATCH 12 best 122.258544921875 diffraction 120.4627685546875 p25 315.5198974609375 seconds 343.5368685722351 centre [0.  0.5 0.5]
+best.cif
+best.json
+best.npz
+base.log
+base.xml
+candidates.json
+check_plan.log
+extended_1h.xye
+fit_0.json
+fit_0.log
+fit_0.png
+fit_0.xml
+fit_0.xye
+fit_1.json
+fit_1.log
+fit_1.png
+fit_1.xml
+fit_1.xye
+fit_2.json
+fit_2.log
+fit_2.png
+fit_2.xml
+fit_2.xye
+index_CUBIC_F_0.json
+index_CUBIC_F_0.log
+index_CUBIC_I_0.json
+index_CUBIC_I_0.log
+index_CUBIC_P_0.json
+index_CUBIC_P_0.log
+index_HEXAGONAL_P_0.json
+index_HEXAGONAL_P_0.log
+index_MONOCLINIC_C_0.json
+index_MONOCLINIC_C_0.log
+index_MONOCLINIC_P_0.json
+index_MONOCLINIC_P_0.log
+index_ORTHOROMBIC_C_0.json
+index_ORTHOROMBIC_C_0.log
+index_ORTHOROMBIC_I_0.json
+index_ORTHOROMBIC_I_0.log
+index_ORTHOROMBIC_P_0.json
+index_ORTHOROMBIC_P_0.log
+index_RHOMBOEDRAL_P_0.json
+index_RHOMBOEDRAL_P_0.log
+index_TETRAGONAL_I_0.json
+index_TETRAGONAL_I_0.log
+index_TETRAGONAL_P_0.json
+index_TETRAGONAL_P_0.log
+lattice.json
+lebail.npz
+peaks.json
+peaks.png
+processed.npz
+refine.log
+refine_1_stage0.cif
+refine_1_stage0.xml
+refine_1_stage1.cif
+refine_1_stage1.xml
+refine_1_stage2.cif
+refine_1_stage2.xml
+refine_1_stage3.cif
+refine_1_stage3.xml
+refine_1h.log
+refine_1h_stage0.cif
+refine_1h_stage0.xml
+refine_1h_stage1.cif
+refine_1h_stage1.xml
+refine_1h_stage2.cif
+refine_1h_stage2.xml
+refine_1h_stage3.cif
+refine_1h_stage3.xml
+refine_freeh.log
+refine_freeh_stage0.cif
+refine_freeh_stage0.xml
+refine_freeh_stage1.cif
+refine_freeh_stage1.xml
+refine_freeh_stage2.cif
+refine_freeh_stage2.xml
+refine_freeh_stage3.cif
+refine_freeh_stage3.xml
+refine_plan.log
+refine_plan_stage0.cif
+refine_plan_stage0.xml
+refine_plan_stage1.cif
+refine_plan_stage1.xml
+refine_plan_stage2.cif
+refine_plan_stage2.xml
+refine_plan_stage3.cif
+refine_plan_stage3.xml
+refine_scaled.log
+refined_1.cif
+refined_1.json
+refined_1.png
+refined_1.xml
+refined_1h.cif
+refined_1h.json
+refined_1h.png
+refined_1h.xml
+refined_freeh.cif
+refined_freeh.json
+refined_freeh.png
+refined_freeh.xml
+refined_plan.cif
+refined_plan.json
+refined_plan.png
+refined_plan.xml
+scaled_refine.xye
+search_0
+search_1
+search_1h
+search_freeh
+search_long.log
+search_plan
+search_test.log
+submit_plan.log

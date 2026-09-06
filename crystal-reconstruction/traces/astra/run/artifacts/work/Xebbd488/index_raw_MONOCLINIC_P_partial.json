@@ -1,0 +1,572 @@
+[
+ {
+  "cell": [
+   39.647,
+   3.255,
+   46.117,
+   90.0,
+   108.188,
+   90.0
+  ],
+  "volume": 5654.2,
+  "score": 12.55,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   39.64,
+   3.255,
+   46.109,
+   90.0,
+   108.188,
+   90.0
+  ],
+  "volume": 5652.2,
+  "score": 12.16,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   18.286,
+   11.514,
+   21.908,
+   90.0,
+   100.742,
+   90.0
+  ],
+  "volume": 4531.84,
+  "score": 9.12,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   18.286,
+   11.514,
+   25.788,
+   90.0,
+   123.418,
+   90.0
+  ],
+  "volume": 4531.84,
+  "score": 9.12,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   12.889,
+   15.172,
+   18.127,
+   90.0,
+   98.172,
+   90.0
+  ],
+  "volume": 3508.73,
+  "score": 5.7,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   12.858,
+   15.171,
+   18.008,
+   90.0,
+   98.016,
+   90.0
+  ],
+  "volume": 3478.55,
+  "score": 5.06,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   34.312,
+   2.69,
+   40.528,
+   90.0,
+   131.302,
+   90.0
+  ],
+  "volume": 2810.2,
+  "score": 4.78,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   34.312,
+   2.643,
+   40.528,
+   90.0,
+   131.302,
+   90.0
+  ],
+  "volume": 2760.61,
+  "score": 4.78,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   34.312,
+   2.597,
+   40.528,
+   90.0,
+   131.302,
+   90.0
+  ],
+  "volume": 2712.73,
+  "score": 4.78,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   34.312,
+   2.552,
+   40.528,
+   90.0,
+   131.302,
+   90.0
+  ],
+  "volume": 2666.5,
+  "score": 4.78,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   34.312,
+   2.51,
+   40.528,
+   90.0,
+   131.302,
+   90.0
+  ],
+  "volume": 2621.81,
+  "score": 4.78,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   34.312,
+   2.468,
+   40.528,
+   90.0,
+   131.302,
+   90.0
+  ],
+  "volume": 2578.59,
+  "score": 4.78,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   34.312,
+   2.428,
+   40.528,
+   90.0,
+   131.302,
+   90.0
+  ],
+  "volume": 2536.78,
+  "score": 4.78,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   34.312,
+   2.39,
+   40.528,
+   90.0,
+   131.302,
+   90.0
+  ],
+  "volume": 2496.3,
+  "score": 4.78,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   25.904,
+   3.334,
+   35.322,
+   90.0,
+   102.224,
+   90.0
+  ],
+  "volume": 2981.4,
+  "score": 4.75,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   25.904,
+   3.219,
+   35.322,
+   90.0,
+   102.224,
+   90.0
+  ],
+  "volume": 2878.89,
+  "score": 4.75,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   25.904,
+   3.112,
+   35.322,
+   90.0,
+   102.224,
+   90.0
+  ],
+  "volume": 2783.19,
+  "score": 4.75,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   25.904,
+   3.012,
+   35.322,
+   90.0,
+   102.224,
+   90.0
+  ],
+  "volume": 2693.65,
+  "score": 4.75,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   16.835,
+   3.212,
+   47.846,
+   90.0,
+   108.328,
+   90.0
+  ],
+  "volume": 2455.69,
+  "score": 4.18,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   16.835,
+   3.101,
+   47.846,
+   90.0,
+   108.328,
+   90.0
+  ],
+  "volume": 2371.26,
+  "score": 4.18,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   16.835,
+   2.998,
+   47.846,
+   90.0,
+   108.328,
+   90.0
+  ],
+  "volume": 2292.43,
+  "score": 4.18,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   16.835,
+   2.902,
+   47.846,
+   90.0,
+   108.328,
+   90.0
+  ],
+  "volume": 2218.68,
+  "score": 4.18,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   16.835,
+   3.934,
+   45.454,
+   90.0,
+   92.256,
+   90.0
+  ],
+  "volume": 3008.26,
+  "score": 4.18,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   16.835,
+   3.777,
+   45.454,
+   90.0,
+   92.256,
+   90.0
+  ],
+  "volume": 2888.33,
+  "score": 4.18,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   16.835,
+   3.633,
+   45.454,
+   90.0,
+   92.256,
+   90.0
+  ],
+  "volume": 2777.6,
+  "score": 4.18,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   16.835,
+   3.498,
+   45.454,
+   90.0,
+   92.256,
+   90.0
+  ],
+  "volume": 2675.04,
+  "score": 4.18,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   16.835,
+   3.374,
+   45.454,
+   90.0,
+   92.256,
+   90.0
+  ],
+  "volume": 2579.79,
+  "score": 4.18,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   16.835,
+   3.258,
+   45.454,
+   90.0,
+   92.256,
+   90.0
+  ],
+  "volume": 2491.09,
+  "score": 4.18,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   16.835,
+   3.15,
+   45.454,
+   90.0,
+   92.256,
+   90.0
+  ],
+  "volume": 2408.28,
+  "score": 4.18,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   16.835,
+   3.048,
+   45.454,
+   90.0,
+   92.256,
+   90.0
+  ],
+  "volume": 2330.81,
+  "score": 4.18,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   16.835,
+   3.745,
+   47.846,
+   90.0,
+   108.328,
+   90.0
+  ],
+  "volume": 2863.55,
+  "score": 4.18,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   16.835,
+   3.596,
+   47.846,
+   90.0,
+   108.328,
+   90.0
+  ],
+  "volume": 2749.39,
+  "score": 4.18,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   16.835,
+   3.458,
+   47.846,
+   90.0,
+   108.328,
+   90.0
+  ],
+  "volume": 2643.98,
+  "score": 4.18,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   16.835,
+   3.33,
+   47.846,
+   90.0,
+   108.328,
+   90.0
+  ],
+  "volume": 2546.36,
+  "score": 4.18,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   16.835,
+   4.494,
+   45.454,
+   90.0,
+   92.256,
+   90.0
+  ],
+  "volume": 3436.3,
+  "score": 4.18,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   16.835,
+   4.291,
+   45.454,
+   90.0,
+   92.256,
+   90.0
+  ],
+  "volume": 3280.7,
+  "score": 4.18,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   16.835,
+   4.105,
+   45.454,
+   90.0,
+   92.256,
+   90.0
+  ],
+  "volume": 3138.58,
+  "score": 4.18,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9
+ },
+ {
+  "cell": [
+   16.813,
+   4.717,
+   45.43,
+   90.0,
+   92.313,
+   90.0
+  ],
+  "volume": 3600.24,
+  "score": 4.08,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 9
+ }
+]

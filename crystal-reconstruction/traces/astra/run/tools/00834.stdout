@@ -1,0 +1,177 @@
+{
+ "cell": [
+  5.436492278324897,
+  11.707516503636475,
+  20.7019031451029,
+  83.62365296849632,
+  84.23779272726699,
+  89.05822925481775
+ ],
+ "volume": 1306.0473533285274,
+ "score": 36.87,
+ "system": "TRICLINIC",
+ "centering": "P",
+ "mode": 3,
+ "source": "index_TRICLINIC_P_3_partial.json",
+ "sg": "P-1",
+ "sgstart": "P-1",
+ "Rw": 0.0816133602950632,
+ "groups": [
+  {
+   "sg": "P 1",
+   "number": 1,
+   "Rw": 9.143432871090907,
+   "GoF": 3975.326888280798,
+   "nGoF": 1658.261672361352,
+   "mult": 1
+  },
+  {
+   "sg": "P -1",
+   "number": 2,
+   "Rw": 9.143432871090907,
+   "GoF": 3975.326888280798,
+   "nGoF": 1658.2616723613512,
+   "mult": 2
+  }
+{
+ "chi2": 84.27889251708984,
+ "Rint": 0.29030827152716443,
+ "iteration": 35,
+ "elapsed": 2355.8186852931976
+}GALLOP 24 Nref 333 seconds 74.48140978813171 best 87.11334 q25 212.67863 median 307.86688 total 1563.6766226291656
+GALLOP 25 Nref 333 seconds 67.41137051582336 best 87.11347 q25 170.49565 median 290.09088 total 1631.121379852295
+GALLOP 26 Nref 333 seconds 60.80160307884216 best 87.113594 q25 193.13489 median 282.96313 total 1691.9844269752502
+GALLOP 27 Nref 333 seconds 58.883052110672 best 87.1135 q25 129.25113 median 280.74545 total 1750.8914637565613
+GALLOP 28 Nref 333 seconds 82.58952617645264 best 87.11363 q25 90.94242 median 223.81873 total 1833.5079164505005
+GALLOP 29 Nref 333 seconds 80.12707996368408 best 87.11363 q25 89.23677 median 216.58698 total 1913.7026624679565
+GALLOP 30 Nref 333 seconds 77.40488266944885 best 87.11347 q25 87.51575 median 191.98203 total 1991.13716173172
+GALLOP 31 Nref 333 seconds 53.789910316467285 best 87.1134 q25 87.1874 median 161.18784 total 2044.9759149551392
+GALLOP 32 Nref 333 seconds 66.48466229438782 best 84.78317 q25 87.15518 median 105.93666 total 2111.486198425293
+GALLOP 33 Nref 333 seconds 66.15522289276123 best 84.38112 q25 87.11435 median 155.42265 total 2177.692310333252
+GALLOP 34 Nref 333 seconds 99.66177272796631 best 84.320244 q25 86.88376 median 130.47238 total 2277.4790127277374
+GALLOP 35 Nref 333 seconds 78.01917123794556 best 84.27889 q25 86.311516 median 137.073 total 2355.709747314453
+  0%|          | 0/5 [00:00<?, ?it/s]100%|██████████| 5/5 [00:00<00:00, 1394.57it/s]
+GALLOP 36 Nref 333 seconds 85.80258345603943 best 84.27893 q25 233.87668 median 304.8279 total 2441.700075864792
+FINISHED X263b09a 84.27889251708984
+ATTACHED_H_SCATTERING 36 heavy atoms 27 H atoms
+PACKING_ENABLED 36 atoms 1784 pair terms coefficient 70.0 active_only True
+HBOND_PRIOR 2 donors 7 acceptors coefficient 80.0
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+COFORMER 0 best 80.08519744873047 q25 265.11923 sec 15.309787034988403
+FINISHED X263b09a 80.08519744873047
+[
+ {
+  "cell": [
+   19.586913738528196,
+   12.3914911689862,
+   13.305474923376671,
+   90.0,
+   53.38237707062502,
+   90.0
+  ],
+  "sg": "P 1 21 1",
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "volume": 2592.0151987761756,
+  "cost": 0.4219655644571093,
+  "score": 2.3698616290800314,
+  "zero": -0.0021440675447093795,
+  "diff": [
+   -0.007775230741638515,
+   -0.00029757678536965464,
+   -0.0062968666994296894,
+   0.007745259610199291,
+   0.20117020749841233,
+   -0.00040570730405249124,
+   -0.0010218588263700094,
+   -0.008307470014830128,
+   -0.19260387830456735,
+   0.02255281462464004,
+   -0.0019184038563745107,
+   -0.0025658765044708006,
+   0.011361171942593297,
+   0.008922488127104989,
+   -0.0034228559697969626,
+   -0.01093610715009549,
+   -0.0314306020639135,
+   0.0011392851152783536,
+   0.02621884627102366,
+   0.016266618103259772,
+   -0.002612264182053189,
+   -0.004412201419558065,
+   -0.006331076160344633
+  ],
+  "hkl": [
+   [
+    1,
+    0,
+    0
+   ],
+   [
+    0,
+{
+ "cell": [
+  5.905248814300708,
+  11.252070606740055,
+  30.08138947876488,
+  90.0,
+  90.0,
+  90.0
+ ],
+ "volume": 1984.4838723847654,
+ "score": 0,
+ "system": "ORTHOROMBIC",
+ "centering": "P",
+ "mode": 0,
+ "source": "index_MONOCLINIC_P_0.json",
+ "sg": "P 2 21 21",
+ "sgstart": "P 2 21 21",
+ "Rw": 0.07069285221208464,
+ "groups": [
+  {
+   "sg": "P 2 21 21",
+   "number": 18,
+   "Rw": 8.123917939691406,
+   "GoF": 189.34034512106456,
+   "nGoF": 0.0,
+import os,sys,json,shutil,numpy as np,networkx as nx,gemmi
+from pymatgen.io.cif import CifParser
+from rdkit import Chem
+sid=sys.argv[1];f=sys.argv[2]
+s=CifParser(f).parse_structures(primitive=False)[0];s.remove_species(['H']);r=np.array([Chem.GetPeriodicTable().GetRcovalent(x.specie.symbol) for x in s]);D=s.distance_matrix;A=(D>.3)&(D<(r[:,None]+r[None,:])*1.2);g=nx.from_numpy_array(A);cs=list(nx.connected_components(g));print(sid,'Nat',len(s),'molecule sizes',[len(c) for c in cs])
+for i in g:g.nodes[i]['el']=s[i].specie.symbol
+matched=set();ratios=[]
+for comp in json.load(open('/app/data/instances/'+sid+'/composition.json'))['components']:
+ rm=Chem.MolFromSmiles(comp['smiles']);rg=nx.Graph();rg.add_nodes_from((a.GetIdx(),{'el':a.GetSymbol()}) for a in rm.GetAtoms());rg.add_edges_from((b.GetBeginAtomIdx(),b.GetEndAtomIdx()) for b in rm.GetBonds());matches=[j for j,co in enumerate(cs) if nx.is_isomorphic(g.subgraph(co),rg,node_match=lambda a,b:a['el']==b['el'])];matched|=set(matches);ratios.append(len(matches)/comp['count']);print('  component',comp['smiles'],'matches',len(matches))
+valid=len(matched)==len(cs) and min(ratios)>0 and max(ratios)==min(ratios)
+if not valid:raise Exception('Connectivity validation failed')
+print('  bond range',np.min(D[A]),np.max(D[A]) if A.any() else None)
+print('  min intermolecular distance',min((D[i,j] for ii,co in enumerate(cs) for co2 in cs[ii+1:] for i in co for j in co2),default=0))
+if '--check' in sys.argv:sys.exit(0)
+b=gemmi.cif.read_file(f).sole_block();keys=['a','b','c','alpha','beta','gamma'];ct=['length_a','length_b','length_c','angle_alpha','angle_beta','angle_gamma'];out={'cell':{k:float(b.find_value('_cell_'+v)) for k,v in zip(keys,ct)},'space_group':gemmi.cif.as_string(b.find_value('_space_group_name_H-M_alt')),'space_group_number':int(b.find_value('_space_group_IT_number'))}
+shutil.copyfile(f,'/app/results/submission/'+sid+'.cif');json.dump(out,open('/app/results/submission/'+sid+'.json','w'),indent=1)
+print('SUBMITTED',sid)
+"""Restore measured low-angle observations which were omitted by a strong-peak cutoff."""
+import sys,os,json,numpy as np,xml.etree.ElementTree as ET
+from pyobjcryst.io import xml_cryst_file_load_all_object,xml_cryst_file_save_global
+from obj_model import add_component,recenter_molecules
+sid,src,dest=sys.argv[1:4];W='/app/work/'+sid
+objs=xml_cryst_file_load_all_object(src);c=next(o for o in objs if o.GetClassName()=='Crystal');p=next(o for o in objs if o.GetClassName()=='PowderPattern');d=next(p.GetPowderPatternComponent(i) for i in range(p.GetNbPowderPatternComponent()) if p.GetPowderPatternComponent(i).GetClassName()=='PowderPatternDiffraction');b=next(p.GetPowderPatternComponent(i) for i in range(p.GetNbPowderPatternComponent()) if p.GetPowderPatternComponent(i).GetClassName()=='PowderPatternBackground')
+dummy=c.GetNbScatterer()==0
+if dummy:at,_=add_component(c,'C','low_dummy')
+p.GetOption(0).SetChoice(1);p.Prepare();p.GetRw();xx=np.rad2deg(np.array(p.GetPowderPatternX()));ww=np.array(p.GetLSQWeight(0));raw=np.loadtxt('/app/data/instances/'+sid+'/pattern.xye');mid=len(ww)//2
+scale=(1/np.sqrt(ww[mid]))/np.interp(xx[mid],raw[:,0],raw[:,2]);lo=float(os.getenv('MIN_TTH',str(raw[0,0])))
+raw=raw[(raw[:,0]>=lo)&(raw[:,0]<=xx[-1]+1e-5)];raw[:,2]*=scale
+nbin=max(1,int(np.ceil(len(raw)/12000)))
+if nbin>1:
+ n=len(raw)//nbin*nbin;raw=np.column_stack([raw[:n,0].reshape(-1,nbin).mean(1),raw[:n,1].reshape(-1,nbin).mean(1),np.sqrt((raw[:n,2]**2).reshape(-1,nbin).sum(1))/nbin])
+bx=np.array(b.GetInterpPointsX());by=np.array(b.GetInterpPointsY());step=np.median(np.diff(bx));newx=np.arange(np.deg2rad(lo),bx[0]-.01*step,step);bg=np.load(W+'/processed.npz');newy=np.interp(np.rad2deg(newx),bg['x'],bg['background']);b.SetInterpPoints(np.r_[newx,bx],np.r_[newy,by]);fn=os.path.splitext(dest)[0]+'.xye';np.savetxt(fn,raw)
+p.ImportPowderPattern2ThetaObsSigma(fn);d.SetExtractionMode(True,False);p.Prepare();d.ExtractLeBail(30);p.Prepare();p.FitScaleFactorForRw();recenter_molecules(c);print('RESTORED_LOW_RANGE',sid,lo,xx[0],xx[-1],len(raw),'Rw',p.GetRw(),flush=True);xml_cryst_file_save_global(dest)
+if dummy:
+ tree=ET.parse(dest);root=tree.getroot();cr=root.find('Crystal')
+ for el in list(cr):
+  if el.tag=='Atom' and el.attrib.get('Name')=='low_dummy':cr.remove(el)
+ tree.write(dest,encoding='utf-8')

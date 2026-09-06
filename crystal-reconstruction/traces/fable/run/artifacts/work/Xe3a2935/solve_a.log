@@ -1,0 +1,13 @@
+step ['Zero'] Rwp=0.3010
+step ['W'] Rwp=0.1731
+step ['a', 'b', 'c', 'alpha', 'beta', 'gamma'] Rwp=0.1560
+step ['U', 'V'] Rwp=0.1285
+step ['Eta0'] Rwp=0.0971
+step ['Eta1'] Rwp=0.0944
+step ['background'] Rwp=0.0840
+step ['Zero', 'W', 'U', 'V', 'Eta0', 'background', 'a', 'b', 'c', 'alpha', 'beta', 'gamma'] Rwp=0.0804
+LeBail Rwp=0.0793 chi2=10560.3 cell= 10.292389294279328 6.880566165094606 19.98989173467916 90.0
+  molecule mol0_0: 21 atoms, 22 bonds, 29 angles, 30 dihedral restraints, 2 free torsions
+run 0: cost=67704.0 Rwp=0.1847 chi2=57422.0 t=902s
+run 1: cost=72536.9 Rwp=0.1881 chi2=59573.7 t=599s
+RESULTS Xe3a2935 P 21 21 21 [(67704.03582455954, 0.18471672659089894, 57422.02895758165), (72536.90271322949, 0.18805823452994438, 59573.65664196544)]

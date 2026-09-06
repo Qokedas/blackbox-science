@@ -1,0 +1,99 @@
+
+
+class MonteCarlo(MonteCarlo_orig):
+
+    def Optimize(self, nb_step: int, final_cost=0, max_time=-1):
+        self._fix_parameters_for_global_optim()
+        if type(self) is MonteCarlo_orig:
+            self._Optimize(int(nb_step), True, final_cost, max_time)
+        else:
+            super().Optimize(int(nb_step), True, final_cost, max_time)
+
+    def MultiRunOptimize(
+        self, nb_run: int, nb_step: int, final_cost=0, max_time=-1
+    ):
+        self._fix_parameters_for_global_optim()
+        if type(self) is MonteCarlo_orig:
+            self._MultiRunOptimize(
+                int(nb_run), int(nb_step), True, final_cost, max_time
+            )
+        else:
+            super().MultiRunOptimize(
+                int(nb_run), int(nb_step), True, final_cost, max_time
+            )
+
+    def RunSimulatedAnnealing(self, nb_step: int, final_cost=0, max_time=-1):
+        self._fix_parameters_for_global_optim()
+        if type(self) is MonteCarlo_orig:
+            self._RunSimulatedAnnealing(
+                int(nb_step), True, final_cost, max_time
+            )
+        else:
+            super().RunSimulatedAnnealing(
+                int(nb_step), True, final_cost, max_time
+            )
+
+    def RunParallelTempering(self, nb_step: int, final_cost=0, max_time=-1):
+        self._fix_parameters_for_global_optim()
+        if type(self) is MonteCarlo_orig:
+            self._RunParallelTempering(
+                int(nb_step), True, final_cost, max_time
+            )
+        else:
+            super().RunParallelTempering(
+                int(nb_step), True, final_cost, max_time
+            )
+
+    def _fix_parameters_for_global_optim(self):
+        # Fix parameters that should not be optimised in a MonterCarlo run
+        self.SetParIsFixed(refpartype_unitcell, True)
+        self.SetParIsFixed(refpartype_scattdata_scale, True)
+        self.SetParIsFixed(refpartype_scattdata_profile, True)
+        self.SetParIsFixed(refpartype_scattdata_corr, True)
+        self.SetParIsFixed(refpartype_scattdata_background, True)
+        self.SetParIsFixed(refpartype_scattdata_radiation, True)
+
+    def widget(self):
+    StretchModeTorsion,
+    StretchModeTwist,
+    ZScatterer2Molecule,
+)
+
+from .zscatterer import ZScatterer
+
+
+def ImportFenskeHallZMatrix(cryst, src, named=False):
+    """Create a Molecule from a Fenske-Hall z-matrix. This is cleaner
+    than importing the Z-matrix into a ZScatterer object and then using
+    ZScatterer2Molecule, as it takes care of keeping only the created
+    Molecule inside the Crystal.
+
+    :param cryst: a Crystal object to which will belong the created Molecule
+    :param src: either a python filed (opened in 'rb' mode), or
+        a filename, or an url ("http://...") to a text file with the z-matrix
+    :param named: if True, allows to read a named Z-matrix - the formatting
+        is similar to a Fenske-Hall z-matrix but only relies on spaces between the
+        different fields instead of a strict number of characters.
+    """
+    z = ZScatterer("", cryst)
+    z.ImportFenskeHallZMatrix(src, named)
+    m = ZScatterer2Molecule(z)
+    cryst.RemoveScatterer(z)
+    cryst.AddScatterer(m)
+    # TODO: this is a hack to keep a reference to the Crystal used for creation,
+    #  since with this function we can't use a custodian_and_ward.
+    #  It will just help avoiding deletion of the Crystal before the Molecule object.
+    m._crystal = cryst
+
+    return m
+['GetBondAngle', 'GetBondLength', 'GetDihedralAngle', 'ImportFenskeHallZMatrix', 'MolAtom', 'MolBond', 'MolBondAngle', 'MolDihedralAngle', 'Molecule', 'Quaternion', 'RigidGroup', 'StretchMode', 'StretchModeBondAngle', 'StretchModeBondLength', 'StretchModeTorsion', 'StretchModeTwist', 'ZScatterer', 'ZScatterer2Molecule']
+Help on built-in function GetOption in module pyobjcryst._pyobjcryst:
+GetOption(...)
+    GetOption( (RefinableObj)arg1, (int)arg2) -> RefObjOpt :
+            ObjCryst::RefObjOpt {lvalue} GetOption(ObjCryst::RefinableObj {lvalue},unsigned int)
+Help on built-in function AddRigidGroup in module pyobjcryst._pyobjcryst:
+AddRigidGroup(...)
+    AddRigidGroup( (Molecule)arg1, (RigidGroup)group [, (bool)updateDisplay=True]) -> RigidGroup :
+            ObjCryst::RigidGroup {lvalue} AddRigidGroup(ObjCryst::Molecule {lvalue},ObjCryst::RigidGroup [,bool=True])
+    AddRigidGroup( (Molecule)arg1, (object)group [, (bool)updateDisplay=True]) -> RigidGroup :
+            ObjCryst::RigidGroup {lvalue} AddRigidGroup(ObjCryst::Molecule {lvalue},boost::python::api::object {lvalue} [,bool=True])

@@ -1,0 +1,11 @@
+X9af54a2 {'cell': {'a': 5.1777, 'b': 8.2521, 'c': 32.945, 'alpha': 90.0, 'beta': 92.7521, 'gamma': 90.0}, 'space_group': 'P 1 21/c 1', 'space_group_number': 14}
+Xe1fb77b {'cell': {'a': 5.5926, 'b': 15.359, 'c': 13.8797, 'alpha': 90.0, 'beta': 94.9749, 'gamma': 90.0}, 'space_group': 'P 1 21 1', 'space_group_number': 4}
+Xd4c1a35 {'cell': {'a': 12.0029, 'b': 11.7622, 'c': 24.2763, 'alpha': 90.0, 'beta': 90.0, 'gamma': 90.0}, 'space_group': 'P 21 21 21', 'space_group_number': 19}
+X07806d9.cif
+X07806d9.json
+X35b7fbc.json
+X9af54a2.json
+Xd4c1a35.json
+Xe1fb77b.json
+done ('Xeb393f9', 'monoP', 180)
+done ('Xebbd488', 'monoP', 180)

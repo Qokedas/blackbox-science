@@ -1,0 +1,1089 @@
+# Trajectory summary: qkd-0906-pxrd-astra
+
+- wall clock: 8.00 h; termination: model_finished; execution: completed
+- API responses: 1139; tool results: 1241 (bash 1019, write_file 111, view_image 111); images viewed: 109; context compactions: 21; API errors: 0
+- usage: {"provider": "openai", "model": "gpt-6-astra", "scope": "Usage returned by completed provider responses, including compaction. Failed or disconnected requests may incur unreported usage; no fabricated cost estimate."}
+- tool inputs recovered from provider bodies: 1241 (bash 1019, write_file 111, view_image 111)
+
+## Timeline of first submission writes (hours since start)
+- (no submission path seen in tool results)
+
+## Compaction handoffs (first 300 characters each)
+- t=0.30 h: ## Task / time / submission  Blind powder structure solution for 30 IDs in `/app/data/instances.json`. Inputs per ID: observed XYE, instrument JSON, components SMILES. Submit one JSON cell/SG and optionally one single-block CIF per ID under `/app/results/submission/`. JSON-only earns possible lattic
+- t=0.69 h: ## Task and time  Blind powder structure solution for 30 IDs in `/app/data/instances.json`. Submit under `/app/results/submission/` one JSON cell/SG and optionally one single-block CIF per ID. JSON-only can earn lattice credit. No network, four CPU cores, originally eight hours.  **Last reported rem
+- t=1.02 h: ## Task and remaining time  Blind powder structure solution for 30 IDs in `/app/data/instances.json`. Submit under `/app/results/submission/` exactly one JSON cell/SG and optionally one single-block CIF per ID. JSON-only earns possible lattice credit. No network; 4 CPU cores, 16 GB memory.  **Last r
+- t=1.35 h: ## Task / time  Continue blind powder crystal-structure solution for 30 IDs under `/app/data/instances/`. Final artifacts belong only in `/app/results/submission/<id>.json` and optionally `<id>.cif`; work/logs under `/app/work/`.  **Last remaining time: 24,068 seconds (~6 h 41 min).** This is contex
+- t=1.73 h: ## Task and time  Continue the same blind powder structure determination for 30 IDs under `/app/data/instances/`. Final artifacts only in `/app/results/submission/<id>.json` and `<id>.cif`. Notes/scripts/logs under `/app/work/`.  **Last remaining time: 22,672 seconds (~6 h 18 min).** This is context
+- t=2.01 h: ## Objective and time  Continue blind PXRD structure determination for the 30 IDs under `/app/data/instances/`. Only final artifacts under:  - `/app/results/submission/<id>.json` - `/app/results/submission/<id>.cif`  Notes/scripts/logs under `/app/work/`. No network. Use `OPENBLAS_NUM_THREADS=1 OMP_
+- t=2.19 h: ## Objective / time / environment  Continue blind PXRD structure determination for the 30 IDs in `/app/data/instances/`. Final artifacts only:  - `/app/results/submission/<id>.json` - `/app/results/submission/<id>.cif`  Scripts, logs, notes under `/app/work/`. No network. Use `OPENBLAS_NUM_THREADS=1
+- t=2.49 h: ## Objective / time / environment  Continue blind PXRD structure solution for the 30 IDs in `/app/data/instances/`. Submit only: - `/app/results/submission/<id>.json` - `/app/results/submission/<id>.cif`  Other work under `/app/work/`. No network. Use `OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1`.  **L
+- t=2.86 h: ## Objective / remaining time  Continue blind powder structure determination for 30 IDs. Submit only: - `/app/results/submission/<id>.json` - `/app/results/submission/<id>.cif`  Other work under `/app/work/`. No network. Use `OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1`.  **Last remaining time: 18,603 
+- t=3.33 h: ## Objective / time remaining  Continue blind powder structure determination for 30 IDs. Submit only: - `/app/results/submission/<id>.json` - `/app/results/submission/<id>.cif`  All other work under `/app/work/`. No network. Use: ```bash export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 ```  **Last re
+- t=3.68 h: ## Objective / remaining time  Continue blind powder structure determination for all 30 IDs. Submit only: - `/app/results/submission/<id>.json` - `/app/results/submission/<id>.cif`  Everything else under `/app/work/`. No network. Set: ```bash export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 ```  **La
+- t=4.05 h: ## Objective / remaining time  Blind PXRD structure determination for 30 IDs. Final deliverables only: - `/app/results/submission/<id>.json` - `/app/results/submission/<id>.cif`  Everything else under `/app/work/`. No network. Use: ```bash export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 ```  **Last 
+- t=4.49 h: ## Objective / time / submission  Blind PXRD structure solution for 30 IDs. Final graded files only under: - `/app/results/submission/<id>.json` - `/app/results/submission/<id>.cif`  Everything else under `/app/work/`. No network. Use: ```bash export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 ```  **L
+- t=4.82 h: ## Objective / time / submissions  Blind PXRD structure solution for 30 IDs in `/app/data/instances/`. Graded artifacts only: - `/app/results/submission/<id>.json` - `/app/results/submission/<id>.cif`  Use: ```bash export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 ```  **Last remaining time: 11,548 se
+- t=5.20 h: ## Objective, clock, submissions  Blind PXRD structure determination for 30 IDs in `/app/data/instances/`. Only graded files: - `/app/results/submission/<id>.json` - `/app/results/submission/<id>.cif`  **Last remaining time: 10,181 seconds (~2 h 50 min). Clock 08:34:42 UTC; deadline approximately 11
+- t=5.59 h: ## Objective, submissions, clock  Blind PXRD structure solution for 30 IDs under `/app/data/instances/`. Graded paths: - `/app/results/submission/<id>.json` - `/app/results/submission/<id>.cif`  **Last remaining time: 8,790 seconds (~2 h 26 min). Deadline approximately 11:24 UTC.**  Use: ```bash exp
+- t=5.98 h: ## Objective / clock / submissions  Blind PXRD structure solution for 30 IDs under `/app/data/instances/`.  Submit only: - `/app/results/submission/<id>.json` - `/app/results/submission/<id>.cif`  **Last remaining time: 7,367 seconds (~2 h 03 min). Clock 09:21:36 UTC; deadline ~11:24 UTC.**  Always:
+- t=6.42 h: ## Objective / time / submissions  Blind PXRD solution for 30 IDs, final artifacts only under: - `/app/results/submission/<id>.json` - `/app/results/submission/<id>.cif`  **Last remaining time: 5,769 seconds (~1 h 36 min), clock approximately 09:48 UTC. Deadline ~11:24 UTC.**  Always: ```bash export
+- t=6.93 h: ## Objective / clock / current submissions  Blind PXRD structure solution for 30 IDs. Final artifacts only: - `/app/results/submission/<id>.json` - `/app/results/submission/<id>.cif`  **Latest clock: 10:18 UTC. Remaining time: 3,979 seconds (~66 minutes). Deadline approximately 11:24 UTC.**  Always:
+- t=7.39 h: ## Objective / clock / submission state  Blind PXRD structure solution for 30 IDs. Final files only: - `/app/results/submission/<id>.json` - `/app/results/submission/<id>.cif`  **Remaining time at last tool call: 2,322 seconds (~38.7 minutes). Deadline approximately 11:24 UTC. Current clock approxim
+- t=7.84 h: ## Objective / clock  Blind PXRD structure determination for 30 instances. Submit only: - `/app/results/submission/<id>.json` - `/app/results/submission/<id>.cif`  **Last clock: 11:13:20 UTC. Remaining trial time: 663 seconds (~11 minutes). Deadline approximately 11:24:23 UTC.**  Always: ```bash exp
+
+## Grader ledger
+score 0.477778, points 43/90, L 23, S 10, hedged 0
+
+| id | DoF | bin | L | S | L reason / cells | S reason | rmsd | dmax |
+|---|---|---|---|---|---|---|---|---|
+| X019b9a4 | 26.0 | hard_ | 1 | 0 | cell_ok=True sg_ok=True sub=[8.4456, 10.9222, 18.4435, 90.2879, 93.9939, 106.2464] | no periodic mapping within matcher tolerance | None | None |
+| X07806d9 | 13.0 | calib | 1 | 1 | cell_ok=True sg_ok=True sub=[8.2108, 11.2253, 16.8629, 90.0, 90.0, 90.0] |  | 0.0519 | 0.078 |
+| X13023e3 | 17.0 | mid_1 | 1 | 1 | cell_ok=True sg_ok=True sub=[5.5286, 6.0222, 27.995, 93.1155, 90.0, 90.0] |  | 0.148 | 0.2858 |
+| X14a2b08 | 18.0 | mid_1 | 1 | 0 | cell_ok=True sg_ok=True sub=[5.1039, 11.9346, 21.2984, 85.2465, 87.6386, 87.0036] | displacements exceed tolerance | 1.0588 | 2.5205 |
+| X1a56c78 | 14.0 | calib | 1 | 0 | cell_ok=True sg_ok=True sub=[5.9036, 11.2521, 30.0858, 90.0, 90.0, 90.0] | displacements exceed tolerance | 0.7568 | 1.6543 |
+| X1db5091 | 19.0 | mid_1 | 1 | 0 | cell_ok=True sg_ok=True sub=[4.8677, 12.7804, 40.6399, 90.0, 90.0, 100.701] | no periodic mapping within matcher tolerance | None | None |
+| X2327841 | 34.0 | hard_ | 1 | 1 | cell_ok=True sg_ok=True sub=[4.9344, 12.3927, 25.0476, 90.7861, 90.0, 90.0] |  | 0.1411 | 0.2836 |
+| X238783d | 14.0 | calib | 1 | 0 | cell_ok=True sg_ok=True sub=[8.8527, 20.1428, 23.9217, 90.0, 90.0, 90.0] | no periodic mapping within matcher tolerance | None | None |
+| X263b09a | 18.0 | mid_1 | 1 | 0 | cell_ok=True sg_ok=True sub=[5.165, 11.7692, 20.5674, 83.73, 89.5264, 86.7151] | displacements exceed tolerance | 0.2972 | 1.2317 |
+| X35b7fbc | 18.0 | mid_1 | 1 | 0 | cell_ok=True sg_ok=True sub=[5.7095, 12.7657, 33.1379, 90.0, 90.0, 90.0] | displacements exceed tolerance | 1.4491 | 2.8383 |
+| X3c176e2 | 12.0 | hard_ | 1 | 1 | cell_ok=True sg_ok=True sub=[9.332, 11.0381, 14.0154, 90.0, 90.0, 90.0] |  | 0.0618 | 0.1238 |
+| X3f4781b | 30.0 | hard_ | 1 | 0 | cell_ok=True sg_ok=True sub=[10.4293, 12.6238, 15.334, 90.0, 90.0, 113.2941] | no periodic mapping within matcher tolerance | None | None |
+| X4f6fe58 | 7.0 | calib | 0 | 0 | cell_ok=False sg_ok=False sub=[7.588, 13.0946, 15.3892, 72.4378, 83.3901, 78.0592] | no periodic mapping within matcher tolerance | None | None |
+| X7e382cb | 15.0 | calib | 0 | 0 | cell_ok=False sg_ok=False sub=[6.9523, 6.9856, 14.3791, 88.0429, 86.8975, 67.341] | atom count 40 vs reference 20 after primitive reduction | None | None |
+| X8a06d7a | 19.0 | mid_1 | 0 | 0 | cell_ok=True sg_ok=False sub=[5.0087, 11.8473, 21.7246, 86.0208, 89.91, 89.8778] | displacements exceed tolerance | 1.1777 | 2.7129 |
+| X8a6f5a8 | 28.0 | hard_ | 0 | 0 | cell_ok=True sg_ok=False sub=[7.8691, 11.5427, 16.6606, 71.2743, 84.5119, 85.3467] | no CIF submitted | None | None |
+| X9af54a2 | 15.0 | mid_1 | 0 | 0 | cell_ok=True sg_ok=False sub=[5.1789, 8.2536, 32.9454, 90.0, 92.7545, 90.0] | no periodic mapping within matcher tolerance | None | None |
+| Xb7088cf | 12.0 | calib | 0 | 0 | cell_ok=True sg_ok=False sub=[5.0637, 9.3629, 38.1313, 90.0, 90.0, 90.0] | no periodic mapping within matcher tolerance | None | None |
+| Xbfc6d2c | 7.0 | calib | 1 | 1 | cell_ok=True sg_ok=True sub=[7.6156, 11.9047, 14.623, 90.0, 90.0, 105.4965] |  | 0.0786 | 0.1658 |
+| Xbfeeda9 | 16.0 | mid_1 | 1 | 1 | cell_ok=True sg_ok=True sub=[12.3686, 13.2058, 16.6977, 101.6521, 90.0, 90.0] |  | 0.166 | 0.4655 |
+| Xd4c1a35 | 18.0 | hard_ | 1 | 1 | cell_ok=True sg_ok=True sub=[11.7626, 12.0033, 24.2769, 90.0, 90.0, 90.0] |  | 0.068 | 0.1575 |
+| Xd8634a2 | 13.0 | calib | 1 | 0 | cell_ok=True sg_ok=True sub=[8.9105, 9.479, 13.2456, 83.9816, 81.7759, 66.6738] | displacements exceed tolerance | 0.9671 | 4.1663 |
+| Xdcc971e | 32.0 | hard_ | 1 | 0 | cell_ok=True sg_ok=True sub=[7.1862, 11.0392, 18.4718, 101.9846, 90.0, 90.0] | displacements exceed tolerance | 0.686 | 2.8444 |
+| Xe1fb77b | 16.0 | mid_1 | 1 | 0 | cell_ok=True sg_ok=True sub=[5.593, 13.8796, 15.3601, 90.0, 90.0, 94.9784] | no periodic mapping within matcher tolerance | None | None |
+| Xe3a2935 | 9.0 | calib | 1 | 1 | cell_ok=True sg_ok=True sub=[6.8837, 10.2961, 20.0, 90.0, 90.0, 90.0] |  | 0.0944 | 0.1476 |
+| Xeb393f9 | 21.0 | mid_1 | 1 | 0 | cell_ok=True sg_ok=True sub=[8.0139, 9.8154, 10.2335, 74.8689, 68.9575, 65.9318] | displacements exceed tolerance | 1.5629 | 3.827 |
+| Xebbd488 | 23.5 | mid_1 | 0 | 0 | cell_ok=True sg_ok=False sub=[12.3919, 14.6971, 16.5899, 104.9903, 90.0, 114.9343] | no CIF submitted | None | None |
+| Xedd9c7b | 22.0 | hard_ | 1 | 0 | cell_ok=True sg_ok=True sub=[10.3755, 15.4438, 17.1668, 90.0, 95.5752, 90.0] | displacements exceed tolerance | 0.5093 | 1.694 |
+| Xf8ac963 | 10.0 | calib | 1 | 1 | cell_ok=True sg_ok=True sub=[9.3216, 11.3935, 16.2648, 90.0, 90.0, 90.0] |  | 0.1068 | 0.2441 |
+| Xfca9f3c | 28.0 | hard_ | 1 | 1 | cell_ok=True sg_ok=True sub=[4.9357, 12.3423, 21.4447, 105.6396, 90.0, 90.0] |  | 0.1075 | 0.197 |
+
+## Bash commands (first 120 chars each, in order)
+- cat /app/TOOLS.md && printf '\n---INSTANCES---\n' && cat /app/data/instances.json && ls -la /app
+- python - <<'PY' import json,os for id in json.load(open('/app/data/instances.json'))['ids']:  p='/app/data/instances/'+i
+- python - <<'PY' import pyobjcryst.indexing as i, inspect print(i.__file__) print(inspect.getsource(i)) PY
+- python - <<'PY' from pyobjcryst.indexing import * for c in [PeakList, PeakList_hkl, RecUnitCell, CellExplorer]:  print('
+- python - <<'PY' import json,os from rdkit import Chem from rdkit.Chem import Descriptors,rdMolDescriptors for id in json
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/preprocess.py > /app/work/preprocess.log 2>&1 & echo $!
+- python - <<'PY' from pyobjcryst.indexing import * import io pl=PeakList();pl.ImportDhklDSigmaIntensity(io.StringIO('10 0
+- python - <<'PY' from pyobjcryst.indexing import * import io pl=PeakList();pl.ImportDhklDSigmaIntensity(io.BytesIO(b'10 0
+- tail -5 /app/work/preprocess.log; sed -n '240,400p' /opt/conda/include/ObjCryst/ObjCryst/Indexing.h; ls /opt/conda/lib |
+- python - <<'PY' import json for sid in ['X07806d9','X14a2b08']:  print(sid)  for i,p in enumerate(json.load(open('/app/w
+- python - <<'PY' from pyobjcryst.indexing import * pl=PeakList();pl.Simulate(0,7,8,10,90,90,90,True,20,0,.0001,.2) ex=Cel
+- python - <<'PY' from pyobjcryst.indexing import * pl=PeakList();pl.Simulate(0,7,8,10,90,90,90,True,20,0,0,0,True) print(
+- python - <<'PY' from pyobjcryst.indexing import * pl=PeakList();pl.Simulate(0,7,8,10,90,90,90,True,60,0,0,0) p=PeakList(
+- tail -4 /app/work/preprocess.log; OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/run_index_batch.py > /app/wo
+- python - <<'PY' import inspect,pyobjcryst.powderpattern as p print(p.__file__);print(inspect.getsource(p)) PY head -50 /
+- python - <<'PY' import glob,json,os for d in glob.glob('/app/work/X*'):  sols=[]  for f in glob.glob(d+'/index*.json'): 
+- python - <<'PY' from pyobjcryst.powderpattern import PowderPattern,PowderPatternDiffraction,SpaceGroupExplorer from pyob
+- python - <<'PY' from pyobjcryst.powderpattern import PowderPattern,PowderPatternDiffraction from pyobjcryst.crystal impo
+- python - <<'PY' from pyobjcryst.powderpattern import * from pyobjcryst.crystal import Crystal for m in [PowderPattern.Im
+- cat /opt/conda/lib/python3.11/site-packages/pyobjcryst/globaloptim.py | head -260; grep -nE '(Import|AddAtom|Rigid|Dihed
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/test_fit.py > /app/work/test_fit.log 2>&1 & echo $!; sleep 3; 
+- grep -A35 '<Crystal' /app/work/test_fit.log | head -36; tail -15 /app/work/index_batch.log; python - <<'PY' import glob,
+- python - <<'PY' import pyobjcryst print(dir(pyobjcryst)) import pyobjcryst.io as io print(dir(io)) PY sed -n '1,180p' /o
+- head -95 /app/work/Xf8ac963/profile_test.xml; sed -n '1,180p' /opt/conda/lib/python3.11/site-packages/pyobjcryst/io.py; 
+- OPENBLAS_NUM_THREADS=1 python /app/work/collect_candidates.py; OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work
+- for id in X07806d9 X3c176e2; do echo $id; grep -E 'STARTFIT|GROUPS|DONE|Error' /app/work/$id/fit_0.log; done
+- python - <<'PY' from pyobjcryst.molecule import Molecule from pyobjcryst.globaloptim import MonteCarlo from pyobjcryst.s
+- python - <<'PY' from pyobjcryst.crystal import Crystal for m in dir(Crystal):  if 'Bump' in m or 'Merge' in m or 'Bond' 
+- grep -n -A34 -B10 'SetAlgorithmParallTempering' /opt/conda/include/ObjCryst/RefinableObj/GlobalOptimObj.h; grep -n -A45 
+- python - <<'PY' p='/app/work/fit_candidate.py' s=open(p).read();s=s.replace("# save baseline refined parameters", "d.Set
+- python - <<'PY' import json ids=['X9af54a2','X35b7fbc','Xd8634a2','Xe1fb77b','Xe3a2935','X7e382cb','X4f6fe58','Xb7088cf'
+- python - <<'PY' import json mins={'X9af54a2':1.5,'X35b7fbc':2.3,'Xd8634a2':3.0,'Xe1fb77b':1.8,'Xe3a2935':2.6,'X8a6f5a8':
+- tail -15 /app/work/fits_batch.log; ps -eo pid,etime,%cpu,cmd --sort=-%cpu | head -10; python - <<'PY' import glob,json,o
+- python - <<'PY' p='/app/work/fit_candidate.py';s=open(p).read().replace("if sg.number not in nums or sg.centring_type()!
+- python - <<'PY' p='/app/work/make_base.py';s=open(p).read().replace('wrap_boost_powderpattern(p)',"import pyobjcryst.pow
+- python - <<'PY' from pyobjcryst.crystal import Crystal print(Crystal.GetScatteringComponentList.__doc__) from pyobjcryst
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/search_obj.py Xf8ac963 0 1 --test > /app/work/Xf8ac963/search_
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/search_obj.py Xbfc6d2c 0 1 --test > /app/work/Xbfc6d2c/search_
+- python - <<'PY' p='/app/work/search_obj.py';s=open(p).read().replace("while time.time()-t0<3600:", "while time.time()-t0
+- python - <<'PY' import json for sid in ['X1a56c78','X238783d']:  p='/app/work/'+sid+'/candidates.json';s=json.load(open(
+- tail -10 /app/work/fits2.log; for id in Xf8ac963 X07806d9 Xbfc6d2c; do echo $id; tail -6 /app/work/$id/search_long.log; 
+- cat /app/work/Xbfc6d2c/search_1/best.json; cat /app/work/Xbfc6d2c/search_1/best.cif; cat /app/work/Xbfc6d2c/search_1/mod
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/refine_obj.py Xbfc6d2c 1 > /app/work/Xbfc6d2c/refine.log 2>&1 
+- python - <<'PY' p='/app/work/refine_obj.py';s=open(p).read().replace("print('START',p.GetRw()", "p.Prepare()\nprint('STA
+- python - <<'PY' from pyobjcryst.molecule import Molecule print([m for m in dir(Molecule) if 'Rigid' in m]);from pyobjcry
+- sed -i "s/m.GetRigidGroup(rg)/m.GetRigidGroupList()[rg]/;s/range(c.GetNbScatteringPower())/range(len(c.GetScatteringPowe
+- sed -i 's/sp=c.GetScatteringPower(i)/sp=c.GetScatteringPowerRegistry().GetObj(i)/' /app/work/refine_obj.py OPENBLAS_NUM_
+- python - <<'PY' import numpy as np,networkx as nx,json from pymatgen.io.cif import CifParser from rdkit import Chem id='
+- tail -7 /app/work/Xbfc6d2c/search_test.log; tail -18 /app/work/X07806d9/refine.log; tail -6 /app/work/X07806d9/search_lo
+- python - <<'PY' import numpy as np,networkx as nx,json,shutil,gemmi from pymatgen.io.cif import CifParser from rdkit imp
+- python - <<'PY' p='/app/work/refine_obj.py';s=open(p).read();s=s.replace("print('WITH_H',p.GetRw(),p.GetChi2(),flush=Tru
+- OPENBLAS_NUM_THREADS=1 python /app/work/submit.py X07806d9 /app/work/X07806d9/refined_1.cif; OPENBLAS_NUM_THREADS=1 pyth
+- find /opt -path '*ObjCryst*' -name 'Indexing.cpp' -o -iname 'GSASIIindex.py'; tail -8 /app/work/Xd8634a2/index_TRICLINIC
+- cat /app/TOOLS.md && ls /app/work && ls /app/results/submission && date -u
+- cat /app/work/fit_candidate.py; cat /app/work/make_base.py; cat /app/work/run_fits2.py; tail -20 /app/work/Xf8ac963/sear
+- cat /app/work/collect_candidates.py; cat /app/work/index_one.py; cat /app/work/summary.json
+- python - <<'PY' import json for id in json.load(open('/app/data/instances.json'))['ids']:  print(id,[(c['smiles'],c['cou
+- python - <<'PY' p='/app/work/fit_candidate.py' s=open(p).read().replace("stol=float(sys.argv[3]) if len(sys.argv)>3 else
+- python - <<'PY' import json,os for id in ['Xe1fb77b','X9af54a2','X3f4781b','Xbfeeda9','X238783d','X3c176e2','X1a56c78','
+- nohup env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 bash -c 'python /app/work/make_base.py Xe1fb77b 0 "P 1 21 1" --submit
+- cat /app/work/Xf8ac963/refine_1.log; cat /app/work/Xf8ac963/refined_1.json; cat /app/work/Xf8ac963/lattice.json; cat /ap
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/submit.py Xf8ac963 /app/work/Xf8ac963/refined_1.cif; python - 
+- python - <<'PY' import glob,os for p in glob.glob('/proc/[0-9]*'):  try:   c=open(p+'/cmdline','rb').read().replace(b'\0
+- grep -E 'Anti|Bump|BondVal|Cost' /app/work/Xf8ac963/search_1/best.xml | head -25; tail -5 /app/work/Xf8ac963/refine_1new
+- touch /app/work/Xf8ac963/search_1/STOP python - <<'PY' p='/app/work/search_obj.py';s=open(p).read().replace('time.time()
+- sed -n '1,240p' /app/work/preprocess.py; cat /app/work/Xe3a2935/peak_select.json; head -3 /app/work/Xe3a2935/index_ORTHO
+- for id in X13023e3 Xe3a2935 Xdcc971e X2327841 Xd4c1a35; do OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/ana
+- cat /app/data/instances/X2327841/instrument.json; OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/analyze_latt
+- python - <<'PY' import json,os from math import sin,pi for id,tag,axis,factor in [('X13023e3',1,1,.5),('X2327841',0,2,1/
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' from rdkit import Chem from rdkit.Chem.EnumerateStereoisomers i
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' import sys,numpy as np,json sys.path.insert(0,'/app/work');from
+- python - <<'PY' import gallop,os print(gallop.__file__) PY find /opt -path '*gallop*' -maxdepth 7 -type f | head -25; py
+- cat /app/work/X13023e3/translations_0.log | head -42; cat /app/work/X13023e3/translations_1.log 2>/dev/null | head -42; 
+- OPENBLAS_NUM_THREADS=1 python - <<'PY' from pyobjcryst.powderpattern import SpaceGroupExplorer print(SpaceGroupExplorer.
+- for id in Xe1fb77b X9af54a2 Xd8634a2 X3f4781b; do echo ====; head -3 /app/work/$id/fit_0.xye; done; tail -4 /app/work/Xd
+- nohup env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 bash -c 'python /app/work/make_base.py X13023e3 2 "P 1 21 1" --submit
+- cat /app/data/instances/X1db5091/instrument.json; head -2 /app/work/X1db5091/index_TRICLINIC_P_3.log; head -2 /app/work/
+- cat /app/work/X13023e3/lattice.json; cat /app/work/X2327841/base.log | tail -3; tail -3 /app/work/Xe3a2935/base.log; cat
+- grep -n '^    def quick_fit_profile' /opt/conda/lib/python3.11/site-packages/pyobjcryst/powderpattern.py; sed -n '315,60
+- OPENBLAS_NUM_THREADS=1 python - <<'PY' from pyobjcryst.powderpattern import PowderPatternDiffraction print([x for x in d
+- grep -n -E 'Extraction|LeBail|Intens|Peak|Scale|hkl' /app/work/X13023e3/fit_2.xml | head -16; grep -A18 '<PowderPatternD
+- sed -n '35,65p' /app/work/X13023e3/fit_2.xml; sed -n '198,222p' /app/work/X13023e3/fit_2.xml
+- python - <<'PY' p='/app/work/fit_candidate.py';s=open(p).read().replace("print('STARTFIT',sid,tag,'Rw',p.GetRw(),flush=T
+- for id in X14a2b08 X263b09a X8a6f5a8 X8a06d7a; do echo ==== $id; tail -3 /app/work/$id/index_TRICLINIC_P_3.log 2>/dev/nu
+- nohup env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 bash -c 'python /app/work/create_base.py X13023e3 2 "P 1 21 1" --subm
+- du -h /app/work/X263b09a/index_TRICLINIC_P_3.log; grep -E 'BEST \?|update threshold' /app/work/X263b09a/index_TRICLINIC_
+- OPENBLAS_NUM_THREADS=1 python - <<'PY' from pyobjcryst.powderpattern import PowderPatternDiffraction,ReflectionProfilePs
+- OPENBLAS_NUM_THREADS=1 python - <<'PY' from pyobjcryst.powderpattern import PowderPatternDiffraction print([x for x in d
+- sed -n '381,431p' /opt/conda/lib/python3.11/site-packages/gallop/z_matrix.py; sed -n '485,577p' /opt/conda/lib/python3.1
+- cat /opt/conda/lib/python3.11/site-packages/gallop/chi2.py | head -145; sed -n '309,345p' /opt/conda/lib/python3.11/site
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/gallop_prepare.py Xf8ac963 1 1 > /app/work/Xf8ac963/gallop_pre
+- tail -110 /opt/conda/lib/python3.11/site-packages/gallop/optim/local.py; sed -n '450,525p' /opt/conda/lib/python3.11/sit
+- python - <<'PY' p='/app/work/gallop_prepare.py';s=open(p).read().replace("s.source='DASH'", "s.source='GSAS'") s=s.repla
+- python - <<'PY' p='/app/work/gallop_prepare.py';s=open(p).read().replace('d=p.GetPowderPatternComponent(0);p.Prepare()',
+- nohup env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 PARTICLES=64 ITERATIONS=400 SEARCH_TIME=600 python /app/work/search_g
+- OPENBLAS_NUM_THREADS=1 python - <<'PY' from pyobjcryst.indexing import CellExplorer print([x for x in dir(CellExplorer) 
+- OPENBLAS_NUM_THREADS=1 python - <<'PY' from pyobjcryst.indexing import CellExplorer print(CellExplorer.SetMinMaxZeroShif
+- grep -E 'Solution \?' /app/work/X263b09a/index_TRICLINIC_P_3.log | tail -8; tail -8 /app/work/Xf8ac963/gallop_search.log
+- python /app/work/parse_index_log.py X263b09a; OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/collect_candidat
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' import sys,json,numpy as np,torch,gemmi from gallop.structure i
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' import sys,json,numpy as np,torch,gemmi from gallop.structure i
+- touch /app/work/Xd8634a2/search_1/STOP /app/work/X3f4781b/search_1/STOP nohup env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS
+- ls /app/results/submission/*.json | wc -l; for f in /app/results/submission/*.json; do echo $(basename $f) $(jq -r .spac
+- OPENBLAS_NUM_THREADS=1 python - <<'PY' from pyobjcryst.indexing import CellExplorer print(CellExplorer.DicVol.__doc__) P
+- tail -10 /app/work/Xd8634a2/gallop_search.log; tail -10 /app/work/Xd8634a2/refine_1.log 2>/dev/null; tail -10 /app/work/
+- kill -TERM 2146 nohup env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/create_base.py X263b09a 0 "P -1" --s
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/analyze_lattice.py X1a56c78 1 > /app/work/X1a56c78/analysis.lo
+- ls -la /app/work/X3f4781b/search_1/STOP /app/work/Xd8634a2/search_1/STOP; tail -3 /app/work/X3f4781b/search_long.log; ca
+- python - <<'PY' import json for id in ['Xfca9f3c','Xdcc971e','X2327841']:  ps=json.load(open('/app/work/'+id+'/peaks.jso
+- python - <<'PY' import json for id in ['Xfca9f3c','X2327841']:  ps=json.load(open('/app/work/'+id+'/peaks.json'));print(
+- touch /app/work/Xe1fb77b/search_1/STOP nohup env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 bash -c 'while [[ -r /proc/210
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/collect_candidates.py Xfca9f3c nohup env OPENBLAS_NUM_THREADS=
+- python - <<'PY' p='/app/work/search_gallop.py';s=open(p).read().replace('from gallop import tensor_prep,zm_to_cart','fro
+- touch /app/work/Xe3a2935/search_1/STOP nohup env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/refine_obj.py
+- OPENBLAS_NUM_THREADS=1 python - <<'PY' from pyobjcryst.crystal import Crystal print([s for s in dir(Crystal) if any(x in
+- rg -n 'Bump|mBump' /opt/conda/include/ObjCryst/ObjCryst/Crystal.h; sed -n '495,640p' /opt/conda/include/ObjCryst/ObjCrys
+- sed -n '272,354p' /opt/conda/include/ObjCryst/ObjCryst/Crystal.h; ls -lh /opt/conda/lib/libObjCryst*; OPENBLAS_NUM_THREA
+- strings /opt/conda/lib/libObjCryst.so | grep -E 'Bump|Scale|InterMol' | head -60; OPENBLAS_NUM_THREADS=1 python - <<'PY'
+- python - <<'PY' import glob,os for f in glob.glob('/proc/[0-9]*/cmdline'):  try:   s=open(f,'rb').read().replace(b'\0',b
+- cat /app/TOOLS.md; echo '---'; cat /app/data/instances.json; echo '---'; ls /app/results/submission; echo '---'; cat /ap
+- cat /app/work/search_obj.py; echo ---; cat /app/work/refine_obj.py; echo ---; cat /app/work/obj_model.py
+- for f in /app/work/Xe3a2935/search_long.log /app/work/Xe3a2935/refine_1.log /app/work/X4f6fe58/search_long.log /app/work
+- cat /app/work/submit.py; cat /app/work/test_bump.xml; rg -n -i 'bump|merge' /opt/conda/include/ObjCryst/ObjCryst/Crystal
+- python - <<'PY' import json,glob for id in json.load(open('/app/data/instances.json'))['ids']:  a=json.load(open('/app/d
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' from pyobjcryst.crystal import Crystal from pyobjcryst.molecule
+- cat /app/results/submission/*.json; echo ---; cat /app/work/X3c176e2/isomer_*.json; for x in X13023e3 X35b7fbc Xbfeeda9 
+- tail -30 /app/work/Xe1fb77b/search_long.log /app/work/Xe1fb77b/refine_1.log; cat /app/work/Xe1fb77b/search_1/best.json; 
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' import sys;sys.path.insert(0,'/app/work') from pyobjcryst.cryst
+- for x in X4f6fe58 X3c176e2 Xd8634a2 Xe1fb77b; do echo '---'$x; grep -A2 'Option Name=' /app/work/$x/search_1/best.xml | 
+- cat /app/work/preprocess.py; ls -lh /app/work/X8a06d7a/index* /app/work/X1db5091/index* /app/work/X8a6f5a8/index*; head 
+- head -n 4 /app/work/X1db5091/index_TRICLINIC_P_3.log; cat /app/data/instances/X1db5091/instrument.json; cat /app/data/in
+- for x in X2327841 Xdcc971e Xfca9f3c; do echo ---$x; cat /app/work/$x/fit_*.json | head -50; grep -h 'STARTFIT\|DONE\|FRE
+- cp /app/work/obj_model.py /app/work/obj_model_v1.py; cp /app/work/search_obj.py /app/work/search_obj_v1.py python - <<'P
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' from pyobjcryst.globaloptim import MonteCarlo m=MonteCarlo('t')
+- sed -i "s/mc.GetOption(3).SetChoice(1)/mc.GetOption(5).SetChoice(int(os.environ.get('MC_LSQ','1')))/" /app/work/search_o
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' from pyobjcryst.crystal import Crystal from pyobjcryst.atom imp
+- OPENBLAS_NUM_THREADS=1 python - <<'PY' from pyobjcryst.crystal import Crystal from pyobjcryst.io import xml_cryst_file_l
+- OPENBLAS_NUM_THREADS=1 python - <<'PY' import io from pyobjcryst.crystal import Crystal from pyobjcryst.atom import Atom
+- OPENBLAS_NUM_THREADS=1 python - <<'PY' import sys;sys.path.insert(0,'/app/work') from obj_model import add_component fro
+- python - <<'PY' p='/app/work/obj_model.py';s=open(p).read();s=s.replace('hydrogen=False,coords_override=None):','hydroge
+- touch /app/work/X4f6fe58/search_1/STOP cat > /app/work/queue_structures_A.sh <<'SH' export OPENBLAS_NUM_THREADS=1 OMP_NU
+- for id in X7e382cb Xb7088cf Xedd9c7b Xeb393f9 Xebbd488 X8a6f5a8; do echo ---$id; cat /app/data/instances/$id/instrument.
+- for r in 12 13 14 15 16 17 18; do mkdir -p /app/work/X3c176e2/search_$r; touch /app/work/X3c176e2/search_$r/STOP; done f
+- python - <<'PY' import json,os for sid in ['X7e382cb','Xb7088cf','Xedd9c7b','Xeb393f9','Xebbd488','X8a6f5a8','X1db5091']
+- for id in X7e382cb Xb7088cf Xedd9c7b Xeb393f9 Xebbd488 X8a6f5a8; do echo ---$id; for f in /app/work/$id/index_MONOCLINIC
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/parse_index_log.py X8a06d7a TRICLINIC_P_3; cp /app/work/X8a06d
+- nohup bash -c 'export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; for i in 0 1 2 3 4; do python /app/work/fit_candidate.py
+- OPENBLAS_NUM_THREADS=1 python - <<'PY' from pyobjcryst.io import xml_cryst_file_load_all_object os=xml_cryst_file_load_a
+- cp /app/work/refine_obj.py /app/work/refine_obj_v1.py python - <<'PY' p='/app/work/refine_obj.py';s=open(p).read();marke
+- python - <<'PY' import numpy as np,matplotlib;matplotlib.use('Agg');import matplotlib.pyplot as plt ids=['Xeb393f9','Xeb
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/repick.py X7e382cb Xb7088cf Xedd9c7b Xeb393f9 Xebbd488 X8a6f5a
+- python - <<'PY' import glob,os for f in glob.glob('/proc/[0-9]*/cmdline'):  try:   s=open(f,'rb').read().replace(b'\0',b
+- cat /app/work/repick.log; ls -lh /app/work/*/peaks_raw.json; for f in /app/work/X4f6fe58/search2.log /app/work/X13023e3/
+- for f in /app/work/X3c176e2/refine_10h.log /app/work/Xe3a2935/refine_1h.log /app/work/Xf8ac963/refine_1h.log /app/work/X
+- head -n 80 /app/work/X3c176e2/refined_10.xml; grep -n -A12 -B3 'RigidGroup' /app/work/X3c176e2/refined_10.xml | head -75
+- python - <<'PY' p='/app/work/obj_model.py';s=open(p).read();s=s.replace('def export_cif(c,path):','''def recenter_molecu
+- tail -n 7 /app/work/Xeb393f9/index_TRICLINIC_P_4.log 2>/dev/null; tail -n 8 /app/work/X35b7fbc/search1.log; tail -n 6 /a
+- python - <<'PY' import json,os sel={'Xebbd488':[1,2,3,4,5,7,8,9,10,11,12,13,14,15,16,20,21,22,23,24], 'X8a6f5a8':[2,6,9,
+- OPENBLAS_NUM_THREADS=1 python - <<'PY' import numpy as np,json from rdkit import Chem from rdkit.Chem import rdMolTransf
+- python - <<'PY' p='/app/work/search_obj.py';s=open(p).read().replace("os.environ.get('MC_LSQ','1')","os.environ.get('MC_
+- for id in X1db5091 Xebbd488 X8a6f5a8 X7e382cb Xb7088cf Xedd9c7b; do echo '---'$id; for f in /app/work/$id/index_raw*.log
+- cat /sys/fs/cgroup/memory.max /sys/fs/cgroup/memory.current /sys/fs/cgroup/memory.events; python - <<'PY' import glob fo
+- python - <<'PY' p='/app/work/index_one.py';s=open(p).read().replace("terr=max(base_err,p['error']*2,min(p['fwhm']*.15,ba
+- OPENBLAS_NUM_THREADS=1 python - <<'PY' from pyobjcryst.io import xml_cryst_file_load_all_object obs=xml_cryst_file_load_
+- grep -n -i -A8 -B4 'Texture\|Ellip\|March\|Orientation\|Corr' /app/work/Xfca9f3c/search_10/best.xml | tail -n 80; OPENBL
+- rg -n 'TextureEllipsoid|TextureMarchDollase' /opt/conda/include/ObjCryst/ObjCryst/*h; sed -n '480,680p' /opt/conda/inclu
+- ls -la /app/results/submission; cat /app/TOOLS.md; date -u; for p in 5191 4263 4266 5100 5335 5333; do echo ====PID$p; c
+- ls /app/work; cat /app/work/queue_structures_A2.sh /app/work/queue_structures_B.sh /app/work/queue_structures_C.sh /app/
+- cat /app/work/summary.json; sed -n '1,280p' /app/work/search_obj.py; sed -n '1,300p' /app/work/refine_obj.py; sed -n '1,
+- python - <<'PY' import json,glob,os for p in glob.glob('/app/data/instances/*'):  id=os.path.basename(p); c=json.load(op
+- ls /opt/conda/src 2>/dev/null; find /opt -path '*ObjCryst*' -name 'PowderPattern.cpp' -o -name 'Molecule.cpp' -o -name '
+- sed -n '1,320p' /app/work/gallop_prepare.py; sed -n '1,320p' /app/work/search_gallop.py; sed -n '1,300p' /app/work/impor
+- head -80 /app/work/Xd8634a2/base.xml; python - <<'PY' import os,json,glob for id in ['X263b09a','X8a06d7a','X14a2b08','X
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' import pyobjcryst.powderpattern as pp from pyobjcryst.io import
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' from pyobjcryst.io import xml_cryst_file_load_all_object O=xml_
+- rg -n 'Extract|Intensity|Scale|Corr|Texture|HKL|Iobs|Profile|Par' /app/work/X13023e3/base.xml | tail -35; OPENBLAS_NUM_T
+- for id in X35b7fbc X13023e3 Xfca9f3c Xdcc971e X8a6f5a8; do echo ==$id; ls -lt /app/work/$id | head -6; done; tail -10 /a
+- rg -n 'GetFhklObs|SetFhkl|GetProfile|Get.*Corr|Get.*Mult|mFhklObs|CalcPowderPattern|GetIntegrated' /opt/conda/include/Ob
+- sed -n '305,505p' /opt/conda/include/ObjCryst/ObjCryst/PowderPattern.h; sed -n '760,840p' /opt/conda/include/ObjCryst/Ob
+- sed -n '495,610p' /opt/conda/include/ObjCryst/ObjCryst/PowderPattern.h; sed -n '820,950p' /opt/conda/include/ObjCryst/Ob
+- rg -n 'Bump.*Scale|Scale.*Bump|BumpMerge' /opt/conda/include/ObjCryst/ObjCryst/Crystal.h; rg -n 'mMultiplicity' /opt/con
+- ls /opt/conda/lib/pkgconfig/*obj*; cat /opt/conda/lib/pkgconfig/libobjcryst.pc 2>/dev/null; grep -R 'REAL=double' /opt/c
+- g++ -std=c++17 -fPIC -shared -O2 -DREAL=double -I/opt/conda/include -o /app/work/obj_bridge.so /app/work/obj_bridge.cpp 
+- python - <<'PY' p='/app/work/obj_bridge.cpp';s=open(p).read();s='#include <bits/stdc++.h>\n#define private public\n'+s;s
+- sed -n '1,260p' /opt/conda/lib/python3.11/site-packages/gallop/chi2.py; sed -n '1,260p' /opt/conda/lib/python3.11/site-p
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 PYTHONPATH=/app/work python - <<'PY' from pyobjcryst.io import xml_cryst_file_l
+- mv /app/work/obj_bridge.so /app/work/libobj_bridge.so; sed -i s@/app/work/obj_bridge.so@/app/work/libobj_bridge.so@ /app
+- rg -n 'def minimise|restraint|chi_2|loss' /opt/conda/lib/python3.11/site-packages/gallop/optim/local.py | head -85; tail
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/submit.py Xfca9f3c /app/work/Xfca9f3c/refined_10.cif --check; 
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/submit.py Xfca9f3c /app/work/Xfca9f3c/refined_10.cif; cp /app/
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/collect_candidates.py X1db5091 X8a6f5a8 Xebbd488 X7e382cb Xb70
+- cat /app/work/collect_candidates.py; cat /app/work/parse_index_log.py; tail -15 /app/work/X8a6f5a8/peaks_raw.json; head 
+- python - <<'PY' import json for id in ['X8a6f5a8','Xebbd488','X1db5091','X7e382cb','Xb7088cf','Xedd9c7b']:  print('\n'+i
+- python - <<'PY' import json for id in ['X263b09a','X14a2b08','X8a06d7a','X1db5091']:  print(id,[round(x['two_theta'],4) 
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 PEAK_FILE=peaks.json TRIALS=2 MAXITER=350 NPEAK=20 INDEX_TAG=de_test INDEX_TIME
+- head -100 /app/work/repick.py; ls /app/work/X263b09a/peaks_raw.json /app/work/X14a2b08/peaks_raw.json /app/work/X8a06d7a
+- python - <<'PY' import json for id in ['X14a2b08','X263b09a','X8a06d7a']:  print('\n',id)  for i,p in enumerate(json.loa
+- python - <<'PY' import json sels={ 'X263b09a':[1,7,9,10,12,13,14,15,17,18,19,20,21,22,23,25,26,27,28,30,32,34,35,36,38,4
+- ls /app/work/X1a56c78; cat /app/work/X1a56c78/base.xml | head -15; tail -20 /app/work/X1a56c78/search1.log 2>/dev/null; 
+- tail -10 /app/work/X35b7fbc/search2.log; tail -10 /app/work/X13023e3/refine_2.log; tail -10 /app/work/Xdcc971e/alltrans_
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/submit.py X13023e3 /app/work/X13023e3/refined_2.cif --check; c
+- cp /app/work/Xd4c1a35/base.xml /app/work/Xd4c1a35/base_old.xml; OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/wor
+- date -u; for p in /proc/[0-9]*/cmdline; do x=$(tr '\0' ' ' <$p 2>/dev/null); case "$x" in *'python /app/work/'*) echo ${
+- cat /proc/6853/stat; cat /proc/6853/status | head -24; ls -la /app/work/Xd4c1a35/search_1; ls -l /app/work/Xd4c1a35/sear
+- kill 6259 4266 6853 2>/dev/null || true cat > /app/work/queue_structures_C_new.sh <<'SH' export OPENBLAS_NUM_THREADS=1 O
+- cat /app/work/X1a56c78/analysis.log; head -80 /app/work/X1a56c78/translations_1.json; tail -5 /app/work/X1db5091/de_raw.
+- # Stop the exploratory DE queue; X1db was valid, subsequent IDs hit cached-global data in numba. children=$(cat /proc/68
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/fit_candidate.py X7e382cb 0 .32 > /app/work/X7e382cb/fit_0.log
+- rg -n 'Center|Centre|Rigid|Dummy' /opt/conda/include/ObjCryst/ObjCryst/Molecule.h | head -90; OPENBLAS_NUM_THREADS=1 OMP
+- sed -n '1035,1075p' /opt/conda/include/ObjCryst/ObjCryst/Molecule.h; sed -n '1235,1270p' /opt/conda/include/ObjCryst/Obj
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 TRIALS=1 SEARCH_TIME=50 python /app/work/solve_half_biphenyl.py > /app/work/X7e
+- cat /app/TOOLS.md && echo '---' && ls /app/work | head -60 && echo '---' && cat /app/data/instances.json && echo '---pro
+- ls /app/work/*py; sed -n '1,250p' /app/work/solve_half_biphenyl.py; cat /app/work/queue_structures_A2.sh /app/work/queue
+- tail -60 /app/work/X7e382cb/half_solve.log; cat /app/work/X7e382cb/half_best.json; tail -30 /app/work/queue_C_new.log; t
+- cat /app/work/Zprime_notes.txt; sed -n '1,280p' /app/work/fit_candidate.py; sed -n '1,260p' /app/work/refine_obj.py; sed
+- for id in X35b7fbc Xd4c1a35 X2327841 Xe1fb77b Xbfeeda9; do echo ---$id; tail -15 /app/work/$id/search*.log /app/work/$id
+- cat /app/work/obj_bridge.py; cat /app/work/obj_bridge.cpp; sed -n '1,260p' /app/work/obj_model.py; sed -n '1,180p' /app/
+- ls -l /app/work/X35b7fbc | tail -12; tail -n 20 /app/work/X35b7fbc/search2.log; tail -n 20 /app/work/X2327841/alltrans_s
+- head -120 /app/work/index_de.py; cat /app/work/queue_index_de2.sh; sed -n '1,150p' /app/work/index_one.py; ls -lh /app/w
+- python - <<'PY' import glob,os for p in glob.glob('/proc/[0-9]*'):  try:   cmd=open(p+'/cmdline','rb').read().replace(b'
+- cp /app/work/solve_half_biphenyl.py /app/work/solve_half_biphenyl_v1.py; python - <<'PY' p='/app/work/solve_half_bipheny
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' from pymatgen.core import Lattice import json,numpy as np for i
+- tail -n 12 /app/work/X7e382cb/half30.log; cat /app/work/X7e382cb/half30_best.json 2>/dev/null; tail -n 10 /app/work/Xb70
+- cat /app/work/search_gallop.py; cat /app/work/import_gallop.py; cat /app/work/antibump.py; sed -n '1,160p' /app/work/raw
+- cat /app/work/preprocess.py; cat /app/work/repick.py; ls /app/work/X8a6f5a8; for id in X8a6f5a8 Xebbd488 Xb7088cf Xedd9c
+- for id in X8a6f5a8 Xebbd488; do echo ---$id; cat /app/work/$id/peak_select.json /app/work/$id/peak_select_raw.json; tail
+- python - <<'PY' import json for id in ['X8a6f5a8','Xebbd488','X1db5091','Xb7088cf','Xedd9c7b','X8a06d7a']:  print('\n'+i
+- head -n 3 /app/work/X1db5091/index_MONOCLINIC_P_0.log; tail -n 5 /app/work/X1db5091/index_MONOCLINIC_P_0.log; head -n 3 
+- cat /app/work/X7e382cb/peak_select_raw.json /app/work/X7e382cb/peak_select.json; python - <<'PY' import json,numpy as np
+- python - <<'PY' import json w='/app/work/X7e382cb';j=json.load(open(w+'/fit_0.json'));cp=j['cell'][:];cp[2]*=2;j.update(
+- kill 5335; nohup bash /app/work/index1db_raw_strict.sh > /app/work/indexstrict.log 2>&1 & echo $!; tail -n 8 /app/work/X
+- python - <<'PY' import json,glob,os for id in ['X14a2b08','X263b09a','X8a06d7a']:  print('\n',id)  for f in sorted(glob.
+- sed -i 's/for a in range(len(els)):/for a in range(len(xyz)):/' /app/work/solve_de.py OPENBLAS_NUM_THREADS=1 OMP_NUM_THR
+- python - <<'PY' import json,glob,os ids=json.load(open('/app/data/instances.json'))['ids'] for id in ids:  W='/app/work/
+- tail -n 5 /app/work/Xdcc971e/de11.log; tail -n 4 /app/work/X7e382cb/half30.log; tail -n 5 /app/work/Xedd9c7b/index_raw_M
+- mkdir -p /app/work/X7e382cb/half_base; cp /app/work/X7e382cb/{base.xml,base_profile.xye,lattice.json,lebail.npz} /app/wo
+- python - <<'PY' import json for id in ['X8a06d7a','X263b09a','X14a2b08']:  print('\n'+id)  ps=json.load(open('/app/work/
+- cp /app/work/X7e382cb/fit_double0.xml /app/work/X7e382cb/base.xml python - <<'PY' import json W='/app/work/X7e382cb';cp=
+- cat > /app/work/queue_dealk.sh <<'SH' export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 while [[ -r /proc/8405/status ]] &
+- cp /app/work/index_de.py /app/work/index_de_v1.py python - <<'PY' p='/app/work/index_de.py';s=open(p).read();s=s.replace
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 SEARCH_TIME=60 PARTICLES=64 ITERATIONS=250 GALLOP_STOL=.23 nohup nice -n 9 pyth
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' import sys,os,numpy as np sys.path.insert(0,'/app/work') from p
+- python - <<'PY' p='/app/work/solve_de.py';s=open(p).read();needle="# Variable maps: one fractional translation per fragm
+- python - <<'PY' p='/app/work/solve_de.py';s=open(p).read();s=s.replace("sc=next(o for o in so if o.GetClassName()=='Crys
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' from pyobjcryst.molecule import MolBond,MolBondAngle,Molecule p
+- cat /app/work/X13023e3/check_g12.log; tail -n 8 /app/work/Xdcc971e/deaxis.log; tail -n 6 /app/work/Xdcc971e/de11.log; ta
+- cat /sys/fs/cgroup/cpu.max; cat /sys/fs/cgroup/cpuset.cpus.effective; cat /sys/fs/cgroup/memory.current; cat /sys/fs/cgr
+- cat /app/work/X13023e3/check_g12.log; tail -n 8 /app/work/Xfca9f3c/decheck2.log; tail -n 3 /app/work/Xdcc971e/refine_10h
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' import sys,json,numpy as np from pyobjcryst.io import xml_cryst
+- cp /app/work/refine_obj.py /app/work/refine_obj_v2.py python - <<'PY' p='/app/work/refine_obj.py';s=open(p).read();key="
+- for p in 5100 8306 7989 8407 7958 8545; do test -r /proc/$p/status && { grep -E '^(State|Pid|PPid):' /proc/$p/status; tr
+- grep -E 'STARTFIT|DONE|GROUPS' /app/work/Xebbd488/fit_rawC0.log; tail -n 4 /app/work/Xebbd488/fit_1.log /app/work/Xebbd4
+- for p in 8306 5191 7272 4263 8545 9704; do echo $p; cat /proc/$p/task/$p/children 2>/dev/null; echo; done; tail -n 3 /ap
+- tr '\0' ' ' < /proc/9670/cmdline; echo; tail -n 5 /app/work/Xeb393f9/search1.log; ls /app/work/Xedd9c7b/index_raw*partia
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' import json,numpy as np from pymatgen.core import Lattice id='X
+- cat > /app/work/queue_complete2d.sh <<'SH' export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 NSPUR=2 VMIN=1050 VMAX=1700 P
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' from pyobjcryst.io import xml_cryst_file_load_all_object O=xml_
+- grep -R -nE 'scattering|ignore_H_atoms|H_atom' /opt/conda/lib/python3.11/site-packages/gallop/tensor_prep.py /opt/conda/
+- sed -n '70,125p' /opt/conda/lib/python3.11/site-packages/gallop/structure.py; sed -n '365,470p' /opt/conda/lib/python3.1
+- sed -n '1,230p' /opt/conda/lib/python3.11/site-packages/gallop/intensities.py; sed -n '286,353p' /opt/conda/lib/python3.
+- cat /app/TOOLS.md; echo '-----'; ls -l /app/work; echo '--results--'; ls /app/results/submission; echo '--procs--'; for 
+- cat /app/work/summary.json; cat /app/work/Zprime_notes.txt; echo '====2D==='; for id in X14a2b08 X8a06d7a X263b09a; do e
+- OPENBLAS_NUM_THREADS=1 python - <<'PY' import json,glob,os for id in ('X14a2b08','X8a06d7a','X263b09a'):  print(id)  for
+- cat /app/work/fit_candidate.py; cat /app/work/gallop_prepare.py; echo '--- latest searches ---'; for f in /app/work/{Xe1
+- cat /app/work/refine_obj.py; cat /app/work/obj_model.py; echo '--cpu nice--'; for pid in 9909 8971 9561 9670 9976 10072 
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' import inspect,gallop.structure,gallop.tensor_prep,gallop.inten
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' import json for id in ('X14a2b08','X8a06d7a','X263b09a'):  W='/
+- for id in Xfca9f3c Xdcc971e X2327841; do [ -e /app/work/$id/refined_10t.cif ] && OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/submit.py Xd4c1a35 /app/work/Xd4c1a35/refined_2.cif --check; t
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' from pyobjcryst._pyobjcryst import LSQ from pyobjcryst.molecule
+- find /opt /usr/local -path '*ObjCryst*' -o -name 'Molecule.cpp' -o -name 'LSQNumObj.cpp' 2>/dev/null | head -50; find /o
+- grep -n -A18 -B8 -E 'SetRefinedObj|enableRestraints|Restraint|BeginOptimization' /opt/conda/include/ObjCryst/RefinableOb
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' import sys,numpy as np sys.path.insert(0,'/app/work') from pyob
+- grep -n -A8 -B6 'BeginOptimization\|GetLSQ' /opt/conda/include/ObjCryst/ObjCryst/Molecule.h | head -90; find /app /opt -
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' from pyobjcryst.io import xml_cryst_file_load_all_object from p
+- cp /app/work/refine_obj.py /app/work/refine_obj_v3.py python - <<'PY' p='/app/work/refine_obj.py' s=open(p).read().repla
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' from gallop.tensor_prep import get_dw_factors import inspect pr
+- python - <<'PY' p='/app/work/refine_obj.py';s=open(p).read().replace('lsq.PrepareRefParList(False)','lsq.PrepareRefParLi
+- cat /app/work/create_base.py; cat /app/work/make_base.py; cat /app/work/queue_structures_C_new.sh; tail -12 /app/work/X1
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' from pyobjcryst.io import xml_cryst_file_load_all_object import
+- cp /app/work/search_gallop.py /app/work/search_gallop_v1.py python - <<'PY' p='/app/work/search_gallop.py';s=open(p).rea
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/submit.py X13023e3 /app/work/X13023e3/refined_g12free.cif --ch
+- cp /app/work/refine_obj.py /app/work/refine_obj_v4.py python - <<'PY' p='/app/work/refine_obj.py';s=open(p).read().repla
+- OPENBLAS_NUM_THREADS=1 python - <<'PY' import json,glob for id in ['Xedd9c7b','Xb7088cf','X1db5091','X8a6f5a8','Xebbd488
+- cat /app/work/repick.py; cat /app/work/search_obj.py; tail -10 /app/work/X7e382cb/refine_g21.log; tail -10 /app/work/Xd4
+- cat /app/work/X7e382cb/import_g21.log; tail -12 /app/work/X7e382cb/gallop22.log; cat /app/work/queue_next_small.sh; cat 
+- rg '^def (DoIndexPeaks|findBestCell|ran|rot|find)' /opt/g2/GSAS-II/GSASII/GSASIIindex.py; sed -n '/def DoIndexPeaks(/,+1
+- OPENBLAS_NUM_THREADS=1 python - <<'PY' from pymatgen.core import Lattice import json,numpy as np,spglib for id in ['X7e3
+- cat /app/work/solve_half_biphenyl.py; cat /app/work/solve_de.py; cat /app/work/X7e382cb/gallop_22/best.json; tail -8 /ap
+- touch /app/work/X7e382cb/gallop_22/STOP cat > /app/work/queue_twocentre.sh <<'SH' export OPENBLAS_NUM_THREADS=1 OMP_NUM_
+- python - <<'PY' import json for i in (0,1,2):  j=json.load(open('/app/work/Xb7088cf/fit_raw%d.json'%i));print('CANDIDATE
+- for x in 'X263b09a 2d0' 'X8a06d7a 2d1';do set -- $x; OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/adopt_fit
+- grep -n -e Scale -e Extraction -e Fhkl -e SpaceGroup /app/work/X263b09a/fit_2d0.xml | head -15; grep -n -e 'nan' /app/wo
+- python - <<'PY' p='/app/work/adopt_fit.py';s=open(p).read().replace("if sg!=c.GetSpaceGroup().GetName():", "if gemmi.fin
+- for id in X13023e3 Xfca9f3c X2327841 Xdcc971e Xe3a2935 Xf8ac963;do OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' import inspect from gallop.structure import Structure from gall
+- cat /app/TOOLS.md && echo '---INSTANCES---' && cat /app/data/instances.json && echo '---WORK---' && ls /app/work | head 
+- for i in X263b09a X8a06d7a X1db5091; do echo ---$i---; tail -4 /app/work/$i/de_ext.log; python -c "import json;d=json.lo
+- cat /app/work/search_gallop.py; echo '---refine---'; cat /app/work/refine_obj.py
+- for p in 5191 4263 7272 8306 8838 9939 11568 11683; do echo ---$p---; cat /proc/$p/status 2>/dev/null | head -3; cat /pr
+- python - <<'PY' import json,glob,os from pymatgen.core import Lattice from rdkit import Chem from rdkit.Chem import Desc
+- cat /app/work/gallop_prepare.py && cat /app/work/submit.py && cat /app/work/search_obj.py
+- for i in X13023e3 Xbfeeda9 Xe1fb77b Xeb393f9 X7e382cb Xd4c1a35; do echo =====$i; case $i in X13023e3) f=gallop11.log;; X
+- ls -lt /app/work/X8a6f5a8 /app/work/Xebbd488 /app/work/Xedd9c7b /app/work/X1db5091 | head -150; cat /app/work/index_de.p
+- grep -n 'STOP\|SEARCH_TIME\|for batch\|while' /app/work/solve_twocentres.py; OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 py
+- cat /app/work/obj_bridge.py && cat /app/work/solve_twocentres.py && ls /app/work/*peak*.py /app/work/*index*.py && for i
+- cat /app/work/obj_bridge.cpp; for i in Xedd9c7b X8a6f5a8 Xebbd488; do echo ==== $i; cat /app/data/instances/$i/instrumen
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/contacts.py /app/work/Xd4c1a35/refined_2freeh.cif; pyt
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/submit.py Xd4c1a35 /app/work/Xd4c1a35/refined_2freeh.c
+- sed -n '1,240p' /app/work/index_one.py; echo ====; sed -n '1,220p' /app/work/repick.py; echo ==== GSAS; rg -n '^def (DoI
+- python - <<'PY' import json,os for i in ['Xedd9c7b','X8a6f5a8','Xebbd488','X1db5091']:  print('\n===== ',i)  W='/app/wor
+- cat /app/work/complete_2d.py && cat /app/work/queue_index_ext.sh && ls -l /app/work/X8a6f5a8/fit*json /app/work/Xebbd488
+- head -20 /opt/g2/GSAS-II/GSASII/GSASIIindex.py; cat > /app/work/gsas_index.py <<'PY' import os,sys,json,time,copy,numpy 
+- cat /app/work/Xedd9c7b/gsas_test.log; sed -i "s/import GSASIIindex as gi/from GSASII import GSASIIindex as gi/;s/import 
+- tail -20 /app/work/Xedd9c7b/gsas_test.log; tail -5 /app/work/X13023e3/gallop11.log; tail -5 /app/work/Xe1fb77b/refine_2.
+- cat /app/work/index1db_raw_strict.sh; for p in 5191 4263 7272 8306 8838 9939 12401 12403 12602; do printf '%s ' $p; grep
+- cat /app/work/restore_cif.py; cat /app/work/obj_model.py | head -220; cat /app/work/eval_cif.py; echo '---active---'; py
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import gallop.optim.local as l,inspect print(l.__file__
+- sed -n '1,130p' /opt/conda/lib/python3.11/site-packages/gallop/chi2.py; grep -n 'def calculate_intensities' /opt/conda/l
+- date -u; cat /proc/uptime; for p in 8971 9670 9976 10494 11784; do echo $p; cat /proc/$p/stat; done; ls -l --time-style=
+- python - <<'PY' import json W='/app/work/X1db5091';p=json.load(open(W+'/peaks_raw.json'));sel=json.load(open(W+'/peak_se
+- cp /app/work/search_gallop.py /app/work/search_gallop_v2.py; python - <<'PY' p='/app/work/search_gallop.py';s=open(p).re
+- python - <<'PY' import json W='/app/work/X1db5091';d=json.load(open(W+'/index_2d_large.json')) for i,s in enumerate(d[:2
+- kill 11784 2>/dev/null || true; python - <<'PY' p='/app/work/gallop_prepare.py';s=open(p).read().replace('rank=run,rigid
+- tail -6 /app/work/X1db5091/fit_plane0.log; cat /app/work/zmcheck.log; cat /proc/8838/status 2>/dev/null | head -3; cat /
+- cat /app/work/zmcheck.log; cat /proc/13332/status 2>/dev/null | head -3; python - <<'PY' import json,glob for i in ['Xd8
+- sed -n '60,205p' /opt/conda/lib/python3.11/site-packages/gallop/intensities.py; sed -n '205,305p' /opt/conda/lib/python3
+- python - <<'PY' import json,os,glob for i in ['Xd8634a2','X1a56c78','X35b7fbc','Xbfeeda9','X7e382cb','X019b9a4']:  print
+- cat /app/data/instances/Xd8634a2/instrument.json; tail -8 /app/work/Xd8634a2/gallop11.log; cat /app/work/X13023e3/gallop
+- sed -n '360,434p' /opt/conda/lib/python3.11/site-packages/gallop/tensor_prep.py; sed -n '10,67p' /opt/conda/lib/python3.
+- sed -n '485,596p' /opt/conda/lib/python3.11/site-packages/gallop/structure.py; grep -n -A8 -B3 'else:' /opt/conda/lib/py
+- cat /app/work/import_gallop.py; sed -n '396,470p' /opt/conda/lib/python3.11/site-packages/gallop/structure.py; sed -n '3
+- cat /app/work/adopt_fit.py; tail -3 /app/work/X1db5091/fit_plane3.log 2>/dev/null; ls /app/work/X1db5091/fit_plane*json 
+- python - <<'PY' import json W='/app/work/X1db5091' for i in range(8):  d=json.load(open(W+f'/fit_plane{i}.json'));gr=[g 
+- date -u; cat /app/TOOLS.md; ls /app/work; ls /app/results/submission
+- for p in 5191 12401 7272 8306 12403 12769 9939 13235; do echo PID=$p; grep '^State' /proc/$p/status 2>/dev/null; cat /pr
+- for f in /app/work/X13023e3/gallop11.log /app/work/Xeb393f9/search1.log /app/work/Xd8634a2/gallop11.log /app/work/Xbfeed
+- cat /app/work/summary.json; sed -n '1,260p' /app/work/fit_candidate.py; cat /app/work/adopt_fit.py; sed -n '1,250p' /app
+- sed -n '1,300p' /app/work/search_gallop.py; cat /app/work/import_gallop.py; cat /app/work/gallop_packing.py; cat /app/wo
+- cat /app/work/complete_2d_general.py; cat /app/work/X1db5091/peak_select_complete.json; cat /app/work/X1db5091/fit_plane
+- head -120 /app/work/X1db5091/index_2d_large.json; tail -25 /app/work/X1db5091/complete_large.log; cat /app/work/queue_fi
+- cat /app/work/Xedd9c7b/peak_select_raw.json; cat /app/work/index_metric.py; cat /app/work/index_one.py; cat /app/work/re
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' import json,numpy as np w='/app/work/X1db5091';p=json.load(open
+- python - <<'PY' p='/app/work/gallop_prepare.py' s=open(p).read();s=s.replace("s.get_total_degrees_of_freedom(verbose=Tru
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/contacts.py /app/work/X13023e3/refined_g11.cif; OPENBLAS_NUM_T
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/submit.py X13023e3 /app/work/X13023e3/refined_g11.cif --check;
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' import inspect from gallop.optim import local from gallop impor
+- for id in Xd8634a2 X1a56c78 X019b9a4 X238783d Xbfeeda9 X4f6fe58 Xe1fb77b X3f4781b X9af54a2;do echo ==== $id;cat /app/dat
+- sed -n '1,260p' /app/work/X1a56c78/analysis.log; head -140 /app/work/X1a56c78/translations_1.json; rg 'sg_number' /opt/c
+- cat /app/data/instances/X07806d9/composition.json; cat /app/data/instances/Xbfc6d2c/composition.json; cat /app/data/inst
+- nohup env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 nice -n 10 python /app/work/complete_plane_mono.py X1db5091 > /app/wo
+- cat > /app/work/queue_improve_D4.sh <<'SH' export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 while [[ -r /proc/9939/status
+- tail -10 /app/work/X1db5091/complete_planemono.log; OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' import json
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' import json,gemmi w='/app/work/X1db5091';o=json.load(open(w+'/c
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' import json for sid in ['X8a6f5a8','Xebbd488']:  print('\n===='
+- cat > /app/work/queue_zones.sh <<'SH' export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 NPEAK=25 NLOW=14 NEED=10 TTHERR=.0
+- cp /app/work/search_gallop.py /app/work/search_gallop_v3.py; python - <<'PY' p='/app/work/search_gallop.py';s=open(p).re
+- sed -n '1,270p' /app/work/search_obj.py; cat /app/work/X4f6fe58/base.log | tail -20; head -23 /app/work/X4f6fe58/fit_0.j
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' import sys sys.path.insert(0,'/app/work') from pyobjcryst.io im
+- cp /app/work/X4f6fe58/base.xml /app/work/X4f6fe58/base_old.xml; nohup env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MAX_S
+- tail -8 /app/work/X4f6fe58/basefresh.log; OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' from pyobjcryst.io im
+- rg -n -e 'Scale' -e 'sigma' -e 'Zero' -e 'nan' /app/work/X4f6fe58/base.xml | head -18; tail -12 /app/work/X4f6fe58/base.
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' import sys sys.path.insert(0,'/app/work') from pyobjcryst.io im
+- python - <<'PY' p='/app/work/gallop_prepare.py';s=open(p).read();old="d=p.GetPowderPatternComponent(0);d.SetExtractionMo
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' from pyobjcryst.crystal import Crystal from pyobjcryst.molecule
+- sed -n '25,54p' /app/work/X3f4781b/base.xml; sed -n '25,54p' /app/work/X14a2b08/base.xml; OPENBLAS_NUM_THREADS=1 OMP_NUM
+- python - <<'PY' s=open('/app/work/create_base.py').read();s=s.replace("c=Crystal(*cp[:3],*np.deg2rad(cp[3:]),sg);c.SetNa
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' import json,numpy as np from pymatgen.core import Lattice w='/a
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' import sys,numpy as np sys.path.insert(0,'/app/work') from pyob
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' import matplotlib;matplotlib.use('Agg');import matplotlib.pyplo
+- cat /app/work/obj_bridge.cpp; sed -n '80,120p' /opt/conda/lib/python3.11/site-packages/gallop/intensities.py; OPENBLAS_N
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' import sys,numpy as np sys.path.insert(0,'/app/work');from pyob
+- cp /app/work/obj_bridge.py /app/work/obj_bridge_v1.py; python - <<'PY' p='/app/work/search_obj.py';s=open(p).read();s=s.
+- ls /app/work/X8a6f5a8/fit*json; for f in /app/work/X8a6f5a8/fit_raw*.json /app/work/Xebbd488/fit_raw*.json;do echo ==== 
+- ls /app/work | head; cat /app/TOOLS.md; echo '---'; ls /app/results/submission/ | wc -l
+- cat /app/work/Zprime_notes.txt; echo '---processes'; for pid in 5191 15174 12401 7272 8306 9939 14467 12769 15422; do if
+- sed -n '1,260p' /app/work/index_axial.py; echo '---queue'; cat /app/work/queue_moreindex.sh /app/work/queue_gallop_A3.sh
+- for pid in 15974 13143 13933 15998 15791; do [ -r /proc/$pid/cmdline ] && echo $pid $(tr '\0' ' ' </proc/$pid/cmdline); 
+- kill 15791 12769 2>/dev/null || :; OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/submit.py Xeb393f9 /app/wor
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/submit.py Xeb393f9 /app/work/Xeb393f9/refined_1.cif; head -200
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 VMIN=1750 VMAX=3450 VTARGET=2500 timeout 180 python /app/work/index_axial.py Xe
+- ls /app/work/Xedd9c7b/*png /app/work/X8a6f5a8/*png /app/work/Xebbd488/*png; cat /app/work/Xedd9c7b/axial61.log; tail -8 
+- python - <<'PY' import json for i in range(5):  d=json.load(open(f'/app/work/X8a6f5a8/fit_metric{i}.json'));print(i,[(g[
+- sed -n '1,240p' /app/work/repick.py; cat /app/work/gsas_index.py; sed -n '1,220p' /app/work/index_metric.py; sed -n '1,2
+- sed -n '1,300p' /app/work/search_gallop.py; sed -n '1,260p' /app/work/gallop_packing.py; head -200 /app/work/obj_model.p
+- sed -n '1,300p' /app/work/gallop_prepare.py; echo '---'; ls /app/work/X35b7fbc/*log; tail -8 /app/work/X35b7fbc/search*l
+- head -18 /app/work/Xd8634a2/gallop11.log; echo '--- other'; for id in X019b9a4 Xe1fb77b X238783d Xbfeeda9 X35b7fbc; do e
+- sed -n '1,260p' /app/work/obj_bridge.py; sed -n '1,220p' /app/work/complete_2d_general.py; echo '---orderCPU'; python - 
+- for pid in 9939 14467; do [ -r /proc/$pid/status ] && echo $pid $(grep '^State:' /proc/$pid/status) child$(cat /proc/$pi
+- python - <<'PY' import json,glob for f in glob.glob('/app/work/Xedd9c7b/fit_[0-9].json'):  d=json.load(open(f));print(f,
+- head -30 /app/work/Xedd9c7b/find_zones.log; head -30 /app/work/X8a6f5a8/find_zones.log; tail -4 /app/work/Xf8ac963/refin
+- python - <<'PY' import json for n in [0,1,2]:  d=json.load(open('/app/work/X8a6f5a8/candidates_metric.json'))[n];print(n
+- python - <<'PY' import json,glob,numpy as np from pymatgen.core import Lattice W='/app/work/Xedd9c7b';rows=[] for f in g
+- cat /app/work/hydrogen_prefix.py; echo '---refine funcs'; sed -n '1,280p' /app/work/refine_obj.py; tail -6 /app/work/X26
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 for id in X07806d9 Xbfc6d2c Xe3a2935 Xf8ac963 X3c176e2; do if [ -f /app/
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' import gemmi,numpy as np from pymatgen.core import Structure fr
+- python - <<'PY' import json,shutil,gemmi for sid in ['X07806d9','Xbfc6d2c','Xe3a2935','Xf8ac963','X3c176e2']:  f='/app/w
+- cat > /app/work/queue_gallop_A4.sh <<'SH' export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 while [[ -r /proc/15174/status
+- python - <<'PY' import json for tag in ['zero0','zero2','zero6']:  d=json.load(open('/app/work/Xedd9c7b/fit_'+tag+'.json
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' import json,numpy as np,gemmi from pymatgen.core import Lattice
+- echo 14467 children $(cat /proc/14467/task/14467/children); tail -2 /app/work/Xd8634a2/gallop11.log; tail -2 /app/work/X
+- kill 14467 cat > /app/work/queue_gallop_D5.sh <<'SH' export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 while [[ -r /proc/1
+- tail -3 /app/work/X8a6f5a8/fit_axis3.log; tail -3 /app/work/X8a6f5a8/fit_axis7.log; tail -3 /app/work/Xedd9c7b/basefresh
+- cp /app/work/find_zones.py /app/work/find_zones_v1.py python - <<'PY' p='/app/work/find_zones.py';s=open(p).read();s=s.r
+- ls /app/work/X7e382cb/gallop_*; echo '----'; for f in /app/work/X7e382cb/gallop*/best.json; do echo $f; cat $f; done; ls
+- cat /app/data/instances/X7e382cb/instrument.json; head -10 /app/work/X8a6f5a8/zones_small.log; echo '---G7cell'; cat /ap
+- python - <<'PY' import json D=json.load(open('/app/work/X8a6f5a8/zones_small.json')) for i,d in enumerate(D[:50]):print(
+- python - <<'PY' import json sid='X8a6f5a8';d=json.load(open('/app/work/'+sid+'/fit_axis3.json'));json.dump(dict(cell=dic
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' import inspect from gallop import tensor_prep,zm_to_cart print(
+- grep -n '^def' /opt/conda/lib/python3.11/site-packages/gallop/tensor_prep.py /opt/conda/lib/python3.11/site-packages/gal
+- sed -n '231,268p' /opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py; sed -n '294,438p' /opt/conda/lib/python3
+- cp /app/work/search_gallop.py /app/work/search_gallop_v4.py python - <<'PY' p='/app/work/search_gallop.py';s=open(p).rea
+- cp -r /app/work/X4f6fe58/gallop_11 /app/work/X4f6fe58/gallop_31 rm -f /app/work/X4f6fe58/gallop_31/STOP cat > /app/work/
+- python - <<'PY' import json p=json.load(open('/app/work/X8a6f5a8/peaks_raw.json')) for i,x in enumerate(p[:70],1):print(
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' import json,numpy as np,gemmi from pymatgen.core import Lattice
+- python - <<'PY' import json sid='X8a06d7a';d=json.load(open('/app/work/'+sid+'/lattice.json'))['cell'];v=dict(cell=[d['b
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/contacts.py /app/work/X13023e3/gallop_31/best.cif | head -15; 
+- cp -r /app/work/X13023e3/gallop_31 /app/work/X13023e3/gallop_41 cat > /app/work/refine_snapshot130.sh <<'SH' export OPEN
+- cat > /app/work/queue_methoxy4.sh <<'SH' export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/enumerate_meth
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/submit.py X13023e3 /app/work/X13023e3/refined_g41.cif --check;
+- cp /app/work/enumerate_methoxy.py /app/work/enumerate_methoxy_v1.py python - <<'PY' p='/app/work/enumerate_methoxy.py';s
+- python - <<'PY' p='/app/work/enumerate_methoxy.py';s=open(p).read();start=s.index(' for i,o,j in r.GetSubstructMatches')
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' from gallop.structure import Structure s=Structure();s.from_jso
+- cat /app/work/import_gallop.py; head -40 /app/work/X13023e3/search_g41/model.json; grep -A36 -m1 '<Molecule ' /app/work/
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' import json,numpy as np,xml.etree.ElementTree as E from rdkit i
+- ls /app/work; cat /app/TOOLS.md; cat /app/work/Zprime_notes.txt
+- for p in 15174 15974 16777 12401 17538 16779 7272 13933 16742 17408 16582 17735 17739 18059; do echo ===$p; if test -r /
+- sed -n '1,280p' /app/work/refine_obj.py; sed -n '1,360p' /app/work/obj_model.py
+- cat /app/work/summary.json | head -100; cat /app/work/submit.py; cat /app/work/contacts.py; cat /app/work/queue_index8wi
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' from pyobjcryst.molecule import MolDihedralAngle print(MolDihed
+- cp /app/work/obj_model.py /app/work/obj_model_v2.py; cp /app/work/refine_obj.py /app/work/refine_obj_v5.py python - <<'P
+- sed -n '1,340p' /app/work/search_gallop.py; cat /app/work/gallop_packing.py; cat /app/work/import_gallop.py; cat /app/wo
+- tail -20 /app/work/X13023e3/refine_g41plan.log; for id in Xd4c1a35 X4f6fe58 X263b09a Xeb393f9; do echo ===$id; ls /app/w
+- for id in X4f6fe58 Xd4c1a35 X9af54a2 Xedd9c7b Xebbd488 X8a6f5a8 X7e382cb Xeb393f9 Xbfeeda9 Xd8634a2;do echo ===$id;cat /
+- nohup bash /app/work/queue_planarity.sh > /app/work/queue_planarity.log 2>&1 & echo $!; OPENBLAS_NUM_THREADS=1 OMP_NUM_T
+- echo ===Plan; tail -10 /app/work/Xeb393f9/refine_plan.log; echo ===new; find /app/work -maxdepth 2 -name 'refined_*.json
+- sed -n '1,330p' /app/work/gallop_prepare.py; cat /app/work/X4f6fe58/gallop_11/model.json | head -90; cat /app/work/X4f6f
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' import sys,json,numpy as np sys.path.insert(0,'/app/work') from
+- cat /app/work/Xeb393f9/check_plan.log; tail -6 /app/work/Xbfc6d2c/refine_plan.log; tail -6 /app/work/Xe3a2935/refine_pla
+- cat /app/work/enumerate_rotations.py; cat /app/work/X263b09a/refined_1.json; cat /app/work/X263b09a/refine_1.log | tail 
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' from rdkit import Chem import json for sid in ['Xd4c1a35','Xeb3
+- grep -E 'MaxSin|Lambda|2ThetaMin|2ThetaMax' /app/work/Xeb393f9/refined_plan.xml | head -25; tail -4 /app/work/Xe3a2935/r
+- cp /app/work/enumerate_rotations.py /app/work/enumerate_rotations_v1.py python - <<'PY' p='/app/work/enumerate_rotations
+- cat /app/work/Xeb393f9/pyr.log; tail -6 /app/work/Xeb393f9/refine_pyrm0.log; tail -6 /app/work/Xd4c1a35/refine_plan.log;
+- cat /app/work/X7e382cb/fit_double*.json | head -85; ls /app/work/X7e382cb; sed -n '1,250p' /app/work/solve_half_biphenyl
+- cat /app/work/X7e382cb/gallop_22/model.json | tail -65; ls /app/work/X8a6f5a8 | grep -E 'zone|plane'
+- cat /app/work/X7e382cb/tc1.log | tail -15; cat /app/work/X7e382cb/gallop22.log | tail -8; cat /app/work/X7e382cb/basefre
+- cp /app/work/gallop_packing.py /app/work/gallop_packing_v1.py python - <<'PY' p='/app/work/gallop_packing.py';s=open(p).
+- python - <<'PY' p='/app/work/gallop_packing.py';s=open(p).read();s=s.replace("exact=os.environ.get('EXACT_BUMP_IMAGES','
+- cat /app/work/X8a6f5a8/complete_axis0.log | head -75; cat /app/work/X8a6f5a8/peak_select_ext2.json; cat /app/work/X8a6f5
+- cat /app/data/instances/X8a6f5a8/instrument.json; sed -n '1,200p' /app/work/repick.py; cat /app/work/X8a6f5a8/peaks_raw.
+- python - <<'PY' import json p=json.load(open('/app/work/X8a6f5a8/peaks_raw.json')) for i in json.load(open('/app/work/X8
+- sed -n '1,320p' /app/work/complete_2d_general.py; sed -n '1,290p' /app/work/complete_2d.py; tail -8 /app/work/X4f6fe58/g
+- grep -n Xeb393f9 /app/work/queue_*.sh; cat /app/work/Xeb393f9/search1.log |tail -15; cat /app/work/Xeb393f9/check_pyrm{0
+- tail -8 /app/work/Xd4c1a35/refine_plan.log; cat /app/work/Xd4c1a35/check_plan.log |head -12; for id in Xbfc6d2c Xe3a2935
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' import gallop.tensor_prep as t,inspect from gallop.structure im
+- python - <<'PY' import json,glob,os for f in glob.glob('/app/data/instances/*/instrument.json'):  j=json.load(open(f));p
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' import inspect,gallop.zm_to_cart as z print(inspect.getsource(z
+- cp /app/work/gallop_prepare.py /app/work/gallop_prepare_v2.py; cp /app/work/import_gallop.py /app/work/import_gallop_v1.
+- tail -30 /app/work/Xeb393f9/warm50.log; ls -l /app/work/Xeb393f9/gallop_50; tail -6 /app/work/X13023e3/gallop31.log; tai
+- ls /app/work/X8a6f5a8/fit*json; grep -n 'metric' /app/work/queue_fit_metric8.sh; cat /app/work/X8a6f5a8/fit_metric2.json
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' import json,numpy as np,glob,itertools,gemmi from pymatgen.core
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' from gallop.tensor_prep import get_dw_factors from gallop.struc
+- python - <<'PY' p='/app/work/warm_gallop.py';s=open(p).read();s=s.replace("# An independent atomless Le Bail base, retai
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' import json,numpy as np,itertools,math p='/app/work/X8a6f5a8/in
+- touch /app/work/X13023e3/gallop_31/STOP OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/contacts.py /app/work/
+- nohup bash /app/work/queue_high130.sh > /app/work/queue_high130.log 2>&1 & echo $!; tail -8 /app/work/X13023e3/refine_g3
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/submit.py X13023e3 /app/work/X13023e3/refined_g31.cif; OPENBLA
+- cp /app/work/search_gallop.py /app/work/search_gallop_v5.py cat >> /app/work/gallop_moves.py <<'PY'  def heavy_initialis
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' import numpy as np,spglib,json from pymatgen.core import Lattic
+- cat /app/data/instances/X8a06d7a/composition.json; cat /app/work/X8a06d7a/fit_force_mono.json |head -30; ls /app/work/X8
+- for id in X263b09a X1db5091 X14a2b08 X1a56c78; do echo ===$id;cat /app/data/instances/$id/composition.json;done; tail -8
+- for id in X263b09a X1db5091 X14a2b08;do echo ===$id;cat /app/results/submission/$id.json;done OPENBLAS_NUM_THREADS=1 OMP
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/submit.py X263b09a /app/work/X263b09a/refined_1.cif --check; O
+- python - <<'PY' p='/app/work/warm_gallop.py';s=open(p).read();needle="s,_=prepare(sid,run,1,model_path=G+'/restart_model
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' import numpy as np,json,sys from pyobjcryst.io import xml_cryst
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/submit.py X7e382cb /app/work/X7e382cb/gallop_31/best.cif --che
+- python - <<'PY' p='/app/work/gallop_packing.py';s=open(p).read();s=s.replace("os.environ.get('BUMP_COEFF','12')", "os.en
+- for id in Xb7088cf X238783d X019b9a4 Xe1fb77b;do echo ===$id;cat /app/data/instances/$id/composition.json;done; tail -5 
+- cp /app/work/search_gallop.py /app/work/search_gallop_v6.py python - <<'PY' p='/app/work/search_gallop.py';s=open(p).rea
+- ls /app/work | head && cat /app/TOOLS.md && cat /app/work/Zprime_notes.txt
+- for p in 15174 16777 12401 16779 7272 16742 17408 18059 21574 22050 22512 23194; do echo ======$p; grep -E 'State|Name' 
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/submit.py Xd4c1a35 /app/work/Xd4c1a35/refined_g11.cif 
+- cat /app/work/search_gallop.py; cat /app/work/gallop_moves.py; ls /app/work/*/refined_g*.json | xargs -I{} sh -c 'echo -
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/submit.py Xd4c1a35 /app/work/Xd4c1a35/refined_g11.cif;
+- cat /app/work/gallop_packing.py; cat /app/work/obj_model.py | head -150; cat /app/work/queue_heavy4.sh; cat /app/work/so
+- cat /app/work/index_metric.py; cat /app/work/queue_fit_metric8.sh; cat /app/work/fit_candidate.py; cat /app/work/X8a6f5a
+- ls /app/work | grep -E 'half|centre|biphen|special|center'; cat /app/work/queue_twocentre.sh; cat /app/work/X7e382cb/tc1
+- cat /app/work/solve_twocentres.py; sed -n '1,250p' /app/work/solve_half_biphenyl.py; cat /app/work/gallop_prepare.py
+- cat /app/work/obj_bridge.py; tail -n 7 /app/work/Xd4c1a35/refine_ghigh.log; ls /app/work/X8a6f5a8/index_wide*.json -l; p
+- cat > /app/work/audit_zm.py <<'PY' import os,sys,json,numpy as np,torch from gallop.structure import Structure from gall
+- cat /app/work/import_gallop.py; cat /app/work/warm_gallop.py; cat /app/work/gallop_patch.py 2>/dev/null; grep -R 'sg_num
+- sed -n '100,240p' /opt/conda/lib/python3.11/site-packages/gallop/structure.py; head -c 2400 /app/work/Xedd9c7b/gallop_11
+- head -n 10 /app/work/Xedd9c7b/base.xml; tail -n 3 /app/work/X7e382cb/gallop32.log; tail -n 5 /app/work/Xedd9c7b/gallop11
+- python - <<'PY' import json, numpy as np W='/app/work/X8a6f5a8/' p=json.load(open(W+'peaks_raw.json'));s=json.load(open(
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; cat /app/work/create_stable_base.py; tail -n 8 /app/work/Xb7088cf/gallo
+- head -n 80 /app/work/X8a6f5a8/zones_small.log; head -n 100 /app/work/X8a6f5a8/zones.json; cat /app/work/find_zones.py; c
+- cp /app/work/search_gallop.py /app/work/search_gallop_v7.py; cp /app/work/gallop_prepare.py /app/work/gallop_prepare_v3.
+- for id in X14a2b08 X263b09a X1db5091 X8a06d7a Xd8634a2 Xb7088cf X238783d X4f6fe58 X3f4781b X9af54a2 Xedd9c7b;do echo $id
+- cp /app/work/solve_twocentres.py /app/work/solve_twocentres_v1.py; python - <<'PY' p='/app/work/solve_twocentres.py';s=o
+- date; for p in 18059 21574 24459 23194;do echo =$p; grep -E 'State|Name' /proc/$p/status 2>/dev/null; cat /proc/$p/task/
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import json,glob,numpy as np,gemmi,os from rdkit import
+- cat /app/work/X1a56c78/analysis.log; cat /app/work/X1a56c78/fit_1.json; cat /app/work/X1a56c78/basefresh.log | tail -n 8
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; (for p in 'X7e382cb 32' 'X4f6fe58 11' 'Xd8634a2 11' 'Xb7088cf 11' 'X3f4
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/submit.py Xd4c1a35 /app/work/Xd4c1a35/refined_ghigh.ci
+- cat /app/work/gsas_index.py; cat /app/work/reindex_batch.py | head -130; cat /app/work/index_axial.py | head -210; grep 
+- cat >> /app/work/queue_tc2_fit8.sh <<'SH' SELECT_FILE=/app/work/X8a6f5a8/peak_select_ext2.json NPEAK=30 NSPUR=2 TTHERR=.
+- for id in X3f4781b X4f6fe58 X14a2b08 Xd8634a2 Xb7088cf X238783d X1a56c78;do echo =====$id; cat /app/data/instances/$id/i
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import numpy as np,matplotlib;matplotlib.use('Agg');imp
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' from rdkit import Chem import json s=json.load(open('/a
+- cat > /app/work/queue_warm3f.sh <<'SH' export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 while [[ -r /proc/22050/status ]]
+- find /opt/conda -path '*ObjCryst*Crystal*' -o -iname crystal.h | head; grep -R 'GetNbLSQFunction\|AntiBumpMerge.*LSQ' /o
+- grep -n 'AddSubRef\|SubRef\|Register\|LSQ' /opt/conda/include/ObjCryst/RefinableObj/RefinableObj.h | head -85; cat /app/
+- sed -n '1100,1145p' /opt/conda/include/ObjCryst/RefinableObj/RefinableObj.h; sed -n '1190,1265p' /opt/conda/include/ObjC
+- sed -n '467,551p' /opt/conda/include/ObjCryst/ObjCryst/ScatteringPower.h; g++ -O3 -fPIC -shared -std=c++17 -I/opt/conda/
+- cp /app/work/refine_obj.py /app/work/refine_obj_v6.py; python - <<'PY' p='/app/work/refine_obj.py';s=open(p).read().repl
+- grep -n '#define REAL\|typedef.*REAL\|OBJCRYST_REAL' /opt/conda/include/ObjCryst/ObjCryst/General.h /opt/conda/include/O
+- g++ -O3 -fPIC -shared -std=c++17 -DREAL=double -I/opt/conda/include /app/work/lsq_packing.cpp -L/opt/conda/lib -lObjCrys
+- tail -n 12 /app/work/Xeb393f9/refine_chem0.log; tail -n 6 /app/work/test_lsq_packing.log; tail -n 4 /app/work/X14a2b08/s
+- grep 'CYCLE 3' /app/work/Xeb393f9/refine*.log | tail -25; tail -n 12 /app/work/Xeb393f9/refine_chem0.log; grep -c 'Packi
+- cat > /app/work/restraint_report.py <<'PY' import sys,numpy as np from pyobjcryst.io import xml_cryst_file_load_all_obje
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import gemmi,numpy as np,itertools from pymatgen.core i
+- cp /app/work/search_gallop.py /app/work/search_gallop_v8.py; python - <<'PY' p='/app/work/search_gallop.py';s=open(p).re
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import json f='/app/work/gallop_config.json' j=json.loa
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; for id in Xeb393f9 Xedd9c7b Xb7088cf X9af54a2 X263b09a X7e382cb X8a6f5a
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; ls -1 /app/work | head -100; cat /app/work/queue_gallop_{A4,B4,C4,D6,D7
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; sed -n '1,250p' /app/work/gallop_prepare.py; sed -n '1,200p' /app/work/
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; cat /app/data/instances/X8a6f5a8/instrument.json; cat /app/work/X8a6f5a
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; cat /app/work/queue_acm_warm.sh; cat /app/work/X263b09a/refined_1.json;
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; cat /app/data/instances/X7e382cb/instrument.json; cat /app/work/X7e382c
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import json,glob,spglib,numpy as np from pymatgen.core 
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import json,numpy as np,itertools from pymatgen.core im
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' from pyobjcryst.crystal import Crystal print([s for s i
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; ls -l /app/work/X8a06d7a | tail -30; cat /app/work/X8a06d7a/candidates.
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; cat /app/work/X8a06d7a/fit_force_mono.json; cat /app/work/X8a06d7a/latt
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import json,glob,os,numpy as np,xml.etree.ElementTree a
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; mkdir -p /app/work/X8a06d7a/gallop_11; cp /app/work/X8a06d7a/fit_force_
+- grep -E 'Zero|Lattice|SpaceGroup' /app/work/Xb7088cf/base.xml | head -12; head -15 /app/work/Xb7088cf/base.xml; cat /app
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/expand_p1.py X7e382cb /app/work/X7e382cb/refined_chem3
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import json m=json.load(open('/app/work/X7e382cb/search
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; sed -i "s/md.get('restraint_coords',md\['rdkit_coords'\])/md.get('restr
+- kill 16779; nohup bash /app/work/queue_gallop_B5.sh > /app/work/queue_gallop_B5.log 2>&1 & echo NEW_B5=$!; cat >> /app/w
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; tail -5 /app/work/Xeb393f9/gallop51.log; python /app/work/submit.py Xeb
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import json,numpy as np,itertools from rdkit import Che
+- sed -n '1,220p' /app/work/lsq_packing.cpp; cat /app/work/lsq_packing.py; tail -4 /app/work/Xeb393f9/gallop51.log; tail -
+- nohup bash /app/work/refine_bep51_chem.sh > /app/work/refine_bep51_chem.log 2>&1 & echo BEP_CHEM51=$!; export OPENBLAS_N
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; cp /app/work/gallop_hbond.py /app/work/gallop_hbond_v1.py; python - <<'
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; cat /app/data/instances/X019b9a4/composition.json; cat /app/data/instan
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; cp /app/work/search_gallop.py /app/work/search_gallop_v9.py; python - <
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import inspect from gallop import intensities print(ins
+- grep -n '^def\|space_group_number' /opt/conda/lib/python3.11/site-packages/gallop/intensities.py | head -80; sed -n '1,2
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import sys sys.path.insert(0,'/app/work') from gallop_i
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; cp /app/work/search_gallop.py /app/work/search_gallop_v10.py; python - 
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/submit.py Xb7088cf /app/work/Xb7088cf/refined_g11.cif 
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/submit.py Xedd9c7b /app/work/Xedd9c7b/refined_g11.cif 
+- sed -n '1,260p' /app/work/search_obj.py; sed -n '1,240p' /app/work/gallop_moves.py; tail -3 /app/work/Xedd9c7b/gallop50.
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; cp /app/work/gallop_prepare.py /app/work/gallop_prepare_v4.py; python -
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/synthon_model.py X263b09a synthon; python /app/work/sy
+- nohup bash /app/work/queue_synthon_acm.sh > /app/work/queue_synthon_acm.log 2>&1 & echo SYNTHON_PARENT=$!; cat >> /app/w
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; tail -7 /app/work/Xeb393f9/refine_g51.log; tail -7 /app/work/Xeb393f9/r
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import sys,numpy as np,gemmi,json sys.path.insert(0,'/a
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import numpy as np p=np.load('/app/work/X4f6fe58/gallop
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; cp /app/work/gallop_packing.py /app/work/gallop_packing_v2.py; python -
+- cat /sys/fs/cgroup/cpu.max; cat /sys/fs/cgroup/cpu.stat; cat /proc/loadavg; cat /proc/meminfo | head -4; tail -4 /app/wo
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; cp /app/work/search_gallop.py /app/work/search_gallop_v11.py; python - 
+- date -u; cat /app/TOOLS.md; ls -l /app/results/submission/; cat /app/work/Zprime_notes.txt; ps -eo pid,ppid,etime,pcpu,c
+- python - <<'PY' import glob,os for p in glob.glob('/proc/[0-9]*'):  try:   s=open(p+'/status').read(); cmd=open(p+'/cmdl
+- cat /app/work/queue_gallop_A5.sh; sed -n '1,240p' /app/work/search_gallop.py; sed -n '1,220p' /app/work/refine_obj.py
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import sys;sys.path.insert(0,'/app/work') from rdkit im
+- nohup bash /app/work/queue_gallop_A5.sh > /app/work/queue_gallop_A5.log 2>&1 & echo A5_PID=$!; cat /app/data/instances.j
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import json,sys,numpy as np,itertools,gemmi from rdkit 
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/submit.py Xeb393f9 /app/work/Xeb393f9/refined_chem51.c
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/submit.py Xeb393f9 /app/work/Xeb393f9/refined_chem51.c
+- cat /app/work/queue_gallop_C4.sh; cat /app/work/queue_acm_warm.sh; cat /app/work/queue_synthon_acm.sh; cat /app/work/que
+- python - <<'PY' import json w='/app/work/X8a6f5a8';a=json.load(open(w+'/index_triwide.json'));print(type(a),str(a)[:800]
+- cp /app/work/refine_obj.py /app/work/refine_obj_v7.py; cp /app/work/lsq_packing.py /app/work/lsq_packing_v1.py; python -
+- cat /app/work/gallop_fast_symmetry.py; sed -n '1,260p' /app/work/gallop_packing.py; sed -n '1,220p' /app/work/gallop_hbo
+- ls /app/work/X1a56c78; cat /app/work/X1a56c78/candidates.json | head -45; python - <<'PY' import glob,json for i in ['X1
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import json,numpy as np,itertools,gemmi sid='X1a56c78';
+- tail -10 /app/work/X8a6f5a8/fit_triwide1.log; tail -10 /app/work/X8a6f5a8/fit_triwide2.log; cat /app/work/index_metric.p
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import numpy as np,matplotlib;matplotlib.use('Agg');imp
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/test_222_fast.py; cp /app/work/gallop_fast_symmetry.py
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/submit.py X263b09a /app/work/X263b09a/gallop_11/best.c
+- sed -n '1,280p' /app/work/gallop_prepare.py; cat /app/work/synthon_model.py; sed -n '1,230p' /app/work/obj_model.py
+- find /app/work -maxdepth 1 -type f -name '*.sh' -printf '%f\n' | tail -25; cat /app/work/queue_x3f* /app/work/queue_clop
+- cat /app/work/warm_gallop.py; sed -n '1,210p' /app/work/import_gallop.py; cat /app/work/obj_bridge.py | head -200; tail 
+- python - <<'PY' import numpy as np,glob for f in glob.glob('/app/work/X4f6fe58/*heavy*'):  print(f)  if f.endswith('.npz
+- cat /app/work/solve_heavy.py; cat /app/work/queue_heavy4.sh; sed -n '1,220p' /app/work/gallop_moves.py; find /app/work -
+- cat /app/work/X8a6f5a8/peak_select_raw.json; cat /app/work/X8a6f5a8/peak_select_ext2.json; head -4 /app/work/X8a6f5a8/me
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import numpy as np,matplotlib;matplotlib.use('Agg');imp
+- python - <<'PY' import json,glob for f in glob.glob('/app/work/X8a6f5a8/fit_metric*.json')+glob.glob('/app/work/X8a6f5a8
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/test_emg8.py; tail -7 /app/work/X9af54a2/refine_g11.lo
+- sed -i "s/np.exp(p\[2\]))$/np.exp(p[2])))/" /app/work/test_emg8.py; export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; pyt
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; nohup python /app/work/emg_global8.py > /app/work/X8a6f5a8/emg_global.l
+- tail -12 /app/work/X8a6f5a8/emg_global.log; tail -5 /app/work/Xbfeeda9/gallop11.log; tail -5 /app/work/X1a56c78/gallop11
+- cat > /app/work/queue_guided_acm.sh <<'SH' export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 while [[ -r /proc/31937/statu
+- head -28 /app/work/X8a6f5a8/emg_global.log; tail -6 /app/work/X263b09a/gallop11.log; tail -4 /app/work/X4f6fe58/gallop40
+- cp /app/work/gallop_packing.py /app/work/gallop_packing_v3.py; python - <<'PY' p='/app/work/gallop_packing.py';s=open(p)
+- date -u; tail -7 /app/work/X263b09a/gallop11.log; tail -7 /app/work/X263b09a/refine_g11.log; tail -7 /app/work/X263b09a/
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/guided_synthon.py X263b09a g11 synseed_test > /app/wor
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/submit.py X263b09a /app/work/X263b09a/refined_g11.cif 
+- python - <<'PY' from gallop.optim import local import inspect print(inspect.signature(local.minimise));print(inspect.get
+- python - <<'PY' from gallop.optim import local import inspect s=inspect.getsource(local.minimise) for i,l in enumerate(s
+- python - <<'PY' from gallop import intensities,tensor_prep from gallop.optim import local import inspect print(intensiti
+- python - <<'PY' from gallop.optim import local import inspect s=inspect.getsource(local.minimise).splitlines() print('\n
+- grep -n -A10 bridge_march /app/work/obj_bridge.cpp; ls /app/work/*bridge*; python - <<'PY' from pyobjcryst.powderpattern
+- tail -6 /app/work/X263b09a/gallop70.log; tail -7 /app/work/Xedd9c7b/gallop50.log; tail -5 /app/work/X1a56c78/gallop11.lo
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/scan_po.py X4f6fe58 40; python /app/work/scan_po.py X9
+- head -12 /app/work/X263b09a/gallop11.log; grep -E 'PAWLEY|PREPARED' /app/work/X1a56c78/gallop11.log /app/work/X4f6fe58/g
+- tail -15 /app/work/Xedd9c7b/refine_g11.log; tail -5 /app/work/Xedd9c7b/gallop50.log; tail -5 /app/work/X263b09a/gallop70
+- cat > /app/work/queue_edd51.sh <<'SH' export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 while [[ -r /proc/34814/status ]] 
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/submit.py Xedd9c7b /app/work/Xedd9c7b/gallop_50/best.c
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' from rdkit import Chem import numpy as np,itertools,jso
+- cat > /app/work/refine_bep50_control.sh <<'SH' export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 mkdir -p /app/work/Xeb393
+- python - <<'PY' p='/app/work/gallop_config.json';import json j=json.load(open(p));j['X1a56c78:18']={'HBOND_COEFF':15,'ST
+- date -u; cat /app/TOOLS.md; ls /app/work | head; ps -eo pid,ppid,stat,etime,pcpu,comm,args --sort=-pcpu | head -25
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; cat /app/work/Zprime_notes.txt; ls -l /app/results/submission; ls /app/
+- for f in refine_bep50_control queue_gallop_A4 queue_gallop_B5 queue_gallop_C4 queue_gallop_D6 queue_synthon_acm queue_he
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import os,json,glob for p in sorted(glob.glob('/app/dat
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; cat /app/work/Xeb393f9/check_chem50.log; cat /app/work/Xedd9c7b/refined
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; cat /app/work/gallop_config.json; cat /app/work/queue_warm3f.sh /app/wo
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import json,glob,os from rdkit import Chem from pymatge
+- cat /app/data/instances/X1a56c78/instrument.json /app/data/instances/X8a06d7a/instrument.json; ls /app/work/X8a06d7a/fit
+- date -u; tail -3 /app/work/X8a6f5a8/index_emg1.log; for t in X3f4781b/50 Xbfeeda9/11 X14a2b08/11 X14a2b08/70 X8a06d7a/11
+- ls /app/work/*2d*.py /app/work/*index*.py /app/work/*axis*.py; sed -n '1,260p' /app/work/complete_mono_axis.py; sed -n '
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; nohup python /app/work/emg_refine_cells.py > /app/work/X8a6f5a8/emg_ref
+- cat /app/work/X3f4781b/extend_low11.log; cat /app/work/extend_low_base.py; tail -12 /app/work/X3f4781b/gallop50.log; cat
+- sed -n '1,260p' /app/work/refine_obj.py; sed -n '1,240p' /app/work/warm_gallop.py; grep -n 'PowderPattern\|Observed\|Exc
+- cp /app/work/extend_low_base.py /app/work/extend_low_base_v1.py; python - <<'PY' p='/app/work/extend_low_base.py';s=open
+- cat /app/work/gallop_fast_symmetry.py; grep -n '17\|18\|sg_number\|intensities_from' /opt/conda/lib/python3.11/site-pack
+- head -80 /app/work/X8a6f5a8/emg_refine_cells.log; tail -5 /app/work/X3f4781b/warm50.log; sed -n '225,310p' /opt/conda/li
+- sed -i 's/np.argmin(abs(delta))/np.argmin(np.abs(delta))/' /app/work/emg_refine_cells.py; export OPENBLAS_NUM_THREADS=1 
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/submit.py X4f6fe58 /app/work/X4f6fe58/refined_g40.cif 
+- ls /app/work/*heavy*py; cat /app/work/queue_heavy4.sh; cat /app/work/heavy_search.py 2>/dev/null; ls /app/work/X4f6fe58/
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/contacts.py /app/work/X4f6fe58/refined_g40.cif | head 
+- date -u; tail -12 /app/work/X8a6f5a8/emg_refine_cells.log; python - <<'PY' import json f='/app/work/X8a6f5a8/candidates_
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import glob,json,os,gemmi from pymatgen.core import Lat
+- python - <<'PY' import json,glob W='/app/work/X8a6f5a8/' for fn in ['candidates_metric.json','index_axis0.json','index_a
+- sed -n '1,230p' /app/work/gallop_moves.py; head -12 /app/work/X4f6fe58/heavy11.log; tail -1 /app/work/X8a6f5a8/index_emg
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import numpy as np,json,itertools,sys from pymatgen.cor
+- cp /app/work/search_gallop.py /app/work/search_gallop_v7.py; python - <<'PY' p='/app/work/search_gallop.py';s=open(p).re
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import json,numpy as np,itertools,gemmi for sid,fit,sgn
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import json,shutil W='/app/results/submission/' for sid
+- date -u; tail -9 /app/work/X8a6f5a8/index_emg1.log; cat /app/work/queue_index_emg8.sh /app/work/queue_edd51.sh; python -
+- python - <<'PY' import json for fn in ['index_emg1.json','index_emg4.json']:  d=json.load(open('/app/work/X8a6f5a8/'+fn)
+- python - <<'PY' import json,numpy as np W='/app/work/X8a6f5a8/';peaks=json.load(open(W+'peaks_raw.json'));ids=json.load(
+- cp /app/work/complete_mono_axis.py /app/work/complete_mono_axis_emg.py; python - <<'PY' p='/app/work/complete_mono_axis_
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import glob,json,os for sid in ['X7e382cb','Xb7088cf','
+- ls /app/work/X7e382cb/*json; head -120 /app/work/half_model.py 2>/dev/null; ls /app/work/*half*py /app/work/*twoc*py /ap
+- sed -n '1,240p' /app/work/solve_half_biphenyl.py; sed -n '1,130p' /app/work/solve_twocentres.py; ls /app/work/X7e382cb/h
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import sys,numpy as np,itertools from scipy.optimize im
+- find /app/work/X7e382cb -maxdepth 2 -name best.json -o -name '*tc2*' -o -name '*twocent*'; for d in /app/work/X7e382cb/t
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/contacts.py /app/work/Xedd9c7b/refined_g50.cif | head 
+- cat /app/work/scan_po.py; cat /app/data/instances/Xedd9c7b/instrument.json | head -28; cat /app/data/instances/X263b09a/
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; for spec in Xedd9c7b/51 Xbfeeda9/11 X263b09a/11 X7e382cb/40 X1a56c78/11
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import json for id,run in [('Xedd9c7b',51),('Xbfeeda9',
+- head -45 /app/data/instances/Xbfeeda9/instrument.json; grep -n 'March\|Ellipsoid\|PO\|Preferred' /app/work/Xbfeeda9/base
+- date -u; cat /app/TOOLS.md; cat /app/data/instances.json; ls /app/results/submission | sort; ps -eo pid,ppid,stat,etime,
+- ls /app/work | tail -80; tail -140 /app/work/Zprime_notes.txt; cat /app/work/queue_gallop_A4.sh; sed -n '1,240p' /app/wo
+- sed -n '1,230p' /app/work/obj_bridge.py; sed -n '1,240p' /app/work/gallop_prepare.py; sed -n '1,210p' /app/work/refine_o
+- cat /app/work/obj_bridge.cpp; cat /app/data/instances/Xbfeeda9/{composition,instrument}.json; cat /app/work/warm_gallop.
+- ls -l /app/work/Xbfeeda9/search_g11/ /app/work/Xbfeeda9/refined_g11.* 2>/dev/null; grep -n -E 'Texture|March|Ratio|Fract
+- python - <<'PY' import json,glob from rdkit import Chem for file in sorted(glob.glob('/app/data/instances/*/composition.
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import sys,numpy as np sys.path.insert(0,'/app/work');f
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/submit.py X7e382cb /app/work/X7e382cb/refined_g40.cif 
+- cp /app/work/refine_obj.py /app/work/refine_obj_v8.py; python - <<'PY' p='/app/work/refine_obj.py';s=open(p).read();key=
+- cat /app/work/gallop_packing.py; cat /app/work/queue_gallop_C4.sh /app/work/queue_acm_warm.sh /app/work/queue_gallop_D7.
+- grep -n -E 'low|lo=|cut|xmin|xrange' /app/work/*.py | head -100; cat /app/work/extend_low_base.py; head -20 /app/work/Xe
+- grep -n -A12 -B3 -E 'PowderPattern|MaxSinTheta|Twotheta|Iobs|ObsData' /app/work/Xedd9c7b/base.xml | tail -40; cat /app/w
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import json,os,glob,xml.etree.ElementTree as E,numpy as
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/submit.py Xbfeeda9 /app/work/Xbfeeda9/refine_g11md_sta
+- head -25 /app/work/Xedd9c7b/base.xml; grep -n 'FREE_MARCH' /app/work/Xbfeeda9/refine_g11md.log; tail -10 /app/work/Xbfee
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import json,os,glob,xml.etree.ElementTree as E,numpy as
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; tail -8 /app/work/Xbfeeda9/refine_g11md.log; for p in /app/work/X*/gall
+- cat > /app/work/queue_edd_low.sh <<'SH' set -e export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 id=Xedd9c7b while [[ -r /
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/submit.py Xbfeeda9 /app/work/Xbfeeda9/refined_g11md.ci
+- cat >> /app/work/Zprime_notes.txt <<'TXT' 08:21 continuation: Native MD001 validates PO hypothesis for Xbfeeda9: importe
+- cat /app/data/instances/X8a6f5a8/instrument.json; cat /app/work/X8a6f5a8/peak_select_emg.json; head -110 /app/work/X8a6f
+- cat /app/work/emg_global8.py; head -80 /app/work/X8a6f5a8/emg_refine_cells.log; cat /app/work/queue_axis_emg8.sh /app/wo
+- sed -n '1,230p' /app/work/index_one.py; sed -n '1300,1357p' /opt/g2/GSAS-II/GSASII/GSASIIpwd.py; head -30 /app/work/X8a6
+- sed -n '1960,2018p' /opt/g2/GSAS-II/GSASII/GSASIIpwd.py; grep -n -E 'dFdp.*(100|pkI)|dFds' /opt/g2/GSAS-II/GSASII/GSASII
+- python - <<'PY' import json p=json.load(open('/app/work/X8a6f5a8/peaks_emg.json'));sel=json.load(open('/app/work/X8a6f5a
+- find /opt/g2/GSAS-II -maxdepth 3 -iname '*powder*' -o -iname '*psvfc*' -o -iname '*.f' | head -65; find /opt -name 'pypo
+- head -85 /opt/g2/GSAS-II/sources/powsubs/psvfcjo.for; grep -n -A40 -E 'PYDPSVFCJO|PYPSVFCJO' /opt/g2/GSAS-II/sources/pyp
+- grep -in 'call\|external\|include' /opt/g2/GSAS-II/sources/powsubs/psvfcjo.for /opt/g2/GSAS-II/sources/powsubs/psvoigt.f
+- cd /opt/g2/GSAS-II/sources/powsubs; gfortran -O3 -shared -fPIC -ffixed-line-length-none -fallow-argument-mismatch -o /ap
+- OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 nohup python /app/work/fcj_global8.py > /app/work/X8a6f5a8/fcj_global.log 2>&1 
+- grep -n -E 'ZM |Degrees|degrees|torsion|PREPARED|CACHE' /app/work/X238783d/gallop20.log; head -70 /app/work/X238783d/gal
+- cat /app/data/instances/X1a56c78/instrument.json; cat /app/work/X1a56c78/fit_1.json; grep -n -E 'sg|screw' /app/work/*1a
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import glob,os,json,gemmi from pymatgen.io.cif import C
+- python - <<'PY' import glob,json,os for f in glob.glob('/app/work/X8a06d7a/fit*.json'):  j=json.load(open(f));print(os.p
+- ls /app/work/X8a06d7a | grep -E '^search|refined|base|gallop'; cat /app/work/X8a06d7a/refined_1.json 2>/dev/null; grep -
+- kill 33679 2>/dev/null || true python - <<'PY' p='/app/work/queue_gallop_D7.sh';s=open(p).read();tag='for id in Xd8634a2
+- export OPENBLAS_NUM_THREADS=1; python - <<'PY' import numpy as np,matplotlib;matplotlib.use('Agg');import matplotlib.pyp
+- python - <<'PY' import json W='/app/work/X8a6f5a8';p=json.load(open(W+'/peaks_fcj.json'));e=json.load(open(W+'/peaks_emg
+- python - <<'PY' s=open('/app/work/emg_refine_cells.py').read().replace('peaks_emg.json','peaks_fcj.json').replace('peak_
+- tail -40 /app/work/X8a6f5a8/fcj_refine_cells.log; tail -8 /app/work/X8a6f5a8/index_fcj4z2.log 2>/dev/null; tail -6 /app/
+- ls /app/work/*index*py; head -80 /app/work/parse_indexlogs.py 2>/dev/null; tail -8 /app/work/Xedd9c7b/refine_g51.log; ta
+- cat /app/work/gallop_moves.py; cat /app/work/parse_index_log.py; head -120 /app/work/X4f6fe58/solve_heavy.log 2>/dev/nul
+- cat /app/work/lsq_packing.cpp | sed -n '1,220p'; sed -n '140,225p' /opt/conda/lib/python3.11/site-packages/gallop/zm_to_
+- grep '^BEST' /app/work/X8a6f5a8/fcj_refine_cells.log | head -15; tail -8 /app/work/X8a6f5a8/index_fcj4z2.log; tail -6 /a
+- grep -E 'EXACT|PREPARED|PAWLEY' /app/work/Xedd9c7b/warm50.log /app/work/Xedd9c7b/warm52.log /app/work/Xedd9c7b/gallop11.
+- python - <<'PY' import glob,time,os for f in glob.glob('/proc/[0-9]*/cmdline'):  try:   s=open(f,'rb').read().decode().r
+- sleep 180; date -u; for spec in 'Xbfeeda9 gallop60' 'X263b09a gallop71' 'X14a2b08 gallop71' 'X1db5091 gallop11' 'X238783
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import sys,os,torch,numpy as np sys.path.insert(0,'/app
+- cat /app/work/hydrogen_prefix.py; cat /app/work/Xbfeeda9/gallop_60/model.json | head -22; grep -n -E 'Biso|March' /app/w
+- touch /app/work/Xbfeeda9/gallop_60/STOP cp /app/work/warm_gallop.py /app/work/warm_gallop_v4.py; cp /app/work/gallop_pre
+- date -u; cat /app/TOOLS.md; echo ====; ls /app/results/submission; echo ====; ps -eo pid,ppid,etime,pcpu,stat,args --sor
+- cat /app/work/Zprime_notes.txt; echo ====QUEUES; for f in /app/work/queue_{bfee_po,edd_low,fcj_index8,gallop_A4,gallop_A
+- python - <<'PY' import os,glob for p in glob.glob('/proc/[0-9]*'):  try:   cmd=open(p+'/cmdline','rb').read().replace(b'
+- python - <<'PY' import glob,json,os for p in glob.glob('/app/data/instances/*'):  id=os.path.basename(p);c=json.load(ope
+- ls /app/work/*po* /app/work/*march*; sed -n '1,240p' /app/work/po_scan.py 2>/dev/null; cat /app/work/add_fixed_march.py;
+- cat /app/work/scan_po.py; cat /app/work/analyze_po.py; cat /app/work/po_scan.log; cat /app/work/gallop_configs.json 2>/d
+- tail -25 /app/work/X263b09a/refine_g11.log; tail -20 /app/work/Xb7088cf/refine_g11.log; sed -n '1,100p' /app/work/import
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/submit.py X263b09a /app/work/X263b09a/refined_g11.cif 
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; GALLOP_STOL=.27 python /app/work/warm_gallop.py X263b09a 90 /app/work/X
+- sed -n '1,300p' /app/work/search_gallop.py; sed -n '1,220p' /app/work/guided_synthon.py; cat /app/work/X263b09a/gallop_9
+- sed -n '1,220p' /app/work/index_obj.py 2>/dev/null; ls /app/work/*index*; sed -n '1,240p' /app/work/index_one.py 2>/dev/
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import json w='/app/work/X8a6f5a8';p=json.load(open(w+'
+- nohup bash /app/work/queue_b708_warm.sh > /app/work/queue_b708_warm.log 2>&1 & echo B708_PARENT=$!; date -u; tail -10 /a
+- cat /app/work/X263b09a/refine_g71.log; tail -20 /app/work/X14a2b08/warm71.log 2>/dev/null; python - <<'PY' import json c
+- grep -n -A70 'def export_cif' /app/work/obj_model.py; sed -n '1,220p' /app/work/obj_model.py | tail -135; sed -n '1,160p
+- head -50 /app/work/X263b09a/refined_g11.xml; grep -n -A30 '<Molecule' /app/work/X263b09a/refined_g11.xml | head -45; pyt
+- kill 34757 45485 2>/dev/null || true; cp /app/work/guided_synthon.py /app/work/guided_synthon_v1.py; python - <<'PY' p='
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/transfer_acm.py X263b09a X14a2b08 g11 transfer72 > /ap
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import numpy as np,json from scipy.optimize import leas
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/submit.py Xbfeeda9 /app/work/Xbfeeda9/refined_g60.cif 
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/submit.py Xbfeeda9 /app/work/Xbfeeda9/refined_g60.cif;
+- head -230 /app/work/complete_2d.py; head -100 /app/work/index_axial.py; head -220 /app/work/complete_plane_mono.py; tail
+- cat /app/data/instances/X8a6f5a8/instrument.json; cat /app/work/X8a6f5a8/peak_select_fcj.json; cat /app/work/X8a6f5a8/pe
+- python - <<'PY' import json,glob,os w='/app/work/X8a6f5a8';rows=[] for f in glob.glob(w+'/fit_*.json'):  j=json.load(ope
+- cat /app/work/obj_bridge.py; sed -n '1,160p' /app/work/exact_pawley.py; cat /app/work/fcj_global8.py | head -140; date -
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import sys,numpy as np sys.path.insert(0,'/app/work');f
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; for pair in 'X07806d9 freeh' 'Xe3a2935 plan' 'Xf8ac963 plan' 'Xedd9c7b 
+- sed -n '1,250p' /app/work/gallop_hbond.py; sed -n '1,230p' /app/work/gallop_moves.py; sed -n '1,130p' /app/work/gallop_p
+- cat /app/work/gallop_heavy_anchor.py; tail -16 /app/work/X4f6fe58/heavy_search.log 2>/dev/null; ls /app/work/X4f6fe58/*h
+- cat /app/work/X4f6fe58/heavy11.log; python - <<'PY' import numpy as np p=np.load('/app/work/X4f6fe58/gallop_11/heavy_poo
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import json,glob,spglib from pymatgen.core import Latti
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import json,spglib,numpy as np from pymatgen.core impor
+- python - <<'PY' import json w='/app/work/X8a6f5a8';p=json.load(open(w+'/peaks_fcj.json'));s=json.load(open(w+'/peak_sele
+- cat > /app/work/queue_fcj_planes.sh <<'SH' export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 while [[ -r /proc/45579/statu
+- kill 22512 2>/dev/null || true; cp /app/work/queue_acm_warm.sh /app/work/queue_acm_warm_v1.sh; cat > /app/work/queue_acm
+- ls /app/work/X7e382cb | grep -E 'centre|tc2|half|p1|sub|double'; cat /app/work/solve_twocentres.py | head -260; head -80
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import json,numpy as np,itertools from pymatgen.core im
+- cp /app/work/gallop_packing.py /app/work/gallop_packing_v4.py; cp /app/work/lsq_packing.py /app/work/lsq_packing_v2.py; 
+- date -u; python - <<'PY' import glob,os for p in glob.glob('/proc/[0-9]*'):  try:   cmd=open(p+'/cmdline','rb').read().d
+- head -35 /app/work/X8a6f5a8/native_fcj_ORTHOROMBIC_P_2000.log; tail -20 /app/work/X8a6f5a8/native_fcj_MONOCLINIC_P_1000.
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; for pair in 'X1a56c78 18' 'X35b7fbc 11' 'X238783d 20' 'X263b09a 72' 'Xe
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import inspect from gallop.optim import local print(ins
+- date -u; cat /app/TOOLS.md; ls -la /app/results/submission; ps -eo pid,ppid,etime,pcpu,pmem,args --sort=-pcpu | head -38
+- ls /app/work; cat /app/work/Zprime_notes.txt; cat /app/data/instances.json
+- python - <<'PY' import os,time for d in os.listdir('/proc'):  if d.isdigit():   try:    cmd=open(f'/proc/{d}/cmdline','r
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import inspect from gallop.optim import local src=inspe
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python -m py_compile /app/work/search_coformer.py; BUMP_COEFF=70 HBOND_
+- sed -n '1,300p' /app/work/search_gallop.py; sed -n '1,260p' /app/work/gallop_prepare.py; tail -10 /app/work/X263b09a/cof
+- cat /proc/48786/status 2>/dev/null | head -4; cat /app/work/X263b09a/coformer91test.log; ls -l /app/work/X263b09a/gallop
+- ls /app/work/X7e382cb; sed -n '1,180p' /app/work/queue_h7.sh; sed -n '1,180p' /app/work/queue_small7.sh; cat /app/work/X
+- sed -n '1,260p' /app/work/gallop_moves.py; sed -n '1,210p' /app/work/warm_gallop.py; sed -n '1,260p' /app/work/solve_hal
+- python - <<'PY' p='/app/work/search_coformer.py';s=open(p).read();s=s.replace("s.get_total_degrees_of_freedom(verbose=Fa
+- cat /app/work/audit_bases.log; cat /app/work/X263b09a/coformer91test.log; tail -5 /app/work/Xe1fb77b/gallop11.log; tail 
+- tail -30 /app/work/X8a6f5a8/native_fcj_TRICLINIC_P_600.log; sed -n '1,220p' /app/work/index_plane_fcj.py; sed -n '1,220p
+- cat /app/work/X263b09a/fit_0.json | head -35; cat /app/work/X263b09a/gallop_11/best.json; tail -15 /app/work/X263b09a/ga
+- cat /app/work/parse_index_log.py; tail -30 /app/work/X8a6f5a8/index_fcjplanes.log; sed -n '1,70p' /app/work/X263b09a/ref
+- grep -E 'PAWLEY|PREPARED|cell|ERROR' /app/work/X263b09a/gallop11.log | head -8; cat /app/work/X263b09a/fit_1.json | head
+- cat > /app/work/queue_coformer91.sh <<'SH' set -e export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 id=X263b09a BUMP_COEFF
+- head -8 /app/work/X8a6f5a8/fcj_refine_cells.log 2>/dev/null; ls /app/work/X8a6f5a8/*fcj*log; cat /app/work/queue_fcj_ind
+- cp /app/work/fcj_refine_cells.py /app/work/fcj_refine_cells_v1.py python - <<'PY' p='/app/work/fcj_refine_cells.py';s=op
+- kill 47291 2>/dev/null || true nohup bash /app/work/queue_acm_warm.sh > /app/work/queue_acm_warm.log 2>&1 & echo ACM_WAR
+- grep -n 'PowderPattern\|Excluded\|2Theta\|XMin\|Data\|Obs\|Wavelength' /app/work/X9af54a2/base.xml | tail -25; cat /app/
+- sed -n '1,360p' /app/work/refine_obj.py; sed -n '322,333p' /app/work/X9af54a2/base.xml; tail -6 /app/work/X263b09a/gallo
+- sed -n '1,300p' /app/work/solve_heavy.py; cat /app/work/queue_heavy4.sh; cat /app/work/queue_heavy_anchor4.sh; sed -n '1
+- cat /app/work/check_stereo.py | head -100; cat /app/work/contacts.py | head -130; cat /app/work/Xeb393f9/native_po_chem5
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; for r in chem50 chem51; do echo ----$r; python /app/work/check_hbonds.p
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/submit.py Xb7088cf /app/work/Xb7088cf/refined_chem11.c
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/submit.py Xb7088cf /app/work/Xb7088cf/refined_chem11.c
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' import numpy as np,json from pymatgen.core import Lattic
+- tail -5 /app/work/X263b09a/coformer91.log; tail -6 /app/work/X263b09a/refine_g72.log 2>/dev/null; tail -3 /app/work/Xb70
+- cat /app/work/transfer_acm.py; cat /app/work/split_synthon.py; tail -10 /app/work/X263b09a/refine_g72.log; tail -5 /app/
+- kill -STOP 45980 cat > /app/work/update_transfer72.sh <<'SH' set -e export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 trap
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/submit.py X263b09a /app/work/X263b09a/refined_g72.cif 
+- tail -8 /app/work/X263b09a/refine_g91.log; cat /app/work/X263b09a/refined_g91.json 2>/dev/null; export OPENBLAS_NUM_THRE
+- cat /app/work/extract_molecule_coords.py; tail -8 /app/work/X263b09a/refine_g91.log; cat /app/work/queue_x7ion.sh; cat /
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/submit.py X263b09a /app/work/X263b09a/refined_g91.cif 
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/submit.py X263b09a /app/work/X263b09a/refined_g91.cif >
+- kill 49475 50732 45980 2>/dev/null || true cat > /app/work/queue_acm73.sh <<'SH' set -e export OPENBLAS_NUM_THREADS=1 OM
+- python - <<'PY' import json,os W='/app/work/X8a6f5a8';r=json.load(open(W+'/candidates_fcjnew.json'));print('NEW METRICS'
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python - <<'PY' import json,numpy as np,spglib,itertools,math from pymat
+- python - <<'PY' import json,shutil W='/app/work/X8a6f5a8';out='/app/results/submission/X8a6f5a8.json';shutil.copyfile(ou
+- python -m py_compile /app/work/search_conditional.py cat > /app/work/queue_brconditional.sh <<'SH' set -e export OPENBLA
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/submit.py Xedd9c7b /app/work/Xedd9c7b/refined_g52.cif 
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/submit.py Xedd9c7b /app/work/Xedd9c7b/refined_g52.cif 
+- tail -10 /app/work/X4f6fe58/refine_chem11.log; tail -8 /app/work/X4f6fe58/warm82.log 2>/dev/null; tail -6 /app/work/X4f6
+- cat > /app/work/queue_nicotinamide_cond.sh <<'SH' set -e export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 id=X1db5091 GAL
+- cat /app/data/instances/X1a56c78/instrument.json; cat /app/data/instances/X35b7fbc/instrument.json; ls /app/work/X1a56c7
+- date -u; ls -l /app/results/submission/ | tail; cat /app/TOOLS.md; ps -eo pid,ppid,etime,time,pcpu,cmd --sort=-pcpu | he
+- for i in /app/work/queue_brconditional.sh /app/work/queue_nicotinamide_cond.sh /app/work/queue_acm73.sh /app/work/queue_
+- ls /app/work | head -80; cat /app/work/Zprime_notes.txt | tail -160; cat /app/data/instances/X1a56c78/instrument.json; c
+- ls /app/work/*proc* /app/work/*monitor* 2>/dev/null; python - <<'PY' import os for d in os.listdir('/proc'):  if not d.i
+- cat /app/work/fit_candidate.py; sed -n '1,250p' /app/work/create_stable_base.py; cat /app/data/instances/X1a56c78/compos
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import gemmi, numpy as np,json j=json.load(open('/app/r
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import os,json,glob from rdkit import Chem for p in sor
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; cat /app/work/gallop_config.json; tail -45 /app/work/X4f6fe58/refine_ch
+- cat >> /app/work/Zprime_notes.txt <<'EOF' 09:27 X1a potential Ka2/100 issue resolved by explicit reflection enumeration:
+- cat /app/work/scan_po.py; sed -n '1,150p' /app/work/gallop_prepare.py; cat /app/work/X7e382cb/lattice.json; cat /app/wor
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/scan_po.py X7e382cb 41 > /app/work/X7e382cb/po41.log 2
+- cat /app/data/instances/X4f6fe58/instrument.json; sed -n '1,200p' /app/work/hydrogen_prefix.py; sed -n '1,160p' /app/wor
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/test_doublet.py X1a56c78 /app/work/X1a56c78/fit_sg18.x
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/check_stereo.py X1a56c78 /app/work/X1a56c78/gallop_18/
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' from rdkit import Chem import json,numpy as np from pym
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; sed -i '/from obj_model import add_component/a import pyobjcryst.powder
+- python - <<'PY' p='/app/work/test_doublet.py';s=open(p).read().replace("p.SetWavelength('Cu')","p.SetWavelength(1.5418 i
+- cat /app/work/gallop_hbond.py; cat /app/work/gallop_moves.py; sed -n '90,210p' /app/work/refine_obj.py; head -120 /app/w
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/submit.py X3f4781b /app/work/X3f4781b/refined_g50.cif 
+- nohup bash /app/work/queue_additional_cond.sh > /app/work/additional_cond.log 2>&1 & echo x1a=$!; nohup bash /app/work/q
+- cat /app/work/X8a06d7a/fit_2d0.json; cat /app/work/X8a06d7a/fit_2d1.json; cat /app/work/X8a06d7a/fit_force_mono.json; ca
+- python - <<'PY' import xml.etree.ElementTree as ET W='/app/work/X8a06d7a';t=ET.parse(W+'/fit_2d0.xml');t.getroot().find(
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; MONO=1 python /app/work/test_doublet.py X8a06d7a /app/work/X8a06d7a/tes
+- date -u; for x in X4f6fe58/conditional83 X1db5091/conditional91 X1db5091/refine_g91 X14a2b08/gallop73 Xb7088cf/gallop50 
+- head -190 /app/work/solve_half_biphenyl.py; ls /app/work/X7e382cb | grep -E 'tc2|half|center'; cat /app/work/X7e382cb/tc
+- ls /app/work | grep -E 'biphen|cent'; find /app/work/X7e382cb/tc2 -maxdepth 1 -type f; cat /app/work/solve_two_centres.p
+- cat /app/results/submission/X263b09a.json; cat /app/results/submission/X14a2b08.json; cat /app/work/transfer_acm.py; tai
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/check_hbonds.py /app/work/X1db5091/refined_g91.cif | h
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import xml.etree.ElementTree as E,json,numpy as np,glob
+- cp /app/work/check_stereo.py /app/work/check_stereo_v1.py; python - <<'PY' p='/app/work/check_stereo.py';s=open(p).read(
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import json,numpy as np,spglib from pymatgen.core impor
+- python - <<'PY' p='/app/work/add_ammonium_h.py';s=open(p).read().replace("O=xml_cryst_file_load_all_object(W+'/refined_'
+- nohup bash /app/work/queue_x7_explicit.sh > /app/work/x7_explicit.log 2>&1 & echo x7=$!; nohup bash /app/work/queue_br84
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/contacts.py /app/work/X4f6fe58/refined_g83.cif | head 
+- cp /app/work/gallop_packing.py /app/work/gallop_packing_v4.py; cp /app/work/lsq_packing.py /app/work/lsq_packing_v2.py; 
+- kill 54141; python - <<'PY' p='/app/work/queue_br84.sh';s=open(p).read().replace('export OPENBLAS_NUM_THREADS=1 OMP_NUM_
+- date -u; for x in X8a06d7a/refine_g12 X14a2b08/gallop73 Xb7088cf/refine_g50 Xedd9c7b/conditional85 X1a56c78/conditional8
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; cat /app/work/Xb7088cf/check_g50.log; python /app/work/check_hbonds.py 
+- ls /app/work/*flip*; head -160 /app/work/flip_pyridine.py 2>/dev/null; ls /app/work/*pyr*; sed -n '1,150p' /app/work/enu
+- cp /app/work/gallop_packing.py /app/work/gallop_packing_v5.py; cp /app/work/lsq_packing.py /app/work/lsq_packing_v3.py; 
+- nohup bash /app/work/queue_b708_typed.sh > /app/work/b708_typed.log 2>&1 & echo b708=$!; cat >> /app/work/Zprime_notes.t
+- cp /app/work/transfer_acm.py /app/work/transfer_acm_v2.py; python - <<'PY' p='/app/work/transfer_acm.py';s=open(p).read(
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import json,shutil sid='X8a06d7a';W='/app/work/'+sid;f=
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; cat /app/work/X1a56c78/check_g83.log; python /app/work/check_stereo.py 
+- ls /app/work | grep -E '^native|march'; cat /app/work/native_po.py 2>/dev/null | head -160; cat /app/work/add_fixed_marc
+- cat /app/work/native_scan_march.py; export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/native_scan_march.
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; nohup python /app/work/native_scan_march.py /app/work/X1a56c78/refined_
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import json,glob,os for sid in ['Xb7088cf','X35b7fbc','
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; date -u; cat /app/TOOLS.md; ls -l /app/results/submission; tail -80 /ap
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; cat /app/work/flip_chairs.py; cat /app/work/queue_b708_typed.sh; cat /a
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; for f in /app/work/X7e382cb/gallop41.log /app/work/Xedd9c7b/conditional
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/flip_chairs.py X1a56c78 /app/work/X1a56c78/refined_g83
+- nohup bash /app/work/queue_x1a_chair84.sh > /app/work/chair84_queue.log 2>&1 & echo $!; cat /app/work/summary.json; cat 
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; cat /app/results/submission/X7e382cb.json; head -40 /app/work/X7e382cb/
+- grep -A14 Radiation /app/work/X7e382cb/base.xml | head -30; grep -A14 Radiation /app/work/Xb7088cf/refined_g50.xml | hea
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/check_hbonds.py /app/work/X1a56c78/refined_g83.cif; py
+- cat /app/data/instances/Xb7088cf/composition.json; cat /app/data/instances/Xd8634a2/composition.json; cat /app/data/inst
+- cat /app/results/submission/X9af54a2.json; cat /app/work/X9af54a2/gallop_11/config.json 2>/dev/null; tail -30 /app/work/
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/submit.py X9af54a2 /app/work/X9af54a2/refined_g11.cif 
+- python - <<'PY' import json for x in ['X9af54a2','X35b7fbc']:  print(x,[(len(m['elements']),m['smiles']) for m in json.l
+- nohup bash /app/work/queue_salt_conditional86.sh > /app/work/salt86_queue.log 2>&1 & echo $!; export OPENBLAS_NUM_THREAD
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' from pymatgen.io.cif import CifParser from pymatgen.sym
+- head -170 /app/work/gallop_prepare.py; head -130 /app/work/search_gallop.py; cat /app/work/X7e382cb/refined_ionH41.json 
+- grep -n -E 'CHARGED|CARBONYL|limit=' /app/work/gallop_packing.py; sed -n '1,110p' /app/work/gallop_packing.py
+- python - <<'PY' import shutil for fn in ['gallop_packing.py','lsq_packing.py']:  p='/app/work/'+fn;shutil.copyfile(p,p.r
+- nohup bash /app/work/queue_x7_centros88.sh > /app/work/x7centros88_queue.log 2>&1 & echo $!; export OPENBLAS_NUM_THREADS
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' from pymatgen.io.cif import CifParser from pymatgen.ana
+- python - <<'PY' import glob,os,time hz=os.sysconf('SC_CLK_TCK');up=float(open('/proc/uptime').read().split()[0]);rr=[] f
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; cp /app/results/submission/Xedd9c7b.cif /app/work/Xedd9c7b/submission_b
+- python - <<'PY' p='/app/work/Zprime_notes.txt';s=open(p).read().replace('09:57 continuation: X1a chair84','09:55 continu
+- cat /app/data/instances/Xeb393f9/composition.json; cat /app/work/Xeb393f9/refined_chem51.json; grep -n 'Xeb' /app/work/Z
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/check_hbonds.py /app/results/submission/Xeb393f9.cif; 
+- nohup bash /app/work/queue_bep_conditional89.sh > /app/work/bep89_queue.log 2>&1 & echo $!; export OPENBLAS_NUM_THREADS=
+- cat /app/results/submission/Xb7088cf.json; cat /app/work/Xb7088cf/lattice.json; cat /app/work/X07806d9/lattice.json; hea
+- nohup env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/audit_submission.py > /app/work/submission_audit.log
+- cat /app/data/instances/X14a2b08/composition.json; cat /app/data/instances/X263b09a/composition.json; cat /app/data/inst
+- cat /app/work/extract_molecule_coords.py; tail -3 /app/work/X1a56c78/refine_chair84m10.log; tail -3 /app/work/X7e382cb/c
+- nohup bash /app/work/queue_caprolactam94.sh > /app/work/caprolactam94_queue.log 2>&1 & echo $!; export OPENBLAS_NUM_THRE
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; for t in chair84m00 chair84m10;do echo ==== $t; python /app/work/check_
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; for f in /app/work/X1a56c78/refined_*.json;do echo -n "$(basename $f) "
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import numpy as np, matplotlib;matplotlib.use('Agg') im
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import pyobjcryst.reflectionprofile as r print(dir(r)) 
+- nohup bash /app/work/queue_x1a_warm90.sh > /app/work/x1a90_queue.log 2>&1 & echo $!; export OPENBLAS_NUM_THREADS=1 OMP_N
+- find /opt/conda/include -iname '*ReflectionProfile*' -o -iname 'PowderPattern.h'; grep -n -E 'Aniso|[Cc]lass ReflectionP
+- sed -n '100,253p' /opt/conda/include/ObjCryst/ObjCryst/ReflectionProfile.h; grep -n -E 'Profile|ReflectionProfile' /opt/
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' from pyobjcryst.io import xml_cryst_file_load_all_objec
+- g++ -O2 -shared -fPIC -std=c++17 -I/opt/conda/include /app/work/aniso_bridge.cpp -L/opt/conda/lib -Wl,-rpath,/opt/conda/
+- grep -R -n -E 'typedef.*REAL|define.*REAL|REAL_DOUBLE' /opt/conda/include/ObjCryst | head -25; nm -D /opt/conda/lib/libO
+- sed -n '70,90p' /opt/conda/include/ObjCryst/ObjCryst/General.h; g++ -O2 -shared -fPIC -std=c++17 -DREAL=double -I/opt/co
+- grep -A23 'ReflectionProfilePseudoVoigtAnisotropic' /app/work/X1a56c78/aniso_init.xml | head -24; tail -5 /app/work/Xb70
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' from pyobjcryst.io import xml_cryst_file_load_all_objec
+- nohup env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python /app/work/fit_aniso.py X1a56c78 /app/work/X1a56c78/refined_cha
+- tail -16 /app/work/X1a56c78/aniso_test00.log; tail -5 /app/work/X263b09a/refine_g50.log; tail -5 /app/work/X8a06d7a/refi
+- ls /app/work/*flip*; cat /app/work/flip_variants.py 2>/dev/null; cat /app/work/flip_pyridine.py 2>/dev/null; grep -n -E 
+- rg -l 'MOVES|MOVE_BONDS' /app/work/*.py; cat /app/work/queue_flip130.sh; ls /app/work | grep -E 'pyr|tors|rotor|enum'
+- cat /app/work/enumerate_rotations.py
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' from rdkit import Chem import json r=Chem.MolFromSmiles
+- ls /app/work/X3f4781b/*po* /app/work/*march* /app/work/*po_scan*; cat /app/data/instances/X3f4781b/instrument.json; head
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' from rdkit import Chem import json co=json.load(open('/
+- nohup bash /app/work/queue_clop_n94.sh > /app/work/clop_n94_queue.log 2>&1 & echo $!; nohup env OPENBLAS_NUM_THREADS=1 O
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/submit.py X263b09a /app/work/X263b09a/refined_g50.cif 
+- cat /app/work/restraint_report.py | head -150; tail -12 /app/work/X263b09a/refine_g50.log; tail -8 /app/work/X14a2b08/wa
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/restraint_report.py /app/work/X263b09a/refined_g50.xml
+- python - <<'PY' import shutil p='/app/work/refine_obj.py';shutil.copyfile(p,p.replace('.py','_before_tightenv.py'));s=op
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import sys,runpy for b in ['00','01','10','11']:  print
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/contacts.py /app/work/Xb7088cf/refined_pyr51m1.cif | h
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; cat /app/work/Xb7088cf/refined_g51.json 2>/dev/null; if [[ -f /app/work
+- date -u; cat /app/TOOLS.md; echo SUBMISSION; ls -l /app/results/submission; echo PROCESSES; ps -eo pid,ppid,etime,pcpu,p
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; cat /app/work/Zprime_notes.txt; echo QUEUELOGS; ls -lt /app/work/*.log 
+- ls /app/work | head -100; echo COUNTS; cat /app/data/instances.json; echo ACTIVE; python - <<'PY' import glob,os for f i
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; for i in X1a56c78 X3f4781b X4f6fe58 X7e382cb Xb7088cf X14a2b08 Xeb393f9
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/submit.py X263b09a /app/work/X263b09a/refined_tight96.
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; sed -n '1,260p' /app/work/refine_obj.py; sed -n '1,220p' /app/work/subm
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; cat /app/work/restraint_report.py; echo METHOXY; cat /app/work/enumerat
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; cat /app/results/submission/X1a56c78.json; echo all_X1a; find /app/work
+- ls /app/work/X263b09a/*methoxy* /app/work/X263b09a/*rotate* 2>/dev/null; tail -10 /app/work/X3f4781b/refine_g83.log; ls 
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/submit.py X263b09a /app/work/X263b09a/refined_tight96.
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/submit.py X3f4781b /app/work/X3f4781b/refined_g83.cif 
+- date -u; ls -lt /app/work/X1a56c78 | head -60; for f in /app/work/X1a56c78/*march*.json /app/work/X1a56c78/*po*.json /ap
+- cat /app/work/queue_clopidogrel_cond.sh; cat /app/work/search_gallop.py; cat /app/work/conformer_variants.py; cat /app/w
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; echo LATEST; for f in X14a2b08/gallop50.log X4f6fe58/gallop84.log X4f6f
+- echo X7 Files; ls /app/work/X7e382cb | grep -E '(tc|half|center|subcell|double|json)' | head -110; echo QUEUES; rg 'tc2|
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; cat /app/work/solve_twocentres.py; tail -20 /app/work/X7e382cb/tc2.log;
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; nohup bash /app/work/queue_clop98.sh > /app/work/clop98_queue.log 2>&1 
+- head -32 /app/work/X1a56c78/refined_chair84m00.xml; cat /app/work/X1a56c78/fit_sg18.json; cat /app/work/X1a56c78/fit_0.j
+- cat > /app/work/queue_sg19test.sh <<'SH' set -e export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 id=X1a56c78 python /app/
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import os,glob,json for d in glob.glob('/app/work/X*'):
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/contacts.py /app/work/Xb7088cf/refined_g50.cif | head 
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/submit.py X4f6fe58 /app/work/X4f6fe58/refined_g84.cif 
+- cat /app/work/check_hbonds.py; sed -n '1,140p' /app/work/contacts.py; sed -n '1,220p' /app/work/check_stereo.py; tail -5
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; for pair in 'X1a56c78 chair84m00' 'X3f4781b ninv94m00' 'X4f6fe58 g84' '
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; for tag in g50 pyr51m1 g51; do echo ====Xb7088cf $tag; python /app/work
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import gemmi,numpy as np from pymatgen.core import Latt
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; cp /app/results/submission/Xb7088cf.cif /app/work/Xb7088cf/submission_b
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/audit_submission.py > /app/work/submission_audit.log 2
+- ls /app/work/X14a2b08 | grep -E '(po|march|md|aniso)' || true; cat /app/work/X14a2b08/refined_g50.json; cat /app/work/X1
+- cat /app/work/native_scan_march.py; cat /app/work/scan_po.py; cat /app/work/queue_bfee_po.sh; tail -5 /app/work/X14a2b08
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/native_scan_march.py /app/work/X1db5091/refined_g91.xm
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/native_scan_march.py /app/work/X4f6fe58/refined_g84.xm
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/native_scan_march.py /app/work/X14a2b08/refined_g50.xm
+- date -u; for f in X14a2b08/refine_ring94c3.log X1db5091/gallop50.log X1a56c78/warm91.log X1a56c78/gallop91.log X3f4781b/
+- tail -45 /app/work/audit_submission.py; cat /app/work/X14a2b08/check_g50.log; cat /app/work/X1a56c78/check_g90.log | tai
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import gemmi for name in ['P 2 21 21','P 21 21 21','P 1
+- cat > /app/work/queue_x1a_sub101.sh <<'SH' set -e export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 while [[ -r /proc/5799
+- nohup bash /app/work/queue_brconditional101.sh > /app/work/br101_queue.log 2>&1 & echo $!; export OPENBLAS_NUM_THREADS=1
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' from pymatgen.core import Lattice import json,spglib,nu
+- date -u; for f in X9af54a2/check_g87.log X35b7fbc/refine_chem86.log Xb7088cf/refine_g31.log X4f6fe58/warm100.log X019b9a
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; for f in Xb7088cf/refine_g31.log X4f6fe58/warm100.log X3f4781b/refine_n
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; for tag in g50 ring94c3 ring94c2; do echo ====X14 $tag; python /app/wor
+- sed -n '1,155p' /app/work/gallop_packing.py; tail -5 /app/work/X14a2b08/refine_ring94c0.log; tail -5 /app/work/X14a2b08/
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; cp /app/work/gallop_packing.py /app/work/gallop_packing_before_donorNN.
+- nohup bash /app/work/queue_caprolactam95_typed.sh > /app/work/cap95typed_queue.log 2>&1 & echo $!; export OPENBLAS_NUM_T
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import glob,numpy as np from pyobjcryst.io import xml_c
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import json,sys,numpy as np,networkx as nx,itertools sy
+- date -u; cat /app/TOOLS.md; echo ' === Submission ==='; ls -l /app/results/submission/; echo ' === Running ==='; ps -eo 
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; cat /app/work/x7_symmetrise.py; cat /app/work/queue_clop98.sh; cat /app
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; cat /app/work/Zprime_notes.txt | tail -170; echo ===; tail -10 /app/wor
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; cat /app/work/X3f4781b/refined_ninv94m*.json; ls -ltr /app/work/X3f4781
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/x7_symmetrise.py > /app/work/X7e382cb/centro100_prepar
+- sed -n '1,275p' /app/work/obj_model.py; sed -n '1,240p' /app/work/refine_obj.py; sed -n '1,220p' /app/work/search_condit
+- cp /app/work/x7_symmetrise.py /app/work/x7_symmetrise_v0.py; python - <<'PY' p='/app/work/x7_symmetrise.py';s=open(p).re
+- python - <<'PY' p='/app/work/x7_symmetrise.py';s=open(p).read();s=s.replace("assert np.max(np.abs(actual-fr))<1.e-6","as
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; nohup bash /app/work/queue_x7_centro101.sh > /app/work/x7_centro101_que
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; nohup bash /app/work/queue_x1a_sub101.sh > /app/work/x1a_sub101_queue.l
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; sed -n '1,240p' /app/work/ring_variants.py 2>/dev/null; ls /app/work/*r
+- ls -lt /app/work/X7e382cb | head -50; cat /app/work/solve_twocentres.py; ls /app/work/X7e382cb/*tc*; grep -n -E 'two|cen
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; sed -n '1,180p' /app/work/contacts.py; ls -l /app/work/X4f6fe58/*con* /
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; cat /app/work/X7e382cb/tc{1,2}/best.json; tail -10 /app/work/X7e382cb/t
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/submit.py X7e382cb /app/work/X7e382cb/tc2/best.cif --c
+- tail -8 /app/work/X7e382cb/conditional101.log; tail -8 /app/work/X14a2b08/conditional95.log; tail -8 /app/work/X3f4781b/
+- kill 63353 63395; cp /app/work/queue_x7_centro101.sh /app/work/queue_x7_centro101_beforeOO.sh; python - <<'PY' p='/app/w
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; nohup bash /app/work/queue_x7_tc103.sh > /app/work/x7_tc103_queue.log 2
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; nohup python /app/work/add_valid_unsolved.py X238783d Xd8634a2 Xe1fb77b
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' from rdkit import Chem r=Chem.MolFromSmiles('O=C([O-])c
+- cat /app/data/instances/X7e382cb/instrument.json; cat /app/work/fallback_a.log; tail -15 /app/work/X7e382cb/refine_ionHt
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/add_valid_unsolved.py X7e382cb X1a56c78 > /app/work/fa
+- grep -E 'HYPOTHESIS|NO_VALID|REJECT' /app/work/fallback_a.log; cat /app/work/X1a56c78/refined_sub101.json 2>/dev/null; t
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import json,numpy as np,networkx as nx from pyobjcryst.
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/check_hbonds_allimages.py /app/work/X1db5091/refined_g
+- grep -R -n '\.Occupancy\|\.Occup\|SetOccup' /app/work/*.py | head -25; export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; 
+- python - <<'PY' p='/app/work/refine_special_x7.py';s=open(p).read().replace('for stage in range(3):','save()\nfor stage 
+- ls /app/work/*flip*; cat /app/work/flip_pyridine.py 2>/dev/null; tail -8 /app/work/X7e382cb/refine_special104.log; cat /
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' from pyobjcryst._pyobjcryst import LSQ print(LSQ.SetPar
+- python - <<'PY' p='/app/work/refine_special_x7.py';s=open(p).read().replace('for m in mols[:2]:m.SetParIsFixed(refpartyp
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; nohup bash /app/work/queue_nic103.sh > /app/work/nic103_queue.log 2>&1 
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import gemmi,json W='/app/work/X7e382cb' for t in ['ion
+- cp /app/work/refine_obj.py /app/work/refine_obj_before_fixcell.py; python - <<'PY' p='/app/work/refine_obj.py';s=open(p)
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; nohup python /app/work/audit_submission.py > /app/work/submission_audit
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/compare_periodic.py /app/work/X7e382cb/refined_ionH88.
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import numpy as np from pymatgen.io.cif import CifParse
+- python - <<'PY' p='/app/work/x7_crossover.py';s=open(p).read().replace('import os,sys,json,numpy as np,networkx as nx,it
+- cp /app/work/conformer_variants.py /app/work/conformer_variants_before_modcheck.py; python - <<'PY' p='/app/work/conform
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; cp /app/results/submission/X3f4781b.cif /app/work/X3f4781b/submission_b
+- cp /app/work/refine_obj.py /app/work/refine_obj_before_cellbounds.py; python - <<'PY' p='/app/work/refine_obj.py';s=open
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; cat /app/work/X7e382cb/refined_bound108.json 2>/dev/null; tail -14 /app
+- cp /app/work/refine_obj.py /app/work/refine_obj_before_uniquescale.py; python - <<'PY' p='/app/work/refine_obj.py';s=ope
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; for s in 00 01 10 11; do echo ===$s; tail -5 /app/work/X3f4781b/refine_
+- head -14 /app/work/X1a56c78/base.xml; grep -n 'SpaceGroup\|SgName' /app/work/X1a56c78/base.xml | head; sed -n '1,120p' /
+- ls /app/work/X1a56c78/*xml | sed 's|.*/||' | grep -v -E 'stage|refined' | tail -45; ls /app/work/X1a56c78/*json | sed 's
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import os,xml.etree.ElementTree as ET W='/app/work/X1a5
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; date -u; ls /app/results/submission | wc -l; ps -eo pid,etime,pcpu,args
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; cat /app/work/queue_x1a_sg19fresh.sh; tail -30 /app/work/sg19fresh_queu
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; nohup python /app/work/audit_submission.py > /app/work/submission_audit
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; tail -20 /app/work/submission_audit.log; cat /app/work/Zprime_notes.txt
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; date -u; tail -5 /app/work/submission_audit.log; python - <<'PY' import
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; cat /app/work/X3f4781b/refined_ninv110m00.json; ls /app/work/X3f4781b/*
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/restraint_report.py /app/work/X3f4781b/refined_ninv110
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; mkdir -p /app/work/X3f4781b/search_tight115; cp /app/work/X3f4781b/sear
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; date -u; for r in 111 112 113 114; do echo ==== $r; tail -2 /app/work/X
+- cat /app/data/instances/X4f6fe58/instrument.json; cat /app/data/instances/X1a56c78/instrument.json; cat /app/work/X4f6fe
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' from pyobjcryst.io import xml_cryst_file_load_all_objec
+- date -u; tail -16 /app/work/X3f4781b/refine_tight115.log; for r in 111 112 113 114; do echo ==== $r; tail -3 /app/work/X
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; sed -n '1,80p' /app/work/X1a56c78/gallop111.log; cat /app/work/X1a56c78
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import json,glob,hashlib,os,datetime R='/app/results/su
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' from pymatgen.io.cif import CifParser import numpy as n
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; sleep 25; date -u; tail -6 /app/work/X3f4781b/refine_tight115.log; for 
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; cat /app/work/X3f4781b/check_tight115.log; python /app/work/contacts.py
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' from pyobjcryst.molecule import MolBondAngle print([x f
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import glob,os,signal for p in glob.glob('/proc/[0-9]*/
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; cat > /app/work/final_sg19_decision.txt <<'EOF' X1a56c78, final indepen
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; date -u; tail -10 /app/work/X3f4781b/refine_chemH116.log; ls /app/work/
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python /app/work/check_stereo.py X3f4781b /app/work/X3f4781b/refine_che
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; date -u; tail -9 /app/work/X3f4781b/refine_chemH116.log; python - <<'PY
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; for i in $(seq 1 28); do grep -q 'FINISHED X3f4781b' /app/work/X3f4781b
+- export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; python - <<'PY' import json,hashlib,datetime,os p='/app/work/final_mani

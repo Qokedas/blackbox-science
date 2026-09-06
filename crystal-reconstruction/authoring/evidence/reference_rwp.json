@@ -1,0 +1,302 @@
+[
+ {
+  "id": "X019b9a4",
+  "name": "Pigment Yellow 181 Dimethylsulfoxide <i>N</i>-meth",
+  "rwp": 0.09439669369506931,
+  "rp": 0.09893290291197661,
+  "chi2": 22409.401915440136,
+  "n_refl": 183,
+  "seconds": 2.6,
+  "rwp_null_random_atoms": 0.41849930385828576
+ },
+ {
+  "id": "X07806d9",
+  "name": "5-Aminolevulinic acid hydrochloride",
+  "rwp": 0.16873457288454327,
+  "rp": 0.21611986974406186,
+  "chi2": 6509113.484938689,
+  "n_refl": 2674,
+  "seconds": 8.3,
+  "rwp_null_random_atoms": 0.4869770785682641
+ },
+ {
+  "id": "X13023e3",
+  "name": "<i>S</i>-Ibuprofen--nicotinamide",
+  "rwp": 0.1551257578051676,
+  "rp": 0.2551694537212536,
+  "chi2": 1638515497942.5881,
+  "n_refl": 945,
+  "seconds": 4.2,
+  "rwp_null_random_atoms": 0.5355268925977728
+ },
+ {
+  "id": "X14a2b08",
+  "name": "ACM-CPR",
+  "rwp": 0.3183323103395945,
+  "rp": 0.3298444596806554,
+  "chi2": 49144181.97471055,
+  "n_refl": 1565,
+  "seconds": 7.4,
+  "rwp_null_random_atoms": 0.5425740932112703
+ },
+ {
+  "id": "X1a56c78",
+  "name": "Trihexyphenidyl hydrochloride",
+  "rwp": 0.25049071734250195,
+  "rp": 0.4148229538265076,
+  "chi2": 4150604.132854202,
+  "n_refl": 1356,
+  "seconds": 3.0,
+  "rwp_null_random_atoms": 0.4620776992326687
+ },
+ {
+  "id": "X1db5091",
+  "name": "ACEMETACINNICOTINAMIDEFORMI",
+  "rwp": 0.2581034400584598,
+  "rp": 0.2191544153292145,
+  "chi2": 154083322.04920867,
+  "n_refl": 1304,
+  "seconds": 5.3,
+  "rwp_null_random_atoms": 0.5726526581023776
+ },
+ {
+  "id": "X2327841",
+  "name": "(<i>S</i>)-9-methyltriacontane",
+  "rwp": 0.11138331358495694,
+  "rp": 0.1973461453864345,
+  "chi2": 152041.73436393624,
+  "n_refl": 1180,
+  "seconds": 8.7,
+  "rwp_null_random_atoms": 0.35652209319280015
+ },
+ {
+  "id": "X238783d",
+  "name": "Clarithromycin",
+  "rwp": 0.08576235441791114,
+  "rp": 0.08033830055978666,
+  "chi2": 138492.99312937228,
+  "n_refl": 1065,
+  "seconds": 11.7,
+  "rwp_null_random_atoms": 0.4059268358064031
+ },
+ {
+  "id": "X263b09a",
+  "name": "ACEMETACINVLM",
+  "rwp": 0.28612315406782846,
+  "rp": 0.2647676584077893,
+  "chi2": 174036486.2865189,
+  "n_refl": 1270,
+  "seconds": 6.1,
+  "rwp_null_random_atoms": 0.5988385465287474
+ },
+ {
+  "id": "X35b7fbc",
+  "name": "methylergometrine maleate",
+  "rwp": 0.24551052248380992,
+  "rp": 0.2890352729637425,
+  "chi2": 1546558.1528578682,
+  "n_refl": 617,
+  "seconds": 6.1,
+  "rwp_null_random_atoms": 0.6001912592507092
+ },
+ {
+  "id": "X3c176e2",
+  "name": "cis-inositol",
+  "rwp": 0.07963798162091434,
+  "rp": 0.07312358973302298,
+  "chi2": 61551.26665719928,
+  "n_refl": 533,
+  "seconds": 3.7,
+  "rwp_null_random_atoms": 0.4947090747009732
+ },
+ {
+  "id": "X3f4781b",
+  "name": "Clopidogrel hydrogen sulfate",
+  "rwp": 0.1528994956285744,
+  "rp": 0.154384409947701,
+  "chi2": 77353345.75142242,
+  "n_refl": 1584,
+  "seconds": 6.6,
+  "rwp_null_random_atoms": 0.4151827678788823
+ },
+ {
+  "id": "X4f6fe58",
+  "name": "Phenazepam, \\b-polymorph",
+  "rwp": 0.10009789769478687,
+  "rp": 0.10960034262532467,
+  "chi2": 48699137.495239384,
+  "n_refl": 885,
+  "seconds": 2.8,
+  "rwp_null_random_atoms": 0.2581924087135945
+ },
+ {
+  "id": "X7e382cb",
+  "name": "Diammonium 4,4'-biphenyldicarboxylate",
+  "rwp": 0.1560505542755257,
+  "rp": 0.2444615413002291,
+  "chi2": 376833.35182602523,
+  "n_refl": 1248,
+  "seconds": 2.0,
+  "rwp_null_random_atoms": 0.25837971179324404
+ },
+ {
+  "id": "X8a06d7a",
+  "name": "Acemetacin cocrystals and salts: structure solutio",
+  "rwp": 0.3818528735463426,
+  "rp": 0.5306254069736273,
+  "chi2": 110190868.83190928,
+  "n_refl": 913,
+  "seconds": 2.2,
+  "rwp_null_random_atoms": 0.5841142015128575
+ },
+ {
+  "id": "X8a6f5a8",
+  "name": "Carvedilol dihydrogen phosphate isopropanol solvat",
+  "rwp": 0.2978101052704341,
+  "rp": 0.30066588288845464,
+  "chi2": 409352218.1090581,
+  "n_refl": 2009,
+  "seconds": 3.9,
+  "rwp_null_random_atoms": 0.4610581246914169
+ },
+ {
+  "id": "X9af54a2",
+  "name": "Midodrine hydrochloride Form A",
+  "rwp": 0.1226797914676546,
+  "rp": 0.11429818147246654,
+  "chi2": 30895.130519926835,
+  "n_refl": 8647,
+  "seconds": 15.0,
+  "rwp_null_random_atoms": 0.6043398330559778
+ },
+ {
+  "id": "Xb7088cf",
+  "name": "entinostat Form B",
+  "rwp": 0.05578162268207993,
+  "rp": 0.05668934830718607,
+  "chi2": 14076.353720954448,
+  "n_refl": 1817,
+  "seconds": 1.9,
+  "rwp_null_random_atoms": 0.1994550311546378
+ },
+ {
+  "id": "Xbfc6d2c",
+  "name": "4,4'-Diisocyano-3,3'-dimethylbiphenyl",
+  "rwp": 0.05251102161098788,
+  "rp": 0.05422675864891307,
+  "chi2": 40173.37067556952,
+  "n_refl": 1028,
+  "seconds": 1.4,
+  "rwp_null_random_atoms": 0.3413150691206057
+ },
+ {
+  "id": "Xbfeeda9",
+  "name": "loperamide hydrochloride anhydrate",
+  "rwp": 0.11695607061355576,
+  "rp": 0.15210092821712473,
+  "chi2": 155476.08094981356,
+  "n_refl": 2768,
+  "seconds": 3.8,
+  "rwp_null_random_atoms": 0.3987049597860723
+ },
+ {
+  "id": "Xd4c1a35",
+  "name": "Griseofulvin",
+  "rwp": 0.08268521094867075,
+  "rp": 0.10887055305973106,
+  "chi2": 714065391.8786387,
+  "n_refl": 1121,
+  "seconds": 3.7,
+  "rwp_null_random_atoms": 0.7819343891379463
+ },
+ {
+  "id": "Xd8634a2",
+  "name": "\\ 3-{[3-Fluoro-2-(methylsulfamoylamino)pyridin-4-y",
+  "rwp": 0.11619923137582744,
+  "rp": 0.11062037330097163,
+  "chi2": 28045.702936841062,
+  "n_refl": 12460,
+  "seconds": 17.5,
+  "rwp_null_random_atoms": 0.6287317647510675
+ },
+ {
+  "id": "Xdcc971e",
+  "name": "(<i>S</i>)-13-methylnonacosane",
+  "rwp": 0.08465926931743027,
+  "rp": 0.08998104385108102,
+  "chi2": 90985.02451685755,
+  "n_refl": 1042,
+  "seconds": 6.0,
+  "rwp_null_random_atoms": 0.5550856802348928
+ },
+ {
+  "id": "Xe1fb77b",
+  "name": "cynarine monohydrate",
+  "rwp": 0.13125148383594246,
+  "rp": 0.12723471744281473,
+  "chi2": 111237.24270588202,
+  "n_refl": 8031,
+  "seconds": 16.1,
+  "rwp_null_random_atoms": 0.48606259614230435
+ },
+ {
+  "id": "Xe3a2935",
+  "name": "Levosimendan",
+  "rwp": 0.14706046528303285,
+  "rp": 0.19685271826424844,
+  "chi2": 42209.75686600764,
+  "n_refl": 4860,
+  "seconds": 16.1,
+  "rwp_null_random_atoms": 0.4685823494617167
+ },
+ {
+  "id": "Xeb393f9",
+  "name": "1-(3-Carboxypropyl)-4-[(4-chlorophenyl)(pyridin-2-",
+  "rwp": 0.1538891622069011,
+  "rp": 0.16772089322969394,
+  "chi2": 3940292.020432454,
+  "n_refl": 4689,
+  "seconds": 7.8,
+  "rwp_null_random_atoms": 0.2799003340103728
+ },
+ {
+  "id": "Xebbd488",
+  "name": "Carvedilol dihydrogen phosphate hemihydrate",
+  "rwp": 0.29623042968723345,
+  "rp": 0.2641000792145169,
+  "chi2": 268941161.1999641,
+  "n_refl": 1347,
+  "seconds": 3.4,
+  "rwp_null_random_atoms": 0.5601395671367798
+ },
+ {
+  "id": "Xedd9c7b",
+  "name": "psilocybin Form B",
+  "rwp": 0.3136551755026354,
+  "rp": 0.440545245543604,
+  "chi2": 67359.81488585444,
+  "n_refl": 923,
+  "seconds": 2.3,
+  "rwp_null_random_atoms": 0.32239687353872437
+ },
+ {
+  "id": "Xf8ac963",
+  "name": "(1<i>R</i>,2<i>S</i>,5<i>R</i>)-Acoltremon",
+  "rwp": 0.18917869789164962,
+  "rp": 0.2271172358164745,
+  "chi2": 87139.70009036562,
+  "n_refl": 5854,
+  "seconds": 14.8,
+  "rwp_null_random_atoms": 0.6023532617331091
+ },
+ {
+  "id": "Xfca9f3c",
+  "name": "(<i>S</i>)-9-methylpentacosane",
+  "rwp": 0.06347058693309408,
+  "rp": 0.12440625629868135,
+  "chi2": 48580.74527313262,
+  "n_refl": 973,
+  "seconds": 4.8,
+  "rwp_null_random_atoms": 0.31726016603075663
+ }
+]

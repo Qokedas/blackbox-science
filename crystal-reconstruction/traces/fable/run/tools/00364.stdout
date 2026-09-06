@@ -1,0 +1,37 @@
+            ok = True
+        else:
+            lsqr.RestoreParamSet(sid)
+    except Exception as e:
+        if verbose: print('polish failed', e, flush=True)
+        lsqr.RestoreParamSet(sid)
+    if verbose: print(f'polish: Rwp {rw0:.4f} -> {p.GetRw():.4f} ({"accepted" if ok else "rejected"}) restraint cost={cr.GetRestraintCost():.2f}', flush=True)
+    return ok
+
+def optimize(p, cr, nsteps=1e6, nruns=1, seed=None, maxtime=-1, save_prefix=None, do_polish=True, norand=False):
+    mc = MonteCarlo()
+    mc.AddRefinableObj(cr)
+    mc.AddRefinableObj(p)
+    mc.SetAlgorithmParallTempering(AnnealingSchedule.SMART, 0.1, 0.01, AnnealingSchedule.EXPONENTIAL, 16, 0.125) if False else None
+    results = []
+    for r in range(nruns):
+        t0 = time.time()
+        if not (norand and r == 0): mc.RandomizeStartingConfig()
+        mc.Optimize(int(nsteps), 0, maxtime)
+        cost = mc.GetLogLikelihood()
+        rw = p.GetRw()
+        chi2 = p.GetChi2()
+        print(f'run {r}: cost={cost:.1f} Rwp={rw:.4f} chi2={chi2:.1f} t={time.time()-t0:.0f}s', flush=True)
+        if save_prefix:
+            write_cif(cr, f'{save_prefix}_run{r}_rw{rw:.3f}.cif')
+        if do_polish:
+            try:
+                sid = cr.CreateParamSet('mc_best'); cr.SaveParamSet(sid)
+                ok = polish(p, cr)
+                if ok and save_prefix:
+                    write_cif(cr, f'{save_prefix}_run{r}_lsq_rw{p.GetRw():.3f}.cif')
+                cr.RestoreParamSet(sid)  # continue next run from MC state (randomized anyway)
+            except Exception as e:
+                print('polish error', e, flush=True)
+        results.append((cost, rw, chi2))
+    return mc, results
+

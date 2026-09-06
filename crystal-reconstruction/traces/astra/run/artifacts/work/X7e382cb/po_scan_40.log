@@ -1,0 +1,14 @@
+ATTACHED_H_SCATTERING 40 heavy atoms 32 H atoms
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+BASE 111.54066099645411
+{'axis': (0, 1, 1), 'MD': 1.2861399685875323, 'chi': 99.86283126993533}
+{'axis': (1, 0, 1), 'MD': 0.9195549035812766, 'chi': 107.30457630511455}
+{'axis': (1, 0, -1), 'MD': 1.1853128054680127, 'chi': 107.83017292173406}
+{'axis': (0, 1, 0), 'MD': 1.126169204399174, 'chi': 108.1725307666951}
+{'axis': (0, 0, 1), 'MD': 0.914773831435586, 'chi': 108.49562239528211}
+{'axis': (1, -1, -1), 'MD': 1.0959600610332445, 'chi': 109.17121854068353}
+{'axis': (1, -1, 1), 'MD': 0.9527652408790641, 'chi': 110.53260956376926}
+{'axis': (1, 1, -1), 'MD': 1.0438233521852769, 'chi': 110.6509445804619}

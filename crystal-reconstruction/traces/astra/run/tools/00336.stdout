@@ -1,0 +1,157 @@
+#include <bits/stdc++.h>
+#define private public
+#include <ObjCryst/ObjCryst/PowderPattern.h>
+#include <ObjCryst/ObjCryst/Crystal.h>
+#include <ObjCryst/ObjCryst/DiffractionDataSingleCrystal.h>
+#include <algorithm>
+#include <cstdio>
+#undef private
+using namespace ObjCryst;
+struct AccessDiff : PowderPatternDiffraction {
+ int matrix(double* out, long npoint,long nref) {
+  GetPowderPatternCalc();
+  if(nref>long(mvReflProfile.size())) return -1;
+  std::fill(out,out+npoint*nref,0.0);
+  for(long j=0;j<nref;j++) {
+   auto &r=mvReflProfile[j];
+   double corr=mIntensityCorr(j)*mMultiplicity(j);
+   for(long i=std::max(0L,r.first);i<=std::min(npoint-1,r.last);i++) out[i*nref+j]=r.profile(i-r.first)*corr;
+  }
+  return long(mvReflProfile.size());
+ }
+ void setobs(double *v,long n) {
+  CrystVector_REAL vv(n);for(long i=0;i<n;i++)vv(i)=v[i];
+  mpLeBailData->SetFhklObsSq(vv);
+  SetExtractionMode(true,false);
+ }
+ void march(double frac,double coeff,double h,double k,double l) {mCorrTextureMarchDollase.AddPhase(frac,coeff,h,k,l);}
+};
+struct AccessCrystal: Crystal {void bumpscale(double scale){mBumpMergeScale=scale; mBumpMergeParClock.Click();}};
+extern "C" {
+ int bridge_kind(void *ptr) {auto *r=reinterpret_cast<RefinableObj*>(ptr);std::printf("Object: %s %s\n",r->GetClassName().c_str(),r->GetName().c_str()); return sizeof(REAL);}
+ int bridge_matrix(void *ptr,double *out,long np,long nr) {auto*d=dynamic_cast<PowderPatternDiffraction*>(reinterpret_cast<RefinableObj*>(ptr));if(!d)return -2;return reinterpret_cast<AccessDiff*>(d)->matrix(out,np,nr);}
+ void bridge_setobs(void*ptr,double*v,long n) {auto*d=dynamic_cast<PowderPatternDiffraction*>(reinterpret_cast<RefinableObj*>(ptr));reinterpret_cast<AccessDiff*>(d)->setobs(v,n);}
+ void bridge_march(void*ptr,double frac,double coeff,double h,double k,double l) {auto*d=dynamic_cast<PowderPatternDiffraction*>(reinterpret_cast<RefinableObj*>(ptr));reinterpret_cast<AccessDiff*>(d)->march(frac,coeff,h,k,l);}
+ void bridge_bumpscale(void*ptr,double scale) {auto*c=dynamic_cast<Crystal*>(reinterpret_cast<RefinableObj*>(ptr));reinterpret_cast<AccessCrystal*>(c)->bumpscale(scale);}
+}
+==== Xedd9c7b
+{
+ "radiation": {
+  "type": "Cu Kalpha1 (laboratory, monochromatic per the paper: Bruker D8 Advance, LynxEye)",
+  "wavelength_A": 1.540598,
+  "wavelengths_A": [
+   1.540598
+  ],
+  "wavelength_weights": null,
+  "monochromator": "monochromatic incident beam (paper)",
+  "source": "sealed X-ray tube"
+ },
+ "geometry": "reflection (flat plate / Bragg-Brentano)",
+ "geometry_source_text": null,
+ "temperature_K": 300.0,
+ "two_theta_range_deg": [
+  3.0066,
+  39.9938
+ ],
+ "n_points": 2818,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": [
+  "depositors tagged the radiation K-alpha1,2; the paper states monochromatic 1.5406 A and the deposited profile is consistent with a single wavelength"
+ ]
+}==== X8a6f5a8
+{
+ "radiation": {
+  "type": "CuK1",
+  "wavelength_A": 1.54059,
+  "wavelengths_A": [
+   1.54059
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 295.0,
+ "two_theta_range_deg": [
+  3.5,
+  85.0
+ ],
+ "n_points": 8151,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}==== Xebbd488
+{
+ "radiation": {
+  "type": "CuK1",
+  "wavelength_A": 1.54059,
+  "wavelengths_A": [
+   1.54059
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "transmission (capillary / Debye-Scherrer)",
+ "geometry_source_text": null,
+ "temperature_K": 295.0,
+ "two_theta_range_deg": [
+  5.0,
+  75.0
+ ],
+ "n_points": 7001,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": []
+}/app/work/adopt_fit.py
+/app/work/alkane_models.py
+/app/work/analyze_lattice.py
+/app/work/antibump.py
+/app/work/antibump_v1.py
+/app/work/check_stereo.py
+/app/work/collect_candidates.py
+/app/work/complete_2d.py
+/app/work/create_base.py
+/app/work/eval_cif.py
+/app/work/fit_candidate.py
+/app/work/gallop_prepare.py
+/app/work/gallop_prepare_v1.py
+/app/work/hydrogen_prefix.py
+/app/work/import_de.py
+/app/work/import_gallop.py
+/app/work/index_de.py
+/app/work/index_de_v1.py
+/app/work/index_one.py
+/app/work/make_base.py
+/app/work/obj_bridge.py
+/app/work/obj_model.py
+/app/work/obj_model_v1.py
+/app/work/parse_index_log.py
+/app/work/preprocess.py
+/app/work/refine_obj.py
+/app/work/refine_obj_v1.py
+/app/work/refine_obj_v2.py
+/app/work/refine_obj_v3.py
+/app/work/refine_obj_v4.py
+/app/work/refine_stable.py
+/app/work/reindex_batch.py
+/app/work/repick.py
+/app/work/restore_cif.py
+/app/work/run_fits.py
+/app/work/run_fits2.py
+/app/work/run_index_batch.py
+/app/work/search_gallop.py
+/app/work/search_gallop_v1.py
+/app/work/search_obj.py
+/app/work/search_obj_v1.py
+/app/work/solve_de.py
+/app/work/solve_half_biphenyl.py
+/app/work/solve_half_biphenyl_v1.py
+/app/work/solve_twocentres.py
+/app/work/submit.py
+/app/work/test_fit.py

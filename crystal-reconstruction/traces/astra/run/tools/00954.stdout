@@ -1,0 +1,64 @@
+{
+ "cell": {
+  "a": 5.06276657,
+  "b": 9.3629387,
+  "c": 38.11666311,
+  "alpha": 90.0,
+  "beta": 90.0,
+  "gamma": 90.0
+ },
+ "space_group": "P 21 21 21",
+ "space_group_number": 19
+}{
+ "cell": {
+  "a": 5.052457881299544,
+  "b": 9.355738049659784,
+  "c": 38.066725954209964,
+  "alpha": 90.0,
+  "beta": 90.0,
+  "gamma": 90.0
+ },
+ "space_group": "P 21 21 21",
+ "space_group_number": 19
+}{
+ "cell": {
+  "a": 8.21004452707767,
+  "b": 11.22417387723205,
+  "c": 16.862326512436812,
+  "alpha": 90.0,
+  "beta": 90.0,
+  "gamma": 90.0
+ },
+ "space_group": "P b c a",
+ "space_group_number": 61
+}data_solution
+_cell_length_a 8.21076537
+_cell_length_b 11.22533891
+_cell_length_c 16.86291466
+_cell_angle_alpha 90.00000000
+_cell_angle_beta 90.00000000
+_cell_angle_gamma 90.00000000
+_space_group_name_H-M_alt 'P b c a'
+_space_group_IT_number 61
+loop_
+_space_group_symop_id
+_space_group_symop_operation_xyz
+1 'x,y,z'
+2 '-x+1/2,-y,z+1/2'
+3 'x+1/2,-y+1/2,-z'
+/app/work/X07806d9/base.log
+/app/work/X07806d9/base.xml
+44:Continuation: X8a06d7a mono lattice fit_force_mono (P21 a11.8385,b5.00407,c21.6943,beta86.0682,Rwp.096) materially better than tentative P-1 model; older fit_2d0 mono .0745. Config now runs upcoming G11 against independent G11/base.xml from fit_force_mono; HBOND15/coarsefine enabled. JSON remainsP-1 pending solution. X7 P1 symmetry release built via expand_p1.py: P1test heavygraph2x18+4N, oldRwp.07383. New B5 queue replaced B4 wait: afterXb708G11 => Xeddwarm50 packing/Hbond20,1700sec; X7P1warm40 packing80,Hbond10,1500sec; X238runs20&25 only1800sec each. All otherqueueparents unchanged. Xeb51 config HBOND25 fixed before start.
+47:XeddG11chi48.346refine.093874 butsevereoverlapsN...O2.05,C...C2.13,graph4x19+2x38: NEVERsubmit. Xb708G11.062213graph4x28butC...O2.14andC...C2.16: NEVERsubmit. Xeddwarm50underwaywithpacking/HB20. Xeb51HBpriorplateau47.502, fullgraphvalid andN+...pyridineN3.21vsunflipped>5A; postrefinechem51queuedwithPACKING_SIGMA.01highstol.40.
+56:FutureX238runs20/25 nowpacking+HB4; X1a18HB15coarse90; Xd86331/Xb70831HB8.
+63:08:25: D7waitingparent33679 stopped/replaced D8: sameX1aSG18test, thenNEW X8a06d7aP-1G12 1800sec usingfit_2d1/free2near90anglesandrestoredlow3degdata, thenXd86331/Xb70831. P-1wasneverstructurallytestedbefore. CellP-1fit2d1Rw.06761vsmono2d0.07448; mayreflectfalsepeak-splittingoverfitoractualP-1. JSONP21unchangeduntilstructurecomparison.
+CYCLE 1 0 Rw 0.15413754460325985 chi2 1825.9593258656125 geom 46.91773956340558 LSQ 2008.8566971928217
+CYCLE 1 1 Rw 0.1494924578480769 chi2 1717.5634549689346 geom 39.4491974334976 LSQ 1877.5079515338543
+CYCLE 1 2 Rw 0.14736291090186232 chi2 1668.977991195673 geom 36.29769035871714 LSQ 1820.4174483990546
+PACKING_STAGE 1 0.0
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+INITIAL X7e382cb 64.20481872558594

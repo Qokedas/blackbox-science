@@ -1,0 +1,11 @@
+wl 0.728302001953125
+EXACT_PAWLEY nref 99 rank 97 cond 132.25177359838946 chi2 1866.7055001324002 netRwp 0.06778895002622363
+range -1270.7468895082814 3781.559455608723 normal [0.00000000e+00 8.84343660e-75 9.98872163e-09 1.59542433e-08]
+Refinable Object:TextureMarchDollase, with 0 parameters
+Refinable Object:TextureMarchDollase, with 5 parameters
+#0#Fraction_0:     1.000000000000 Fixed
+#1#MarchCoeff_0:     0.900000000000 Fixed
+#2#H_0:     1.000000000000 Fixed
+#3#K_0:     0.000000000000 Fixed
+#4#L_0:     0.000000000000 Fixed
+march 5 0.1678970518547423

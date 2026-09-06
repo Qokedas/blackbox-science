@@ -1,0 +1,114 @@
+[
+ {
+  "cell": [
+   10.361268997192383,
+   15.46084213256836,
+   17.178531646728516,
+   90.00000250447816,
+   95.61441800222865,
+   90.00000250447816
+  ],
+  "volume": 2738.6953125,
+  "score": 19.032756805419922,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 4,
+  "source": "/app/work/Xedd9c7b/index_MONOCLINIC_P_4_450_2800_z-0.1_zeroscan_peaks_raw.json"
+ },
+ {
+  "cell": [
+   15.814030647277832,
+   9.870537757873535,
+   17.749483108520508,
+   90.00000250447816,
+   94.39165704644546,
+   90.00000250447816
+  ],
+  "volume": 2762.43505859375,
+  "score": 17.70914077758789,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 4,
+  "source": "/app/work/Xedd9c7b/index_MONOCLINIC_P_4_450_2800_z-0.1_zeroscan_peaks_raw.json"
+ },
+ {
+  "cell": [
+   10.459675788879395,
+   30.941484451293945,
+   9.588510513305664,
+   90.00000250447816,
+   117.93395307764541,
+   90.00000250447816
+  ],
+  "volume": 2741.6455078125,
+  "score": 17.637731552124023,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 4,
+  "source": "/app/work/Xedd9c7b/index_MONOCLINIC_P_4_450_2800_z-0.1_zeroscan_peaks_raw.json"
+ },
+ {
+  "cell": [
+   10.49393081665039,
+   15.681037902832031,
+   17.43241310119629,
+   90.00000250447816,
+   96.13371045463555,
+   90.00000250447816
+  ],
+  "volume": 2852.181396484375,
+  "score": 14.381754875183105,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 4,
+  "source": "/app/work/Xedd9c7b/index_MONOCLINIC_P_4_450_2800_z0.2_zeroscan_peaks_raw.json"
+ },
+ {
+  "cell": [
+   14.850144386291504,
+   7.352975368499756,
+   23.630891799926758,
+   90.00000250447816,
+   92.66138571457364,
+   90.00000250447816
+  ],
+  "volume": 2577.5390625,
+  "score": 13.942522048950195,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 4,
+  "source": "/app/work/Xedd9c7b/index_MONOCLINIC_P_4_450_2800_z-0.1_zeroscan_peaks_raw.json"
+ },
+ {
+  "cell": [
+   16.676904678344727,
+   6.311371326446533,
+   26.78132438659668,
+   90.00000250447816,
+   91.5118170659363,
+   90.00000250447816
+  ],
+  "volume": 2817.86376953125,
+  "score": 13.460278511047363,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 4,
+  "source": "/app/work/Xedd9c7b/index_MONOCLINIC_P_4_450_2800_z-0.1_zeroscan_peaks_raw.json"
+ },
+ {
+  "cell": [
+   15.888350486755371,
+   9.342828750610352,
+   15.18492603302002,
+   90.00000250447816,
+   106.2358812559754,
+   90.00000250447816
+  ],
+  "volume": 2164.187255859375,
+  "score": 12.971449851989746,
+  "system": "MONOCLINIC",
+  "centering": "P",
+  "mode": 4,
+  "source": "/app/work/Xedd9c7b/index_MONOCLINIC_P_4_450_2800_z0.1_zeroscan_peaks_raw.json"
+ }
+]

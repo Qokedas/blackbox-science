@@ -1,0 +1,945 @@
+{
+ "radiation": {
+  "type": "Cu K",
+  "wavelength_A": 1.5418,
+  "wavelengths_A": [
+   1.5418
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": null
+ },
+ "geometry": "reflection (flat plate / Bragg-Brentano)",
+ "geometry_source_text": null,
+ "temperature_K": 298.0,
+ "two_theta_range_deg": [
+  5.0,
+  104.86
+ ],
+ "n_points": 4994,
+ "intensity_column": "observed total intensity",
+ "sigma_column": "sqrt(max(I,1)); counting statistics assumed",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": [
+  "the depositors recorded Cu K-alpha as a single wavelength 1.5418 A (the K-alpha1/K-alpha2 weighted mean); whether the K-alpha2 component is present in the data is not stated"
+ ]
+}{
+ "radiation": {
+  "type": "CuK",
+  "wavelength_A": 1.5418,
+  "wavelengths_A": [
+   1.5418
+  ],
+  "wavelength_weights": null,
+  "monochromator": null,
+  "source": "Fine focus X-ray tube"
+ },
+ "geometry": "reflection (flat plate / Bragg-Brentano)",
+ "geometry_source_text": null,
+ "temperature_K": 298.0,
+ "two_theta_range_deg": [
+  3.001,
+  80.011
+ ],
+ "n_points": 4531,
+ "intensity_column": "observed net intensity (instrument background subtracted by the depositors)",
+ "sigma_column": "1/sqrt(_pd_proc_ls_weight)",
+ "pattern_units": "two_theta_deg intensity sigma",
+ "notes": [
+  "the depositors recorded Cu K-alpha as a single wavelength 1.5418 A (the K-alpha1/K-alpha2 weighted mean); whether the K-alpha2 component is present in the data is not stated"
+ ]
+}/app/work/X8a06d7a/fit_0.json
+/app/work/X8a06d7a/fit_1.json
+/app/work/X8a06d7a/fit_2.json
+/app/work/X8a06d7a/fit_2d0.json
+/app/work/X8a06d7a/fit_2d1.json
+/app/work/X8a06d7a/fit_3.json
+/app/work/X8a06d7a/fit_4.json
+/app/work/X8a06d7a/fit_de0.json
+/app/work/X8a06d7a/fit_de1.json
+/app/work/X8a06d7a/fit_de2.json
+/app/work/X8a06d7a/fit_deh0.json
+/app/work/X8a06d7a/fit_deh1.json
+/app/work/X8a06d7a/fit_deh2.json
+/app/work/X8a06d7a/fit_force_mono.json
+/app/work/X8a06d7a/fit_oldh0.json
+{
+ "cell": [
+  11.838503525695577,
+  5.004072815900225,
+  21.694320968178932,
+  90.0,
+  86.06823685026342,
+  90.0
+ ],
+ "system": "MONOCLINIC",
+ "centering": "P",
+ "sg": "P 1 21 1",
+ "score": 0,
+ "volume": 1300,
+ "sgstart": "P 1 21 1",
+ "Rw": 0.09635277107538187,
+ "groups": [
+  {
+   "sg": "P 1 2 1",
+   "number": 3,
+   "Rw": 11.527605591114801,
+   "GoF": 3408.5759925615744,
+   "nGoF": 0.0,
+   "mult": 2
+  },
+  {
+   "sg": "P 1 m 1",
+   "number": 6,
+   "Rw": 11.527605591114801,
+   "GoF": 3408.5759925615744,
+   "nGoF": 0.0,
+   "mult": 2
+  },
+  {
+   "sg": "P 1 2/m 1",
+   "number": 10,
+   "Rw": 11.527605591114801,
+   "GoF": 3408.5759925615744,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 1 21 1",
+   "number": 4,
+   "Rw": 11.53013314118825,
+   "GoF": 3407.5505118765677,
+   "nGoF": 0.0,
+   "mult": 2
+  },
+  {
+   "sg": "P 1 21/m 1",
+   "number": 11,
+   "Rw": 11.53013314118825,
+   "GoF": 3407.5505118765677,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 1 21/c 1",
+   "number": 14,
+   "Rw": 41.79591163905984,
+   "GoF": 43630.79989661689,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 1 c 1",
+   "number": 7,
+   "Rw": 41.799240599207316,
+   "GoF": 43669.20101490952,
+   "nGoF": 0.0,
+   "mult": 2
+  },
+  {
+   "sg": "P 1 2/c 1",
+   "number": 13,
+   "Rw": 41.799240599207316,
+   "GoF": 43669.20101490952,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "A 1 2 1",
+   "number": 5,
+   "Rw": 42.406069096699724,
+   "GoF": 43053.55208432231,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "A 1 m 1",
+   "number": 8,
+   "Rw": 42.406069096699724,
+   "GoF": 43053.55208432231,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "A 1 2/m 1",
+   "number": 12,
+   "Rw": 42.406069096699724,
+   "GoF": 43053.55208432231,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "P 1 21/a 1",
+   "number": 14,
+   "Rw": 47.98311022144895,
+   "GoF": 57421.859407284544,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 1 a 1",
+   "number": 7,
+   "Rw": 47.986650518999255,
+   "GoF": 57471.66479152852,
+   "nGoF": 0.0,
+   "mult": 2
+  },
+  {
+   "sg": "P 1 2/a 1",
+   "number": 13,
+   "Rw": 47.986650518999255,
+   "GoF": 57471.66479152852,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "C 1 2 1",
+   "number": 5,
+   "Rw": 48.56957265115987,
+   "GoF": 56187.36220754791,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "C 1 m 1",
+   "number": 8,
+   "Rw": 48.56957265115987,
+   "GoF": 56187.36220754791,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "C 1 2/m 1",
+   "number": 12,
+   "Rw": 48.56957265115987,
+   "GoF": 56187.36220754791,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "P 1 21/n 1",
+   "number": 14,
+   "Rw": 51.75881621123594,
+   "GoF": 66742.25701189156,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 1 n 1",
+   "number": 7,
+   "Rw": 51.761081840855894,
+   "GoF": 66796.08582792898,
+   "nGoF": 0.0,
+   "mult": 2
+  },
+  {
+   "sg": "P 1 2/n 1",
+   "number": 13,
+   "Rw": 51.761081840855894,
+   "GoF": 66796.08582792898,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "I 1 2 1",
+   "number": 5,
+   "Rw": 52.43441202346012,
+   "GoF": 65665.55857289136,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "I 1 m 1",
+   "number": 8,
+   "Rw": 52.43441202346012,
+   "GoF": 65665.55857289136,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "I 1 2/m 1",
+   "number": 12,
+   "Rw": 52.43441202346012,
+   "GoF": 65665.55857289136,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "A 1 n 1",
+   "number": 9,
+   "Rw": 53.746951909483485,
+   "GoF": 68218.97391495832,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "A 1 2/n 1",
+   "number": 15,
+   "Rw": 53.746951909483485,
+   "GoF": 68218.97391495832,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "A 1 a 1",
+   "number": 9,
+   "Rw": 53.7469519094835,
+   "GoF": 68218.97391495835,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "A 1 2/a 1",
+   "number": 15,
+   "Rw": 53.7469519094835,
+   "GoF": 68218.97391495835,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "C 1 c 1",
+   "number": 9,
+   "Rw": 53.80636690930658,
+   "GoF": 68068.59269380727,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "C 1 n 1",
+   "number": 9,
+   "Rw": 53.80636690930658,
+   "GoF": 68068.59269380727,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "C 1 2/c 1",
+   "number": 15,
+   "Rw": 53.80636690930658,
+   "GoF": 68068.59269380727,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "C 1 2/n 1",
+   "number": 15,
+   "Rw": 53.80636690930658,
+   "GoF": 68068.59269380727,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "I 1 a 1",
+   "number": 9,
+   "Rw": 56.263695939859545,
+   "GoF": 74681.08767824003,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "I 1 c 1",
+   "number": 9,
+   "Rw": 56.263695939859545,
+   "GoF": 74681.08767824006,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "I 1 2/a 1",
+   "number": 15,
+   "Rw": 56.263695939859545,
+   "GoF": 74681.08767824003,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "I 1 2/c 1",
+   "number": 15,
+   "Rw": 56.263695939859545,
+   "GoF": 74681.08767824006,
+   "nGoF": 0.0,
+   "mult": 8
+  }
+ ],
+ "stol": 0.33,
+ "p_pars": {
+  "Zero": -0.01708525190845462,
+  "2ThetaDispl": 0.0,
+  "2ThetaTransp": 0.0,
+  "DIFC": 48277.14,
+  "DIFA": -6.7,
+  "MuR": 0.0,
+  "Scale_": 0.0003070035578559243
+ },
+ "d_pars": {
+  "Global Biso": 0.0
+ }
+}{
+ "cell": [
+  11.859878191858613,
+  5.01369621206577,
+  21.734570616650437,
+  90.0,
+  86.05010540353668,
+  90.0
+ ],
+ "volume": 1288.6231248965883,
+ "score": 5.577571255771557,
+ "system": "MONOCLINIC",
+ "centering": "P",
+ "sg": "P 1 2/m 1",
+ "mode": 12,
+ "cost": 0.021123819291047376,
+ "zero": 0.003785092194334565,
+ "rms": 0.06968464654410775,
+ "maxerr": 0.3917635317154294,
+ "source": "2d_completion",
+ "sgstart": "P 1 2/m 1",
+ "Rw": 0.0744753038416127,
+ "groups": [
+  {
+   "sg": "P 1 2 1",
+   "number": 3,
+   "Rw": 8.588691853348305,
+   "GoF": 1707.8307424887735,
+   "nGoF": 0.0,
+   "mult": 2
+  },
+  {
+   "sg": "P 1 m 1",
+   "number": 6,
+   "Rw": 8.588691853348305,
+   "GoF": 1707.8307424887735,
+   "nGoF": 0.0,
+   "mult": 2
+  },
+  {
+   "sg": "P 1 2/m 1",
+   "number": 10,
+   "Rw": 8.588691853348305,
+   "GoF": 1707.8307424887735,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 1 21 1",
+   "number": 4,
+   "Rw": 8.620349810170703,
+   "GoF": 1719.3437097823464,
+   "nGoF": 0.0,
+   "mult": 2
+  },
+  {
+   "sg": "P 1 21/m 1",
+   "number": 11,
+   "Rw": 8.620349810170703,
+   "GoF": 1719.3437097823464,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 1 21/c 1",
+   "number": 14,
+   "Rw": 40.018730896634764,
+   "GoF": 35973.00390970604,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 1 c 1",
+   "number": 7,
+   "Rw": 40.02419619872839,
+   "GoF": 36005.18667323809,
+   "nGoF": 0.0,
+   "mult": 2
+  },
+  {
+   "sg": "P 1 2/c 1",
+   "number": 13,
+   "Rw": 40.02419619872839,
+   "GoF": 36005.18667323809,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "A 1 2 1",
+   "number": 5,
+   "Rw": 40.85289701762472,
+   "GoF": 35276.02367397855,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "A 1 m 1",
+   "number": 8,
+   "Rw": 40.85289701762472,
+   "GoF": 35276.02367397855,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "A 1 2/m 1",
+   "number": 12,
+   "Rw": 40.85289701762472,
+   "GoF": 35276.02367397855,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "P 1 21/a 1",
+   "number": 14,
+   "Rw": 46.9262356141149,
+   "GoF": 49478.48211455793,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 1 a 1",
+   "number": 7,
+   "Rw": 46.93131871177188,
+   "GoF": 49519.959553160916,
+   "nGoF": 0.0,
+   "mult": 2
+  },
+  {
+   "sg": "P 1 2/a 1",
+   "number": 13,
+   "Rw": 46.93131871177188,
+   "GoF": 49519.959553160916,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "C 1 2 1",
+   "number": 5,
+   "Rw": 47.73350588235615,
+   "GoF": 48258.03236110595,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "C 1 m 1",
+   "number": 8,
+   "Rw": 47.73350588235615,
+   "GoF": 48258.03236110595,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "C 1 2/m 1",
+   "number": 12,
+   "Rw": 47.73350588235615,
+   "GoF": 48258.03236110595,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "P 1 21/n 1",
+   "number": 14,
+   "Rw": 51.0277069105476,
+   "GoF": 58432.95879254815,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 1 n 1",
+   "number": 7,
+   "Rw": 51.03137859698212,
+   "GoF": 58477.64460867767,
+   "nGoF": 0.0,
+   "mult": 2
+  },
+  {
+   "sg": "P 1 2/n 1",
+   "number": 13,
+   "Rw": 51.03137859698212,
+   "GoF": 58477.64460867767,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "I 1 2 1",
+   "number": 5,
+   "Rw": 51.62616629748469,
+   "GoF": 56383.81429122222,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "I 1 m 1",
+   "number": 8,
+   "Rw": 51.62616629748469,
+   "GoF": 56383.81429122222,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "I 1 2/m 1",
+   "number": 12,
+   "Rw": 51.62616629748469,
+   "GoF": 56383.81429122222,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "A 1 n 1",
+   "number": 9,
+   "Rw": 52.41511977334512,
+   "GoF": 57216.87797923498,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "A 1 a 1",
+   "number": 9,
+   "Rw": 52.41511977334512,
+   "GoF": 57216.877979234974,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "A 1 2/n 1",
+   "number": 15,
+   "Rw": 52.41511977334512,
+   "GoF": 57216.87797923498,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "A 1 2/a 1",
+   "number": 15,
+   "Rw": 52.41511977334512,
+   "GoF": 57216.877979234974,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "C 1 c 1",
+   "number": 9,
+   "Rw": 52.454598786313525,
+   "GoF": 57369.15727202837,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "C 1 n 1",
+   "number": 9,
+   "Rw": 52.454598786313525,
+   "GoF": 57369.15727202837,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "C 1 2/c 1",
+   "number": 15,
+   "Rw": 52.454598786313525,
+   "GoF": 57369.15727202837,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "C 1 2/n 1",
+   "number": 15,
+   "Rw": 52.454598786313525,
+   "GoF": 57369.15727202837,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "I 1 a 1",
+   "number": 9,
+   "Rw": 55.3669068228308,
+   "GoF": 63897.91912958726,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "I 1 c 1",
+   "number": 9,
+   "Rw": 55.3669068228308,
+   "GoF": 63897.91912958724,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "I 1 2/a 1",
+   "number": 15,
+   "Rw": 55.3669068228308,
+   "GoF": 63897.91912958726,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "I 1 2/c 1",
+   "number": 15,
+   "Rw": 55.3669068228308,
+   "GoF": 63897.91912958724,
+   "nGoF": 0.0,
+   "mult": 8
+  }
+ ],
+ "stol": 0.38,
+ "p_pars": {
+  "Zero": 0.014712365113115886,
+  "2ThetaDispl": 0.0,
+  "2ThetaTransp": 0.0,
+  "DIFC": 48277.14,
+  "DIFA": -6.7,
+  "MuR": 0.0,
+  "Scale_": 0.0003036432304148716
+ },
+ "d_pars": {
+  "Global Biso": 0.0
+ }
+}{
+ "cell": [
+  5.903783617655909,
+  11.249379732170144,
+  30.0795900574189,
+  90.0,
+  90.0,
+  90.0
+ ],
+ "volume": 1984.4838723847654,
+ "score": 0,
+ "system": "ORTHOROMBIC",
+ "centering": "P",
+ "mode": 0,
+ "source": "index_MONOCLINIC_P_0.json",
+ "sg": "Pmmm",
+ "sgstart": "Pmmm",
+ "Rw": 0.07593666179367951,
+ "groups": [
+  {
+   "sg": "P 2 2 21",
+   "number": 17,
+   "Rw": 8.713415682938887,
+   "GoF": 240.69254748215516,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 2 2 2",
+   "number": 16,
+   "Rw": 8.719985191334056,
+   "GoF": 241.8569191176284,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 2 21 21",
+   "number": 18,
+   "Rw": 8.777604348916663,
+   "GoF": 243.8478592508151,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 2 21 2",
+   "number": 17,
+   "Rw": 8.784025482193567,
+   "GoF": 245.01517071892158,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 21 2 21",
+   "number": 18,
+   "Rw": 9.02691415348554,
+   "GoF": 258.18122618123306,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 21 2 2",
+   "number": 17,
+   "Rw": 9.033319366383633,
+   "GoF": 259.40671327035875,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 21 21 21",
+   "number": 19,
+   "Rw": 9.088766234728123,
+   "GoF": 261.2988300640498,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "P 21 21 2",
+   "number": 18,
+   "Rw": 9.09503402201642,
+   "GoF": 262.5272062207314,
+   "nGoF": 0.0,
+   "mult": 4
+  },
+  {
+   "sg": "A 21 2 2",
+   "number": 20,
+   "Rw": 34.875427840598746,
+   "GoF": 3683.027681285481,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "A 2 2 2",
+   "number": 21,
+   "Rw": 35.1495854836427,
+   "GoF": 3743.1344688829718,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "I 2 2 2",
+   "number": 23,
+   "Rw": 37.80781375446477,
+   "GoF": 4328.416307603737,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "I 21 21 21",
+   "number": 24,
+   "Rw": 37.80781375446477,
+   "GoF": 4328.416307603737,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "C 2 2 21",
+   "number": 20,
+   "Rw": 38.1344099812319,
+   "GoF": 4391.937726389131,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "B 2 2 2",
+   "number": 21,
+   "Rw": 45.193840835341994,
+   "GoF": 6194.583585001588,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "F 2 2 2",
+   "number": 22,
+   "Rw": 45.36697057441062,
+   "GoF": 6090.908247585155,
+   "nGoF": 0.0,
+   "mult": 16
+  },
+  {
+   "sg": "B 2 21 2",
+   "number": 20,
+   "Rw": 45.84358952194096,
+   "GoF": 6363.896755837627,
+   "nGoF": 0.0,
+   "mult": 8
+  },
+  {
+   "sg": "C 2 2 2",
+   "number": 21,
+   "Rw": 47.456636902398905,
+   "GoF": 6823.213007866971,
+   "nGoF": 0.0,
+   "mult": 8
+  }
+ ],
+ "stol": 0.25,
+ "p_pars": {
+  "Zero": 0.019095688324654518,
+  "2ThetaDispl": 0.0,
+  "2ThetaTransp": 0.0,
+  "DIFC": 48277.14,
+  "DIFA": -6.7,
+  "MuR": 0.0,
+  "Scale_": 0.0003599564458432964
+ },
+ "d_pars": {
+  "Global Biso": 0.0
+ }
+}CYCLE 1 2 Rw 0.15125060173638344 chi2 6312.936076978689 geom 742.2662409072611 LSQ 8272.381871351865
+PACKING_STAGE 1 574.7926606539947
+CYCLE 2 0 Rw 0.1439599889608372 chi2 5719.008985644916 geom 546.8345370515741 LSQ 6937.519455814638
+CYCLE 2 1 Rw 0.14243267431697693 chi2 5598.303342754771 geom 510.1530327993378 LSQ 6745.2018426891655
+CYCLE 2 2 Rw 0.14237034098063373 chi2 5593.404402699615 geom 405.92852619157657 LSQ 6502.901465995199
+PACKING_STAGE 2 69.53172954974585
+CYCLE 3 0 Rw 0.13417720048477466 chi2 4965.0580916109675 geom 374.4047947558323 LSQ 6435.921665544727
+CYCLE 3 1 Rw 0.1314503904132491 chi2 4765.304335567772 geom 288.51831828137136 LSQ 5565.469913862207
+import os,sys,json,glob,time
+import numpy as np,gemmi,spglib
+from pymatgen.core import Lattice
+import matplotlib
+matplotlib.use('Agg')
+from pyobjcryst.crystal import Crystal
+from pyobjcryst.powderpattern import PowderPattern,ReflectionProfileType,SpaceGroupExplorer
+from pyobjcryst.io import xml_cryst_file_save_global
+from pyobjcryst.refinableobj import refpartype_scattdata_background
+sid=sys.argv[1];tag=sys.argv[2] if len(sys.argv)>2 else 'best';W='/app/work/'+sid
+spec=json.load(open(os.environ.get('CANDIDATE_FILE',W+'/candidates.json')))
+sol=spec[int(os.environ.get('CANDIDATE_INDEX',tag if tag.isdigit() else '0'))]
+cp=sol['cell'];sgstart=sol.get('sg','P m m m' if sol['system']=='ORTHOROMBIC' else 'P 1 2/m 1' if sol['system']=='MONOCLINIC' else 'P -1')
+ins=json.load(open('/app/data/instances/'+sid+'/instrument.json'));wl=ins['radiation']['wavelength_A'];comp=json.load(open('/app/data/instances/'+sid+'/composition.json'));chiral=any('@' in m['smiles'] for m in comp['components'])
+# cell angles are constrained using the corresponding metric symmetry
+c=Crystal(*cp[:3],*np.deg2rad(cp[3:]),sgstart);c.SetName(sid+'_'+tag)
+data=np.loadtxt('/app/data/instances/'+sid+'/pattern.xye');peaks=json.load(open(W+'/peaks.json'));mx=max(v['height'] for v in peaks);valid=[v for v in peaks if v['height']>mx*.015];xmin=max(data[0,0],min(v['two_theta'] for v in valid)-.5*wl/1.54)
+
+if os.path.exists(W+'/peak_select.json'):
+ manual=json.load(open(W+'/peak_select.json'));xmin=max(xmin,manual.get('min_two_theta',xmin))
+stol=float(sys.argv[3]) if len(sys.argv)>3 else .25
+sel=(data[:,0]>=xmin)&(data[:,0]<min(data[-1,0]+.001,np.rad2deg(2*np.arcsin(wl*stol))));data=data[sel]
+# reduce oversampling at very fine synchrotron steps, preserving counting errors appropriately
+step=1
+if len(data)>12000: step=2
+if step>1:
+ n=len(data)//step*step;data=np.column_stack([data[:n,0].reshape(-1,step).mean(1),data[:n,1].reshape(-1,step).mean(1),np.sqrt((data[:n,2]**2).reshape(-1,step).sum(1))/step])
+np.savetxt(W+'/fit_'+tag+'.xye',data)
+p=PowderPattern();p.SetName(sid+'_'+tag);p.ImportPowderPattern2ThetaObsSigma(W+'/fit_'+tag+'.xye');p.SetWavelength(wl);p.SetMaxSinThetaOvLambda(stol)
+rad=ins['radiation']
+if len(rad.get('wavelengths_A') or [])>1: p.SetWavelength('Mo' if wl<1 else 'Cu')
+d=p.AddPowderPatternDiffraction(c)
+wid=np.median([v['fwhm'] for v in sorted(valid,key=lambda z:-z['height'])[:25]])
+d.SetReflectionProfilePar(ReflectionProfileType.PROFILE_PSEUDO_VOIGT,np.deg2rad(wid)**2,0,0,.5,0)
+b=p.AddPowderPatternBackground();nbkg=max(20,int((data[-1,0]-data[0,0])/(1.2*wl/1.54)))
+bx=np.linspace(np.deg2rad(data[0,0]),np.deg2rad(data[-1,0]),nbkg);orig=np.load(W+'/processed.npz');by=np.interp(np.rad2deg(bx),orig['x'],orig['background']);b.SetInterpPoints(bx,by)
+p.Prepare()
+p.quick_fit_profile(pdiff=d,auto_background=False,init_profile=False,plot=False,asym=True,verbose=False)
+print('STARTFIT',sid,tag,'Rw',p.GetRw(),flush=True)
+xml_cryst_file_save_global(W+'/pre_scan_'+tag+'.xml')
+# Enumerate meaningful settings with compatible symmetry; absences alone do not prove chirality/centrosymmetry.
+system=sol['system'];cent=sol['centering']
+if system=='ORTHOROMBIC':
+ nums=[16,17,18,19,20,21,22,23,24] if chiral else [16,17,18,19,20,21,22,23,24,29,33,36,37,38,39,40,41,42,43,46,50,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74]
+elif system=='MONOCLINIC': nums=[3,4,5] if chiral else list(range(3,16))
+else:nums=[1] if chiral else [1,2]
+groups=[]
+for sg in gemmi.spacegroup_table():
+ if sg.number not in nums:continue
+ if system=='MONOCLINIC' and sg.monoclinic_unique_axis()!='b':continue
+ name=sg.xhm()
+ # Avoid alternate origin choices (irrelevant extinctions)
+ if ':2' in name:continue
+ if name not in groups:groups.append(name)
+if os.environ.get('SG_SCAN','1')=='0':groups=[sgstart]
+sgex=SpaceGroupExplorer(d);scores=[]
+for name in groups:
+ try:
+  r=sgex.Run(name,False,False,True,False)
+  scores.append(dict(sg=name,number=gemmi.find_spacegroup_by_name(name).number,Rw=float(r.Rw),GoF=float(r.GoF),nGoF=float(r.nGoF),mult=len(gemmi.find_spacegroup_by_name(name).operations())))
+ except Exception as e:print('ERRORSG',name,str(e),flush=True)
+scores.sort(key=lambda x:x['Rw'])
+print('GROUPS',json.dumps(scores),flush=True)
+d.SetExtractionMode(True,True);d.ExtractLeBail(40)
+# save baseline refined parameters and candidate scan without arbitrarily finalising SG
+cp=[float(c.GetPar(n).GetHumanValue()) for n in ['a','b','c','alpha','beta','gamma']]
+result=dict(sol,cell=cp,sgstart=sgstart,Rw=float(p.GetRw()),groups=scores,stol=stol)
+json.dump(result,open(W+'/fit_'+tag+'.json','w'),indent=1)
+p.plot(diff=True,hkl=False);p.figure.savefig(W+'/fit_'+tag+'.png',dpi=130)
+xml_cryst_file_save_global(W+'/fit_'+tag+'.xml')
+# Profile values for custom intensity/model code
+try:
+ pp={p.GetPar(i).GetName():p.GetPar(i).GetHumanValue() for i in range(p.GetNbPar())}
+ dp={d.GetPar(i).GetName():d.GetPar(i).GetHumanValue() for i in range(d.GetNbPar())}
+ result['p_pars']=pp;result['d_pars']=dp

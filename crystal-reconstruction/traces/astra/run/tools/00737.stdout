@@ -1,0 +1,69 @@
+CYCLE 1 1 Rw 0.04980175788180199 chi2 1250.595133799611 geom 156.38860699156456 LSQ 1658.5560502284297
+CYCLE 1 2 Rw 0.049058914308762636 chi2 1213.5655936646583 geom 79.69880284220595 LSQ 1481.759142474285
+PACKING_STAGE 1 0.0
+CYCLE 2 0 Rw 0.04777102711631177 chi2 1150.6852534529028 geom 74.3669653449268 LSQ 1397.1836735186275
+CYCLE 2 1 Rw 0.04690164232779004 chi2 1109.1837290337435 geom 71.0819372144808 LSQ 1348.0570390727205
+CYCLE 2 2 Rw 0.04662037314135143 chi2 1095.9200683230413 geom 70.0542151051413 LSQ 1327.7159437059454
+PACKING_STAGE 2 0.0
+CYCLE 3 0 Rw 0.041607287313850716 chi2 872.903415919847 geom 67.38798398683008 LSQ 1093.0204607302805
+/app/work/X14a2b08/gallop11.log
+GALLOP 14 Nref 342 seconds 127.51885056495667 best 152.19678 q25 217.66882 median 325.19778 total 2013.2262649536133
+GALLOP 15 Nref 342 seconds 145.66678309440613 best 152.19685 q25 221.71246 median 312.35547 total 2158.910834789276
+/app/work/X238783d/gallop20.log
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+/app/work/X263b09a/gallop71.log
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 409 seconds 151.48967266082764 best 134.10359 q25 326.45813 median 507.49722 total 151.49605441093445
+/app/work/X35b7fbc/gallop11.log
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+/app/work/X3f4781b/gallop50.log
+GALLOP 4 Nref 235 seconds 212.4995424747467 best 187.25981 q25 212.08624 median 301.24188 total 875.986389875412
+GALLOP 5 Nref 276 seconds 208.10361862182617 best 187.04715 q25 239.93417 median 317.34982 total 1084.1857640743256
+/app/work/X8a06d7a/gallop11.log
+GALLOP 8 Nref 190 seconds 146.44934964179993 best 144.61868 q25 152.00223 median 326.76642 total 1238.9894337654114
+GALLOP 9 Nref 200 seconds 155.70188093185425 best 143.87921 q25 153.93546 median 222.38129 total 1394.8051755428314
+/app/work/Xbfeeda9/gallop11.log
+GALLOP 9 Nref 303 seconds 257.13540840148926 best 183.77058 q25 200.32755 median 390.89252 total 2389.32950091362
+FINISHED Xbfeeda9 183.77037048339844
+/app/work/Xedd9c7b/gallop51.log
+GALLOP 2 Nref 258 seconds 200.91106581687927 best 95.283676 q25 177.37473 median 241.2572 total 613.7026996612549
+GALLOP 3 Nref 258 seconds 205.39423990249634 best 95.257286 q25 197.61597 median 254.52036 total 819.2262365818024
+"""Heavy-atom steric lower bounds as genuine ObjCryst least-squares residuals.
+Topology-preserving 1-2/1-3/1-4 pairs are excluded; 27 lattice images are
+checked for all contacts.  Crystal anti-bump itself is not an LSQ function.
+"""
+import ctypes,os,numpy as np,gemmi
+from rdkit import Chem
+lib=ctypes.CDLL('/app/work/liblsq_packing.so')
+lib.packing_attach.argtypes=[ctypes.c_void_p,ctypes.c_void_p,ctypes.c_long]+[ctypes.c_void_p]*6
+lib.packing_attach.restype=ctypes.c_void_p
+lib.packing_cost.argtypes=[ctypes.c_void_p];lib.packing_cost.restype=ctypes.c_double
+lib.packing_detach.argtypes=[ctypes.c_void_p,ctypes.c_void_p]
+def attach_packing(p,c,mods,sigma=None):
+ sigma=float(os.getenv('PACKING_SIGMA','.01')) if sigma is None else sigma
+ els=[];index=[];groups=[];local=[];dm=[];off=0
+ for k,md in enumerate(mods):
+  m=c.GetScatterer(k);r=Chem.MolFromSmiles(md['smiles']);n=r.GetNumAtoms();dm.append(Chem.GetDistanceMatrix(r))
+  for i,a in enumerate(r.GetAtoms()):
+   els.append(a.GetSymbol());index.append(off+i);groups.append(k);local.append(i)
+  off+=len(list(m.GetScatteringComponentList()))
+ radii={'C':1.48,'N':1.35,'O':1.28,'F':1.32,'S':1.55,'P':1.52,'Cl':1.58,'Br':1.67,'I':1.78}
+ ii=[];jj=[];rots=[];trans=[];limits=[];weights=[];sg=gemmi.find_spacegroup_by_name(c.GetSpaceGroup().GetName());N=len(index)
+ for op in sg.operations():
+  R=np.asarray(op.rot)/op.DEN;T=np.asarray(op.tran)/op.DEN;ident=np.allclose(R,np.eye(3)) and np.allclose(T%1,0)
+  for i in range(N):
+   for j in range(N):
+    if ident and (i>=j or (groups[i]==groups[j] and dm[groups[i]][local[i],local[j]]<=3)):continue
+    limit=radii.get(els[i],1.4)+radii.get(els[j],1.4)
+    if els[i] in ['N','O'] and els[j] in ['N','O']:limit-=.10
+    ii.append(index[i]);jj.append(index[j]);rots.append(R);trans.append(T);limits.append(limit);weights.append((1. if ident else .5)/sigma**2)
+ arrays=[np.ascontiguousarray(ii,dtype=np.int64),np.ascontiguousarray(jj,dtype=np.int64),np.ascontiguousarray(rots,dtype=np.float64),np.ascontiguousarray(trans,dtype=np.float64),np.ascontiguousarray(limits,dtype=np.float64),np.ascontiguousarray(weights,dtype=np.float64)]
+ obj=lib.packing_attach(p.int_ptr(),c.int_ptr(),len(ii),*[a.ctypes.data for a in arrays])
+ if not obj:raise RuntimeError('Packing attachment failed')
+ print('LSQ_PACKING',N,'atoms',len(ii),'terms','sigma',sigma,'cost',lib.packing_cost(obj),flush=True)
+ return obj
+
+def cost(obj):return lib.packing_cost(obj)
+def detach(p,obj):lib.packing_detach(p.int_ptr(),obj)

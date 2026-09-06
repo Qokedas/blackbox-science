@@ -1,0 +1,117 @@
+data_ref
+_symmetry_cell_setting triclinic
+_space_group_name_H-M_alt "P -1"
+_space_group_name_Hall "-P 1"
+
+loop_
+_space_group_symop_id
+_space_group_symop_operation_xyz
+1 x,y,z
+2 -x,-y,-z
+
+_cell_length_a 8.91097(5)
+_cell_length_b 9.47933(5)
+_cell_length_c 13.24641(9)
+_cell_angle_alpha 83.9821(4)
+_cell_angle_beta 81.7759(3)
+_cell_angle_gamma 66.67667(9)
+_cell_volume 1015.494(3)
+_cell_formula_units_Z 2
+
+loop_
+_atom_type_symbol
+_atom_type_scat_dispersion_real
+_atom_type_scat_dispersion_imag
+_atom_type_scat_source
+C 0.000 0.000
+;
+https://raw.githubusercontent.com/AdvancedPhotonSource/GSAS-II/refs/heads/
+main/GSASII/atmdata.py
+;
+H 0.000 0.000
+;
+https://raw.githubusercontent.com/AdvancedPhotonSource/GSAS-II/refs/heads/
+main/GSASII/atmdata.py
+;
+F 0.003 0.003
+;
+https://raw.githubusercontent.com/AdvancedPhotonSource/GSAS-II/refs/heads/
+main/GSASII/atmdata.py
+;
+N 0.000 0.001
+;
+https://raw.githubusercontent.com/AdvancedPhotonSource/GSAS-II/refs/heads/
+main/GSASII/atmdata.py
+;
+O 0.002 0.002
+;
+https://raw.githubusercontent.com/AdvancedPhotonSource/GSAS-II/refs/heads/
+main/GSASII/atmdata.py
+;
+S 0.044 0.041
+;
+https://raw.githubusercontent.com/AdvancedPhotonSource/GSAS-II/refs/heads/
+main/GSASII/atmdata.py
+;
+
+loop_
+_atom_site_type_symbol
+_atom_site_label
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_U_iso_or_equiv
+_atom_site_adp_type
+_atom_site_occupancy
+_atom_site_site_symmetry_multiplicity
+S S1 -0.24645(18) 0.18626(18) 0.42794(12) 0.0421(6) Uiso 1.0000 2
+F F2 -0.0710(3) 0.4497(3) 0.18047(17) 0.0346(5) Uiso 1.0000 2
+O O3 0.7085(3) 0.3231(4) 0.0934(2) 0.0365(4) Uiso 1.0000 2
+O O4 0.5286(3) 0.4613(4) 0.2123(2) 0.0365(4) Uiso 1.0000 2
+O O5 1.1225(4) 0.0538(4) -0.1592(2) 0.0466(7) Uiso 1.0000 2
+O O6 -0.4216(3) 0.2499(3) 0.4256(2) 0.0429(9) Uiso 1.0000 2
+O O7 -0.1487(3) 0.0326(3) 0.4038(2) 0.0429(9) Uiso 1.0000 2
+N N8 -0.1842(3) 0.2993(4) 0.3460(2) 0.0346(5) Uiso 1.0000 2
+N N9 0.0824(4) 0.1928(4) 0.3953(2) 0.0346(5) Uiso 1.0000 2
+N N10 -0.2097(4) 0.2032(3) 0.5409(2) 0.0407(13) Uiso 1.0000 2
+N N11 1.3412(4) 0.0840(4) -0.2574(3) 0.0466(7) Uiso 1.0000 2
+N N12 1.0651(3) 0.2462(5) -0.2842(3) 0.0466(7) Uiso 1.0000 2
+C C13 0.4224(3) 0.3609(5) 0.0948(3) 0.0365(4) Uiso 1.0000 2
+C C14 0.4605(3) 0.2760(5) 0.0115(3) 0.0365(4) Uiso 1.0000 2
+C C15 0.2494(3) 0.4418(3) 0.1438(3) 0.0346(5) Uiso 1.0000 2
+C C16 0.6307(3) 0.2123(5) -0.0350(3) 0.0365(4) Uiso 1.0000 2
+C C17 0.1945(3) 0.3467(5) 0.2286(3) 0.0346(5) Uiso 1.0000 2
+C C18 0.7480(3) 0.2434(6) 0.0065(3) 0.0365(4) Uiso 1.0000 2
+C C19 0.5500(3) 0.3855(5) 0.1392(3) 0.0365(4) Uiso 1.0000 2
+C C20 0.3333(4) 0.2424(5) -0.0335(3) 0.0365(4) Uiso 1.0000 2
+C C21 0.6807(4) 0.1290(6) -0.1232(3) 0.0365(4) Uiso 1.0000 2
+C C22 0.9097(4) 0.1913(5) -0.0337(3) 0.0365(4) Uiso 1.0000 2
+C C23 0.0353(3) 0.3584(5) 0.2461(3) 0.0346(5) Uiso 1.0000 2
+C C24 0.3001(3) 0.2514(5) 0.2970(3) 0.0346(5) Uiso 1.0000 2
+C C25 0.9547(4) 0.1156(5) -0.1231(3) 0.0365(4) Uiso 1.0000 2
+C C26 0.8430(4) 0.0789(6) -0.1659(3) 0.0365(4) Uiso 1.0000 2
+C C27 -0.0221(3) 0.2850(5) 0.3307(3) 0.0346(5) Uiso 1.0000 2
+C C28 0.2402(4) 0.1795(5) 0.3777(3) 0.0346(5) Uiso 1.0000 2
+C C29 1.1788(4) 0.1324(5) -0.2371(3) 0.0466(7) Uiso 1.0000 2
+C C30 -0.2810(6) 0.3515(4) 0.5876(3) 0.0407(13) Uiso 1.0000 2
+C C31 1.3927(3) 0.1638(6) -0.3335(4) 0.0466(7) Uiso 1.0000 2
+C C32 1.1255(5) 0.3191(5) -0.3622(3) 0.0466(7) Uiso 1.0000 2
+C C33 1.2907(6) 0.2808(6) -0.3893(3) 0.0466(7) Uiso 1.0000 2
+H H34 0.23891 0.55099 0.17829 0.0415 Uiso 1.0000 2
+H H35 0.16192 0.47507 0.08245 0.0415 Uiso 1.0000 2
+H H36 0.20524 0.32410 -0.00294 0.0438 Uiso 1.0000 2
+H H37 0.34758 0.11858 -0.01145 0.0438 Uiso 1.0000 2
+H H38 0.35062 0.25904 -0.12025 0.0438 Uiso 1.0000 2
+H H39 0.58774 0.10215 -0.16017 0.0438 Uiso 1.0000 2
+H H40 1.00374 0.21103 0.00682 0.0438 Uiso 1.0000 2
+H H41 0.43511 0.23367 0.28555 0.0437 Uiso 1.0000 2
+H H42 0.88436 0.00750 -0.23630 0.0438 Uiso 1.0000 2
+H H43 0.33257 0.10460 0.43208 0.0437 Uiso 1.0000 2
+H H44 -0.26680 0.38460 0.30380 0.0437 Uiso 1.0000 2
+H H45 -0.24990 0.13320 0.59250 0.0489 Uiso 1.0000 2
+H H46 -0.17896 0.37943 0.61243 0.0489 Uiso 1.0000 2
+H H47 -0.37075 0.34632 0.65705 0.0489 Uiso 1.0000 2
+H H48 -0.34902 0.44468 0.52986 0.0489 Uiso 1.0000 2
+H H49 1.52990 0.13446 -0.35462 0.0559 Uiso 1.0000 2
+H H50 1.03796 0.41730 -0.40887 0.0559 Uiso 1.0000 2
+H H51 1.34347 0.34168 -0.45476 0.0559 Uiso 1.0000 2

@@ -1,0 +1,29 @@
+def restore_from_cif(cr, mols, ciffile):
+    """Place molecules/atoms at positions read from an ObjCryst-written CIF with the same atom naming/order."""
+    import gemmi
+    doc = gemmi.cif.read(ciffile); blk = doc.sole_block()
+    names = list(blk.find_values('_atom_site_label'))
+    fx = [float(v) for v in blk.find_values('_atom_site_fract_x')]
+    fy = [float(v) for v in blk.find_values('_atom_site_fract_y')]
+    fz = [float(v) for v in blk.find_values('_atom_site_fract_z')]
+    pos = {n: np.array([x, y, z]) for n, x, y, z in zip(names, fx, fy, fz)}
+    for m in mols:
+        if hasattr(m, 'GetNbAtoms'):
+            nat = m.GetNbAtoms()
+            fr = np.array([pos[m.GetAtom(i).GetName()] for i in range(nat)])
+            # unwrap: make molecule contiguous around first atom
+            fr = fr - np.round(fr - fr[0])
+            cen = fr.mean(axis=0)
+            cart = np.array([cr.FractionalToOrthonormalCoords(*(f - cen)) for f in fr])
+            for i in range(nat):
+                a = m.GetAtom(i); a.SetX(cart[i, 0]); a.SetY(cart[i, 1]); a.SetZ(cart[i, 2])
+            m.X, m.Y, m.Z = cen
+            m.Q0, m.Q1, m.Q2, m.Q3 = 1.0, 0.0, 0.0, 0.0
+        else:
+            f = pos[m.GetName()]
+            m.X, m.Y, m.Z = f
+    cr.UpdateDisplay() if hasattr(cr, 'UpdateDisplay') else None
+
+def write_cif(cr, fn):
+    cr.CIFOutput(fn)
+

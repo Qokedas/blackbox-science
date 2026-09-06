@@ -1,0 +1,118 @@
+"""Analytical structure factors for two otherwise generic settings.
+Algebraically identical to explicit symmetry expansion. Checked at random
+fractional coordinates before being installed; no crystallographic approximation.
+"""
+import numpy as np,torch,gemmi
+from gallop import intensities,chi2,zm_to_cart
+
+@torch.jit.script
+def monoclinic_centred_inversion(fr:torch.Tensor,hkl:torch.Tensor,prefix:torch.Tensor,t:torch.Tensor):
+ p=6.283185307179586
+ halfshift=(hkl*t[:,None]).sum(0)/2
+ xz=p*(torch.einsum('i,nj->nij',hkl[0],fr[:,:,0])+torch.einsum('i,nj->nij',hkl[2],fr[:,:,2])+halfshift[None,:,None])
+ y=p*(torch.einsum('i,nj->nij',hkl[1],fr[:,:,1])-halfshift[None,:,None])
+ amp=4*torch.cos(xz)*torch.cos(y)
+ return (amp*prefix[None,:,:]).sum(2)**2
+
+@torch.jit.script
+def orthorhombic_2221(fr:torch.Tensor,hkl:torch.Tensor,prefix:torch.Tensor):
+ p=6.283185307179586
+ a=p*torch.einsum('i,nj->nij',hkl[0],fr[:,:,0])
+ b=p*(torch.einsum('i,nj->nij',hkl[1],fr[:,:,1])+hkl[2][None,:,None]/4)
+ c=p*(torch.einsum('i,nj->nij',hkl[2],fr[:,:,2])-hkl[2][None,:,None]/4)
+ re=(4*torch.cos(a)*torch.cos(b)*torch.cos(c)*prefix[None,:,:]).sum(2)
+ im=(-4*torch.sin(a)*torch.sin(b)*torch.sin(c)*prefix[None,:,:]).sum(2)
+ return re**2+im**2
+
+def enable_fast_symmetry(s):
+ sg=gemmi.find_spacegroup_by_name(s.space_group.symbol);kind=None;tr=None
+ if sg.number==14 and sg.xhm()!=gemmi.find_spacegroup_by_number(14).xhm():
+  for op in sg.operations():
+   r=np.array(op.rot)/op.DEN;t=np.array(op.tran)/op.DEN
+   if np.allclose(r,np.diag([-1,1,-1])):tr=torch.tensor(t,dtype=torch.float32)
+  inversion=any(np.allclose(np.array(op.rot)/op.DEN,-np.eye(3)) and np.allclose((np.array(op.tran)/op.DEN)%1,0) for op in sg.operations())
+  if inversion and tr is not None:kind='mono14'
+ if sg.xhm()=='P 2 2 21':kind='2221'
+ if sg.number==18:
+  from test_222_fast import general_222,constants
+  tr18,ch18,mt18=constants(sg);kind='222gen'
+ if kind is None:return False
+ old=intensities.calculate_intensities
+ def fun(asymmetric_frac_coords,hkl,intensity_calc_prefix_fs,intensity_calc_prefix_fs_asymmetric,nsamples_ones,affine_matrices,centrosymmetric,space_group_number):
+  if kind=='mono14':return monoclinic_centred_inversion(asymmetric_frac_coords,hkl,intensity_calc_prefix_fs_asymmetric,tr)
+  if kind=='222gen':return general_222(asymmetric_frac_coords,hkl,intensity_calc_prefix_fs_asymmetric,tr18,ch18,mt18)
+  return orthorhombic_2221(asymmetric_frac_coords,hkl,intensity_calc_prefix_fs_asymmetric)
+ # Independent random geometry test against explicit symmetry expansion.
+ h=torch.tensor(np.asarray(s.hkl[:min(250,len(s.hkl))]).T,dtype=torch.float32);fr=torch.rand(3,9,3);ones=torch.ones(3,9,1);aff=torch.tensor(np.asarray(s.affine_matrices),dtype=torch.float32);pr=torch.rand(h.shape[1],9);fullpr=pr.repeat(1,len(sg.operations()))
+ expanded=intensities.get_symmetry_equivalent_points(fr,ones,aff);ref=intensities.intensities_from_full_cell_contents(expanded,h,fullpr,sg.is_centrosymmetric());val=fun(fr,h,fullpr,pr,ones,aff,sg.is_centrosymmetric(),s.sg_number)
+ err=float((val-ref).abs().max()/ref.max())
+ if err>1e-4:raise RuntimeError('Fast-symmetry validation failed '+str(err))
+ intensities.calculate_intensities=fun
+ # The unmodified GALLOP chi2 function is TorchScript and binds its own copy of
+ # the old intensity function. Supply an equivalent Python dispatch as well.
+ def calc(zm,int_tensors,chisqd_tensors,profile=None):
+  fr=zm_to_cart.get_asymmetric_coords(**zm);f=fun(fr,**int_tensors)
+  return chi2.calc_int_chisqd(f,**chisqd_tensors) if profile is None else chi2.calc_prof_chisqd(f,**profile)
+ chi2.get_chi_2=calc
+ print('FAST_SYMMETRY',sg.xhm(),kind,'max_relative_error',err,flush=True)
+ return True
+41:def intensities_from_full_cell_contents(frac_all, hkl, intensity_calc_prefix_fs,
+267:    elif space_group_number == 18:
+477:        intensities = intensities_from_full_cell_contents(frac_all, hkl,
+ObjRegistry<T>::Find(ion_C): Not found !!
+List of Crystal ScatteringPowers :0 object registered:
+EXACT_PAWLEY nref 165 rank 162 cond 598.2728535156932 chi2 1581.950586881551 netRwp 0.11729597018524697
+ZM O[C@](CC[NH+]1CCCCC1)(c1ccccc1)C1CCCCC1 n 22 torsions 5 max_distance_error 1.263277038532351e-08
+ZM [Cl-] n 1 torsions 0 max_distance_error 0.0
+Total degrees of freedom: 15
+Total external degrees of freedom: 10 (pos: 6 rot: 4 )
+Total internal degrees of freedom: 5
+PREPARED X1a56c78 Nref 165 PawleyRw 0.0741154717569603 SG P 2 2 21
+ATTACHED_H_SCATTERING 23 heavy atoms 32 H atoms
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1542.87it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 165 seconds 49.19708728790283 best 176.5404 q25 282.33774 median 331.7566 total 49.20280933380127
+GALLOP 1 Nref 165 seconds 66.30186939239502 best 159.12158 q25 197.72299 median 256.44757 total 115.53707790374756
+GALLOP 2 Nref 165 seconds 67.7937524318695 best 157.90767 q25 208.47693 median 298.81082 total 183.42950868606567
+GALLOP 3 Nref 165 seconds 66.78387355804443 best 157.90776 q25 213.92403 median 282.34442 total 250.29784202575684
+GALLOP 4 Nref 165 seconds 66.91397786140442 best 137.47987 q25 177.19893 median 277.48874 total 317.2341060638428
+GALLOP 5 Nref 165 seconds 60.415607929229736 best 129.53226 q25 216.05214 median 307.64392 total 377.71218848228455
+GALLOP 6 Nref 165 seconds 69.03460574150085 best 129.53189 q25 205.945 median 274.37775 total 446.831339597702
+GALLOP 7 Nref 165 seconds 46.50918412208557 best 129.53188 q25 209.26839 median 298.23737 total 493.40140438079834
+GALLOP 8 Nref 165 seconds 56.87450695037842 best 129.53183 q25 176.68059 median 254.5917 total 550.3028054237366
+GALLOP 9 Nref 165 seconds 66.46026539802551 best 129.53181 q25 176.68071 median 269.97678 total 616.8127820491791
+GALLOP 10 Nref 165 seconds 60.57660698890686 best 129.53186 q25 194.70288 median 263.5402 total 677.4339807033539
+GALLOP 11 Nref 165 seconds 67.97408652305603 best 129.5319 q25 205.77429 median 265.4842 total 745.4286892414093
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1592.67it/s]
+GALLOP 12 Nref 165 seconds 61.054697036743164 best 129.53178 q25 224.21484 median 308.97418 total 806.5043694972992
+GALLOP 13 Nref 165 seconds 80.75427412986755 best 129.5318 q25 218.60483 median 296.5014 total 887.3028454780579
+GALLOP 14 Nref 165 seconds 68.67449927330017 best 129.53194 q25 207.92012 median 287.46738 total 955.9985253810883
+GALLOP 15 Nref 165 seconds 66.51307487487793 best 129.53183 q25 213.8154 median 292.8698 total 1022.5327785015106
+GALLOP 16 Nref 165 seconds 55.88005971908569 best 129.53185 q25 211.8228 median 295.66766 total 1078.4339654445648
+GALLOP 17 Nref 165 seconds 50.10041880607605 best 129.53183 q25 192.9862 median 306.93085 total 1128.545776605606
+GALLOP 18 Nref 165 seconds 62.54175043106079 best 129.53195 q25 219.25693 median 300.34662 total 1191.136969089508
+GALLOP 19 Nref 165 seconds 68.75465393066406 best 129.53186 q25 185.73537 median 265.4382 total 1259.9086246490479
+GALLOP 20 Nref 165 seconds 91.00594162940979 best 129.53188 q25 212.07065 median 304.86774 total 1350.9363889694214
+GALLOP 21 Nref 165 seconds 68.9603545665741 best 129.5318 q25 171.86076 median 290.74628 total 1419.915179014206
+GALLOP 22 Nref 165 seconds 82.78699803352356 best 129.53183 q25 175.9695 median 267.59198 total 1502.721010684967
+GALLOP 23 Nref 165 seconds 77.89938116073608 best 129.53185 q25 176.51724 median 302.2005 total 1580.6388413906097
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1189.37it/s]
+GALLOP 24 Nref 165 seconds 78.82397985458374 best 129.5319 q25 212.81514 median 311.3594 total 1659.5315136909485
+GALLOP 25 Nref 165 seconds 88.02262568473816 best 129.53192 q25 199.9121 median 305.31647 total 1747.6256942749023
+GALLOP 26 Nref 165 seconds 78.5073401927948 best 129.53181 q25 203.6093 median 299.0967 total 1826.2153117656708
+GALLOP 27 Nref 165 seconds 74.51552724838257 best 129.5318 q25 165.60634 median 241.67131 total 1900.7924745082855
+GALLOP 28 Nref 165 seconds 75.53238987922668 best 129.53181 q25 129.53256 median 220.61877 total 1976.3464727401733
+GALLOP 29 Nref 165 seconds 71.72793912887573 best 129.53175 q25 129.53265 median 253.32794 total 2048.136939048767
+GALLOP 30 Nref 165 seconds 80.10750317573547 best 129.53188 q25 129.53247 median 227.31921 total 2128.336853981018
+GALLOP 31 Nref 165 seconds 74.99033498764038 best 129.53183 q25 129.53233 median 215.72424 total 2203.3979647159576
+FINISHED X1a56c78 129.53175354003906
+Imported powder pattern: 5106 points, 2theta=  4.000 ->  55.050, step= 0.010
+RESTORED_LOW_RANGE X3f4781b 4.0 8.75 55.05 5106 Rw 0.0773801671934311
+ for i in range(len(q)):
+  delta=(qc-q[i])*fac[i]+v[-1];j=np.argmin(abs(delta));d[i]=delta[j];ind[i]=j
+  ^
+
+During: Pass nopython_type_inference

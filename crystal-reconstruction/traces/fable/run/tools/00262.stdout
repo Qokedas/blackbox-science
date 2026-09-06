@@ -1,0 +1,24 @@
+import sys, json, gemmi, os
+iid = sys.argv[1]
+cell = [float(v) for v in sys.argv[2:8]]
+hm = sys.argv[8]
+sg = gemmi.find_spacegroup_by_name(hm)
+assert sg is not None, 'unknown space group ' + hm
+js = {"cell": {"a": cell[0], "b": cell[1], "c": cell[2], "alpha": cell[3], "beta": cell[4], "gamma": cell[5]},
+      "space_group": sg.hm, "space_group_number": sg.number}
+os.makedirs('/app/results/submission', exist_ok=True)
+json.dump(js, open(f'/app/results/submission/{iid}.json', 'w'), indent=1)
+print(iid, js)
+X3c176e2 {'cell': {'a': 14.0067, 'b': 9.3253, 'c': 11.0305, 'alpha': 90.0, 'beta': 90.0, 'gamma': 90.0}, 'space_group': 'P 21 21 21', 'space_group_number': 19}
+{
+ "cell": {
+  "a": 14.0067,
+  "b": 9.3253,
+  "c": 11.0305,
+  "alpha": 90.0,
+  "beta": 90.0,
+  "gamma": 90.0
+ },
+ "space_group": "P 21 21 21",
+ "space_group_number": 19
+}

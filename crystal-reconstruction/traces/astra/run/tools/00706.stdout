@@ -1,0 +1,29 @@
+Sun Sep  6 08:04:57 UTC 2026
+  0.0076 -0.0103 -0.0026  0.018  -0.0485  0.0079  0.0131  0.0753 -0.0475
+ -0.0104  0.0301  0.0394 -0.082  -0.0187]
+TRIAL 13 sec 469.8223307132721 cost 0.4710003167663555 score 3.767289348604247 vol 1280.2564574507082 cell [11.5498 16.8069  7.149  91.9874 84.1965 68.4516] zero -0.018212424381323526 best 0.29063955265281544 diff [-2.500e-03 -4.260e-02  2.000e-04  2.190e-02  1.569e-01 -7.870e-02
+  7.750e-02 -4.300e-03 -4.910e-02  2.260e-02 -1.600e-03 -2.683e-01
+ -1.500e-02  5.540e-02  1.630e-02  3.910e-02 -3.800e-03 -1.290e-02
+  7.400e-03  4.100e-03 -3.300e-03 -3.000e-03 -1.350e-02]
+TRIAL 14 sec 503.50152254104614 cost 0.5155999895284874 score 3.691811738499276 vol 1414.8747346621228 cell [  8.1406  11.058   16.9366 101.7191  73.2108  85.7707] zero 0.05591395365154536 best 0.29063955265281544 diff [ 0.0087 -0.0126 -0.0518 -0.1079  0.0247  0.0151  0.0042  0.081   0.1798
+  0.0073 -0.0148  0.0047 -0.0168 -0.0043 -0.0933 -0.067   0.0352  0.0071
+  0.0346 -0.0152 -0.0045 -0.0007  0.0014]
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 PEAK_FILE=peaks_emg.json SELECT_FILE=/app/work/X8a6f5a8/peak_select_emg.json NPEAK=30 NSPUR=1 TTHERR=.018 TRIALS=120 INDEX_TIME=480 VMIN=2200 VMAX=4200 VTARGET=2800 AMAX=45 ZEROMAX=.20
+SG_FILTER='P 21 21 21' INDEX_TAG=emg19 python /app/work/index_metric.py X8a6f5a8 ORTHOROMBIC P > /app/work/X8a6f5a8/index_emg19.log 2>&1
+SG_FILTER='P 1 21 1' INDEX_TAG=emg4 python /app/work/index_metric.py X8a6f5a8 MONOCLINIC P > /app/work/X8a6f5a8/index_emg4.log 2>&1
+HMAX=8 VMIN=1100 VMAX=3200 INDEX_TAG=emg1 python /app/work/index_metric.py X8a6f5a8 TRICLINIC P > /app/work/X8a6f5a8/index_emg1.log 2>&1
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/34814/status ]] && ! grep -q '^State:.*Z' /proc/34814/status; do sleep 5;done
+cp -r /app/work/Xedd9c7b/gallop_50 /app/work/Xedd9c7b/gallop_51
+rm -f /app/work/Xedd9c7b/gallop_51/STOP
+HBOND_COEFF=20 SEARCH_TIME=1400 PARTICLES=128 ITERATIONS=400 MACRO_ELITE_FRAC=.35 START_NPZ=/app/work/Xedd9c7b/gallop_50/best.npz START_JITTER=.06 START_TOR_JITTER=.35 python /app/work/search_gallop.py Xedd9c7b 51 1 --hscatter --packing > /app/work/Xedd9c7b/gallop51.log 2>&1
+python /app/work/import_gallop.py Xedd9c7b 51 > /app/work/Xedd9c7b/import_g51.log 2>&1
+python /app/work/refine_obj.py Xedd9c7b g51 /app/work/Xedd9c7b/search_g51/best.xml --scale --tight --stol=.38 > /app/work/Xedd9c7b/refine_g51.log 2>&1
+python /app/work/submit.py Xedd9c7b /app/work/Xedd9c7b/refined_g51.cif --check > /app/work/Xedd9c7b/check_g51.log 2>&1
+34128 python /app/work/search_gallop.py Xbfeeda9 11 1 --prepare --hscatter 
+35189 python /app/work/search_gallop.py X14a2b08 11 1 --prepare --hscatter 
+36191 python /app/work/search_gallop.py X14a2b08 70 1 --prepare --hscatter --packing --model=/app/work/X14a2b08/synthon.json 
+36287 python /app/work/search_gallop.py X7e382cb 40 1 --hscatter --packing 
+37166 python /app/work/search_gallop.py X8a06d7a 11 1 --prepare --hscatter 
+38246 python /app/work/search_gallop.py X3f4781b 50 2 --hscatter --packing 
+39022 python /app/work/search_gallop.py Xedd9c7b 51 1 --hscatter --packing 

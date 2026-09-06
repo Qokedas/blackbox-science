@@ -1,0 +1,9 @@
+    pkfile = sys.argv[6] if len(sys.argv) > 6 else None
+    cells = run(iid, nmax, brav, timeout=timeout, pkfile=pkfile)
+    with open(f'/app/work/{iid}/g2index_{bravsel}{tag}_{nmax}.txt', 'w') as f:
+        for c in cells[:30]:
+            M20, X20, ibrav, a, b, cc, al, be, ga, V = c[:10]
+            Nc = c[12] if len(c) > 12 else -1
+            line = f'M20={M20:7.1f} X20={X20:2d} Nc={Nc:3d} {bravaisNames[ibrav]:16s} a={a:8.4f} b={b:8.4f} c={cc:8.4f} al={al:7.3f} be={be:7.3f} ga={ga:7.3f} V={V:8.1f} Z~{V/18/nheavy:.2f}'
+            print(line); f.write(line+'\n')
+30 X13023e3/peaks_c.txt

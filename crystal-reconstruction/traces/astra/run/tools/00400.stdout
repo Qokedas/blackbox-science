@@ -1,0 +1,218 @@
+      <Option Name="Radiation" Choice="1" ChoiceName="X-Ray"/>
+      <Option Name="Spectrum" Choice="0" ChoiceName="Monochromatic"/>
+      <LinearPolarRate>0</LinearPolarRate>
+      <Par Refined="0" Limited="1" Min="0.05" Max="20" Name="Wavelength">1.54059</Par>
+    </Radiation>
+    <MaxSinThetaOvLambda>0.25</MaxSinThetaOvLambda>
+
+    <PowderPatternCrystal Name="" Crystal="X3f4781b" IgnoreImagScattFact="1">
+      <ReflectionProfilePseudoVoigt>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="U">-0.0327594</Par>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="V">-0.0527427</Par>
+        <Par Refined="0" Limited="1" Min="0" Max="1" Name="W">0.0427704</Par>
+        <Par Refined="0" Limited="1" Min="0" Max="1" Name="Eta0">1</Par>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="Eta1">-1</Par>
+        <Par Refined="0" Limited="1" Min="0.01" Max="10" Name="Asym0">0.28925</Par>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="Asym1">0.501121</Par>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="Asym2">0</Par>
+      </ReflectionProfilePseudoVoigt>
+      <Par Refined="0" Limited="1" Min="-1" Max="1" Name="globalBiso">0</Par>
+      <DiffractionDataSingleCrystal Name="" Crystal="X3f4781b">
+        <Par Refined="0" Limited="0" Min="1e-10" Max="1e+10" Name="Scale factor">1</Par>
+        <Radiation>
+          <Option Name="Radiation" Choice="1" ChoiceName="X-Ray"/>
+          <Option Name="Spectrum" Choice="0" ChoiceName="Monochromatic"/>
+          <LinearPolarRate>0</LinearPolarRate>
+          <Par Refined="0" Limited="1" Min="0.05" Max="20" Name="Wavelength">1</Par>
+        </Radiation>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="globalBiso">0</Par>
+        <Option Name="Group Reflections" Choice="0" ChoiceName="No"/>
+        <MaxSinThetaOvLambda>10</MaxSinThetaOvLambda>
+      <Option Name="Radiation" Choice="1" ChoiceName="X-Ray"/>
+      <Option Name="Spectrum" Choice="0" ChoiceName="Monochromatic"/>
+      <LinearPolarRate>0</LinearPolarRate>
+      <Par Refined="0" Limited="1" Min="0.05" Max="20" Name="Wavelength">1.5418</Par>
+    </Radiation>
+    <MaxSinThetaOvLambda>0.25</MaxSinThetaOvLambda>
+
+    <PowderPatternCrystal Name="" Crystal="X14a2b08" IgnoreImagScattFact="1">
+      <ReflectionProfilePseudoVoigt>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="U">0.391846</Par>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="V">-0.10999</Par>
+        <Par Refined="0" Limited="1" Min="0" Max="1" Name="W">0.0366441</Par>
+        <Par Refined="0" Limited="1" Min="0" Max="1" Name="Eta0">0.81527</Par>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="Eta1">-1</Par>
+        <Par Refined="0" Limited="1" Min="0.01" Max="10" Name="Asym0">1.86896</Par>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="Asym1">0.0685509</Par>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="Asym2">0</Par>
+      </ReflectionProfilePseudoVoigt>
+      <Par Refined="0" Limited="1" Min="-1" Max="1" Name="globalBiso">0</Par>
+      <DiffractionDataSingleCrystal Name="" Crystal="X14a2b08">
+        <Par Refined="0" Limited="0" Min="1e-10" Max="1e+10" Name="Scale factor">1</Par>
+        <Radiation>
+          <Option Name="Radiation" Choice="1" ChoiceName="X-Ray"/>
+          <Option Name="Spectrum" Choice="0" ChoiceName="Monochromatic"/>
+          <LinearPolarRate>0</LinearPolarRate>
+          <Par Refined="0" Limited="1" Min="0.05" Max="20" Name="Wavelength">1</Par>
+        </Radiation>
+        <Par Refined="0" Limited="1" Min="-1" Max="1" Name="globalBiso">0</Par>
+        <Option Name="Group Reflections" Choice="0" ChoiceName="No"/>
+        <MaxSinThetaOvLambda>10</MaxSinThetaOvLambda>
+    def quick_fit_profile(
+        self,
+        pdiff=None,
+        auto_background=True,
+        init_profile=True,
+        plot=True,
+        zero=True,
+        constant_width=True,
+        width=True,
+        eta=True,
+        backgd=True,
+        cell=True,
+        anisotropic=False,
+        asym=False,
+        displ_transl=False,
+        verbose=True,
+    ):
+        if plot:
+            self.plot()
+        if auto_background:
+            # Add background if necessary
+            need_background = True
+            for i in range(self.GetNbPowderPatternComponent()):
+                if isinstance(
+                    self.GetPowderPatternComponent(i), PowderPatternBackground
+                ):
+                    need_background = False
+                    break
+            if need_background:
+                if verbose:
+                    print("No background, adding one automatically")
+                x = self.GetPowderPatternX()
+                bx = np.linspace(x.min(), x.max(), 20)
+                by = np.zeros(bx.shape)
+                b = self.AddPowderPatternBackground()
+                b.SetInterpPoints(bx, by)
+                # b.Print()
+                b.UnFixAllPar()
+                b.OptimizeBayesianBackground()
+        if pdiff is None:
+            # Probably just one diffraction phase, select it
+            for i in range(self.GetNbPowderPatternComponent()):
+                if isinstance(
+                    self.GetPowderPatternComponent(i), PowderPatternDiffraction
+                ):
+                    pdiff = self.GetPowderPatternComponent(i)
+                    break
+            if verbose:
+                print(
+                    "Selected PowderPatternDiffraction: ",
+                    pdiff.GetName(),
+                    " with Crystal: ",
+                    pdiff.GetCrystal().GetName(),
+                )
+        if init_profile:
+            pdiff.SetReflectionProfilePar(
+                ReflectionProfileType.PROFILE_PSEUDO_VOIGT, 0.0000001
+            )
+
+        pdiff.SetExtractionMode(True, True)
+        pdiff.ExtractLeBail(10)
+
+        if plot:
+            self.UpdateDisplay()
+        # LSQ
+        lsq = LSQ()
+        lsq.SetRefinedObj(self, 0, True, True)
+        lsq.PrepareRefParList(True)
+        # lsq.GetCompiledRefinedObj().Print()
+        lsqr = lsq.GetCompiledRefinedObj()
+
+        lsqr.FixAllPar()
+        # lsqr.Print()
+        # print(lsq.ChiSquare())
+        if zero:
+            lsq.SetParIsFixed("Zero", False)
+        if displ_transl:
+            lsq.SetParIsFixed("2ThetaDispl", True)
+            lsq.SetParIsFixed("2ThetaTransp", True)
+        if lsqr.GetNbParNotFixed():
+            lsq.SafeRefine(nbCycle=10, useLevenbergMarquardt=True, silent=True)
+            pdiff.ExtractLeBail(10)
+            lsq.SafeRefine(nbCycle=10, useLevenbergMarquardt=True, silent=True)
+            if plot:
+                self.UpdateDisplay()
+        if cell:
+            lsq.SetParIsFixed("a", False)
+            lsq.SetParIsFixed("b", False)
+            lsq.SetParIsFixed("c", False)
+            lsq.SetParIsFixed("alpha", False)
+            lsq.SetParIsFixed("beta", False)
+            lsq.SetParIsFixed("gamma", False)
+        if constant_width:
+            lsq.SetParIsFixed("W", False)
+        if lsqr.GetNbParNotFixed():
+            lsq.SafeRefine(nbCycle=10, useLevenbergMarquardt=True, silent=True)
+            pdiff.ExtractLeBail(10)
+            lsq.SafeRefine(nbCycle=10, useLevenbergMarquardt=True, silent=True)
+            if plot:
+                self.UpdateDisplay()
+
+        if width:
+            lsq.SetParIsFixed("U", False)
+            lsq.SetParIsFixed("V", False)
+        if lsqr.GetNbParNotFixed():
+            lsq.SafeRefine(nbCycle=10, useLevenbergMarquardt=True, silent=True)
+            pdiff.ExtractLeBail(10)
+            lsq.SafeRefine(nbCycle=10, useLevenbergMarquardt=True, silent=True)
+            if plot:
+                self.UpdateDisplay()
+
+        if eta:
+            lsq.SetParIsFixed("Eta0", False)
+        if lsqr.GetNbParNotFixed():
+            lsq.SafeRefine(nbCycle=10, useLevenbergMarquardt=True, silent=True)
+            pdiff.ExtractLeBail(10)
+            lsq.SafeRefine(nbCycle=10, useLevenbergMarquardt=True, silent=True)
+            if plot:
+                self.UpdateDisplay()
+
+        if eta:
+            lsq.SetParIsFixed("Eta1", False)
+        if lsqr.GetNbParNotFixed():
+            lsq.SafeRefine(nbCycle=10, useLevenbergMarquardt=True, silent=True)
+            pdiff.ExtractLeBail(10)
+            lsq.SafeRefine(nbCycle=10, useLevenbergMarquardt=True, silent=True)
+            if plot:
+                self.UpdateDisplay()
+
+        if asym:
+            lsq.SetParIsFixed("Asym0", False)
+            lsq.SetParIsFixed("Asym1", False)
+        if lsqr.GetNbParNotFixed():
+            lsq.SafeRefine(nbCycle=10, useLevenbergMarquardt=True, silent=True)
+            pdiff.ExtractLeBail(10)
+            lsq.SafeRefine(nbCycle=10, useLevenbergMarquardt=True, silent=True)
+            if plot:
+                self.UpdateDisplay()
+        if backgd:
+            for i in range(self.GetNbPowderPatternComponent()):
+                if isinstance(
+                    self.GetPowderPatternComponent(i), PowderPatternBackground
+                ):
+                    b = self.GetPowderPatternComponent(i)
+                    lsq.SetParIsFixed(refpartype_scattdata_background, False)
+                    b.FixParametersBeyondMaxresolution(lsqr)
+                    # lsqr.Print()
+                    lsq.SafeRefine(
+                        nbCycle=10, useLevenbergMarquardt=True, silent=True
+                    )
+                    break
+        if verbose:
+            print(
+                "Profile fitting finished.\n"
+                "Remember to use SetExtractionMode(False) on the PowderPatternDiffraction object\n"
+                "to disable profile fitting and optimise the structure."
+            )
+

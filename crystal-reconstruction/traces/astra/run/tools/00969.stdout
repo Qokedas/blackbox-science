@@ -1,0 +1,257 @@
+class ReflectionProfilePseudoVoigt:public ReflectionProfile
+{
+   public:
+      ReflectionProfilePseudoVoigt();
+      ReflectionProfilePseudoVoigt(const ReflectionProfilePseudoVoigt &old);
+      virtual ~ReflectionProfilePseudoVoigt();
+      virtual ReflectionProfilePseudoVoigt* CreateCopy()const;
+      virtual const string& GetClassName()const;
+      CrystVector_REAL GetProfile(const CrystVector_REAL &x, const REAL xcenter,
+                                  const REAL h, const REAL k, const REAL l)const;
+      /** Set reflection profile parameters
+      *
+      * \param fwhmCagliotiW,fwhmCagliotiU,fwhmCagliotiV : these are the U,V and W
+      * parameters in the Caglioti's law :
+      * \f$ fwhm^2= U \tan^2(\theta) + V \tan(\theta) +W \f$
+      * if only W is given, the width is constant
+      * \param eta0,eta1: these are the mixing parameters.
+      */
+      void SetProfilePar(const REAL fwhmCagliotiW,
+                         const REAL fwhmCagliotiU=0,
+                         const REAL fwhmCagliotiV=0,
+                         const REAL eta0=0.5,
+                         const REAL eta1=0.);
+      virtual REAL GetFullProfileWidth(const REAL relativeIntensity, const REAL xcenter,
+                                       const REAL h, const REAL k, const REAL l);
+      bool IsAnisotropic()const;
+      virtual void XMLOutput(ostream &os,int indent=0)const;
+      virtual void XMLInput(istream &is,const XMLCrystTag &tag);
+   private:
+      /// Initialize parameters
+      void InitParameters();
+      ///FWHM parameters, following Caglioti's law
+      REAL mCagliotiU,mCagliotiV,mCagliotiW;
+      ///Pseudo-Voigt mixing parameter : eta=eta0 +2*theta*eta1
+      /// eta=1 -> pure Lorentzian ; eta=0 -> pure Gaussian
+      REAL mPseudoVoigtEta0,mPseudoVoigtEta1;
+      /** Asymmetry parameters, following the Bérar \& Baldinozzi approach
+      * ( Bérar \& baldinozzi, J. Appl. Cryst 26 (1993), 128-129)
+      *
+      * \note: these are not used right now.
+      */
+      REAL mAsymBerarBaldinozziA0,mAsymBerarBaldinozziA1,
+           mAsymBerarBaldinozziB0,mAsymBerarBaldinozziB1;
+      /** Asymmetry parameters, following the analytical function for asymmetric pseudo-voigt
+      * given by Toraya in J. Appl. Cryst 23(1990),485-491
+      *
+      * Asymmetric coefficient:
+      * \f[ A=A_0+A_1/\sin(2\vartheta)+A_2/\sin^2(2\vartheta) \f]
+      *
+      * Asymmetric profile:
+      * \f[ Prof(\vartheta-\vartheta_{max}<=0)=Prof_0(\frac{1+A}{A})(\vartheta-\vartheta_{max})) \f]
+      * \f[ Prof(\vartheta-\vartheta_{max}>=0)=Prof_0((1+A)         (\vartheta-\vartheta_{max})) \f]
+      */
+      REAL mAsym0,mAsym1,mAsym2;
+#ifdef __WX__CRYST__
+   public:
+      virtual WXCrystObjBasic* WXCreate(wxWindow* parent);
+#endif
+};
+
+/** Pseudo-Voigt reflection profile, with 6-parameters anisotropic Lorentzian broadening and Toraya asymmetric modelling.
+ *
+ */
+class ReflectionProfilePseudoVoigtAnisotropic:public ReflectionProfile
+{
+   public:
+      ReflectionProfilePseudoVoigtAnisotropic();
+      ReflectionProfilePseudoVoigtAnisotropic(const ReflectionProfilePseudoVoigtAnisotropic &old);
+      virtual ~ReflectionProfilePseudoVoigtAnisotropic();
+      virtual ReflectionProfilePseudoVoigtAnisotropic* CreateCopy()const;
+      virtual const string& GetClassName()const;
+      CrystVector_REAL GetProfile(const CrystVector_REAL &x, const REAL xcenter,
+                                  const REAL h, const REAL k, const REAL l)const;
+      /** Set reflection profile parameters
+       *
+       * if only W is given, the width is constant
+       *
+       * See documentation for mCagliotiU,mCagliotiV,mCagliotiW,mScherrerP,mLorentzX,mLorentzY,
+       * mLorentzGammaHH,mLorentzGammaKK,mLorentzGammaLL,mLorentzGammaHK,mLorentzGammaHL,mLorentzGammaKL
+       * mAsym0,mAsym1,mAsym2.
+       */
+      void SetProfilePar(const REAL fwhmCagliotiW,
+                         const REAL fwhmCagliotiU=0,
+                         const REAL fwhmCagliotiV=0,
+                         const REAL fwhmGaussP=0,
+                         const REAL fwhmLorentzX=0,
+                         const REAL fwhmLorentzY=0,
+                         const REAL fwhmLorentzGammaHH=0,
+                         const REAL fwhmLorentzGammaKK=0,
+                         const REAL fwhmLorentzGammaLL=0,
+                         const REAL fwhmLorentzGammaHK=0,
+                         const REAL fwhmLorentzGammaHL=0,
+                         const REAL fwhmLorentzGammaKL=0,
+                         const REAL pseudoVoigtEta0=0,
+                         const REAL pseudoVoigtEta1=0,
+                         const REAL asymA0=0,
+                         const REAL asymA1=0,
+                         const REAL asymA2=0
+                         );
+      virtual REAL GetFullProfileWidth(const REAL relativeIntensity, const REAL xcenter,
+                                       const REAL h, const REAL k, const REAL l);
+      bool IsAnisotropic()const;
+      virtual void XMLOutput(ostream &os,int indent=0)const;
+      virtual void XMLInput(istream &is,const XMLCrystTag &tag);
+   private:
+      /// Initialize parameters
+      void InitParameters();
+      /** FWHM parameters:
+       *
+       * Profile:\f$ Prof(\vartheta) = \eta Lorentz(\vartheta) + (1-\eta) Gauss(\vartheta) \f$
+       *
+       * This pseudo-Voigt profile is the linear combination of a Gaussian and a Lorentzian:
+       * \f[ Profile(\vartheta)= Lorentz(\vartheta) + Gauss(\vartheta)\f]
+       *
+       * Gaussian FWHM parameters, following Caglioti's law and Scherrer broadening coefficient:
+       * \f[ fwhm_g^2= U \tan^2(\theta) + V \tan(\theta) +W +\frac{P}{\cos^2\vartheta} \f]
+       * See Cagliotti, Pauletti & Ricci, Nucl. Instrum. 3 (1958), 223.
+       *
+       * Lorentzian FWHM parameters
+       *
+       * \f[ fwhm_l= \frac{X}{\cos\vartheta} +(Y + \frac{\gamma_L}{\sin^2\vartheta})\tan\vartheta \f]
+       * with anisotropic broadening factor:
+       * \f[ \gamma_L = \gamma_{HH}h^2 + \gamma_{KK}k^2 + \gamma_{LL}l^2 + 2\gamma_{HK}hk + 2\gamma_{hl} + 2\gamma_{kl}kl\f]
+       *
+       * \note: in the above formula we use \f$ \frac{\gamma_L}{\sin^2\vartheta} \f$ rather than the more usual\f$ \gamma_L d^2 \f$
+       * for computing purposes (the model being purely phenomenological).
+       */
+      REAL mCagliotiU,mCagliotiV,mCagliotiW,mScherrerP,mLorentzX,mLorentzY,
+           mLorentzGammaHH,mLorentzGammaKK,mLorentzGammaLL,mLorentzGammaHK,mLorentzGammaHL,mLorentzGammaKL;
+      ///Pseudo-Voigt mixing parameter : \f$ \eta=\eta_0 +2*\vartheta*\eta_1\f$
+      /// eta=1 -> pure Lorentzian ; eta=0 -> pure Gaussian
+      REAL mPseudoVoigtEta0,mPseudoVoigtEta1;
+      /** Asymmetry parameters, following the analytical function for asymmetric pseudo-voigt
+       * given by Toraya in J. Appl. Cryst 23(1990),485-491
+       *
+       * Asymmetric coefficient:
+       * \f[ A=A_0+A_1/\sin(2\vartheta)+A_2/\sin^2(2\vartheta) \f]
+       *
+       * Asymmetric profile:
+       * \f[ Prof(\vartheta-\vartheta_{max}<=0)=Prof_0(\frac{1+A}{A})(\vartheta-\vartheta_{max})) \f]
+       * \f[ Prof(\vartheta-\vartheta_{max}>=0)=Prof_0((1+A)         (\vartheta-\vartheta_{max})) \f]
+       */
+      REAL mAsym0,mAsym1,mAsym2;
+   #ifdef __WX__CRYST__
+   public:
+      virtual WXCrystObjBasic* WXCreate(wxWindow* parent);
+   #endif
+};
+
+/** Double-Exponential Pseudo-Voigt profile for TOF.
+*
+* Ref Mark Pitt
+*/
+class ReflectionProfileDoubleExponentialPseudoVoigt:public ReflectionProfile
+30:#include "ObjCryst/ObjCryst/ReflectionProfile.h"
+354:      void SetReflectionProfilePar(const ReflectionProfileType prof,
+363:      void SetProfile(ReflectionProfile *prof);
+365:      const ReflectionProfile& GetProfile()const;
+367:      ReflectionProfile& GetProfile();
+422:      unsigned int GetProfileFitNetNbObs()const;
+440:      void CalcPowderReflProfile()const;
+443:      void CalcPowderReflProfile_FullDeriv(std::set<RefinablePar *> &vPar);
+459:      void PrepareIntegratedProfile()const;
+462:         RefinableObjClock mClockProfilePar;
+469:         mutable RefinableObjClock mClockProfileCalc;
+472:      /// Profile
+473:         ReflectionProfile *mpReflectionProfile;
+518:         /// Profile of a single reflection
+519:         struct ReflProfile
+529:         mutable vector<ReflProfile> mvReflProfile;
+532:         /// are the same as in mvReflProfile.
+533:         mutable std::map<RefinablePar*,vector<CrystVector_REAL> > mvReflProfile_FullDeriv;
+543:         mutable vector< pair<unsigned long, CrystVector_REAL> > mIntegratedProfileFactor;
+545:         mutable RefinableObjClock mClockIntegratedProfileFactor;
+725:         * \param mode: if -1 (the default), the calculation mode uses the value of mOptProfileIntegration.
+918:         const CrystVector_long& GetIntegratedProfileMin()const;
+920:         const CrystVector_long& GetIntegratedProfileMax()const;
+922:         const RefinableObjClock& GetIntegratedProfileLimitsClock()const;
+1117:         RefObjOpt mOptProfileIntegration;
+1169:CrystVector_REAL PowderProfileGauss  (const CrystVector_REAL theta,
+1175:CrystVector_REAL PowderProfileLorentz(const CrystVector_REAL theta,
+1286:   CrystVector_REAL mP1IntegratedProfileMin,mP1IntegratedProfileMax;
+/opt/conda/conda-meta/pyobjcryst-2025.1.0-py311hab12424_2.json
+/opt/conda/conda-meta/libobjcryst-2024.2.1-h2b4839b_1.json
+/opt/conda/lib/libObjCryst.so
+/opt/conda/lib/python3.11/site-packages/pyobjcryst/_pyobjcryst.cpython-311-x86_64-linux-gnu.so
+/opt/conda/pkgs/pyobjcryst-2025.1.0-py311hab12424_2/lib/python3.11/site-packages/pyobjcryst/_pyobjcryst.cpython-311-x86_64-linux-gnu.so
+/opt/conda/pkgs/libobjcryst-2024.2.1-h2b4839b_1/lib/libObjCryst.so
+import ctypes, numpy as np
+_lib=ctypes.CDLL('/app/work/libobj_bridge.so')
+_lib.bridge_matrix.argtypes=[ctypes.c_void_p,ctypes.c_void_p,ctypes.c_long,ctypes.c_long]
+_lib.bridge_setobs.argtypes=[ctypes.c_void_p,ctypes.c_void_p,ctypes.c_long]
+_lib.bridge_march.argtypes=[ctypes.c_void_p]+[ctypes.c_double]*5
+_lib.bridge_bumpscale.argtypes=[ctypes.c_void_p,ctypes.c_double]
+def profile_matrix(p,d,nref=None):
+ p.Prepare();d.GetPowderPatternCalc()
+ if nref is None:nref=len(d.GetFhklObsSq())
+ a=np.zeros((len(p.GetPowderPatternX()),nref),dtype=np.float64)
+ ret=_lib.bridge_matrix(d.int_ptr(),a.ctypes.data,*a.shape)
+ if ret<0:raise RuntimeError('Profile matrix failed '+str(ret))
+ return a
+def set_obs(d,values):
+ v=np.ascontiguousarray(values,dtype=np.float64);_lib.bridge_setobs(d.int_ptr(),v.ctypes.data,len(v))
+def add_march(d,fraction,coeff,h,k,l):
+ _lib.bridge_march(d.int_ptr(),float(fraction),float(coeff),float(h),float(k),float(l))
+def set_bump_scale(c,scale):
+ _lib.bridge_bumpscale(c.int_ptr(),float(scale))
+
+def exact_pawley(p,d,stolmax=None,rcond=1e-4):
+ # Exact linear design matrix at fixed profile, lattice, and background.
+ # Retain all overlap couplings; truncate only near-null singular directions.
+ d.SetExtractionMode(True,False);p.Prepare();p.FitScaleFactorForRw()
+ mat=profile_matrix(p,d);f0=np.asarray(d.GetFhklObsSq())
+ # A loaded Le Bail cache can still point at calculated rather than extracted
+ # intensities. Verify the actual fixed-profile bridge before using its covariance.
+ for check in range(3):
+  cp=np.asarray(d.GetPowderPatternCalc());ratio=np.linalg.norm(mat[:,:len(f0)]@f0-cp)/max(np.linalg.norm(cp),1e-30)
+  if np.isfinite(ratio) and ratio<.005:break
+  print('PAWLEY_CACHE_REPAIR',check,ratio,p.GetRw(),flush=True)
+  d.ExtractLeBail(10);p.Prepare();p.FitScaleFactorForRw();mat=profile_matrix(p,d);f0=np.asarray(d.GetFhklObsSq())
+ x=np.asarray(p.GetPowderPatternX());weight=np.asarray(p.GetLSQWeight(0));obs=np.asarray(p.GetPowderPatternObs());calc=np.asarray(p.GetPowderPatternCalc());compcalc=np.asarray(d.GetPowderPatternCalc());scale=np.dot(calc-p.GetPowderPatternComponent(1).GetPowderPatternCalc(),compcalc)/np.dot(compcalc,compcalc)
+ background=calc-compcalc*scale
+ n=min(len(weight),len(x));sel=np.arange(len(f0))
+ if stolmax is not None:
+  stol=np.asarray(d.GetSinThetaOverLambda())[:len(f0)];sel=sel[stol<=stolmax]
+  n=min(n,int(np.searchsorted(x,2*np.arcsin(stolmax*p.GetWavelength())+np.deg2rad(p.GetPar('Zero').GetHumanValue()))))
+ a=mat[:n,sel]*scale;target=obs[:n]-background[:n]
+ excluded=np.setdiff1d(np.arange(len(f0)),sel)
+ if len(excluded):target-=mat[:n,excluded]@f0[excluded]*scale
+ sw=np.sqrt(weight[:n]);aw=a*sw[:,None];yw=target*sw
+ # Scale columns for numerical stability. Use Le Bail distribution in null modes.
+ cs=np.linalg.norm(aw,axis=0);cs=np.maximum(cs,np.max(cs)*1e-9);an=aw/cs
+ u,sv,vt=np.linalg.svd(an,full_matrices=False);keep=sv>sv[0]*rcond
+ corr=(vt[keep].T@((u[:,keep].T@(yw-aw@f0[sel]))/sv[keep]))/cs
+ f=f0[sel]+corr
+ # Filter near-null modes also from normal matrix, keeping a PSD covariance.
+ av=(vt[keep]*sv[keep,None])*cs[None,:];normal=av.T@av
+ chi=np.sum((yw-aw@f)**2);var=float(f@normal@f)
+ print('EXACT_PAWLEY','nref',len(sel),'rank',int(keep.sum()),'cond',sv[0]/sv[keep][-1], 'chi2',chi,'netRwp',np.sqrt(chi/max(np.dot(yw,yw),1e-30)),flush=True)
+ return dict(matrix=a,normal=normal,obs=f,sel=sel,x=x[:n],weights=weight[:n],profile=target,chi2=chi,var=var)
+import sys,json,os,numpy as np
+from pyobjcryst.io import xml_cryst_file_load_all_object,xml_cryst_file_save_global
+from obj_model import add_component
+import pyobjcryst.powderpattern as pp
+from types import MethodType
+pp.MethodType=MethodType
+from pyobjcryst.powderpattern import PowderPattern, wrap_boost_powderpattern
+sid,src,tag=sys.argv[1:4];W='/app/work/'+sid
+objs=xml_cryst_file_load_all_object(src);p=next(o for o in objs if o.GetClassName()=='PowderPattern');c=next(o for o in objs if o.GetClassName()=='Crystal');wrap_boost_powderpattern(p);d=p.GetPowderPatternComponent(0)
+if c.GetNbScatterer()==0:add_component(c,'C','dummy')
+d.SetExtractionMode(True,False);p.Prepare();d.ExtractLeBail(20);p.FitScaleFactorForRw();print('ORIGINAL',p.GetRw(),flush=True)
+p.SetWavelength(1.5418 if os.getenv('MONO') else 'Cu');p.Prepare();d.ExtractLeBail(30);p.FitScaleFactorForRw();print('DOUBLETFIXED',p.GetRw(),flush=True)
+p.quick_fit_profile(pdiff=d,auto_background=False,init_profile=False,plot=False,asym=True,verbose=False);p.FitScaleFactorForRw();print('DOUBLETFIT',p.GetRw(),flush=True)
+xml_cryst_file_save_global(W+'/'+tag+'.xml');cp={n:c.GetPar(n).GetHumanValue() for n in ['a','b','c','alpha','beta','gamma']};json.dump({'cell':cp,'Rw':p.GetRw()},open(W+'/'+tag+'.json','w'))
+import matplotlib;matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+plt.figure(figsize=(14,5));xx=np.rad2deg(p.GetPowderPatternX());yy=np.array(p.GetPowderPatternObs());cc=np.array(p.GetPowderPatternCalc());plt.plot(xx,yy,'k',lw=.7);plt.plot(xx,cc,'r',lw=.5);plt.plot(xx,yy-cc-yy.max()*.1,'b',lw=.4);plt.title(tag+' '+str(p.GetRw()));plt.savefig(W+'/'+tag+'.png')

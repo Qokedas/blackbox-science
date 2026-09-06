@@ -1,0 +1,200 @@
+======15174
+Name:	bash
+State:	S (sleeping)
+21072 
+======16777
+Name:	bash
+State:	S (sleeping)
+24360 
+======12401
+Name:	bash
+State:	S (sleeping)
+23671 
+======16779
+Name:	bash
+State:	S (sleeping)
+24368 
+======7272
+Name:	bash
+State:	S (sleeping)
+19678 
+======16742
+Name:	bash
+State:	S (sleeping)
+24358 
+======17408
+Name:	bash
+State:	S (sleeping)
+23295 
+======18059
+Name:	bash
+State:	S (sleeping)
+23219 
+======21574
+Name:	bash
+State:	S (sleeping)
+24353 
+======22050
+Name:	bash
+State:	S (sleeping)
+24356 
+======22512
+Name:	bash
+State:	S (sleeping)
+24351 
+======23194
+Name:	bash
+State:	S (sleeping)
+23197 
+GALLOP 4 Nref 169 seconds 24.95668601989746 best 144.39795 q25 144.39926 median 153.80365 total 161.55861687660217
+GALLOP 5 Nref 169 seconds 25.3280348777771 best 144.39798 q25 144.3991 median 160.10907 total 186.8976640701294
+GALLOP 6 Nref 169 seconds 24.81807017326355 best 144.39795 q25 144.39981 median 171.86642 total 211.759596824646
+GALLOP 7 Nref 169 seconds 25.60652804374695 best 144.39792 q25 144.39908 median 156.56607 total 237.37810468673706
+GALLOP 8 Nref 169 seconds 25.107056140899658 best 144.39784 q25 144.3989 median 153.99773 total 262.49759316444397
+GALLOP 9 Nref 169 seconds 25.191474199295044 best 144.39796 q25 144.39868 median 153.8038 total 287.7465269565582
+GALLOP 10 Nref 169 seconds 24.791282415390015 best 144.39804 q25 144.39932 median 190.589 total 312.55035495758057
+GALLOP 11 Nref 169 seconds 22.430399179458618 best 144.39787 q25 147.93047 median 155.18231 total 334.99223709106445
+  0%|          | 0/3 [00:00<?, ?it/s]100%|██████████| 3/3 [00:00<00:00, 2315.16it/s]
+GALLOP 12 Nref 169 seconds 25.32931137084961 best 144.39784 q25 153.80362 median 354.57166 total 360.3695800304413
+GALLOP 13 Nref 169 seconds 25.780165910720825 best 144.39798 q25 153.80365 median 212.27638 total 386.1625409126282
+GALLOP 14 Nref 169 seconds 25.46658682823181 best 144.3979 q25 149.12291 median 186.15222 total 411.64246678352356
+TRIAL 56 sec 393.31638264656067 cost 0.42093799733515036 score 3.5266507357719443 vol 5867.034511125392 cell [ 33.7615   8.2202  22.9099  90.     112.6662  90.    ] zero 0.005782295026804441 best 0.42093799734993864 diff [-0.0074 -0.0101 -0.007   0.0332  0.0224 -0.0048 -0.0028  0.0072 -0.0507
+  0.007   0.0051  0.0025 -0.0351 -0.0112  0.0681 -0.0079 -0.0572  0.0045
+  0.1227  0.0016 -0.0006  0.051  -0.0136  0.0378 -0.014  -0.038  -0.0048
+  0.0264 -0.0104 -0.0115]
+TRIAL 57 sec 401.69712924957275 cost 0.4917840562418024 score 3.389677683758349 vol 4631.7015627533465 cell [ 33.832    6.8497  21.4193  90.     111.0745  90.    ] zero 0.02133618977819778 best 0.42093799734993864 diff [ 0.0048  0.0515  0.0019 -0.0489 -0.1707 -0.0041 -0.0705  0.0115  0.024
+  0.023   0.0101 -0.0268  0.0041  0.1847 -0.0298  0.0514  0.0092 -0.0733
+  0.0028 -0.0099 -0.0178  0.0167  0.0247 -0.0007  0.0228 -0.0437  0.0079
+  0.0013 -0.0179  0.0053]
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+while [[ -r /proc/18059/status ]] && ! grep -q '^State:.*Z' /proc/18059/status; do sleep 5; done
+for num in 0 1; do
+ run=$((50+num));
+ GALLOP_STOL=.30 python /app/work/warm_gallop.py Xeb393f9 $run /app/work/Xeb393f9/refined_pyrm$num.xml /app/work/Xeb393f9/search_pyrm$num/model.json > /app/work/Xeb393f9/warm$run.log 2>&1
+ SEARCH_TIME=850 PARTICLES=96 ITERATIONS=350 MACRO_ELITE_FRAC=.25 EXACT_BUMP_IMAGES=1 START_NPZ=/app/work/Xeb393f9/gallop_$run/warm.npz START_JITTER=.04 START_TOR_JITTER=.25 python /app/work/search_gallop.py Xeb393f9 $run 1 --hscatter --packing > /app/work/Xeb393f9/gallop$run.log 2>&1
+ python /app/work/import_gallop.py Xeb393f9 $run > /app/work/Xeb393f9/import_g$run.log 2>&1
+ python /app/work/refine_obj.py Xeb393f9 g$run /app/work/Xeb393f9/search_g$run/best.xml --scale --tight > /app/work/Xeb393f9/refine_g$run.log 2>&1
+ python /app/work/submit.py Xeb393f9 /app/work/Xeb393f9/refined_g$run.cif --check > /app/work/Xeb393f9/check_g$run.log 2>&1
+ python /app/work/check_stereo.py Xeb393f9 /app/work/Xeb393f9/refined_g$run.cif >> /app/work/Xeb393f9/check_g$run.log 2>&1
+ done
+adopt_fit.py
+alkane_fits.log
+fit_candidate.py
+fits2.log
+fits_batch.log
+index_metric.py
+index_metric_v1.py
+moretrifits.log
+newfits.log
+nowfits.log
+queue_A.log
+queue_A2.log
+queue_B.log
+queue_C.log
+queue_C2.log
+queue_C_new.log
+queue_acm_warm.log
+queue_acm_warm.sh
+queue_axis.log
+queue_axis.sh
+queue_bases2d.log
+queue_bases2d.sh
+queue_bep_packing.log
+queue_bep_packing.sh
+queue_bep_plan.log
+queue_bep_plan.sh
+queue_complete2d.log
+queue_complete2d.sh
+queue_de.log
+queue_de2.log
+queue_dealk.log
+queue_dealk.sh
+queue_fit1db2d.log
+queue_fit1db2d.sh
+queue_fit2d.log
+queue_fit2d.sh
+queue_fit_de.log
+queue_fit_de.sh
+queue_fit_finalplane.log
+queue_fit_finalplane.sh
+queue_fit_metric8.log
+queue_fit_metric8.sh
+queue_fit_missing2.log
+queue_fit_missing2.sh
+queue_flip130.log
+queue_flip130.sh
+queue_gallop_A3.log
+queue_gallop_A3.sh
+queue_gallop_A4.log
+queue_gallop_A4.sh
+queue_gallop_B3.log
+queue_gallop_B3.sh
+queue_gallop_B4.log
+queue_gallop_B4.sh
+queue_gallop_C4.log
+queue_gallop_C4.sh
+queue_gallop_D5.log
+queue_gallop_D5.sh
+queue_gallop_D6.log
+queue_gallop_D6.sh
+queue_h7.log
+queue_h7.sh
+queue_heavy4.log
+queue_heavy4.sh
+queue_high130.log
+queue_high130.sh
+queue_highfit.log
+queue_highfit.sh
+queue_highres.sh
+queue_improve_D4.log
+queue_improve_D4.sh
+queue_index8wide.log
+queue_index8wide.sh
+queue_index_de.sh
+queue_index_de2.sh
+queue_index_ext.log
+queue_index_ext.sh
+queue_methoxy4.log
+queue_methoxy4.sh
+queue_methoxy4b.log
+queue_methoxy4b.sh
+queue_metric.log
+queue_metric.sh
+queue_missing_fits.log
+queue_missing_fits.sh
+queue_moreindex.log
+queue_moreindex.sh
+queue_newfits.log
+queue_newfits.sh
+queue_next_small.log
+queue_next_small.sh
+queue_planarity.log
+queue_planarity.sh
+queue_refine_fix.log
+queue_refine_fix.sh
+queue_refine_stable.log
+queue_refine_stable.sh
+queue_small7.log
+queue_small7.sh
+queue_stablebases.log
+queue_stablebases.sh
+queue_structures_A.sh
+queue_structures_A2.sh
+queue_structures_B.sh
+queue_structures_C.sh
+queue_structures_C2.sh
+queue_structures_C_new.sh
+queue_targetindex.log
+queue_targetindex.sh
+queue_tight.log
+queue_tight.sh
+queue_twocentre.log
+queue_twocentre.sh
+queue_zones.log
+queue_zones.sh
+raw_index_queue.sh
+restorefit.log
+run_fits.py
+run_fits2.py
+test_fit.log
+test_fit.py

@@ -1,0 +1,205 @@
+r(i)+")")
+            #lines.append("\tfractional"+str(i)+" = frac_rot_cart"+str(i)+" + torch.repeat_interleave(translation"+str(i)+", repeats=cart_coords"+str(i)+".shape[1], dim=0).reshape(translation"+str(i)+".shape[0], cart_coords"+str(i)+".shape[1], 3)")
+            #lines.append("\tfractional"+str(i)+" = frac_rot_cart"+str(i)+" + translation"+str(i)+".repeat(1,1,cart_coords"+str(i)+".shape[1]).reshape(translation"+str(i)+".shape[0], cart_coords"+str(i)+".shape[1], 3)")
+            lines.append("\tfractional"+str(i)+" = frac_rot_cart"+str(i)+" + translation"+str(i)+".view(translation"+str(i)+".shape[0], 1, 3)")
+        else: # Single atoms
+            lines.append("\tfractional"+str(i)+" = translation"+str(i))
+    lines.append("\treturn torch.cat(["+", ".join(["fractional"+str(i) for i in range(len(zmatrices_degrees_of_freedom))])+"], dim=1)\n")
+    if os.path.exists(filename):
+        print("Deleting previous")
+        os.remove(filename)
+    with open(filename, "w") as out_file:
+        out_file.write(header)
+        for line in rotation_matrix:
+            out_file.write(line+"\n")
+        for zm_writer in zm_to_cart_lines:
+            for line in zm_writer:
+                out_file.write(line+"\n")
+        for line in lines:
+            out_file.write(line+"\n")
+    out_file.close()
+    return [header] + rotation_matrix + zm_to_cart_lines + lines
+
+
+# Rewritten code using f-strings with ChatGPT
+
+def zm_to_cart_writer(zm_number, samples, atoms, init_D2, bond_connect, angle_connect, torsion_connect, refinable_torsion_indices, usejit=True):
+    lines_D2 = [f"def modify_D2_{zm_number}(tors, D2, refinable_torsion_indices):",
+                f"\tcos_phi = torch.cos(tors)",
+                f"\tsin_phi = torch.sin(tors)",
+                f"\tnew_D2 = D2.clone()",
+                f"\tnew_D2[:, refinable_torsion_indices, 1] = torch.mul(D2[:, refinable_torsion_indices, 1], cos_phi)",
+                f"\tnew_D2[:, refinable_torsion_indices, 2] = torch.mul(D2[:, refinable_torsion_indices, 2], sin_phi)",
+                f"\treturn new_D2"]
+
+    lines_zm = [f"def unroll_zm_to_cart{zm_number}(torsions, init_D2, refinable_torsion_indices):",
+                f"\t# type: (Tensor, Tensor, Tensor) -> Tensor",
+                f"\tD2 = modify_D2_{zm_number}(torsions, init_D2, refinable_torsion_indices)"]
+
+    if usejit:
+        print(f"Using JIT for ZM {zm_number}")
+        lines = [f"@torch.jit.script"] + lines_D2 + [f"@torch.jit.script"] + lines_zm
+    else:
+        lines = lines_D2 + lines_zm
+
+    for i in range(atoms):
+        if i < 3:
+            lines.append(f"\ta{i} = D2[:, {i}, :]")
+        else:
+            lines.append(f"\t# Atom {i}")
+            lines.append(f"\tC{i} = a{bond_connect[i]}")
+            lines.append(f"\tB{i} = a{angle_connect[i]}")
+            lines.append(f"\tA{i} = a{torsion_connect[i]}")
+            lines.append(f"\tc_minus_b{i} = C{i} - B{i}")
+            lines.append(f"\tbc{i} = c_minus_b{i}.div(torch.norm(c_minus_b{i}, dim=-1, keepdim=True))")
+            lines.append(f"\tAB{i} = B{i} - A{i}")
+            lines.append(f"\tn_1{i} = torch.cross(AB{i}, bc{i})")
+            lines.append(f"\tn{i} = n_1{i}.div(torch.norm(n_1{i}, dim=-1, keepdim=True))")
+            lines.append(f"\tn_bc{i} = torch.cross(n{i}, bc{i})")
+            lines.append(f"\tM{i} = torch.stack((bc{i}, n_bc{i}, n{i}), dim=-1)")
+            lines.append(f"\ta{i} = torch.einsum(\"bij,bj->bi\", M{i}, D2[:, {i}]) + C{i}")
+
+    lines.append(f"\treturn torch.stack([a{i} for i in range(atoms)], dim=1)")
+
+    return lines
+
+
+def unrolled_module_writer(input_tensors, filename="unrolled.py", usejit=True):
+    position, rotation, torsion, initial_D2, zmatrices_degrees_of_freedom, bond_connection, angle_connection, torsion_connection, torsion_refinable_indices, init_cart_coords = input_tensors
+    import os
+
+    position = [x.cpu().numpy() for x in position]
+    rotation = [x.cpu().numpy() for x in rotation]
+    torsion = [x.cpu().numpy() for x in torsion]
+    initial_D2 = [x.cpu().numpy() for x in initial_D2]
+    bond_connection = [x.cpu().numpy() for x in bond_connection]
+    angle_connection = [x.cpu().numpy() for x in angle_connection]
+    torsion_connection = [x.cpu().numpy() for x in torsion_connection]
+    torsion_refinable_indices = [x.cpu().numpy() for x in torsion_refinable_indices]
+    init_cart_coords = [x.cpu().numpy() for x in init_cart_coords if not isinstance(x, list)]
+
+    rotation_matrix = [f"def get_rotation_matrices(rot):",
+                      f"\ta = rot[:, 0].reshape(rot.shape[0], 1)",
+                      f"\tb = rot[:, 1].reshape(rot.shape[0], 1)",
+                      f"\tc = rot[:, 2].reshape(rot.shape[0], 1)",
+                      f"\td = rot[:, 3].reshape(rot.shape[0], 1)",
+                      f"\trow_1_1 = 1 - 2 * (c * c + d * d)",
+                      f"\trow_1_2 = 2 * (b * c - d * a)",
+                      f"\trow_1_3 = 2 * (b * d + c * a)",
+                      f"\trow_2_1 = 2 * (b * c + d * a)",
+                      f"\trow_2_2 = 1 - 2 * (b * b + d * d)",
+                      f"\trow_2_3 = 2 * (c * d - b * a)",
+                      f"\trow_3_1 = 2 * (b * d - c * a)",
+                      f"\trow_3_2 = 2 * (c * d + b * a)",
+                      f"\trow_3_3 = 1 - 2 * (b * b + c * c)",
+                      f"\tR = torch.cat([row_1_1, row_1_2, row_1_3, row_2_1, row_2_2, row_2_3, row_3_1, row_3_2, row_3_3], dim=1).reshape(rot.shape[0], 3, 3)",
+                      f"\tR = torch.transpose(R, 2, 1)",
+                      f"\treturn R"]
+
+    if usejit:
+        print("Using JIT for rotation")
+        rotation_matrix = [f"@torch.jit.script"] + rotation_matrix
+
+    header = "import torch\n\n"
+    lines = [f"def get_fractional_coords(external, internal, position, rotation, torsion, initial_D2, torsion_refinable_indices, lattice_inv_matrix, init_cart_coords):",
+             f"\t# type: (Tensor, Tensor, List[Tensor], List[Tensor], List[Tensor], List[Tensor], List[Tensor], Tensor, List[Tensor]) -> Tensor"]
+
+    if usejit:
+        lines = [f"@torch.jit.script"] + lines
+
+    zm_to_cart_lines = []
+
+    for i, zm_dof in enumerate(zmatrices_degrees_of_freedom):
+        lines.append(f"\t# Z-matrix {i}")
+        lines.append(f"\ttranslation{i} = external[:, position[{i}]].reshape(external.shape[0], 1, {len(position[i])})")
+
+        if zm_dof > 7:
+            lines.append(f"\trot_in{i} = external[:, rotation[{i}]]")
+
+  # Quaternions for rotation
+            lines.append(f"\trot{i} = rot_in{i}.div(torch.norm(rot_in{i}, dim=-1, keepdim=True))")  # Normalize quaternions
+            lines.append(f"\tR{i} = get_rotation_matrices(rot{i})")  # Convert quaternions to rotation matrices
+
+            zm_to_cart_lines.extend(zm_to_cart_writer(i, initial_D2[i].shape[0], initial_D2[i].shape[1], initial_D2[i],
+                                                      bond_connection[i], angle_connection[i], torsion_connection[i],
+                                                      torsion_refinable_indices[i], usejit=usejit))
+
+            lines.append(f"\tcart_coords{i} = unroll_zm_to_cart{i}(internal[:, torsion[{i}]], initial_D2[{i}], torsion_refinable_indices[{i}])")
+            lines.append(f"\trot_cart{i} = torch.einsum(\"bjk,bij->bik\", R{i}, cart_coords{i})")
+            lines.append(f"\tfrac_rot_cart{i} = torch.einsum(\"jk,bij->bik\", lattice_inv_matrix, rot_cart{i})")
+            lines.append(f"\tfractional{i} = frac_rot_cart{i} + translation{i}.view(translation{i}.shape[0], 1, 3)")
+
+        elif zm_dof == 7:  # Rigid bodies
+            lines.append(f"\trot_in{i} = external[:, rotation[{i}]]")  # Quaternions for rotation
+            lines.append(f"\trot{i} = rot_in{i}.div(torch.norm(rot_in{i}, dim=-1, keepdim=True))")  # Normalize quaternions
+            lines.append(f"\tR{i} = get_rotation_matrices(rot{i})")  # Convert quaternions to rotation matrices
+            lines.append(f"\tcart_coords{i} = init_cart_coords[{i}]")
+            lines.append(f"\trot_cart{i} = torch.einsum(\"bjk,bij->bik\", R{i}, cart_coords{i})")
+            lines.append(f"\tfrac_rot_cart{i} = torch.einsum(\"jk,bij->bik\", lattice_inv_matrix, rot_cart{i})")
+            lines.append(f"\tfractional{i} = frac_rot_cart{i} + translation{i}.view(translation{i}.shape[0], 1, 3)")
+
+        else:  # Single atoms
+            lines.append(f"\tfractional{i} = translation{i}")
+
+    lines.append(f"\treturn torch.cat([fractional{i} for i in range(len(zmatrices_degrees_of_freedom))], dim=1)")
+
+    if os.path.exists(filename):
+        print("Deleting previous")
+        os.remove(filename)
+
+    with open(filename, "w") as out_file:
+        out_file.write(header)
+        for line in rotation_matrix:
+            out_file.write(line + "\n")
+        for zm_writer in zm_to_cart_lines:
+            for line in zm_writer:
+                out_file.write(line + "\n")
+        for line in lines:
+            out_file.write(line + "\n")
+
+    return [header] + rotation_matrix + zm_to_cart_lines + lines
+
+<ObjCryst Date="2026-09-06T06:20:02GMT" Revision="2024001">
+  <Crystal Name="Xeb393f9" SpaceGroup="P 1">
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="a">8.01402</Par>
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="b">9.81551</Par>
+    <Par Refined="0" Limited="1" Min="1" Max="100" Name="c">10.2336</Par>
+    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="alpha">74.8725</Par>
+    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="beta">68.9583</Par>
+    <Par Refined="0" Limited="1" Min="28.6479" Max="171.887" Name="gamma">65.9329</Par>
+    <Option Name="Constrain Lattice to SpaceGroup Symmetry" Choice="0" ChoiceName="Yes (Default)"/>
+
+    <Option Name="Use Dynamical Occupancy Correction" Choice="0" ChoiceName="No"/>
+
+2:  <Crystal Name="Xeb393f9" SpaceGroup="P 1">
+58:    <Molecule Name="m0_0_0" MDMoveFreq="0" MDMoveEnergy="40" LogLikelihoodScale="1">
+71:      <Atom Name="m0_0_0_O1" ScattPow="O" x="-3.46908" y="3.29889" z="-2.20663" Occup="1"/>
+72:      <Atom Name="m0_0_0_C2" ScattPow="C" x="-2.70036" y="2.82101" z="-1.38299" Occup="1"/>
+73:      <Atom Name="m0_0_0_O3" ScattPow="O" x="-3.00297" y="1.72784" z="-0.674889" Occup="1"/>
+74:      <Atom Name="m0_0_0_C4" ScattPow="C" x="-1.2254" y="3.03433" z="-1.39568" Occup="1"/>
+75:      <Atom Name="m0_0_0_C5" ScattPow="C" x="-0.504226" y="2.42071" z="-0.188047" Occup="1"/>
+76:      <Atom Name="m0_0_0_C6" ScattPow="C" x="0.988189" y="2.80233" z="-0.0981347" Occup="1"/>
+77:      <Atom Name="m0_0_0_N7" ScattPow="N" x="1.79471" y="2.23696" z="1.05399" Occup="1"/>
+78:      <Atom Name="m0_0_0_C8" ScattPow="C" x="1.052" y="1.571" z="2.19707" Occup="1"/>
+GALLOP 38 Nref 122 seconds 38.65714740753174 best 2.823716 q25 11.452173 median 28.630352 total 1305.1467490196228
+GALLOP 39 Nref 122 seconds 53.236326456069946 best 2.8239875 q25 13.481684 median 23.027569 total 1358.3866953849792
+GALLOP 40 Nref 122 seconds 54.790324449539185 best 2.8235385 q25 18.691078 median 29.211922 total 1413.1821029186249
+GALLOP 41 Nref 122 seconds 51.079739570617676 best 2.8237252 q25 17.913918 median 29.058094 total 1464.2659695148468
+GALLOP 42 Nref 122 seconds 33.41300296783447 best 2.8237586 q25 17.440166 median 26.102694 total 1497.682131767273
+GALLOP 43 Nref 122 seconds 37.66922307014465 best 2.8235044 q25 14.449727 median 25.600555 total 1535.3559381961823
+GALLOP 44 Nref 122 seconds 47.90459990501404 best 2.8235948 q25 13.344697 median 27.844883 total 1583.2647614479065
+GALLOP 45 Nref 122 seconds 37.34176301956177 best 2.823797 q25 17.77861 median 28.20782 total 1620.6093385219574
+GALLOP 41 Nref 368 seconds 43.25518798828125 best 339.3602 q25 473.0924 median 549.17017 total 1470.8815534114838
+GALLOP 42 Nref 368 seconds 46.599740982055664 best 339.36017 q25 449.54413 median 525.78156 total 1517.4842040538788
+GALLOP 43 Nref 368 seconds 56.903237104415894 best 339.36032 q25 446.61142 median 517.9918 total 1574.3901178836823
+GALLOP 44 Nref 368 seconds 68.90248036384583 best 339.36035 q25 373.98303 median 496.73492 total 1643.295536518097
+GALLOP 45 Nref 368 seconds 60.234705209732056 best 339.36032 q25 444.2066 median 539.6227 total 1703.5332477092743
+GALLOP 46 Nref 368 seconds 61.43386197090149 best 339.3603 q25 420.11063 median 516.08936 total 1765.0038669109344
+GALLOP 47 Nref 368 seconds 48.76691389083862 best 339.36017 q25 361.3455 median 537.11304 total 1813.7749755382538
+FINISHED X4f6fe58 339.3601379394531
+CYCLE 2 1 Rw 0.10129777678591413 chi2 3478.026999316688 geom 39.77503336225096 LSQ 3733.6480178872616
+CYCLE 2 2 Rw 0.10129616687038599 chi2 3477.9164483183163 geom 39.5707337373361 LSQ 3732.939708078182
+CYCLE 3 0 Rw 0.10128208962591113 chi2 3476.9498554127495 geom 39.454797411820394 LSQ 3731.7491056098843
+CYCLE 3 1 Rw 0.10126954865456728 chi2 3476.0888615475947 geom 39.38765470755831 LSQ 3730.8422118863223
+CYCLE 3 2 Rw 0.10125751879562467 chi2 3475.2630580260434 geom 39.345276206125995 LSQ 3730.0538265506902
+FINISHED Xd4c1a35 0.10125751879562467

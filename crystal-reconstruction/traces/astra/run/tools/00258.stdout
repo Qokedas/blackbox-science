@@ -1,0 +1,20 @@
+EXACT_PAWLEY nref 178 rank 154 cond 922.2641721590995 chi2 8366.512901701974 netRwp 0.050161067968764565
+DE_SETUP Xdcc971e atoms 92 nref 178 ndof 5
+HALF_SOLVE 7 cost 202.12200053009474 elapsed 291.4766409397125 x [ 0.53578663 -0.77112936  1.79812319  0.37831067  0.15353481  0.36811607
+ -0.44933447]
+HALF_SOLVE 8 cost 204.56164662732908 elapsed 323.50202465057373 x [-1.07183402 -0.05655626 -2.41820737  0.58832878  0.11123321  0.60509547
+  2.392059  ]
+      a=14.99-15.06 b= 5.70- 5.73 c=23.19-23.26 alpha= 90.00- 90.00 beta=127.71-127.80 gamma= 90.00- 90.00 V=1567.93-1587.85level=6, indexed=1(392 sol.)
+      a=0.08432-0.08402 b=0.17540-0.17438 c=0.05451-0.05440 alpha=0.61164-0.61284 beta=0.00000-0.00000 gamma=0.00000-0.00000level=6, indexed=1(392 sol.)
+ Solution ? a= 15.091 b=  5.741 c= 23.225 alpha= 90.000 beta=127.726 gamma= 90.000 V= 1591.49 score= 10.76 # 392
+Finished: V=1280.02->1720.03 A^3, 14402345 unit cells tested, 290899 tests/s,   Elapsed time=49.5098s
+Starting: V=1720.03->2160.04
+RUN 1 steps 3000000 time 527.2915515899658 total 542.4528856277466 LLK 84205.08226380886 Rw 0.27744827386574217 Integrated 82684.0416052375
+RUN 2 steps 3000000 time 600.0420162677765 total 1142.6003081798553 LLK 67869.43843267138 Rw 0.26066956813582226 Integrated 66408.82767150587
+5531 R 1304.3 python /app/work/search_obj.py X35b7fbc 2 1 --rescale --model=/app/work/X35b7fbc/cis.json 
+7274 R 674.9 python /app/work/search_obj.py Xd4c1a35 2 2 --rescale --profile 
+7369 R 569.8 python /app/work/search_obj.py X2327841 10 1 --rigid --hydrogen --model=/app/work/X2327841/alltrans.json --rescale --lsq 
+7959 R 540.3 python /app/work/solve_half_biphenyl.py 
+8405 R 57.9 python /app/work/solve_de.py Xdcc971e de11 --model=/app/work/Xdcc971e/alltrans.json --hydrogen 
+8415 R 42.6 python /app/work/index_one.py Xedd9c7b MONOCLINIC P 4 400 2600 
+8425 R 2.3 python /app/work/fit_candidate.py X8a6f5a8 1 .27 

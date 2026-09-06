@@ -1,0 +1,46 @@
+232:def restore_from_cif(cr, mols, ciffile):
+233-    """Place molecules/atoms at positions read from an ObjCryst-written CIF with the same atom naming/order."""
+234-    import gemmi
+235-    doc = gemmi.cif.read(ciffile); blk = doc.sole_block()
+236-    names = list(blk.find_values('_atom_site_label'))
+237-    fx = [float(v) for v in blk.find_values('_atom_site_fract_x')]
+238-    fy = [float(v) for v in blk.find_values('_atom_site_fract_y')]
+239-    fz = [float(v) for v in blk.find_values('_atom_site_fract_z')]
+240-    pos = {n: np.array([x, y, z]) for n, x, y, z in zip(names, fx, fy, fz)}
+241-    for m in mols:
+242-        if hasattr(m, 'GetNbAtoms'):
+243-            nat = m.GetNbAtoms()
+244-            fr = np.array([pos[m.GetAtom(i).GetName()] for i in range(nat)])
+245-            # unwrap: make molecule contiguous around first atom
+246-            fr = fr - np.round(fr - fr[0])
+247-            cen = fr.mean(axis=0)
+248-            cart = np.array([cr.FractionalToOrthonormalCoords(*(f - cen)) for f in fr])
+249-            for i in range(nat):
+250-                a = m.GetAtom(i); a.SetX(cart[i, 0]); a.SetY(cart[i, 1]); a.SetZ(cart[i, 2])
+251-            m.X, m.Y, m.Z = cen
+252-            m.Q0, m.Q1, m.Q2, m.Q3 = 1.0, 0.0, 0.0, 0.0
+253-        else:
+254-            f = pos[m.GetName()]
+255-            m.X, m.Y, m.Z = f
+256-    cr.UpdateDisplay() if hasattr(cr, 'UpdateDisplay') else None
+257-
+258-def write_cif(cr, fn):
+259-    cr.CIFOutput(fn)
+260-
+261-if __name__ == '__main__':
+262-    ap = argparse.ArgumentParser()
+263-    ap.add_argument('iid'); ap.add_argument('cell', nargs=6, type=float); ap.add_argument('spg')
+264-    ap.add_argument('--nsteps', type=float, default=2e6); ap.add_argument('--nruns', type=int, default=1)
+265-    ap.add_argument('--ttmax', type=float, default=None); ap.add_argument('--tag', default='a')
+266-    ap.add_argument('--maxtime', type=float, default=-1)
+267-    ap.add_argument('--restore', default=None, help='CIF from a previous run: restore and polish only')
+268-    ap.add_argument('--restore-sa', default=None, help='CIF from a previous run: restore, then SA without initial randomization (run 0), then polish')
+269-    ap.add_argument('--zprime', type=int, default=1)
+270-    ap.add_argument('--conf', type=int, default=0, help='rank of distinct conformer to use (0 = lowest MMFF energy)')
+271-    a = ap.parse_args()
+272-    seed = int(time.time()*1000) % 2**31
+273-    np.random.seed(seed)
+274-    import ctypes; ctypes.CDLL(None).srand(seed)  # ObjCryst uses libc rand()
+275-    print('seed', seed, flush=True)
+276-    CONF_RANK = a.conf
+277-    globals()['CONF_RANK'] = a.conf

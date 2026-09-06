@@ -1,0 +1,9 @@
+step ['Zero'] Rwp=0.9581
+step ['W'] Rwp=0.4932
+step ['a', 'b', 'c', 'alpha', 'beta', 'gamma'] Rwp=0.1896
+step ['U', 'V'] Rwp=0.0857
+step ['Eta0'] Rwp=0.0723
+step ['Eta1'] Rwp=0.0669
+step ['background'] Rwp=0.0641
+step ['Zero', 'W', 'U', 'V', 'Eta0', 'background', 'a', 'b', 'c', 'alpha', 'beta', 'gamma'] Rwp=0.0627
+X238783d P 21 21 21: Rwp=0.0620 R=0.0637 chi2/N=17.036 nrefl=179 cell=['8.8357', '20.1180', '23.9134', '90.0000', '90.0000', '90.0000'] t=5.3s

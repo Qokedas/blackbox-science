@@ -1,0 +1,6 @@
+step ['background'] Rwp=0.0641
+step ['Zero', 'W', 'U', 'V', 'Eta0', 'background', 'a', 'b', 'c', 'alpha', 'beta', 'gamma'] Rwp=0.0627
+X238783d P 21 21 21: Rwp=0.0620 R=0.0637 chi2/N=17.036 nrefl=179 cell=['8.8357', '20.1180', '23.9134', '90.0000', '90.0000', '90.0000'] t=5.3s
+X3c176e2/inos_pcab2.log:ISO 1 P c a b Zp=1: 0.2208
+X3c176e2/inos_pcab2.log:ISO 0 P c a b Zp=1: 0.1885
+run 0: cost=50090.1 Rwp=0.1848 chi2=57264.8 t=1104s

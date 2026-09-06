@@ -1,0 +1,18 @@
+ObjRegistry<T>::Find(ion_C): Not found !!
+List of Crystal ScatteringPowers :4 object registered:
+#  0:ScatteringPowerAtom(N)
+#  1:ScatteringPowerAtom(C)
+#  2:ScatteringPowerAtom(O)
+#  3:ScatteringPowerAtom(H)
+EXACT_PAWLEY nref 211 rank 203 cond 995.6649359300873 chi2 1001.300247466744 netRwp 0.19282756068231285
+ZM Nc1ccccc1NC(=O)c1ccc(CNC(=O)OCc2cccnc2)cc1 n 28 torsions 7 max_distance_error 1.7150794562326155e-08
+Total degrees of freedom: 14
+Total external degrees of freedom: 7 (pos: 3 rot: 4 )
+Total internal degrees of freedom: 7
+PREPARED Xb7088cf Nref 211 PawleyRw 0.04212067168780695 SG P 21 21 21
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+RESTART_ERROR max/rms 1.6317385628551468e-06 1.0181019638274846e-06
+WARM_READY /app/work/Xb7088cf/gallop_50

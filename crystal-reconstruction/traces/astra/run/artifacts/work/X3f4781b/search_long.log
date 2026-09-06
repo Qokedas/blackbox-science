@@ -1,0 +1,30 @@
+ObjRegistry<T>::Find(C): Not found !!
+List of Crystal ScatteringPowers :0 object registered:
+ObjRegistry<T>::Find(O): Not found !!
+List of Crystal ScatteringPowers :1 object registered:
+#  0:ScatteringPowerAtom(C)
+ObjRegistry<T>::Find(Cl): Not found !!
+List of Crystal ScatteringPowers :2 object registered:
+#  0:ScatteringPowerAtom(C)
+#  1:ScatteringPowerAtom(O)
+ObjRegistry<T>::Find(N): Not found !!
+List of Crystal ScatteringPowers :3 object registered:
+#  0:ScatteringPowerAtom(C)
+#  1:ScatteringPowerAtom(O)
+#  2:ScatteringPowerAtom(Cl)
+ObjRegistry<T>::Find(S): Not found !!
+List of Crystal ScatteringPowers :4 object registered:
+#  0:ScatteringPowerAtom(C)
+#  1:ScatteringPowerAtom(O)
+#  2:ScatteringPowerAtom(Cl)
+#  3:ScatteringPowerAtom(N)
+INITIAL X3f4781b 1 Rw 0.41456398113275866 LLK 399172366.3194868 Integrated 399171642.0109685 DOF -1
+RUN 0 steps 100000 time 12.634364366531372 total 12.6344473361969 LLK 189968616.06909484 Rw 0.30794303867878875 Integrated 189967835.49680826
+RUN 1 steps 1000000 time 162.78111147880554 total 175.45391416549683 LLK 174977221.69843465 Rw 0.2839245042982601 Integrated 174976370.31305385
+RUN 2 steps 1000000 time 106.71493411064148 total 282.2099914550781 LLK 173298147.69674695 Rw 0.28577512300079355 Integrated 173297244.86783078
+RUN 3 steps 1000000 time 102.77394437789917 total 385.02319622039795 LLK 182321740.1317481 Rw 0.2989141872503462 Integrated 182320779.67882434
+RUN 4 steps 1000000 time 98.44143295288086 total 483.46510434150696 LLK 173170596.69393972 Rw 0.29307618273692126 Integrated 173169664.23246977
+RUN 5 steps 1000000 time 106.29230237007141 total 589.7957735061646 LLK 178283633.53425965 Rw 0.2802646619734966 Integrated 178282749.88032547
+RUN 6 steps 1000000 time 123.92111659049988 total 713.7172093391418 LLK 179182878.67872193 Rw 0.2949502168692761 Integrated 179182049.57914162
+RUN 7 steps 1000000 time 133.23965001106262 total 846.9571847915649 LLK 175767956.34232304 Rw 0.29900967285331037 Integrated 175767012.5627638
+FINISHED 173170596.69393972

@@ -1,0 +1,15 @@
+seed 1966502693
+step ['Zero'] Rwp=0.3028
+step ['W'] Rwp=0.1211
+step ['a', 'b', 'c', 'alpha', 'beta', 'gamma'] Rwp=0.1189
+step ['U', 'V'] Rwp=0.1037
+step ['Eta0'] Rwp=0.0976
+step ['Eta1'] Rwp=0.0975
+step ['background'] Rwp=0.0853
+step ['Zero', 'W', 'U', 'V', 'Eta0', 'background', 'a', 'b', 'c', 'alpha', 'beta', 'gamma'] Rwp=0.0860
+LeBail Rwp=0.0866 chi2=13510.2 cell= 8.910002777324312 9.478282655717248 13.245029461898815 98.22418168199192
+  conformers: 25 distinct; energies [-159.4, -159.4, -158.3, -158.3, -158.3, -157.8]; using rank 0 (E=-159.4)
+  molecule mol0_0: 33 atoms, 36 bonds, 52 angles, 51 dihedral restraints, 7 free torsions
+run 0: cost=58637.8 Rwp=0.2241 chi2=90474.8 t=2469s
+polish: Rwp 0.2229 -> 0.2146 (accepted) restraint cost=0.00
+RESULTS Xd8634a2 P -1 [(58637.78425598496, 0.22406685456343636, 90474.76673940285)]

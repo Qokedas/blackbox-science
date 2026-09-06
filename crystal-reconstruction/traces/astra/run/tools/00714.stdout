@@ -1,0 +1,61 @@
+/app/work/X7e382cb/search_g31/best.json
+/app/work/X7e382cb/search_g22/best.json
+/app/work/X7e382cb/tc2.log
+/app/work/X7e382cb/tc1/best.json
+/app/work/X7e382cb/search_g32/best.json
+/app/work/X7e382cb/gallop_31/best.json
+/app/work/X7e382cb/gallop_40/best.json
+/app/work/X7e382cb/tc2
+/app/work/X7e382cb/tc2/best.json
+/app/work/X7e382cb/gallop_22/best.json
+/app/work/X7e382cb/gallop_32/best.json
+/app/work/X7e382cb/gallop_21/best.json
+===/app/work/X7e382cb/twocentre*
+===/app/work/X7e382cb/tc2
+{
+ "cost": 155.03245544433594,
+ "batch": 14,
+ "elapsed": 897.3809304237366,
+ "centre": [
+  0.0,
+  0.5,
+  0.5
+ ]
+}===/app/work/X7e382cb/tc2.log
+/app/work/X7e382cb/index_TETRAGONAL_P_0.log
+/app/work/X7e382cb/index_TRICLINIC_P_4.log
+/app/work/X7e382cb/index_raw_MONOCLINIC_C.log
+/app/work/X7e382cb/index_raw_MONOCLINIC_P.log
+/app/work/X7e382cb/index_raw_ORTHOROMBIC_C.log
+/app/work/X7e382cb/index_raw_ORTHOROMBIC_P.log
+/app/work/X7e382cb/index_raw_TRICLINIC_P.log
+/app/work/X7e382cb/refine_chem32.log
+/app/work/X7e382cb/refine_g21.log
+/app/work/X7e382cb/refine_g22.log
+/app/work/X7e382cb/refine_g31.log
+/app/work/X7e382cb/refine_g32.log
+/app/work/X7e382cb/tc1.log
+/app/work/X7e382cb/tc2.log
+/app/work/X7e382cb/warm40.log
+BATCH 2 best 196.606201171875 diffraction 184.92950439453125 p25 464.58599853515625 seconds 172.60234594345093 centre [0.  0.5 0.5]
+BATCH 3 best 196.60629272460938 diffraction 184.92962646484375 p25 436.03271484375 seconds 235.1004741191864 centre [0.  0.5 0.5]
+BATCH 4 best 196.6062469482422 diffraction 184.929443359375 p25 434.4493103027344 seconds 297.19496965408325 centre [0.  0.5 0.5]
+BATCH 5 best 164.8101806640625 diffraction 156.396484375 p25 498.6982421875 seconds 349.065123796463 centre [0.  0.5 0.5]
+BATCH 6 best 164.80992126464844 diffraction 156.39532470703125 p25 428.84368896484375 seconds 408.1730511188507 centre [0.  0.5 0.5]
+BATCH 7 best 155.0325927734375 diffraction 146.5526123046875 p25 453.666259765625 seconds 475.66691637039185 centre [0.  0.5 0.5]
+BATCH 8 best 155.0325164794922 diffraction 146.55255126953125 p25 464.62847900390625 seconds 538.3997128009796 centre [0.  0.5 0.5]
+BATCH 9 best 155.0325164794922 diffraction 146.552490234375 p25 437.2877197265625 seconds 601.2653486728668 centre [0.  0.5 0.5]
+BATCH 10 best 241.47352600097656 diffraction 230.96832275390625 p25 486.0748596191406 seconds 677.5586700439453 centre [0.  0.5 0.5]
+BATCH 11 best 155.03265380859375 diffraction 146.55267333984375 p25 445.56927490234375 seconds 728.1047239303589 centre [0.  0.5 0.5]
+BATCH 12 best 155.0325164794922 diffraction 146.55255126953125 p25 443.9252624511719 seconds 779.9874613285065 centre [0.  0.5 0.5]
+BATCH 13 best 155.03260803222656 diffraction 146.55096435546875 p25 417.85211181640625 seconds 834.6184883117676 centre [0.  0.5 0.5]
+BATCH 14 best 155.03245544433594 diffraction 146.55242919921875 p25 453.1072692871094 seconds 897.3774268627167 centre [0.  0.5 0.5]
+BATCH 15 best 155.50880432128906 diffraction 144.99151611328125 p25 527.4254150390625 seconds 947.404007434845 centre [0.  0.5 0.5]
+BATCH 16 best 155.03250122070312 diffraction 146.55255126953125 p25 428.306884765625 seconds 990.4656229019165 centre [0.  0.5 0.5]
+GALLOP 5 Nref 211 seconds 156.52205777168274 best 114.448555 q25 114.44906 median 248.85468 total 901.7644107341766
+GALLOP 6 Nref 211 seconds 153.97449254989624 best 114.44857 q25 115.521866 median 208.32304 total 1055.867610692978
+GALLOP 7 Nref 211 seconds 175.89129638671875 best 114.44855 q25 115.5221 median 143.90756 total 1231.7907819747925
+  0.004   0.0622 -0.0251  0.0037 -0.0059]
+BEST 0.8140094895975503 P 1 21 1 [ 33.71519   4.41371  22.89595  90.      111.05772  90.     ] 0.03678401786608893 [-0.0003 -0.0044  0.0221 -0.0328 -0.0128 -0.0155 -0.2045  0.0094  0.0409
+  0.0433 -0.0031  0.079   0.0037  0.0254 -0.004  -0.0081 -0.0077  0.0135
+ -0.0455  0.0162  0.0105 -0.0488 -0.0089]

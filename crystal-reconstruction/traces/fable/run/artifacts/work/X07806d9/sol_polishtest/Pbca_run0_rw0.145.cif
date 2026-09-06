@@ -1,0 +1,49 @@
+data_cryst
+
+_computing_structure_solution     'FOX http://objcryst.sourceforge.net'
+
+_symmetry_space_group_name_H-M    'P b c a'
+_symmetry_space_group_name_Hall   '-P 2ac 2ab'
+
+_cell_length_a    16.85574
+_cell_length_b     8.20685
+_cell_length_c    11.21976
+_cell_angle_alpha  90.000
+_cell_angle_beta   90.000
+_cell_angle_gamma  90.000
+_cell_volume      1552.06
+loop_
+    _atom_site_label
+    _atom_site_type_symbol
+    _atom_site_fract_x
+    _atom_site_fract_y
+    _atom_site_fract_z
+    _atom_site_U_iso_or_equiv
+    _atom_site_occupancy
+    _atom_site_adp_type
+    N1         N         0.051022 -0.160954  0.669600  0.012665 1.0000 Uiso
+    C1         C         0.129501 -0.077852  0.690915  0.012665 1.0000 Uiso
+    C2         C         0.124868  0.025173  0.804227  0.012665 1.0000 Uiso
+    O1         O         0.059066  0.034500  0.853448  0.012665 1.0000 Uiso
+    C3         C         0.201977  0.081727  0.864157  0.012665 1.0000 Uiso
+    C4         C         0.185858  0.174167  0.980626  0.012665 1.0000 Uiso
+    C5         C         0.164979  0.062437  1.083286  0.012665 1.0000 Uiso
+    O2         O         0.169113 -0.086009  1.083151  0.012665 1.0000 Uiso
+    O3         O         0.131416  0.141917  1.173507  0.012665 1.0000 Uiso
+    Cl_1_0     Cl        0.588218  0.910124  0.121840  0.012665 1.0000 Uiso
+
+#  Dynamical occupancy corrections found by ObjCryst++:
+#  values below 1. (100%) indicate a correction,
+#  which means either that the atom is on a special position,
+#  or that it is overlapping with another identical atom.
+#   N1               : 1.0000
+#   C1               : 1.0000
+#   C2               : 1.0000
+#   O1               : 1.0000
+#   C3               : 1.0000
+#   C4               : 1.0000
+#   C5               : 1.0000
+#   O2               : 1.0000
+#   O3               : 1.0000
+#   Cl_1_0           : 1.0000
+#

@@ -1,0 +1,165 @@
+302:      * value) if you have added antibump distances using Crystal::SetBumpMergeDistance().
+305:      REAL GetBumpMergeCost() const;
+309:      void SetBumpMergeDistance(const ScatteringPower &scatt1,
+312:      void SetBumpMergeDistance(const ScatteringPower &scatt1,
+317:      void RemoveBumpMergeDistance(const ScatteringPower &scatt1,
+321:      struct BumpMergePar
+323:         BumpMergePar();
+328:         BumpMergePar(const REAL dist, const bool canOverlap=false);
+337:      typedef std::map<pair<const ScatteringPower*, const ScatteringPower*>,Crystal::BumpMergePar > VBumpMergePar;
+338:      const VBumpMergePar& GetBumpMergeParList()const;
+339:      VBumpMergePar& GetBumpMergeParList();
+562:      VBumpMergePar mvBumpMergePar;
+567:      RefinableObjClock mBumpMergeParClock;
+569:      mutable RefinableObjClock mBumpMergeCostClock;
+571:      mutable REAL mBumpMergeCost;
+572:      /// Bump-merge scale factor
+573:      REAL mBumpMergeScale;
+      * \param warnuser_fail: if true, will pass a message to the end user that auto-creating at least one Molecule failed.
+      * \warning: experimental, unstable
+      */
+      void ConnectAtoms(const REAL min_relat_dist=0.4, const REAL max_relat_dist=1.3, const bool warnuser_fail=false);
+      /** Merge all equal scattering powers
+      *
+      * \param oneScatteringPowerPerElement: if true, all scattering powers corresponding to the same elemnt of the periodic
+      * classification will be merged into one, with the averaged isotropic Debye-Waller factor. Otherwise, the scattering
+      * powers will be merged only if the Debye Waller factors (isotropic and anisotropic, if any) are identical.
+      *
+      * \warning: this currently only works if the Crystal is only made of Atoms and ScatteringPowerAtoms (it is used at the end
+      * of a CIF import).
+      */
+      void MergeEqualScatteringPowers(const bool oneScatteringPowerPerElement);
+   private:
+      /** Init options.
+      *
+      * Need only be done once per Crystal.
+      */
+      void InitOptions();
+
+      /// Find a scatterer (its index # in mpScatterrer[]) with a given name
+      /// \warning There should be no duplicate names !!! :TODO: test in AddScatterer()
+      int FindScatterer(const string &scattName)const;
+
+      /*returns array of indexes in the mNamedScattCompList */
+      vector<int> FindScatterersInComponentList(const string &scattName)const;
+
+
+      /*search the list based on atomic label*/
+      bool isScattererInInterMolDistList(string &scattName) const;
+      bool isScattererInInterMolDistListAt1(string &scattName) const;
+      bool isScattererInInterMolDistListAt2(string &scattName) const;
+
+
+      /** \internal \brief Compute the distance Table (mDistTable) for all scattering components
+      * \param fast : if true, the distance calculations will be made using
+      * integers, thus with a lower precision but faster. Less atoms will also
+      * be involved (using the AsymmetricUnit and mDistTableMaxDistance2) to make it even faster.
+      *
+      * \warning Crystal::GetScatteringComponentList() \b must be called beforehand,
+      * since this will not be done here.
+      *
+      * \return see Crystal::mDistTableSq and Crystal::mDistTableIndex
+      * \todo sanitize the result distance table in a more usable structure than the currently
+      * used Crystal::mDistTableSq and Crystal::mDistTableIndex.
+      * \warning \e not using the fast option has not been very much tested...
+      * \todo optimize again. Test if recomputation is needed using Clocks.
+      * Use a global option instead of asymUnitMargin.
+      */
+      void CalcDistTable(const bool fast)const;
+
+      //void CalcMyDistTable()const;
+      void CalcDistTableForInterMolDistCost()const;
+
+
+      void printInterMolDistList() const;
+
+      /** Calculate all Bond Valences.
+      *
+      */
+      void CalcBondValenceSum()const;
+
+      /// The registry of scatterers for this UnitCell
+      ObjRegistry<Scatterer> mScattererRegistry ;
+
+      /// Anti-bump parameters map
+      VBumpMergePar mvBumpMergePar;
+
+
+
+      /// Last Time Anti-bump parameters were changed
+      RefinableObjClock mBumpMergeParClock;
+      /// Last Time Anti-bump parameters were changed
+      mutable RefinableObjClock mBumpMergeCostClock;
+      /// Current bump-merge cost
+      mutable REAL mBumpMergeCost;
+      /// Bump-merge scale factor
+      REAL mBumpMergeScale;
+
+      //list of intermolecular distances
+      mutable std::vector<InterMolDistPar> mInterMolDistList;
+
+      //intermolecular distances in the meaning of the indexes of mScattCompList
+      //[i][j]: i=mAt1, j=mAt2
+      mutable vector<vector<int> > mInterMolDistListIndexes;
+
+      mutable REAL mInterMolDistCost;
+      mutable RefinableObjClock mInterMolDistCostClock;
+      REAL mInterMolDistCostScale;
+
+      //0=parabolic, 1=Lorentzian, 2=Energy
+      int mCostCalcMethod;
+
+      /// The time when the distance table was last calculated
+      mutable RefinableObjClock mDistTableForInterMolDistClock;
+
+      //mutable std::vector<NeighbourHood> mImdTable;
+
+      //list of atoms referenced to mImdTable
+      //mutable vector<int> mlistOfAt1InterMolDistScatterers;
+
+      //list of atoms referenced to mImdTable
+      //mutable vector<int> mlistOfAt2InterMolDistScatterers;
+
+      mutable std::vector<NeighbourHood> mvDistTableSq;
+      /// The time when the distance table was last calculated
+      mutable RefinableObjClock mDistTableClock;
+      /// The distance up to which the distance table & neighbours needs to be calculated
+      mutable REAL mDistTableMaxDistance;
+
+      mutable REAL mDistTableForInterMolMaxDistance;
+
+      mutable REAL mDistMaxMultiplier;
+
+      /// The list of all scattering components in the crystal
+      mutable ScatteringComponentList mScattCompList;
+
+      /// Clock for lattice paramaters.
+      RefinableObjClock mLatticeClock;
+      /// Use Dynamical population correction (ScatteringComponent::mDynPopCorr) during Structure
+      /// factor calculation ?
+      RefObjOpt mUseDynPopCorr;
+
+      /// The registry of ScatteringPower for this Crystal.
+      ObjRegistry<ScatteringPower> mScatteringPowerRegistry;
+
+      //Clocks
+      /// Last time the list of Scatterers was changed
+      RefinableObjClock mClockScattererList;
+      /// \internal Last time the ScatteringComponentList was generated
+      mutable RefinableObjClock mClockScattCompList;
+      /// \internal Last time the Neighbor Table was generated
+      mutable RefinableObjClock mClockNeighborTable;
+      /// \internal Last time the dynamical population correction was computed
+      mutable RefinableObjClock mClockDynPopCorr;
+      /// master clock recording every change in Scattering Powers
+      RefinableObjClock mMasterClockScatteringPower;
+
+      /// Display the enantiomeric (mirror along x) structure in 3D? This can
+      /// be helpful for non-centrosymmetric structure which have been solved using
+      /// powder diffraction (which only gives the relative configuration).
+      RefObjOpt mDisplayEnantiomer;
+
+      /** Map of Bond Valence "Ro" parameters for each couple of
+      * ScatteringPower
+214:      CrystMatrix_REAL GetMinDistanceTable(const REAL minDistance=0.1) const;
+219:      void PrintMinDistanceTable(const REAL minDistance=0.1,ostream &os=cout) const;

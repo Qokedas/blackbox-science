@@ -1,0 +1,67 @@
+41254
+PACKING_STAGE 0 69.01613461214981
+CYCLE 1 0 Rw 0.1857193667627396 chi2 3584.4244059042067 geom 36.56537319521367 LSQ 3737.094851790889
+CYCLE 1 1 Rw 0.1712578871711298 chi2 3047.938507802785 geom 105.3836385951484 LSQ 3362.4826390466997
+CYCLE 1 2 Rw 0.16803102607439416 chi2 2934.161377127088 geom 113.58415896982092 LSQ 3239.964989757374
+PACKING_STAGE 1 2.2194853398462304
+CYCLE 2 0 Rw 0.15833344348468778 chi2 2605.25567979554 geom 132.85180682230984 LSQ 2926.8076891227693
+CYCLE 2 1 Rw 0.15488811299618616 chi2 2493.1087036662343 geom 112.33360474152735 LSQ 2796.996589524172
+CYCLE 2 2 Rw 0.15048291295095523 chi2 2353.311494818719 geom 112.44644831211063 LSQ 2666.1755098219883
+PACKING_STAGE 2 1.131235284968713
+CYCLE 3 0 Rw 0.14766027712084584 chi2 2265.856467169742 geom 93.68965251799936 LSQ 2549.1684396886744
+PACKING_ENABLED 38 atoms 4887 pair terms coefficient 50.0 active_only True
+HBOND_PRIOR 6 donors 6 acceptors coefficient 20.0
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 1448.06it/s]
+/opt/conda/lib/python3.11/site-packages/gallop/zm_to_cart.py:210: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /home/conda/feedstock_root/build_artifacts/libtorch_1786372131199/work/aten/src/ATen/native/Cross.cpp:63.)
+  cart_coords = zm_to_cart(internal[:,torsion[i]], initial_D2[i],
+GALLOP 0 Nref 258 seconds 193.0945746898651 best 106.79296 q25 147.48059 median 224.23096 total 193.10416316986084
+GALLOP 1 Nref 258 seconds 219.46652483940125 best 95.40519 q25 192.96796 median 246.36617 total 412.6985981464386
+GALLOP 2 Nref 258 seconds 200.91106581687927 best 95.283676 q25 177.37473 median 241.2572 total 613.7026996612549
+"""Optional soft donor/acceptor proximity prior for ionic and H-bonded solids.
+This does not prescribe a particular intermolecular synthon: each donor may
+choose any chemically possible acceptor, including a distant topological
+intramolecular acceptor. Steric lower bounds are supplied separately.
+"""
+import os,json,itertools,numpy as np,torch
+from rdkit import Chem
+from rdkit.Chem import Lipinski
+from gallop import chi2,zm_to_cart
+
+def enable_hbonds(s,model_path,coefficient=None):
+ mods=json.load(open(model_path));donors=[];donor_counts={};acceptors=[];groups=[];ids=[];dm=[];off=0;els=[]
+ for k,m in enumerate(mods):
+  r=Chem.MolFromSmiles(m['smiles']);order=m['order'];inv={j:i for i,j in enumerate(order)};dm.append(Chem.GetDistanceMatrix(r))
+  for a in Lipinski._HDonors(r):
+   ix=off+inv[a[0]];donors.append(ix);atom=r.GetAtomWithIdx(a[0]);donor_counts[ix]=min(3,atom.GetTotalNumHs()) if os.getenv('HBOND_MULTIPLE','0')=='1' else 1
+  for a in Lipinski._HAcceptors(r):acceptors.append(off+inv[a[0]])
+  for a in r.GetAtoms():
+   if a.GetSymbol() in ['Cl','Br'] and a.GetFormalCharge()<0:acceptors.append(off+inv[a.GetIdx()])
+  groups.extend([k]*len(order));ids.extend(order);els.extend([r.GetAtomWithIdx(i).GetSymbol() for i in order]);off+=len(order)
+ if not donors or not acceptors:return
+ LM=torch.tensor(s.lattice.matrix,dtype=torch.float32);shifts=torch.tensor(np.array(list(itertools.product([-1,0,1],repeat=3)))@s.lattice.matrix,dtype=torch.float32);ss=(shifts*shifts).sum(-1)
+ tensors=[]
+ for i in donors:
+  jj=[];rt=[];tr=[];target=[]
+  for op in s.space_group.symmetry_ops:
+   R=op.rotation_matrix;T=op.translation_vector;ident=np.allclose(R,np.eye(3)) and np.allclose(T%1,0)
+   for j in acceptors:
+    if ident and groups[i]==groups[j] and dm[groups[i]][ids[i],ids[j]]<=3:continue
+    jj.append(j);rt.append(R);tr.append(T);target.append(3.25 if els[j] in ['Cl','Br'] else 3.05)
+  tensors.append((i,torch.tensor(jj,dtype=torch.long),torch.tensor(np.array(rt),dtype=torch.float32),torch.tensor(np.array(tr),dtype=torch.float32),torch.tensor(target,dtype=torch.float32)))
+ cf=float(coefficient if coefficient is not None else os.getenv('HBOND_COEFF','20'))
+ def penalty(fr):
+  val=torch.zeros(len(fr),device=fr.device)
+  for i,jj,rr,tt,target in tensors:
+   right=torch.einsum('nki,kji->nkj',fr[:,jj,:],rr)+tt;dd=fr[:,i,None]-right;dd=dd-torch.round(dd).detach();cart=dd@LM
+   with torch.no_grad():corr=shifts[(2*(cart.detach()@shifts.T)+ss).argmin(-1)]
+   dist=torch.sqrt(((cart+corr)**2).sum(-1)+1e-8);near=torch.topk(dist-target,k=min(donor_counts[i],len(jj)),dim=-1,largest=False).values;val+=(torch.clamp(near,min=0)**2).sum(-1)
+  return cf*val
+ old=chi2.get_chi_2
+ def calc(zm,int_tensors,chisqd_tensors,profile=None):
+  fr=zm_to_cart.get_asymmetric_coords(**zm)
+  return old(zm,int_tensors,chisqd_tensors,profile=profile)+penalty(fr)
+ chi2.get_chi_2=calc;s.hbond_penalty=penalty
+ print('HBOND_PRIOR',len(donors),'donors',len(acceptors),'acceptors','coefficient',cf,flush=True)
+ return penalty
