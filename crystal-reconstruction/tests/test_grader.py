@@ -82,3 +82,45 @@ def test_count_data_blocks_and_smiles_graph():
     assert g.number_of_nodes() == 4 and g.number_of_edges() == 3
     g2 = GR.smiles_graph("[Cl-]")
     assert g2.number_of_nodes() == 1
+
+
+def _write_split_bet(tmp_path, json_sg, cif_sg, json_cell=(10, 12, 14, 90, 100, 90), cif_cell=(10, 12, 14, 90, 100, 90)):
+    iid = "Xtest001"
+    a, b, c, al, be, ga = cif_cell
+    (tmp_path / f"{iid}.cif").write_text(
+        f"data_x\n_cell_length_a {a}\n_cell_length_b {b}\n_cell_length_c {c}\n_cell_angle_alpha {al}\n_cell_angle_beta {be}\n"
+        f"_cell_angle_gamma {ga}\n_symmetry_space_group_name_H-M '{cif_sg}'\nloop_\n_atom_site_label\n_atom_site_type_symbol\n"
+        "_atom_site_fract_x\n_atom_site_fract_y\n_atom_site_fract_z\nC1 C 0.1 0.2 0.3\n")
+    a, b, c, al, be, ga = json_cell
+    (tmp_path / f"{iid}.json").write_text(
+        '{"cell": {"a": %s, "b": %s, "c": %s, "alpha": %s, "beta": %s, "gamma": %s}, "space_group": "%s"}' % (a, b, c, al, be, ga, json_sg))
+    return str(tmp_path / f"{iid}.json"), GR.read_cif_text(str(tmp_path / f"{iid}.cif"))
+
+
+def test_cif_wins_when_files_agree(tmp_path):
+    json_path, cif_text = _write_split_bet(tmp_path, "P 21/c", "P 21/c")
+    lat, sg, cen, reason, consistent = GR.submitted_cell(json_path, cif_text)
+    assert consistent and GR.sg_type(sg) == GR.sg_type(14) and abs(lat.b - 12) < 1e-6
+
+
+def test_setting_change_still_agrees(tmp_path):
+    # P 21/n JSON against a P 21/c CIF in the equivalent setting: same lattice type, same group type
+    json_path, cif_text = _write_split_bet(tmp_path, "P 21/n", "P 21/c")
+    assert GR.submitted_cell(json_path, cif_text)[4] is True
+
+
+def test_split_bet_on_space_group_is_inconsistent(tmp_path):
+    json_path, cif_text = _write_split_bet(tmp_path, "P 21/c", "P 21")
+    lat, sg, cen, reason, consistent = GR.submitted_cell(json_path, cif_text)
+    assert consistent is False and "different crystals" in reason
+
+
+def test_split_bet_on_cell_is_inconsistent(tmp_path):
+    json_path, cif_text = _write_split_bet(tmp_path, "P 21/c", "P 21/c", json_cell=(10, 12, 28, 90, 100, 90))
+    assert GR.submitted_cell(json_path, cif_text)[4] is False
+
+
+def test_json_alone_is_graded(tmp_path):
+    json_path, _ = _write_split_bet(tmp_path, "P 21/c", "P 21/c")
+    lat, sg, cen, reason, consistent = GR.submitted_cell(json_path, None)
+    assert consistent and lat is not None and GR.sg_type(sg) == GR.sg_type(14)

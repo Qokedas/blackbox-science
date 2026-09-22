@@ -379,42 +379,66 @@ def read_cif_text(cif_path):
         return None
 
 
+def json_cell(json_path):
+    """Declared cell and space group from <id>.json: (Lattice or None, sg number or None, centring or None, reason or None)."""
+    if not (os.path.isfile(json_path) and not os.path.islink(json_path)):
+        return None, None, None, None
+    try:
+        with open(json_path) as f:
+            js = json.load(f)
+        cell = js.get("cell", js)
+        a, b, c = float(cell["a"]), float(cell["b"]), float(cell["c"])
+        al, be, ga = float(cell["alpha"]), float(cell["beta"]), float(cell["gamma"])
+        lat = Lattice.from_parameters(a, b, c, al, be, ga)
+        sg, centring, err = parse_space_group(js.get("space_group"), js.get("space_group_number"))
+        return lat, sg, centring, err
+    except Exception as e:
+        return None, None, None, "json unreadable: " + str(e)[:80]
+
+
+def cif_cell(cif_text):
+    """Cell and space group from the CIF header, same return shape as json_cell."""
+    if cif_text is None:
+        return None, None, None, None
+    try:
+        doc = gemmi.cif.read_string(cif_text).sole_block()
+        g = doc.find_value
+        vals = [g("_cell_length_a"), g("_cell_length_b"), g("_cell_length_c"), g("_cell_angle_alpha"), g("_cell_angle_beta"), g("_cell_angle_gamma")]
+        nums = [float(re.sub(r"\(.*\)", "", v)) for v in vals]
+        lat = Lattice.from_parameters(*nums)
+        sym = g("_symmetry_space_group_name_H-M") or g("_space_group_name_H-M_alt")
+        num = g("_symmetry_Int_Tables_number") or g("_space_group_IT_number")
+        sym = sym.strip("'\"") if sym else None
+        sg, centring, err = parse_space_group(sym, num)
+        return lat, sg, centring, err
+    except Exception:
+        return None, None, None, "cif cell unreadable"
+
+
+def same_crystal(cell_a, sg_a, cen_a, cell_b, sg_b, cen_b):
+    """True if two declared (cell, space group) pairs describe the same lattice and space-group type, at L tolerances."""
+    if None in (cell_a, sg_a, cell_b, sg_b):
+        return False
+    try:
+        prim_a = primitive_lattice(cell_a, cen_a or "P")
+        prim_b = primitive_lattice(cell_b, cen_b or "P")
+    except Exception:
+        return False
+    return lattice_match(prim_a, prim_b) and sg_type(sg_a) == sg_type(sg_b)
+
+
 def submitted_cell(json_path, cif_text):
-    """Declared cell and space group from the JSON, falling back to the CIF header.
-    Returns (Lattice or None, space-group number or None, centring letter or None, reason or None)."""
-    sub_cell = None
-    sub_sg = None
-    sub_centring = None
-    l_reason = None
-    if os.path.isfile(json_path) and not os.path.islink(json_path):
-        try:
-            with open(json_path) as f:
-                js = json.load(f)
-            cell = js.get("cell", js)
-            a, b, c = float(cell["a"]), float(cell["b"]), float(cell["c"])
-            al, be, ga = float(cell["alpha"]), float(cell["beta"]), float(cell["gamma"])
-            sub_cell = Lattice.from_parameters(a, b, c, al, be, ga)
-            sub_sg, sub_centring, err = parse_space_group(js.get("space_group"), js.get("space_group_number"))
-            if err:
-                l_reason = err
-        except Exception as e:
-            l_reason = "json unreadable: " + str(e)[:80]
-            sub_cell = None
-    if sub_cell is None and cif_text is not None:
-        try:
-            doc = gemmi.cif.read_string(cif_text).sole_block()
-            g = doc.find_value
-            vals = [g("_cell_length_a"), g("_cell_length_b"), g("_cell_length_c"), g("_cell_angle_alpha"), g("_cell_angle_beta"), g("_cell_angle_gamma")]
-            nums = [float(re.sub(r"\(.*\)", "", v)) for v in vals]
-            sub_cell = Lattice.from_parameters(*nums)
-            sym = g("_symmetry_space_group_name_H-M") or g("_space_group_name_H-M_alt")
-            num = g("_symmetry_Int_Tables_number") or g("_space_group_IT_number")
-            sym = sym.strip("'\"") if sym else None
-            sub_sg, sub_centring, err = parse_space_group(sym, num)
-            l_reason = err or "cell taken from CIF (no JSON)"
-        except Exception:
-            l_reason = (l_reason or "") + " cif cell unreadable"
-    return sub_cell, sub_sg, sub_centring, l_reason
+    """The cell and space group that Unit L grades: from the CIF when one was submitted, else from the JSON.
+    Returns (Lattice or None, sg number or None, centring or None, reason or None, consistent: bool).
+    consistent is False only when both files exist and disagree; the caller zeroes both units then."""
+    j_lat, j_sg, j_cen, j_err = json_cell(json_path)
+    c_lat, c_sg, c_cen, c_err = cif_cell(cif_text)
+    json_present = os.path.isfile(json_path) and not os.path.islink(json_path)
+    if cif_text is not None:
+        if json_present and not same_crystal(j_lat, j_sg, j_cen, c_lat, c_sg, c_cen):
+            return c_lat, c_sg, c_cen, "JSON and CIF describe different crystals", False
+        return c_lat, c_sg, c_cen, c_err, True
+    return j_lat, j_sg, j_cen, j_err, True
 
 
 def grade_instance(iid, truth, subdir):
@@ -437,7 +461,11 @@ def grade_instance(iid, truth, subdir):
     res["L_detail"]["reference_niggli"] = lat_params(ref_prim_lat)
     res["L_detail"]["reference_sg_type"] = sg_type(ref_sg)
     # ------------- Unit L
-    sub_cell, sub_sg, sub_centring, l_reason = submitted_cell(json_path, cif_text)
+    sub_cell, sub_sg, sub_centring, l_reason, consistent = submitted_cell(json_path, cif_text)
+    if not consistent:
+        res["hedge"] = True
+        res["L_detail"]["reason"] = res["S_detail"]["reason"] = l_reason
+        return res
     if sub_cell is not None and sub_sg is not None and truth.get("L_graded", True):
         try:
             sub_prim = primitive_lattice(sub_cell, sub_centring or "P")
