@@ -124,3 +124,17 @@ def test_json_alone_is_graded(tmp_path):
     json_path, _ = _write_split_bet(tmp_path, "P 21/c", "P 21/c")
     lat, sg, cen, reason, consistent = GR.submitted_cell(json_path, None)
     assert consistent and lat is not None and GR.sg_type(sg) == GR.sg_type(14)
+
+
+def test_asymmetric_points():
+    assert GR.unit_points(True, True, 1) == 1.0
+    assert GR.unit_points(False, True, 1) == -0.8
+    assert GR.unit_points(False, False, 1) == 0.0
+    assert GR.unit_points(True, True, 2) == 2.0
+    assert GR.unit_points(False, True, 2) == pytest.approx(-1.6)
+    res = dict(L=True, S=False, L_submitted=True, S_submitted=True)
+    assert GR.finish_points(res)["points"] == pytest.approx(1 - 1.6)
+    res = dict(L=False, S=False, L_submitted=True, S_submitted=False)
+    assert GR.finish_points(res)["points"] == pytest.approx(-0.8)
+    res = dict(L=False, S=False, L_submitted=False, S_submitted=False)
+    assert GR.finish_points(res)["points"] == 0.0

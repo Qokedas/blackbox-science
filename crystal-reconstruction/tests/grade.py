@@ -7,7 +7,10 @@ Unit L (1 point): the declared cell and space-group type match the reference lat
 Unit S (2 points): the submitted CIF describes the same periodic arrangement of non-H
   atoms as the reference: heavy-atom connectivity matches the supplied composition, and a
   symmetry-aware periodic match gives RMSD <= 0.35 A and max displacement <= 1.0 A.
-Score = points / (3 * N). Deterministic. UNAVAILABLE (exit 2, no reward) if the reference
+A unit that passes earns its points; a unit that was submitted and fails costs PENALTY
+  times its points (-0.8 for L, -1.6 for S); a unit with nothing submitted is 0. Hedged or
+  self-inconsistent submissions count as wrong on both units.
+Score = points / (3 * N), may be negative. Deterministic. UNAVAILABLE (exit 2, no reward) if the reference
 or a grader dependency is unusable.
 
 Usage: grade.py --reference-root /tests --submission-dir /final/submission --out /logs/verifier
@@ -26,6 +29,9 @@ S_RMSD = 0.35      # Angstrom
 S_DMAX = 1.0       # Angstrom
 BOND_SLACK = 0.45  # Angstrom added to the sum of covalent radii for heavy-atom bond perception
 PRIM_TOL = 0.25    # Angstrom tolerance used when reducing structures to primitive cells
+PENALTY = 0.8      # a submitted unit that fails costs this fraction of its points
+L_POINTS = 1
+S_POINTS = 2
 
 ENANTIOMORPH = {78: 76, 95: 91, 96: 92, 145: 144, 153: 151, 154: 152, 170: 169, 172: 171,
                 179: 178, 181: 180, 213: 212}
@@ -365,8 +371,20 @@ def match_structures(ref, sub):
 # ----------------------------------------------------------------------------- per instance
 
 def new_result(iid, truth):
-    return dict(id=iid, dof=truth.get("dof"), dof_bin=truth.get("dof_bin"), L=False, S=False, points=0,
-                L_detail={}, S_detail={}, hedge=False)
+    return dict(id=iid, dof=truth.get("dof"), dof_bin=truth.get("dof_bin"), L=False, S=False, points=0.0,
+                L_submitted=False, S_submitted=False, L_detail={}, S_detail={}, hedge=False)
+
+
+def unit_points(passed, submitted, value):
+    """Asymmetric scoring: full value for a pass, -PENALTY * value for a submitted failure, 0 for nothing submitted."""
+    if passed:
+        return float(value)
+    return -PENALTY * value if submitted else 0.0
+
+
+def finish_points(res):
+    res["points"] = round(unit_points(res["L"], res["L_submitted"], L_POINTS) + unit_points(res["S"], res["S_submitted"], S_POINTS), 6)
+    return res
 
 
 def read_cif_text(cif_path):
@@ -450,8 +468,9 @@ def grade_instance(iid, truth, subdir):
     cif_text = read_cif_text(cif_path)
     if extras or (cif_text is not None and count_data_blocks(cif_text) > 1):
         res["hedge"] = True
+        res["L_submitted"] = res["S_submitted"] = True
         res["L_detail"]["reason"] = res["S_detail"]["reason"] = "more than one candidate structure submitted"
-        return res
+        return finish_points(res)
     # ------------- reference
     ref_struct_full = structure_from_cif(truth["reference_cif"])
     ref_heavy = heavy_only(ref_struct_full)
@@ -462,10 +481,13 @@ def grade_instance(iid, truth, subdir):
     res["L_detail"]["reference_sg_type"] = sg_type(ref_sg)
     # ------------- Unit L
     sub_cell, sub_sg, sub_centring, l_reason, consistent = submitted_cell(json_path, cif_text)
+    json_present = os.path.isfile(json_path) and not os.path.islink(json_path)
+    res["L_submitted"] = bool(json_present or cif_text is not None)
+    res["S_submitted"] = cif_text is not None
     if not consistent:
         res["hedge"] = True
         res["L_detail"]["reason"] = res["S_detail"]["reason"] = l_reason
-        return res
+        return finish_points(res)
     if sub_cell is not None and sub_sg is not None and truth.get("L_graded", True):
         try:
             sub_prim = primitive_lattice(sub_cell, sub_centring or "P")
@@ -512,8 +534,7 @@ def grade_instance(iid, truth, subdir):
                     res["S_detail"]["reason"] = "displacements exceed tolerance"
             elif not ok:
                 res["S_detail"]["reason"] = "identity check failed"
-    res["points"] = (1 if res["L"] else 0) + (2 if res["S"] else 0)
-    return res
+    return finish_points(res)
 
 
 def main():
@@ -577,9 +598,9 @@ def main():
             # unless it arises in the reference path (checked above).
             r = new_result(iid, truths[iid])
             r["L_detail"]["reason"] = r["S_detail"]["reason"] = "evaluation error: " + str(e)[:120]
-        per.append(r)
+        per.append(r)  # an evaluation error is the grader's fault: 0, never a penalty
     n = len(ids)
-    points = sum(r["points"] for r in per)
+    points = round(sum(r["points"] for r in per), 6)
     score = points / (3.0 * n) if n else 0.0
     bins = {}
     for r in per:
@@ -590,14 +611,16 @@ def main():
         bins[b]["S"] += int(r["S"])
     out = dict(status="SCORED", score=round(score, 6), points=points, max_points=3 * n, n_instances=n,
                L_passes=sum(int(r["L"]) for r in per), S_passes=sum(int(r["S"]) for r in per),
-               hedged=sum(int(r["hedge"]) for r in per), by_dof_bin=bins,
+               hedged=sum(int(r["hedge"]) for r in per),
+               L_wrong=sum(int(r["L_submitted"] and not r["L"]) for r in per), S_wrong=sum(int(r["S_submitted"] and not r["S"]) for r in per),
+               by_dof_bin=bins, penalty=PENALTY,
                tolerances=dict(L_length_frac=L_LTOL, L_angle_deg=L_ATOL, S_rmsd_A=S_RMSD, S_dmax_A=S_DMAX),
                instances=per)
     with open(breakdown_path, "w") as f:
         json.dump(out, f, indent=1)
     with open(reward_path, "w") as f:
         f.write("%.6f\n" % score)
-    print("score %.6f  points %d/%d  L %d  S %d" % (score, points, 3 * n, out["L_passes"], out["S_passes"]))
+    print("score %.6f  points %.1f/%d  L %d (%d wrong)  S %d (%d wrong)" % (score, points, 3 * n, out["L_passes"], out["L_wrong"], out["S_passes"], out["S_wrong"]))
 
 
 if __name__ == "__main__":
